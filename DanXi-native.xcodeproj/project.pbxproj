@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,7 @@
 		8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */; };
 		8AC7A5E326872C3F00C9CD98 /* DanXi_nativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5E226872C3F00C9CD98 /* DanXi_nativeTests.swift */; };
 		8AC7A5EE26872C3F00C9CD98 /* DanXi_nativeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5ED26872C3F00C9CD98 /* DanXi_nativeUITests.swift */; };
-		8AC7A5F326872C3F00C9CD98 /* DanXi-native WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8AC7A5F326872C3F00C9CD98 /* DanXi-native WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8AC7A5F826872C4000C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5F726872C4000C9CD98 /* Assets.xcassets */; };
 		8AC7A5FF26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60326872C4000C9CD98 /* DanXi_nativeApp.swift */; };
@@ -25,6 +25,11 @@
 		8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */; };
 		8AC7A61D26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A61C26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift */; };
 		8AC7A62826872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */; };
+		8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A649268733E600C9CD98 /* DashboardPage.swift */; };
+		8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */; };
+		8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
+		8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
+		8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +103,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D226872C3E00C9CD98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +135,11 @@
 		8AC7A62326872C4100C9CD98 /* DanXi-native WatchKit AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DanXi-native WatchKit AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_native_WatchKit_AppUITests.swift; sourceTree = "<group>"; };
 		8AC7A62926872C4100C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AC7A649268733E600C9CD98 /* DashboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPage.swift; sourceTree = "<group>"; };
+		8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHolePage.swift; sourceTree = "<group>"; };
+		8AC7A64E2687347300C9CD98 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleModels.swift; sourceTree = "<group>"; };
+		8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,8 +219,12 @@
 		8AC7A5CF26872C3E00C9CD98 /* DanXi-native */ = {
 			isa = PBXGroup;
 			children = (
+				8AAABD4326881E0500486D37 /* DanXi-native.entitlements */,
 				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
 				8AC7A5D226872C3E00C9CD98 /* ContentView.swift */,
+				8AC7A657268736EE00C9CD98 /* Repositories */,
+				8AC7A652268735A200C9CD98 /* Models */,
+				8AC7A64B268733EA00C9CD98 /* Pages */,
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
@@ -292,6 +307,32 @@
 				8AC7A62926872C4100C9CD98 /* Info.plist */,
 			);
 			path = "DanXi-native WatchKit AppUITests";
+			sourceTree = "<group>";
+		};
+		8AC7A64B268733EA00C9CD98 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				8AC7A649268733E600C9CD98 /* DashboardPage.swift */,
+				8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */,
+				8AC7A64E2687347300C9CD98 /* SettingsPage.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		8AC7A652268735A200C9CD98 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8AC7A657268736EE00C9CD98 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -545,7 +586,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */,
+				8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */,
+				8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */,
+				8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */,
+				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
+				8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +654,7 @@
 		};
 		8AC7A5F526872C3F00C9CD98 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */;
 			targetProxy = 8AC7A5F426872C3F00C9CD98 /* PBXContainerItemProxy */;
 		};
@@ -835,21 +882,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "DanXi-native/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -858,21 +908,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "DanXi-native/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
