@@ -8,22 +8,73 @@
 import SwiftUI
 
 struct TreeHolePage: View {
-    @State var discussions = [THDiscussion]()
+    @State private var discussions = [THDiscussion]()
+    @State private var currentPage = 1
+    
+    // Scroll Position Indicator
+    @State private var currentDiscussionSequentialId = 0
+    @State private var isLoading = true
     
     func refreshDiscussions() {
-        loadDiscussions(1, completion: {(T) -> Void in discussions = T})
+        currentPage = 1
+        async {
+            do {
+                isLoading = true
+                discussions = try await loadDiscussions(currentPage)
+                isLoading = false
+            }
+            catch {
+                isLoading = false
+                fatalError()
+            }
+        }
+    }
+    
+    func loadNextPage() {
+        currentPage += 1
+        async {
+            do {
+                isLoading = true
+                discussions.append(contentsOf: try await loadDiscussions(currentPage) as [THDiscussion])
+                isLoading = false
+            }
+            catch {
+                isLoading = false
+                fatalError()
+            }
+        }
     }
     
     var body: some View {
         NavigationView {
-            List(discussions) { cnt in
-                Section {
-                    Text(cnt.first_post!.content)
+            if (discussions.isEmpty) {
+                ProgressView()
+                    .navigationTitle("treehole")
+            }
+            else {
+                List(discussions) { discussion in
+                    ZStack {
+                        THPostView(discussion: discussion)
+                            .onAppear {
+                                // Load next page when needed
+                                currentDiscussionSequentialId += 1
+                                // TODO: WARNING: This code contains LOTS of bugs
+                                if (discussions.count - currentDiscussionSequentialId <= 5 && !isLoading) {
+                                    loadNextPage()
+                                    print("loading next page \(currentPage)")
+                                }
+                            }
+                            .navigationTitle("treehole")
+                        Text("\(currentDiscussionSequentialId)")
+                        NavigationLink(destination: THPostView(discussion: discussion)) {
+                            EmptyView()
+                        }
+                    }
                 }
             }
-            .onAppear(perform: refreshDiscussions)
-            .navigationBarTitle(Text("Tree Hole"))
+            Text("selectAPost")
         }
+        .onAppear(perform: refreshDiscussions)
     }
 }
 

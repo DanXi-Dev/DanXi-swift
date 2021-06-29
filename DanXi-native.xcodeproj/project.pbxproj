@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
+		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D226872C3E00C9CD98 /* ContentView.swift */; };
 		8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */; };
@@ -30,6 +32,7 @@
 		8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
 		8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
 		8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */; };
+		8AC8D277268B087100B21A3E /* THPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC8D276268B087100B21A3E /* THPostView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8AA66BF4268AE98F00AE8629 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AA66BFB268AEB4800AE8629 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 		8AC7A64E2687347300C9CD98 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleModels.swift; sourceTree = "<group>"; };
 		8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleRepository.swift; sourceTree = "<group>"; };
+		8AC8D276268B087100B21A3E /* THPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +235,8 @@
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
+				8AA66BFA268AEB4600AE8629 /* Localizable.strings */,
+				8AC8D278268B087500B21A3E /* Views */,
 			);
 			path = "DanXi-native";
 			sourceTree = "<group>";
@@ -315,6 +324,7 @@
 				8AC7A649268733E600C9CD98 /* DashboardPage.swift */,
 				8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */,
 				8AC7A64E2687347300C9CD98 /* SettingsPage.swift */,
+				8AA66BF4268AE98F00AE8629 /* LoginPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -333,6 +343,14 @@
 				8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		8AC8D278268B087500B21A3E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8AC8D276268B087100B21A3E /* THPostView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,7 +488,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					8AC7A5CC26872C3E00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -506,6 +524,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
@@ -529,6 +548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */,
+				8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */,
 				8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,7 +605,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */,
 				8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */,
+				8AC8D277268B087100B21A3E /* THPostView.swift in Sources */,
 				8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */,
 				8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */,
 				8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */,
@@ -675,11 +697,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		8AA66BFA268AEB4600AE8629 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AA66BF9268AEB4600AE8629 /* en */,
+				8AA66BFB268AEB4800AE8629 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		8AC7A62A26872C4100C9CD98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -739,6 +774,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -792,6 +828,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
@@ -801,13 +838,14 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native.watchkitapp.watchkitextension";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp.watchExtension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.1;
 			};
 			name = Debug;
 		};
@@ -816,6 +854,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
@@ -825,14 +864,15 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native.watchkitapp.watchkitextension";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp.watchExtension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.1;
 			};
 			name = Release;
 		};
@@ -843,16 +883,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				IBSC_MODULE = DanXi_native_WatchKit_Extension;
 				INFOPLIST_FILE = "DanXi-native WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native.watchkitapp";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -863,17 +905,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				IBSC_MODULE = DanXi_native_WatchKit_Extension;
 				INFOPLIST_FILE = "DanXi-native WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native.watchkitapp";
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -884,17 +928,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "DanXi-native/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = YES;
@@ -910,17 +956,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "DanXi-native/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = YES;

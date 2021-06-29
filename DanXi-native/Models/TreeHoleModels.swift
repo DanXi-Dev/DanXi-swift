@@ -8,15 +8,22 @@
 import Foundation
 
 struct THDiscussion: Hashable, Codable, Identifiable {
-    var id, count: Int
-    var first_post, last_post: THReply?
-    var is_folded: Bool
-    var date_created, date_updated: String
+    let id, count: Int
+    let first_post: THReply
+    let last_post: THReply?
+    let is_folded: Bool
+    let date_created, date_updated: String
+    let tag: [THTag]?
 }
 
 struct THReply: Hashable, Codable, Identifiable {
-    var id, discussion: Int
-    var content, username, date_created: String
-    var reply_to: Int?
-    var is_me: Bool?
+    let id, discussion: Int
+    let content, username, date_created: String
+    let reply_to: Int?
+    let is_me: Bool?
+}
+
+struct THTag: Hashable, Codable {
+    let name, color: String
+    let count: Int
 }
