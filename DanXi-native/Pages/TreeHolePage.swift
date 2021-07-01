@@ -12,7 +12,6 @@ struct TreeHolePage: View {
     @State private var currentPage = 1
     
     // Scroll Position Indicator
-    @State private var currentDiscussionSequentialId = 0
     @State private var isLoading = true
     
     func refreshDiscussions() {
@@ -48,29 +47,21 @@ struct TreeHolePage: View {
     var body: some View {
         NavigationView {
             if (discussions.isEmpty) {
-                ProgressView()
-                    .navigationTitle("treehole")
+                List {
+                    ProgressView()
+                }
+                .navigationTitle("treehole")
             }
             else {
                 List(discussions) { discussion in
                     ZStack {
                         THPostView(discussion: discussion)
-                            .onAppear {
-                                // Load next page when needed
-                                currentDiscussionSequentialId += 1
-                                // TODO: WARNING: This code contains LOTS of bugs
-                                if (discussions.count - currentDiscussionSequentialId <= 5 && !isLoading) {
-                                    loadNextPage()
-                                    print("loading next page \(currentPage)")
-                                }
-                            }
-                            .navigationTitle("treehole")
-                        Text("\(currentDiscussionSequentialId)")
-                        NavigationLink(destination: THPostView(discussion: discussion)) {
+                        NavigationLink(destination: TreeHoleDetailsPage(replies: discussion.posts)) {
                             EmptyView()
                         }
                     }
                 }
+                .navigationTitle("treehole")
             }
             Text("selectAPost")
         }

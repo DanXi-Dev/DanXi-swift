@@ -22,7 +22,7 @@ struct THPostView: View {
                     }
                 }
             }
-            Text(discussion.first_post.content)
+            Text(discussion.posts[0].content)
             Spacer()
             HStack {
                 Label("\(discussion.count)", systemImage: "person.3")
@@ -38,6 +38,6 @@ struct THPostView: View {
 
 struct THPostView_Previews: PreviewProvider {
     static var previews: some View {
-        THPostView(discussion: THDiscussion(id: 123, count: 21, first_post: THReply(id: 456, discussion: 123, content: "HelloWorld", username: "Demo", date_created: "xxx", reply_to: nil, is_me: false), last_post: nil, is_folded: false, date_created: "xxx", date_updated: "xxx", tag: [THTag(name: "test", color: "red", count: 5)]))
+        THPostView(discussion: THDiscussion(id: 123, count: 21, posts: [THReply(id: 456, discussion: 123, content: "HelloWorld", username: "Demo", date_created: "xxx", reply_to: nil, is_me: false)], last_post: nil, is_folded: false, date_created: "xxx", date_updated: "xxx", tag: [THTag(name: "test", color: "red", count: 5)]))
     }
 }

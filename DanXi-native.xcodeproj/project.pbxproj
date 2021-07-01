@@ -10,6 +10,8 @@
 		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
 		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
 		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
+		8ABA2E43268D86060003420A /* TreeHoleDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */; };
+		8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E44268D862A0003420A /* THPostDetailView.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D226872C3E00C9CD98 /* ContentView.swift */; };
 		8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */; };
@@ -112,6 +114,8 @@
 		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AA66BFB268AEB4800AE8629 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
+		8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleDetailsPage.swift; sourceTree = "<group>"; };
+		8ABA2E44268D862A0003420A /* THPostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostDetailView.swift; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D226872C3E00C9CD98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 			children = (
 				8AC7A649268733E600C9CD98 /* DashboardPage.swift */,
 				8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */,
+				8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */,
 				8AC7A64E2687347300C9CD98 /* SettingsPage.swift */,
 				8AA66BF4268AE98F00AE8629 /* LoginPage.swift */,
 			);
@@ -352,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC8D276268B087100B21A3E /* THPostView.swift */,
+				8ABA2E44268D862A0003420A /* THPostDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -613,11 +619,13 @@
 				8AC8D277268B087100B21A3E /* THPostView.swift in Sources */,
 				8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */,
 				8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */,
+				8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */,
 				8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */,
 				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */,
 				8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */,
+				8ABA2E43268D86060003420A /* TreeHoleDetailsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

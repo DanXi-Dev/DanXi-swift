@@ -9,7 +9,7 @@ import Foundation
 
 struct THDiscussion: Hashable, Codable, Identifiable {
     let id, count: Int
-    let first_post: THReply
+    let posts: [THReply]
     let last_post: THReply?
     let is_folded: Bool
     let date_created, date_updated: String
