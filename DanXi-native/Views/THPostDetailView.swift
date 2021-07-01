@@ -16,9 +16,11 @@ struct THPostDetailView: View {
             Text(reply.content)
             Spacer()
             HStack {
-                Label("\(reply.id)", systemImage: "person.3")
+                Label("#\(reply.id)", systemImage: "")
                 Spacer()
-                Label("\(reply.date_created)", systemImage: "clock")
+                Label("\(reply.date_created)", systemImage: "")
+                Spacer()
+                Button("report", action: {})
                     .padding(.trailing, 20)
             }
             .font(.caption)
@@ -29,6 +31,6 @@ struct THPostDetailView: View {
 
 struct THPostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        THPostDetailView(reply: THReply(id: 456, discussion: 123, content: "HelloWorld", username: "Demo", date_created: "xxx", reply_to: nil, is_me: false))
+        THPostDetailView(reply: THReply(id: 456, discussion: 123, content: "HelloWorld", username: "Demo", date_created: "2021-01-01", reply_to: nil, is_me: false))
     }
 }
