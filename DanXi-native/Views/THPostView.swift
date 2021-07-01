@@ -23,7 +23,6 @@ struct THPostView: View {
                 }
             }
             Text(discussion.first_post.content)
-                .font(.headline)
             Spacer()
             HStack {
                 Label("\(discussion.count)", systemImage: "person.3")

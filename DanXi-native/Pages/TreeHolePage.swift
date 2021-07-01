@@ -20,7 +20,7 @@ struct TreeHolePage: View {
         async {
             do {
                 isLoading = true
-                discussions = try await loadDiscussions(currentPage)
+                discussions = try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated)
                 isLoading = false
             }
             catch {
@@ -35,7 +35,7 @@ struct TreeHolePage: View {
         async {
             do {
                 isLoading = true
-                discussions.append(contentsOf: try await loadDiscussions(currentPage) as [THDiscussion])
+                discussions.append(contentsOf: try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated) as [THDiscussion])
                 isLoading = false
             }
             catch {

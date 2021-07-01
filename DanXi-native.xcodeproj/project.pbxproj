@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
 		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
 		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
@@ -106,6 +107,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A959AA2268B4E94004B73AF /* PublicExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtension.swift; sourceTree = "<group>"; };
 		8AA66BF4268AE98F00AE8629 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AA66BFB268AEB4800AE8629 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
 				8AA66BFA268AEB4600AE8629 /* Localizable.strings */,
 				8AC8D278268B087500B21A3E /* Views */,
+				8A959AA2268B4E94004B73AF /* PublicExtension.swift */,
 			);
 			path = "DanXi-native";
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */,
 				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
+				8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */,
 				8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
