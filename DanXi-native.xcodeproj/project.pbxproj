@@ -10,6 +10,12 @@
 		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
 		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
 		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
+		8AA9F877269D97EE0085D93D /* TreeHoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */; };
+		8AA9F878269D97F70085D93D /* THPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC8D276268B087100B21A3E /* THPostView.swift */; };
+		8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E44268D862A0003420A /* THPostDetailView.swift */; };
+		8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
+		8AA9F87C269D99030085D93D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA9F87B269D99030085D93D /* ErrorView.swift */; };
+		8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA9F87B269D99030085D93D /* ErrorView.swift */; };
 		8ABA2E43268D86060003420A /* TreeHoleDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */; };
 		8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E44268D862A0003420A /* THPostDetailView.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
@@ -113,6 +119,7 @@
 		8AA66BF4268AE98F00AE8629 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AA66BFB268AEB4800AE8629 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		8AA9F87B269D99030085D93D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleDetailsPage.swift; sourceTree = "<group>"; };
 		8ABA2E44268D862A0003420A /* THPostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostDetailView.swift; sourceTree = "<group>"; };
@@ -201,9 +208,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AA9F876269D97BE0085D93D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8AC7A652268735A200C9CD98 /* Models */,
+				8AC7A657268736EE00C9CD98 /* Repositories */,
+				8AC8D278268B087500B21A3E /* Views */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		8AC7A5C426872C3E00C9CD98 = {
 			isa = PBXGroup;
 			children = (
+				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* DanXi-native */,
 				8AC7A5E126872C3F00C9CD98 /* DanXi-nativeTests */,
 				8AC7A5EC26872C3F00C9CD98 /* DanXi-nativeUITests */,
@@ -235,14 +253,11 @@
 				8AAABD4326881E0500486D37 /* DanXi-native.entitlements */,
 				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
 				8AC7A5D226872C3E00C9CD98 /* ContentView.swift */,
-				8AC7A657268736EE00C9CD98 /* Repositories */,
-				8AC7A652268735A200C9CD98 /* Models */,
 				8AC7A64B268733EA00C9CD98 /* Pages */,
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
 				8AA66BFA268AEB4600AE8629 /* Localizable.strings */,
-				8AC8D278268B087500B21A3E /* Views */,
 				8A959AA2268B4E94004B73AF /* PublicExtension.swift */,
 			);
 			path = "DanXi-native";
@@ -358,6 +373,7 @@
 			children = (
 				8AC8D276268B087100B21A3E /* THPostView.swift */,
 				8ABA2E44268D862A0003420A /* THPostDetailView.swift */,
+				8AA9F87B269D99030085D93D /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -625,6 +641,7 @@
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */,
 				8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */,
+				8AA9F87C269D99030085D93D /* ErrorView.swift in Sources */,
 				8ABA2E43268D86060003420A /* TreeHoleDetailsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,8 +667,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
+				8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */,
 				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
+				8AA9F878269D97F70085D93D /* THPostView.swift in Sources */,
 				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
+				8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */,
+				8AA9F877269D97EE0085D93D /* TreeHoleRepository.swift in Sources */,
+				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,
 			);
@@ -857,7 +879,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.1;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -884,7 +906,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.1;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};

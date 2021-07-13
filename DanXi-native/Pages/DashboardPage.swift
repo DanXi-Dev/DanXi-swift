@@ -9,14 +9,13 @@ import SwiftUI
 
 struct DashboardPage: View {
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
-                    Text("Hello World")
-                }
+        Form {
+            Section {
+                Text("Hello World")
             }
-            .navigationBarTitle(Text("DanXi"))
         }
+        .navigationBarTitle(Text("DanXi"))
+        
     }
 }
 

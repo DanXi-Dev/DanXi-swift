@@ -12,18 +12,8 @@ struct THPostDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(reply.username)
-            Text(reply.content)
-            Spacer()
-            HStack {
-                Label("#\(reply.id)", systemImage: "")
-                Spacer()
-                Label("\(reply.date_created)", systemImage: "")
-                Spacer()
-                Button("report", action: {})
-                    .padding(.trailing, 20)
-            }
-            .font(.caption)
+            Text("[\(reply.username)]")
+            Text(preprocessTextForHtmlAndImage(text:reply.content))
         }
         .padding()
     }

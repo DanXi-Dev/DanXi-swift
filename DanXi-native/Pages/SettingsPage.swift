@@ -9,14 +9,12 @@ import SwiftUI
 
 struct SettingsPage: View {
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
-                    Text("Hello World")
-                }
+        Form {
+            Section {
+                Text("Hello World")
             }
-            .navigationBarTitle(Text("Settings"))
         }
+        .navigationBarTitle(Text("Settings"))
     }
 }
 

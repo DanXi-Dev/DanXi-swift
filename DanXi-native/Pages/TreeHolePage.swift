@@ -10,6 +10,8 @@ import SwiftUI
 struct TreeHolePage: View {
     @State private var discussions = [THDiscussion]()
     @State private var currentPage = 1
+    @State private var endReached = false
+    @State private var errorReason: String? = nil
     
     // Scroll Position Indicator
     @State private var isLoading = true
@@ -18,13 +20,14 @@ struct TreeHolePage: View {
         currentPage = 1
         async {
             do {
+                errorReason = nil
                 isLoading = true
                 discussions = try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated)
                 isLoading = false
             }
             catch {
                 isLoading = false
-                fatalError()
+                errorReason = error.localizedDescription
             }
         }
     }
@@ -33,39 +36,64 @@ struct TreeHolePage: View {
         currentPage += 1
         async {
             do {
+                errorReason = nil
                 isLoading = true
                 discussions.append(contentsOf: try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated) as [THDiscussion])
                 isLoading = false
             }
             catch {
                 isLoading = false
-                fatalError()
+                errorReason = error.localizedDescription
             }
         }
     }
     
     var body: some View {
-        NavigationView {
+        if (errorReason == nil) {
             if (discussions.isEmpty) {
                 List {
                     ProgressView()
                 }
                 .navigationTitle("treehole")
+                .onAppear(perform: refreshDiscussions)
             }
             else {
-                List(discussions) { discussion in
-                    ZStack {
-                        THPostView(discussion: discussion)
-                        NavigationLink(destination: TreeHoleDetailsPage(replies: discussion.posts)) {
-                            EmptyView()
+                List {
+                    Button(action: refreshDiscussions) {
+                        HStack {
+                            Text("refresh")
+                            if (isLoading) {
+                                ProgressView()
+                            }
                         }
+                    }
+                    ForEach(discussions) { discussion in
+                        VStack {
+                            ZStack {
+                                THPostView(discussion: discussion)
+                                NavigationLink(destination: TreeHoleDetailsPage(replies: discussion.posts)) {
+                                    EmptyView()
+                                }
+                            }
+                        }
+                    }
+                    if(!endReached) {
+                        ProgressView()
+                            .onAppear(perform: loadNextPage)
+                    }
+                    else {
+                        Text("end_reached")
                     }
                 }
                 .navigationTitle("treehole")
             }
-            Text("selectAPost")
         }
-        .onAppear(perform: refreshDiscussions)
+        else {
+            ErrorView(errorInfo: errorReason ?? "Unknown Error")
+                .onTapGesture {
+                    refreshDiscussions()
+                }
+        }
     }
 }
 

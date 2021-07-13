@@ -12,26 +12,25 @@ struct LoginPage: View {
     @State var password = ""
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("uisLogin")) {
-                    TextField("studentId", text: $username)
-                    SecureField(NSLocalizedString("pwd", comment: ""), text: $password)
-                }
-                Section {
-                    Button("login") {
-                        
-                    }
-                }
-                
-                Section(header: Text("fduholeLogin"), footer: Text("fduholeLogin_footer")) {
-                    Button("loginWithFduhole") {
-                        // did tap
-                    }
+        Form {
+            Section(header: Text("uisLogin")) {
+                TextField("studentId", text: $username)
+                SecureField(NSLocalizedString("pwd", comment: ""), text: $password)
+            }
+            Section {
+                Button("login") {
+                    
                 }
             }
-            .navigationTitle("login")
+            
+            Section(header: Text("fduholeLogin"), footer: Text("fduholeLogin_footer")) {
+                Button("loginWithFduhole") {
+                    // did tap
+                }
+            }
         }
+        .navigationTitle("login")
+        
     }
 }
 
