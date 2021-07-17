@@ -13,13 +13,13 @@ struct ContentView: View {
             TabView {
                 TreeHolePage()
                     .tabItem {
-                        Image(systemName: "2.square.fill")
-                        Text("Tree Hole")
+                        Image(systemName: "text.bubble")
+                        Text("treehole")
                     }
                 Text("The Last Tab")
                     .tabItem {
-                        Image(systemName: "3.square.fill")
-                        Text("Settings")
+                        Image(systemName: "gearshape")
+                        Text("settings")
                     }
             }
         }

@@ -13,6 +13,7 @@ struct THPostDetailView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("[\(reply.username)]")
+            Spacer()
             Text(preprocessTextForHtmlAndImage(text:reply.content))
         }
         .padding()

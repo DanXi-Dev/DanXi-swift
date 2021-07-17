@@ -16,36 +16,35 @@ struct TreeHolePage: View {
     // Scroll Position Indicator
     @State private var isLoading = true
     
-    func refreshDiscussions() {
+    func refreshDiscussions() async {
         currentPage = 1
-        async {
-            do {
-                errorReason = nil
-                isLoading = true
-                discussions = try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated)
-                isLoading = false
-            }
-            catch {
-                isLoading = false
-                errorReason = error.localizedDescription
-            }
+        
+        do {
+            errorReason = nil
+            isLoading = true
+            discussions = try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated)
+            isLoading = false
         }
+        catch {
+            isLoading = false
+            errorReason = error.localizedDescription
+        }
+        
     }
     
-    func loadNextPage() {
+    func loadNextPage() async {
         currentPage += 1
-        async {
-            do {
-                errorReason = nil
-                isLoading = true
-                discussions.append(contentsOf: try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated) as [THDiscussion])
-                isLoading = false
-            }
-            catch {
-                isLoading = false
-                errorReason = error.localizedDescription
-            }
+        do {
+            errorReason = nil
+            isLoading = true
+            discussions.append(contentsOf: try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated) as [THDiscussion])
+            isLoading = false
         }
+        catch {
+            isLoading = false
+            errorReason = error.localizedDescription
+        }
+        
     }
     
     var body: some View {
@@ -55,43 +54,41 @@ struct TreeHolePage: View {
                     ProgressView()
                 }
                 .navigationTitle("treehole")
-                .onAppear(perform: refreshDiscussions)
+                .onAppear {
+                    async {
+                        await refreshDiscussions()
+                    }
+                }
             }
             else {
                 List {
-                    Button(action: refreshDiscussions) {
-                        HStack {
-                            Text("refresh")
-                            if (isLoading) {
-                                ProgressView()
-                            }
-                        }
-                    }
                     ForEach(discussions) { discussion in
-                        VStack {
-                            ZStack {
-                                THPostView(discussion: discussion)
-                                NavigationLink(destination: TreeHoleDetailsPage(replies: discussion.posts)) {
-                                    EmptyView()
-                                }
-                            }
+                        NavigationLink(destination: TreeHoleDetailsPage(replies: discussion.posts)) {
+                            THPostView(discussion: discussion)
                         }
                     }
                     if(!endReached) {
                         ProgressView()
-                            .onAppear(perform: loadNextPage)
+                            .onAppear{
+                                async {
+                                    await loadNextPage()
+                                }
+                            }
                     }
                     else {
                         Text("end_reached")
                     }
                 }
+                .refreshable(action: refreshDiscussions)
                 .navigationTitle("treehole")
             }
         }
         else {
             ErrorView(errorInfo: errorReason ?? "Unknown Error")
                 .onTapGesture {
-                    refreshDiscussions()
+                    async {
+                        await refreshDiscussions()
+                    }
                 }
         }
     }
