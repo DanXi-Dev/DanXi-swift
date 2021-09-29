@@ -20,6 +20,12 @@ struct TreeHoleDetailsPage: View {
         discussionId = replies.first?.discussion ?? 0
     }
     
+    @Sendable
+    func _loadMoreReplies() async {
+        return await loadMoreReplies();
+    }
+    
+    @Sendable
     func loadMoreReplies(clearAll: Bool = false) async {
         currentPage += 1
         if (!isLoading) {
@@ -45,7 +51,6 @@ struct TreeHoleDetailsPage: View {
                 isLoading = false
             }
         }
-        
     }
     
     var body: some View {
@@ -56,23 +61,20 @@ struct TreeHoleDetailsPage: View {
             if (!endReached && errorReason == nil) {
                 ProgressView()
                     .onAppear {
-                        async {
-                            await loadMoreReplies()
-                        }
+                        Task.init(operation: _loadMoreReplies)
                     }
             }
             else if (errorReason != nil) {
                 ErrorView(errorInfo: errorReason ?? "Unknown Error")
                     .onTapGesture {
-                        async {
-                            await loadMoreReplies()
-                        }
+                        Task.init(operation: _loadMoreReplies)
                     }
             }
             else {
                 Text("end_reached")
             }
         }
+        .listStyle(.inset)
         .navigationBarTitle("#\(discussionId)")
         .refreshable {
             currentPage = 0

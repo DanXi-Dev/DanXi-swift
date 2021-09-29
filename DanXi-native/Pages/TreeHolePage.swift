@@ -16,6 +16,7 @@ struct TreeHolePage: View {
     // Scroll Position Indicator
     @State private var isLoading = true
     
+    @Sendable
     func refreshDiscussions() async {
         currentPage = 1
         
@@ -32,6 +33,7 @@ struct TreeHolePage: View {
         
     }
     
+    @Sendable
     func loadNextPage() async {
         currentPage += 1
         do {
@@ -55,9 +57,7 @@ struct TreeHolePage: View {
                 }
                 .navigationTitle("treehole")
                 .onAppear {
-                    async {
-                        await refreshDiscussions()
-                    }
+                    Task.init(operation: refreshDiscussions)
                 }
             }
             else {
@@ -70,15 +70,14 @@ struct TreeHolePage: View {
                     if(!endReached) {
                         ProgressView()
                             .onAppear{
-                                async {
-                                    await loadNextPage()
-                                }
+                                Task.init(operation: loadNextPage)
                             }
                     }
                     else {
                         Text("end_reached")
                     }
                 }
+                .listStyle(.inset)
                 .refreshable(action: refreshDiscussions)
                 .navigationTitle("treehole")
             }
@@ -86,9 +85,7 @@ struct TreeHolePage: View {
         else {
             ErrorView(errorInfo: errorReason ?? "Unknown Error")
                 .onTapGesture {
-                    async {
-                        await refreshDiscussions()
-                    }
+                    Task.init(operation: refreshDiscussions)
                 }
         }
     }

@@ -21,8 +21,8 @@ func preprocessTextForHtmlAndImage(text: String) -> String {
     let imageHtmlLooseRegex = try! NSRegularExpression(pattern: #"<img src=.*?>"#)
     processedText = imageHtmlLooseRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: NSLocalizedString("image_tag", comment: ""))
     
-    let imageMarkDownRegex = try! NSRegularExpression(pattern: #"!\[\]\(.*?\)"#)
-    processedText = imageMarkDownRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: NSLocalizedString("image_tag", comment: ""))
+    /*let imageMarkDownRegex = try! NSRegularExpression(pattern: #"!\[\]\(.*?\)"#)
+    processedText = imageMarkDownRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: NSLocalizedString("image_tag", comment: ""))*/
     
     let htmlTagRegex = try! NSRegularExpression(pattern: #"<.*?>"#)
     processedText = htmlTagRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: "")
@@ -84,7 +84,9 @@ struct THPostView: View {
                     .scaleEffect(0.8, anchor: .leading)
             }
             else {
-                Text(preprocessTextForHtmlAndImage(text: discussion.posts[0].content))
+                let attributedContent = try! AttributedString(
+                    markdown: preprocessTextForHtmlAndImage(text: discussion.posts[0].content))
+                Text(attributedContent)
                     .lineLimit(5)
             }
             Spacer()
