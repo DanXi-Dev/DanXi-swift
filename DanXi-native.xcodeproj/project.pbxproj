@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7777376B27D8981C001E6513 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7777376A27D8981C001E6513 /* MarkdownUI */; };
+		7777376D27D89823001E6513 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7777376C27D89823001E6513 /* MarkdownUI */; };
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		7795D21E27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
 		7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
@@ -190,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F437F027D7A3180082920E /* Alamofire in Frameworks */,
+				7777376B27D8981C001E6513 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */,
+				7777376D27D89823001E6513 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +466,7 @@
 			name = "DanXi-native";
 			packageProductDependencies = (
 				77F437EF27D7A3180082920E /* Alamofire */,
+				7777376A27D8981C001E6513 /* MarkdownUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -535,6 +540,7 @@
 			name = "DanXi-native WatchKit Extension";
 			packageProductDependencies = (
 				7795D21B27D82B1C00840D02 /* Alamofire */,
+				7777376C27D89823001E6513 /* MarkdownUI */,
 			);
 			productName = "DanXi-native WatchKit Extension";
 			productReference = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */;
@@ -625,6 +631,7 @@
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
 				77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -967,7 +974,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Debug;
 		};
@@ -996,7 +1003,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Release;
 		};
@@ -1027,7 +1034,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Debug;
 		};
@@ -1058,7 +1065,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Release;
 		};
@@ -1379,6 +1386,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://hub.fastgit.xyz/gonzalezreal/MarkdownUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1390,6 +1405,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7777376A27D8981C001E6513 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+		7777376C27D89823001E6513 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
 		7795D21B27D82B1C00840D02 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */;

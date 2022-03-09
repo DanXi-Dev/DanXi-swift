@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MarkdownUI
 
 func nsRange(self: String) -> NSRange {
     return NSRange(self.startIndex..., in: self)
@@ -40,7 +41,6 @@ struct THPostView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            
             // Discussion Tag
             if (hole.tags != nil && !hole.tags!.isEmpty && !hole.tags!.contains(where: {tag in if(tag.name == KEY_NO_TAG) {
                 return true;
@@ -61,7 +61,6 @@ struct THPostView: View {
             }
             else {
                 Spacer()
-                Spacer()
             }
             
             // Begin Content
@@ -70,7 +69,7 @@ struct THPostView: View {
                     .scaleEffect(0.8, anchor: .leading)
             }
             else {
-                Text(preprocessTextForHtmlAndImage(text: hole.floors.prefetch[0].content))
+                Markdown(hole.floors.prefetch[0].content)
                     .lineLimit(6)
             }
             Spacer()

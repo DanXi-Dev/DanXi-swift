@@ -19,7 +19,7 @@ struct ContentView: View {
                             Image(systemName: "text.bubble")
                             Text("treehole")
                         }
-                    Text("The Last Tab")
+                    SettingsPage()
                         .tabItem {
                             Image(systemName: "gearshape")
                             Text("settings")

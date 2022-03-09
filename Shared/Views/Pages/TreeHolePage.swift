@@ -27,11 +27,8 @@ struct TreeHolePage: View {
             }
             
             ForEach(vm.holes) { hole in
-                ZStack(alignment: .leading) {
-                    THPostView(discussion: hole)
-                    NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
-                        EmptyView()
-                    }
+                NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
+                    THPostView(hole: hole)
                 }
             }
             

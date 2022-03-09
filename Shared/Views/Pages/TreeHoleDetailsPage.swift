@@ -21,7 +21,7 @@ struct TreeHoleDetailsPage: View {
         }, viewBuilder: { floor in
             AnyView(
                 ZStack(alignment: .leading) {
-                    THPostDetailView(reply: floor)
+                    THPostDetailView(floor: floor)
                 })
         }, initialData: initialFloors, dataLoader: loadData)
             .navigationTitle("#\(holeId)")

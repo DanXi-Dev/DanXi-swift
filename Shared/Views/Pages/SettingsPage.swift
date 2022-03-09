@@ -11,7 +11,11 @@ struct SettingsPage: View {
     var body: some View {
         Form {
             Section {
-                Text("Hello World")
+                Button("logout") {
+                    TreeHoleRepository.shared.token = nil
+                    DefaultsManager.shared.fduholeToken = nil
+                    AppManager.fduholeAuthenticated.send(false)
+                }
             }
         }
         .navigationBarTitle(Text("Settings"))

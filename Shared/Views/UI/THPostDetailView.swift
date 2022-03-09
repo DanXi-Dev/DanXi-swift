@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MarkdownUI
 
 struct THPostDetailView: View {
     let floor: OTFloor
@@ -13,7 +14,7 @@ struct THPostDetailView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(floor.anonyname)")
-            Text(preprocessTextForHtmlAndImage(text:floor.content))
+            Markdown(floor.content)
         }
         .padding()
     }
