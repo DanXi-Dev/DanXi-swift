@@ -5,13 +5,9 @@
 //  Created by Kavin Zhao on 2021/6/26.
 //
 
-import Foundation
-
 struct OTHole: Hashable, Codable, Identifiable {
     var id: Int {
-        get {
-            return self.hole_id
-        }
+        get { return self.hole_id }
     }
     
     let hole_id, division_id: Int
@@ -28,9 +24,7 @@ struct _OTFloors: Hashable, Codable {
 
 struct OTFloor: Hashable, Codable, Identifiable {
     var id: Int {
-        get {
-            return self.floor_id
-        }
+        get { return self.floor_id }
     }
     
     let floor_id, hole_id, like: Int
@@ -41,9 +35,7 @@ struct OTFloor: Hashable, Codable, Identifiable {
 
 struct OTDivision: Hashable, Codable, Identifiable {
     var id: Int {
-        get {
-            return self.division_id
-        }
+        get { return self.division_id }
     }
     
     static let dummy = OTDivision(division_id: 1, name: "treehole", description: "", pinned: [])
@@ -53,7 +45,11 @@ struct OTDivision: Hashable, Codable, Identifiable {
     let pinned: [OTHole]?
 }
 
-struct OTTag: Hashable, Codable {
+struct OTTag: Hashable, Codable, Identifiable {
+    var id: Int {
+        get { return self.tag_id }
+    }
+    
     let name: String
     let tag_id, temperature: Int
 }

@@ -34,7 +34,7 @@ func preprocessTextForHtmlAndImage(text: String) -> String {
 }
 
 struct THPostView: View {
-    var discussion: OTHole
+    let hole: OTHole
     
     let KEY_NO_TAG = "默认"
     
@@ -42,19 +42,19 @@ struct THPostView: View {
         VStack(alignment: .leading) {
             
             // Discussion Tag
-            if (discussion.tags != nil && !discussion.tags!.isEmpty && !discussion.tags!.contains(where: {tag in if(tag.name == KEY_NO_TAG) {
+            if (hole.tags != nil && !hole.tags!.isEmpty && !hole.tags!.contains(where: {tag in if(tag.name == KEY_NO_TAG) {
                 return true;
             }
             return false;
             })) {
                 HStack {
-                    ForEach(discussion.tags!, id: \.self) { tag in
+                    ForEach(hole.tags!, id: \.self) { tag in
                         Text(tag.name)
                             .padding(EdgeInsets(top: 2,leading: 6,bottom: 2,trailing: 6))
                             .background(RoundedRectangle(cornerRadius: 24, style: .circular).stroke(Color.accentColor))
                             .foregroundColor(.accentColor)
                             .font(.system(size: 14))
-                            .lineLimit(6)
+                            .lineLimit(1)
                     }
                 }
                 .padding(.top)
@@ -65,19 +65,19 @@ struct THPostView: View {
             }
             
             // Begin Content
-            if (!discussion.floors.prefetch[0].fold!.isEmpty) {
+            if (!hole.floors.prefetch[0].fold!.isEmpty) {
                 Label("discussionFolded", systemImage: "eye.slash")
                     .scaleEffect(0.8, anchor: .leading)
             }
             else {
-                Text(preprocessTextForHtmlAndImage(text: discussion.floors.prefetch[0].content))
-                    .lineLimit(5)
+                Text(preprocessTextForHtmlAndImage(text: hole.floors.prefetch[0].content))
+                    .lineLimit(6)
             }
             Spacer()
             
             // Comment Count
             HStack(alignment: .bottom) {
-                Label(String(discussion.reply!), systemImage: "ellipsis.bubble")
+                Label(String(hole.reply!), systemImage: "ellipsis.bubble")
                     .font(.footnote)
                     .imageScale(.small)
                 /*Label(humanReadableDateString(dateString: discussion.date_created) , systemImage: "clock")

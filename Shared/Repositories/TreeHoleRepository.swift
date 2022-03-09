@@ -9,12 +9,12 @@ import Foundation
 import Alamofire
 import SwiftUI
 
-let BASE_URL = "https://api.fduhole.com"
-
 class TreeHoleRepository: ObservableObject {
-    var token: String? = "abc"
+    var token: String?
     static let shared = TreeHoleRepository()
-    private init() {}
+    private init() {
+        token = DefaultsManager.shared.fduholeToken
+    }
     
     func getTokenHeader() throws -> String  {
         guard token != nil else {

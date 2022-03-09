@@ -8,18 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var accountView: AccountViewModel = AccountViewModel()
-    
-    func initializeAccountView() {
-        if let fduholeToken = DefaultsManager.shared.fduholeToken {
-            accountView.setFduholeAuthenticationStatus(value: true)
-            TreeHoleRepository.shared.setToken(token: fduholeToken)
-        }
-    }
+    @State var isFduholeAuthenticated = AppManager.isFduholeAuthenticated()
     
     var body: some View {
         NavigationView {
-            if (accountView.isFduholeAuthenticated) {
+            if (isFduholeAuthenticated) {
                 TabView {
                     TreeHolePage()
                         .tabItem {
@@ -36,8 +29,7 @@ struct ContentView: View {
                 LoginPage()
             }
         }
-        .onAppear(perform: initializeAccountView)
-        .environmentObject(accountView)
+        .onReceive(AppManager.fduholeAuthenticated, perform: { isFduholeAuthenticated = $0 })
     }
 }
 

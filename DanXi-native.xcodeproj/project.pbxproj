@@ -10,11 +10,17 @@
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		7795D21E27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
 		7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
+		77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
+		77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
+		77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD427D87DC200547698 /* LoginViewModel.swift */; };
+		77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD427D87DC200547698 /* LoginViewModel.swift */; };
+		77B01AD927D8806400547698 /* TreeHolePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */; };
+		77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */; };
 		77F437EC27D78EE70082920E /* PagedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437EB27D78EE70082920E /* PagedListView.swift */; };
 		77F437ED27D78EE70082920E /* PagedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437EB27D78EE70082920E /* PagedListView.swift */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
-		77F437F227D7AB440082920E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437F127D7AB440082920E /* AccountViewModel.swift */; };
-		77F437F327D7AB440082920E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437F127D7AB440082920E /* AccountViewModel.swift */; };
+		77F437F227D7AB440082920E /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437F127D7AB440082920E /* AppManager.swift */; };
+		77F437F327D7AB440082920E /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437F127D7AB440082920E /* AppManager.swift */; };
 		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
 		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
 		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
@@ -125,9 +131,12 @@
 /* Begin PBXFileReference section */
 		7795D21D27D8368800840D02 /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleViewModels.swift; sourceTree = "<group>"; };
+		77B01AD427D87DC200547698 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHolePageViewModel.swift; sourceTree = "<group>"; };
 		77F437E627D78EB60082920E /* DanXi-native WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DanXi-native WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
 		77F437EB27D78EE70082920E /* PagedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedListView.swift; sourceTree = "<group>"; };
-		77F437F127D7AB440082920E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		77F437F127D7AB440082920E /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		8A959AA2268B4E94004B73AF /* PublicExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtension.swift; sourceTree = "<group>"; };
 		8AA66BF4268AE98F00AE8629 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -230,9 +239,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		77B01AD327D87DA800547698 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8AC8D276268B087100B21A3E /* THPostView.swift */,
+				8ABA2E44268D862A0003420A /* THPostDetailView.swift */,
+				8AA9F87B269D99030085D93D /* ErrorView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		77B01AD727D87DC700547698 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				77B01AD427D87DC200547698 /* LoginViewModel.swift */,
+				77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		77F437EA27D78ECA0082920E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				77F437F127D7AB440082920E /* AppManager.swift */,
 				77F437EB27D78EE70082920E /* PagedListView.swift */,
 				7795D21D27D8368800840D02 /* DefaultsManager.swift */,
 			);
@@ -287,7 +316,6 @@
 				8AAABD4326881E0500486D37 /* DanXi-native.entitlements */,
 				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
 				8AC7A5D226872C3E00C9CD98 /* ContentView.swift */,
-				8AC7A64B268733EA00C9CD98 /* Pages */,
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
@@ -391,7 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */,
-				77F437F127D7AB440082920E /* AccountViewModel.swift */,
+				77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -407,9 +435,9 @@
 		8AC8D278268B087500B21A3E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8AC8D276268B087100B21A3E /* THPostView.swift */,
-				8ABA2E44268D862A0003420A /* THPostDetailView.swift */,
-				8AA9F87B269D99030085D93D /* ErrorView.swift */,
+				8AC7A64B268733EA00C9CD98 /* Pages */,
+				77B01AD327D87DA800547698 /* UI */,
+				77B01AD727D87DC700547698 /* ViewModels */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -677,16 +705,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F437EC27D78EE70082920E /* PagedListView.swift in Sources */,
-				77F437F227D7AB440082920E /* AccountViewModel.swift in Sources */,
+				77F437F227D7AB440082920E /* AppManager.swift in Sources */,
 				8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */,
 				7795D21E27D8368800840D02 /* DefaultsManager.swift in Sources */,
 				8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */,
 				8AC8D277268B087100B21A3E /* THPostView.swift in Sources */,
 				8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */,
 				8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */,
+				77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */,
 				8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */,
 				8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */,
+				77B01AD927D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
 				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
+				77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */,
 				8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */,
@@ -718,15 +749,18 @@
 				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
 				77F437ED27D78EE70082920E /* PagedListView.swift in Sources */,
 				8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */,
+				77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
 				8AA9F878269D97F70085D93D /* THPostView.swift in Sources */,
 				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
+				77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
 				7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */,
+				77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */,
 				8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */,
 				8AA9F877269D97EE0085D93D /* TreeHoleRepository.swift in Sources */,
 				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
-				77F437F327D7AB440082920E /* AccountViewModel.swift in Sources */,
+				77F437F327D7AB440082920E /* AppManager.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
