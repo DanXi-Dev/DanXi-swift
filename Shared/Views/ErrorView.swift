@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ErrorView: View {
-    var errorInfo: String
+    var error: Error
     
     var body: some View {
         VStack {
             Image(systemName: "xmark.octagon")
                 .foregroundColor(.accentColor)
                 .imageScale(.large)
-            Text(NSLocalizedString("error", comment: "") + "\n\(errorInfo)")
+            Text(NSLocalizedString("error", comment: "") + "\n\(error.localizedDescription)")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
         }
@@ -24,6 +24,6 @@ struct ErrorView: View {
 
 struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorView(errorInfo: "Example Error")
+        ErrorView(error: TreeHoleError.notInitialized)
     }
 }

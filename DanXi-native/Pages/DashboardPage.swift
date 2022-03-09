@@ -15,7 +15,6 @@ struct DashboardPage: View {
             }
         }
         .navigationBarTitle(Text("DanXi"))
-        
     }
 }
 

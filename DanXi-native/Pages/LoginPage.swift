@@ -8,18 +8,44 @@
 import SwiftUI
 
 struct LoginPage: View {
-    @State var username = ""
-    @State var password = ""
+    @EnvironmentObject var accountView: AccountViewModel
+    @State private var username = ""
+    @State private var password = ""
+    @State private var errorString: String?
+    @State private var isLoading: Bool = false
+    
+    func login() async {
+        isLoading = true
+        errorString = nil
+        defer { isLoading = false }
+        
+        do {
+            let token = try await TreeHoleRepository.shared.loginWithUsernamePassword(username: username, password: password)
+            accountView.setFduholeAuthenticationStatus(value: true)
+            DefaultsManager.shared.fduholeToken = token
+        } catch {
+            errorString = error.localizedDescription
+        }
+    }
     
     var body: some View {
         Form {
             Section(header: Text("uisLogin")) {
                 TextField("studentId", text: $username)
                 SecureField(NSLocalizedString("pwd", comment: ""), text: $password)
+                if let hasErrorStr = errorString {
+                    Text(hasErrorStr)
+                        .foregroundColor(.red)
+                }
             }
             Section {
-                Button("login") {
-                    
+                Button {
+                    Task.init{
+                        await login()
+                    }
+                } label: {
+                    Text("login")
+                    if (isLoading) { ProgressView() }
                 }
             }
             
@@ -30,7 +56,6 @@ struct LoginPage: View {
             }
         }
         .navigationTitle("login")
-        
     }
 }
 

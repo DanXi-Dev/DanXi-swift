@@ -8,91 +8,50 @@
 import SwiftUI
 
 struct TreeHolePage: View {
-    @State private var discussions = [THDiscussion]()
-    @State private var currentPage = 1
-    @State private var endReached = false
-    @State private var errorReason: String? = nil
+    @State private var searchText: String = ""
+    @State private var currentDivision: OTDivision = OTDivision.dummy
+    @State private var divisions: [OTDivision] = [OTDivision.dummy]
     
-    // Scroll Position Indicator
-    @State private var isLoading = true
-    
-    @Sendable
-    func refreshDiscussions() async {
-        currentPage = 1
-        
-        do {
-            errorReason = nil
-            isLoading = true
-            discussions = try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated)
-            isLoading = false
-        }
-        catch {
-            isLoading = false
-            errorReason = error.localizedDescription
-        }
-        
+    func loadData (page: Int, list: [OTHole]) async throws -> [OTHole] {
+        return try await TreeHoleRepository.shared.loadHoles(startTime: list.last?.time_updated, divisionId: currentDivision.division_id)
     }
     
-    @Sendable
-    func loadNextPage() async {
-        currentPage += 1
-        do {
-            errorReason = nil
-            isLoading = true
-            discussions.append(contentsOf: try await loadDiscussions(page: currentPage, sortOrder: SortOrder.last_updated) as [THDiscussion])
-            isLoading = false
-        }
-        catch {
-            isLoading = false
-            errorReason = error.localizedDescription
-        }
-        
+    
+    func updateDivisions() async throws -> [OTDivision] {
+        return try await TreeHoleRepository.shared.loadDivisions()
     }
     
     var body: some View {
-        if (errorReason == nil) {
-            if (discussions.isEmpty) {
-                List {
-                    ProgressView()
-                }
-                .navigationTitle("treehole")
-                .onAppear {
-                    Task.init(operation: refreshDiscussions)
-                }
-            }
-            else {
-                List {
-                    ForEach(discussions) { discussion in
-                        NavigationLink(destination: TreeHoleDetailsPage(replies: discussion.posts)) {
-                            THPostView(discussion: discussion)
-                        }
-                    }
-                    if(!endReached) {
-                        ProgressView()
-                            .onAppear{
-                                Task.init(operation: loadNextPage)
-                            }
-                    }
-                    else {
-                        Text("end_reached")
+        PagedListView(headBuilder: {
+            AnyView(
+                Picker("division", selection: $currentDivision) {
+                    ForEach(divisions, id: \.self) {division in
+                        Text("\(division.name) - \(division.description)")
                     }
                 }
-                .listStyle(.inset)
-                .refreshable(action: refreshDiscussions)
-                .navigationTitle("treehole")
-            }
-        }
-        else {
-            ErrorView(errorInfo: errorReason ?? "Unknown Error")
-                .onTapGesture {
-                    Task.init(operation: refreshDiscussions)
-                }
-        }
+                    .task {
+                        do {
+                            divisions = try await updateDivisions()
+                        } catch {}
+                    }
+                    .onChange(of: currentDivision) { newValue in
+                    })
+        }, viewBuilder: { hole in
+            AnyView(
+                ZStack(alignment: .leading) {
+                    THPostView(discussion: hole)
+                    NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
+                        EmptyView()
+                    }
+                })
+        }, dataLoader: loadData)
+            .searchable(text: $searchText)
+            .navigationTitle("treehole")
     }
-}
-
-struct TreeHole_Previews: PreviewProvider {
-    static var previews: some View {
-        TreeHolePage()
+    
+    struct TreeHole_Previews: PreviewProvider {
+        static var previews: some View {
+            TreeHolePage()
+        }
     }
 }

@@ -6,72 +6,108 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftUI
 
-let BASE_URL = "https://www.fduhole.tk/v1"
+let BASE_URL = "https://api.fduhole.com"
 
-func getTokenHeader() -> String {
-    return "Token 708d259cebb76d2b03aca46fc6a72c420e7aec73"
-}
-
-func loadDiscussions<T: Decodable>(page: Int, sortOrder: SortOrder) async throws -> T {
-    var components = URLComponents(string: BASE_URL + "/discussions/")!
-    components.queryItems = [
-        URLQueryItem(name: "page", value: String(page)),
-        URLQueryItem(name: "order", value: sortOrder.getString())
-    ]
-    components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-    var request = URLRequest(url: components.url!)
-    request.httpMethod = "GET"
-    request.setValue(getTokenHeader(), forHTTPHeaderField: "Authorization")
+class TreeHoleRepository: ObservableObject {
+    var token: String? = "abc"
+    static let shared = TreeHoleRepository()
+    private init() {}
     
-    let (data, response) = try await URLSession.shared.data(for: request)
-    guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-        if ((response as? HTTPURLResponse)?.statusCode == 401) { throw TreeHoleError.unauthorized }
-        throw TreeHoleError.connectionFailed
+    func getTokenHeader() throws -> String  {
+        guard token != nil else {
+            throw TreeHoleError.notInitialized
+        }
+        return "Token \(self.token!)"
     }
-    guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else { throw TreeHoleError.invalidResponse }
-    return decodedResponse
-}
-
-func loadReplies<T: Decodable>(page: Int, discussionId: Int) async throws -> T {
-    var components = URLComponents(string: BASE_URL + "/posts/")!
-    components.queryItems = [
-        URLQueryItem(name: "page", value: String(page)),
-        URLQueryItem(name: "id", value: String(discussionId))
-    ]
-    components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-    var request = URLRequest(url: components.url!)
-    request.httpMethod = "GET"
-    request.setValue(getTokenHeader(), forHTTPHeaderField: "Authorization")
     
-    let (data, response) = try await URLSession.shared.data(for: request)
-    guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-        if ((response as? HTTPURLResponse)?.statusCode == 401) { throw TreeHoleError.unauthorized }
-        throw TreeHoleError.connectionFailed
+    func setToken(token: String)->Void {
+        self.token = token
     }
-    guard let decodedResponse = try? JSONDecoder().decode(T.self, from: data) else { throw TreeHoleError.invalidResponse }
-    return decodedResponse
+    
+    func loginWithUsernamePassword(username:String, password: String) async throws -> String {
+        let response = await AF.request(BASE_URL + "/login", method: .post, parameters: ["email":username,"password":password], encoder: JSONParameterEncoder.default).serializingString().response.data
+        let json = try JSONSerialization.jsonObject(with: response!, options: []) as! [String : Any]
+        if let message = json["message"] as? String {
+            if let token = json["token"] as? String {
+                setToken(token: token)
+            } else {
+                throw TreeHoleError.serverReturnedError(message: message)
+            }
+        }
+        return self.token!
+    }
+    
+    func loadHoles(startTime: String?, divisionId: Int?)  async throws -> [OTHole] {
+        var components = URLComponents(string: BASE_URL + "/holes")!
+        components.queryItems = [
+            URLQueryItem(name: "start_time", value: startTime),
+            URLQueryItem(name: "division_id", value: String(divisionId ?? 1))
+        ]
+        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        try request.setValue(getTokenHeader(), forHTTPHeaderField: "Authorization")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decodedResponse = try JSONDecoder().decode([OTHole].self, from: data)
+        return decodedResponse
+    }
+    
+    func loadDivisions()  async throws -> [OTDivision] {
+        guard token != nil else {
+            throw TreeHoleError.notInitialized
+        }
+        
+        let components = URLComponents(string: BASE_URL + "/divisions")!
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        try request.setValue(getTokenHeader(), forHTTPHeaderField: "Authorization")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decodedResponse = try JSONDecoder().decode([OTDivision].self, from: data)
+        return decodedResponse
+    }
+    
+    func loadFloors(page: Int, holeId: Int)  async throws -> [OTFloor] {
+        guard token != nil else {
+            throw TreeHoleError.notInitialized
+        }
+        
+        var components = URLComponents(string: BASE_URL + "/floors")!
+        components.queryItems = [
+            URLQueryItem(name: "start_floor", value: String((page-1)*10)),
+            URLQueryItem(name: "hole_id", value: String(holeId))
+        ]
+        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        try request.setValue(getTokenHeader(), forHTTPHeaderField: "Authorization")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let decodedResponse = try JSONDecoder().decode([OTFloor].self, from: data)
+        return decodedResponse
+    }
 }
 
-enum TreeHoleError: Error {
-    case insecureConnection
+
+public enum TreeHoleError: LocalizedError {
     case unauthorized
-    case connectionFailed
-    case invalidResponse
+    case notInitialized
+    case serverReturnedError(message: String)
 }
 
-enum SortOrder {
-    case last_updated
-    case last_created
-}
-
-extension SortOrder {
-    public func getString() -> String {
-        switch (self) {
-        case .last_created:
-            return "last_created"
-        case .last_updated:
-            return "last_updated"
+extension TreeHoleError {
+    public var errorDescription: String? {
+        switch self {
+        case let .serverReturnedError(message):
+            return message
+        case .unauthorized:
+            return "Unauthorized"
+        case .notInitialized:
+            return "Repository not initialized"
         }
     }
 }

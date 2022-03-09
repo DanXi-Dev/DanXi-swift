@@ -8,83 +8,28 @@
 import SwiftUI
 
 struct TreeHoleDetailsPage: View {
-    @State private var replyList: [THReply]
-    @State private var currentPage: Int = 1
-    @State private var discussionId: Int
-    @State private var isLoading = false
-    @State private var endReached = false
-    @State private var errorReason: String? = nil
+    let holeId: Int
+    let initialFloors: [OTFloor]
     
-    init(replies: [THReply]) {
-        replyList = replies
-        discussionId = replies.first?.discussion ?? 0
-    }
-    
-    @Sendable
-    func _loadMoreReplies() async {
-        return await loadMoreReplies();
-    }
-    
-    @Sendable
-    func loadMoreReplies(clearAll: Bool = false) async {
-        currentPage += 1
-        if (!isLoading) {
-            isLoading = true
-            do {
-                errorReason = nil
-                let newReplies: [THReply] = try await loadReplies(page: currentPage, discussionId: discussionId)
-                if(newReplies.isEmpty) {
-                    endReached = true
-                }
-                else {
-                    if (clearAll) {
-                        replyList = newReplies
-                    }
-                    else {
-                        replyList.append(contentsOf: newReplies)
-                    }
-                }
-                isLoading = false;
-            }
-            catch {
-                errorReason = error.localizedDescription
-                isLoading = false
-            }
-        }
+    func loadData(page: Int, list: [OTFloor]) async throws -> [OTFloor] {
+        return try await TreeHoleRepository.shared.loadFloors(page: page, holeId: holeId)
     }
     
     var body: some View {
-        List {
-            ForEach(replyList) { reply in
-                THPostDetailView(reply: reply)
-            }
-            if (!endReached && errorReason == nil) {
-                ProgressView()
-                    .onAppear {
-                        Task.init(operation: _loadMoreReplies)
-                    }
-            }
-            else if (errorReason != nil) {
-                ErrorView(errorInfo: errorReason ?? "Unknown Error")
-                    .onTapGesture {
-                        Task.init(operation: _loadMoreReplies)
-                    }
-            }
-            else {
-                Text("end_reached")
-            }
-        }
-        .listStyle(.inset)
-        .navigationBarTitle("#\(discussionId)")
-        .refreshable {
-            currentPage = 0
-            await loadMoreReplies(clearAll: true)
-        }
+        PagedListView(headBuilder: {
+            AnyView(EmptyView())
+        }, viewBuilder: { floor in
+            AnyView(
+                ZStack(alignment: .leading) {
+                    THPostDetailView(reply: floor)
+                })
+        }, initialData: initialFloors, dataLoader: loadData)
+            .navigationTitle("#\(holeId)")
     }
 }
 
 struct TreeHoleDetailsPage_Previews: PreviewProvider {
     static var previews: some View {
-        TreeHoleDetailsPage(replies: [THReply(id: 456, discussion: 123, content: "HelloWorld", username: "Demo", date_created: "xxx", reply_to: nil, is_me: false), THReply(id: 456, discussion: 123, content: "HelloWorld", username: "Demo", date_created: "xxx", reply_to: nil, is_me: false)])
+        Text("too lazy to write preview")
     }
 }
