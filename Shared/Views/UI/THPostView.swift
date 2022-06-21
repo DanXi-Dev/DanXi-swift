@@ -7,32 +7,6 @@
 
 import Foundation
 import SwiftUI
-import MarkdownUI
-
-func nsRange(self: String) -> NSRange {
-    return NSRange(self.startIndex..., in: self)
-}
-
-func preprocessTextForHtmlAndImage(text: String) -> String {
-    var processedText: String
-    
-    let imageHtmlRegex = try! NSRegularExpression(pattern: #"<img src=.*?>.*?</img>"#)
-    processedText = imageHtmlRegex.stringByReplacingMatches(in: text, range: nsRange(self: text), withTemplate: NSLocalizedString("image_tag", comment: ""))
-    
-    let imageHtmlLooseRegex = try! NSRegularExpression(pattern: #"<img src=.*?>"#)
-    processedText = imageHtmlLooseRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: NSLocalizedString("image_tag", comment: ""))
-    
-    let imageMarkDownRegex = try! NSRegularExpression(pattern: #"!\[\]\(.*?\)"#)
-    processedText = imageMarkDownRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: NSLocalizedString("image_tag", comment: ""))
-    
-    let htmlTagRegex = try! NSRegularExpression(pattern: #"<.*?>"#)
-    processedText = htmlTagRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: "")
-    
-    let whiteSpaceRegex = try! NSRegularExpression(pattern: #"\s"#)
-    processedText = whiteSpaceRegex.stringByReplacingMatches(in: processedText, range: nsRange(self: processedText), withTemplate: "")
-    
-    return processedText
-}
 
 struct THPostView: View {
     let hole: OTHole
@@ -69,7 +43,7 @@ struct THPostView: View {
                     .scaleEffect(0.8, anchor: .leading)
             }
             else {
-                Markdown(hole.floors.prefetch[0].content)
+                Text(hole.floors.prefetch[0].content)
                     .lineLimit(6)
             }
             Spacer()

@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7777376B27D8981C001E6513 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7777376A27D8981C001E6513 /* MarkdownUI */; };
-		7777376D27D89823001E6513 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7777376C27D89823001E6513 /* MarkdownUI */; };
+		7777376E27D8BF88001E6513 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
+		7777376F27D8BF9E001E6513 /* TreeHoleDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */; };
+		7777377027D8BF9E001E6513 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */; };
+		7777377127D8BF9E001E6513 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A649268733E600C9CD98 /* DashboardPage.swift */; };
+		7777377227D8BF9E001E6513 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
+		7777377327D8C0A5001E6513 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		7795D21E27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
 		7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
@@ -192,7 +196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F437F027D7A3180082920E /* Alamofire in Frameworks */,
-				7777376B27D8981C001E6513 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +218,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */,
-				7777376D27D89823001E6513 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +282,7 @@
 				8AC8D278268B087500B21A3E /* Views */,
 				77F437EA27D78ECA0082920E /* Libraries */,
 				77F437E627D78EB60082920E /* DanXi-native WatchKit App-Bridging-Header.h */,
+				8AA66BFA268AEB4600AE8629 /* Localizable.strings */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -323,7 +326,6 @@
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
-				8AA66BFA268AEB4600AE8629 /* Localizable.strings */,
 				8A959AA2268B4E94004B73AF /* PublicExtension.swift */,
 			);
 			path = "DanXi-native";
@@ -466,7 +468,6 @@
 			name = "DanXi-native";
 			packageProductDependencies = (
 				77F437EF27D7A3180082920E /* Alamofire */,
-				7777376A27D8981C001E6513 /* MarkdownUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -540,7 +541,6 @@
 			name = "DanXi-native WatchKit Extension";
 			packageProductDependencies = (
 				7795D21B27D82B1C00840D02 /* Alamofire */,
-				7777376C27D89823001E6513 /* MarkdownUI */,
 			);
 			productName = "DanXi-native WatchKit Extension";
 			productReference = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */;
@@ -631,7 +631,6 @@
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
 				77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */,
-				7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -686,6 +685,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */,
+				7777377327D8C0A5001E6513 /* Localizable.strings in Resources */,
 				8AC7A60E26872C4100C9CD98 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,6 +756,7 @@
 				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
 				77F437ED27D78EE70082920E /* PagedListView.swift in Sources */,
 				8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */,
+				7777377127D8BF9E001E6513 /* DashboardPage.swift in Sources */,
 				77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
 				8AA9F878269D97F70085D93D /* THPostView.swift in Sources */,
@@ -764,11 +765,15 @@
 				7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */,
 				77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */,
 				8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */,
+				7777377227D8BF9E001E6513 /* SettingsPage.swift in Sources */,
 				8AA9F877269D97EE0085D93D /* TreeHoleRepository.swift in Sources */,
 				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				77F437F327D7AB440082920E /* AppManager.swift in Sources */,
+				7777377027D8BF9E001E6513 /* TreeHolePage.swift in Sources */,
+				7777376F27D8BF9E001E6513 /* TreeHoleDetailsPage.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,
+				7777376E27D8BF88001E6513 /* LoginPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -974,7 +979,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -1003,7 +1008,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -1034,7 +1039,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -1065,7 +1070,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -1386,14 +1391,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://hub.fastgit.xyz/gonzalezreal/MarkdownUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1405,16 +1402,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7777376A27D8981C001E6513 /* MarkdownUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
-			productName = MarkdownUI;
-		};
-		7777376C27D89823001E6513 /* MarkdownUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7777376927D8981C001E6513 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
-			productName = MarkdownUI;
-		};
 		7795D21B27D82B1C00840D02 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */;

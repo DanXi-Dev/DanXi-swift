@@ -18,8 +18,11 @@ struct TreeHolePage: View {
                 }
             }
             .task {
-                if vm.divisions.isEmpty {
-                    Task { await vm.loadDivisions() }
+                if !vm.initialized && !vm.isLoading {
+                    Task {
+                        await vm.loadDivisions()
+                        vm.initialized = true
+                    }
                 }
             }
             .onChange(of: vm.currentDivision) { newValue in
@@ -27,16 +30,25 @@ struct TreeHolePage: View {
             }
             
             ForEach(vm.holes) { hole in
-                NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
-                    THPostView(hole: hole)
+                GeometryReader { geometry in
+                    NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
+                        THPostView(hole: hole)
+                            .padding()
+                            .background(.white)
+                            .cornerRadius(12)
+                            .shadow(radius: 8)
+                    }
+                    .rotation3DEffect(Angle(degrees:
+                                                Double(geometry.frame(in: .global).minX - 30) / -40), axis: (x: 0, y: 10.0, z: 0))
                 }
+                Spacer()
             }
             
             if vm.endReached == false {
                 ProgressView()
                     .task {
                         // Prevent duplicate refresh
-                        if vm.currentDivision != OTDivision.dummy {
+                        if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
                             await vm.loadNextPage()
                         }
                     }

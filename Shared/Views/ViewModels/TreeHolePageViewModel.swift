@@ -16,6 +16,7 @@ class TreeHolePageViewModel: ObservableObject {
     @Published var endReached: Bool = false
     @Published var isLoading: Bool = false
     @Published var hasError: Error? = nil
+    var initialized: Bool = false
     
     private func fetchHoles() async -> [OTHole] {
         hasError = nil

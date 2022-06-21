@@ -41,6 +41,7 @@ class TreeHoleRepository: ObservableObject {
     }
     
     func loadHoles(startTime: String?, divisionId: Int?)  async throws -> [OTHole] {
+        print(startTime)
         var components = URLComponents(string: BASE_URL + "/holes")!
         components.queryItems = [
             URLQueryItem(name: "start_time", value: startTime),
