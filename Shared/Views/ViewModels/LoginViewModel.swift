@@ -24,7 +24,7 @@ class LoginViewModel: ObservableObject {
             let token = try await TreeHoleRepository.shared.loginWithUsernamePassword(username: username, password: password)
             TreeHoleRepository.shared.token = token
             DefaultsManager.shared.fduholeToken = token
-            AppManager.fduholeAuthenticated.send(true)
+            AuthManager.AuthUserChanged.send(true)
         } catch {
             hasError = error
         }

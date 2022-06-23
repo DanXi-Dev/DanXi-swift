@@ -10,38 +10,15 @@ import Alamofire
 import SwiftUI
 
 class TreeHoleRepository: ObservableObject {
-    var token: String?
     static let shared = TreeHoleRepository()
-    private init() {
-        token = DefaultsManager.shared.fduholeToken
-    }
     
-    func getTokenHeader() throws -> String  {
-        guard token != nil else {
-            throw TreeHoleError.notInitialized
-        }
-        return "Token \(self.token!)"
-    }
-    
-    func setToken(token: String)->Void {
-        self.token = token
-    }
-    
-    func loginWithUsernamePassword(username:String, password: String) async throws -> String {
+    func loginWithUsernamePassword(username:String, password: String) async throws -> JWToken {
         let response = await AF.request(BASE_URL + "/login", method: .post, parameters: ["email":username,"password":password], encoder: JSONParameterEncoder.default).serializingString().response.data
-        let json = try JSONSerialization.jsonObject(with: response!, options: []) as! [String : Any]
-        if let message = json["message"] as? String {
-            if let token = json["token"] as? String {
-                setToken(token: token)
-            } else {
-                throw TreeHoleError.serverReturnedError(message: message)
-            }
-        }
-        return self.token!
+        let decodedResponse = try JSONDecoder().decode([JWToken].self, from: data)
+        return decodedResponse
     }
     
     func loadHoles(startTime: String?, divisionId: Int?)  async throws -> [OTHole] {
-        print(startTime)
         var components = URLComponents(string: BASE_URL + "/holes")!
         components.queryItems = [
             URLQueryItem(name: "start_time", value: startTime),

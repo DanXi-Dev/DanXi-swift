@@ -5,6 +5,17 @@
 //  Created by Kavin Zhao on 2021/6/26.
 //
 
+struct OTUser: Hashable, Codable, Identifiable {
+    var id: Int {
+        get { return self.user_id }
+    }
+    
+    let user_id: Int
+    let nickname, joined_time: String?
+    let favorites: [Int]
+    let is_admin: Bool
+}
+
 struct OTHole: Hashable, Codable, Identifiable {
     var id: Int {
         get { return self.hole_id }
