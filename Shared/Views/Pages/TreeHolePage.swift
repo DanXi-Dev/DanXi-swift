@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TreeHolePage: View {
     @StateObject var vm: TreeHolePageViewModel = TreeHolePageViewModel()
+    @EnvironmentObject var appModel: AppModel
     
     var body: some View {
         List {
@@ -20,28 +21,20 @@ struct TreeHolePage: View {
             .task {
                 if !vm.initialized && !vm.isLoading {
                     Task {
-                        await vm.loadDivisions()
+                        await vm.fetchDivisions(token: appModel.userCredential!)
                         vm.initialized = true
                     }
                 }
             }
             .onChange(of: vm.currentDivision) { newValue in
-                vm.changeDivision(newDivision: newValue)
+                vm.changeDivision(token: appModel.userCredential!, newDivision: newValue)
             }
             
             ForEach(vm.holes) { hole in
-                GeometryReader { geometry in
-                    NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
-                        THPostView(hole: hole)
-                            .padding()
-                            .background(.white)
-                            .cornerRadius(12)
-                            .shadow(radius: 8)
-                    }
-                    .rotation3DEffect(Angle(degrees:
-                                                Double(geometry.frame(in: .global).minX - 30) / -40), axis: (x: 0, y: 10.0, z: 0))
+                NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
+                    THPostView(hole: hole)
                 }
-                Spacer()
+                
             }
             
             if vm.endReached == false {
@@ -49,7 +42,7 @@ struct TreeHolePage: View {
                     .task {
                         // Prevent duplicate refresh
                         if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
-                            await vm.loadNextPage()
+                            await vm.loadNextPage(token: appModel.userCredential!)
                         }
                     }
             } else {

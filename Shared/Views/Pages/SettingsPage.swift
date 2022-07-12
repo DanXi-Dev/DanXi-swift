@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SettingsPage: View {
+    @EnvironmentObject var appModel: AppModel
+    
     var body: some View {
         Form {
             Section {
                 Button("logout") {
-                    
+                    appModel.userCredential = nil
                 }
             }
         }

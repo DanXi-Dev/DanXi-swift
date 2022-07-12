@@ -33,10 +33,8 @@ class AppModel: ObservableObject {
         guard let data = json?.data(using: .utf8) else { return nil }
         do {
             let jwt = try JSONDecoder().decode(JWToken.self, from: data)
-            print(jwt)
             return jwt
-        }
-        catch {
+        } catch {
             return nil
         }
     }
