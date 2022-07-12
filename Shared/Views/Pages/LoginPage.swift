@@ -8,28 +8,38 @@
 import SwiftUI
 
 struct LoginPage: View {
+    @EnvironmentObject private var appModel: AppModel
     @StateObject var loginViewModel: LoginViewModel = LoginViewModel()
     
     var body: some View {
-        Form {
-            Section(header: Text("fduholeLogin"), footer: Text("fduholeLogin_footer")) {
-                TextField("studentId", text: $loginViewModel.username)
-                SecureField(NSLocalizedString("pwd", comment: ""), text: $loginViewModel.password)
-            }
-            if let hasErrorStr = loginViewModel.hasError?.localizedDescription {
-                Text(hasErrorStr)
-                    .foregroundColor(.red)
-            }
-            Section {
-                Button("loginWithFduhole") {
-                    Task.init {
-                        await loginViewModel.login()
-                    }
+        NavigationView {
+            Form {
+                Section(header: Text("fduholeLogin"), footer: Text("fduholeLogin_footer")) {
+                    TextField("studentId", text: $loginViewModel.username)
+                        .textContentType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
+                    SecureField(NSLocalizedString("pwd", comment: ""), text: $loginViewModel.password)
                 }
-                .disabled(loginViewModel.isLoading)
+                if let hasErrorStr = loginViewModel.hasError?.localizedDescription {
+                    Text(hasErrorStr)
+                        .foregroundColor(.red)
+                }
+                if loginViewModel.isLoading {
+                    ProgressView()
+                }
+                Section {
+                    Button("loginWithFduhole") {
+                        Task.init {
+                            guard let jwt = await loginViewModel.login() else { return }
+                            appModel.userCredential = jwt
+                        }
+                    }
+                    .disabled(loginViewModel.isLoading)
+                }
             }
+            .navigationTitle("login")
         }
-        .navigationTitle("login")
     }
 }
 

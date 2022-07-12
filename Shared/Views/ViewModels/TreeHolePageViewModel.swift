@@ -24,7 +24,8 @@ class TreeHolePageViewModel: ObservableObject {
         defer { isLoading = false }
         
         do {
-            return try await TreeHoleRepository.shared.loadHoles(startTime: holes.last?.time_updated, divisionId: currentDivision.division_id)
+            return []
+            //return try await TreeHoleRepository.shared.loadHoles(startTime: holes.last?.time_updated, divisionId: currentDivision.division_id)
         } catch {
             hasError = error
             return []
@@ -57,7 +58,8 @@ class TreeHolePageViewModel: ObservableObject {
         defer { isLoading = false }
         
         do {
-            divisions = try await TreeHoleRepository.shared.loadDivisions()
+            divisions = []
+            //divisions = try await TreeHoleRepository.shared.loadDivisions()
             if currentDivision == OTDivision.dummy {
                 currentDivision = divisions.first ?? OTDivision.dummy
             }

@@ -12,7 +12,8 @@ struct TreeHoleDetailsPage: View {
     let initialFloors: [OTFloor]
     
     func loadData(page: Int, list: [OTFloor]) async throws -> [OTFloor] {
-        return try await TreeHoleRepository.shared.loadFloors(page: page, holeId: holeId)
+        return []
+        //return try await TreeHoleRepository.shared.loadFloors(page: page, holeId: holeId)
     }
     
     var body: some View {

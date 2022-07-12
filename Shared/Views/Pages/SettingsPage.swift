@@ -12,9 +12,7 @@ struct SettingsPage: View {
         Form {
             Section {
                 Button("logout") {
-                    TreeHoleRepository.shared.token = nil
-                    DefaultsManager.shared.fduholeToken = nil
-                    AppManager.fduholeAuthenticated.send(false)
+                    
                 }
             }
         }

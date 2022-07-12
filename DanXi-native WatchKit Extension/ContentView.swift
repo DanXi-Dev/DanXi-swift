@@ -8,28 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isFduholeAuthenticated = AppManager.isFduholeAuthenticated()
     
     var body: some View {
         NavigationView {
-            if (isFduholeAuthenticated) {
-                TabView {
-                    TreeHolePage()
-                        .tabItem {
-                            Image(systemName: "text.bubble")
-                            Text("treehole")
-                        }
-                    SettingsPage()
-                        .tabItem {
-                            Image(systemName: "gearshape")
-                            Text("settings")
-                        }
-                }
-            } else {
-                LoginPage()
+            TabView {
+                TreeHolePage()
+                    .tabItem {
+                        Image(systemName: "text.bubble")
+                        Text("treehole")
+                    }
+                SettingsPage()
+                    .tabItem {
+                        Image(systemName: "gearshape")
+                        Text("settings")
+                    }
             }
+            LoginPage()
+            
         }
-        .onReceive(AppManager.fduholeAuthenticated, perform: { isFduholeAuthenticated = $0 })
     }
 }
 

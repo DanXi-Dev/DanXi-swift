@@ -14,8 +14,6 @@
 		7777377227D8BF9E001E6513 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
 		7777377327D8C0A5001E6513 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
-		7795D21E27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
-		7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795D21D27D8368800840D02 /* DefaultsManager.swift */; };
 		77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
 		77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
 		77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD427D87DC200547698 /* LoginViewModel.swift */; };
@@ -25,12 +23,9 @@
 		77F437EC27D78EE70082920E /* PagedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437EB27D78EE70082920E /* PagedListView.swift */; };
 		77F437ED27D78EE70082920E /* PagedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437EB27D78EE70082920E /* PagedListView.swift */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
-		77F437F227D7AB440082920E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437F127D7AB440082920E /* AuthManager.swift */; };
-		77F437F327D7AB440082920E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437F127D7AB440082920E /* AuthManager.swift */; };
 		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
 		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
 		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
-		8AA9F877269D97EE0085D93D /* TreeHoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */; };
 		8AA9F878269D97F70085D93D /* THPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC8D276268B087100B21A3E /* THPostView.swift */; };
 		8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E44268D862A0003420A /* THPostDetailView.swift */; };
 		8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
@@ -60,10 +55,12 @@
 		8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */; };
 		8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
 		8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
-		8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */; };
 		8AC8D277268B087100B21A3E /* THPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC8D276268B087100B21A3E /* THPostView.swift */; };
+		F172E1C1287D869200A9573B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172E1C0287D869200A9573B /* Constants.swift */; };
+		F172E1C2287D892D00A9573B /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AppModel.swift */; };
+		F172E1C3287D8F0300A9573B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172E1C0287D869200A9573B /* Constants.swift */; };
 		F1A822AD28641CA3004FE011 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AC28641CA3004FE011 /* AppView.swift */; };
-		F1A822AF28641FC7004FE011 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AuthModels.swift */; };
+		F1A822AF28641FC7004FE011 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AppModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,14 +134,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7795D21D27D8368800840D02 /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleViewModels.swift; sourceTree = "<group>"; };
 		77B01AD427D87DC200547698 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHolePageViewModel.swift; sourceTree = "<group>"; };
 		77F437E627D78EB60082920E /* DanXi-native WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DanXi-native WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
 		77F437EB27D78EE70082920E /* PagedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedListView.swift; sourceTree = "<group>"; };
-		77F437F127D7AB440082920E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		8A959AA2268B4E94004B73AF /* PublicExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtension.swift; sourceTree = "<group>"; };
 		8AA66BF4268AE98F00AE8629 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -188,10 +183,10 @@
 		8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHolePage.swift; sourceTree = "<group>"; };
 		8AC7A64E2687347300C9CD98 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleModels.swift; sourceTree = "<group>"; };
-		8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleRepository.swift; sourceTree = "<group>"; };
 		8AC8D276268B087100B21A3E /* THPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostView.swift; sourceTree = "<group>"; };
+		F172E1C0287D869200A9573B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F1A822AC28641CA3004FE011 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
-		F1A822AE28641FC7004FE011 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
+		F1A822AE28641FC7004FE011 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,9 +266,7 @@
 		77F437EA27D78ECA0082920E /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				77F437F127D7AB440082920E /* AuthManager.swift */,
 				77F437EB27D78EE70082920E /* PagedListView.swift */,
-				7795D21D27D8368800840D02 /* DefaultsManager.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -281,8 +274,9 @@
 		8AA9F876269D97BE0085D93D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F1A822AC28641CA3004FE011 /* AppView.swift */,
+				F172E1C0287D869200A9573B /* Constants.swift */,
 				8AC7A652268735A200C9CD98 /* Models */,
-				8AC7A657268736EE00C9CD98 /* Repositories */,
 				8AC8D278268B087500B21A3E /* Views */,
 				77F437EA27D78ECA0082920E /* Libraries */,
 				77F437E627D78EB60082920E /* DanXi-native WatchKit App-Bridging-Header.h */,
@@ -430,17 +424,9 @@
 			children = (
 				8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */,
 				77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */,
-				F1A822AE28641FC7004FE011 /* AuthModels.swift */,
+				F1A822AE28641FC7004FE011 /* AppModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		8AC7A657268736EE00C9CD98 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A655268736E900C9CD98 /* TreeHoleRepository.swift */,
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		8AC8D278268B087500B21A3E /* Views */ = {
@@ -449,7 +435,6 @@
 				8AC7A64B268733EA00C9CD98 /* Pages */,
 				77B01AD327D87DA800547698 /* UI */,
 				77B01AD727D87DC700547698 /* ViewModels */,
-				F1A822AC28641CA3004FE011 /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -718,14 +703,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F437EC27D78EE70082920E /* PagedListView.swift in Sources */,
-				77F437F227D7AB440082920E /* AuthManager.swift in Sources */,
+				F172E1C1287D869200A9573B /* Constants.swift in Sources */,
 				8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */,
-				7795D21E27D8368800840D02 /* DefaultsManager.swift in Sources */,
-				F1A822AF28641FC7004FE011 /* AuthModels.swift in Sources */,
+				F1A822AF28641FC7004FE011 /* AppModel.swift in Sources */,
 				8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */,
 				8AC8D277268B087100B21A3E /* THPostView.swift in Sources */,
 				8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */,
-				8AC7A656268736E900C9CD98 /* TreeHoleRepository.swift in Sources */,
 				F1A822AD28641CA3004FE011 /* AppView.swift in Sources */,
 				77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */,
 				8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */,
@@ -770,14 +753,13 @@
 				8AA9F878269D97F70085D93D /* THPostView.swift in Sources */,
 				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
 				77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
-				7795D21F27D8368800840D02 /* DefaultsManager.swift in Sources */,
 				77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */,
 				8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */,
+				F172E1C2287D892D00A9573B /* AppModel.swift in Sources */,
 				7777377227D8BF9E001E6513 /* SettingsPage.swift in Sources */,
-				8AA9F877269D97EE0085D93D /* TreeHoleRepository.swift in Sources */,
 				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
-				77F437F327D7AB440082920E /* AuthManager.swift in Sources */,
+				F172E1C3287D8F0300A9573B /* Constants.swift in Sources */,
 				7777377027D8BF9E001E6513 /* TreeHolePage.swift in Sources */,
 				7777376F27D8BF9E001E6513 /* TreeHoleDetailsPage.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,

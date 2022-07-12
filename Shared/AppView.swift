@@ -8,37 +8,28 @@
 import SwiftUI
 
 struct AppView: View {
-    @StateObject var viewModel = AppViewModel()
+    @StateObject var appModel = AppModel()
     
     var body: some View {
         content
             .onAppear {
                 // TODO: Get User profile and check validity
             }
-            .onReceive(AuthManager.AuthUserChanged, perform: {
-                let newUser = $0
-                if (newUser.token == nil) {
-                    viewModel.userState = UserState.none
-                } else {
-                    viewModel.userState = UserState.authorized(newUser)
-                }
-            })
+            .environmentObject(appModel)
     }
     
     @ViewBuilder
     private var content: some View {
-        switch viewModel.userState {
-        case .none:
+        switch appModel.userCredential {
+        case nil:
             LoginPage()
-        case let .authorized(user):
-            MainView(authUser: user)
+        default:
+            MainView()
         }
     }
 }
 
 struct MainView: View {
-    var authUser: User
-    
     var body: some View {
         NavigationView {
             TabView {
@@ -55,8 +46,4 @@ struct MainView: View {
             }
         }
     }
-}
-
-final class AppViewModel: ObservableObject {
-    @Published var userState: UserState = .none
 }
