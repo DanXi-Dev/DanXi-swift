@@ -26,6 +26,7 @@
 "logout" = "Logout";
 
 // Tree Hole
+"division" = "Divison";
 "selectAPost" = "Select a post to view";
 "report" = "Report";
 "gettingtoken" = "Waiting for account information from iPhone...";

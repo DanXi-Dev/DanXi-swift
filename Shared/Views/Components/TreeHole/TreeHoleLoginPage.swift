@@ -30,9 +30,25 @@ struct TreeHoleLoginPage: View {
                         ProgressView()
                     }
                 }
+                
+#if os(watchOS)
+                Button("login") {
+                    Task.init {
+                        guard let jwt = await loginViewModel.login() else {
+                            return
+                        }
+                        showLoginPage = false
+                        appModel.userCredential = jwt
+                    }
+                }
+                .disabled(loginViewModel.isLoading)
+                Button("cancel") {
+                    showLoginPage = false
+                }
+#endif
             }
             .navigationTitle("fduholeAuth")
-            .navigationBarTitleDisplayMode(.inline)
+#if !os(watchOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("cancel") {
@@ -52,6 +68,7 @@ struct TreeHoleLoginPage: View {
                     .disabled(loginViewModel.isLoading)
                 }
             }
+#endif
             
         }
         

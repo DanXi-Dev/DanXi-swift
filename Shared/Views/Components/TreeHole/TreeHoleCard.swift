@@ -24,7 +24,9 @@ struct TreeHoleCard: View {
             actions
         }
         .padding()
+#if !os(watchOS)
         .background(Color(UIColor.systemGray6))
+#endif
         .cornerRadius(13)
         .padding(.horizontal)
         .padding(.vertical, 5.0)
@@ -50,12 +52,16 @@ struct TreeHoleCard: View {
             
             Text("(##\(String(floor.floor_id)))")
                 .font(.caption2)
+#if !os(watchOS)
                 .foregroundColor(Color(uiColor: .systemGray2))
+#endif
             
             Spacer()
             Text(floor.time_created)
                 .font(.caption)
+#if !os(watchOS)
                 .foregroundColor(Color(uiColor: .systemGray2))
+#endif
         }
         .padding(.top, 2.0)
     }

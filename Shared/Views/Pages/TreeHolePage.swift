@@ -14,7 +14,7 @@ struct TreeHolePage: View {
                         switcher
                         
                         ForEach(vm.holes) { hole in
-                            NavigationLink(destination: TreeHolePost(floors: hole.floors.prefetch)) {
+                            NavigationLink(destination: TreeHolePost(holeId: hole.hole_id, floors: hole.floors.prefetch)) {
                                 TreeHoleEntry(hole: hole)
                             }
                         }
@@ -33,7 +33,8 @@ struct TreeHolePage: View {
                     }
                 }
                 .navigationTitle(vm.currentDivision.name)
-                .navigationBarTitleDisplayMode(.inline)
+                //.navigationBarTitleDisplayMode(.inline)
+#if !os(watchOS)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         toolbarLeft
@@ -45,17 +46,20 @@ struct TreeHolePage: View {
                         toolbarRight
                     }
                 }
+#endif
             }
         }
     }
     
     private var switcher: some View {
-        Picker("分区", selection: $vm.currentDivision) {
+        Picker("division", selection: $vm.currentDivision) {
             ForEach(vm.divisions, id: \.self) {division in
                 Text(division.name)
             }
         }
+#if !os(watchOS)
         .pickerStyle(.segmented)
+#endif
         .padding()
         .task {
             if !vm.initialized && !vm.isLoading {

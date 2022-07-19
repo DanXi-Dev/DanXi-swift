@@ -15,7 +15,9 @@ struct TreeHoleEntry: View {
                 .lineLimit(6)
         }
         .padding()
+#if !os(watchOS)
         .background(Color(UIColor.systemGray6))
+#endif
         .cornerRadius(13)
         .padding(.horizontal)
         .padding(.vertical, 5.0)

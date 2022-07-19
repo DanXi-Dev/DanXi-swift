@@ -55,6 +55,21 @@
 		F172E1C2287D892D00A9573B /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AppModel.swift */; };
 		F172E1C3287D8F0300A9573B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172E1C0287D869200A9573B /* Constants.swift */; };
 		F1A822AF28641FC7004FE011 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AppModel.swift */; };
+		F1E6C82B2886BC1B000E5096 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF128867A7C0079D777 /* TreeHolePage.swift */; };
+		F1E6C82C2886BC22000E5096 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703701028867B200079D777 /* AppView.swift */; };
+		F1E6C82D2886BC39000E5096 /* TreeHoleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700528867ACD0079D777 /* TreeHoleEntry.swift */; };
+		F1E6C82E2886BC39000E5096 /* TreeHoleLoginPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700328867ACD0079D777 /* TreeHoleLoginPrompt.swift */; };
+		F1E6C82F2886BC39000E5096 /* TreeHoleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700228867ACD0079D777 /* TreeHoleCard.swift */; };
+		F1E6C8302886BC39000E5096 /* TreeHoleSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700028867ACD0079D777 /* TreeHoleSwitch.swift */; };
+		F1E6C8312886BC39000E5096 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700128867ACD0079D777 /* TagList.swift */; };
+		F1E6C8322886BC39000E5096 /* TreeHoleLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700628867ACD0079D777 /* TreeHoleLoginPage.swift */; };
+		F1E6C8332886BC39000E5096 /* TreeHolePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700428867ACD0079D777 /* TreeHolePost.swift */; };
+		F1E6C8342886BC49000E5096 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FFA28867A980079D777 /* SizeReader.swift */; };
+		F1E6C8352886BC49000E5096 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF828867A980079D777 /* _FlexibleView.swift */; };
+		F1E6C8362886BC49000E5096 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF928867A980079D777 /* FlexibleView.swift */; };
+		F1E6C8372886BC4C000E5096 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF028867A7C0079D777 /* CalendarPage.swift */; };
+		F1E6C8382886BC4C000E5096 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FEF28867A7C0079D777 /* DashboardPage.swift */; };
+		F1E6C8392886BC4C000E5096 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FEE28867A7C0079D777 /* SettingsPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -766,13 +781,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E6C8312886BC39000E5096 /* TagList.swift in Sources */,
 				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
 				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
+				F1E6C82B2886BC1B000E5096 /* TreeHolePage.swift in Sources */,
 				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
+				F1E6C8362886BC49000E5096 /* FlexibleView.swift in Sources */,
+				F1E6C82F2886BC39000E5096 /* TreeHoleCard.swift in Sources */,
+				F1E6C82D2886BC39000E5096 /* TreeHoleEntry.swift in Sources */,
+				F1E6C82E2886BC39000E5096 /* TreeHoleLoginPrompt.swift in Sources */,
+				F1E6C8392886BC4C000E5096 /* SettingsPage.swift in Sources */,
+				F1E6C8322886BC39000E5096 /* TreeHoleLoginPage.swift in Sources */,
+				F1E6C8342886BC49000E5096 /* SizeReader.swift in Sources */,
+				F1E6C8382886BC4C000E5096 /* DashboardPage.swift in Sources */,
 				77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
+				F1E6C8372886BC4C000E5096 /* CalendarPage.swift in Sources */,
 				77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */,
+				F1E6C8332886BC39000E5096 /* TreeHolePost.swift in Sources */,
+				F1E6C8302886BC39000E5096 /* TreeHoleSwitch.swift in Sources */,
 				F172E1C2287D892D00A9573B /* AppModel.swift in Sources */,
 				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
+				F1E6C8352886BC49000E5096 /* _FlexibleView.swift in Sources */,
+				F1E6C82C2886BC22000E5096 /* AppView.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				F172E1C3287D8F0300A9573B /* Constants.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,

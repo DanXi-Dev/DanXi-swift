@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TreeHolePost: View {
+    let holeId: Int
     let floors: [OTFloor]
     
     var body: some View {
@@ -11,7 +12,7 @@ struct TreeHolePost: View {
                 }
             }
         }
-        .navigationTitle("hello")
+        .navigationTitle("#\(String(holeId))") // You need to explictly specify String(id) to remove the thousand seperator
     }
 }
 
@@ -26,11 +27,11 @@ struct TreeHolePost_Previews: PreviewProvider {
         storey: 5,
         content: """
         We can make text *italic*, **bold**, ***bold italic***, or ~~striked through~~.
-
+        
         You can even create [links](https://www.twitter.com/twannl) that actually work.
-
+        
         Or use `Monospace` to mimic `Text("inline code")`.
-
+        
         """,
         anonyname: "Dax",
         time_updated: "",
@@ -44,8 +45,8 @@ struct TreeHolePost_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            TreeHolePost(floors: testFloorList)
-            TreeHolePost(floors: testFloorList)
+            TreeHolePost(holeId:1234, floors: testFloorList)
+            TreeHolePost(holeId:1234, floors: testFloorList)
                 .preferredColorScheme(.dark)
         }
     }
