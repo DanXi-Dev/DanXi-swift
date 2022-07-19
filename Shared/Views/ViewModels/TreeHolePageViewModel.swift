@@ -19,7 +19,7 @@ class TreeHolePageViewModel: ObservableObject {
     var initialized: Bool = false
     
     func loadHoles(token: JWToken, startTime: String?, divisionId: Int?) async throws -> [OTHole] {
-        var components = URLComponents(string: BASE_URL + "/holes")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
         components.queryItems = [
             URLQueryItem(name: "start_time", value: startTime),
             URLQueryItem(name: "division_id", value: String(divisionId ?? 1))
@@ -36,7 +36,7 @@ class TreeHolePageViewModel: ObservableObject {
     
     func loadDivisions(token: JWToken)  async throws -> [OTDivision] {
         
-        let components = URLComponents(string: BASE_URL + "/divisions")!
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions")!
         var request = URLRequest(url: components.url!)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")

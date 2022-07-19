@@ -11,14 +11,19 @@
 "treehole" = "Tree Hole";
 "settings" = "Settings";
 
-// Login Page
+// Login
 "login" = "Login";
 "uisLogin" = "UIS Login";
 "studentId" = "Student ID";
 "pwd" = "Password";
-"fduholeLogin" = "FDUHOLE Login";
-"loginWithFduhole" = "Login with FDUHOLE";
+"fduholeAuth" = "FDUHOLE Single Login";
+"fduholeAccount" = "FDUHOLE Account";
+"email" = "Email";
 "fduholeLogin_footer" = "You will be able to use only FDUHOLE features if you login with this option.";
+"cancel" = "Cancel";
+"account" = "Account";
+"notLoggedIn" = "Not Logged In";
+"logout" = "Logout";
 
 // Tree Hole
 "selectAPost" = "Select a post to view";

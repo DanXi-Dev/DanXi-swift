@@ -24,8 +24,6 @@
 		2703701128867B200079D777 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703701028867B200079D777 /* AppView.swift */; };
 		7777377327D8C0A5001E6513 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
-		77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
-		77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
 		77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD427D87DC200547698 /* LoginViewModel.swift */; };
 		77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD427D87DC200547698 /* LoginViewModel.swift */; };
 		77B01AD927D8806400547698 /* TreeHolePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */; };
@@ -146,7 +144,6 @@
 		2703700628867ACD0079D777 /* TreeHoleLoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHoleLoginPage.swift; sourceTree = "<group>"; };
 		2703701028867B200079D777 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleViewModels.swift; sourceTree = "<group>"; };
 		77B01AD427D87DC200547698 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		77B01AD827D8806400547698 /* TreeHolePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHolePageViewModel.swift; sourceTree = "<group>"; };
 		77F437E627D78EB60082920E /* DanXi-native WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DanXi-native WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -444,7 +441,6 @@
 			isa = PBXGroup;
 			children = (
 				8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */,
-				77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */,
 				F1A822AE28641FC7004FE011 /* AppModel.swift */,
 			);
 			path = Models;
@@ -744,7 +740,6 @@
 				27036FF428867A7C0079D777 /* CalendarPage.swift in Sources */,
 				77B01AD927D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
 				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
-				77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */,
 				27036FFD28867A980079D777 /* SizeReader.swift in Sources */,
@@ -772,7 +767,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
-				77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
 				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
 				77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */,

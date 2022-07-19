@@ -8,18 +8,18 @@ struct TreeHoleLoginPage: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
-                    TextField("邮箱", text: $loginViewModel.username)
+                Section("fduholeAccount") {
+                    TextField("email", text: $loginViewModel.username)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .disableAutocorrection(true)
                     
-                    SecureField(NSLocalizedString("密码", comment: ""), text: $loginViewModel.password)
+                    SecureField("pwd", text: $loginViewModel.password)
                 }
                 
                 
                 if let hasErrorStr = loginViewModel.hasError?.localizedDescription {
-                    Section {
+                    Section("error") {
                         Text(hasErrorStr)
                             .foregroundColor(.red)
                     }
@@ -31,16 +31,16 @@ struct TreeHoleLoginPage: View {
                     }
                 }
             }
-            .navigationTitle("登录旦夕")
+            .navigationTitle("fduholeAuth")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("取消") {
+                    Button("cancel") {
                         showLoginPage = false
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("登录") {
+                    Button("login") {
                         Task.init {
                             guard let jwt = await loginViewModel.login() else {
                                 return

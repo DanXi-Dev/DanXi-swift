@@ -8,7 +8,7 @@ struct SettingsPage: View {
     var body: some View {
         NavigationView {
             List {
-                Section("账户管理") {
+                Section("account") {
                     uisAccount
                     if appModel.hasAccount {
                         treeHoleAccount
@@ -23,7 +23,7 @@ struct SettingsPage: View {
                     Text("Setting 3")
                 }
             }
-            .navigationTitle("设置")
+            .navigationTitle("settings")
         }
     }
     
@@ -54,18 +54,18 @@ struct SettingsPage: View {
                     .foregroundStyle(Color.accentColor, Color.accentColor.opacity(0.3))
             }.padding()
             VStack(alignment: .leading, spacing: 3.0) {
-                Text("旦夕")
+                Text("fduholeAccount")
                     .fontWeight(.semibold)
-                Text("已登录")
+                Text("ID: \(appModel.account?.user_id ?? 0)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
         }
-        .confirmationDialog("账户管理", isPresented: $showTreeHoleActions) {
-            Button("退出登录", role: .destructive) {
+        .confirmationDialog("account", isPresented: $showTreeHoleActions) {
+            Button("logout", role: .destructive) {
                 // FIXME: 退出后有时菜单会再次弹出
+                //showTreeHoleActions = false
                 appModel.userCredential = nil
-                showTreeHoleActions = false
             }
         }
     }
@@ -79,9 +79,9 @@ struct SettingsPage: View {
                     .foregroundStyle(Color.secondary, Color.secondary.opacity(0.3))
             }.padding()
             VStack(alignment: .leading, spacing: 3.0) {
-                Text("旦夕")
+                Text("fduholeAccount")
                     .fontWeight(.semibold)
-                Text("未登录")
+                Text("notLoggedIn")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
