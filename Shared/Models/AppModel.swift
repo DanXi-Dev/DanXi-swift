@@ -54,6 +54,7 @@ public enum TreeHoleError: LocalizedError {
     case notInitialized
     case serverReturnedError(message: String)
     case invalidResponse
+    case invalidFormat
 }
 
 extension TreeHoleError {
@@ -67,6 +68,8 @@ extension TreeHoleError {
             return "Repository not initialized"
         case .invalidResponse:
             return "The server returned an invalid response"
+        case .invalidFormat:
+            return "The server returned a malformed response"
         }
     }
 }

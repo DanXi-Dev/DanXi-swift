@@ -1,3 +1,4 @@
+import Foundation
 struct OTUser: Hashable, Codable, Identifiable {
     var id: Int {
         get { return self.user_id }
@@ -19,6 +20,17 @@ struct OTHole: Hashable, Codable, Identifiable {
     let floors: _OTFloors
     let time_created, time_updated: String
     let tags: [OTTag]?
+    
+    var timeCreated: Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        return formatter.date(from: time_created)
+    }
+    var timeUpdated: Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        return formatter.date(from: time_updated)
+    }
 }
 
 struct _OTFloors: Hashable, Codable {
@@ -35,6 +47,17 @@ struct OTFloor: Hashable, Codable, Identifiable {
     let content, anonyname, time_updated, time_created: String
     let deleted, is_me, liked: Bool?
     let fold: [String]?
+    
+    var timeCreated: Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        return formatter.date(from: time_created)
+    }
+    var timeUpdated: Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        return formatter.date(from: time_updated)
+    }
 }
 
 struct OTDivision: Hashable, Codable, Identifiable {
