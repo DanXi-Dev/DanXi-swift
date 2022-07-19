@@ -7,11 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7777376E27D8BF88001E6513 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
-		7777376F27D8BF9E001E6513 /* TreeHoleDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */; };
-		7777377027D8BF9E001E6513 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */; };
-		7777377127D8BF9E001E6513 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A649268733E600C9CD98 /* DashboardPage.swift */; };
-		7777377227D8BF9E001E6513 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
+		27036FF228867A7C0079D777 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FEE28867A7C0079D777 /* SettingsPage.swift */; };
+		27036FF328867A7C0079D777 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FEF28867A7C0079D777 /* DashboardPage.swift */; };
+		27036FF428867A7C0079D777 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF028867A7C0079D777 /* CalendarPage.swift */; };
+		27036FF528867A7C0079D777 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF128867A7C0079D777 /* TreeHolePage.swift */; };
+		27036FFB28867A980079D777 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF828867A980079D777 /* _FlexibleView.swift */; };
+		27036FFC28867A980079D777 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF928867A980079D777 /* FlexibleView.swift */; };
+		27036FFD28867A980079D777 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FFA28867A980079D777 /* SizeReader.swift */; };
+		2703700728867ACD0079D777 /* TreeHoleSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700028867ACD0079D777 /* TreeHoleSwitch.swift */; };
+		2703700828867ACD0079D777 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700128867ACD0079D777 /* TagList.swift */; };
+		2703700928867ACD0079D777 /* TreeHoleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700228867ACD0079D777 /* TreeHoleCard.swift */; };
+		2703700A28867ACD0079D777 /* TreeHoleLoginPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700328867ACD0079D777 /* TreeHoleLoginPrompt.swift */; };
+		2703700B28867ACD0079D777 /* TreeHolePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700428867ACD0079D777 /* TreeHolePost.swift */; };
+		2703700C28867ACD0079D777 /* TreeHoleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700528867ACD0079D777 /* TreeHoleEntry.swift */; };
+		2703700D28867ACD0079D777 /* TreeHoleLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700628867ACD0079D777 /* TreeHoleLoginPage.swift */; };
+		2703700F28867B190079D777 /* DanxiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703700E28867B190079D777 /* DanxiApp.swift */; };
+		2703701128867B200079D777 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703701028867B200079D777 /* ContentView.swift */; };
 		7777377327D8C0A5001E6513 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */; };
@@ -24,15 +35,8 @@
 		77F437ED27D78EE70082920E /* PagedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F437EB27D78EE70082920E /* PagedListView.swift */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
-		8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA66BF4268AE98F00AE8629 /* LoginPage.swift */; };
 		8AA66BF8268AEB4600AE8629 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AA66BFA268AEB4600AE8629 /* Localizable.strings */; };
-		8AA9F878269D97F70085D93D /* THPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC8D276268B087100B21A3E /* THPostView.swift */; };
-		8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E44268D862A0003420A /* THPostDetailView.swift */; };
 		8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
-		8AA9F87C269D99030085D93D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA9F87B269D99030085D93D /* ErrorView.swift */; };
-		8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA9F87B269D99030085D93D /* ErrorView.swift */; };
-		8ABA2E43268D86060003420A /* TreeHoleDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */; };
-		8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA2E44268D862A0003420A /* THPostDetailView.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D226872C3E00C9CD98 /* ContentView.swift */; };
 		8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */; };
@@ -51,15 +55,10 @@
 		8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */; };
 		8AC7A61D26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A61C26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift */; };
 		8AC7A62826872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */; };
-		8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A649268733E600C9CD98 /* DashboardPage.swift */; };
-		8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */; };
-		8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A64E2687347300C9CD98 /* SettingsPage.swift */; };
 		8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */; };
-		8AC8D277268B087100B21A3E /* THPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC8D276268B087100B21A3E /* THPostView.swift */; };
 		F172E1C1287D869200A9573B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172E1C0287D869200A9573B /* Constants.swift */; };
 		F172E1C2287D892D00A9573B /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AppModel.swift */; };
 		F172E1C3287D8F0300A9573B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172E1C0287D869200A9573B /* Constants.swift */; };
-		F1A822AD28641CA3004FE011 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AC28641CA3004FE011 /* AppView.swift */; };
 		F1A822AF28641FC7004FE011 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A822AE28641FC7004FE011 /* AppModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +133,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27036FEE28867A7C0079D777 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		27036FEF28867A7C0079D777 /* DashboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardPage.swift; sourceTree = "<group>"; };
+		27036FF028867A7C0079D777 /* CalendarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPage.swift; sourceTree = "<group>"; };
+		27036FF128867A7C0079D777 /* TreeHolePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHolePage.swift; sourceTree = "<group>"; };
+		27036FF828867A980079D777 /* _FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
+		27036FF928867A980079D777 /* FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		27036FFA28867A980079D777 /* SizeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
+		2703700028867ACD0079D777 /* TreeHoleSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHoleSwitch.swift; sourceTree = "<group>"; };
+		2703700128867ACD0079D777 /* TagList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagList.swift; sourceTree = "<group>"; };
+		2703700228867ACD0079D777 /* TreeHoleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHoleCard.swift; sourceTree = "<group>"; };
+		2703700328867ACD0079D777 /* TreeHoleLoginPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHoleLoginPrompt.swift; sourceTree = "<group>"; };
+		2703700428867ACD0079D777 /* TreeHolePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHolePost.swift; sourceTree = "<group>"; };
+		2703700528867ACD0079D777 /* TreeHoleEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHoleEntry.swift; sourceTree = "<group>"; };
+		2703700628867ACD0079D777 /* TreeHoleLoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHoleLoginPage.swift; sourceTree = "<group>"; };
+		2703700E28867B190079D777 /* DanxiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DanxiApp.swift; sourceTree = "<group>"; };
+		2703701028867B200079D777 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		77B01AD027D85E9D00547698 /* TreeHoleViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleViewModels.swift; sourceTree = "<group>"; };
 		77B01AD427D87DC200547698 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -141,13 +156,9 @@
 		77F437E627D78EB60082920E /* DanXi-native WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DanXi-native WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
 		77F437EB27D78EE70082920E /* PagedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedListView.swift; sourceTree = "<group>"; };
 		8A959AA2268B4E94004B73AF /* PublicExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtension.swift; sourceTree = "<group>"; };
-		8AA66BF4268AE98F00AE8629 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		8AA66BF9268AEB4600AE8629 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AA66BFB268AEB4800AE8629 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		8AA9F87B269D99030085D93D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
-		8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleDetailsPage.swift; sourceTree = "<group>"; };
-		8ABA2E44268D862A0003420A /* THPostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostDetailView.swift; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D226872C3E00C9CD98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -179,13 +190,8 @@
 		8AC7A62326872C4100C9CD98 /* DanXi-native WatchKit AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DanXi-native WatchKit AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_native_WatchKit_AppUITests.swift; sourceTree = "<group>"; };
 		8AC7A62926872C4100C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A649268733E600C9CD98 /* DashboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPage.swift; sourceTree = "<group>"; };
-		8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHolePage.swift; sourceTree = "<group>"; };
-		8AC7A64E2687347300C9CD98 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleModels.swift; sourceTree = "<group>"; };
-		8AC8D276268B087100B21A3E /* THPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostView.swift; sourceTree = "<group>"; };
 		F172E1C0287D869200A9573B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F1A822AC28641CA3004FE011 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		F1A822AE28641FC7004FE011 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -237,21 +243,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27036FF628867A980079D777 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				27036FF728867A980079D777 /* Flexible */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		27036FF728867A980079D777 /* Flexible */ = {
+			isa = PBXGroup;
+			children = (
+				27036FF828867A980079D777 /* _FlexibleView.swift */,
+				27036FF928867A980079D777 /* FlexibleView.swift */,
+				27036FFA28867A980079D777 /* SizeReader.swift */,
+			);
+			path = Flexible;
+			sourceTree = "<group>";
+		};
+		27036FFE28867ACD0079D777 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				27036FFF28867ACD0079D777 /* TreeHole */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		27036FFF28867ACD0079D777 /* TreeHole */ = {
+			isa = PBXGroup;
+			children = (
+				2703700028867ACD0079D777 /* TreeHoleSwitch.swift */,
+				2703700128867ACD0079D777 /* TagList.swift */,
+				2703700228867ACD0079D777 /* TreeHoleCard.swift */,
+				2703700328867ACD0079D777 /* TreeHoleLoginPrompt.swift */,
+				2703700428867ACD0079D777 /* TreeHolePost.swift */,
+				2703700528867ACD0079D777 /* TreeHoleEntry.swift */,
+				2703700628867ACD0079D777 /* TreeHoleLoginPage.swift */,
+			);
+			path = TreeHole;
+			sourceTree = "<group>";
+		};
 		7795D21A27D82B1C00840D02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		77B01AD327D87DA800547698 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				8AC8D276268B087100B21A3E /* THPostView.swift */,
-				8ABA2E44268D862A0003420A /* THPostDetailView.swift */,
-				8AA9F87B269D99030085D93D /* ErrorView.swift */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		77B01AD727D87DC700547698 /* ViewModels */ = {
@@ -274,7 +310,8 @@
 		8AA9F876269D97BE0085D93D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				F1A822AC28641CA3004FE011 /* AppView.swift */,
+				2703700E28867B190079D777 /* DanxiApp.swift */,
+				2703701028867B200079D777 /* ContentView.swift */,
 				F172E1C0287D869200A9573B /* Constants.swift */,
 				8AC7A652268735A200C9CD98 /* Models */,
 				8AC8D278268B087500B21A3E /* Views */,
@@ -410,11 +447,10 @@
 		8AC7A64B268733EA00C9CD98 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A649268733E600C9CD98 /* DashboardPage.swift */,
-				8AC7A64C2687341300C9CD98 /* TreeHolePage.swift */,
-				8ABA2E42268D86060003420A /* TreeHoleDetailsPage.swift */,
-				8AC7A64E2687347300C9CD98 /* SettingsPage.swift */,
-				8AA66BF4268AE98F00AE8629 /* LoginPage.swift */,
+				27036FF028867A7C0079D777 /* CalendarPage.swift */,
+				27036FEF28867A7C0079D777 /* DashboardPage.swift */,
+				27036FEE28867A7C0079D777 /* SettingsPage.swift */,
+				27036FF128867A7C0079D777 /* TreeHolePage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -432,8 +468,9 @@
 		8AC8D278268B087500B21A3E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				27036FFE28867ACD0079D777 /* Components */,
+				27036FF628867A980079D777 /* Helpers */,
 				8AC7A64B268733EA00C9CD98 /* Pages */,
-				77B01AD327D87DA800547698 /* UI */,
 				77B01AD727D87DC700547698 /* ViewModels */,
 			);
 			path = Views;
@@ -702,25 +739,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2703700828867ACD0079D777 /* TagList.swift in Sources */,
+				2703700928867ACD0079D777 /* TreeHoleCard.swift in Sources */,
 				77F437EC27D78EE70082920E /* PagedListView.swift in Sources */,
+				2703700F28867B190079D777 /* DanxiApp.swift in Sources */,
 				F172E1C1287D869200A9573B /* Constants.swift in Sources */,
-				8AA66BF5268AE98F00AE8629 /* LoginPage.swift in Sources */,
 				F1A822AF28641FC7004FE011 /* AppModel.swift in Sources */,
+				27036FFB28867A980079D777 /* _FlexibleView.swift in Sources */,
+				2703700B28867ACD0079D777 /* TreeHolePost.swift in Sources */,
+				2703700728867ACD0079D777 /* TreeHoleSwitch.swift in Sources */,
+				27036FF228867A7C0079D777 /* SettingsPage.swift in Sources */,
+				2703701128867B200079D777 /* ContentView.swift in Sources */,
 				8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */,
-				8AC8D277268B087100B21A3E /* THPostView.swift in Sources */,
-				8AC7A64D2687341300C9CD98 /* TreeHolePage.swift in Sources */,
-				F1A822AD28641CA3004FE011 /* AppView.swift in Sources */,
+				27036FF328867A7C0079D777 /* DashboardPage.swift in Sources */,
+				27036FFC28867A980079D777 /* FlexibleView.swift in Sources */,
+				2703700D28867ACD0079D777 /* TreeHoleLoginPage.swift in Sources */,
+				27036FF528867A7C0079D777 /* TreeHolePage.swift in Sources */,
+				2703700A28867ACD0079D777 /* TreeHoleLoginPrompt.swift in Sources */,
 				77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */,
-				8ABA2E45268D862A0003420A /* THPostDetailView.swift in Sources */,
-				8AC7A64A268733E600C9CD98 /* DashboardPage.swift in Sources */,
+				2703700C28867ACD0079D777 /* TreeHoleEntry.swift in Sources */,
+				27036FF428867A7C0079D777 /* CalendarPage.swift in Sources */,
 				77B01AD927D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
 				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
 				77B01AD127D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */,
-				8AC7A64F2687347300C9CD98 /* SettingsPage.swift in Sources */,
-				8AA9F87C269D99030085D93D /* ErrorView.swift in Sources */,
-				8ABA2E43268D86060003420A /* TreeHoleDetailsPage.swift in Sources */,
+				27036FFD28867A980079D777 /* SizeReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,24 +790,16 @@
 			files = (
 				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
 				77F437ED27D78EE70082920E /* PagedListView.swift in Sources */,
-				8AA9F879269D97F70085D93D /* THPostDetailView.swift in Sources */,
-				7777377127D8BF9E001E6513 /* DashboardPage.swift in Sources */,
 				77B01AD227D85E9D00547698 /* TreeHoleViewModels.swift in Sources */,
 				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
-				8AA9F878269D97F70085D93D /* THPostView.swift in Sources */,
 				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
 				77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
 				77B01AD627D87DC200547698 /* LoginViewModel.swift in Sources */,
-				8AA9F87D269D99030085D93D /* ErrorView.swift in Sources */,
 				F172E1C2287D892D00A9573B /* AppModel.swift in Sources */,
-				7777377227D8BF9E001E6513 /* SettingsPage.swift in Sources */,
 				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				F172E1C3287D8F0300A9573B /* Constants.swift in Sources */,
-				7777377027D8BF9E001E6513 /* TreeHolePage.swift in Sources */,
-				7777376F27D8BF9E001E6513 /* TreeHoleDetailsPage.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,
-				7777376E27D8BF88001E6513 /* LoginPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,10 +1,3 @@
-//
-//  TreeHoleViewModels.swift
-//  DanXi-native
-//
-//  Created by Kavin Zhao on 2022/3/9.
-//
-
 import Alamofire
 import Foundation
 import Combine
@@ -13,9 +6,9 @@ let BASE_URL = "https://api.fduhole.com"
 
 class OTHolesViewModel: ObservableObject {
     @Published var data = [OTHole]()
-    
+
     public var token: String?
-    
+
     var encounteredError: LocalizedError?
     var endReached = false
     var currentPage = 1
@@ -24,10 +17,10 @@ class OTHolesViewModel: ObservableObject {
             self.fetchData()
         }
     }
-    
+
     let url = URL(string: BASE_URL + "/holes")!
     private var cancellable: AnyCancellable?
-    
+
     func fetchData() {
         encounteredError = nil
         guard token != nil else {

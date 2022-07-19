@@ -62,6 +62,7 @@ struct PagedListView<T: Identifiable>: View {
     }
     
     var body: some View {
+        Text("PagedListView")
         if let hasEncounteredError = encounteredError {
             ErrorView(error: hasEncounteredError)
                 .onTapGesture {

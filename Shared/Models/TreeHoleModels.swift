@@ -1,10 +1,3 @@
-//
-//  TreeHoleModels.swift
-//  DanXi-native
-//
-//  Created by Kavin Zhao on 2021/6/26.
-//
-
 struct OTUser: Hashable, Codable, Identifiable {
     var id: Int {
         get { return self.user_id }

@@ -1,10 +1,3 @@
-//
-//  TreeHole.swift
-//  DanXi-native
-//
-//  Created by Kavin Zhao on 2021/6/26.
-//
-
 import SwiftUI
 
 struct TreeHolePage: View {
@@ -12,49 +5,102 @@ struct TreeHolePage: View {
     @EnvironmentObject var appModel: AppModel
     
     var body: some View {
-        List {
-            Picker("division", selection: $vm.currentDivision) {
-                ForEach(vm.divisions, id: \.self) {division in
-                    Text("\(division.name) - \(division.description)")
-                }
-            }
-            .task {
-                if !vm.initialized && !vm.isLoading {
-                    Task {
-                        await vm.fetchDivisions(token: appModel.userCredential!)
-                        vm.initialized = true
-                    }
-                }
-            }
-            .onChange(of: vm.currentDivision) { newValue in
-                vm.changeDivision(token: appModel.userCredential!, newDivision: newValue)
-            }
-            
-            ForEach(vm.holes) { hole in
-                NavigationLink(destination: TreeHoleDetailsPage(holeId: hole.hole_id, initialFloors: hole.floors.prefetch)) {
-                    THPostView(hole: hole)
-                }
-                
-            }
-            
-            if vm.endReached == false {
-                ProgressView()
-                    .task {
-                        // Prevent duplicate refresh
-                        if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
-                            await vm.loadNextPage(token: appModel.userCredential!)
+        if !appModel.hasAccount {
+            TreeHoleLoginPrompt() }
+        else {
+            NavigationView {
+                ScrollView {
+                    VStack(alignment: .center) {
+                        switcher
+                        
+                        ForEach(vm.holes) { hole in
+                            NavigationLink(destination: TreeHolePost(floors: hole.floors.prefetch)) {
+                                TreeHoleEntry(hole: hole)
+                            }
+                        }
+                        
+                        if vm.endReached == false {
+                            ProgressView()
+                                .task {
+                                    // Prevent duplicate refresh
+                                    if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
+                                        await vm.loadNextPage(token: appModel.userCredential!)
+                                    }
+                                }
+                        } else {
+                            Text("endreached")
                         }
                     }
-            } else {
-                Text("endreached")
+                }
+                .navigationTitle(vm.currentDivision.name)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        toolbarLeft
+                    }
+                    
+                    
+                    
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        toolbarRight
+                    }
+                }
             }
         }
-        .navigationTitle("treehole")
     }
     
-    struct TreeHole_Previews: PreviewProvider {
-        static var previews: some View {
+    private var switcher: some View {
+        Picker("分区", selection: $vm.currentDivision) {
+            ForEach(vm.divisions, id: \.self) {division in
+                Text(division.name)
+            }
+        }
+        .pickerStyle(.segmented)
+        .padding()
+        .task {
+            if !vm.initialized && !vm.isLoading {
+                Task {
+                    await vm.fetchDivisions(token: appModel.userCredential!)
+                    vm.initialized = true
+                }
+            }
+        }
+        .onChange(of: vm.currentDivision) { newValue in
+            vm.changeDivision(token: appModel.userCredential!, newDivision: newValue)
+        }
+    }
+    
+    private var toolbarLeft: some View {
+        Button(action: {}, label: {
+            Image(systemName: "bell")
+        })
+        .font(.subheadline)
+    }
+    
+    private var toolbarRight: some View {
+        Group {
+            Button(action: {}, label: {
+                Image(systemName: "arrow.up.arrow.down")
+            })
+            Button(action: {}, label: {
+                Image(systemName: "star")
+            })
+            Button(action: {}, label: {
+                Image(systemName: "plus.circle")
+            })
+        }
+        .font(.subheadline)
+    }
+    
+}
+
+struct TreeHolePage_Previews: PreviewProvider {
+    static let appModel = AppModel()
+    
+    static var previews: some View {
+        Group {
             TreeHolePage()
+                .environmentObject(appModel)
         }
     }
 }

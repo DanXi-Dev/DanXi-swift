@@ -1,13 +1,14 @@
 import SwiftUI
 
-struct DashboardPage: View {
+struct TreeHoleSwitch: View {
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct DashboardPage_Previews: PreviewProvider {
+struct TreeHoleSwitch_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardPage()
+        TreeHoleSwitch()
     }
 }
