@@ -31,7 +31,7 @@ struct OTFloor: Hashable, Codable, Identifiable {
         get { return self.floor_id }
     }
     
-    let floor_id, hole_id, like: Int
+    let floor_id, hole_id, like, storey: Int
     let content, anonyname, time_updated, time_created: String
     let deleted, is_me, liked: Bool?
     let fold: [String]?

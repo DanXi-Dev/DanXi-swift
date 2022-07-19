@@ -1,5 +1,4 @@
 import SwiftUI
-import MarkdownUI
 
 struct TreeHoleCard: View {
     
@@ -17,7 +16,7 @@ struct TreeHoleCard: View {
                 TagList(tags: tagList)
             }
             poster
-            Markdown(floor.content)
+            Text(floor.content)
                 .font(.system(size: 12))
                 
             info

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct AppView: View {
     @StateObject var appModel = AppModel()
     
     var body: some View {
@@ -33,12 +33,12 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView()
+            AppView()
             
-            ContentView()
+            AppView()
                 .preferredColorScheme(.dark)
         }
     }

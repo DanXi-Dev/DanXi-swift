@@ -10,22 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
-        NavigationView {
-            TabView {
-                TreeHolePage()
-                    .tabItem {
-                        Image(systemName: "text.bubble")
-                        Text("treehole")
-                    }
-                SettingsPage()
-                    .tabItem {
-                        Image(systemName: "gearshape")
-                        Text("settings")
-                    }
-            }
-            LoginPage()
-            
-        }
+        Text("hello world")
     }
 }
 

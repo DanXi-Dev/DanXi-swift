@@ -8,19 +8,27 @@ struct TreeHoleLoginPage: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("邮箱", text: $loginViewModel.username)
-                    .textContentType(.emailAddress)
-                    .textInputAutocapitalization(.never)
-                    .disableAutocorrection(true)
+                Section {
+                    TextField("邮箱", text: $loginViewModel.username)
+                        .textContentType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
+                    
+                    SecureField(NSLocalizedString("密码", comment: ""), text: $loginViewModel.password)
+                }
                 
-                SecureField(NSLocalizedString("密码", comment: ""), text: $loginViewModel.password)
                 
                 if let hasErrorStr = loginViewModel.hasError?.localizedDescription {
-                    Text(hasErrorStr)
-                        .foregroundColor(.red)
+                    Section {
+                        Text(hasErrorStr)
+                            .foregroundColor(.red)
+                    }
                 }
+                
                 if loginViewModel.isLoading {
-                    ProgressView()
+                    Section {
+                        ProgressView()
+                    }
                 }
             }
             .navigationTitle("登录旦夕")
@@ -33,14 +41,12 @@ struct TreeHoleLoginPage: View {
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button("登录") {
-                        showLoginPage = false
                         Task.init {
                             guard let jwt = await loginViewModel.login() else {
-                                // TODO: 警告登录失败
                                 return
                             }
-                            appModel.userCredential = jwt
                             showLoginPage = false
+                            appModel.userCredential = jwt
                         }
                     }
                     .disabled(loginViewModel.isLoading)
