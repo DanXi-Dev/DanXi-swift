@@ -6,25 +6,23 @@ struct SettingsPage: View {
     @State var showTreeHoleActions = false
     
     var body: some View {
-        NavigationView {
-            List {
-                Section("account") {
-                    uisAccount
-                    if appModel.hasAccount {
-                        treeHoleAccount
-                    } else {
-                        treeHoleAccountNotLogged
-                    }
-                }
-                
-                Section("Others") {
-                    Text("Setting 1")
-                    Text("Setting 2")
-                    Text("Setting 3")
+        Form {
+            Section("account") {
+                uisAccount
+                if appModel.hasAccount {
+                    treeHoleAccount
+                } else {
+                    treeHoleAccountNotLogged
                 }
             }
-            .navigationTitle("settings")
+            
+            Section("Others") {
+                Text("Setting 1")
+                Text("Setting 2")
+                Text("Setting 3")
+            }
         }
+        .navigationTitle("settings")
     }
     
     private var uisAccount: some View {

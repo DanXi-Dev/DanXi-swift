@@ -8,30 +8,29 @@ struct TreeHolePage: View {
         if !appModel.hasAccount {
             TreeHoleLoginPrompt() }
         else {
-            NavigationView {
-                ScrollView {
-                    VStack(alignment: .center) {
-                        switcher
-                        
-                        ForEach(vm.holes) { hole in
-                            NavigationLink(destination: TreeHolePost(holeId: hole.hole_id, floors: hole.floors.prefetch)) {
-                                TreeHoleEntry(hole: hole)
-                            }
-                        }
-                        
-                        if vm.endReached == false {
-                            ProgressView()
-                                .task {
-                                    // Prevent duplicate refresh
-                                    if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
-                                        await vm.loadNextPage(token: appModel.userCredential!)
-                                    }
-                                }
-                        } else {
-                            Text("endreached")
+            ScrollView {
+                VStack(alignment: .center) {
+                    switcher
+                    
+                    ForEach(vm.holes) { hole in
+                        NavigationLink(destination: TreeHolePost(holeId: hole.hole_id, floors: hole.floors.prefetch)) {
+                            TreeHoleEntry(hole: hole)
                         }
                     }
+                    
+                    if vm.endReached == false {
+                        ProgressView()
+                            .task {
+                                // Prevent duplicate refresh
+                                if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
+                                    await vm.loadNextPage(token: appModel.userCredential!)
+                                }
+                            }
+                    } else {
+                        Text("endreached")
+                    }
                 }
+                
                 .navigationTitle(vm.currentDivision.name)
                 //.navigationBarTitleDisplayMode(.inline)
 #if !os(watchOS)
