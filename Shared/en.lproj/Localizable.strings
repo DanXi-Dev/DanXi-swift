@@ -6,26 +6,22 @@
   
 */
 
-// Content View
 "dashboard" = "Dashboard";
 "treehole" = "Tree Hole";
 "settings" = "Settings";
 
-// Login
 "login" = "Login";
-"uisLogin" = "UIS Login";
+"uis" = "Fudan UIS";
 "studentId" = "Student ID";
 "pwd" = "Password";
-"fduholeAuth" = "FDUHOLE Single Login";
-"fduholeAccount" = "FDUHOLE Account";
+"fduholeAuth" = "Login";
+"fduholeAccount" = "DanXi Account";
 "email" = "Email";
-"fduholeLogin_footer" = "You will be able to use only FDUHOLE features if you login with this option.";
 "cancel" = "Cancel";
 "account" = "Account";
-"notLoggedIn" = "Not Logged In";
+"notLoggedIn" = "No Account";
 "logout" = "Logout";
 
-// Tree Hole
 "division" = "Divison";
 "selectAPost" = "Select a post to view";
 "report" = "Report";
@@ -38,3 +34,6 @@
 "end_reached" = "You have reached the end";
 "refresh" = "Refresh";
 "retry_login" = "Retry Login";
+
+"about" = "About";
+"legal" = "Legal";

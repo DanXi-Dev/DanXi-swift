@@ -8,18 +8,25 @@ struct SettingsPage: View {
     var body: some View {
         Form {
             Section("account") {
+                if appModel.hasAccount { treeHoleAccount }
+                else { treeHoleAccountNotLogged }
+                
                 uisAccount
-                if appModel.hasAccount {
-                    treeHoleAccount
-                } else {
-                    treeHoleAccountNotLogged
-                }
             }
             
             Section("Others") {
                 Text("Setting 1")
                 Text("Setting 2")
                 Text("Setting 3")
+            }
+            
+            Section("about") {
+                NavigationLink(destination: AppView()) {
+                    Text("legal")
+                }
+                NavigationLink(destination: AppView()) {
+                    Text("about")
+                }
             }
         }
         .navigationTitle("settings")
@@ -32,11 +39,13 @@ struct SettingsPage: View {
                     .font(.system(size: 42))
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(Color.accentColor, Color.accentColor.opacity(0.3))
-            }.padding()
+            }
+            .padding()
+            .disabled(true)
             VStack(alignment: .leading, spacing: 3.0) {
-                Text("复旦UIS")
+                Text("uis")
                     .fontWeight(.semibold)
-                Text("已登录")
+                Text("Unavailable")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }

@@ -6,11 +6,11 @@ struct AppView: View {
     var body: some View {
         NavigationView{
             TabView {
-                DashboardPage()
+                /*DashboardPage()
                     .tabItem {
                         Image(systemName: "doc.text.image")
                         Text("dashboard")
-                    }
+                    }*/
                 
                 TreeHolePage()
                     .tabItem {
@@ -18,11 +18,11 @@ struct AppView: View {
                         Text("treehole")
                     }
                 
-                CalendarPage()
+                /*CalendarPage()
                     .tabItem {
                         Image(systemName: "calendar")
                         Text("agenda")
-                    }
+                    }*/
                 
                 SettingsPage()
                     .tabItem {
@@ -30,6 +30,7 @@ struct AppView: View {
                         Text("settings")
                     }
             }
+            .navigationTitle("danxi")
         }
         .environmentObject(appModel)
     }

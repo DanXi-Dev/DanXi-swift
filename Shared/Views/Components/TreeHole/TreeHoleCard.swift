@@ -17,8 +17,8 @@ struct TreeHoleCard: View {
             }
             poster
             Text(floor.content)
-                .font(.system(size: 12))
-                
+                //.font(.system(size: 12))
+            
             info
             Divider()
             actions
@@ -52,16 +52,12 @@ struct TreeHoleCard: View {
             
             Text("(##\(String(floor.floor_id)))")
                 .font(.caption2)
-#if !os(watchOS)
-                .foregroundColor(Color(uiColor: .systemGray2))
-#endif
+                .foregroundColor(.gray)
             
             Spacer()
-            Text(floor.time_created)
+            Text(floor.timeCreated?.formatted(date: .abbreviated, time: .shortened) ?? "")
                 .font(.caption)
-#if !os(watchOS)
-                .foregroundColor(Color(uiColor: .systemGray2))
-#endif
+                .foregroundColor(.gray)
         }
         .padding(.top, 2.0)
     }
