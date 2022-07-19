@@ -3,36 +3,28 @@ import SwiftUI
 struct AppView: View {
     @StateObject var appModel = AppModel()
     
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+    
     var body: some View {
-        NavigationView{
-            TabView {
-                /*DashboardPage()
-                    .tabItem {
-                        Image(systemName: "doc.text.image")
-                        Text("dashboard")
-                    }*/
-                
-                TreeHolePage()
-                    .tabItem {
-                        Image(systemName: "text.bubble")
-                        Text("treehole")
-                    }
-                
-                /*CalendarPage()
-                    .tabItem {
-                        Image(systemName: "calendar")
-                        Text("agenda")
-                    }*/
-                
-                SettingsPage()
-                    .tabItem {
-                        Image(systemName: "gearshape")
-                        Text("settings")
-                    }
-            }
-            .navigationTitle("danxi")
+        autoAppNavigation
+            .environmentObject(appModel)
+    }
+    
+    @ViewBuilder
+    private var autoAppNavigation: some View {
+        #if os(watchOS)
+        AppTabNavigation()
+        #elseif os(iOS)
+        if horizontalSizeClass == .compact {
+            AppTabNavigation()
+        } else {
+            AppSidebarNavigation()
         }
-        .environmentObject(appModel)
+        #else
+        AppSidebarNavigation()
+        #endif
     }
 }
 

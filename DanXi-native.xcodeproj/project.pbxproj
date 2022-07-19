@@ -70,6 +70,10 @@
 		F1E6C8372886BC4C000E5096 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FF028867A7C0079D777 /* CalendarPage.swift */; };
 		F1E6C8382886BC4C000E5096 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FEF28867A7C0079D777 /* DashboardPage.swift */; };
 		F1E6C8392886BC4C000E5096 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27036FEE28867A7C0079D777 /* SettingsPage.swift */; };
+		F1E6C8412886EC82000E5096 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6C8402886EC82000E5096 /* AppTabNavigation.swift */; };
+		F1E6C8422886EC82000E5096 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6C8402886EC82000E5096 /* AppTabNavigation.swift */; };
+		F1E6C8442886EC88000E5096 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6C8432886EC88000E5096 /* AppSidebarNavigation.swift */; };
+		F1E6C8452886EC88000E5096 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6C8432886EC88000E5096 /* AppSidebarNavigation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +204,8 @@
 		8AC7A6502687359F00C9CD98 /* TreeHoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleModels.swift; sourceTree = "<group>"; };
 		F172E1C0287D869200A9573B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F1A822AE28641FC7004FE011 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		F1E6C8402886EC82000E5096 /* AppTabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabNavigation.swift; sourceTree = "<group>"; };
+		F1E6C8432886EC88000E5096 /* AppSidebarNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSidebarNavigation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -464,12 +470,22 @@
 		8AC8D278268B087500B21A3E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1E6C8462886EC8F000E5096 /* Navigation */,
 				27036FFE28867ACD0079D777 /* Components */,
 				27036FF628867A980079D777 /* Helpers */,
 				8AC7A64B268733EA00C9CD98 /* Pages */,
 				77B01AD727D87DC700547698 /* ViewModels */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F1E6C8462886EC8F000E5096 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				F1E6C8432886EC88000E5096 /* AppSidebarNavigation.swift */,
+				F1E6C8402886EC82000E5096 /* AppTabNavigation.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -752,6 +768,8 @@
 				2703700A28867ACD0079D777 /* TreeHoleLoginPrompt.swift in Sources */,
 				77B01AD527D87DC200547698 /* LoginViewModel.swift in Sources */,
 				2703700C28867ACD0079D777 /* TreeHoleEntry.swift in Sources */,
+				F1E6C8422886EC82000E5096 /* AppTabNavigation.swift in Sources */,
+				F1E6C8442886EC88000E5096 /* AppSidebarNavigation.swift in Sources */,
 				27036FF428867A7C0079D777 /* CalendarPage.swift in Sources */,
 				77B01AD927D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
 				8AC7A6512687359F00C9CD98 /* TreeHoleModels.swift in Sources */,
@@ -792,6 +810,7 @@
 				F1E6C82E2886BC39000E5096 /* TreeHoleLoginPrompt.swift in Sources */,
 				F1E6C8392886BC4C000E5096 /* SettingsPage.swift in Sources */,
 				F1E6C8322886BC39000E5096 /* TreeHoleLoginPage.swift in Sources */,
+				F1E6C8412886EC82000E5096 /* AppTabNavigation.swift in Sources */,
 				F1E6C8342886BC49000E5096 /* SizeReader.swift in Sources */,
 				F1E6C8382886BC4C000E5096 /* DashboardPage.swift in Sources */,
 				77B01ADA27D8806400547698 /* TreeHolePageViewModel.swift in Sources */,
@@ -803,6 +822,7 @@
 				8AA9F87A269D98ED0085D93D /* TreeHoleModels.swift in Sources */,
 				F1E6C8352886BC49000E5096 /* _FlexibleView.swift in Sources */,
 				F1E6C82C2886BC22000E5096 /* AppView.swift in Sources */,
+				F1E6C8452886EC88000E5096 /* AppSidebarNavigation.swift in Sources */,
 				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				F172E1C3287D8F0300A9573B /* Constants.swift in Sources */,
 				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,

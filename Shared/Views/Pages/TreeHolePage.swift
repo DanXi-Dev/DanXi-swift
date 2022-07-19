@@ -8,49 +8,55 @@ struct TreeHolePage: View {
         if !appModel.hasAccount {
             TreeHoleLoginPrompt() }
         else {
-            ScrollView {
-                VStack(alignment: .center) {
-                    switcher
-                    
-                    ForEach(vm.holes) { hole in
-                        NavigationLink(destination: TreeHolePost(holeId: hole.hole_id, floors: hole.floors.prefetch)) {
-                            TreeHoleEntry(hole: hole)
-                        }
-                    }
-                    
-                    if vm.endReached == false {
-                        ProgressView()
-                            .task {
-                                // Prevent duplicate refresh
-                                if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
-                                    await vm.loadNextPage(token: appModel.userCredential!)
-                                }
-                            }
-                    } else {
-                        Text("endreached")
-                    }
-                }
-                
-                .navigationTitle(vm.currentDivision.name)
-                //.navigationBarTitleDisplayMode(.inline)
-#if !os(watchOS)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        toolbarLeft
-                    }
-                    
-                    
-                    
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        toolbarRight
-                    }
-                }
-#endif
+#if os(watchOS)
+            List {
+                listContent
             }
+            .navigationTitle(vm.currentDivision.name)
+#else
+            ScrollView{
+                LazyVStack {
+                    listContent
+                }
+            }
+            .navigationTitle(vm.currentDivision.name)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    toolbarLeft
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    toolbarRight
+                }
+            }
+#endif
+            
         }
     }
     
-    private var switcher: some View {
+    @ViewBuilder
+    private var listContent: some View {
+        divisionSelector
+        
+        ForEach(vm.holes) { hole in
+            NavigationLink(destination: TreeHolePost(holeId: hole.hole_id, floors: hole.floors.prefetch)) {
+                TreeHoleEntry(hole: hole)
+            }
+        }
+        
+        if vm.endReached == false {
+            ProgressView()
+                .task {
+                    // Prevent duplicate refresh
+                    if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
+                        await vm.loadNextPage(token: appModel.userCredential!)
+                    }
+                }
+        } else {
+            Text("endreached")
+        }
+    }
+    
+    private var divisionSelector: some View {
         Picker("division", selection: $vm.currentDivision) {
             ForEach(vm.divisions, id: \.self) {division in
                 Text(division.name)
@@ -58,8 +64,8 @@ struct TreeHolePage: View {
         }
 #if !os(watchOS)
         .pickerStyle(.segmented)
-#endif
         .padding()
+#endif
         .task {
             if !vm.initialized && !vm.isLoading {
                 Task {

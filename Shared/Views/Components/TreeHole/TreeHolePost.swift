@@ -6,7 +6,7 @@ struct TreeHolePost: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 ForEach(floors) { floor in
                     TreeHoleCard(floor: floor)
                 }
