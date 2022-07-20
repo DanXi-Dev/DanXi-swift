@@ -8,144 +8,52 @@
 
 /* Begin PBXBuildFile section */
 		277E4D602887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
-		277E4D612887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
-		277E4D622887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
 		277E4D632887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
-		277E4D642887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
-		277E4D652887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
 		277E4D662887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
-		277E4D672887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
-		277E4D682887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
 		277E4D692887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
-		277E4D6A2887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
-		277E4D6B2887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
 		277E4D6C2887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
-		277E4D6D2887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
-		277E4D6E2887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
 		277E4D6F2887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
-		277E4D702887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
-		277E4D712887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
 		277E4D722887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
-		277E4D732887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
-		277E4D742887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
 		277E4D752887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
-		277E4D762887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
-		277E4D772887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
 		277E4D782887F5C30020EC16 /* THPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THPost.swift */; };
-		277E4D792887F5C30020EC16 /* THPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THPost.swift */; };
-		277E4D7A2887F5C30020EC16 /* THPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THPost.swift */; };
 		277E4D7B2887F5C30020EC16 /* THPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THPost.swift */; };
-		277E4D7C2887F5C30020EC16 /* THPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THPost.swift */; };
-		277E4D7D2887F5C30020EC16 /* THPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THPost.swift */; };
 		277E4D7E2887F5C30020EC16 /* THEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THEntry.swift */; };
-		277E4D7F2887F5C30020EC16 /* THEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THEntry.swift */; };
-		277E4D802887F5C30020EC16 /* THEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THEntry.swift */; };
 		277E4D812887F5C30020EC16 /* THEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THEntry.swift */; };
-		277E4D822887F5C30020EC16 /* THEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THEntry.swift */; };
-		277E4D832887F5C30020EC16 /* THEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THEntry.swift */; };
 		277E4D842887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
-		277E4D852887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
-		277E4D862887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
 		277E4D872887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
-		277E4D882887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
-		277E4D892887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
 		277E4D8A2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
-		277E4D8B2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
-		277E4D8C2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
 		277E4D8D2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
-		277E4D8E2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
-		277E4D8F2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
 		277E4D902887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
-		277E4D912887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
-		277E4D922887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
 		277E4D932887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
-		277E4D942887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
-		277E4D952887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
 		277E4D962887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
-		277E4D972887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
-		277E4D982887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
 		277E4D992887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
-		277E4D9A2887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
-		277E4D9B2887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
 		277E4D9C2887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
-		277E4D9D2887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
-		277E4D9E2887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
 		277E4D9F2887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
-		277E4DA02887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
-		277E4DA12887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
 		277E4DA22887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
-		277E4DA32887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
-		277E4DA42887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
 		277E4DA52887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
-		277E4DA62887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
-		277E4DA72887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
 		277E4DA82887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
-		277E4DA92887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
-		277E4DAA2887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
 		277E4DAB2887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
-		277E4DAC2887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
-		277E4DAD2887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
 		277E4DAE2887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
-		277E4DAF2887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
-		277E4DB02887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
 		277E4DB12887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
-		277E4DB22887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
-		277E4DB32887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
 		277E4DB42887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
-		277E4DB52887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
-		277E4DB62887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
 		277E4DB72887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
-		277E4DB82887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
-		277E4DB92887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
 		277E4DBA2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
-		277E4DBB2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
-		277E4DBC2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
 		277E4DBD2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
-		277E4DBE2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
-		277E4DBF2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
 		277E4DC02887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
-		277E4DC12887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
-		277E4DC22887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
 		277E4DC32887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
-		277E4DC42887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
-		277E4DC52887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
 		277E4DC62887F5C40020EC16 /* THSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THSystem.swift */; };
-		277E4DC72887F5C40020EC16 /* THSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THSystem.swift */; };
-		277E4DC82887F5C40020EC16 /* THSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THSystem.swift */; };
 		277E4DC92887F5C40020EC16 /* THSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THSystem.swift */; };
-		277E4DCA2887F5C40020EC16 /* THSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THSystem.swift */; };
-		277E4DCB2887F5C40020EC16 /* THSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THSystem.swift */; };
 		277E4DCC2887F5C40020EC16 /* THModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THModels.swift */; };
-		277E4DCD2887F5C40020EC16 /* THModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THModels.swift */; };
-		277E4DCE2887F5C40020EC16 /* THModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THModels.swift */; };
 		277E4DCF2887F5C40020EC16 /* THModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THModels.swift */; };
-		277E4DD02887F5C40020EC16 /* THModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THModels.swift */; };
-		277E4DD12887F5C40020EC16 /* THModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THModels.swift */; };
 		277E4DD22887F5C40020EC16 /* THData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5A2887F5C30020EC16 /* THData.swift */; };
-		277E4DD32887F5C40020EC16 /* THData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5A2887F5C30020EC16 /* THData.swift */; };
-		277E4DD42887F5C40020EC16 /* THData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5A2887F5C30020EC16 /* THData.swift */; };
 		277E4DD52887F5C40020EC16 /* THData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5A2887F5C30020EC16 /* THData.swift */; };
-		277E4DD62887F5C40020EC16 /* THData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5A2887F5C30020EC16 /* THData.swift */; };
-		277E4DD72887F5C40020EC16 /* THData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5A2887F5C30020EC16 /* THData.swift */; };
 		277E4DD82887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
-		277E4DD92887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
-		277E4DDA2887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
 		277E4DDB2887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
-		277E4DDC2887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
-		277E4DDD2887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
 		277E4DDE2887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
-		277E4DDF2887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
-		277E4DE02887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
 		277E4DE12887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
-		277E4DE22887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
-		277E4DE32887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
 		277E4DE42887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
-		277E4DE52887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
-		277E4DE62887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
 		277E4DE72887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
 		277E4DE82887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
-		277E4DE92887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
-		277E4DEA2887F5C40020EC16 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 277E4D5E2887F5C30020EC16 /* Localizable.strings */; };
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8A959AA3268B4E94004B73AF /* PublicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A959AA2268B4E94004B73AF /* PublicExtension.swift */; };
@@ -153,8 +61,6 @@
 		8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D226872C3E00C9CD98 /* ContentView.swift */; };
 		8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */; };
 		8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */; };
-		8AC7A5E326872C3F00C9CD98 /* DanXi_nativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5E226872C3F00C9CD98 /* DanXi_nativeTests.swift */; };
-		8AC7A5EE26872C3F00C9CD98 /* DanXi_nativeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5ED26872C3F00C9CD98 /* DanXi_nativeUITests.swift */; };
 		8AC7A5F326872C3F00C9CD98 /* DanXi-native WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8AC7A5F826872C4000C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5F726872C4000C9CD98 /* Assets.xcassets */; };
 		8AC7A5FF26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -165,25 +71,9 @@
 		8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60B26872C4000C9CD98 /* ComplicationController.swift */; };
 		8AC7A60E26872C4100C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A60D26872C4100C9CD98 /* Assets.xcassets */; };
 		8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */; };
-		8AC7A61D26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A61C26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift */; };
-		8AC7A62826872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8AC7A5DF26872C3F00C9CD98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AC7A5CC26872C3E00C9CD98;
-			remoteInfo = "DanXi-native";
-		};
-		8AC7A5EA26872C3F00C9CD98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AC7A5CC26872C3E00C9CD98;
-			remoteInfo = "DanXi-native";
-		};
 		8AC7A5F426872C3F00C9CD98 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
@@ -197,20 +87,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8AC7A5FD26872C4000C9CD98;
 			remoteInfo = "DanXi-native WatchKit Extension";
-		};
-		8AC7A61926872C4100C9CD98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AC7A5FD26872C4000C9CD98;
-			remoteInfo = "DanXi-native WatchKit Extension";
-		};
-		8AC7A62426872C4100C9CD98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AC7A5F126872C3F00C9CD98;
-			remoteInfo = "DanXi-native WatchKit App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -272,12 +148,6 @@
 		8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A5DE26872C3F00C9CD98 /* DanXi-nativeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DanXi-nativeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A5E226872C3F00C9CD98 /* DanXi_nativeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeTests.swift; sourceTree = "<group>"; };
-		8AC7A5E426872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A5E926872C3F00C9CD98 /* DanXi-nativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DanXi-nativeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A5ED26872C3F00C9CD98 /* DanXi_nativeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeUITests.swift; sourceTree = "<group>"; };
-		8AC7A5EF26872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5F726872C4000C9CD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AC7A5F926872C4000C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -291,12 +161,6 @@
 		8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8AC7A61226872C4100C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AC7A61326872C4100C9CD98 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		8AC7A61826872C4100C9CD98 /* DanXi-native WatchKit AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DanXi-native WatchKit AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A61C26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_native_WatchKit_AppTests.swift; sourceTree = "<group>"; };
-		8AC7A61E26872C4100C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A62326872C4100C9CD98 /* DanXi-native WatchKit AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DanXi-native WatchKit AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_native_WatchKit_AppUITests.swift; sourceTree = "<group>"; };
-		8AC7A62926872C4100C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,39 +172,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8AC7A5DB26872C3F00C9CD98 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5E626872C3F00C9CD98 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8AC7A5FB26872C4000C9CD98 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A61526872C4100C9CD98 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A62026872C4100C9CD98 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,12 +305,8 @@
 			children = (
 				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* DanXi-native */,
-				8AC7A5E126872C3F00C9CD98 /* DanXi-nativeTests */,
-				8AC7A5EC26872C3F00C9CD98 /* DanXi-nativeUITests */,
 				8AC7A5F626872C3F00C9CD98 /* DanXi-native WatchKit App */,
 				8AC7A60226872C4000C9CD98 /* DanXi-native WatchKit Extension */,
-				8AC7A61B26872C4100C9CD98 /* DanXi-native WatchKit AppTests */,
-				8AC7A62626872C4100C9CD98 /* DanXi-native WatchKit AppUITests */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
 			);
@@ -484,12 +316,8 @@
 			isa = PBXGroup;
 			children = (
 				8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */,
-				8AC7A5DE26872C3F00C9CD98 /* DanXi-nativeTests.xctest */,
-				8AC7A5E926872C3F00C9CD98 /* DanXi-nativeUITests.xctest */,
 				8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */,
 				8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */,
-				8AC7A61826872C4100C9CD98 /* DanXi-native WatchKit AppTests.xctest */,
-				8AC7A62326872C4100C9CD98 /* DanXi-native WatchKit AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -514,24 +342,6 @@
 				8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		8AC7A5E126872C3F00C9CD98 /* DanXi-nativeTests */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A5E226872C3F00C9CD98 /* DanXi_nativeTests.swift */,
-				8AC7A5E426872C3F00C9CD98 /* Info.plist */,
-			);
-			path = "DanXi-nativeTests";
-			sourceTree = "<group>";
-		};
-		8AC7A5EC26872C3F00C9CD98 /* DanXi-nativeUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A5ED26872C3F00C9CD98 /* DanXi_nativeUITests.swift */,
-				8AC7A5EF26872C3F00C9CD98 /* Info.plist */,
-			);
-			path = "DanXi-nativeUITests";
 			sourceTree = "<group>";
 		};
 		8AC7A5F626872C3F00C9CD98 /* DanXi-native WatchKit App */ = {
@@ -568,24 +378,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8AC7A61B26872C4100C9CD98 /* DanXi-native WatchKit AppTests */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A61C26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift */,
-				8AC7A61E26872C4100C9CD98 /* Info.plist */,
-			);
-			path = "DanXi-native WatchKit AppTests";
-			sourceTree = "<group>";
-		};
-		8AC7A62626872C4100C9CD98 /* DanXi-native WatchKit AppUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A62726872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift */,
-				8AC7A62926872C4100C9CD98 /* Info.plist */,
-			);
-			path = "DanXi-native WatchKit AppUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -610,42 +402,6 @@
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
 			productType = "com.apple.product-type.application";
-		};
-		8AC7A5DD26872C3F00C9CD98 /* DanXi-nativeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63726872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-nativeTests" */;
-			buildPhases = (
-				8AC7A5DA26872C3F00C9CD98 /* Sources */,
-				8AC7A5DB26872C3F00C9CD98 /* Frameworks */,
-				8AC7A5DC26872C3F00C9CD98 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AC7A5E026872C3F00C9CD98 /* PBXTargetDependency */,
-			);
-			name = "DanXi-nativeTests";
-			productName = "DanXi-nativeTests";
-			productReference = 8AC7A5DE26872C3F00C9CD98 /* DanXi-nativeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		8AC7A5E826872C3F00C9CD98 /* DanXi-nativeUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63A26872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-nativeUITests" */;
-			buildPhases = (
-				8AC7A5E526872C3F00C9CD98 /* Sources */,
-				8AC7A5E626872C3F00C9CD98 /* Frameworks */,
-				8AC7A5E726872C3F00C9CD98 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AC7A5EB26872C3F00C9CD98 /* PBXTargetDependency */,
-			);
-			name = "DanXi-nativeUITests";
-			productName = "DanXi-nativeUITests";
-			productReference = 8AC7A5E926872C3F00C9CD98 /* DanXi-nativeUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */ = {
 			isa = PBXNativeTarget;
@@ -684,42 +440,6 @@
 			productReference = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
-		8AC7A61726872C4100C9CD98 /* DanXi-native WatchKit AppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63D26872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit AppTests" */;
-			buildPhases = (
-				8AC7A61426872C4100C9CD98 /* Sources */,
-				8AC7A61526872C4100C9CD98 /* Frameworks */,
-				8AC7A61626872C4100C9CD98 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AC7A61A26872C4100C9CD98 /* PBXTargetDependency */,
-			);
-			name = "DanXi-native WatchKit AppTests";
-			productName = "DanXi-native WatchKit AppTests";
-			productReference = 8AC7A61826872C4100C9CD98 /* DanXi-native WatchKit AppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		8AC7A62226872C4100C9CD98 /* DanXi-native WatchKit AppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A64026872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit AppUITests" */;
-			buildPhases = (
-				8AC7A61F26872C4100C9CD98 /* Sources */,
-				8AC7A62026872C4100C9CD98 /* Frameworks */,
-				8AC7A62126872C4100C9CD98 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AC7A62526872C4100C9CD98 /* PBXTargetDependency */,
-			);
-			name = "DanXi-native WatchKit AppUITests";
-			productName = "DanXi-native WatchKit AppUITests";
-			productReference = 8AC7A62326872C4100C9CD98 /* DanXi-native WatchKit AppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -732,28 +452,12 @@
 					8AC7A5CC26872C3E00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
-					8AC7A5DD26872C3F00C9CD98 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 8AC7A5CC26872C3E00C9CD98;
-					};
-					8AC7A5E826872C3F00C9CD98 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 8AC7A5CC26872C3E00C9CD98;
-					};
 					8AC7A5F126872C3F00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
 						LastSwiftMigration = 1320;
 					};
 					8AC7A5FD26872C4000C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
-					};
-					8AC7A61726872C4100C9CD98 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 8AC7A5FD26872C4000C9CD98;
-					};
-					8AC7A62226872C4100C9CD98 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 8AC7A5F126872C3F00C9CD98;
 					};
 				};
 			};
@@ -775,12 +479,8 @@
 			projectRoot = "";
 			targets = (
 				8AC7A5CC26872C3E00C9CD98 /* DanXi-native */,
-				8AC7A5DD26872C3F00C9CD98 /* DanXi-nativeTests */,
-				8AC7A5E826872C3F00C9CD98 /* DanXi-nativeUITests */,
 				8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */,
 				8AC7A5FD26872C4000C9CD98 /* DanXi-native WatchKit Extension */,
-				8AC7A61726872C4100C9CD98 /* DanXi-native WatchKit AppTests */,
-				8AC7A62226872C4100C9CD98 /* DanXi-native WatchKit AppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -793,22 +493,6 @@
 				8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */,
 				277E4DE42887F5C40020EC16 /* Localizable.strings in Resources */,
 				8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5DC26872C3F00C9CD98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DE52887F5C40020EC16 /* Localizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5E726872C3F00C9CD98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DE62887F5C40020EC16 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,22 +512,6 @@
 				8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */,
 				277E4DE82887F5C40020EC16 /* Localizable.strings in Resources */,
 				8AC7A60E26872C4100C9CD98 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A61626872C4100C9CD98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DE92887F5C40020EC16 /* Localizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A62126872C4100C9CD98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DEA2887F5C40020EC16 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,66 +550,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8AC7A5DA26872C3F00C9CD98 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DD92887F5C40020EC16 /* THUtility.swift in Sources */,
-				277E4D912887F5C40020EC16 /* CalendarPage.swift in Sources */,
-				277E4DA32887F5C40020EC16 /* SettingsPage.swift in Sources */,
-				277E4D8B2887F5C40020EC16 /* THLoginPage.swift in Sources */,
-				277E4DDF2887F5C40020EC16 /* AppView.swift in Sources */,
-				277E4D972887F5C40020EC16 /* TreeHolePage.swift in Sources */,
-				277E4D6D2887F5C30020EC16 /* TagList.swift in Sources */,
-				277E4D732887F5C30020EC16 /* THWelcomePage.swift in Sources */,
-				277E4D612887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */,
-				277E4D792887F5C30020EC16 /* THPost.swift in Sources */,
-				277E4D7F2887F5C30020EC16 /* THEntry.swift in Sources */,
-				277E4DB52887F5C40020EC16 /* SizeReader.swift in Sources */,
-				277E4DA92887F5C40020EC16 /* _FlexibleView.swift in Sources */,
-				277E4DAF2887F5C40020EC16 /* FlexibleView.swift in Sources */,
-				277E4DD32887F5C40020EC16 /* THData.swift in Sources */,
-				277E4D852887F5C30020EC16 /* THThread.swift in Sources */,
-				277E4DCD2887F5C40020EC16 /* THModels.swift in Sources */,
-				277E4DC12887F5C40020EC16 /* THConstants.swift in Sources */,
-				8AC7A5E326872C3F00C9CD98 /* DanXi_nativeTests.swift in Sources */,
-				277E4D672887F5C30020EC16 /* AppTabNavigation.swift in Sources */,
-				277E4DBB2887F5C40020EC16 /* THJsonParse.swift in Sources */,
-				277E4D9D2887F5C40020EC16 /* DashboardPage.swift in Sources */,
-				277E4DC72887F5C40020EC16 /* THSystem.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5E526872C3F00C9CD98 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DDA2887F5C40020EC16 /* THUtility.swift in Sources */,
-				277E4D922887F5C40020EC16 /* CalendarPage.swift in Sources */,
-				277E4DA42887F5C40020EC16 /* SettingsPage.swift in Sources */,
-				277E4D8C2887F5C40020EC16 /* THLoginPage.swift in Sources */,
-				277E4DE02887F5C40020EC16 /* AppView.swift in Sources */,
-				277E4D982887F5C40020EC16 /* TreeHolePage.swift in Sources */,
-				277E4D6E2887F5C30020EC16 /* TagList.swift in Sources */,
-				277E4D742887F5C30020EC16 /* THWelcomePage.swift in Sources */,
-				277E4D622887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */,
-				277E4D7A2887F5C30020EC16 /* THPost.swift in Sources */,
-				277E4D802887F5C30020EC16 /* THEntry.swift in Sources */,
-				277E4DB62887F5C40020EC16 /* SizeReader.swift in Sources */,
-				277E4DAA2887F5C40020EC16 /* _FlexibleView.swift in Sources */,
-				277E4DB02887F5C40020EC16 /* FlexibleView.swift in Sources */,
-				277E4DD42887F5C40020EC16 /* THData.swift in Sources */,
-				277E4D862887F5C30020EC16 /* THThread.swift in Sources */,
-				277E4DCE2887F5C40020EC16 /* THModels.swift in Sources */,
-				277E4DC22887F5C40020EC16 /* THConstants.swift in Sources */,
-				8AC7A5EE26872C3F00C9CD98 /* DanXi_nativeUITests.swift in Sources */,
-				277E4D682887F5C30020EC16 /* AppTabNavigation.swift in Sources */,
-				277E4DBC2887F5C40020EC16 /* THJsonParse.swift in Sources */,
-				277E4D9E2887F5C40020EC16 /* DashboardPage.swift in Sources */,
-				277E4DC82887F5C40020EC16 /* THSystem.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8AC7A5FA26872C4000C9CD98 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -976,79 +584,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8AC7A61426872C4100C9CD98 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DDC2887F5C40020EC16 /* THUtility.swift in Sources */,
-				277E4D942887F5C40020EC16 /* CalendarPage.swift in Sources */,
-				277E4DA62887F5C40020EC16 /* SettingsPage.swift in Sources */,
-				277E4D8E2887F5C40020EC16 /* THLoginPage.swift in Sources */,
-				277E4DE22887F5C40020EC16 /* AppView.swift in Sources */,
-				277E4D9A2887F5C40020EC16 /* TreeHolePage.swift in Sources */,
-				277E4D702887F5C30020EC16 /* TagList.swift in Sources */,
-				277E4D762887F5C30020EC16 /* THWelcomePage.swift in Sources */,
-				277E4D642887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */,
-				277E4D7C2887F5C30020EC16 /* THPost.swift in Sources */,
-				277E4D822887F5C30020EC16 /* THEntry.swift in Sources */,
-				277E4DB82887F5C40020EC16 /* SizeReader.swift in Sources */,
-				277E4DAC2887F5C40020EC16 /* _FlexibleView.swift in Sources */,
-				277E4DB22887F5C40020EC16 /* FlexibleView.swift in Sources */,
-				277E4DD62887F5C40020EC16 /* THData.swift in Sources */,
-				277E4D882887F5C30020EC16 /* THThread.swift in Sources */,
-				277E4DD02887F5C40020EC16 /* THModels.swift in Sources */,
-				277E4DC42887F5C40020EC16 /* THConstants.swift in Sources */,
-				8AC7A61D26872C4100C9CD98 /* DanXi_native_WatchKit_AppTests.swift in Sources */,
-				277E4D6A2887F5C30020EC16 /* AppTabNavigation.swift in Sources */,
-				277E4DBE2887F5C40020EC16 /* THJsonParse.swift in Sources */,
-				277E4DA02887F5C40020EC16 /* DashboardPage.swift in Sources */,
-				277E4DCA2887F5C40020EC16 /* THSystem.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A61F26872C4100C9CD98 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4DDD2887F5C40020EC16 /* THUtility.swift in Sources */,
-				277E4D952887F5C40020EC16 /* CalendarPage.swift in Sources */,
-				277E4DA72887F5C40020EC16 /* SettingsPage.swift in Sources */,
-				277E4D8F2887F5C40020EC16 /* THLoginPage.swift in Sources */,
-				277E4DE32887F5C40020EC16 /* AppView.swift in Sources */,
-				277E4D9B2887F5C40020EC16 /* TreeHolePage.swift in Sources */,
-				277E4D712887F5C30020EC16 /* TagList.swift in Sources */,
-				277E4D772887F5C30020EC16 /* THWelcomePage.swift in Sources */,
-				277E4D652887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */,
-				277E4D7D2887F5C30020EC16 /* THPost.swift in Sources */,
-				277E4D832887F5C30020EC16 /* THEntry.swift in Sources */,
-				277E4DB92887F5C40020EC16 /* SizeReader.swift in Sources */,
-				277E4DAD2887F5C40020EC16 /* _FlexibleView.swift in Sources */,
-				277E4DB32887F5C40020EC16 /* FlexibleView.swift in Sources */,
-				277E4DD72887F5C40020EC16 /* THData.swift in Sources */,
-				277E4D892887F5C30020EC16 /* THThread.swift in Sources */,
-				277E4DD12887F5C40020EC16 /* THModels.swift in Sources */,
-				277E4DC52887F5C40020EC16 /* THConstants.swift in Sources */,
-				8AC7A62826872C4100C9CD98 /* DanXi_native_WatchKit_AppUITests.swift in Sources */,
-				277E4D6B2887F5C30020EC16 /* AppTabNavigation.swift in Sources */,
-				277E4DBF2887F5C40020EC16 /* THJsonParse.swift in Sources */,
-				277E4DA12887F5C40020EC16 /* DashboardPage.swift in Sources */,
-				277E4DCB2887F5C40020EC16 /* THSystem.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8AC7A5E026872C3F00C9CD98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8AC7A5CC26872C3E00C9CD98 /* DanXi-native */;
-			targetProxy = 8AC7A5DF26872C3F00C9CD98 /* PBXContainerItemProxy */;
-		};
-		8AC7A5EB26872C3F00C9CD98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8AC7A5CC26872C3E00C9CD98 /* DanXi-native */;
-			targetProxy = 8AC7A5EA26872C3F00C9CD98 /* PBXContainerItemProxy */;
-		};
 		8AC7A5F526872C3F00C9CD98 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -1059,16 +597,6 @@
 			isa = PBXTargetDependency;
 			target = 8AC7A5FD26872C4000C9CD98 /* DanXi-native WatchKit Extension */;
 			targetProxy = 8AC7A60026872C4000C9CD98 /* PBXContainerItemProxy */;
-		};
-		8AC7A61A26872C4100C9CD98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8AC7A5FD26872C4000C9CD98 /* DanXi-native WatchKit Extension */;
-			targetProxy = 8AC7A61926872C4100C9CD98 /* PBXContainerItemProxy */;
-		};
-		8AC7A62526872C4100C9CD98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */;
-			targetProxy = 8AC7A62426872C4100C9CD98 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1378,212 +906,6 @@
 			};
 			name = Release;
 		};
-		8AC7A63826872C4100C9CD98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-nativeTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DanXi-native.app/DanXi-native";
-			};
-			name = Debug;
-		};
-		8AC7A63926872C4100C9CD98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-nativeTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DanXi-native.app/DanXi-native";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		8AC7A63B26872C4100C9CD98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-nativeUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "DanXi-native";
-			};
-			name = Debug;
-		};
-		8AC7A63C26872C4100C9CD98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-nativeUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "DanXi-native";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		8AC7A63E26872C4100C9CD98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-native WatchKit AppTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DanXi-native WatchKit Extension.appex/DanXi-native WatchKit Extension";
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Debug;
-		};
-		8AC7A63F26872C4100C9CD98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-native WatchKit AppTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DanXi-native WatchKit Extension.appex/DanXi-native WatchKit Extension";
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Release;
-		};
-		8AC7A64126872C4100C9CD98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-native WatchKit AppUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = "DanXi-native WatchKit App";
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Debug;
-		};
-		8AC7A64226872C4100C9CD98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				INFOPLIST_FILE = "DanXi-native WatchKit AppUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = "DanXi-native WatchKit App";
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1619,42 +941,6 @@
 			buildConfigurations = (
 				8AC7A63526872C4100C9CD98 /* Debug */,
 				8AC7A63626872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8AC7A63726872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-nativeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AC7A63826872C4100C9CD98 /* Debug */,
-				8AC7A63926872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8AC7A63A26872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-nativeUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AC7A63B26872C4100C9CD98 /* Debug */,
-				8AC7A63C26872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8AC7A63D26872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit AppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AC7A63E26872C4100C9CD98 /* Debug */,
-				8AC7A63F26872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8AC7A64026872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit AppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AC7A64126872C4100C9CD98 /* Debug */,
-				8AC7A64226872C4100C9CD98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
