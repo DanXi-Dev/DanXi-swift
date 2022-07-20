@@ -31,8 +31,9 @@ struct TreeHolePage: View {
     
     @ViewBuilder
     private var listContent: some View {
-        if !data.divisions.isEmpty
+        if !data.divisions.isEmpty {
             divisionSelector
+        }
         
         ForEach(data.currentDivision.pinned) { hole in
             NavigationLink(destination: THThread(hole: hole)) {
