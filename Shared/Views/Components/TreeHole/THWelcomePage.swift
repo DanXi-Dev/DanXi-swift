@@ -27,7 +27,7 @@ struct THWelcomePage: View {
             
             Spacer()
             
-            Text("请前往设置内登录旦夕账号")
+            Text("th_welcome_login_prompt")
                 .foregroundColor(.secondary)
                 .bold()
                 .padding(.bottom, 40.0)

@@ -1,6 +1,6 @@
 import Foundation
 
-// 解析树洞服务器返回的JSON数据
+// parse JSON data from server
 
 extension OTFloor {
     enum CodingKeys: String, CodingKey {

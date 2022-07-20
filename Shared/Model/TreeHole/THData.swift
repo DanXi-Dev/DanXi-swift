@@ -15,7 +15,7 @@ class THData: ObservableObject {
         token = defaults?.string(forKey: "user_credential") ?? ""
     }
     
-    init(divisions: [OTDivision], holes: [OTHole]) { // 预览用途
+    init(divisions: [OTDivision], holes: [OTHole]) { // for preview purpose
         self.divisions = divisions
         self.holes = holes
         currentDivision = self.divisions[0]

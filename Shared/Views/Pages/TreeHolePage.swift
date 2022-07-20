@@ -67,7 +67,7 @@ struct TreeHolePage: View {
         .pickerStyle(.segmented)
 #endif
         .padding()
-        .task { // 数据初始化
+        .task { // data initialization
             if data.notInitiazed {
                 Task {
                     await data.initialFetch()
@@ -76,7 +76,7 @@ struct TreeHolePage: View {
         }
         .onChange(of: data.currentDivision) { newValue in
             Task {
-                await data.changeDivision(division: newValue) // 切换分区
+                await data.changeDivision(division: newValue) // change division
             }
         }
     }

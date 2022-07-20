@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct THLoginPage: View {
-    @Binding var showLoginPage: Bool // 外界传入，登录成功后主动退出
+    @Binding var showLoginPage: Bool // passed from caller, exit after successful login
     @State var username = ""
     @State var password = ""
     @State var loading = false
@@ -32,7 +32,7 @@ struct THLoginPage: View {
                         loading = true
                         Task.init {
                             guard let token = await THlogin(username: username, password: password) else {
-                                // TODO: 警告登录失败
+                                // TODO: warn login failure
                                 loading = false
                                 return
                             }

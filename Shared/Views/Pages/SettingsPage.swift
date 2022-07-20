@@ -61,8 +61,7 @@ struct SettingsPage: View {
         }
         .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
             Button("logout", role: .destructive) {
-                // FIXME: 退出后有时菜单会再次弹出
-                // TODO: 退出登录
+                // TODO: logout
                 showTreeHoleActions = false
             }
         }

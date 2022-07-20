@@ -263,7 +263,6 @@
 		277E4D5C2887F5C30020EC16 /* THUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THUtility.swift; sourceTree = "<group>"; };
 		277E4D5D2887F5C30020EC16 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		277E4D5E2887F5C30020EC16 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		277E4D5F2887F5C30020EC16 /* DanXi-native WatchKit App-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DanXi-native WatchKit App-Bridging-Header.h"; sourceTree = "<group>"; };
 		7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		8A959AA2268B4E94004B73AF /* PublicExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicExtension.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
@@ -458,7 +457,6 @@
 			children = (
 				277E4D5D2887F5C30020EC16 /* AppView.swift */,
 				277E4D5B2887F5C30020EC16 /* Controller */,
-				277E4D5F2887F5C30020EC16 /* DanXi-native WatchKit App-Bridging-Header.h */,
 				277E4D5E2887F5C30020EC16 /* Localizable.strings */,
 				277E4D542887F5C30020EC16 /* Model */,
 				277E4D3E2887F5C30020EC16 /* Views */,
