@@ -1012,7 +1012,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "DanXi-native WatchKit Extension/DanXi-native WatchKit Extension.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
@@ -1025,8 +1026,9 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp.watchExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.watchapp.watchExtension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.fduhole.danxi.watchapp.watchExtension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1040,7 +1042,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "DanXi-native WatchKit Extension/DanXi-native WatchKit Extension.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
@@ -1053,8 +1056,9 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp.watchExtension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.watchapp.watchExtension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.fduhole.danxi.watchapp.watchExtension";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1071,7 +1075,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -1083,8 +1088,9 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.watchapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.fduhole.danxi.watchapp";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Shared/DanXi-native WatchKit App-Bridging-Header.h";
@@ -1102,7 +1108,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -1114,8 +1121,9 @@
 					"@loader_path/../Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.watchapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.fduhole.danxi.watchapp";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Shared/DanXi-native WatchKit App-Bridging-Header.h";
@@ -1132,7 +1140,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
@@ -1145,8 +1155,10 @@
 				);
 				MARKETING_VERSION = 2.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.fduhole.danxi";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "match Mac Catalyst";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -1160,7 +1172,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native/Preview Content\"";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
@@ -1173,8 +1187,10 @@
 				);
 				MARKETING_VERSION = 2.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.fduhole.danxi";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "match Mac Catalyst";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -1188,7 +1204,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				INFOPLIST_FILE = "DanXi-nativeTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1199,6 +1217,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -1211,7 +1231,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				INFOPLIST_FILE = "DanXi-nativeTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1222,6 +1244,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -1234,8 +1258,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "DanXi-nativeUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1245,6 +1271,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1256,8 +1284,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "DanXi-nativeUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1267,6 +1297,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-nativeUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1280,7 +1312,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				INFOPLIST_FILE = "DanXi-native WatchKit AppTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1290,6 +1323,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1303,7 +1337,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				INFOPLIST_FILE = "DanXi-native WatchKit AppTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1313,6 +1348,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1325,8 +1361,9 @@
 		8AC7A64126872C4100C9CD98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "DanXi-native WatchKit AppUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1335,6 +1372,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1346,8 +1384,9 @@
 		8AC7A64226872C4100C9CD98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "DanXi-native WatchKit AppUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1356,6 +1395,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.ios.DanXi-native-WatchKit-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
