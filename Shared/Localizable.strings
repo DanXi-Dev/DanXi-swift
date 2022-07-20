@@ -1,0 +1,31 @@
+// Navigation
+"danxi" = "DanXi";
+"dashboard" = "Dashboard";
+"treehole" = "Tree Hole";
+"settings" = "Settings";
+
+// Login Page
+"email" = "Email";
+"password" = "Password";
+"cancel" = "Cancel";
+"login" = "Login";
+"fduhole_login_prompt" = "Login to FDU Hole";
+
+// Settings Page
+"accounts_management" = "Accounts Management";
+"about" = "About";
+"legal" = "Legal";
+"uis_account" = "Fudan UIS Account";
+"fduhole_account" = "FDU Hole Account";
+"logged_in" = "Logged in";
+"not_logged_in" = "Not Logged in";
+"logout" = "Logout";
+
+// Treehole Welcome Page
+"th_feature1" = "Keep Updated";
+"th_detail1" = "You will receive a notification when the post you subscribed gets an update";
+"th_feature2" = "Focused Discussion";
+"th_detail2" = "Make focused discussions in dedicated divisions";
+"th_feature3" = "Edit with Ease";
+"th_detail3" = "Use Markdown and LaTeX syntax in posts";
+"th_welcome_login_prompt" = "Go to Settings Page to Login";

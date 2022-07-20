@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TreeHoleEntry: View {
+struct THEntry: View {
     let hole: OTHole
     
     var body: some View {
@@ -8,7 +8,7 @@ struct TreeHoleEntry: View {
             if let tagList = hole.tags {
                 TagList(tags: tagList)
             }
-            Text(!hole.floors.prefetch[0].fold!.isEmpty ? "无信息" : hole.floors.prefetch[0].content)
+            Text(hole.firstFloor.content)
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
@@ -24,14 +24,18 @@ struct TreeHoleEntry: View {
     }
 }
 
-struct TreeHoleEntry_Previews: PreviewProvider {
+struct THEntry_Previews: PreviewProvider {
+    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
+    
     static let floor = OTFloor(
-        floor_id: 1234567,
-        hole_id: 123456,
+        id: 1234567, holeId: 123456,
+        updateTime: "2022-04-14T08:23:12.761042+08:00",
+        createTime: "2022-04-14T08:23:12.761042+08:00",
         like: 12,
+        liked: true,
         storey: 5,
         content: """
-        Hello, **SwiftLee** readers!
+        Hello, **Dear** readers!
         
         We can make text *italic*, ***bold italic***, or ~~striked through~~.
         
@@ -40,23 +44,25 @@ struct TreeHoleEntry_Previews: PreviewProvider {
         Or use `Monospace` to mimic `Text("inline code")`.
         
         """,
-        anonyname: "Dax",
-        time_updated: "",
-        time_created: "3天前",
-        deleted: false,
-        is_me: false,
-        liked: true,
-        fold: [])
+        poster: "Dax")
     
     static let hole = OTHole(
-        hole_id: 12345,
-        division_id: 1,
-        view: 5, reply: 5,
-        floors: _OTFloors(last_floor: floor, prefetch: [floor]),
-        time_created: "none", time_updated: "none",
-        tags: [OTTag(name: "树洞", tag_id: 1, temperature: 0)])
+        id: 123456,
+        divisionId: 1,
+        view: 15,
+        reply: 13,
+        updateTime: "2022-04-14T08:23:12.761042+08:00",
+        createTime: "2022-04-14T08:23:12.761042+08:00",
+        tags: Array(repeating: tag, count: 5),
+        firstFloor: floor, lastFloor: floor, floors: Array(repeating: floor, count: 10))
     
     static var previews: some View {
-        TreeHoleEntry(hole: hole)
+        Group {
+            THEntry(hole: hole)
+            THEntry(hole: hole)
+                .preferredColorScheme(.dark)
+        }
+        .previewLayout(.sizeThatFits)
+        
     }
 }

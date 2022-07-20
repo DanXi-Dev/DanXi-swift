@@ -1,81 +1,82 @@
 import SwiftUI
 
 struct TreeHolePage: View {
-    @StateObject var vm: TreeHolePageViewModel = TreeHolePageViewModel()
-    @EnvironmentObject var appModel: AppModel
+    @EnvironmentObject var accountState: THSystem
+    @StateObject var data = THData()
     
     var body: some View {
-        if !appModel.hasAccount {
-            TreeHoleLoginPrompt() }
-        else {
 #if os(watchOS)
-            List {
+        List {
+            listContent
+        }
+        .navigationTitle(data.currentDivision.name)
+#else
+        ScrollView{
+            LazyVStack {
                 listContent
             }
-            .navigationTitle(vm.currentDivision.name)
-#else
-            ScrollView{
-                LazyVStack {
-                    listContent
-                }
-            }
-            .navigationTitle(vm.currentDivision.name)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    toolbarLeft
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    toolbarRight
-                }
-            }
-#endif
-            
         }
+        .navigationTitle(data.currentDivision.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                toolbarLeft
+            }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                toolbarRight
+            }
+        }
+#endif
     }
     
     @ViewBuilder
     private var listContent: some View {
-        divisionSelector
+        if !data.divisions.isEmpty
+            divisionSelector
         
-        ForEach(vm.holes) { hole in
-            NavigationLink(destination: TreeHolePost(holeId: hole.hole_id, floors: hole.floors.prefetch)) {
-                TreeHoleEntry(hole: hole)
+        ForEach(data.currentDivision.pinned) { hole in
+            NavigationLink(destination: THThread(hole: hole)) {
+                THEntry(hole: hole)
             }
         }
         
-        if vm.endReached == false {
+        ForEach(data.holes) { hole in
+            NavigationLink(destination: THThread(hole: hole)) {
+                THEntry(hole: hole)
+            }
+        }
+        
+        if !data.endReached {
             ProgressView()
                 .task {
-                    // Prevent duplicate refresh
-                    if vm.currentDivision != OTDivision.dummy && vm.initialized && !vm.isLoading {
-                        await vm.loadNextPage(token: appModel.userCredential!)
+                    if !data.notInitiazed {
+                        await data.fetchMoreHoles()
                     }
                 }
-        } else {
-            Text("endreached")
         }
     }
     
     private var divisionSelector: some View {
-        Picker("division", selection: $vm.currentDivision) {
-            ForEach(vm.divisions, id: \.self) {division in
+        Picker("Divisions", selection: $data.currentDivision) {
+            ForEach(data.divisions, id: \.self) {division in
                 Text(division.name)
             }
         }
 #if !os(watchOS)
         .pickerStyle(.segmented)
-        .padding()
 #endif
-        .task {
-            if !vm.initialized && !vm.isLoading {
+        .padding()
+        .task { // 数据初始化
+            if data.notInitiazed {
                 Task {
-                    await vm.fetchDivisions(token: appModel.userCredential!)
-                    vm.initialized = true
+                    await data.initialFetch()
                 }
             }
         }
-        .onChange(of: vm.currentDivision) { newValue in
-            vm.changeDivision(token: appModel.userCredential!, newDivision: newValue)
+        .onChange(of: data.currentDivision) { newValue in
+            Task {
+                await data.changeDivision(division: newValue) // 切换分区
+            }
         }
     }
     
@@ -104,12 +105,11 @@ struct TreeHolePage: View {
 }
 
 struct TreeHolePage_Previews: PreviewProvider {
-    static let appModel = AppModel()
-    
     static var previews: some View {
         Group {
             TreeHolePage()
-                .environmentObject(appModel)
+            TreeHolePage()
+                .preferredColorScheme(.dark)
         }
     }
 }

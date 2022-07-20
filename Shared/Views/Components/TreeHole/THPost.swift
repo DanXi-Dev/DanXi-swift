@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TreeHoleCard: View {
+struct THPost: View {
     
     let floor: OTFloor
     let tagList: [OTTag]?
@@ -17,8 +17,7 @@ struct TreeHoleCard: View {
             }
             poster
             Text(floor.content)
-                //.font(.system(size: 12))
-            
+                .font(.system(size: 16))
             info
             Divider()
             actions
@@ -36,7 +35,7 @@ struct TreeHoleCard: View {
         HStack {
             Rectangle()
                 .frame(width: 3, height: 15)
-            Text(floor.anonyname)
+            Text(floor.poster)
                 .font(.system(size: 15))
                 .fontWeight(.bold)
         }
@@ -50,14 +49,20 @@ struct TreeHoleCard: View {
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
             
-            Text("(##\(String(floor.floor_id)))")
+            Text("(##\(String(floor.id)))")
                 .font(.caption2)
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
+#if !os(watchOS)
+                .foregroundColor(Color(uiColor: .systemGray2))
+#endif
             
             Spacer()
-            Text(floor.timeCreated?.formatted(date: .abbreviated, time: .shortened) ?? "")
+            Text(floor.createTime)
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
+#if !os(watchOS)
+                .foregroundColor(Color(uiColor: .systemGray2))
+#endif
         }
         .padding(.top, 2.0)
     }
@@ -77,14 +82,17 @@ struct TreeHoleCard: View {
     }
 }
 
-struct TreeHoleCard_Previews: PreviewProvider {
-    static let testFloor = OTFloor(
-        floor_id: 1234567,
-        hole_id: 123456,
+struct THPost_Previews: PreviewProvider {
+    static let floor = OTFloor(
+        id: 1234567,
+        holeId: 123456,
+        updateTime: "2022-04-14T08:23:12.761042+08:00",
+        createTime: "2022-04-14T08:23:12.761042+08:00",
         like: 12,
+        liked: true,
         storey: 5,
         content: """
-        Hello, **SwiftLee** readers!
+        Hello, **Dear** readers!
         
         We can make text *italic*, ***bold italic***, or ~~striked through~~.
         
@@ -93,23 +101,17 @@ struct TreeHoleCard_Previews: PreviewProvider {
         Or use `Monospace` to mimic `Text("inline code")`.
         
         """,
-        anonyname: "Dax",
-        time_updated: "",
-        time_created: "2022-04-14T08:23:12.761042+08:00",
-        deleted: false,
-        is_me: false,
-        liked: true,
-        fold: [])
-    
-    static let tagObj = OTTag(name: "树洞", tag_id: 1, temperature: 0)
-    
-    static let tagList = Array(repeating: tagObj, count: 5)
-    
+        poster: "Dax")
+
+    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
+
+    static let tagList = Array(repeating: tag, count: 5)
+
     static var previews: some View {
         Group {
-            TreeHoleCard(floor: testFloor)
-            TreeHoleCard(floor: testFloor, tagList: tagList)
-            TreeHoleCard(floor: testFloor)
+            THPost(floor: floor)
+            THPost(floor: floor, tagList: tagList)
+            THPost(floor: floor)
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)

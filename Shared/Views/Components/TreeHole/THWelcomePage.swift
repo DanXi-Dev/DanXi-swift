@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TreeHoleLoginPrompt: View {
+struct THWelcomePage: View {
     
     var body: some View {
         VStack {
@@ -19,9 +19,9 @@ struct TreeHoleLoginPrompt: View {
             Spacer()
             
             VStack(alignment: .leading, spacing: 10) {
-                FeatureEntry(imageName: "bell", title: "时刻保持最新", caption: "在您关注的帖子更新时，您将收到推送通知")
-                FeatureEntry(imageName: "message", title: "分区讨论", caption: "在专门的空间里进行更专注的讨论")
-                FeatureEntry(imageName: "pencil.and.outline", title: "轻松编辑", caption: "在帖子中使用LaTeX和Markdown语法")
+                FeatureEntry(imageName: "bell", title: "th_feature1", caption: "th_detail1")
+                FeatureEntry(imageName: "message", title: "th_feature2", caption: "th_detail2")
+                FeatureEntry(imageName: "pencil.and.outline", title: "th_feature3", caption: "th_detail3")
             }
             .frame(width: 300)
             
@@ -37,8 +37,8 @@ struct TreeHoleLoginPrompt: View {
 
 struct FeatureEntry: View {
     let imageName: String
-    let title: String
-    let caption: String
+    let title: LocalizedStringKey
+    let caption: LocalizedStringKey
     
     var body: some View {
         HStack {
@@ -56,14 +56,15 @@ struct FeatureEntry: View {
                 
             }
         }
+        .frame(height: 70.0)
     }
 }
 
-struct TreeHoleLoginPrompt_Previews: PreviewProvider {
+struct THWelcomePagePrompt_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TreeHoleLoginPrompt()
-            TreeHoleLoginPrompt()
+            THWelcomePage()
+            THWelcomePage()
                 .preferredColorScheme(.dark)
         }
     }

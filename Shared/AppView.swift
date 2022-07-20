@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppView: View {
-    @StateObject var appModel = AppModel()
+    @StateObject var THaccountState = THSystem()
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -9,7 +9,7 @@ struct AppView: View {
     
     var body: some View {
         autoAppNavigation
-            .environmentObject(appModel)
+            .environmentObject(THaccountState)
     }
     
     @ViewBuilder

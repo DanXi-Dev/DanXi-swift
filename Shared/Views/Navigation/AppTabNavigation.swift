@@ -1,18 +1,25 @@
 import SwiftUI
 
 struct AppTabNavigation: View {
-
+    @EnvironmentObject var THaccount: THSystem
+    
     enum Tab {
         case treehole
         case settings
     }
-
+    
     @State private var selection: Tab = .treehole
-
+    
     var body: some View {
         TabView(selection: $selection) {
-            NavigationView {
-                TreeHolePage()
+            Group {
+                if (THaccount.isLogged) {
+                    NavigationView {
+                        TreeHolePage()
+                    }
+                } else {
+                    THWelcomePage()
+                }
             }
             .tabItem {
                 Image(systemName: "text.bubble")
@@ -33,7 +40,15 @@ struct AppTabNavigation: View {
 }
 
 struct AppTabNavigation_Previews: PreviewProvider {
+    static let accountState = THSystem()
+    
     static var previews: some View {
-        AppTabNavigation()
+        Group {
+            AppTabNavigation()
+            AppTabNavigation()
+                .preferredColorScheme(.dark)
+        }
+        .environmentObject(accountState)
     }
+    
 }

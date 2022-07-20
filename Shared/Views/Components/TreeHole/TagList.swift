@@ -26,11 +26,11 @@ struct TagList: View {
 }
 
 struct TagList_Previews: PreviewProvider {
-    static let tagObj = OTTag(name: "树洞", tag_id: 1, temperature: 0)
+    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
     
-    static let shortList = Array(repeating: tagObj, count: 2)
+    static let shortList = Array(repeating: tag, count: 2)
     
-    static let longList = Array(repeating: tagObj, count: 15)
+    static let longList = Array(repeating: tag, count: 15)
     
     static var previews: some View {
         Group {
