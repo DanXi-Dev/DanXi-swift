@@ -8,18 +8,52 @@ struct THLoginPage: View {
     
     @EnvironmentObject var accountState: THSystem
     
+    func login() {
+        loading = true
+        Task.init {
+            guard let token = await THlogin(username: username, password: password) else {
+                // TODO: warn login failure
+                loading = false
+                return
+            }
+            loading = false
+            accountState.credential = token
+            accountState.isLogged = true
+            showLoginPage = false
+        }
+    }
+    
     var body: some View {
         NavigationView {
             Form {
-                TextField("email", text: $username)
-                    .textContentType(.emailAddress)
-                    .textInputAutocapitalization(.never)
-                    .disableAutocorrection(true)
+                Section{
+                    TextField("email", text: $username)
+                        .textContentType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
+                    
+                    SecureField(NSLocalizedString("password", comment: ""), text: $password)
+                }
                 
-                SecureField(NSLocalizedString("password", comment: ""), text: $password)
+                if loading {
+                    Section{
+                        ProgressView()
+                    }
+                }
+                
+#if os(watchOS)
+                Section{
+                    Button("login") {
+                        login()
+                    }
+                    .disabled(loading)
+                    Button("cancel") {
+                        showLoginPage = false
+                    }
+                }
+#endif
             }
             .navigationTitle("fduhole_login_prompt")
-            .navigationBarTitleDisplayMode(.inline)
 #if !os(watchOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -29,18 +63,7 @@ struct THLoginPage: View {
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button("login") {
-                        loading = true
-                        Task.init {
-                            guard let token = await THlogin(username: username, password: password) else {
-                                // TODO: warn login failure
-                                loading = false
-                                return
-                            }
-                            loading = false
-                            accountState.credential = token
-                            accountState.isLogged = true
-                            showLoginPage = false
-                        }
+                        login()
                     }
                     .disabled(loading)
                 }
