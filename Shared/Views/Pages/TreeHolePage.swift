@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TreeHolePage: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @EnvironmentObject var accountState: THSystem
     @StateObject var data = THData()
     
@@ -27,6 +29,9 @@ struct TreeHolePage: View {
                 }
             }
         }
+#if !os(watchOS)
+        .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
+#endif
         .navigationTitle(data.currentDivision.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -37,6 +42,7 @@ struct TreeHolePage: View {
                 toolbarRight
             }
         }
+        
 #endif
     }
     

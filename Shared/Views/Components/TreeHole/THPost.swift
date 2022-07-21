@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct THPost: View {
+    @Environment(\.colorScheme) var colorScheme
     
     let floor: OTFloor
     let tagList: [OTTag]?
@@ -24,7 +25,7 @@ struct THPost: View {
         }
         .padding()
 #if !os(watchOS)
-        .background(Color(UIColor.systemGray6))
+        .background(Color(uiColor: colorScheme == .dark ? .secondarySystemBackground : .systemBackground))
 #endif
         .cornerRadius(13)
         .padding(.horizontal)

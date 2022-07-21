@@ -7,22 +7,22 @@ struct SettingsPage: View {
     @State var showTreeHoleActions = false
     
     var body: some View {
-            List {
-                Section("accounts_management") {
-                    if THaccountState.isLogged {
-                        treeHoleAccount
-                    } else {
-                        treeHoleAccountNotLogged
-                    }
-                    uisAccount
+        List {
+            Section("accounts_management") {
+                if THaccountState.isLogged {
+                    treeHoleAccount
+                } else {
+                    treeHoleAccountNotLogged
                 }
-                
-                Section("about") {
-                    Text("legal")
-                    Text("about")
-                }
+                uisAccount
             }
-            .navigationTitle("settings")
+            
+            Section("about") {
+                Text("legal")
+                Text("about")
+            }
+        }
+        .navigationTitle("settings")
     }
     
     private var uisAccount: some View {
@@ -45,7 +45,9 @@ struct SettingsPage: View {
     
     private var treeHoleAccount: some View {
         HStack {
-            Button(action: { showTreeHoleActions = true }) {
+            Button(action: {
+                showTreeHoleActions = true
+            }) {
                 Image(systemName: "person.crop.circle.fill.badge.checkmark")
                     .font(.system(size: 42))
                     .symbolRenderingMode(.palette)
@@ -61,9 +63,9 @@ struct SettingsPage: View {
         }
         .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
             Button("logout", role: .destructive) {
-                THaccountState.logout()
-                showTreeHoleActions = false
-                // FIXME: this popup will re-appear after tap "Logout"
+                withAnimation {
+                    THaccountState.logout()
+                }
             }
         }
     }
@@ -92,7 +94,7 @@ struct SettingsPage: View {
 
 struct SettingsPage_Previews: PreviewProvider {
     static let THaccountState = THSystem()
-
+    
     static var previews: some View {
         Group {
             SettingsPage()

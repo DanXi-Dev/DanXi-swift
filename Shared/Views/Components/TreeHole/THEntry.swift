@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct THEntry: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     let hole: OTHole
     
     var body: some View {
@@ -16,7 +18,7 @@ struct THEntry: View {
         }
         .padding()
 #if !os(watchOS)
-        .background(Color(UIColor.systemGray6))
+        .background(Color(uiColor: colorScheme == .dark ? .secondarySystemBackground : .systemBackground))
 #endif
         .cornerRadius(13)
         .padding(.horizontal)
@@ -63,6 +65,5 @@ struct THEntry_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)
-        
     }
 }

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct THThread: View {
+    @Environment(\.colorScheme) var colorScheme
     var hole: OTHole
     
     var body: some View {
@@ -13,6 +14,9 @@ struct THThread: View {
                 }
             }
         }
+#if !os(watchOS)
+        .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
+#endif
         .navigationTitle(String(hole.id))
     }
 }
