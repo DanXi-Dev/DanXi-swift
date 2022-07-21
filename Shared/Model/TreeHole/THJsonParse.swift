@@ -18,7 +18,7 @@ extension THFloor {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         like = try values.decode(Int.self, forKey: .like)
-        liked = try values.decode(Bool.self, forKey: .liked)
+        liked = try values.decodeIfPresent(Bool.self, forKey: .liked)
         holeId = try values.decode(Int.self, forKey: .holeId)
         storey = try values.decode(Int.self, forKey: .storey)
         content = try values.decode(String.self, forKey: .content)
