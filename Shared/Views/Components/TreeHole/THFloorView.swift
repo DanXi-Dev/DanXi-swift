@@ -36,7 +36,7 @@ struct THFloorView: View {
         HStack {
             Rectangle()
                 .frame(width: 3, height: 15)
-            Text(floor.poster)
+            Text(floor.posterName)
                 .font(.system(size: 15))
                 .fontWeight(.bold)
         }
@@ -58,7 +58,7 @@ struct THFloorView: View {
 #endif
             
             Spacer()
-            Text(floor.createTime)
+            Text(floor.createTime.formatted(date: .abbreviated, time: .shortened))
                 .font(.caption)
                 .foregroundColor(.secondary)
 #if !os(watchOS)
@@ -84,11 +84,13 @@ struct THFloorView: View {
 }
 
 struct THPost_Previews: PreviewProvider {
+    
     static let floor = THFloor(
         id: 1234567,
         holeId: 123456,
-        updateTime: "2022-04-14T08:23:12.761042+08:00",
-        createTime: "2022-04-14T08:23:12.761042+08:00",
+        iso8601UpdateTime: "2022-04-14T08:23:12.761042+08:00",
+        iso8601CreateTime: "2022-04-14T08:23:12.761042+08:00",
+        updateTime: Date.now, createTime: Date.now,
         like: 12,
         liked: true,
         storey: 5,
@@ -102,7 +104,7 @@ struct THPost_Previews: PreviewProvider {
         Or use `Monospace` to mimic `Text("inline code")`.
         
         """,
-        poster: "Dax")
+        posterName: "Dax")
 
     static let tag = THTag(id: 1, temperature: 1, name: "Tag")
 

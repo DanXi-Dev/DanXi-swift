@@ -5,13 +5,35 @@ import Foundation
 extension THFloor {
     enum CodingKeys: String, CodingKey {
         case id = "floor_id"
-        case updateTime = "time_updated"
-        case createTime = "time_created"
+        case iso8601UpdateTime = "time_updated"
+        case iso8601CreateTime = "time_created"
         case like
         case liked
         case holeId = "hole_id"
         case storey, content
-        case poster = "anonyname"
+        case posterName = "anonyname"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        like = try values.decode(Int.self, forKey: .like)
+        liked = try values.decode(Bool.self, forKey: .liked)
+        holeId = try values.decode(Int.self, forKey: .holeId)
+        storey = try values.decode(Int.self, forKey: .storey)
+        content = try values.decode(String.self, forKey: .content)
+        posterName = try values.decode(String.self, forKey: .posterName)
+        iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
+        iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
+        
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let ut = formatter.date(from: iso8601UpdateTime), let ct = formatter.date(from: iso8601CreateTime) {
+            updateTime = ut
+            createTime = ct
+        } else {
+            throw TreeHoleError.invalidFormat(reason: "Invalid ISO8601 Date")
+        }
     }
 }
 
@@ -44,8 +66,8 @@ extension THHole {
         case divisionId = "division_id"
         case view
         case reply
-        case updateTime = "time_updated"
-        case createTime = "time_created"
+        case iso8601UpdateTime = "time_updated"
+        case iso8601CreateTime = "time_created"
         case tags
         
         case floorStruct = "floors"
@@ -62,9 +84,18 @@ extension THHole {
         divisionId = try values.decode(Int.self, forKey: .divisionId)
         view = try values.decode(Int.self, forKey: .view)
         reply = try values.decode(Int.self, forKey: .reply)
-        updateTime = try values.decode(String.self, forKey: .updateTime)
-        createTime = try values.decode(String.self, forKey: .createTime)
         tags = try values.decode([THTag].self, forKey: .tags)
+        iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
+        iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
+        
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let ut = formatter.date(from: iso8601UpdateTime), let ct = formatter.date(from: iso8601CreateTime) {
+            updateTime = ut
+            createTime = ct
+        } else {
+            throw TreeHoleError.invalidFormat(reason: "Invalid ISO8601 Date")
+        }
         
         let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)
         firstFloor = try floorStruct.decode(THFloor.self, forKey: .firstFloor)

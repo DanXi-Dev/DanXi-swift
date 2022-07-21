@@ -31,8 +31,9 @@ struct THEntry_Previews: PreviewProvider {
     
     static let floor = THFloor(
         id: 1234567, holeId: 123456,
-        updateTime: "2022-04-14T08:23:12.761042+08:00",
-        createTime: "2022-04-14T08:23:12.761042+08:00",
+        iso8601UpdateTime: "2022-04-14T08:23:12.761042+08:00",
+        iso8601CreateTime: "2022-04-14T08:23:12.761042+08:00",
+        updateTime: Date.now, createTime: Date.now,
         like: 12,
         liked: true,
         storey: 5,
@@ -46,15 +47,16 @@ struct THEntry_Previews: PreviewProvider {
         Or use `Monospace` to mimic `Text("inline code")`.
         
         """,
-        poster: "Dax")
+        posterName: "Dax")
     
     static let hole = THHole(
         id: 123456,
         divisionId: 1,
         view: 15,
         reply: 13,
-        updateTime: "2022-04-14T08:23:12.761042+08:00",
-        createTime: "2022-04-14T08:23:12.761042+08:00",
+        iso8601UpdateTime: "2022-04-14T08:23:12.761042+08:00",
+        iso8601CreateTime: "2022-04-14T08:23:12.761042+08:00",
+        updateTime: Date.now, createTime: Date.now,
         tags: Array(repeating: tag, count: 5),
         firstFloor: floor, lastFloor: floor, floors: Array(repeating: floor, count: 10))
     

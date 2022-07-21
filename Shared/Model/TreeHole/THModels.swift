@@ -18,17 +18,19 @@ struct THTag: Hashable, Codable, Identifiable {
 
 struct THFloor: Hashable, Codable, Identifiable {
     let id, holeId: Int
-    let updateTime, createTime: String
+    let iso8601UpdateTime, iso8601CreateTime: String
+    let updateTime, createTime: Date
     let like: Int
     let liked: Bool?
     let storey: Int
-    let content, poster: String
+    let content, posterName: String
 }
 
 struct THHole: Hashable, Decodable, Identifiable {
     let id, divisionId: Int
     let view, reply: Int
-    let updateTime, createTime: String
+    let iso8601UpdateTime, iso8601CreateTime: String
+    let updateTime, createTime: Date
     let tags: [THTag]
     let firstFloor, lastFloor: THFloor
     var floors: [THFloor]

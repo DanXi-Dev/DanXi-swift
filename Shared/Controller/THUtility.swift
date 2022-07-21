@@ -6,19 +6,22 @@ public enum TreeHoleError: LocalizedError {
     case notInitialized
     case serverReturnedError(message: String)
     case invalidResponse
+    case invalidFormat(reason: String)
 }
 
 extension TreeHoleError {
     public var errorDescription: String? {
         switch self {
         case let .serverReturnedError(message):
-            return message
+            return "The server responded with an error: \(message)"
         case .unauthorized:
             return "Unauthorized"
         case .notInitialized:
             return "Repository not initialized"
         case .invalidResponse:
             return "The server returned an invalid response"
+        case let .invalidFormat(reason):
+            return "The server returned an malformed response: \(reason)"
         }
     }
 }
