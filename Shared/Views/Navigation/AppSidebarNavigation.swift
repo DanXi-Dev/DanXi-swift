@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppSidebarNavigation: View {
-    @EnvironmentObject var THaccount: THSystem
+    @EnvironmentObject var THaccount: THAccountModel
 
     enum NavigationItem {
         case treehole
@@ -41,7 +41,7 @@ struct AppSidebarNavigation: View {
 }
 
 struct AppSidebarNavigation_Previews: PreviewProvider {
-    static let accountState = THSystem()
+    static let accountState = THAccountModel()
     
     static var previews: some View {
         AppSidebarNavigation()

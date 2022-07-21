@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct THEntry: View {
+struct THHoleView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    let hole: OTHole
+    let hole: THHole
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,9 +27,9 @@ struct THEntry: View {
 }
 
 struct THEntry_Previews: PreviewProvider {
-    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
+    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
     
-    static let floor = OTFloor(
+    static let floor = THFloor(
         id: 1234567, holeId: 123456,
         updateTime: "2022-04-14T08:23:12.761042+08:00",
         createTime: "2022-04-14T08:23:12.761042+08:00",
@@ -48,7 +48,7 @@ struct THEntry_Previews: PreviewProvider {
         """,
         poster: "Dax")
     
-    static let hole = OTHole(
+    static let hole = THHole(
         id: 123456,
         divisionId: 1,
         view: 15,
@@ -60,8 +60,8 @@ struct THEntry_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            THEntry(hole: hole)
-            THEntry(hole: hole)
+            THHoleView(hole: hole)
+            THHoleView(hole: hole)
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)

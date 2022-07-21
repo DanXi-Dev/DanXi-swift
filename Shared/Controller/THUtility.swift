@@ -56,18 +56,18 @@ func THlogin(username: String, password: String) async -> String? {
     }
 }
 
-func THloadDivisions(token: String) async throws -> [OTDivision] {
+func THloadDivisions(token: String) async throws -> [THDivision] {
     let components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions")!
     var request = URLRequest(url: components.url!)
     request.httpMethod = "GET"
     request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     
     let (data, _) = try await URLSession.shared.data(for: request)
-    let decodedResponse = try JSONDecoder().decode([OTDivision].self, from: data)
+    let decodedResponse = try JSONDecoder().decode([THDivision].self, from: data)
     return decodedResponse
 }
 
-func THloadHoles(token: String, startTime: String? = nil, divisionId: Int?) async throws -> [OTHole] {
+func THloadHoles(token: String, startTime: String? = nil, divisionId: Int?) async throws -> [THHole] {
     var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
     components.queryItems = [
         URLQueryItem(name: "start_time", value: startTime),
@@ -79,12 +79,12 @@ func THloadHoles(token: String, startTime: String? = nil, divisionId: Int?) asyn
     request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     
     let (data, _) = try await URLSession.shared.data(for: request)
-    let decodedResponse = try JSONDecoder().decode([OTHole].self, from: data)
+    let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
     return decodedResponse
 }
 
 
-func THloadFloors(token: String, holeId: Int, startFloor: Int, length: Int = 10) async throws -> [OTFloor] {
+func THloadFloors(token: String, holeId: Int, startFloor: Int, length: Int = 10) async throws -> [THFloor] {
     var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
     components.queryItems = [
         URLQueryItem(name: "hole_id", value: String(holeId)),
@@ -96,6 +96,6 @@ func THloadFloors(token: String, holeId: Int, startFloor: Int, length: Int = 10)
     request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     
     let (data, _) = try await URLSession.shared.data(for: request)
-    let decodedResponse = try JSONDecoder().decode([OTFloor].self, from: data)
+    let decodedResponse = try JSONDecoder().decode([THFloor].self, from: data)
     return decodedResponse
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppView: View {
-    @StateObject var THaccountState = THSystem()
+    @StateObject var THaccountState = THAccountModel()
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass

@@ -6,16 +6,16 @@ class THData: ObservableObject {
     var token = ""
     @Published var endReached = false
     @Published var loading = false
-    @Published var holes: [OTHole] = []
-    @Published var divisions: [OTDivision] = []
-    @Published var currentDivision = OTDivision(id: 1, name: "树洞", description: "", pinned: [])
+    @Published var holes: [THHole] = []
+    @Published var divisions: [THDivision] = []
+    @Published var currentDivision = THDivision(id: 1, name: "树洞", description: "", pinned: [])
     
     init() {
         let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools") // TODO: move to keychain
         token = defaults?.string(forKey: "user_credential") ?? ""
     }
     
-    init(divisions: [OTDivision], holes: [OTHole]) { // for preview purpose
+    init(divisions: [THDivision], holes: [THHole]) { // for preview purpose
         self.divisions = divisions
         self.holes = holes
         currentDivision = self.divisions[0]
@@ -62,7 +62,7 @@ class THData: ObservableObject {
         loading = false
     }
     
-    func changeDivision(division: OTDivision) async {
+    func changeDivision(division: THDivision) async {
         withAnimation {
             currentDivision = division
             endReached = false

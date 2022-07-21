@@ -2,7 +2,7 @@ import Foundation
 
 // parse JSON data from server
 
-extension OTFloor {
+extension THFloor {
     enum CodingKeys: String, CodingKey {
         case id = "floor_id"
         case updateTime = "time_updated"
@@ -15,14 +15,14 @@ extension OTFloor {
     }
 }
 
-extension OTUser {
+extension THUser {
     enum CodingKeys: String, CodingKey {
         case id = "user_id"
         case nickname
     }
 }
 
-extension OTDivision {
+extension THDivision {
     enum CodingKeys: String, CodingKey {
         case id = "division_id"
         case name
@@ -31,14 +31,14 @@ extension OTDivision {
     }
 }
 
-extension OTTag {
+extension THTag {
     enum CodingKeys: String, CodingKey {
         case id = "tag_id"
         case name, temperature
     }
 }
 
-extension OTHole {
+extension THHole {
     enum CodingKeys: String, CodingKey {
         case id = "hole_id"
         case divisionId = "division_id"
@@ -64,11 +64,11 @@ extension OTHole {
         reply = try values.decode(Int.self, forKey: .reply)
         updateTime = try values.decode(String.self, forKey: .updateTime)
         createTime = try values.decode(String.self, forKey: .createTime)
-        tags = try values.decode([OTTag].self, forKey: .tags)
+        tags = try values.decode([THTag].self, forKey: .tags)
         
         let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)
-        firstFloor = try floorStruct.decode(OTFloor.self, forKey: .firstFloor)
-        lastFloor = try floorStruct.decode(OTFloor.self, forKey: .lastFloor)
-        floors = try floorStruct.decode([OTFloor].self, forKey: .floors)
+        firstFloor = try floorStruct.decode(THFloor.self, forKey: .firstFloor)
+        lastFloor = try floorStruct.decode(THFloor.self, forKey: .lastFloor)
+        floors = try floorStruct.decode([THFloor].self, forKey: .floors)
     }
 }

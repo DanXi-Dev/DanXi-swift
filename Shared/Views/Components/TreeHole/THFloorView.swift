@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct THPost: View {
+struct THFloorView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    let floor: OTFloor
-    let tagList: [OTTag]?
+    let floor: THFloor
+    let tagList: [THTag]?
     
-    init(floor: OTFloor, tagList: [OTTag]? = nil) {
+    init(floor: THFloor, tagList: [THTag]? = nil) {
         self.floor = floor
         self.tagList = tagList
     }
@@ -84,7 +84,7 @@ struct THPost: View {
 }
 
 struct THPost_Previews: PreviewProvider {
-    static let floor = OTFloor(
+    static let floor = THFloor(
         id: 1234567,
         holeId: 123456,
         updateTime: "2022-04-14T08:23:12.761042+08:00",
@@ -104,15 +104,15 @@ struct THPost_Previews: PreviewProvider {
         """,
         poster: "Dax")
 
-    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
+    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
 
     static let tagList = Array(repeating: tag, count: 5)
 
     static var previews: some View {
         Group {
-            THPost(floor: floor)
-            THPost(floor: floor, tagList: tagList)
-            THPost(floor: floor)
+            THFloorView(floor: floor)
+            THFloorView(floor: floor, tagList: tagList)
+            THFloorView(floor: floor)
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)

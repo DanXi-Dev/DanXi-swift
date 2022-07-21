@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppTabNavigation: View {
-    @EnvironmentObject var THaccount: THSystem
+    @EnvironmentObject var THaccount: THAccountModel
     
     enum Tab {
         case treehole
@@ -40,7 +40,7 @@ struct AppTabNavigation: View {
 }
 
 struct AppTabNavigation_Previews: PreviewProvider {
-    static let accountState = THSystem()
+    static let accountState = THAccountModel()
     
     static var previews: some View {
         Group {

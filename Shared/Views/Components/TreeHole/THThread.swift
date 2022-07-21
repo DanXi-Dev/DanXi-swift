@@ -1,19 +1,19 @@
 import SwiftUI
 
 struct THThread: View {
-    @EnvironmentObject var accountState: THSystem
+    @EnvironmentObject var accountState: THAccountModel
     @Environment(\.colorScheme) var colorScheme
-    @State var hole: OTHole
+    @State var hole: THHole
     @State var endReached = false
     
 
     var body: some View {
         ScrollView {
             LazyVStack {
-                THPost(floor: hole.firstFloor, tagList: hole.tags)
+                THFloorView(floor: hole.firstFloor, tagList: hole.tags)
                 
                 ForEach(hole.floors[1...]) { floor in
-                    THPost(floor: floor)
+                    THFloorView(floor: floor)
                 }
                 
                 if !endReached {
@@ -36,7 +36,7 @@ struct THThread: View {
 #if !os(watchOS)
         .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
 #endif
-        .navigationTitle(String(hole.id))
+        .navigationTitle("#\(String(hole.id))")
     }
 }
 
@@ -44,9 +44,9 @@ struct THThread: View {
 
 
 struct THThread_Previews: PreviewProvider {
-    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
+    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
 
-    static let floor = OTFloor(
+    static let floor = THFloor(
         id: 1234567, holeId: 123456,
         updateTime: "2022-04-14T08:23:12.761042+08:00",
         createTime: "2022-04-14T08:23:12.761042+08:00",
@@ -65,7 +65,7 @@ struct THThread_Previews: PreviewProvider {
         """,
         poster: "Dax")
 
-    static let hole = OTHole(
+    static let hole = THHole(
         id: 123456,
         divisionId: 1,
         view: 15,

@@ -1,22 +1,22 @@
 import Foundation
 
-struct OTUser: Hashable, Codable, Identifiable {
+struct THUser: Hashable, Codable, Identifiable {
     let id: Int
     let nickname: String
 }
 
-struct OTDivision: Hashable, Decodable, Identifiable {
+struct THDivision: Hashable, Decodable, Identifiable {
     let id: Int
     let name, description: String
-    let pinned: [OTHole]
+    let pinned: [THHole]
 }
 
-struct OTTag: Hashable, Codable, Identifiable {
+struct THTag: Hashable, Codable, Identifiable {
     let id, temperature: Int
     let name: String
 }
 
-struct OTFloor: Hashable, Codable, Identifiable {
+struct THFloor: Hashable, Codable, Identifiable {
     let id, holeId: Int
     let updateTime, createTime: String
     let like: Int
@@ -25,11 +25,11 @@ struct OTFloor: Hashable, Codable, Identifiable {
     let content, poster: String
 }
 
-struct OTHole: Hashable, Decodable, Identifiable {
+struct THHole: Hashable, Decodable, Identifiable {
     let id, divisionId: Int
     let view, reply: Int
     let updateTime, createTime: String
-    let tags: [OTTag]
-    let firstFloor, lastFloor: OTFloor
-    var floors: [OTFloor]
+    let tags: [THTag]
+    let firstFloor, lastFloor: THFloor
+    var floors: [THFloor]
 }

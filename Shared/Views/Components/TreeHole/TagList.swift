@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TagList: View {
     let color = Color.pink
-    let tags: [OTTag]
+    let tags: [THTag]
     
     var body: some View {
         FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
@@ -26,7 +26,7 @@ struct TagList: View {
 }
 
 struct TagList_Previews: PreviewProvider {
-    static let tag = OTTag(id: 1, temperature: 1, name: "Tag")
+    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
     
     static let shortList = Array(repeating: tag, count: 2)
     

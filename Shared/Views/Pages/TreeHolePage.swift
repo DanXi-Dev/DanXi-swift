@@ -3,7 +3,7 @@ import SwiftUI
 struct TreeHolePage: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @EnvironmentObject var accountState: THSystem
+    @EnvironmentObject var accountState: THAccountModel
     @StateObject var data = THData()
     
     var body: some View {
@@ -69,13 +69,13 @@ struct TreeHolePage: View {
         
         ForEach(data.currentDivision.pinned) { hole in
             NavigationLink(destination: THThread(hole: hole)) {
-                THEntry(hole: hole)
+                THHoleView(hole: hole)
             }
         }
         
         ForEach(data.holes) { hole in
             NavigationLink(destination: THThread(hole: hole)) {
-                THEntry(hole: hole)
+                THHoleView(hole: hole)
             }
         }
     }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @EnvironmentObject var THaccountState: THSystem
+    @EnvironmentObject var THaccountState: THAccountModel
     
     @State var showTreeHoleLogin = false
     @State var showTreeHoleActions = false
@@ -93,7 +93,7 @@ struct SettingsPage: View {
 }
 
 struct SettingsPage_Previews: PreviewProvider {
-    static let THaccountState = THSystem()
+    static let THaccountState = THAccountModel()
     
     static var previews: some View {
         Group {

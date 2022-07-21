@@ -6,7 +6,7 @@ struct THLoginPage: View {
     @State var password = ""
     @State var loading = false
     
-    @EnvironmentObject var accountState: THSystem
+    @EnvironmentObject var accountState: THAccountModel
     
     func login() {
         loading = true
