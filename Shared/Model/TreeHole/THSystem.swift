@@ -10,4 +10,17 @@ class THSystem: ObservableObject {
             defaults?.setValue(credential, forKey: "user_credential")
         }
     }
+    
+    init() {
+        if let token = defaults?.string(forKey: "user_credential") {
+            credential = token
+            isLogged = true
+        }
+    }
+    
+    func logout() {
+        defaults?.removeObject(forKey: "user_credential")
+        credential = nil
+        isLogged = false
+    }
 }

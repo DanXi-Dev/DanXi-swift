@@ -61,8 +61,9 @@ struct SettingsPage: View {
         }
         .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
             Button("logout", role: .destructive) {
-                // TODO: logout
+                THaccountState.logout()
                 showTreeHoleActions = false
+                // FIXME: this popup will re-appear after tap "Logout"
             }
         }
     }
