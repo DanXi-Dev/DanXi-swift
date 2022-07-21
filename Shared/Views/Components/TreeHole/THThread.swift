@@ -8,34 +8,33 @@ struct THThread: View {
     
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                THFloorView(floor: hole.firstFloor, tagList: hole.tags)
-                
-                ForEach(hole.floors[1...]) { floor in
-                    THFloorView(floor: floor)
-                }
-                
-                if !endReached {
-                    ProgressView()
-                        .task { // load more Floors
-                            do {
-                                let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
-                                let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
-                                withAnimation {
-                                    endReached = newFloors.isEmpty
-                                    hole.floors.append(contentsOf: newFloors)
-                                }
-                            } catch {
-                                print("load new floors failed")
+        
+        List {
+            THFloorView(floor: hole.firstFloor, tagList: hole.tags)
+            
+            ForEach(hole.floors[1...]) { floor in
+                THFloorView(floor: floor)
+            }
+            
+            if !endReached {
+                ProgressView()
+                    .task { // load more Floors
+                        do {
+                            let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
+                            let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
+                            withAnimation {
+                                endReached = newFloors.isEmpty
+                                hole.floors.append(contentsOf: newFloors)
                             }
+                        } catch {
+                            print("load new floors failed")
                         }
-                }
+                    }
             }
         }
-#if !os(watchOS)
-        .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
-#endif
+        #if !os(watchOS)
+        .listStyle(.grouped)
+        #endif
         .navigationTitle("#\(String(hole.id))")
         .navigationBarTitleDisplayMode(.inline)
     }

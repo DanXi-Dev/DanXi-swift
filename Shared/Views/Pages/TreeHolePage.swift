@@ -13,27 +13,51 @@ struct TreeHolePage: View {
         }
         .navigationTitle(data.currentDivision.name)
 #else
-        ScrollView{
-            LazyVStack {
-                listContent
-                
+        List() {
+            Section {
+                ForEach(data.currentDivision.pinned) { hole in
+                    NavigationLink(destination: THThread(hole: hole)) {
+                        THHoleView(hole: hole)
+                    }
+                    
+                }
+            } header: {
+                VStack(alignment: .leading, spacing: 1.5) {
+                    divisionSelector
+                    Label("Pinned", systemImage: "pin.fill")
+                }
+            }
+            
+            Section {
+                ForEach(data.holes) { hole in
+                    NavigationLink(destination: THThread(hole: hole)) {
+                        THHoleView(hole: hole)
+                    }
+                }
+            } header: {
+                Label("Main Section", systemImage: "text.bubble.fill")
+            } footer: {
+                // FIXME: can't load new data
                 if !data.endReached {
-                    ProgressView()
-                        .task {
-                            if data.notInitiazed {
-                                await data.refresh(initial: true)
-                            } else {
-                                await data.fetchMoreHoles()
-                            }
+                    HStack() {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    .task {
+                        if data.notInitiazed {
+                            await data.refresh(initial: true)
+                        } else {
+                            await data.fetchMoreHoles()
                         }
+                    }
+                } else {
+                    Text("bottom reached")
                 }
             }
         }
-        .refreshable {
-            await data.refresh()
-        }
+        .listStyle(.grouped)
         .navigationTitle(data.currentDivision.name)
-        .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {}, label: {
@@ -106,6 +130,8 @@ struct TreeHolePage: View {
             }
         }
     }
+    
+    
     
 }
 

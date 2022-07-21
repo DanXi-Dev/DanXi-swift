@@ -23,13 +23,6 @@ struct THFloorView: View {
             Divider()
             actions
         }
-        .padding()
-#if !os(watchOS)
-        .background(Color(uiColor: colorScheme == .dark ? .secondarySystemBackground : .systemBackground))
-#endif
-        .cornerRadius(13)
-        .padding(.horizontal)
-        .padding(.vertical, 5.0)
     }
     
     private var poster: some View {
