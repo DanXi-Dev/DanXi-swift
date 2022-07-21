@@ -10,15 +10,20 @@ struct THThread: View {
     var body: some View {
         
         List {
-            THFloorView(floor: hole.firstFloor, tagList: hole.tags)
-            
-            ForEach(hole.floors[1...]) { floor in
-                THFloorView(floor: floor)
-            }
-            
-            if !endReached {
-                ProgressView()
-                    .task { // load more Floors
+            Section {
+                THFloorView(floor: hole.firstFloor, tagList: hole.tags)
+                
+                ForEach(hole.floors[1...]) { floor in
+                    THFloorView(floor: floor)
+                }
+            } footer: {
+                if !endReached {
+                    HStack() {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    .task {
                         do {
                             let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
                             let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
@@ -30,11 +35,15 @@ struct THThread: View {
                             print("load new floors failed")
                         }
                     }
+                    
+                } else {
+                    Text("bottom reached")
+                }
             }
         }
-        #if !os(watchOS)
+#if !os(watchOS)
         .listStyle(.grouped)
-        #endif
+#endif
         .navigationTitle("#\(String(hole.id))")
         .navigationBarTitleDisplayMode(.inline)
     }

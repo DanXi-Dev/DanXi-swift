@@ -37,7 +37,6 @@ struct TreeHolePage: View {
             } header: {
                 Label("Main Section", systemImage: "text.bubble.fill")
             } footer: {
-                // FIXME: can't load new data
                 if !data.endReached {
                     HStack() {
                         Spacer()
