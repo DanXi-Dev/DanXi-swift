@@ -54,6 +54,7 @@ struct THLoginPage: View {
 #endif
             }
             .navigationTitle("fduhole_login_prompt")
+            .navigationBarTitleDisplayMode(.inline)
 #if !os(watchOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

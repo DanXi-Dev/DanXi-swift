@@ -37,6 +37,7 @@ struct THThread: View {
         .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
 #endif
         .navigationTitle("#\(String(hole.id))")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
