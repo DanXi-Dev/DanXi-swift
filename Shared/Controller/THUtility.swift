@@ -82,3 +82,20 @@ func THloadHoles(token: String, startTime: String? = nil, divisionId: Int?) asyn
     let decodedResponse = try JSONDecoder().decode([OTHole].self, from: data)
     return decodedResponse
 }
+
+
+func THloadFloors(token: String, holeId: Int, startFloor: Int, length: Int = 10) async throws -> [OTFloor] {
+    var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
+    components.queryItems = [
+        URLQueryItem(name: "hole_id", value: String(holeId)),
+        URLQueryItem(name: "length", value: String(length)),
+        URLQueryItem(name: "start_floor", value: String(startFloor))
+    ]
+    var request = URLRequest(url: components.url!)
+    request.httpMethod = "GET"
+    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    
+    let (data, _) = try await URLSession.shared.data(for: request)
+    let decodedResponse = try JSONDecoder().decode([OTFloor].self, from: data)
+    return decodedResponse
+}
