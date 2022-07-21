@@ -29,17 +29,32 @@ struct TreeHolePage: View {
                 }
             }
         }
-#if !os(watchOS)
-        .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
-#endif
         .navigationTitle(data.currentDivision.name)
-        .navigationBarTitleDisplayMode(.inline)
+        .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                toolbarLeft
+                Button(action: {}, label: {
+                    Image(systemName: "bell")
+                })
+                .font(.subheadline)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                toolbarRight
+                Group {
+                    Button(action: {}, label: {
+                        Image(systemName: "plus.circle")
+                    })
+                    Menu(content: {
+                        Button(action: {}, label: {
+                            Text("option1")
+                        })
+                        Button(action: {}, label: {
+                            Text("option2")
+                        })
+                    }, label: {
+                        Image(systemName: "ellipsis.circle")
+                    })
+                }
+                .font(.subheadline)
             }
         }
         
@@ -87,28 +102,6 @@ struct TreeHolePage: View {
                 await data.changeDivision(division: newValue) // change division
             }
         }
-    }
-    
-    private var toolbarLeft: some View {
-        Button(action: {}, label: {
-            Image(systemName: "bell")
-        })
-        .font(.subheadline)
-    }
-    
-    private var toolbarRight: some View {
-        Group {
-            Button(action: {}, label: {
-                Image(systemName: "arrow.up.arrow.down")
-            })
-            Button(action: {}, label: {
-                Image(systemName: "star")
-            })
-            Button(action: {}, label: {
-                Image(systemName: "plus.circle")
-            })
-        }
-        .font(.subheadline)
     }
     
 }

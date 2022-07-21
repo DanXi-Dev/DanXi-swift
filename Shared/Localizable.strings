@@ -9,7 +9,7 @@
 "password" = "Password";
 "cancel" = "Cancel";
 "login" = "Login";
-"fduhole_login_prompt" = "Login to FDU Hole";
+"fduhole_login_prompt" = "DanXi Login";
 
 // Settings Page
 "accounts_management" = "Accounts Management";
