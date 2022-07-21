@@ -21,13 +21,16 @@ struct TreeHolePage: View {
                     ProgressView()
                         .task {
                             if data.notInitiazed {
-                                await data.initialFetch()
+                                await data.refresh(initial: true)
                             } else {
                                 await data.fetchMoreHoles()
                             }
                         }
                 }
             }
+        }
+        .refreshable {
+            await data.refresh()
         }
         .navigationTitle(data.currentDivision.name)
         .background(Color(uiColor: colorScheme == .dark ? .systemBackground : .secondarySystemBackground))
@@ -93,7 +96,7 @@ struct TreeHolePage: View {
         .task { // data initialization
             if data.notInitiazed {
                 Task {
-                    await data.initialFetch()
+                    await data.refresh(initial:true)
                 }
             }
         }

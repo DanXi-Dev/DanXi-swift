@@ -25,30 +25,30 @@ class THData: ObservableObject {
         !loading && divisions.isEmpty
     }
     
-    
-    func initialFetch() async {
+    func refresh(initial: Bool = false) async {
+        loading = true
+        defer { loading = false }
         do {
-            loading = true
             let fetchedDivisions = try await THloadDivisions(token: token)
             let fetchedHoles = try await THloadHoles(token: token, divisionId: fetchedDivisions[0].id)
             withAnimation {
                 divisions = fetchedDivisions
-                currentDivision = fetchedDivisions[0]
                 holes = fetchedHoles
-                loading = false
+                if initial { currentDivision = divisions[0] }
             }
         } catch {
-            print("load division fail")
+            print("refresh fail \(error)")
         }
     }
     
     func fetchMoreHoles() async {
         loading = true
+        defer { loading = false }
         do {
             let newHoles =
-                try await THloadHoles(token: token,
-                                      startTime: holes.last?.iso8601UpdateTime,
-                                      divisionId: currentDivision.id)
+            try await THloadHoles(token: token,
+                                  startTime: holes.last?.iso8601CreateTime, //FIXME: Shouldn't this be Update Time instead of Create Time?
+                                  divisionId: currentDivision.id)
             if newHoles.isEmpty {
                 endReached = true
             } else {
@@ -59,7 +59,6 @@ class THData: ObservableObject {
         } catch {
             endReached = true
         }
-        loading = false
     }
     
     func changeDivision(division: THDivision) async {
@@ -74,7 +73,7 @@ class THData: ObservableObject {
                 holes = fetchedHoles
             }
         } catch {
-            print("change division fail")
+            print("change division fail \(error)")
         }
     }
 }
