@@ -45,7 +45,10 @@ class THData: ObservableObject {
     func fetchMoreHoles() async {
         loading = true
         do {
-            let newHoles = try await THloadHoles(token: token, divisionId: currentDivision.id)
+            let newHoles =
+                try await THloadHoles(token: token,
+                                      startTime: holes.last?.createTime,
+                                      divisionId: currentDivision.id)
             if newHoles.isEmpty {
                 endReached = true
             } else {

@@ -14,6 +14,17 @@ struct TreeHolePage: View {
         ScrollView{
             LazyVStack {
                 listContent
+                
+                if !data.endReached {
+                    ProgressView()
+                        .task {
+                            if data.notInitiazed {
+                                await data.initialFetch()
+                            } else {
+                                await data.fetchMoreHoles()
+                            }
+                        }
+                }
             }
         }
         .navigationTitle(data.currentDivision.name)
@@ -45,15 +56,6 @@ struct TreeHolePage: View {
             NavigationLink(destination: THThread(hole: hole)) {
                 THEntry(hole: hole)
             }
-        }
-        
-        if !data.endReached {
-            ProgressView()
-                .task {
-                    if !data.notInitiazed {
-                        await data.fetchMoreHoles()
-                    }
-                }
         }
     }
     
