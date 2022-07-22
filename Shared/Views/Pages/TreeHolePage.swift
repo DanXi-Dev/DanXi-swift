@@ -1,10 +1,9 @@
 import SwiftUI
 
 struct TreeHolePage: View {
-    @Environment(\.colorScheme) var colorScheme
-    
     @EnvironmentObject var accountState: THAccountModel
     @StateObject var data = THData()
+    @State var showNewPostPage = false
     
     var body: some View {
 #if os(watchOS)
@@ -73,9 +72,13 @@ struct TreeHolePage: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
-                    Button(action: {}, label: {
+                    Button(action: { showNewPostPage = true }, label: {
                         Image(systemName: "plus.circle")
                     })
+                    .sheet(isPresented: $showNewPostPage) {
+                        THNewPost()
+                    }
+                    
                     Menu(content: {
                         Button(action: {}, label: {
                             Text("option1")
@@ -136,9 +139,6 @@ struct TreeHolePage: View {
             }
         }
     }
-    
-    
-    
 }
 
 struct TreeHolePage_Previews: PreviewProvider {

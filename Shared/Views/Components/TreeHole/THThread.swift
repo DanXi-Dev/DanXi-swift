@@ -35,9 +35,12 @@ struct THThread: View {
                             print("load new floors failed")
                         }
                     }
-                    
                 } else {
-                    Text("bottom reached")
+                    HStack {
+                        Spacer()
+                        Text("bottom_reached")
+                        Spacer()
+                    }
                 }
             }
         }
@@ -92,5 +95,6 @@ struct THThread_Previews: PreviewProvider {
             THThread(hole: hole)
                 .preferredColorScheme(.dark)
         }
+        .environmentObject(THAccountModel())
     }
 }

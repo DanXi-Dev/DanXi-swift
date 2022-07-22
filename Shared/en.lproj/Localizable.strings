@@ -34,3 +34,12 @@
 "bottom_reached" = "Bottom Reached";
 "pinned" = "Pinned";
 "main_section" = "Main Section";
+
+// Treehole Edit Page
+"edit" = "Edit";
+"preview" = "Preview";
+"new_post" = "New Post";
+"th_edit_prompt" = "Enter post content";
+"th_edit_alert" = "Comply with **content policy** when posting";
+"select_tags" = "Select Tags";
+"send" = "Send";

@@ -34,3 +34,13 @@
 "bottom_reached" = "已到底部";
 "pinned" = "置顶贴";
 "main_section" = "主题贴";
+
+// Treehole Edit Page
+"edit" = "编辑";
+"preview" = "预览";
+"new_post" = "新建主题贴";
+"th_edit_prompt" = "输入主题贴内容";
+"th_edit_alert" = "发帖时应遵守**社区公约**";
+"select_tags" = "选择标签";
+"send" = "发送";
+
