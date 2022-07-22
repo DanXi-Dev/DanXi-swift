@@ -55,6 +55,9 @@ struct TreeHolePage: View {
                 }
             }
         }
+        .refreshable {
+            await data.refresh()
+        }
         .listStyle(.grouped)
         .navigationTitle(data.currentDivision.name)
         .toolbar {
