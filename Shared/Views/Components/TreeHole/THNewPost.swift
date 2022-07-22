@@ -35,6 +35,7 @@ struct THNewPost: View {
                         } header: {
                             Text("th_edit_alert")
                         }
+                        .textCase(nil)
                         
                         Section {
                             NavigationLink(destination: Text("tags")) {

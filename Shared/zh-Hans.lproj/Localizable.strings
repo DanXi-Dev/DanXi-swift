@@ -40,7 +40,7 @@
 "preview" = "预览";
 "new_post" = "新建主题贴";
 "th_edit_prompt" = "输入主题贴内容";
-"th_edit_alert" = "发帖时应遵守**社区公约**";
+"th_edit_alert" = "发帖时应遵守[社区公约](https://www.fduhole.com/#/license) when posting";
 "select_tags" = "选择标签";
 "send" = "发送";
 

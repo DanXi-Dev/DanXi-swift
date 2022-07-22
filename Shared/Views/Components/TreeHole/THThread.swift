@@ -43,6 +43,7 @@ struct THThread: View {
                     }
                 }
             }
+            .textCase(nil)
         }
 #if !os(watchOS)
         .listStyle(.grouped)
