@@ -23,9 +23,14 @@
 
 // Treehole Welcome Page
 "th_feature1" = "Keep Updated";
-"th_detail1" = "You will receive a notification when the post you subscribed gets an update";
+"th_detail1" = "Receive notifications when subscribed posts get update";
 "th_feature2" = "Focused Discussion";
 "th_detail2" = "Make focused discussions in dedicated divisions";
 "th_feature3" = "Edit with Ease";
 "th_detail3" = "Use Markdown and LaTeX syntax in posts";
 "th_welcome_login_prompt" = "Go to Settings Page to Login";
+
+// Treehole Page
+"bottom_reached" = "Bottom Reached";
+"pinned" = "Pinned";
+"main_section" = "Main Section";

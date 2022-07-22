@@ -1,0 +1,36 @@
+// Navigation
+"danxi" = "旦夕";
+"dashboard" = "主页";
+"treehole" = "树洞";
+"settings" = "设置";
+
+// Login Page
+"email" = "邮箱";
+"password" = "密码";
+"cancel" = "取消";
+"login" = "登录";
+"fduhole_login_prompt" = "登录FDU Hole账户";
+
+// Settings Page
+"accounts_management" = "账户管理";
+"about" = "关于";
+"legal" = "法律信息";
+"uis_account" = "复旦UIS账户";
+"fduhole_account" = "FDU Hole账户";
+"logged_in" = "已登录";
+"not_logged_in" = "未登录";
+"logout" = "退出登录";
+
+// Treehole Welcome Page
+"th_feature1" = "时刻保持最新";
+"th_detail1" = "在您关注的帖子更新时，您将收到推送通知";
+"th_feature2" = "分区讨论";
+"th_detail2" = "在专门的空间里进行更专注的讨论";
+"th_feature3" = "轻松编辑";
+"th_detail3" = "在帖子中使用LaTeX和Markdown语法";
+"th_welcome_login_prompt" = "请前往设置内登录旦夕账号";
+
+// Treehole Page
+"bottom_reached" = "已到底部";
+"pinned" = "置顶贴";
+"main_section" = "主题贴";

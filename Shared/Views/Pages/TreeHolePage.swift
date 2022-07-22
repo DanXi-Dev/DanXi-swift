@@ -24,7 +24,7 @@ struct TreeHolePage: View {
             } header: {
                 VStack(alignment: .leading, spacing: 1.5) {
                     divisionSelector
-                    Label("Pinned", systemImage: "pin.fill")
+                    Label("pinned", systemImage: "pin.fill")
                 }
             }
             
@@ -35,10 +35,10 @@ struct TreeHolePage: View {
                     }
                 }
             } header: {
-                Label("Main Section", systemImage: "text.bubble.fill")
+                Label("main_section", systemImage: "text.bubble.fill")
             } footer: {
                 if !data.endReached {
-                    HStack() {
+                    HStack {
                         Spacer()
                         ProgressView()
                         Spacer()
@@ -51,7 +51,11 @@ struct TreeHolePage: View {
                         }
                     }
                 } else {
-                    Text("bottom reached")
+                    HStack {
+                        Spacer()
+                        Text("bottom_reached")
+                        Spacer()
+                    }
                 }
             }
         }
@@ -110,7 +114,7 @@ struct TreeHolePage: View {
     }
     
     private var divisionSelector: some View {
-        Picker("Divisions", selection: $data.currentDivision) {
+        Picker("divisions", selection: $data.currentDivision) {
             ForEach(data.divisions, id: \.self) {division in
                 Text(division.name)
             }
