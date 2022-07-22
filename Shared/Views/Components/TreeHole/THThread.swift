@@ -11,11 +11,11 @@ struct THThread: View {
         
         List {
             Section {
-                THFloorView(floor: hole.firstFloor, tagList: hole.tags)
-                
-                ForEach(hole.floors[1...]) { floor in
+                ForEach(hole.floors) { floor in
                     THFloorView(floor: floor)
                 }
+            } header: {
+                TagList(tags: hole.tags)
             } footer: {
                 if !endReached {
                     HStack() {

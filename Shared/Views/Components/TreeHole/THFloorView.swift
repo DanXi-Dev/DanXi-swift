@@ -4,24 +4,14 @@ struct THFloorView: View {
     @Environment(\.colorScheme) var colorScheme
     
     let floor: THFloor
-    let tagList: [THTag]?
-    
-    init(floor: THFloor, tagList: [THTag]? = nil) {
-        self.floor = floor
-        self.tagList = tagList
-    }
     
     var body: some View {
         VStack(alignment: .leading) {
-            if let tagList = tagList {
-                TagList(tags: tagList)
-            }
             poster
             Text(floor.content)
                 .font(.system(size: 16))
             info
-            Divider()
-            actions
+//            actions
         }
     }
     
@@ -63,14 +53,11 @@ struct THFloorView: View {
     
     private var actions: some View {
         HStack {
-            Spacer()
-            Label("点赞 (\(floor.like))", systemImage: floor.liked ?? false ? "heart.fill" : "heart" )
+            Label(String(floor.like), systemImage: floor.liked ?? false ? "heart.fill" : "heart" )
                 .foregroundColor(floor.liked ?? false ? .pink : .secondary)
-            
-            Spacer()
             Label("举报", systemImage: "exclamationmark.circle")
-            Spacer()
         }
+        .padding(.top, 4.0)
         .font(.caption2)
         .foregroundColor(.secondary)
     }
@@ -99,14 +86,9 @@ struct THPost_Previews: PreviewProvider {
         """,
         posterName: "Dax")
 
-    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
-
-    static let tagList = Array(repeating: tag, count: 5)
-
     static var previews: some View {
         Group {
             THFloorView(floor: floor)
-            THFloorView(floor: floor, tagList: tagList)
             THFloorView(floor: floor)
                 .preferredColorScheme(.dark)
         }

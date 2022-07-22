@@ -1,32 +1,26 @@
 import SwiftUI
 
 struct TagList: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     let color = Color.pink
     let tags: [THTag]
     
     var body: some View {
         FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
             Text(tag.name)
-                .padding(EdgeInsets(top: 2,leading: 6,bottom: 2,trailing: 6))
-                .background(background)
+                .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                .background(color.opacity(colorScheme == .light ? 0.1 : 0.2))
+                .cornerRadius(5)
                 .foregroundColor(color)
                 .font(.system(size: 14))
                 .lineLimit(1)
         }
-        
-    }
-    
-    private var background: some View {
-        let rectangle = RoundedRectangle(cornerRadius: 24, style: .circular)
-        
-        return rectangle
-            .stroke(color)
-            .background(rectangle.fill(color.opacity(0.05)))
     }
 }
 
 struct TagList_Previews: PreviewProvider {
-    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
+    static let tag = THTag(id: 1, temperature: 1, name: "测试标签")
     
     static let shortList = Array(repeating: tag, count: 2)
     
