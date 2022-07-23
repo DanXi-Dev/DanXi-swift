@@ -32,6 +32,11 @@ struct TreeHolePage: View {
                     NavigationLink(destination: THThread(hole: hole)) {
                         THHoleView(hole: hole)
                     }
+                    .task {
+                        if hole == data.holes.last {
+                            await data.fetchMoreHoles()
+                        }
+                    }
                 }
             } header: {
                 Label("main_section", systemImage: "text.bubble.fill")
@@ -45,8 +50,6 @@ struct TreeHolePage: View {
                     .task {
                         if data.notInitiazed {
                             await data.refresh(initial: true)
-                        } else {
-                            await data.fetchMoreHoles()
                         }
                     }
                 } else {
@@ -126,13 +129,6 @@ struct TreeHolePage: View {
         .pickerStyle(.segmented)
 #endif
         .padding()
-        .task { // data initialization
-            if data.notInitiazed {
-                Task {
-                    await data.refresh(initial:true)
-                }
-            }
-        }
         .onChange(of: data.currentDivision) { newValue in
             Task {
                 await data.changeDivision(division: newValue) // change division

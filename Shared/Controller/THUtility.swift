@@ -72,10 +72,10 @@ func THloadDivisions(token: String) async throws -> [THDivision] {
 
 func THloadHoles(token: String, startTime: String? = nil, divisionId: Int?) async throws -> [THHole] {
     var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
-    components.queryItems = [
-        URLQueryItem(name: "start_time", value: startTime),
-        URLQueryItem(name: "division_id", value: String(divisionId ?? 1))
-    ]
+    components.queryItems = [URLQueryItem(name: "division_id", value: String(divisionId ?? 1))]
+    if let time = startTime {
+        components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
+    }
     components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
     var request = URLRequest(url: components.url!)
     request.httpMethod = "GET"
