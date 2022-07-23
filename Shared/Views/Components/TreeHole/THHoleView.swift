@@ -16,11 +16,44 @@ struct THHoleView: View {
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
                 .transition(.slide)
+            HStack {
+                info
+            }
+
         }
+    }
+    
+    private var info: some View {
+        HStack {
+            Text("#\(String(hole.id))")
+            Spacer()
+            Text(hole.updateTime.formatted(date: .abbreviated, time: .shortened))
+            Spacer()
+            actions
+        }
+        .font(.caption)
+        .foregroundColor(.secondary)
+#if !os(watchOS)
+        .foregroundColor(Color(uiColor: .systemGray2))
+#endif
+        .padding(.top, 3)
+    }
+    
+    private var actions: some View {
+        HStack(alignment: .center, spacing: 15) {
+            HStack(alignment: .center, spacing: 3) {
+                Image(systemName: "ellipsis.bubble")
+                Text("15")
+            }
+            
+            // TODO: maybe add menu?
+        }
+        .font(.caption2)
+        .foregroundColor(.secondary)
     }
 }
 
-struct THEntry_Previews: PreviewProvider {
+struct THHoleView_Previews: PreviewProvider {
     static let tag = THTag(id: 1, temperature: 1, name: "Tag")
     
     static let floor = THFloor(

@@ -23,7 +23,9 @@ struct TreeHolePage: View {
             } header: {
                 VStack(alignment: .leading, spacing: 1.5) {
                     divisionSelector
-                    Label("pinned", systemImage: "pin.fill")
+                    if !data.currentDivision.pinned.isEmpty {
+                        Label("pinned", systemImage: "pin.fill")
+                    }
                 }
             }
             
@@ -39,7 +41,9 @@ struct TreeHolePage: View {
                     }
                 }
             } header: {
-                Label("main_section", systemImage: "text.bubble.fill")
+                if !data.currentDivision.pinned.isEmpty {
+                    Label("main_section", systemImage: "text.bubble.fill")
+                }
             } footer: {
                 if !data.endReached {
                     HStack {

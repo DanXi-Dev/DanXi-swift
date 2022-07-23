@@ -47,7 +47,7 @@ class THData: ObservableObject {
         do {
             let newHoles =
             try await THloadHoles(token: token,
-                                  startTime: holes.last?.iso8601CreateTime, //FIXME: Shouldn't this be Update Time instead of Create Time?
+                                  startTime: holes.last?.iso8601UpdateTime,
                                   divisionId: currentDivision.id)
             if newHoles.isEmpty {
                 endReached = true

@@ -95,7 +95,6 @@ struct THFloorView: View {
             }
 #endif
         }
-        .padding(.top, 4.0)
         .font(.caption2)
         .foregroundColor(.secondary)
     }
