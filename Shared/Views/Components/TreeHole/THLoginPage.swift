@@ -76,8 +76,6 @@ struct THLoginPage: View {
 
 
 struct THLoginPage_Previews: PreviewProvider {
-    static var showLoginPage = false
-    
     static var previews: some View {
         THLoginPage(showLoginPage: .constant(true))
     }
