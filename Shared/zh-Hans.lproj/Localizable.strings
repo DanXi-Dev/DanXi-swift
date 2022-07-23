@@ -35,6 +35,11 @@
 "pinned" = "置顶贴";
 "main_section" = "主题贴";
 
+// Treehole floor
+"report" = "举报";
+"copy_full_text" = "复制全文";
+"copy_floor_id" = "复制回帖ID";
+
 // Treehole Edit Page
 "edit" = "编辑";
 "preview" = "预览";

@@ -7,11 +7,14 @@ struct THFloorView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            poster
+            HStack {
+                poster
+                Spacer()
+                actions
+            }
             Text(floor.content)
                 .font(.system(size: 16))
             info
-//            actions
         }
     }
     
@@ -52,10 +55,45 @@ struct THFloorView: View {
     }
     
     private var actions: some View {
-        HStack {
-            Label(String(floor.like), systemImage: floor.liked ?? false ? "heart.fill" : "heart" )
+        HStack(alignment: .center, spacing: 15) {
+            Button {
+                // TODO: like
+            } label: {
+                HStack(alignment: .center, spacing: 3) {
+                    Image(systemName: floor.liked ?? false ? "heart.fill" : "heart")
+                    Text(String(floor.like))
+                }
                 .foregroundColor(floor.liked ?? false ? .pink : .secondary)
-            Label("举报", systemImage: "exclamationmark.circle")
+            }
+            
+            Button {
+                // TODO: reply
+            } label: {
+                Image(systemName: "arrowshape.turn.up.left")
+            }
+#if !os(watchOS)
+            Menu {
+                Button {
+                    // TODO: report
+                } label: {
+                    Label("report", systemImage: "exclamationmark.triangle")
+                }
+                
+                Button {
+                    // TODO: copy text
+                } label: {
+                    Label("copy_full_text", systemImage: "doc.on.doc")
+                }
+                
+                Button {
+                    // TODO: copy floor id
+                } label: {
+                    Label("copy_floor_id", systemImage: "square.and.arrow.up")
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+            }
+#endif
         }
         .padding(.top, 4.0)
         .font(.caption2)
@@ -85,11 +123,13 @@ struct THPost_Previews: PreviewProvider {
         
         """,
         posterName: "Dax")
-
+    
     static var previews: some View {
         Group {
             THFloorView(floor: floor)
+                .padding()
             THFloorView(floor: floor)
+                .padding()
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)

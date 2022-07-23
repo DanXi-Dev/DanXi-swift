@@ -35,6 +35,11 @@
 "pinned" = "Pinned";
 "main_section" = "Main Section";
 
+// Treehole floor
+"report" = "Report";
+"copy_full_text" = "Copy full text";
+"copy_floor_id" = "Copy floor ID";
+
 // Treehole Edit Page
 "edit" = "Edit";
 "preview" = "Preview";
