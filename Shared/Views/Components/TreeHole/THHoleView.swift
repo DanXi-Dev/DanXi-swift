@@ -42,8 +42,13 @@ struct THHoleView: View {
     private var actions: some View {
         HStack(alignment: .center, spacing: 15) {
             HStack(alignment: .center, spacing: 3) {
+                Image(systemName: "eye")
+                Text(String(hole.view))
+            }
+            
+            HStack(alignment: .center, spacing: 3) {
                 Image(systemName: "ellipsis.bubble")
-                Text("15")
+                Text(String(hole.reply))
             }
             
             // TODO: maybe add menu?
