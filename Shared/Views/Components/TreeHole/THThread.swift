@@ -12,15 +12,17 @@ struct THThread: View {
                 ForEach(hole.floors) { floor in
                     THFloorView(floor: floor)
                         .task {
-                            do {
-                                let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
-                                let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
-                                withAnimation {
-                                    endReached = newFloors.isEmpty
-                                    hole.floors.append(contentsOf: newFloors)
+                            if floor == hole.floors.last {
+                                do {
+                                    let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
+                                    let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
+                                    withAnimation {
+                                        endReached = newFloors.isEmpty
+                                        hole.floors.append(contentsOf: newFloors)
+                                    }
+                                } catch {
+                                    print("load new floors failed")
                                 }
-                            } catch {
-                                print("load new floors failed")
                             }
                         }
                 }
