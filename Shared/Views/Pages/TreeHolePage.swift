@@ -52,12 +52,6 @@ struct TreeHolePage: View {
                             await data.refresh(initial: true)
                         }
                     }
-                } else {
-                    HStack {
-                        Spacer()
-                        Text("bottom_reached")
-                        Spacer()
-                    }
                 }
             }
         }

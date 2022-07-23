@@ -2,17 +2,27 @@ import SwiftUI
 
 struct THThread: View {
     @EnvironmentObject var accountState: THAccountModel
-    @Environment(\.colorScheme) var colorScheme
     @State var hole: THHole
     @State var endReached = false
     
     
     var body: some View {
-        
         List {
             Section {
                 ForEach(hole.floors) { floor in
                     THFloorView(floor: floor)
+                        .task {
+                            do {
+                                let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
+                                let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
+                                withAnimation {
+                                    endReached = newFloors.isEmpty
+                                    hole.floors.append(contentsOf: newFloors)
+                                }
+                            } catch {
+                                print("load new floors failed")
+                            }
+                        }
                 }
             } header: {
                 TagList(tags: hole.tags)
@@ -21,24 +31,6 @@ struct THThread: View {
                     HStack() {
                         Spacer()
                         ProgressView()
-                        Spacer()
-                    }
-                    .task {
-                        do {
-                            let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
-                            let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
-                            withAnimation {
-                                endReached = newFloors.isEmpty
-                                hole.floors.append(contentsOf: newFloors)
-                            }
-                        } catch {
-                            print("load new floors failed")
-                        }
-                    }
-                } else {
-                    HStack {
-                        Spacer()
-                        Text("bottom_reached")
                         Spacer()
                     }
                 }
@@ -92,7 +84,9 @@ struct THThread_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            NavigationView {
             THThread(hole: hole)
+            }
             THThread(hole: hole)
                 .preferredColorScheme(.dark)
         }
