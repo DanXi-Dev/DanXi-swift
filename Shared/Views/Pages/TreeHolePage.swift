@@ -15,9 +15,8 @@ struct TreeHolePage: View {
         List() {
             Section {
                 ForEach(data.currentDivision.pinned) { hole in
-                    NavigationLink(destination: THThread(hole: hole)) {
-                        THHoleView(hole: hole)
-                    }
+                    THHoleView(hole: hole)
+                        .background(NavigationLink("", destination: THThread(hole: hole)).opacity(0))
                     
                 }
             } header: {
@@ -31,14 +30,13 @@ struct TreeHolePage: View {
             
             Section {
                 ForEach(data.holes) { hole in
-                    NavigationLink(destination: THThread(hole: hole)) {
-                        THHoleView(hole: hole)
-                    }
-                    .task {
-                        if hole == data.holes.last {
-                            await data.fetchMoreHoles()
+                    THHoleView(hole: hole)
+                        .background(NavigationLink("", destination: THThread(hole: hole)).opacity(0))
+                        .task {
+                            if hole == data.holes.last {
+                                await data.fetchMoreHoles()
+                            }
                         }
-                    }
                 }
             } header: {
                 if !data.currentDivision.pinned.isEmpty {
@@ -74,7 +72,7 @@ struct TreeHolePage: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
                     Button(action: { showNewPostPage = true }, label: {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "square.and.pencil")
                     })
                     .sheet(isPresented: $showNewPostPage) {
                         THNewPost()
