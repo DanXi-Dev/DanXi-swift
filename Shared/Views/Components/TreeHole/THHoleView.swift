@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct THHoleView: View {
-    @Environment(\.colorScheme) var colorScheme
-    
     let hole: THHole
     
     var body: some View {

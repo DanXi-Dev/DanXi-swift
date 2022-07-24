@@ -23,8 +23,6 @@ extension View {
 }
 
 struct TagList: View {
-    @Environment(\.colorScheme) var colorScheme
-    
     let color = Color.pink
     let tags: [THTag]
     
