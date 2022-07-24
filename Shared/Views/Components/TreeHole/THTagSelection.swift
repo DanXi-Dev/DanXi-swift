@@ -1,14 +1,10 @@
 import SwiftUI
 
 struct THTagSelection: View {
+    @EnvironmentObject var dataModel: THDataModel
+    
     @Binding var tagList: [THTag]
     @State var searchText = ""
-    
-    // TODO: get real tags from server
-    let serverTags = [
-        THTag(id: 1, temperature: 13, name: "Tag1"),
-        THTag(id: 2, temperature: 14, name: "Tag2"),
-        THTag(id: 3, temperature: 11, name: "Tag3")]
     
     var body: some View {
         List {
@@ -39,10 +35,10 @@ struct THTagSelection: View {
     
     var searchResults: [THTag] {
         if searchText.isEmpty {
-            return serverTags
+            return dataModel.tags
         } else {
             // TODO: filter tags that already exists
-            return serverTags.filter { $0.name.contains(searchText) }
+            return dataModel.tags.filter { $0.name.contains(searchText) }
         }
     }
 }

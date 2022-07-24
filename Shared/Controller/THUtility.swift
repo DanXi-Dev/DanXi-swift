@@ -102,3 +102,14 @@ func THloadFloors(token: String, holeId: Int, startFloor: Int, length: Int = 10)
     let decodedResponse = try JSONDecoder().decode([THFloor].self, from: data)
     return decodedResponse
 }
+
+func THloadTags(token: String) async throws -> [THTag] {
+    let components = URLComponents(string: FDUHOLE_BASE_URL + "/tags")!
+    var request = URLRequest(url: components.url!)
+    request.httpMethod = "GET"
+    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    
+    let (data, _) = try await URLSession.shared.data(for: request)
+    let decodedResponse = try JSONDecoder().decode([THTag].self, from: data)
+    return decodedResponse
+}

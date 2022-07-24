@@ -51,9 +51,21 @@ class THDataModel: ObservableObject {
     
     func initialFetch() {
         Task {
-            await fetchDivisions()
-            if !divisions.isEmpty {
-                currentDivision = divisions[0]
+            guard let token = self.token else {
+                return
+            }
+            
+            do {
+                async let divisions = try await THloadDivisions(token: token)
+                async let tags = try await THloadTags(token: token)
+                
+                self.divisions = try await divisions
+                if !self.divisions.isEmpty {
+                    currentDivision = self.divisions[0]
+                }
+                self.tags = try await tags
+            } catch {
+                print("DANXI-DEBUG: initial fetch failed")
             }
         }
     }
