@@ -185,6 +185,9 @@ struct TreeHolePage: View {
                 await changeDivision(newDivision: newValue)
             }
         }
+        .task {
+            await fetchMoreHoles()
+        }
     }
     
     private var holeMenu: some View {
