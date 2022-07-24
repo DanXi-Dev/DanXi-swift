@@ -41,8 +41,6 @@
 		277E4DBD2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
 		277E4DC02887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
 		277E4DC32887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
-		277E4DC62887F5C40020EC16 /* THAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THAccountModel.swift */; };
-		277E4DC92887F5C40020EC16 /* THAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D582887F5C30020EC16 /* THAccountModel.swift */; };
 		277E4DCC2887F5C40020EC16 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THEntity.swift */; };
 		277E4DCF2887F5C40020EC16 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THEntity.swift */; };
 		277E4DD82887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
@@ -133,7 +131,6 @@
 		277E4D532887F5C30020EC16 /* SizeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		277E4D562887F5C30020EC16 /* THJsonParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THJsonParse.swift; sourceTree = "<group>"; };
 		277E4D572887F5C30020EC16 /* THConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THConstants.swift; sourceTree = "<group>"; };
-		277E4D582887F5C30020EC16 /* THAccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THAccountModel.swift; sourceTree = "<group>"; };
 		277E4D592887F5C30020EC16 /* THEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THEntity.swift; sourceTree = "<group>"; };
 		277E4D5C2887F5C30020EC16 /* THUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THUtility.swift; sourceTree = "<group>"; };
 		277E4D5D2887F5C30020EC16 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -260,26 +257,17 @@
 		277E4D542887F5C30020EC16 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				277E4D552887F5C30020EC16 /* TreeHole */,
+				277E4D562887F5C30020EC16 /* THJsonParse.swift */,
+				277E4D592887F5C30020EC16 /* THEntity.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		277E4D552887F5C30020EC16 /* TreeHole */ = {
-			isa = PBXGroup;
-			children = (
-				277E4D582887F5C30020EC16 /* THAccountModel.swift */,
-				277E4D592887F5C30020EC16 /* THEntity.swift */,
-				277E4D572887F5C30020EC16 /* THConstants.swift */,
-				277E4D562887F5C30020EC16 /* THJsonParse.swift */,
-				27D4FE2B288D84AB00D9E4F5 /* THDataModel.swift */,
-			);
-			path = TreeHole;
 			sourceTree = "<group>";
 		};
 		277E4D5B2887F5C30020EC16 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				27D4FE2B288D84AB00D9E4F5 /* THDataModel.swift */,
+				277E4D572887F5C30020EC16 /* THConstants.swift */,
 				277E4D5C2887F5C30020EC16 /* THUtility.swift */,
 			);
 			path = Controller;
@@ -528,7 +516,6 @@
 				277E4D9C2887F5C40020EC16 /* DashboardPage.swift in Sources */,
 				277E4DD82887F5C40020EC16 /* THUtility.swift in Sources */,
 				277E4DDE2887F5C40020EC16 /* AppView.swift in Sources */,
-				277E4DC62887F5C40020EC16 /* THAccountModel.swift in Sources */,
 				277E4D6C2887F5C30020EC16 /* TagList.swift in Sources */,
 				27F5E556288B34B200E1E2A0 /* THTagSelection.swift in Sources */,
 				277E4DBA2887F5C40020EC16 /* THJsonParse.swift in Sources */,
@@ -569,7 +556,6 @@
 				27D4FE2D288D84AB00D9E4F5 /* THDataModel.swift in Sources */,
 				277E4DB72887F5C40020EC16 /* SizeReader.swift in Sources */,
 				277E4DDB2887F5C40020EC16 /* THUtility.swift in Sources */,
-				277E4DC92887F5C40020EC16 /* THAccountModel.swift in Sources */,
 				277E4D992887F5C40020EC16 /* TreeHolePage.swift in Sources */,
 				277E4D632887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */,
 				277E4D932887F5C40020EC16 /* CalendarPage.swift in Sources */,

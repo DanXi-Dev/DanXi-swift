@@ -100,6 +100,5 @@ struct THThread_Previews: PreviewProvider {
             THThread(hole: hole)
                 .preferredColorScheme(.dark)
         }
-        .environmentObject(THAccountModel())
     }
 }
