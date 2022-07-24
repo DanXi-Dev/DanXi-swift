@@ -1,9 +1,26 @@
 import SwiftUI
 
 struct THThread: View {
-    @EnvironmentObject var accountState: THAccountModel
+    @EnvironmentObject var dataModel: THDataModel
     @State var hole: THHole
     @State var endReached = false
+    
+    func fetchMoreFloors() async {
+        guard let token = dataModel.token else {
+            return
+        }
+        
+        do {
+            let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
+            let newFloors = try await THloadFloors(token: token, holeId: hole.id, startFloor: lastStorey + 1)
+            
+            endReached = newFloors.isEmpty
+            hole.floors.append(contentsOf: newFloors)
+            
+        } catch {
+            print("DANXI-DEBUG: load new floors failed")
+        }
+    }
     
     
     var body: some View {
@@ -13,16 +30,7 @@ struct THThread: View {
                     THFloorView(floor: floor)
                         .task {
                             if floor == hole.floors.last {
-                                do {
-                                    let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
-                                    let newFloors = try await THloadFloors(token: accountState.credential ?? "", holeId: hole.id, startFloor: lastStorey + 1)
-                                    withAnimation {
-                                        endReached = newFloors.isEmpty
-                                        hole.floors.append(contentsOf: newFloors)
-                                    }
-                                } catch {
-                                    print("load new floors failed")
-                                }
+                                await fetchMoreFloors()
                             }
                         }
                 }
@@ -87,7 +95,7 @@ struct THThread_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-            THThread(hole: hole)
+                THThread(hole: hole)
             }
             THThread(hole: hole)
                 .preferredColorScheme(.dark)

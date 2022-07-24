@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @EnvironmentObject var THaccountState: THAccountModel
+    @EnvironmentObject var THdataModel: THDataModel
     
     @State var showTreeHoleLogin = false
     @State var showTreeHoleActions = false
@@ -9,7 +9,7 @@ struct SettingsPage: View {
     var body: some View {
         List {
             Section("accounts_management") {
-                if THaccountState.isLogged {
+                if THdataModel.isLogged {
                     treeHoleAccount
                 } else {
                     treeHoleAccountNotLogged
@@ -64,7 +64,7 @@ struct SettingsPage: View {
         .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
             Button("logout", role: .destructive) {
                 withAnimation {
-                    THaccountState.logout()
+                    THdataModel.logout()
                 }
             }
         }
@@ -93,14 +93,11 @@ struct SettingsPage: View {
 }
 
 struct SettingsPage_Previews: PreviewProvider {
-    static let THaccountState = THAccountModel()
-    
     static var previews: some View {
         Group {
             SettingsPage()
             SettingsPage()
                 .preferredColorScheme(.dark)
         }
-        .environmentObject(THaccountState)
     }
 }

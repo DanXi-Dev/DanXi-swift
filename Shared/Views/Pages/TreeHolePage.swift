@@ -1,20 +1,74 @@
 import SwiftUI
 
 struct TreeHolePage: View {
-    @EnvironmentObject var accountState: THAccountModel
-    @StateObject var data = THData()
+    @EnvironmentObject var dataModel: THDataModel
     @State var showNewPostPage = false
+    @State var holes: [THHole] = []
+    @State var endReached = false
+    
+    func changeDivision(newDivision: THDivision) async {
+        guard let token = dataModel.token else {
+            return
+        }
+        holes = []
+        dataModel.currentDivision = newDivision
+        endReached = false
+        
+        do {
+            let fetchedHoles = try await THloadHoles(token: token, divisionId: newDivision.id)
+            holes = fetchedHoles
+        } catch {
+            print("DANXI-DEBUG: change division load failed")
+        }
+    }
+    
+    func fetchMoreHoles() async {
+        guard let token = dataModel.token else {
+            return
+        }
+        
+        do {
+            let newHoles = try await
+            THloadHoles(token: token,
+                        startTime: holes.last?.iso8601UpdateTime,
+                        divisionId: dataModel.currentDivision.id)
+            endReached = newHoles.isEmpty
+            holes.append(contentsOf: newHoles)
+        } catch {
+            print("DANXI-DEBUG: load new holes failed")
+        }
+    }
+    
+    func refresh() async {
+        guard let token = dataModel.token else {
+            return
+        }
+        
+        if dataModel.divisions.isEmpty {
+            return
+        }
+        
+        do {
+            async let fetchedDivisions = try await THloadDivisions(token: token)
+            async let fetchedHoles = try await THloadHoles(token: token, divisionId: dataModel.currentDivision.id)
+            
+            dataModel.divisions = try await fetchedDivisions
+            holes = try await fetchedHoles
+        } catch {
+            print("DANXI-DEBUG: refresh failed")
+        }
+    }
     
     var body: some View {
 #if os(watchOS)
         List {
             listContent
         }
-        .navigationTitle(data.currentDivision.name)
+        .navigationTitle(dataModel.currentDivision.name)
 #else
         List() {
             Section {
-                ForEach(data.currentDivision.pinned) { hole in
+                ForEach(dataModel.currentDivision.pinned) { hole in
                     THHoleView(hole: hole)
                         .background(NavigationLink("", destination: THThread(hole: hole)).opacity(0))
                         .contextMenu {
@@ -24,49 +78,44 @@ struct TreeHolePage: View {
             } header: {
                 VStack(alignment: .leading, spacing: 1.5) {
                     divisionSelector
-                    if !data.currentDivision.pinned.isEmpty {
+                    if !dataModel.currentDivision.pinned.isEmpty {
                         Label("pinned", systemImage: "pin.fill")
                     }
                 }
             }
             
             Section {
-                ForEach(data.holes) { hole in
+                ForEach(holes) { hole in
                     THHoleView(hole: hole)
                         .background(NavigationLink("", destination: THThread(hole: hole)).opacity(0))
                         .contextMenu {
                             holeMenu
                         }
                         .task {
-                            if hole == data.holes.last {
-                                await data.fetchMoreHoles()
+                            if hole == holes.last {
+                                await fetchMoreHoles()
                             }
                         }
                 }
             } header: {
-                if !data.currentDivision.pinned.isEmpty {
+                if !dataModel.currentDivision.pinned.isEmpty {
                     Label("main_section", systemImage: "text.bubble.fill")
                 }
             } footer: {
-                if !data.endReached {
+                if !endReached {
                     HStack {
                         Spacer()
                         ProgressView()
                         Spacer()
                     }
-                    .task {
-                        if data.notInitiazed {
-                            await data.refresh(initial: true)
-                        }
-                    }
                 }
             }
         }
         .refreshable {
-            await data.refresh()
+            await refresh()
         }
         .listStyle(.grouped)
-        .navigationTitle(data.currentDivision.name)
+        .navigationTitle(dataModel.currentDivision.name)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {}, label: {
@@ -103,17 +152,17 @@ struct TreeHolePage: View {
     
     @ViewBuilder
     private var listContent: some View {
-        if !data.divisions.isEmpty {
+        if !dataModel.divisions.isEmpty {
             divisionSelector
         }
         
-        ForEach(data.currentDivision.pinned) { hole in
+        ForEach(dataModel.currentDivision.pinned) { hole in
             NavigationLink(destination: THThread(hole: hole)) {
                 THHoleView(hole: hole)
             }
         }
         
-        ForEach(data.holes) { hole in
+        ForEach(holes) { hole in
             NavigationLink(destination: THThread(hole: hole)) {
                 THHoleView(hole: hole)
             }
@@ -121,8 +170,8 @@ struct TreeHolePage: View {
     }
     
     private var divisionSelector: some View {
-        Picker("divisions", selection: $data.currentDivision) {
-            ForEach(data.divisions, id: \.self) {division in
+        Picker("divisions", selection: $dataModel.currentDivision) {
+            ForEach(dataModel.divisions, id: \.self) {division in
                 Text(division.name)
             }
         }
@@ -130,9 +179,10 @@ struct TreeHolePage: View {
         .pickerStyle(.segmented)
 #endif
         .padding()
-        .onChange(of: data.currentDivision) { newValue in
+        // change division
+        .onChange(of: dataModel.currentDivision) { newValue in
             Task {
-                await data.changeDivision(division: newValue) // change division
+                await changeDivision(newDivision: newValue)
             }
         }
     }

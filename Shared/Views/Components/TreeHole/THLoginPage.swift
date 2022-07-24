@@ -1,25 +1,23 @@
 import SwiftUI
 
 struct THLoginPage: View {
+    @EnvironmentObject var dataModel: THDataModel
+    
     @Binding var showLoginPage: Bool // passed from caller, exit after successful login
     @State var username = ""
     @State var password = ""
     @State var loading = false
     
-    @EnvironmentObject var accountState: THAccountModel
-    
     func login() {
         loading = true
-        Task.init {
-            guard let token = await THlogin(username: username, password: password) else {
-                // TODO: warn login failure
-                loading = false
-                return
+        Task {
+            if await dataModel.login(username: username, password: password) {
+                showLoginPage = false
+            } else {
+                // TODO: alert user
             }
+            
             loading = false
-            accountState.credential = token
-            accountState.isLogged = true
-            showLoginPage = false
         }
     }
     
@@ -63,10 +61,8 @@ struct THLoginPage: View {
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("login") {
-                        login()
-                    }
-                    .disabled(loading)
+                    Button("login", action: login)
+                        .disabled(loading)
                 }
             }
 #endif

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppTabNavigation: View {
-    @EnvironmentObject var THaccount: THAccountModel
+    @EnvironmentObject var THdataModel: THDataModel
     
     enum Tab {
         case treehole
@@ -13,7 +13,7 @@ struct AppTabNavigation: View {
     var body: some View {
         TabView(selection: $selection) {
             Group {
-                if (THaccount.isLogged) {
+                if (THdataModel.isLogged) {
                     NavigationView {
                         TreeHolePage()
                     }
@@ -40,7 +40,6 @@ struct AppTabNavigation: View {
 }
 
 struct AppTabNavigation_Previews: PreviewProvider {
-    static let accountState = THAccountModel()
     
     static var previews: some View {
         Group {
@@ -48,7 +47,6 @@ struct AppTabNavigation_Previews: PreviewProvider {
             AppTabNavigation()
                 .preferredColorScheme(.dark)
         }
-        .environmentObject(accountState)
     }
     
 }

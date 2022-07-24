@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppSidebarNavigation: View {
-    @EnvironmentObject var THaccount: THAccountModel
+    @EnvironmentObject var THdataModel: THDataModel
 
     enum NavigationItem {
         case treehole
@@ -15,7 +15,7 @@ struct AppSidebarNavigation: View {
             List {
                 NavigationLink(tag: NavigationItem.treehole, selection: $selection) {
                     Group {
-                        if (THaccount.isLogged) {
+                        if (THdataModel.isLogged) {
                             TreeHolePage()
                         } else {
                             THWelcomePage()
@@ -41,12 +41,10 @@ struct AppSidebarNavigation: View {
 }
 
 struct AppSidebarNavigation_Previews: PreviewProvider {
-    static let accountState = THAccountModel()
     
     static var previews: some View {
         AppSidebarNavigation()
             .previewDevice("iPad Pro (12.9-inch) (5th generation)")
             .previewInterfaceOrientation(.landscapeRight)
-            .environmentObject(accountState)
     }
 }
