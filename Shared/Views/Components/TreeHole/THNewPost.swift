@@ -1,32 +1,21 @@
 import SwiftUI
 
 struct THNewPost: View {
-    enum Mode: String, CaseIterable, Identifiable {
-        case edit, preview
-        var id: Self { self }
-    }
-    
     @State var content = ""
     @State var tags: [THTag] = []
-    @State var mode: Mode = .edit
+    @State var previewMode = false
     
     var body: some View {
         NavigationView {
             VStack {
-                navigatorBar
-                
-                if (mode == .edit) {
-                    Form {
-                        Section {
-                            NavigationLink(destination: THTagSelection(tagList: $tags)) {
-                                Label("select_tags", systemImage: "number.square.fill")
-                            }
+                Form {
+                    Section {
+                        NavigationLink(destination: THTagSelection(tagList: $tags)) {
+                            Label("select_tags", systemImage: "tag")
                         }
-                        
-                        editSection
                     }
-                } else {
-                    preview
+                    
+                    editSection
                 }
             }
             .navigationTitle("new_post")
@@ -40,16 +29,7 @@ struct THNewPost: View {
             }
         }
     }
-    
-    private var navigatorBar: some View {
-        Picker("Divisions", selection: $mode) {
-            Text("edit").tag(Mode.edit)
-            Text("preview").tag(Mode.preview)
-        }
-        .pickerStyle(.segmented)
-        .padding()
-    }
-    
+
     private var editSection: some View {
         Section {
             if tags.isEmpty {
@@ -59,20 +39,37 @@ struct THNewPost: View {
                 TagList(tags: tags)
             }
             
-            ZStack(alignment: .topLeading) {
-                if content.isEmpty {
-                    Text("th_edit_prompt")
-                        .foregroundColor(.primary.opacity(0.25))
-                        .padding(.top, 7)
-                        .padding(.leading, 4)
-                }
-                TextEditor(text: $content)
-                    .frame(height: 250)
+            if previewMode {
+                Text(content)
+            } else {
+                editor
             }
         } header: {
             Text("th_edit_alert")
+        } footer: {
+            HStack {
+                // TODO: toolbar (bold, italics, ...)
+                
+                Spacer()
+                Button(action: { previewMode.toggle() }) {
+                    Image(systemName: previewMode ? "eye.fill" : "eye")
+                }
+            }
         }
         .textCase(nil)
+    }
+    
+    private var editor: some View {
+        ZStack(alignment: .topLeading) {
+            if content.isEmpty {
+                Text("th_edit_prompt")
+                    .foregroundColor(.primary.opacity(0.25))
+                    .padding(.top, 7)
+                    .padding(.leading, 4)
+            }
+            TextEditor(text: $content)
+                .frame(height: 250)
+        }
     }
     
     private var preview: some View {
