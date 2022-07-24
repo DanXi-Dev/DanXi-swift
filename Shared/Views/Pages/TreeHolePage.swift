@@ -17,7 +17,9 @@ struct TreeHolePage: View {
                 ForEach(data.currentDivision.pinned) { hole in
                     THHoleView(hole: hole)
                         .background(NavigationLink("", destination: THThread(hole: hole)).opacity(0))
-                    
+                        .contextMenu {
+                            holeMenu
+                        }
                 }
             } header: {
                 VStack(alignment: .leading, spacing: 1.5) {
@@ -32,6 +34,9 @@ struct TreeHolePage: View {
                 ForEach(data.holes) { hole in
                     THHoleView(hole: hole)
                         .background(NavigationLink("", destination: THThread(hole: hole)).opacity(0))
+                        .contextMenu {
+                            holeMenu
+                        }
                         .task {
                             if hole == data.holes.last {
                                 await data.fetchMoreHoles()
@@ -128,6 +133,22 @@ struct TreeHolePage: View {
         .onChange(of: data.currentDivision) { newValue in
             Task {
                 await data.changeDivision(division: newValue) // change division
+            }
+        }
+    }
+    
+    private var holeMenu: some View {
+        Group {
+            Button {
+                // TODO: bookmark
+            } label: {
+                Label("add_bookmark", systemImage: "bookmark")
+            }
+            
+            Button {
+                // TODO: copy hole id
+            } label: {
+                Label("copy_hole_id", systemImage: "square.and.arrow.up")
             }
         }
     }

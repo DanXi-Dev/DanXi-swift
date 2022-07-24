@@ -34,6 +34,8 @@
 "bottom_reached" = "Bottom Reached";
 "pinned" = "Pinned";
 "main_section" = "Main Section";
+"copy_hole_id" = "Copy hole ID";
+"add_bookmark" = "Add bookmark";
 
 // Treehole floor
 "report" = "Report";

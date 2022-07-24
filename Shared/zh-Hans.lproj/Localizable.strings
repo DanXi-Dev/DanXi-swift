@@ -34,6 +34,8 @@
 "bottom_reached" = "已到底部";
 "pinned" = "置顶贴";
 "main_section" = "主题贴";
+"copy_hole_id" = "复制主题贴ID";
+"add_bookmark" = "添加书签";
 
 // Treehole floor
 "report" = "举报";

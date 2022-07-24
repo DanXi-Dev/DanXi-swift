@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct THFloorView: View {
-    @Environment(\.colorScheme) var colorScheme
-    
     let floor: THFloor
     
     var body: some View {
@@ -16,6 +14,11 @@ struct THFloorView: View {
                 .font(.system(size: 16))
             info
         }
+        #if !os(watchOS)
+        .contextMenu {
+            menu
+        }
+        #endif
     }
     
     private var poster: some View {
@@ -73,23 +76,7 @@ struct THFloorView: View {
             }
 #if !os(watchOS)
             Menu {
-                Button {
-                    // TODO: report
-                } label: {
-                    Label("report", systemImage: "exclamationmark.triangle")
-                }
-                
-                Button {
-                    // TODO: copy text
-                } label: {
-                    Label("copy_full_text", systemImage: "doc.on.doc")
-                }
-                
-                Button {
-                    // TODO: copy floor id
-                } label: {
-                    Label("copy_floor_id", systemImage: "square.and.arrow.up")
-                }
+                menu
             } label: {
                 Image(systemName: "ellipsis")
             }
@@ -97,6 +84,29 @@ struct THFloorView: View {
         }
         .font(.caption2)
         .foregroundColor(.secondary)
+        
+    }
+    
+    private var menu: some View {
+        Group {
+            Button {
+                // TODO: report
+            } label: {
+                Label("report", systemImage: "exclamationmark.triangle")
+            }
+            
+            Button {
+                // TODO: copy text
+            } label: {
+                Label("copy_full_text", systemImage: "doc.on.doc")
+            }
+            
+            Button {
+                // TODO: copy floor id
+            } label: {
+                Label("copy_floor_id", systemImage: "square.and.arrow.up")
+            }
+        }
     }
 }
 

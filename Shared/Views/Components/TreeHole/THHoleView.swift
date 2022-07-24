@@ -19,7 +19,6 @@ struct THHoleView: View {
             HStack {
                 info
             }
-
         }
     }
     
