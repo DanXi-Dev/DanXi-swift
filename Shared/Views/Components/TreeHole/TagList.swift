@@ -34,6 +34,20 @@ struct TagList: View {
     }
 }
 
+struct TagListSimple: View {
+    let color = Color.pink
+    let tags: [THTag]
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 5.0) {
+            ForEach(tags) { tag in
+                Text(tag.name)
+                    .tagStyle(color: color)
+            }
+        }
+    }
+}
+
 
 
 struct TagList_Previews: PreviewProvider {

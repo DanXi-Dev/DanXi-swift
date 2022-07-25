@@ -5,9 +5,8 @@ struct THHoleView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            if let tagList = hole.tags {
-                TagList(tags: tagList)
-            }
+            TagListSimple(tags: hole.tags)
+            
             Text(hole.firstFloor.content)
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
