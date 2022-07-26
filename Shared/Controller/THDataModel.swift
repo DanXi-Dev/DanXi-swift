@@ -30,6 +30,15 @@ class THDataModel: ObservableObject {
         }
     }
     
+    init(divisions: [THDivision]? = [], tags: [THTag]) { // for preview
+        isLogged = true
+        self.divisions = divisions ?? []
+        if !self.divisions.isEmpty {
+            self.currentDivision = self.divisions[0]
+        }
+        self.tags = tags
+    }
+    
     func login(username: String, password: String) async -> Bool {
         guard let token = await THlogin(username: username, password: password) else {
             print("DANXI-DEBUG: login fail")

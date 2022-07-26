@@ -72,7 +72,10 @@ struct THLoginPage: View {
 
 
 struct THLoginPage_Previews: PreviewProvider {
+    static let dataModel = THDataModel()
+    
     static var previews: some View {
         THLoginPage(showLoginPage: .constant(true))
+            .environmentObject(dataModel)
     }
 }

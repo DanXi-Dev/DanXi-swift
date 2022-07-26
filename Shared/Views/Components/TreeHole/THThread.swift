@@ -92,13 +92,19 @@ struct THThread_Previews: PreviewProvider {
         tags: Array(repeating: tag, count: 5),
         firstFloor: floor, lastFloor: floor, floors: Array(repeating: floor, count: 10))
     
+    static var dataModel = THDataModel()
+    
     static var previews: some View {
         Group {
             NavigationView {
                 THThread(hole: hole)
             }
-            THThread(hole: hole)
-                .preferredColorScheme(.dark)
+            
+            NavigationView {
+                THThread(hole: hole)
+                    .preferredColorScheme(.dark)
+            }
         }
+        .environmentObject(dataModel)
     }
 }

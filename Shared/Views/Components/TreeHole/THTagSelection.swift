@@ -44,11 +44,16 @@ struct THTagSelection: View {
 }
 
 struct THTagSelection_Previews: PreviewProvider {
-    @State static var list: [THTag] = []
+    static let tag = THTag(id: 1, temperature: 1, name: "Tag")
+    
+    @State static var tagList = Array(repeating: tag, count: 5)
+    
+    static var dataModel = THDataModel(tags: Array(repeating: tag, count: 20))
     
     static var previews: some View {
         NavigationView {
-            THTagSelection(tagList: $list)
+            THTagSelection(tagList: $tagList)
         }
+        .environmentObject(dataModel)
     }
 }
