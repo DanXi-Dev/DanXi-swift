@@ -1,9 +1,33 @@
 import SwiftUI
 
 struct THNewPost: View {
+    @EnvironmentObject var dataModel: THDataModel
+    @Binding var showNewPostPage: Bool
     @State var content = ""
     @State var tags: [THTag] = []
     @State var previewMode = false
+    
+    func sendPost() {
+        guard let token = dataModel.token else {
+            return
+        }
+        
+        Task {
+            // TODO: pre post check (e.g.: empty tags)
+            
+            do {
+                try await THsendNewPost(
+                    token: token,
+                    content: content,
+                    divisionId: dataModel.currentDivision.id,
+                    tags: tags)
+                showNewPostPage = false
+            } catch {
+                // TODO: alert user
+                print("DANXI-DEBUG: post failed")
+            }
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -22,14 +46,12 @@ struct THNewPost: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("send", action: {
-                        // TODO: upload post
-                    })
+                    Button("send", action: sendPost)
                 }
             }
         }
     }
-
+    
     private var editSection: some View {
         Section {
             if tags.isEmpty {
@@ -86,7 +108,10 @@ struct THNewPost: View {
 }
 
 struct THNewPost_Previews: PreviewProvider {
+    static let dataModel = THDataModel()
+    
     static var previews: some View {
-        THNewPost()
+        THNewPost(showNewPostPage: .constant(true))
+            .environmentObject(dataModel)
     }
 }

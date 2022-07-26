@@ -113,3 +113,35 @@ func THloadTags(token: String) async throws -> [THTag] {
     let decodedResponse = try JSONDecoder().decode([THTag].self, from: data)
     return decodedResponse
 }
+
+func THsendNewPost(token: String, content: String, divisionId: Int, tags: [THTag]) async throws {
+    struct Tag: Codable {
+        let name: String
+    }
+    
+    struct Post: Codable {
+        let content: String
+        let division_id: Int
+        var tags: [Tag]
+    }
+    
+    var payload = Post(content: content, division_id: divisionId, tags: [])
+    for tag in tags {
+        payload.tags.append(Tag(name: tag.name))
+    }
+    let payloadData = try JSONEncoder().encode(payload)
+    
+    let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
+    var request = URLRequest(url: components.url!)
+    request.httpMethod = "POST"
+    request.httpBody = payloadData
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    let (_, response) = try await URLSession.shared.data(for: request)
+    let httpResponse = response as! HTTPURLResponse
+    
+    guard httpResponse.statusCode <= 299 else {
+        throw TreeHoleError.serverReturnedError(message: String(httpResponse.statusCode))
+    }
+}

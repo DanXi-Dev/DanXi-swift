@@ -129,7 +129,7 @@ struct TreeHolePage: View {
                         Image(systemName: "square.and.pencil")
                     })
                     .sheet(isPresented: $showNewPostPage) {
-                        THNewPost()
+                        THNewPost(showNewPostPage: $showNewPostPage)
                     }
                     
                     Menu(content: {
