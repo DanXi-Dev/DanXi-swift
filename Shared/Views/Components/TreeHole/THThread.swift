@@ -35,7 +35,7 @@ struct THThread: View {
                         }
                 }
             } header: {
-                TagList(tags: hole.tags)
+                TagListSimple(tags: hole.tags)
             } footer: {
                 if !endReached {
                     HStack() {

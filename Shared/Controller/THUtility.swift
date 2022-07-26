@@ -145,3 +145,30 @@ func THsendNewPost(token: String, content: String, divisionId: Int, tags: [THTag
         throw TreeHoleError.serverReturnedError(message: String(httpResponse.statusCode))
     }
 }
+
+func THlikeFloor(token: String, floorId: Int, like: Bool) async throws -> THFloor {
+    struct LikeConfig: Codable {
+        let like: String
+    }
+    
+    let payload = LikeConfig(like: like ? "add" : "cancel")
+    let payloadData = try JSONEncoder().encode(payload)
+    
+    let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
+    var request = URLRequest(url: components.url!)
+    request.httpMethod = "PUT"
+    request.httpBody = payloadData
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    let (data, response) = try await URLSession.shared.data(for: request)
+    let httpResponse = response as! HTTPURLResponse
+    print("DANXI-DEBUG: liked, code: \(httpResponse.statusCode)")
+    
+    guard httpResponse.statusCode <= 299 else {
+        throw TreeHoleError.serverReturnedError(message: String(httpResponse.statusCode))
+    }
+    
+    let floor = try JSONDecoder().decode(THFloor.self, from: data)
+    return floor
+}

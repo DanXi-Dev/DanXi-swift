@@ -1,7 +1,27 @@
 import SwiftUI
 
 struct THFloorView: View {
-    let floor: THFloor
+    @EnvironmentObject var dataModel: THDataModel
+    @State var floor: THFloor
+    
+    func like() {
+        Task {
+            guard let token = dataModel.token else {
+                return
+            }
+            
+            do {
+                let newFloor = try await THlikeFloor(token: token, floorId: floor.id, like: !(floor.liked ?? false))
+#if os(macOS)
+                let impact = UIImpactFeedbackGenerator(style: .light)
+                impact.impactOccurred()
+#endif
+                self.floor = newFloor
+            } catch {
+                print("DANXI-DEBUG: like failed")
+            }
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -59,9 +79,7 @@ struct THFloorView: View {
     
     private var actions: some View {
         HStack(alignment: .center, spacing: 15) {
-            Button {
-                // TODO: like
-            } label: {
+            Button(action: like) {
                 HStack(alignment: .center, spacing: 3) {
                     Image(systemName: floor.liked ?? false ? "heart.fill" : "heart")
                     Text(String(floor.like))
@@ -134,6 +152,8 @@ struct THPost_Previews: PreviewProvider {
         posterName: "Dax")
     
     static var previews: some View {
+        let dataModel = THDataModel()
+        
         Group {
             THFloorView(floor: floor)
                 .padding()
@@ -142,5 +162,6 @@ struct THPost_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)
+        .environmentObject(dataModel)
     }
 }
