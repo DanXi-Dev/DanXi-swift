@@ -125,13 +125,6 @@ struct TreeHolePage: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
-                    Button(action: { showNewPostPage = true }, label: {
-                        Image(systemName: "square.and.pencil")
-                    })
-                    .sheet(isPresented: $showNewPostPage) {
-                        THNewPost(showNewPostPage: $showNewPostPage)
-                    }
-                    
                     Menu(content: {
                         Button(action: {}, label: {
                             Text("option1")
@@ -142,6 +135,13 @@ struct TreeHolePage: View {
                     }, label: {
                         Image(systemName: "ellipsis.circle")
                     })
+                    
+                    Button(action: { showNewPostPage = true }, label: {
+                        Image(systemName: "square.and.pencil")
+                    })
+                    .sheet(isPresented: $showNewPostPage) {
+                        THNewPost(showNewPostPage: $showNewPostPage)
+                    }
                 }
                 .font(.subheadline)
             }

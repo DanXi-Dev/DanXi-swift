@@ -45,6 +45,11 @@ struct THNewPost: View {
             .navigationTitle("new_post")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("cancel", action: {
+                        showNewPostPage = false
+                    })
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("send", action: sendPost)
                 }
