@@ -55,7 +55,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "" //TODO: How to handle nil UUID?
         
         /* Send token to FDUHole */
-//        networks.uploadAPNSKey(apnsToken: token, deviceId: device)
+        networks.uploadAPNSKey(apnsToken: token, deviceId: deviceId)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
