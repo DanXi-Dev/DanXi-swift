@@ -8,106 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		277E4D602887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
-		277E4D632887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D402887F5C30020EC16 /* AppSidebarNavigation.swift */; };
 		277E4D662887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
-		277E4D692887F5C30020EC16 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D412887F5C30020EC16 /* AppTabNavigation.swift */; };
 		277E4D6C2887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
-		277E4D6F2887F5C30020EC16 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D442887F5C30020EC16 /* TagList.swift */; };
 		277E4D722887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
-		277E4D752887F5C30020EC16 /* THWelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D452887F5C30020EC16 /* THWelcomePage.swift */; };
 		277E4D782887F5C30020EC16 /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THFloorView.swift */; };
-		277E4D7B2887F5C30020EC16 /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D462887F5C30020EC16 /* THFloorView.swift */; };
 		277E4D7E2887F5C30020EC16 /* THHoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THHoleView.swift */; };
-		277E4D812887F5C30020EC16 /* THHoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D472887F5C30020EC16 /* THHoleView.swift */; };
 		277E4D842887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
-		277E4D872887F5C30020EC16 /* THThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D482887F5C30020EC16 /* THThread.swift */; };
 		277E4D8A2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
-		277E4D8D2887F5C40020EC16 /* THLoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D492887F5C30020EC16 /* THLoginPage.swift */; };
-		277E4D902887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
-		277E4D932887F5C40020EC16 /* CalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4B2887F5C30020EC16 /* CalendarPage.swift */; };
 		277E4D962887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
-		277E4D992887F5C40020EC16 /* TreeHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */; };
-		277E4D9C2887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
-		277E4D9F2887F5C40020EC16 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4D2887F5C30020EC16 /* DashboardPage.swift */; };
 		277E4DA22887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
-		277E4DA52887F5C40020EC16 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D4E2887F5C30020EC16 /* SettingsPage.swift */; };
 		277E4DA82887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
-		277E4DAB2887F5C40020EC16 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D512887F5C30020EC16 /* _FlexibleView.swift */; };
 		277E4DAE2887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
-		277E4DB12887F5C40020EC16 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D522887F5C30020EC16 /* FlexibleView.swift */; };
 		277E4DB42887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
-		277E4DB72887F5C40020EC16 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D532887F5C30020EC16 /* SizeReader.swift */; };
 		277E4DBA2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
-		277E4DBD2887F5C40020EC16 /* THJsonParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D562887F5C30020EC16 /* THJsonParse.swift */; };
 		277E4DC02887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
-		277E4DC32887F5C40020EC16 /* THConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D572887F5C30020EC16 /* THConstants.swift */; };
 		277E4DCC2887F5C40020EC16 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THEntity.swift */; };
-		277E4DCF2887F5C40020EC16 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D592887F5C30020EC16 /* THEntity.swift */; };
 		277E4DD82887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
-		277E4DDB2887F5C40020EC16 /* THUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5C2887F5C30020EC16 /* THUtility.swift */; };
 		277E4DDE2887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
-		277E4DE12887F5C40020EC16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E4D5D2887F5C30020EC16 /* AppView.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
-		27A28A0D288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27A28A12288B0F2700D6DD77 /* THNewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A28A11288B0F2700D6DD77 /* THNewPost.swift */; };
+		27D4B5A628910FBE008D26B8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D4B5A528910FBE008D26B8 /* Preview Assets.xcassets */; };
 		27D4FE2C288D84AB00D9E4F5 /* THDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4FE2B288D84AB00D9E4F5 /* THDataModel.swift */; };
-		27D4FE2D288D84AB00D9E4F5 /* THDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4FE2B288D84AB00D9E4F5 /* THDataModel.swift */; };
 		27F5E556288B34B200E1E2A0 /* THTagSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5E555288B34B200E1E2A0 /* THTagSelection.swift */; };
-		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */; };
-		8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */; };
-		8AC7A5F326872C3F00C9CD98 /* DanXi-native WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8AC7A5F826872C4000C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5F726872C4000C9CD98 /* Assets.xcassets */; };
-		8AC7A5FF26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60326872C4000C9CD98 /* DanXi_nativeApp.swift */; };
-		8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60526872C4000C9CD98 /* ContentView.swift */; };
-		8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60726872C4000C9CD98 /* NotificationController.swift */; };
-		8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60926872C4000C9CD98 /* NotificationView.swift */; };
-		8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60B26872C4000C9CD98 /* ComplicationController.swift */; };
-		8AC7A60E26872C4100C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A60D26872C4100C9CD98 /* Assets.xcassets */; };
-		8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */; };
 		F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B11292890EC9F00124DF8 /* MarkdownUI */; };
-		F14B112C2890ECAC00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B112B2890ECAC00124DF8 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8AC7A5F426872C3F00C9CD98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AC7A5F126872C3F00C9CD98;
-			remoteInfo = "DanXi-native WatchKit App";
-		};
-		8AC7A60026872C4000C9CD98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AC7A5FD26872C4000C9CD98;
-			remoteInfo = "DanXi-native WatchKit Extension";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		8AC7A62F26872C4100C9CD98 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				8AC7A5FF26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				8AC7A5F326872C3F00C9CD98 /* DanXi-native WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,9 +58,7 @@
 		277E4D472887F5C30020EC16 /* THHoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THHoleView.swift; sourceTree = "<group>"; };
 		277E4D482887F5C30020EC16 /* THThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THThread.swift; sourceTree = "<group>"; };
 		277E4D492887F5C30020EC16 /* THLoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THLoginPage.swift; sourceTree = "<group>"; };
-		277E4D4B2887F5C30020EC16 /* CalendarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarPage.swift; sourceTree = "<group>"; };
 		277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeHolePage.swift; sourceTree = "<group>"; };
-		277E4D4D2887F5C30020EC16 /* DashboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardPage.swift; sourceTree = "<group>"; };
 		277E4D4E2887F5C30020EC16 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		277E4D512887F5C30020EC16 /* _FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
 		277E4D522887F5C30020EC16 /* FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
@@ -138,28 +71,14 @@
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27A28A11288B0F2700D6DD77 /* THNewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNewPost.swift; sourceTree = "<group>"; };
+		27D4B5A528910FBE008D26B8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27D4FE2B288D84AB00D9E4F5 /* THDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDataModel.swift; sourceTree = "<group>"; };
 		27F5E555288B34B200E1E2A0 /* THTagSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagSelection.swift; sourceTree = "<group>"; };
-		7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A5F726872C4000C9CD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8AC7A5F926872C4000C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi-native WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A60326872C4000C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
-		8AC7A60526872C4000C9CD98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8AC7A60726872C4000C9CD98 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		8AC7A60926872C4000C9CD98 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
-		8AC7A60B26872C4000C9CD98 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
-		8AC7A60D26872C4100C9CD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8AC7A61226872C4100C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8AC7A61326872C4100C9CD98 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,15 +88,6 @@
 			files = (
 				77F437F027D7A3180082920E /* Alamofire in Frameworks */,
 				F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5FB26872C4000C9CD98 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */,
-				F14B112C2890ECAC00124DF8 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,9 +140,7 @@
 		277E4D4A2887F5C30020EC16 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				277E4D4B2887F5C30020EC16 /* CalendarPage.swift */,
 				277E4D4C2887F5C30020EC16 /* TreeHolePage.swift */,
-				277E4D4D2887F5C30020EC16 /* DashboardPage.swift */,
 				277E4D4E2887F5C30020EC16 /* SettingsPage.swift */,
 			);
 			path = Pages;
@@ -275,6 +183,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		27D4B5A428910FBE008D26B8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				27D4B5A528910FBE008D26B8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		7795D21A27D82B1C00840D02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,8 +215,6 @@
 			children = (
 				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* DanXi-native */,
-				8AC7A5F626872C3F00C9CD98 /* DanXi-native WatchKit App */,
-				8AC7A60226872C4000C9CD98 /* DanXi-native WatchKit Extension */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
 			);
@@ -310,8 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */,
-				8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */,
-				8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -323,51 +235,9 @@
 				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
-				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
+				27D4B5A428910FBE008D26B8 /* Preview Content */,
 			);
 			path = "DanXi-native";
-			sourceTree = "<group>";
-		};
-		8AC7A5D626872C3F00C9CD98 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		8AC7A5F626872C3F00C9CD98 /* DanXi-native WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A5F726872C4000C9CD98 /* Assets.xcassets */,
-				8AC7A5F926872C4000C9CD98 /* Info.plist */,
-			);
-			path = "DanXi-native WatchKit App";
-			sourceTree = "<group>";
-		};
-		8AC7A60226872C4000C9CD98 /* DanXi-native WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				7795D22027D8390F00840D02 /* DanXi-native WatchKit Extension.entitlements */,
-				8AC7A60326872C4000C9CD98 /* DanXi_nativeApp.swift */,
-				8AC7A60526872C4000C9CD98 /* ContentView.swift */,
-				8AC7A60726872C4000C9CD98 /* NotificationController.swift */,
-				8AC7A60926872C4000C9CD98 /* NotificationView.swift */,
-				8AC7A60B26872C4000C9CD98 /* ComplicationController.swift */,
-				8AC7A60D26872C4100C9CD98 /* Assets.xcassets */,
-				8AC7A61226872C4100C9CD98 /* Info.plist */,
-				8AC7A61326872C4100C9CD98 /* PushNotificationPayload.apns */,
-				8AC7A60F26872C4100C9CD98 /* Preview Content */,
-			);
-			path = "DanXi-native WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		8AC7A60F26872C4100C9CD98 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,7 +255,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				8AC7A5F526872C3F00C9CD98 /* PBXTargetDependency */,
 			);
 			name = "DanXi-native";
 			packageProductDependencies = (
@@ -395,44 +264,6 @@
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
 			productType = "com.apple.product-type.application";
-		};
-		8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63026872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit App" */;
-			buildPhases = (
-				8AC7A5F026872C3F00C9CD98 /* Resources */,
-				8AC7A62F26872C4100C9CD98 /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AC7A60126872C4000C9CD98 /* PBXTargetDependency */,
-			);
-			name = "DanXi-native WatchKit App";
-			productName = "DanXi-native WatchKit App";
-			productReference = 8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		8AC7A5FD26872C4000C9CD98 /* DanXi-native WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A62C26872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit Extension" */;
-			buildPhases = (
-				8AC7A5FA26872C4000C9CD98 /* Sources */,
-				8AC7A5FB26872C4000C9CD98 /* Frameworks */,
-				8AC7A5FC26872C4000C9CD98 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DanXi-native WatchKit Extension";
-			packageProductDependencies = (
-				7795D21B27D82B1C00840D02 /* Alamofire */,
-				F14B112B2890ECAC00124DF8 /* MarkdownUI */,
-			);
-			productName = "DanXi-native WatchKit Extension";
-			productReference = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -444,13 +275,6 @@
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					8AC7A5CC26872C3E00C9CD98 = {
-						CreatedOnToolsVersion = 12.5.1;
-					};
-					8AC7A5F126872C3F00C9CD98 = {
-						CreatedOnToolsVersion = 12.5.1;
-						LastSwiftMigration = 1320;
-					};
-					8AC7A5FD26872C4000C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
@@ -476,8 +300,6 @@
 			projectRoot = "";
 			targets = (
 				8AC7A5CC26872C3E00C9CD98 /* DanXi-native */,
-				8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */,
-				8AC7A5FD26872C4000C9CD98 /* DanXi-native WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -487,27 +309,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */,
 				27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */,
+				27D4B5A628910FBE008D26B8 /* Preview Assets.xcassets in Resources */,
 				8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5F026872C3F00C9CD98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8AC7A5F826872C4000C9CD98 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AC7A5FC26872C4000C9CD98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */,
-				27A28A0D288B0C3D00D6DD77 /* Localizable.strings in Resources */,
-				8AC7A60E26872C4100C9CD98 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,8 +322,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				277E4D902887F5C40020EC16 /* CalendarPage.swift in Sources */,
-				277E4D9C2887F5C40020EC16 /* DashboardPage.swift in Sources */,
 				277E4DD82887F5C40020EC16 /* THUtility.swift in Sources */,
 				277E4DDE2887F5C40020EC16 /* AppView.swift in Sources */,
 				277E4D6C2887F5C30020EC16 /* TagList.swift in Sources */,
@@ -545,54 +347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8AC7A5FA26872C4000C9CD98 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				277E4D8D2887F5C40020EC16 /* THLoginPage.swift in Sources */,
-				277E4D6F2887F5C30020EC16 /* TagList.swift in Sources */,
-				277E4D872887F5C30020EC16 /* THThread.swift in Sources */,
-				277E4D9F2887F5C40020EC16 /* DashboardPage.swift in Sources */,
-				277E4D7B2887F5C30020EC16 /* THFloorView.swift in Sources */,
-				277E4D692887F5C30020EC16 /* AppTabNavigation.swift in Sources */,
-				277E4DB12887F5C40020EC16 /* FlexibleView.swift in Sources */,
-				8AC7A60826872C4000C9CD98 /* NotificationController.swift in Sources */,
-				8AC7A60626872C4000C9CD98 /* ContentView.swift in Sources */,
-				27D4FE2D288D84AB00D9E4F5 /* THDataModel.swift in Sources */,
-				277E4DB72887F5C40020EC16 /* SizeReader.swift in Sources */,
-				277E4DDB2887F5C40020EC16 /* THUtility.swift in Sources */,
-				277E4D992887F5C40020EC16 /* TreeHolePage.swift in Sources */,
-				277E4D632887F5C30020EC16 /* AppSidebarNavigation.swift in Sources */,
-				277E4D932887F5C40020EC16 /* CalendarPage.swift in Sources */,
-				277E4D812887F5C30020EC16 /* THHoleView.swift in Sources */,
-				8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */,
-				277E4DAB2887F5C40020EC16 /* _FlexibleView.swift in Sources */,
-				277E4DCF2887F5C40020EC16 /* THEntity.swift in Sources */,
-				277E4D752887F5C30020EC16 /* THWelcomePage.swift in Sources */,
-				277E4DE12887F5C40020EC16 /* AppView.swift in Sources */,
-				8AC7A60426872C4000C9CD98 /* DanXi_nativeApp.swift in Sources */,
-				277E4DBD2887F5C40020EC16 /* THJsonParse.swift in Sources */,
-				277E4DA52887F5C40020EC16 /* SettingsPage.swift in Sources */,
-				8AC7A60A26872C4000C9CD98 /* NotificationView.swift in Sources */,
-				277E4DC32887F5C40020EC16 /* THConstants.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8AC7A5F526872C3F00C9CD98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 8AC7A5F126872C3F00C9CD98 /* DanXi-native WatchKit App */;
-			targetProxy = 8AC7A5F426872C3F00C9CD98 /* PBXContainerItemProxy */;
-		};
-		8AC7A60126872C4000C9CD98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8AC7A5FD26872C4000C9CD98 /* DanXi-native WatchKit Extension */;
-			targetProxy = 8AC7A60026872C4000C9CD98 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		27A28A0F288B0C3D00D6DD77 /* Localizable.strings */ = {
@@ -720,133 +475,6 @@
 			};
 			name = Release;
 		};
-		8AC7A62D26872C4100C9CD98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_ENTITLEMENTS = "DanXi-native WatchKit Extension/DanXi-native WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 190;
-				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "DanXi-native WatchKit Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.3.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp.watchExtension";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		8AC7A62E26872C4100C9CD98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_ENTITLEMENTS = "DanXi-native WatchKit Extension/DanXi-native WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 190;
-				DEVELOPMENT_ASSET_PATHS = "\"DanXi-native WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "DanXi-native WatchKit Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.3.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp.watchExtension";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
-		8AC7A63126872C4100C9CD98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 190;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				FRAMEWORK_SEARCH_PATHS = "";
-				IBSC_MODULE = DanXi_native_WatchKit_Extension;
-				INFOPLIST_FILE = "DanXi-native WatchKit App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.3.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Shared/DanXi-native WatchKit App-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		8AC7A63226872C4100C9CD98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 190;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				FRAMEWORK_SEARCH_PATHS = "";
-				IBSC_MODULE = DanXi_native_WatchKit_Extension;
-				INFOPLIST_FILE = "DanXi-native WatchKit App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.3.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Shared/DanXi-native WatchKit App-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
 		8AC7A63526872C4100C9CD98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -926,24 +554,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AC7A62C26872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AC7A62D26872C4100C9CD98 /* Debug */,
-				8AC7A62E26872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8AC7A63026872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native WatchKit App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AC7A63126872C4100C9CD98 /* Debug */,
-				8AC7A63226872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -991,11 +601,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7795D21B27D82B1C00840D02 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		77F437EF27D7A3180082920E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -1004,11 +609,6 @@
 		F14B11292890EC9F00124DF8 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
-			productName = MarkdownUI;
-		};
-		F14B112B2890ECAC00124DF8 /* MarkdownUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
 			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */

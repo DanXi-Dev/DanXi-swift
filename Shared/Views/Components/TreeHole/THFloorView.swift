@@ -35,11 +35,6 @@ struct THFloorView: View {
                 .font(.system(size: 16))
             info
         }
-        #if !os(watchOS)
-        .contextMenu {
-            menu
-        }
-        #endif
     }
     
     private var poster: some View {

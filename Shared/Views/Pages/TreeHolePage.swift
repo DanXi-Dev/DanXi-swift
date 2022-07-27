@@ -60,12 +60,6 @@ struct TreeHolePage: View {
     }
     
     var body: some View {
-#if os(watchOS)
-        List {
-            listContent
-        }
-        .navigationTitle(dataModel.currentDivision.name)
-#else
         List() {
             Section {
                 ForEach(dataModel.currentDivision.pinned) { hole in
@@ -146,38 +140,15 @@ struct TreeHolePage: View {
                 .font(.subheadline)
             }
         }
-        
-#endif
     }
-    
-    @ViewBuilder
-    private var listContent: some View {
-        if !dataModel.divisions.isEmpty {
-            divisionSelector
-        }
-        
-        ForEach(dataModel.currentDivision.pinned) { hole in
-            NavigationLink(destination: THThread(hole: hole)) {
-                THHoleView(hole: hole)
-            }
-        }
-        
-        ForEach(holes) { hole in
-            NavigationLink(destination: THThread(hole: hole)) {
-                THHoleView(hole: hole)
-            }
-        }
-    }
-    
+
     private var divisionSelector: some View {
         Picker("divisions", selection: $dataModel.currentDivision) {
             ForEach(dataModel.divisions, id: \.self) {division in
                 Text(division.name)
             }
         }
-#if !os(watchOS)
         .pickerStyle(.segmented)
-#endif
         .padding()
         // change division
         .onChange(of: dataModel.currentDivision) { newValue in

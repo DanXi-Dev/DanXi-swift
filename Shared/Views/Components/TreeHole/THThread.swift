@@ -47,9 +47,7 @@ struct THThread: View {
             }
             .textCase(nil)
         }
-#if !os(watchOS)
         .listStyle(.grouped)
-#endif
         .navigationTitle("#\(String(hole.id))")
         .navigationBarTitleDisplayMode(.inline)
     }

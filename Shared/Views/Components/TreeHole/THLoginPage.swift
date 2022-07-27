@@ -38,22 +38,9 @@ struct THLoginPage: View {
                         ProgressView()
                     }
                 }
-                
-#if os(watchOS)
-                Section{
-                    Button("login") {
-                        login()
-                    }
-                    .disabled(loading)
-                    Button("cancel") {
-                        showLoginPage = false
-                    }
-                }
-#endif
             }
             .navigationTitle("fduhole_login_prompt")
             .navigationBarTitleDisplayMode(.inline)
-#if !os(watchOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("cancel") {
@@ -65,7 +52,6 @@ struct THLoginPage: View {
                         .disabled(loading)
                 }
             }
-#endif
         }
     }
 }

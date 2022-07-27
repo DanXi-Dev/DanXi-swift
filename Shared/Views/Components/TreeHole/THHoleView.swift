@@ -30,9 +30,7 @@ struct THHoleView: View {
         }
         .font(.caption)
         .foregroundColor(.secondary)
-#if !os(watchOS)
         .foregroundColor(Color(uiColor: .systemGray2))
-#endif
         .padding(.top, 3)
     }
     

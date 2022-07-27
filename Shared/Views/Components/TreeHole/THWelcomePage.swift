@@ -3,13 +3,6 @@ import SwiftUI
 struct THWelcomePage: View {
     
     var body: some View {
-#if os(watchOS)
-        NavigationView {
-            Text("not_logged_in")
-                .foregroundColor(.secondary)
-                .navigationTitle("treehole")
-        }
-#else
         VStack {
             Text("Open Tree Hole")
                 .font(.system(size: 35))
@@ -39,7 +32,6 @@ struct THWelcomePage: View {
                 .bold()
                 .padding(.bottom, 40.0)
         }
-#endif
     }
 }
 
