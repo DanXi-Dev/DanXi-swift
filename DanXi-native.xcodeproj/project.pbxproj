@@ -56,7 +56,6 @@
 		7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7795D21B27D82B1C00840D02 /* Alamofire */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
-		8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D226872C3E00C9CD98 /* ContentView.swift */; };
 		8AC7A5D526872C3F00C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */; };
 		8AC7A5D826872C3F00C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */; };
 		8AC7A5F326872C3F00C9CD98 /* DanXi-native WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8AC7A5F226872C3F00C9CD98 /* DanXi-native WatchKit App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -143,7 +142,6 @@
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
-		8AC7A5D226872C3E00C9CD98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AC7A5D726872C3F00C9CD98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 			children = (
 				8AAABD4326881E0500486D37 /* DanXi-native.entitlements */,
 				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
-				8AC7A5D226872C3E00C9CD98 /* ContentView.swift */,
 				8AC7A5D426872C3F00C9CD98 /* Assets.xcassets */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AC7A5D626872C3F00C9CD98 /* Preview Content */,
@@ -531,7 +528,6 @@
 				277E4D7E2887F5C30020EC16 /* THHoleView.swift in Sources */,
 				277E4D842887F5C30020EC16 /* THThread.swift in Sources */,
 				277E4DA22887F5C40020EC16 /* SettingsPage.swift in Sources */,
-				8AC7A5D326872C3E00C9CD98 /* ContentView.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				277E4D962887F5C40020EC16 /* TreeHolePage.swift in Sources */,
 				277E4DC02887F5C40020EC16 /* THConstants.swift in Sources */,

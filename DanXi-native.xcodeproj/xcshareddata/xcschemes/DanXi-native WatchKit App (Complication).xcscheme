@@ -55,8 +55,10 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "32">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/DanXi">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5F126872C3F00C9CD98"
@@ -64,7 +66,7 @@
             BlueprintName = "DanXi-native WatchKit App"
             ReferencedContainer = "container:DanXi-native.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,8 +75,10 @@
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "32">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/DanXi">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5F126872C3F00C9CD98"
@@ -82,7 +86,16 @@
             BlueprintName = "DanXi-native WatchKit App"
             ReferencedContainer = "container:DanXi-native.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8AC7A5F126872C3F00C9CD98"
+            BuildableName = "DanXi-native WatchKit App.app"
+            BlueprintName = "DanXi-native WatchKit App"
+            ReferencedContainer = "container:DanXi-native.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

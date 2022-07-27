@@ -172,3 +172,7 @@ func THlikeFloor(token: String, floorId: Int, like: Bool) async throws -> THFloo
     let floor = try JSONDecoder().decode(THFloor.self, from: data)
     return floor
 }
+
+func THuploadAPNSToken(apnsToken: String, deviceId: String) {
+    
+}
