@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppTabNavigation: View {
-    @EnvironmentObject var THdataModel: THDataModel
+    @ObservedObject var model = treeholeDataModel
     
     enum Tab {
         case treehole
@@ -13,12 +13,12 @@ struct AppTabNavigation: View {
     var body: some View {
         TabView(selection: $selection) {
             Group {
-                if (THdataModel.isLogged) {
+                if model.loggedIn {
                     NavigationView {
-                        TreeHolePage()
+                        TreeholePage()
                     }
                 } else {
-                    THWelcomePage()
+                    WelcomePage()
                 }
             }
             .tabItem {

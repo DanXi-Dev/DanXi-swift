@@ -1,36 +1,30 @@
 import SwiftUI
 
-struct THThread: View {
-    @EnvironmentObject var dataModel: THDataModel
-    @State var hole: THHole
+struct PostPage: View {
+    let hole: THHole
+    @State var floors: [THFloor] = []
     @State var endReached = false
     
-    func fetchMoreFloors() async {
-        guard let token = dataModel.token else {
-            return
-        }
-        
+    
+    
+    func loadMoreFloors() async {
         do {
-            let lastStorey = hole.floors.last!.storey // floors will never be empty, as it contains `firstFloor`
-            let newFloors = try await THloadFloors(token: token, holeId: hole.id, startFloor: lastStorey + 1)
-            
+            let newFloors = try await networks.loadFloors(holeId: hole.id, startFloor: floors.capacity)
+            floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
-            hole.floors.append(contentsOf: newFloors)
-            
         } catch {
-            print("DANXI-DEBUG: load new floors failed")
+            print("DANXI-DEBUG: load floors failed")
         }
     }
-    
     
     var body: some View {
         List {
             Section {
-                ForEach(hole.floors) { floor in
-                    THFloorView(floor: floor)
+                ForEach(floors) { floor in
+                    FloorView(floor: floor)
                         .task {
-                            if floor == hole.floors.last {
-                                await fetchMoreFloors()
+                            if floor == floors.last {
+                                await loadMoreFloors()
                             }
                         }
                 }
@@ -43,6 +37,11 @@ struct THThread: View {
                         ProgressView()
                         Spacer()
                     }
+                    .task {
+                        if floors.isEmpty {
+                            await loadMoreFloors()
+                        }
+                    }
                 }
             }
             .textCase(nil)
@@ -53,10 +52,7 @@ struct THThread: View {
     }
 }
 
-
-
-
-struct THThread_Previews: PreviewProvider {
+struct PostPage_Previews: PreviewProvider {
     static let tag = THTag(id: 1, temperature: 1, name: "Tag")
     
     static let floor = THFloor(
@@ -90,19 +86,8 @@ struct THThread_Previews: PreviewProvider {
         tags: Array(repeating: tag, count: 5),
         firstFloor: floor, lastFloor: floor, floors: Array(repeating: floor, count: 10))
     
-    static var dataModel = THDataModel()
-    
     static var previews: some View {
-        Group {
-            NavigationView {
-                THThread(hole: hole)
-            }
-            
-            NavigationView {
-                THThread(hole: hole)
-                    .preferredColorScheme(.dark)
-            }
-        }
-        .environmentObject(dataModel)
+        PostPage(hole: hole)
     }
 }
+

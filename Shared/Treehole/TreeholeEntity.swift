@@ -9,6 +9,8 @@ struct THDivision: Hashable, Decodable, Identifiable {
     let id: Int
     let name, description: String
     let pinned: [THHole]
+    
+    static let dummy = THDivision(id: 1, name: "树洞", description: "", pinned: [])
 }
 
 struct THTag: Hashable, Codable, Identifiable {

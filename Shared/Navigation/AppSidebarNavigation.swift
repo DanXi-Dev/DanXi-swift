@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppSidebarNavigation: View {
-    @EnvironmentObject var THdataModel: THDataModel
+    @ObservedObject var model = treeholeDataModel
 
     enum NavigationItem {
         case treehole
@@ -15,10 +15,10 @@ struct AppSidebarNavigation: View {
             List {
                 NavigationLink(tag: NavigationItem.treehole, selection: $selection) {
                     Group {
-                        if (THdataModel.isLogged) {
-                            TreeHolePage()
+                        if (model.loggedIn) {
+                            TreeholePage()
                         } else {
-                            THWelcomePage()
+                            WelcomePage()
                         }
                     }
                 } label: {

@@ -1,22 +1,13 @@
 import SwiftUI
 import MarkdownUI
 
-struct THFloorView: View {
-    @EnvironmentObject var dataModel: THDataModel
+struct FloorView: View {
     @State var floor: THFloor
     
     func like() {
         Task {
-            guard let token = dataModel.token else {
-                return
-            }
-            
             do {
-                let newFloor = try await THlikeFloor(token: token, floorId: floor.id, like: !(floor.liked ?? false))
-#if os(macOS)
-                let impact = UIImpactFeedbackGenerator(style: .light)
-                impact.impactOccurred()
-#endif
+                let newFloor = try await networks.like(floorId: floor.id, like: !(floor.liked ?? false))
                 self.floor = newFloor
             } catch {
                 print("DANXI-DEBUG: like failed")
@@ -57,18 +48,14 @@ struct THFloorView: View {
             
             Text("(##\(String(floor.id)))")
                 .font(.caption2)
-                .foregroundColor(.secondary)
-#if !os(watchOS)
                 .foregroundColor(Color(uiColor: .systemGray2))
-#endif
+
             
             Spacer()
             Text(floor.createTime.formatted(date: .abbreviated, time: .shortened))
                 .font(.caption)
-                .foregroundColor(.secondary)
-#if !os(watchOS)
                 .foregroundColor(Color(uiColor: .systemGray2))
-#endif
+
         }
         .padding(.top, 2.0)
     }
@@ -88,14 +75,14 @@ struct THFloorView: View {
             } label: {
                 Image(systemName: "arrowshape.turn.up.left")
             }
-#if !os(watchOS)
+            
             Menu {
                 menu
             } label: {
                 Image(systemName: "ellipsis")
             }
-#endif
         }
+        .buttonStyle(.borderless) // prevent multiple tapping
         .font(.caption2)
         .foregroundColor(.secondary)
         
@@ -124,7 +111,7 @@ struct THFloorView: View {
     }
 }
 
-struct THPost_Previews: PreviewProvider {
+struct FloorView_Previews: PreviewProvider {
     
     static let floor = THFloor(
         id: 1234567,
@@ -148,16 +135,13 @@ struct THPost_Previews: PreviewProvider {
         posterName: "Dax")
     
     static var previews: some View {
-        let dataModel = THDataModel()
-        
         Group {
-            THFloorView(floor: floor)
+            FloorView(floor: floor)
                 .padding()
-            THFloorView(floor: floor)
+            FloorView(floor: floor)
                 .padding()
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)
-        .environmentObject(dataModel)
     }
 }

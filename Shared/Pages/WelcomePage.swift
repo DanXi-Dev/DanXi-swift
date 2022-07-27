@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct THWelcomePage: View {
+struct WelcomePage: View {
     
     var body: some View {
         VStack {
@@ -60,11 +60,11 @@ struct FeatureEntry: View {
     }
 }
 
-struct THWelcomePagePrompt_Previews: PreviewProvider {
+struct WelcomePage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            THWelcomePage()
-            THWelcomePage()
+            WelcomePage()
+            WelcomePage()
                 .preferredColorScheme(.dark)
         }
     }

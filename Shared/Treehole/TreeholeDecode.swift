@@ -1,7 +1,5 @@
 import Foundation
 
-// parse JSON data from server
-
 extension THFloor {
     enum CodingKeys: String, CodingKey {
         case id = "floor_id"
@@ -32,7 +30,7 @@ extension THFloor {
             updateTime = ut
             createTime = ct
         } else {
-            throw TreeHoleError.invalidFormat(reason: "Invalid ISO8601 Date")
+            throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
         }
     }
 }
@@ -94,7 +92,7 @@ extension THHole {
             updateTime = ut
             createTime = ct
         } else {
-            throw TreeHoleError.invalidFormat(reason: "Invalid ISO8601 Date")
+            throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
         }
         
         let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)

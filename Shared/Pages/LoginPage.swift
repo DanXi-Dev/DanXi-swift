@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct THLoginPage: View {
-    @EnvironmentObject var dataModel: THDataModel
+struct LoginPage: View {
+    @ObservedObject var model = treeholeDataModel
     
     @Binding var showLoginPage: Bool // passed from caller, exit after successful login
     @State var username = ""
@@ -11,13 +11,16 @@ struct THLoginPage: View {
     func login() {
         loading = true
         Task {
-            if await dataModel.login(username: username, password: password) {
+            do {
+                try await networks.login(username: username, password: password)
+                model.loggedIn = true
+                loading = false
                 showLoginPage = false
-            } else {
-                // TODO: alert user
+                model.initialFetch()
+            } catch {
+                loading = false
+                print("DANXI-DEBUG: login failed")
             }
-            
-            loading = false
         }
     }
     
@@ -31,11 +34,14 @@ struct THLoginPage: View {
                         .disableAutocorrection(true)
                     
                     SecureField(NSLocalizedString("password", comment: ""), text: $password)
-                }
-                
-                if loading {
-                    Section{
-                        ProgressView()
+                } footer: {
+                    if loading {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        
                     }
                 }
             }
@@ -56,12 +62,8 @@ struct THLoginPage: View {
     }
 }
 
-
-struct THLoginPage_Previews: PreviewProvider {
-    static let dataModel = THDataModel()
-    
+struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
-        THLoginPage(showLoginPage: .constant(true))
-            .environmentObject(dataModel)
+        LoginPage(showLoginPage: .constant(true))
     }
 }

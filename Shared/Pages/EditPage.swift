@@ -1,25 +1,20 @@
 import SwiftUI
 
-struct THNewPost: View {
-    @EnvironmentObject var dataModel: THDataModel
+struct EditPage: View {
+    let divisionId: Int
     @Binding var showNewPostPage: Bool
     @State var content = ""
     @State var tags: [THTag] = []
     @State var previewMode = false
     
     func sendPost() {
-        guard let token = dataModel.token else {
-            return
-        }
-        
         Task {
             // TODO: pre post check (e.g.: empty tags)
             
             do {
-                try await THsendNewPost(
-                    token: token,
+                try await networks.newPost(
                     content: content,
-                    divisionId: dataModel.currentDivision.id,
+                    divisionId: divisionId,
                     tags: tags)
                 showNewPostPage = false
             } catch {
@@ -112,11 +107,51 @@ struct THNewPost: View {
     }
 }
 
-struct THNewPost_Previews: PreviewProvider {
-    static let dataModel = THDataModel()
+struct THTagSelection: View {
+    @ObservedObject var model = treeholeDataModel
     
+    @Binding var tagList: [THTag]
+    @State var searchText = ""
+    
+    var body: some View {
+        List {
+            if tagList.isEmpty {
+                Text("no_tags")
+                    .foregroundColor(.primary.opacity(0.25))
+            } else {
+                TagList(tags: tagList)
+            }
+        }
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always)) {
+            
+            ForEach(searchResults) { result in
+                HStack(alignment: .bottom, spacing: 15) {
+                    Text(result.name)
+                        .tagStyle(color: .pink, fontSize: 18)
+                    Label(String(result.temperature), systemImage: "flame")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                    
+                    Spacer()
+                    Button("add", action: { tagList.append(result) })
+                }
+            }
+        }
+        .navigationTitle("select_tags")
+    }
+    
+    var searchResults: [THTag] {
+        if searchText.isEmpty {
+            return model.tags
+        } else {
+            // TODO: filter tags that already exists
+            return model.tags.filter { $0.name.contains(searchText) }
+        }
+    }
+}
+
+struct THNewPost_Previews: PreviewProvider {
     static var previews: some View {
-        THNewPost(showNewPostPage: .constant(true))
-            .environmentObject(dataModel)
+        EditPage(divisionId: 1, showNewPostPage: .constant(true))
     }
 }

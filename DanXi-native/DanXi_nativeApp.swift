@@ -18,7 +18,7 @@ struct DanXi_nativeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AppView()
+            ContentView()
         }
     }
 }
@@ -55,7 +55,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "" //TODO: How to handle nil UUID?
         
         /* Send token to FDUHole */
-        THuploadAPNSToken(apnsToken: token, deviceId: deviceId)
+//        networks.uploadAPNSKey(apnsToken: token, deviceId: device)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

@@ -1,14 +1,13 @@
 import SwiftUI
-import MarkdownUI
 
-struct THHoleView: View {
+struct HoleView: View {
     let hole: THHole
     
     var body: some View {
         VStack(alignment: .leading) {
             TagListSimple(tags: hole.tags)
             
-            Markdown(hole.firstFloor.content)
+            Text(hole.firstFloor.content)
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
@@ -53,7 +52,7 @@ struct THHoleView: View {
     }
 }
 
-struct THHoleView_Previews: PreviewProvider {
+struct HoleView_Previews: PreviewProvider {
     static let tag = THTag(id: 1, temperature: 1, name: "Tag")
     
     static let floor = THFloor(
@@ -89,8 +88,8 @@ struct THHoleView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            THHoleView(hole: hole)
-            THHoleView(hole: hole)
+            HoleView(hole: hole)
+            HoleView(hole: hole)
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)
