@@ -68,6 +68,8 @@
 		8AC7A60C26872C4000C9CD98 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A60B26872C4000C9CD98 /* ComplicationController.swift */; };
 		8AC7A60E26872C4100C9CD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A60D26872C4100C9CD98 /* Assets.xcassets */; };
 		8AC7A61126872C4100C9CD98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC7A61026872C4100C9CD98 /* Preview Assets.xcassets */; };
+		F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B11292890EC9F00124DF8 /* MarkdownUI */; };
+		F14B112C2890ECAC00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B112B2890ECAC00124DF8 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F437F027D7A3180082920E /* Alamofire in Frameworks */,
+				F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7795D21C27D82B1C00840D02 /* Alamofire in Frameworks */,
+				F14B112C2890ECAC00124DF8 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +390,7 @@
 			name = "DanXi-native";
 			packageProductDependencies = (
 				77F437EF27D7A3180082920E /* Alamofire */,
+				F14B11292890EC9F00124DF8 /* MarkdownUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -423,6 +428,7 @@
 			name = "DanXi-native WatchKit Extension";
 			packageProductDependencies = (
 				7795D21B27D82B1C00840D02 /* Alamofire */,
+				F14B112B2890ECAC00124DF8 /* MarkdownUI */,
 			);
 			productName = "DanXi-native WatchKit Extension";
 			productReference = 8AC7A5FE26872C4000C9CD98 /* DanXi-native WatchKit Extension.appex */;
@@ -461,6 +467,9 @@
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
 				77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				F14B11282890EC9F00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -955,6 +964,30 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		F14B11282890EC9F00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -967,6 +1000,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F14B11292890EC9F00124DF8 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+		F14B112B2890ECAC00124DF8 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

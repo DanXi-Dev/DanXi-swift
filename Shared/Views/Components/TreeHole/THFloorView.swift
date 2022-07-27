@@ -1,4 +1,5 @@
 import SwiftUI
+import MarkdownUI
 
 struct THFloorView: View {
     @EnvironmentObject var dataModel: THDataModel
@@ -30,7 +31,7 @@ struct THFloorView: View {
                 Spacer()
                 actions
             }
-            Text(floor.content)
+            Markdown(floor.content)
                 .font(.system(size: 16))
             info
         }

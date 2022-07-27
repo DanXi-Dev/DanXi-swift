@@ -1,4 +1,5 @@
 import SwiftUI
+import MarkdownUI
 
 struct THHoleView: View {
     let hole: THHole
@@ -7,7 +8,7 @@ struct THHoleView: View {
         VStack(alignment: .leading) {
             TagListSimple(tags: hole.tags)
             
-            Text(hole.firstFloor.content)
+            Markdown(hole.firstFloor.content)
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
