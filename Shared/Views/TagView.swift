@@ -51,7 +51,7 @@ struct TagListSimple: View {
 
 
 struct TagList_Previews: PreviewProvider {
-    static let tag = THTag(id: 1, temperature: 1, name: "测试标签")
+    static let tag = THTag(id: 1, temperature: 1, name: "Test")
     
     static let shortList = Array(repeating: tag, count: 2)
     

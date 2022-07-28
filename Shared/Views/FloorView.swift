@@ -129,38 +129,29 @@ struct FloorView: View {
 }
 
 struct FloorView_Previews: PreviewProvider {
-    
-    static let floor = THFloor(
-        id: 1234567,
-        holeId: 123456,
-        iso8601UpdateTime: "2022-04-14T08:23:12.761042+08:00",
-        iso8601CreateTime: "2022-04-14T08:23:12.761042+08:00",
-        updateTime: Date.now, createTime: Date.now,
-        like: 12,
-        liked: true,
-        isMe: false,
-        deleted: false,
-        storey: 5,
-        content: """
-        Hello, **Dear** readers!
-        
-        We can make text *italic*, ***bold italic***, or ~~striked through~~.
-        
-        You can even create [links](https://www.twitter.com/twannl) that actually work.
-        
-        Or use `Monospace` to mimic `Text("inline code")`.
-        
-        """,
-        posterName: "Dax")
-    
     static var previews: some View {
         Group {
-            FloorView(floor: floor)
-                .padding()
-            FloorView(floor: floor)
-                .padding()
+            FloorView(floor: PreviewDecode.decodeObj(name: "floor")!)
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName("Floor")
+            
+            FloorView(floor: PreviewDecode.decodeObj(name: "floor")!)
                 .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName("Floor Dark")
+            
+            FloorView(floor: PreviewDecode.decodeObj(name: "deleted-floor")!)
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName("Deleted Floor")
+            
+            FloorView(floor: PreviewDecode.decodeObj(name: "long-floor")!)
+                .previewDisplayName("Long Floor")
+            
+            ScrollView {
+                FloorView(floor: PreviewDecode.decodeObj(name: "styled-floor")!)
+            }
+            .previewDisplayName("Styled Floor")
         }
-        .previewLayout(.sizeThatFits)
+        .padding()
     }
 }

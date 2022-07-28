@@ -1,0 +1,23 @@
+{
+    "floor_id": 1146869,
+    "hole_id": 119624,
+    "content": "该内容已被作者删除",
+    "history": [
+        {
+            "content": "test",
+            "altered_by": 883,
+            "altered_time": "2022-07-28T19:04:52.798475+08:00"
+        }
+    ],
+    "anonyname": "Reign",
+    "mention": [],
+    "time_updated": "2022-07-28T19:04:52.801609+08:00",
+    "time_created": "2022-07-28T19:04:38.701240+08:00",
+    "deleted": true,
+    "fold": [],
+    "like": 0,
+    "special_tag": "",
+    "storey": 1,
+    "is_me": true,
+    "liked": false
+}

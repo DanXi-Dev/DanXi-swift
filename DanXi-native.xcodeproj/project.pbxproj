@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2756400F2892AD8D00BFC47D /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756400E2892AD8D00BFC47D /* ReplyPage.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */; };
 		2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */; };
@@ -28,6 +29,8 @@
 		2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61C2891D22D009F4DB1 /* AppSidebarNavigation.swift */; };
 		2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
+		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
+		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B11292890EC9F00124DF8 /* MarkdownUI */; };
@@ -47,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2756400E2892AD8D00BFC47D /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeDecode.swift; sourceTree = "<group>"; };
 		2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeEntity.swift; sourceTree = "<group>"; };
@@ -69,6 +73,12 @@
 		2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTabNavigation.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		27D6F44F2892C5CA0059228F /* deleted-floor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "deleted-floor.json"; sourceTree = "<group>"; };
+		27D6F4502892C5CB0059228F /* floor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = floor.json; sourceTree = "<group>"; };
+		27D6F4512892C5CB0059228F /* styled-floor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "styled-floor.json"; sourceTree = "<group>"; };
+		27D6F4522892C5CB0059228F /* long-floor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "long-floor.json"; sourceTree = "<group>"; };
+		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
+		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
@@ -108,6 +118,7 @@
 				2778D6092891D22D009F4DB1 /* LoginPage.swift */,
 				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
+				2756400E2892AD8D00BFC47D /* ReplyPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -152,10 +163,48 @@
 		2778D6342891D316009F4DB1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27D6F44D2892C5C50059228F /* Preview */,
 				2778D5F52891C664009F4DB1 /* Assets.xcassets */,
 				27A28A0F288B0C3D00D6DD77 /* Localizable.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		27D6F44D2892C5C50059228F /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				27D6F4552892C7B30059228F /* JSON */,
+				27D6F4532892C5D70059228F /* PreviewDecode.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		27D6F44E2892C5CA0059228F /* floor */ = {
+			isa = PBXGroup;
+			children = (
+				27D6F44F2892C5CA0059228F /* deleted-floor.json */,
+				27D6F4502892C5CB0059228F /* floor.json */,
+				27D6F4512892C5CB0059228F /* styled-floor.json */,
+				27D6F4522892C5CB0059228F /* long-floor.json */,
+			);
+			path = floor;
+			sourceTree = "<group>";
+		};
+		27D6F4552892C7B30059228F /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				27D6F4562892C96E0059228F /* hole */,
+				27D6F44E2892C5CA0059228F /* floor */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		27D6F4562892C96E0059228F /* hole */ = {
+			isa = PBXGroup;
+			children = (
+				27D6F4572892C96E0059228F /* hole.json */,
+			);
+			path = hole;
 			sourceTree = "<group>";
 		};
 		7795D21A27D82B1C00840D02 /* Frameworks */ = {
@@ -200,9 +249,9 @@
 		8AC7A5CF26872C3E00C9CD98 /* DanXi-native */ = {
 			isa = PBXGroup;
 			children = (
+				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				8AAABD4326881E0500486D37 /* DanXi-native.entitlements */,
 				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
-				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 			);
 			path = "DanXi-native";
 			sourceTree = "<group>";
@@ -277,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */,
+				27D6F4582892C96E0059228F /* hole.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,8 +343,10 @@
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
+				2756400F2892AD8D00BFC47D /* ReplyPage.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* TreeholeRequests.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
+				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */,
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,

@@ -1,0 +1,17 @@
+{
+    "floor_id": 1145666,
+    "hole_id": 120036,
+    "content": "# 旦夕课评平台——“蛋壳”，登场！\r\n\r\n传送门：[https://danke.fduhole.com](https://danke.fduhole.com)\r\n\r\n## 蛋壳登场！\r\n\r\n随着选课的逐步开启，旦夕团队推出了蛋壳课评平台。\r\n\r\n![](https://pic.hath.top/images/2022/05/13/KhcWJ.png)\r\n\r\n蛋壳是旦夕团队推出的供复旦大学同学们交流上课心得体会、评价课程质量的第三方课评平台。同学们可以在蛋壳平台：\r\n\r\n1. 为课程按星级评分，添加评论。\r\n2. 选课时，参考其他同学的评分与评论。\r\n\r\n本次发布，蛋壳进入公测阶段。\r\n\r\n## 为什么叫蛋壳？\r\n\r\n蛋壳（DanKe），是“（复）旦课（评）”的谐音（谐音梗，扣钱）。恰好旦夕 App 的 Logo 里有一个蛋壳，所以就叫蛋壳了。（这个理由是不是有点草率，如果你能编个更好的理由的话，可以跟帖\\~）\r\n\r\n## 注意事项\r\n\r\n1. 蛋壳目前处于公测阶段，程序与网络性能可能不是最佳状态。如遇任何问题，请在旦夕树洞站务区带上蛋壳 tag 发帖，或加入旦夕官方用户 QQ 群 [941342818](https://qm.qq.com/cgi-bin/qm/qr?k=aTJxC6Vfg6A0QlqqkfK7-kY0pu5o0YYf&authKey=2gmks2ghMesvCrkd27ZdfEN0mu1kvlX/lz1sKUO8CjF1Xlrd9Knz6138ea5kfXLP&noverify=0)，或通过旦夕开发部邮箱 [dev@fduhole.com](mailto:dev@fduhole.com) 进行反馈。\r\n\r\n2. 蛋壳平台通过**旦夕账户**登录。请注意，这**不是**你的复旦大学 UIS 账号，也不是你的复旦大学邮箱账号，而是你用于登录 FDUHole 的账号。关于这三个账号的区别，请参考*几个账户的区别*\r\n\r\n   ##894289\r\n\r\n3. 蛋壳是**半实名**课评平台，公测期间，你的 User ID 会与你发布的评论同时出现。正式版上线后，可能会加入自定义显示昵称等功能。\r\n\r\n4. 蛋壳平台上线后，树洞原有评教分区仍会暂时保留，并将添加去往蛋壳平台的指引。\r\n\r\n5. 旦夕团队无法手动将评教分区的内容搬运到蛋壳平台，因此鼓励大家把自己的选课心得再发布到蛋壳平台上。\r\n\r\n6. 预期设计是每位同学在**每门课下仅允许发布一条测评**，且一经发布，**只能修改测评内容，不能修改评教学期、评教老师，不能删除测评**。相关功能可能于之后添加。请注意这一点，以免带来麻烦。\r\n\r\n7. 目前我们仅添加了过去一个学期（即：2022.2-2022.7 春季学期）的课程和老师数据，**评教时也暂时只能选择该学期**。更早的几个学期将于开放后逐步添加，在 8 月前应该可以完成。**寒暑假学期暂不支持**，以后可能会想办法支持。\r\n\r\n8. 蛋壳平台的使用条款与隐私政策暂分别继承 FDUHole 的使用条款与隐私政策，由 FDUHole 管理团队代为进行社区管理。正式版上线后，旦夕团队将成立蛋壳管理团队，并制定使用条款、隐私政策与社区公约。\r\n\r\n## 开放源代码\r\n\r\n蛋壳平台所使用的软件由 GitHub 开源社区团队 [OpenTreeHole](https://github.com/OpenTreeHole) 开发，基于 AGPL-3.0 开放源代码\r\n\r\n前端：[OpenTreeHole/curriculum-board-frontend-vue2: Frontend for Curriculum Board: A platform for students to comment on courses. (github.com)](https://github.com/OpenTreeHole/curriculum-board-frontend-vue2)\r\n\r\n后端：[OpenTreeHole/curriculum-board-backend: Backend for Curriculum Board: A platform for students to comment on courses. (github.com)](https://github.com/OpenTreeHole/curriculum-board-backend)\r\n\r\n传送门：[https://danke.fduhole.com](https://danke.fduhole.com)\n\n- - -\n\n# 像素画功能重新上线\n\n大家还记得几个月前树洞一周年活动中的像素画小游戏吗？经过开发人员的维护，像素画功能已经重新上线，请访问 https://canvas.fduhole.com，玩得开心！\n\n友情提示：\n\n1. 像素画采取限流措施，每位用户每10s可以进行一次涂色。\n\n2. 选择颜色后，请点击“✓”按钮提交，否则该涂色将不会保存。\n\n3. 合作和竞争是被鼓励的，但我们不允许使用脚本挂机等技术手段**恶意破坏画作**，如果出现这样的行为用户将被封禁。\n\n4. 由于技术原因，移动端暂不支持像素画功能，请在PC端使用浏览器访问。",
+    "history": [],
+    "anonyname": "Kohen",
+    "mention": [],
+    "time_updated": "2022-07-28T01:06:20.320818+08:00",
+    "time_created": "2022-07-28T01:06:20.320785+08:00",
+    "deleted": false,
+    "fold": [],
+    "like": 0,
+    "special_tag": "",
+    "storey": 0,
+    "is_me": false,
+    "liked": false
+}

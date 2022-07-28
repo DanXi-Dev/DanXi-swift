@@ -1,0 +1,79 @@
+{
+    "hole_id": 116455,
+    "division_id": 3,
+    "time_updated": "2022-07-09T00:01:31.945948+08:00",
+    "time_created": "2022-07-09T00:01:31.939674+08:00",
+    "tags": [{
+        "tag_id": 3925,
+        "name": "蛋壳",
+        "temperature": 5
+    }],
+    "view": 285,
+    "reply": 0,
+    "hidden": false,
+    "floors": {
+        "first_floor": {
+            "floor_id": 1104237,
+            "hole_id": 116455,
+            "content": "蛋壳课评入口：[danke.fduhole.com](https://danke.fduhole.com)等你来当首批课评人！",
+            "history": [{
+                "content": "蛋壳平台入口：[danke.fduhole.com](https://danke.fduhole.com)",
+                "altered_by": 92,
+                "altered_time": "2022-07-19T21:59:25.377684+08:00"
+            }],
+            "anonyname": "Kalel",
+            "mention": [],
+            "time_updated": "2022-07-19T21:59:36.792749+08:00",
+            "time_created": "2022-07-09T00:01:31.949378+08:00",
+            "deleted": false,
+            "fold": [],
+            "like": 1,
+            "special_tag": "蛋壳课评",
+            "storey": 0,
+            "is_me": false,
+            "liked": false
+        },
+        "last_floor": {
+            "floor_id": 1104237,
+            "hole_id": 116455,
+            "content": "蛋壳课评入口：[danke.fduhole.com](https://danke.fduhole.com)等你来当首批课评人！",
+            "history": [{
+                "content": "蛋壳平台入口：[danke.fduhole.com](https://danke.fduhole.com)",
+                "altered_by": 92,
+                "altered_time": "2022-07-19T21:59:25.377684+08:00"
+            }],
+            "anonyname": "Kalel",
+            "mention": [],
+            "time_updated": "2022-07-19T21:59:36.792749+08:00",
+            "time_created": "2022-07-09T00:01:31.949378+08:00",
+            "deleted": false,
+            "fold": [],
+            "like": 1,
+            "special_tag": "蛋壳课评",
+            "storey": 0,
+            "is_me": false,
+            "liked": false
+        },
+        "prefetch": [{
+            "floor_id": 1104237,
+            "hole_id": 116455,
+            "content": "蛋壳课评入口：[danke.fduhole.com](https://danke.fduhole.com)等你来当首批课评人！",
+            "history": [{
+                "content": "蛋壳平台入口：[danke.fduhole.com](https://danke.fduhole.com)",
+                "altered_by": 92,
+                "altered_time": "2022-07-19T21:59:25.377684+08:00"
+            }],
+            "anonyname": "Kalel",
+            "mention": [],
+            "time_updated": "2022-07-19T21:59:36.792749+08:00",
+            "time_created": "2022-07-09T00:01:31.949378+08:00",
+            "deleted": false,
+            "fold": [],
+            "like": 1,
+            "special_tag": "蛋壳课评",
+            "storey": 0,
+            "is_me": false,
+            "liked": false
+        }]
+    }
+}
