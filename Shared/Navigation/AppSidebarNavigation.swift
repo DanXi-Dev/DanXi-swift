@@ -36,7 +36,7 @@ struct AppSidebarNavigation: View {
             EmptyView()
             EmptyView()
         }
-        
+        // FIXME: unable to simultaneously satisfy constraints on iPad (wide screen)
     }
 }
 

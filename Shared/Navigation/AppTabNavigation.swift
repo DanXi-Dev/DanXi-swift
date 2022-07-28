@@ -30,6 +30,7 @@ struct AppTabNavigation: View {
             NavigationView {
                 SettingsPage()
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
                 Image(systemName: "gearshape")
                 Text("settings")
