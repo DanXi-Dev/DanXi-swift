@@ -19,7 +19,7 @@ class TreeholeDataModel: ObservableObject {
     }
     
     func initialFetch() {
-        Task {
+        Task { @MainActor in
             do {
                 self.tags = try await networks.loadTags() // FIXME: publish on main thread
             } catch {

@@ -13,6 +13,9 @@ struct TreeholePage: View {
             let divisions = try await networks.loadDivisions()
             currentDivision = divisions[0]
             model.divisions = divisions
+            Task {
+                await loadMoreHoles()
+            }
         } catch {
             print("DANXI-DEBUG: load division failed")
         }
@@ -30,6 +33,7 @@ struct TreeholePage: View {
     func changeDivision(division: THDivision) async {
         holes = []
         currentDivision = division
+        await loadMoreHoles()
     }
     
     func refresh() async {
@@ -74,11 +78,6 @@ struct TreeholePage: View {
                     Label("main_section", systemImage: "text.bubble.fill")
                 } footer: {
                     spinner
-                        .task {
-                            if holes.isEmpty {
-                                await loadMoreHoles()
-                            }
-                        }
                 }
                 .textCase(nil)
             }
