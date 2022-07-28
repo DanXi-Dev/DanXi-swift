@@ -9,7 +9,7 @@ struct PostPage: View {
     
     func loadMoreFloors() async {
         do {
-            let newFloors = try await networks.loadFloors(holeId: hole.id, startFloor: floors.capacity)
+            let newFloors = try await networks.loadFloors(holeId: hole.id, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
         } catch {
