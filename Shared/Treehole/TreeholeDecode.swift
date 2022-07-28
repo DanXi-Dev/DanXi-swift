@@ -7,6 +7,8 @@ extension THFloor {
         case iso8601CreateTime = "time_created"
         case like
         case liked
+        case isMe = "is_me"
+        case deleted
         case holeId = "hole_id"
         case storey, content
         case posterName = "anonyname"
@@ -17,6 +19,8 @@ extension THFloor {
         id = try values.decode(Int.self, forKey: .id)
         like = try values.decode(Int.self, forKey: .like)
         liked = try values.decodeIfPresent(Bool.self, forKey: .liked)
+        isMe = try values.decodeIfPresent(Bool.self, forKey: .isMe) ?? false
+        deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
         holeId = try values.decode(Int.self, forKey: .holeId)
         storey = try values.decode(Int.self, forKey: .storey)
         content = try values.decode(String.self, forKey: .content)

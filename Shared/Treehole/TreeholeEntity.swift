@@ -24,6 +24,8 @@ struct THFloor: Hashable, Codable, Identifiable {
     let updateTime, createTime: Date
     let like: Int
     let liked: Bool?
+    let isMe: Bool
+    let deleted: Bool
     let storey: Int
     let content, posterName: String
 }

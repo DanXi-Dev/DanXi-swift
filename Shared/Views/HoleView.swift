@@ -62,6 +62,8 @@ struct HoleView_Previews: PreviewProvider {
         updateTime: Date.now, createTime: Date.now,
         like: 12,
         liked: true,
+        isMe: false,
+        deleted: false,
         storey: 5,
         content: """
         Hello, **Dear** readers!

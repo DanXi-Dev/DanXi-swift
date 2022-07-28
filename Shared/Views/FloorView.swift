@@ -15,6 +15,17 @@ struct FloorView: View {
         }
     }
     
+    func delete() {
+        Task {
+            do {
+                let newFloor = try await networks.deleteFloor(floorId: floor.id)
+                self.floor = newFloor
+            } catch {
+                print("DANXI-DEBUG: delete failed")
+            }
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -76,6 +87,12 @@ struct FloorView: View {
                 Image(systemName: "arrowshape.turn.up.left")
             }
             
+            if floor.isMe && !floor.deleted {
+                Button(action: delete) {
+                    Image(systemName: "trash")
+                }
+            }
+            
             Menu {
                 menu
             } label: {
@@ -121,6 +138,8 @@ struct FloorView_Previews: PreviewProvider {
         updateTime: Date.now, createTime: Date.now,
         like: 12,
         liked: true,
+        isMe: false,
+        deleted: false,
         storey: 5,
         content: """
         Hello, **Dear** readers!

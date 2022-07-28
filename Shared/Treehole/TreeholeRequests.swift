@@ -204,6 +204,36 @@ struct TreeholeNetworks {
         return floor
     }
     
+    func deleteFloor(floorId: Int) async throws -> THFloor {
+        struct DeleteConfig: Codable {
+            let delete_reason: String
+        }
+        
+        guard let token = self.token else {
+            throw TreeholeError.notInitialized
+        }
+        
+        let payload = DeleteConfig(delete_reason: "")
+        let payloadData = try JSONEncoder().encode(payload)
+        
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+        request.httpBody = payloadData
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        
+        guard httpResponse.statusCode <= 299 else {
+            throw TreeholeError.serverReturnedError(message: String(httpResponse.statusCode))
+        }
+        
+        let floor = try JSONDecoder().decode(THFloor.self, from: data)
+        return floor
+    }
+    
     func uploadAPNSKey(apnsToken: String, deviceId: String) {
         // TODO: finish this
     }

@@ -62,6 +62,8 @@ struct PostPage_Previews: PreviewProvider {
         createTime: Date.now,
         like: 12,
         liked: true,
+        isMe: false,
+        deleted: false,
         storey: 5,
         content: """
         Hello, **Dear** readers!
