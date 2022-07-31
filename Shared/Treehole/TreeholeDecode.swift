@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 extension THFloor {
     enum CodingKeys: String, CodingKey {
@@ -59,6 +60,59 @@ extension THTag {
     enum CodingKeys: String, CodingKey {
         case id = "tag_id"
         case name, temperature
+    }
+    
+    init(id: Int, temperature: Int, name: String) {
+        self.id = id
+        self.temperature = temperature
+        self.name = name
+        self.color = THTag.parseColor(name: name)
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        let nameStr = try values.decode(String.self, forKey: .name)
+        name = nameStr
+        temperature = try values.decode(Int.self, forKey: .temperature)
+        
+        color = THTag.parseColor(name: nameStr)
+    }
+    
+    // TODO: add undefined colors
+    static let colorList = [
+        Color.red,
+        Color.pink,
+        Color.purple,
+        Color.secondary, // deep-purple,
+        Color.indigo,
+        Color.blue,
+        Color.secondary, // light-blue
+        Color.cyan,
+        Color.teal,
+        Color.green,
+        Color.secondary, // light-greem
+        Color.secondary, // lime
+        Color.yellow,
+        Color.secondary, // amber
+        Color.orange,
+        Color.secondary, // deep-orange
+        Color.brown,
+        Color.secondary, // blue-grey
+        Color.secondary // grey
+    ]
+    
+    static func parseColor(name: String) -> Color {
+        if name.starts(with: "*") { // folding tags
+            return Color.red
+        }
+        
+        var sum = 0
+        for c in name.utf16 {
+            sum += Int(c)
+        }
+        sum %= THTag.colorList.count
+        return THTag.colorList[sum]
     }
 }
 

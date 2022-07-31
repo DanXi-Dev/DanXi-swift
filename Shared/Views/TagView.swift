@@ -29,7 +29,7 @@ struct TagList: View {
     var body: some View {
         FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
             Text(tag.name)
-                .tagStyle(color: color)
+                .tagStyle(color: tag.color)
         }
     }
 }
@@ -42,7 +42,7 @@ struct TagListSimple: View {
         HStack(alignment: .center, spacing: 5.0) {
             ForEach(tags) { tag in
                 Text(tag.name)
-                    .tagStyle(color: color)
+                    .tagStyle(color: tag.color)
             }
         }
     }

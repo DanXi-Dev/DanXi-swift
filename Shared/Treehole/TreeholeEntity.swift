@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct THUser: Hashable, Codable, Identifiable {
     let id: Int
@@ -16,6 +17,7 @@ struct THDivision: Hashable, Decodable, Identifiable {
 struct THTag: Hashable, Codable, Identifiable {
     let id, temperature: Int
     let name: String
+    let color: Color // tag color for display, calculated during init
 }
 
 struct THFloor: Hashable, Codable, Identifiable {
