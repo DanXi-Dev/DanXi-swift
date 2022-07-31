@@ -3,7 +3,7 @@ import SwiftUI
 struct ReplyPage: View {
     let holeId: Int
     @Binding var showReplyPage: Bool
-    @State var content = ""
+    @State var content: String
     
     func reply() async {
         do {
@@ -54,6 +54,6 @@ struct ReplyPage: View {
 
 struct ReplyPage_Previews: PreviewProvider {
     static var previews: some View {
-        ReplyPage(holeId: 0, showReplyPage: .constant(true))
+        ReplyPage(holeId: 0, showReplyPage: .constant(true), content: "")
     }
 }

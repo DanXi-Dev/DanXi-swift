@@ -4,6 +4,8 @@ import MarkdownUI
 struct FloorView: View {
     @State var floor: THFloor
     
+    @State var showReplyPage = false
+    
     func like() {
         Task {
             do {
@@ -69,6 +71,9 @@ struct FloorView: View {
 
         }
         .padding(.top, 2.0)
+        .sheet(isPresented: $showReplyPage) {
+            ReplyPage(holeId: floor.holeId, showReplyPage: $showReplyPage, content: "##\(String(floor.id))\n")
+        }
     }
     
     private var actions: some View {
@@ -82,7 +87,7 @@ struct FloorView: View {
             }
             
             Button {
-                // TODO: reply
+                showReplyPage = true
             } label: {
                 Image(systemName: "arrowshape.turn.up.left")
             }
@@ -102,7 +107,6 @@ struct FloorView: View {
         .buttonStyle(.borderless) // prevent multiple tapping
         .font(.caption2)
         .foregroundColor(.secondary)
-        
     }
     
     private var menu: some View {
