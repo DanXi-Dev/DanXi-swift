@@ -23,7 +23,6 @@ extension View {
 }
 
 struct TagList: View {
-    let color = Color.pink
     let tags: [THTag]
     
     var body: some View {
@@ -35,7 +34,6 @@ struct TagList: View {
 }
 
 struct TagListSimple: View {
-    let color = Color.pink
     let tags: [THTag]
     
     var body: some View {
@@ -50,18 +48,11 @@ struct TagListSimple: View {
 
 
 
-struct TagList_Previews: PreviewProvider {
-    static let tag = THTag(id: 1, temperature: 1, name: "Test")
-    
-    static let shortList = Array(repeating: tag, count: 2)
-    
-    static let longList = Array(repeating: tag, count: 15)
-    
+struct TagList_Previews: PreviewProvider {    
     static var previews: some View {
         Group {
-            TagList(tags: shortList)
-            TagList(tags: longList)
-            TagList(tags: longList)
+            TagList(tags: PreviewDecode.decodeList(name: "tags"))
+            TagList(tags: PreviewDecode.decodeList(name: "tags"))
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)

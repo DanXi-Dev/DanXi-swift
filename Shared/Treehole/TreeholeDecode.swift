@@ -56,6 +56,18 @@ extension THDivision {
     }
 }
 
+extension Color { // init color with hex value
+    init(hex: UInt, alpha: Double = 1) {
+        self.init(
+            .sRGB,
+            red: Double((hex >> 16) & 0xff) / 255,
+            green: Double((hex >> 08) & 0xff) / 255,
+            blue: Double((hex >> 00) & 0xff) / 255,
+            opacity: alpha
+        )
+    }
+}
+
 extension THTag {
     enum CodingKeys: String, CodingKey {
         case id = "tag_id"
@@ -79,26 +91,26 @@ extension THTag {
         color = THTag.parseColor(name: nameStr)
     }
     
-    // TODO: add undefined colors
+    // FIXME: some colors are too light
     static let colorList = [
         Color.red,
         Color.pink,
         Color.purple,
-        Color.secondary, // deep-purple,
+        Color(hex: 0x570861), // deep-purple, FIXME: not visible in dark mode
         Color.indigo,
         Color.blue,
-        Color.secondary, // light-blue
+        Color(hex: 0x03A9F4), // light-blue
         Color.cyan,
         Color.teal,
         Color.green,
-        Color.secondary, // light-greem
-        Color.secondary, // lime
+        Color(hex: 0x8BC34A), // light-greem
+        Color(hex: 0x32CD32), // lime
         Color.yellow,
-        Color.secondary, // amber
+        Color(hex: 0xFFBF00), // amber
         Color.orange,
-        Color.secondary, // deep-orange
+        Color(hex: 0xDD6E0F), // deep-orange
         Color.brown,
-        Color.secondary, // blue-grey
+        Color(hex: 0x7393B3), // blue-grey
         Color.secondary // grey
     ]
     

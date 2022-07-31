@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* FavoritesPage.swift */; };
+		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
 		2756400F2892AD8D00BFC47D /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756400E2892AD8D00BFC47D /* ReplyPage.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		272AC8D92896BE2500092B0C /* FavoritesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPage.swift; sourceTree = "<group>"; };
+		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
 		2756400E2892AD8D00BFC47D /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeDecode.swift; sourceTree = "<group>"; };
@@ -100,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		272AC8DB2896E1E000092B0C /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				272AC8DC2896E2B600092B0C /* tags.json */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
 		2778D6002891D22D009F4DB1 /* Treehole */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +206,7 @@
 		27D6F4552892C7B30059228F /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				272AC8DB2896E1E000092B0C /* Tag */,
 				27D6F4562892C96E0059228F /* hole */,
 				27D6F44E2892C5CA0059228F /* floor */,
 			);
@@ -328,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272AC8DD2896E2B600092B0C /* tags.json in Resources */,
 				27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */,
 				27D6F4582892C96E0059228F /* hole.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,
