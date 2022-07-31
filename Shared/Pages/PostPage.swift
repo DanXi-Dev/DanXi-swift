@@ -5,7 +5,7 @@ struct PostPage: View {
     @State var floors: [THFloor] = []
     @State var endReached = false
     
-    
+    @State var showReplyPage = false
     
     func loadMoreFloors() async {
         do {
@@ -49,6 +49,16 @@ struct PostPage: View {
         .listStyle(.grouped)
         .navigationTitle("#\(String(hole.id))")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup {
+                Button(action: { showReplyPage = true }) {
+                    Image(systemName: "arrowshape.turn.up.left")
+                }
+                .sheet(isPresented: $showReplyPage) {
+                    ReplyPage(holeId: hole.id, showReplyPage: $showReplyPage)
+                }
+            }
+        }
     }
 }
 
