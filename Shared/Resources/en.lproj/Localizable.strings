@@ -36,6 +36,7 @@
 "main_section" = "Main Section";
 "copy_hole_id" = "Copy hole ID";
 "add_bookmark" = "Add bookmark";
+"favorites" = "Favorites";
 
 // Treehole floor
 "report" = "Report";

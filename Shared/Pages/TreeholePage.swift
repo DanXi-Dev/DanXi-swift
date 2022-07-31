@@ -120,9 +120,7 @@ struct TreeholePage: View {
                 EditPage(divisionId: currentDivisionId, showNewPostPage: $showEditPage)
             }
             
-            Button(action: {}) {
-                Image(systemName: "ellipsis.circle")
-            }
+            ToolbarMenu() // menu item can't perform navigation, this is a workaround
         }
     }
     
@@ -135,8 +133,31 @@ struct TreeholePage: View {
     }
 }
 
+struct ToolbarMenu: View {
+    @State private var isActive = false // menu navigation workaround
+    
+    var body: some View {
+        Menu {
+            Button {
+                self.isActive = true
+            } label: {
+                Label("favorites", systemImage: "star")
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+        }
+        .background(
+            NavigationLink(destination: FavoritesPage(), isActive: $isActive) {
+            EmptyView()
+        })
+    }
+    
+}
+
 struct TreeholePage_Previews: PreviewProvider {
     static var previews: some View {
-        TreeholePage()
+        NavigationView {
+            TreeholePage()
+        }
     }
 }
