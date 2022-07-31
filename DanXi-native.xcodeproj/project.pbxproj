@@ -222,8 +222,8 @@
 				2778D6052891D22D009F4DB1 /* Pages */,
 				2778D6122891D22D009F4DB1 /* Views */,
 				2778D61B2891D22D009F4DB1 /* Navigation */,
-				2778D6342891D316009F4DB1 /* Resources */,
 				2778D6162891D22D009F4DB1 /* Helpers */,
+				2778D6342891D316009F4DB1 /* Resources */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -501,6 +501,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 190;
+				DEVELOPMENT_ASSET_PATHS = Shared/Resources/Preview;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -533,6 +534,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 190;
+				DEVELOPMENT_ASSET_PATHS = Shared/Resources/Preview;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;

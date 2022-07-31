@@ -234,6 +234,146 @@ struct TreeholeNetworks {
         return floor
     }
     
+    func searchKeyword(keyword: String, startFloor: Int = 0) async throws -> [THFloor] {
+        guard let token = self.token else {
+            throw TreeholeError.notInitialized
+        }
+        
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
+        components.queryItems = [
+            URLQueryItem(name: "s", value: keyword),
+            URLQueryItem(name: "length", value: "10"),
+            URLQueryItem(name: "start_floor", value: String(startFloor))
+        ]
+        
+        var request = URLRequest(url: components.url!)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        
+        guard httpResponse.statusCode <= 299 else {
+            throw TreeholeError.serverReturnedError(message: String(httpResponse.statusCode))
+        }
+        
+        let floors = try JSONDecoder().decode([THFloor].self, from: data)
+        return floors
+    }
+    
+    func reply(content: String, holdId: Int) async throws -> THFloor {
+        struct ReplyObject: Codable {
+            let content: String
+            var hole_id: Int
+        }
+        
+        struct ServerResponse: Decodable {
+            let message: String
+            var data: THFloor
+        }
+        
+        guard let token = self.token else {
+            throw TreeholeError.notInitialized
+        }
+        
+        
+        let payload = ReplyObject(content: content, hole_id: holdId)
+        let payloadData = try JSONEncoder().encode(payload)
+
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "POST"
+        request.httpBody = payloadData
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        
+        guard httpResponse.statusCode <= 299 else {
+            throw TreeholeError.serverReturnedError(message: String(httpResponse.statusCode))
+        }
+        
+        let responseData = try JSONDecoder().decode(ServerResponse.self, from: data)
+        return responseData.data
+    }
+    
+    func editReply(content: String, floorId: Int) async throws -> THFloor {
+        struct EditConfig: Codable {
+            let content: String
+        }
+        
+        guard let token = self.token else {
+            throw TreeholeError.notInitialized
+        }
+        
+        let payload = EditConfig(content: content)
+        let payloadData = try JSONEncoder().encode(payload)
+        
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "PUT"
+        request.httpBody = payloadData
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        
+        guard httpResponse.statusCode <= 299 else {
+            throw TreeholeError.serverReturnedError(message: String(httpResponse.statusCode))
+        }
+        
+        let floor = try JSONDecoder().decode(THFloor.self, from: data)
+        return floor
+    }
+    
+    func loadFavorites() async throws -> [THHole] {
+        guard let token = self.token else {
+            throw TreeholeError.notInitialized
+        }
+        
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
+        var request = URLRequest(url: components.url!)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        
+        guard httpResponse.statusCode <= 299 else {
+            throw TreeholeError.serverReturnedError(message: String(httpResponse.statusCode))
+        }
+        
+        let holes = try JSONDecoder().decode([THHole].self, from: data)
+        return holes
+    }
+    
+    func addFavorite(holeId: Int) async throws {
+        struct FavoriteConfig: Codable {
+            let hole_id: Int
+        }
+        
+        guard let token = self.token else {
+            throw TreeholeError.notInitialized
+        }
+        
+        let payload = FavoriteConfig(hole_id: holeId)
+        let payloadData = try JSONEncoder().encode(payload)
+        
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "POST"
+        request.httpBody = payloadData
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (_, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+        
+        guard httpResponse.statusCode <= 299 else {
+            throw TreeholeError.serverReturnedError(message: String(httpResponse.statusCode))
+        }
+    }
+    
     func uploadAPNSKey(apnsToken: String, deviceId: String) {
         // TODO: finish this
     }
