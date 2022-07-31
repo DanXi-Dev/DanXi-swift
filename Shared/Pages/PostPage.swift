@@ -55,7 +55,10 @@ struct PostPage: View {
                     Image(systemName: "arrowshape.turn.up.left")
                 }
                 .sheet(isPresented: $showReplyPage) {
-                    ReplyPage(holeId: hole.id, showReplyPage: $showReplyPage, content: "")
+                    ReplyPage(
+                        holeId: hole.id,
+                        showReplyPage: $showReplyPage,
+                        content: "")
                 }
             }
         }

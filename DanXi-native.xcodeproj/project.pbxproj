@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* FavoritesPage.swift */; };
 		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
-		2756400F2892AD8D00BFC47D /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756400E2892AD8D00BFC47D /* ReplyPage.swift */; };
+		272AC8E12896F27300092B0C /* EditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* EditPage.swift */; };
+		272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* ReplyPage.swift */; };
+		272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyPage.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */; };
 		2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */; };
 		2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6032891D22D009F4DB1 /* TreeholeModel.swift */; };
 		2778D6212891D22D009F4DB1 /* TreeholeRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6042891D22D009F4DB1 /* TreeholeRequests.swift */; };
-		2778D6222891D22D009F4DB1 /* EditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6062891D22D009F4DB1 /* EditPage.swift */; };
 		2778D6232891D22D009F4DB1 /* PostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6072891D22D009F4DB1 /* PostPage.swift */; };
 		2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6082891D22D009F4DB1 /* WelcomePage.swift */; };
 		2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6092891D22D009F4DB1 /* LoginPage.swift */; };
@@ -54,13 +55,14 @@
 /* Begin PBXFileReference section */
 		272AC8D92896BE2500092B0C /* FavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPage.swift; sourceTree = "<group>"; };
 		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
-		2756400E2892AD8D00BFC47D /* ReplyPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
+		272AC8E02896F27300092B0C /* EditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPage.swift; sourceTree = "<group>"; };
+		272AC8E22896F29800092B0C /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
+		272AC8E52896F30E00092B0C /* EditReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyPage.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeDecode.swift; sourceTree = "<group>"; };
 		2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeEntity.swift; sourceTree = "<group>"; };
 		2778D6032891D22D009F4DB1 /* TreeholeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeModel.swift; sourceTree = "<group>"; };
 		2778D6042891D22D009F4DB1 /* TreeholeRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeRequests.swift; sourceTree = "<group>"; };
-		2778D6062891D22D009F4DB1 /* EditPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPage.swift; sourceTree = "<group>"; };
 		2778D6072891D22D009F4DB1 /* PostPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPage.swift; sourceTree = "<group>"; };
 		2778D6082891D22D009F4DB1 /* WelcomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
 		2778D6092891D22D009F4DB1 /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
@@ -110,6 +112,16 @@
 			path = Tag;
 			sourceTree = "<group>";
 		};
+		272AC8DE2896F20500092B0C /* EditSheets */ = {
+			isa = PBXGroup;
+			children = (
+				272AC8E02896F27300092B0C /* EditPage.swift */,
+				272AC8E22896F29800092B0C /* ReplyPage.swift */,
+				272AC8E52896F30E00092B0C /* EditReplyPage.swift */,
+			);
+			path = EditSheets;
+			sourceTree = "<group>";
+		};
 		2778D6002891D22D009F4DB1 /* Treehole */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,13 +136,12 @@
 		2778D6052891D22D009F4DB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				2778D6062891D22D009F4DB1 /* EditPage.swift */,
+				272AC8DE2896F20500092B0C /* EditSheets */,
 				2778D6072891D22D009F4DB1 /* PostPage.swift */,
 				2778D6082891D22D009F4DB1 /* WelcomePage.swift */,
 				2778D6092891D22D009F4DB1 /* LoginPage.swift */,
 				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
-				2756400E2892AD8D00BFC47D /* ReplyPage.swift */,
 				272AC8D92896BE2500092B0C /* FavoritesPage.swift */,
 			);
 			path = Pages;
@@ -353,13 +364,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2778D6222891D22D009F4DB1 /* EditPage.swift in Sources */,
 				2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
-				2756400F2892AD8D00BFC47D /* ReplyPage.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* TreeholeRequests.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
@@ -368,11 +377,14 @@
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* PostPage.swift in Sources */,
+				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
+				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
+				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */,
 				2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */,

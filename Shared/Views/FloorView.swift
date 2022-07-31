@@ -5,6 +5,7 @@ struct FloorView: View {
     @State var floor: THFloor
     
     @State var showReplyPage = false
+    @State var showEditPage = false
     
     func like() {
         Task {
@@ -62,7 +63,12 @@ struct FloorView: View {
             Text("(##\(String(floor.id)))")
                 .font(.caption2)
                 .foregroundColor(Color(uiColor: .systemGray2))
-
+                .sheet(isPresented: $showEditPage) {
+                    EditReplyPage(
+                        floor: $floor,
+                        content: floor.content,
+                        showPage: $showEditPage)
+                }
             
             Spacer()
             Text(floor.createTime.formatted(date: .abbreviated, time: .shortened))
@@ -72,7 +78,10 @@ struct FloorView: View {
         }
         .padding(.top, 2.0)
         .sheet(isPresented: $showReplyPage) {
-            ReplyPage(holeId: floor.holeId, showReplyPage: $showReplyPage, content: "##\(String(floor.id))\n")
+            ReplyPage(
+                holeId: floor.holeId,
+                showReplyPage: $showReplyPage,
+                content: "##\(String(floor.id))\n")
         }
     }
     
@@ -127,6 +136,14 @@ struct FloorView: View {
                 // TODO: copy floor id
             } label: {
                 Label("copy_floor_id", systemImage: "square.and.arrow.up")
+            }
+            
+            if floor.isMe && !floor.deleted {
+                Button {
+                    showEditPage = true
+                } label: {
+                    Label("edit_reply", systemImage: "square.and.pencil")
+                }
             }
         }
     }
