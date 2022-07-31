@@ -96,7 +96,7 @@ extension THTag {
         Color.red,
         Color.pink,
         Color.purple,
-        Color(hex: 0x570861), // deep-purple, FIXME: not visible in dark mode
+        Color(hex: 0x673AB7), // deep-purple, FIXME: not visible in dark mode
         Color.indigo,
         Color.blue,
         Color(hex: 0x03A9F4), // light-blue
