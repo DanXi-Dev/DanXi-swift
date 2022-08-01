@@ -33,10 +33,6 @@ struct PostPage: View {
         }
     }
     
-    func removeFavorites() async {
-        print("DANXI-DEBUG: removing favorites (dummy func)") // TODO: finish this
-    }
-    
     var body: some View {
         List {
             Section {
