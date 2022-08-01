@@ -19,6 +19,10 @@ struct TreeholeNetworks {
     private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
     var token: String?
     
+    var isInitialized: Bool {
+        token != nil
+    }
+    
     init() {
         if let token = defaults?.string(forKey: "user-credential") {
             self.token = token
@@ -52,7 +56,7 @@ struct TreeholeNetworks {
         }
         
     }
-    
+    // MARK: API
     mutating func login(username: String, password: String) async throws {
         struct LoginBody: Codable {
             let email: String
@@ -81,6 +85,12 @@ struct TreeholeNetworks {
                 let responseToken = try JSONDecoder().decode(Token.self, from: data)
                 defaults?.setValue(responseToken.access, forKey: "user-credential")
                 self.token = responseToken.access
+                
+                if apnsToken != nil {
+                    Task.init {
+                        try await networks.uploadAPNSKey()
+                    }
+                }
             case 400..<500:
                 throw TreeholeError.unauthorized
             default:
@@ -253,7 +263,29 @@ struct TreeholeNetworks {
         _ = try await networkRequest(url: components.url!, data: payloadData)
     }
     
-    func uploadAPNSKey(apnsToken: String, deviceId: String) {
-        // TODO: finish this
+    // MARK: APNS
+    var apnsToken: APNSToken? = nil
+    
+    mutating func cacheOrUploadAPNSKey(token: String, deviceId: String) {
+        apnsToken = APNSToken(service: "apns", device_id: deviceId, token: token)
+        if isInitialized {
+            Task.init {
+                try await networks.uploadAPNSKey()
+            }
+        }
     }
+    
+    mutating func uploadAPNSKey() async throws {
+        print("Uploading APNS Key \(String(describing: apnsToken?.token))")
+        let payloadData = try JSONEncoder().encode(apnsToken)
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/users/push-tokens")!
+        _ = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
+        apnsToken = nil
+    }
+}
+
+struct APNSToken: Codable {
+    let service: String
+    let device_id: String
+    let token: String
 }
