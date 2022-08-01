@@ -40,6 +40,19 @@ struct FloorView: View {
                 .font(.system(size: 16))
             info
         }
+        // FIXME: sheet header is force capitalized
+        .sheet(isPresented: $showReplyPage) {
+            ReplyPage(
+                holeId: floor.holeId,
+                showReplyPage: $showReplyPage,
+                content: "##\(String(floor.id))\n")
+        }
+        .sheet(isPresented: $showEditPage) {
+            EditReplyPage(
+                floor: $floor,
+                content: floor.content,
+                showPage: $showEditPage)
+        }
     }
     
     private var poster: some View {
@@ -63,12 +76,6 @@ struct FloorView: View {
             Text("(##\(String(floor.id)))")
                 .font(.caption2)
                 .foregroundColor(Color(uiColor: .systemGray2))
-                .sheet(isPresented: $showEditPage) {
-                    EditReplyPage(
-                        floor: $floor,
-                        content: floor.content,
-                        showPage: $showEditPage)
-                }
             
             Spacer()
             Text(floor.createTime.formatted(date: .abbreviated, time: .shortened))
@@ -77,12 +84,6 @@ struct FloorView: View {
 
         }
         .padding(.top, 2.0)
-        .sheet(isPresented: $showReplyPage) {
-            ReplyPage(
-                holeId: floor.holeId,
-                showReplyPage: $showReplyPage,
-                content: "##\(String(floor.id))\n")
-        }
     }
     
     private var actions: some View {
