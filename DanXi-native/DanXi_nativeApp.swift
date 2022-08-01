@@ -55,15 +55,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "" //TODO: How to handle nil UUID?
         
         /* Send token to FDUHole */
-        Task.init {
-            do {
-                try await networks.uploadAPNSKey(apnsToken: token, deviceId: deviceId)
-            } catch {
-                //TODO: Handle this error
-                print("APNS token upload failed \(error)")
-            }
-        }
-        
+        networks.cacheOrUploadAPNSKey(token: token, deviceId: deviceId)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

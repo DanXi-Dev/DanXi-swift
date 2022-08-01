@@ -88,7 +88,7 @@ struct TreeholeNetworks {
                 
                 if apnsToken != nil {
                     Task.init {
-                        try await networks.uploadAPNSKey()
+                        await networks.uploadAPNSKey()
                     }
                 }
             case 400..<500:
@@ -270,17 +270,21 @@ struct TreeholeNetworks {
         apnsToken = APNSToken(service: "apns", device_id: deviceId, token: token)
         if isInitialized {
             Task.init {
-                try await networks.uploadAPNSKey()
+                await networks.uploadAPNSKey()
             }
         }
     }
     
-    mutating func uploadAPNSKey() async throws {
+    mutating func uploadAPNSKey() async {
         print("Uploading APNS Key \(String(describing: apnsToken?.token))")
-        let payloadData = try JSONEncoder().encode(apnsToken)
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/users/push-tokens")!
-        _ = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
-        apnsToken = nil
+        do {
+            let payloadData = try JSONEncoder().encode(apnsToken)
+            let components = URLComponents(string: FDUHOLE_BASE_URL + "/users/push-tokens")!
+            _ = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
+            apnsToken = nil
+        } catch {
+            print("APNS Upload Failed \(error)")
+        }
     }
 }
 
