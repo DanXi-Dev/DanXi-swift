@@ -25,7 +25,8 @@ extension THFloor {
         holeId = try values.decode(Int.self, forKey: .holeId)
         storey = try values.decode(Int.self, forKey: .storey)
         content = try values.decode(String.self, forKey: .content)
-        posterName = try values.decode(String.self, forKey: .posterName)
+        let posterName = try values.decode(String.self, forKey: .posterName)
+        self.posterName = posterName
         iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
         iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
         
@@ -37,6 +38,8 @@ extension THFloor {
         } else {
             throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
         }
+        
+        self.posterColor = randomColor(name: posterName)
     }
 }
 
@@ -73,18 +76,6 @@ extension THDivision {
     }
 }
 
-extension Color { // init color with hex value
-    init(hex: UInt, alpha: Double = 1) {
-        self.init(
-            .sRGB,
-            red: Double((hex >> 16) & 0xff) / 255,
-            green: Double((hex >> 08) & 0xff) / 255,
-            blue: Double((hex >> 00) & 0xff) / 255,
-            opacity: alpha
-        )
-    }
-}
-
 extension THTag {
     enum CodingKeys: String, CodingKey {
         case id = "tag_id"
@@ -95,7 +86,7 @@ extension THTag {
         self.id = id
         self.temperature = temperature
         self.name = name
-        self.color = THTag.parseColor(name: name)
+        self.color = randomColor(name: name)
     }
     
     init(from decoder: Decoder) throws {
@@ -105,43 +96,7 @@ extension THTag {
         name = nameStr
         temperature = try values.decode(Int.self, forKey: .temperature)
         
-        color = THTag.parseColor(name: nameStr)
-    }
-    
-    // FIXME: some colors are too light
-    static let colorList = [
-        Color.red,
-        Color.pink,
-        Color.purple,
-        Color(hex: 0x673AB7), // deep-purple, FIXME: not visible in dark mode
-        Color.indigo,
-        Color.blue,
-        Color(hex: 0x03A9F4), // light-blue
-        Color.cyan,
-        Color.teal,
-        Color.green,
-        Color(hex: 0x8BC34A), // light-greem
-        Color(hex: 0x32CD32), // lime
-        Color.yellow,
-        Color(hex: 0xFFBF00), // amber
-        Color.orange,
-        Color(hex: 0xDD6E0F), // deep-orange
-        Color.brown,
-        Color(hex: 0x7393B3), // blue-grey
-        Color.secondary // grey
-    ]
-    
-    static func parseColor(name: String) -> Color {
-        if name.starts(with: "*") { // folding tags
-            return Color.red
-        }
-        
-        var sum = 0
-        for c in name.utf16 {
-            sum += Int(c)
-        }
-        sum %= THTag.colorList.count
-        return THTag.colorList[sum]
+        color = randomColor(name: name)
     }
 }
 

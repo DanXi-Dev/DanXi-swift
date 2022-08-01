@@ -32,6 +32,8 @@ struct THFloor: Hashable, Codable, Identifiable {
     let deleted: Bool
     let storey: Int
     let content, posterName: String
+    
+    let posterColor: Color // poster color for display, calculated during init
 }
 
 struct THHole: Hashable, Decodable, Identifiable {

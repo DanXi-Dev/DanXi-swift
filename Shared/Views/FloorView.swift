@@ -50,7 +50,7 @@ struct FloorView: View {
                 .font(.system(size: 15))
                 .fontWeight(.bold)
         }
-        .foregroundColor(.red)
+        .foregroundColor(floor.posterColor)
     }
     
     private var info: some View {

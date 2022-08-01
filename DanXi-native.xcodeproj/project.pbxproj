@@ -12,6 +12,7 @@
 		272AC8E12896F27300092B0C /* EditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* EditPage.swift */; };
 		272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* ReplyPage.swift */; };
 		272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyPage.swift */; };
+		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */; };
 		2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */; };
@@ -58,6 +59,7 @@
 		272AC8E02896F27300092B0C /* EditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPage.swift; sourceTree = "<group>"; };
 		272AC8E22896F29800092B0C /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* EditReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyPage.swift; sourceTree = "<group>"; };
+		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeDecode.swift; sourceTree = "<group>"; };
 		2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeEntity.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				2778D6152891D22D009F4DB1 /* HoleView.swift */,
 				2778D6132891D22D009F4DB1 /* FloorView.swift */,
 				2778D6142891D22D009F4DB1 /* TagView.swift */,
+				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */,
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
+				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* PostPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
