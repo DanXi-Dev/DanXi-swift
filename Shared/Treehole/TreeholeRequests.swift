@@ -259,7 +259,7 @@ struct TreeholeNetworks {
         return holes
     }
     
-    func addFavorite(holeId: Int) async throws -> [Int] {
+    func toggleFavorites(holeId: Int, add: Bool) async throws -> [Int] {
         struct FavoriteConfig: Codable {
             let hole_id: Int
         }
@@ -273,7 +273,7 @@ struct TreeholeNetworks {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        let data = try await networkRequest(url: components.url!, data: payloadData)
+        let data = try await networkRequest(url: components.url!, data: payloadData, method: add ? "POST" : "DELETE")
         let decodedData = try JSONDecoder().decode(ServerResponse.self, from: data)
         return decodedData.data
     }

@@ -23,13 +23,13 @@ struct PostPage: View {
         }
     }
     
-    func addFavorites() async {
+    func toggleBookmark() async {
         do {
-            let bookmarks = try await networks.addFavorite(holeId: hole.id)
+            let bookmarks = try await networks.toggleFavorites(holeId: hole.id, add: !bookmarked)
             treeholeDataModel.updateBookmarks(bookmarks: bookmarks)
             bookmarked = bookmarks.contains(hole.id)
         } catch {
-            print("DANXI-DEBUG: add favorite failed")
+            print("DANXI-DEBUG: toggle bookmark failed")
         }
     }
     
@@ -90,11 +90,7 @@ struct PostPage: View {
             
             Button {
                 Task { @MainActor in
-                    if !bookmarked {
-                        await addFavorites()
-                    } else {
-                        await removeFavorites()
-                    }
+                    await toggleBookmark()
                 }
             } label: {
                 Image(systemName: bookmarked ? "bookmark.fill" : "bookmark")
