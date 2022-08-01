@@ -44,6 +44,23 @@ extension THUser {
     enum CodingKeys: String, CodingKey {
         case id = "user_id"
         case nickname
+        case favorites
+        case joinTime = "joined_time"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        nickname = try values.decode(String.self, forKey: .nickname)
+        favorites = try values.decode([Int].self, forKey: .favorites)
+        let iso8601JoinTime = try values.decode(String.self, forKey: .joinTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let time = formatter.date(from: iso8601JoinTime) {
+            joinTime = time
+        } else {
+            throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
+        }
     }
 }
 

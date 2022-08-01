@@ -21,10 +21,20 @@ class TreeholeDataModel: ObservableObject {
     func initialFetch() {
         Task { @MainActor in
             do {
-                self.tags = try await networks.loadTags() // FIXME: publish on main thread
+                async let tags = networks.loadTags()
+                async let user = networks.loadUserInfo()
+                
+                self.tags = try await tags
+                self.user = try await user
             } catch {
                 print("DANXI-DEBUG: initial load failed")
             }
+        }
+    }
+    
+    func updateBookmarks(bookmarks: [Int]) {
+        Task { @MainActor in
+            user?.favorites = bookmarks
         }
     }
 }

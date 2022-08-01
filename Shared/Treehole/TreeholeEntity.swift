@@ -4,6 +4,8 @@ import SwiftUI
 struct THUser: Hashable, Codable, Identifiable {
     let id: Int
     let nickname: String
+    let joinTime: Date
+    var favorites: [Int]
 }
 
 struct THDivision: Hashable, Decodable, Identifiable {

@@ -56,6 +56,7 @@ struct TreeholeNetworks {
         }
         
     }
+    
     // MARK: API
     mutating func login(username: String, password: String) async throws {
         struct LoginBody: Codable {
@@ -141,6 +142,13 @@ struct TreeholeNetworks {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/tags")!
         let data = try await networkRequest(url: components.url!)
         let decodedResponse = try JSONDecoder().decode([THTag].self, from: data)
+        return decodedResponse
+    }
+    
+    func loadUserInfo() async throws -> THUser {
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/users")!
+        let data = try await networkRequest(url: components.url!)
+        let decodedResponse = try JSONDecoder().decode(THUser.self, from: data)
         return decodedResponse
     }
     
@@ -251,16 +259,23 @@ struct TreeholeNetworks {
         return holes
     }
     
-    func addFavorite(holeId: Int) async throws {
+    func addFavorite(holeId: Int) async throws -> [Int] {
         struct FavoriteConfig: Codable {
             let hole_id: Int
+        }
+        
+        struct ServerResponse: Codable {
+            let message: String
+            var data: [Int]
         }
         
         let payload = FavoriteConfig(hole_id: holeId)
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        _ = try await networkRequest(url: components.url!, data: payloadData)
+        let data = try await networkRequest(url: components.url!, data: payloadData)
+        let decodedData = try JSONDecoder().decode(ServerResponse.self, from: data)
+        return decodedData.data
     }
     
     // MARK: APNS

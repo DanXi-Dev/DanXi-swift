@@ -4,6 +4,12 @@ struct PostPage: View {
     let hole: THHole
     @State var floors: [THFloor] = []
     @State var endReached = false
+    @State var bookmarked: Bool
+    
+    init(hole: THHole) {
+        self.hole = hole
+        self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
+    }
     
     @State var showReplyPage = false
     
@@ -15,6 +21,20 @@ struct PostPage: View {
         } catch {
             print("DANXI-DEBUG: load floors failed")
         }
+    }
+    
+    func addFavorites() async {
+        do {
+            let bookmarks = try await networks.addFavorite(holeId: hole.id)
+            treeholeDataModel.updateBookmarks(bookmarks: bookmarks)
+            bookmarked = bookmarks.contains(hole.id)
+        } catch {
+            print("DANXI-DEBUG: add favorite failed")
+        }
+    }
+    
+    func removeFavorites() async {
+        print("DANXI-DEBUG: removing favorites (dummy func)") // TODO: finish this
     }
     
     var body: some View {
@@ -50,16 +70,34 @@ struct PostPage: View {
         .navigationTitle("#\(String(hole.id))")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItemGroup {
-                Button(action: { showReplyPage = true }) {
-                    Image(systemName: "arrowshape.turn.up.left")
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                toolbar
+            }
+        }
+    }
+    
+    var toolbar: some View {
+        Group {
+            Button(action: { showReplyPage = true }) {
+                Image(systemName: "arrowshape.turn.up.left")
+            }
+            .sheet(isPresented: $showReplyPage) {
+                ReplyPage(
+                    holeId: hole.id,
+                    showReplyPage: $showReplyPage,
+                    content: "")
+            }
+            
+            Button {
+                Task { @MainActor in
+                    if !bookmarked {
+                        await addFavorites()
+                    } else {
+                        await removeFavorites()
+                    }
                 }
-                .sheet(isPresented: $showReplyPage) {
-                    ReplyPage(
-                        holeId: hole.id,
-                        showReplyPage: $showReplyPage,
-                        content: "")
-                }
+            } label: {
+                Image(systemName: bookmarked ? "bookmark.fill" : "bookmark")
             }
         }
     }
