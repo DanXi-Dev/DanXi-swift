@@ -122,14 +122,8 @@ struct TreeholeNetworks {
         }
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         let data = try await networkRequest(url: components.url!)
-        do {
-            let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
-            return decodedResponse
-        } catch {
-            print(error)
-            throw TreeholeError.invalidResponse
-        }
-        
+        let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
+        return decodedResponse
     }
     
     func loadHoleById(holeId: Int) async throws -> THHole {
@@ -205,7 +199,7 @@ struct TreeholeNetworks {
         struct DeleteConfig: Codable {
             let delete_reason: String
         }
-                
+        
         let payload = DeleteConfig(delete_reason: "")
         let payloadData = try JSONEncoder().encode(payload)
         
@@ -224,7 +218,7 @@ struct TreeholeNetworks {
             URLQueryItem(name: "start_floor", value: String(startFloor))
         ]
         let data = try await networkRequest(url: components.url!)
-
+        
         let floors = try JSONDecoder().decode([THFloor].self, from: data)
         return floors
     }
@@ -254,13 +248,13 @@ struct TreeholeNetworks {
             let message: String
             var data: THFloor
         }
-
+        
         let payload = ReplyObject(content: content, hole_id: holdId)
         let payloadData = try JSONEncoder().encode(payload)
-
+        
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         let data = try await networkRequest(url: components.url!, data: payloadData)
-
+        
         let responseData = try JSONDecoder().decode(ServerResponse.self, from: data)
         return responseData.data
     }
