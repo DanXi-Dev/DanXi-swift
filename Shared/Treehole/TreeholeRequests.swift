@@ -216,6 +216,20 @@ struct TreeholeNetworks {
         return floors
     }
     
+    func searchTag(tagName: String, divisionId: Int, startTime: String? = nil) async throws -> [THHole] {
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
+        components.queryItems = [
+            URLQueryItem(name: "division_id", value: String(divisionId)),
+            URLQueryItem(name: "tag", value: tagName)]
+        if let time = startTime {
+            components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
+        }
+        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        let data = try await networkRequest(url: components.url!)
+        let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
+        return decodedResponse
+    }
+    
     func reply(content: String, holdId: Int) async throws -> THFloor {
         struct ReplyObject: Codable {
             let content: String

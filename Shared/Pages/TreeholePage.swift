@@ -83,7 +83,7 @@ struct TreeholePage: View {
             }
             
             ForEach(filteredTags) { tag in
-                NavigationLink(destination: Text(tag.name)) {
+                NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: currentDivisionId)) {
                     Label(tag.name, systemImage: "tag")
                 }
             }

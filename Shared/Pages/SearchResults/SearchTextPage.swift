@@ -5,7 +5,7 @@ struct SearchTextPage: View {
     @State private var endReached = false
     @State var floors: [THFloor] = []
     
-    func loadMoreHoles() async {
+    func loadMoreFloors() async {
         do {
             let newFloors = try await networks.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
@@ -22,7 +22,7 @@ struct SearchTextPage: View {
                     FloorView(floor: floor)
                         .task {
                             if floor == floors.last {
-                                await loadMoreHoles()
+                                await loadMoreFloors()
                             }
                         }
                 }
@@ -35,7 +35,7 @@ struct SearchTextPage: View {
                     }
                     .task {
                         if floors.isEmpty {
-                            await loadMoreHoles()
+                            await loadMoreFloors()
                         }
                     }
                 }
