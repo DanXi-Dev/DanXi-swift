@@ -6,6 +6,8 @@ struct TreeholePage: View {
     @State var currentDivisionId = 1
     @State var holes: [THHole] = []
     
+    @State var searchText = ""
+    
     @State var showEditPage = false
     
     func initialLoad() async {
@@ -49,41 +51,17 @@ struct TreeholePage: View {
                 }
         } else {
             List {
-                Section {
-                    ForEach(currentDivision.pinned) { hole in
-                        HoleView(hole: hole)
-                            .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
-                    }
-                } header: {
-                    VStack(alignment: .leading) {
-                        switchBar
-                        if !currentDivision.pinned.isEmpty {
-                            Label("pinned", systemImage: "pin.fill")
-                        }
-                    }
+                if searchText.isEmpty {
+                    pinnedSection
+                    mainSection
+                } else {
+                    searchSection
                 }
-                .textCase(nil)
-                
-                Section {
-                    ForEach(holes) { hole in
-                        HoleView(hole: hole)
-                            .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
-                            .task {
-                                if hole == holes.last {
-                                    await loadMoreHoles()
-                                }
-                            }
-                    }
-                } header: {
-                    Label("main_section", systemImage: "text.bubble.fill")
-                } footer: {
-                    spinner
-                }
-                .textCase(nil)
             }
             .refreshable {
                 await refresh()
             }
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .listStyle(.grouped)
             .navigationTitle(currentDivision.name)
             .toolbar {
@@ -92,6 +70,63 @@ struct TreeholePage: View {
                 }
             }
         }
+    }
+    
+    private var filteredTags: [THTag] {
+        return model.tags.filter { $0.name.contains(searchText) }
+    }
+    
+    private var searchSection: some View {
+        Section {
+            NavigationLink(destination: SearchTextPage(keyword: searchText)) {
+                Label(searchText, systemImage: "magnifyingglass")
+            }
+            
+            ForEach(filteredTags) { tag in
+                NavigationLink(destination: Text(tag.name)) {
+                    Label(tag.name, systemImage: "tag")
+                }
+            }
+            
+        } header: {
+            switchBar
+        }
+    }
+    
+    private var pinnedSection: some View {
+        Section {
+            ForEach(currentDivision.pinned) { hole in
+                HoleView(hole: hole)
+                    .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
+            }
+        } header: {
+            VStack(alignment: .leading) {
+                switchBar
+                if !currentDivision.pinned.isEmpty {
+                    Label("pinned", systemImage: "pin.fill")
+                }
+            }
+        }
+        .textCase(nil)
+    }
+    
+    private var mainSection: some View {
+        Section {
+            ForEach(holes) { hole in
+                HoleView(hole: hole)
+                    .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
+                    .task {
+                        if hole == holes.last {
+                            await loadMoreHoles()
+                        }
+                    }
+            }
+        } header: {
+            Label("main_section", systemImage: "text.bubble.fill")
+        } footer: {
+            spinner
+        }
+        .textCase(nil)
     }
     
     private var switchBar: some View {

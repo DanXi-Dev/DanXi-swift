@@ -35,6 +35,7 @@
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
+		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B11292890EC9F00124DF8 /* MarkdownUI */; };
@@ -87,6 +88,7 @@
 		27D6F4522892C5CB0059228F /* long-floor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "long-floor.json"; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
+		27FA5F46289947DA000391A3 /* SearchTextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextPage.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		2778D6052891D22D009F4DB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				27FA5F45289947AD000391A3 /* SearchResults */,
 				272AC8DE2896F20500092B0C /* EditSheets */,
 				2778D6072891D22D009F4DB1 /* PostPage.swift */,
 				2778D6082891D22D009F4DB1 /* WelcomePage.swift */,
@@ -233,6 +236,14 @@
 				27D6F4572892C96E0059228F /* hole.json */,
 			);
 			path = hole;
+			sourceTree = "<group>";
+		};
+		27FA5F45289947AD000391A3 /* SearchResults */ = {
+			isa = PBXGroup;
+			children = (
+				27FA5F46289947DA000391A3 /* SearchTextPage.swift */,
+			);
+			path = SearchResults;
 			sourceTree = "<group>";
 		};
 		7795D21A27D82B1C00840D02 /* Frameworks */ = {
@@ -384,6 +395,7 @@
 				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
+				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
