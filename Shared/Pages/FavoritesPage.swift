@@ -30,6 +30,7 @@ struct FavoritesPage: View {
                 .listStyle(.grouped)
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("favorites")
 
     }
