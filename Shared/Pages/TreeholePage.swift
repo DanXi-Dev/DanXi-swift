@@ -1,4 +1,13 @@
 import SwiftUI
+import Foundation
+
+extension String { // regex match
+    static func ~= (lhs: String, rhs: String) -> Bool {
+        guard let regex = try? NSRegularExpression(pattern: rhs) else { return false }
+        let range = NSRange(location: 0, length: lhs.utf16.count)
+        return regex.firstMatch(in: lhs, options: [], range: range) != nil
+    }
+}
 
 struct TreeholePage: View {
     @ObservedObject var model = treeholeDataModel
@@ -80,6 +89,13 @@ struct TreeholePage: View {
         Section {
             NavigationLink(destination: SearchTextPage(keyword: searchText)) {
                 Label(searchText, systemImage: "magnifyingglass")
+            }
+            
+            // navigate to hole by ID, assuming hole ID length is between 3 and 8
+            if searchText ~= "^#[0-9]{3,8}$", let holeId = Int(searchText.dropFirst(1)) {
+                NavigationLink(destination: PostPage(holeId: holeId)) {
+                    Label(searchText, systemImage: "number")
+                }
             }
             
             ForEach(filteredTags) { tag in
@@ -183,8 +199,8 @@ struct ToolbarMenu: View {
         }
         .background(
             NavigationLink(destination: FavoritesPage(), isActive: $isActive) {
-            EmptyView()
-        })
+                EmptyView()
+            })
     }
     
 }

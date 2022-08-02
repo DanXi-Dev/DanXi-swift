@@ -126,6 +126,13 @@ struct TreeholeNetworks {
         return decodedResponse
     }
     
+    func loadHoleById(holeId: Int) async throws -> THHole {
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
+        let data = try await networkRequest(url: components.url!)
+        let decodedResponse = try JSONDecoder().decode(THHole.self, from: data)
+        return decodedResponse
+    }
+    
     func loadFloors(holeId: Int, startFloor: Int, length: Int = 10) async throws -> [THFloor] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         components.queryItems = [

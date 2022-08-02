@@ -1,21 +1,29 @@
 import SwiftUI
 
 struct PostPage: View {
-    let hole: THHole
+    @State var hole: THHole?
     @State var floors: [THFloor] = []
     @State var endReached = false
     @State var bookmarked: Bool
+    let holeId: Int
     
     init(hole: THHole) {
-        self.hole = hole
+        self._hole = State(initialValue: hole)
         self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
+        self.holeId = hole.id
+    }
+    
+    init(holeId: Int) { // init from hole ID, load info afterwards
+        self._hole = State(initialValue: nil)
+        self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(holeId) ?? false)
+        self.holeId = holeId
     }
     
     @State var showReplyPage = false
     
     func loadMoreFloors() async {
         do {
-            let newFloors = try await networks.loadFloors(holeId: hole.id, startFloor: floors.count)
+            let newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
         } catch {
@@ -23,11 +31,19 @@ struct PostPage: View {
         }
     }
     
+    func loadHoleInfo() async {
+        do {
+            self.hole = try await networks.loadHoleById(holeId: holeId)
+        } catch {
+            print("DANXI-DEBUG: load hole info failed")
+        }
+    }
+    
     func toggleBookmark() async {
         do {
-            let bookmarks = try await networks.toggleFavorites(holeId: hole.id, add: !bookmarked)
+            let bookmarks = try await networks.toggleFavorites(holeId: holeId, add: !bookmarked)
             treeholeDataModel.updateBookmarks(bookmarks: bookmarks)
-            bookmarked = bookmarks.contains(hole.id)
+            bookmarked = bookmarks.contains(holeId)
         } catch {
             print("DANXI-DEBUG: toggle bookmark failed")
         }
@@ -37,7 +53,7 @@ struct PostPage: View {
         List {
             Section {
                 ForEach(floors) { floor in
-                    FloorView(floor: floor, isPoster: floor.posterName == hole.firstFloor.posterName)
+                    FloorView(floor: floor, isPoster: floor.posterName == hole?.firstFloor.posterName ?? "")
                         .task {
                             if floor == floors.last {
                                 await loadMoreFloors()
@@ -45,7 +61,9 @@ struct PostPage: View {
                         }
                 }
             } header: {
-                TagListNavigation(tags: hole.tags)
+                if let hole = hole {
+                    TagListNavigation(tags: hole.tags)
+                }
             } footer: {
                 if !endReached {
                     HStack() {
@@ -54,6 +72,9 @@ struct PostPage: View {
                         Spacer()
                     }
                     .task {
+                        if self.hole == nil {
+                            await loadHoleInfo()
+                        }
                         if floors.isEmpty {
                             await loadMoreFloors()
                         }
@@ -63,7 +84,7 @@ struct PostPage: View {
             .textCase(nil)
         }
         .listStyle(.grouped)
-        .navigationTitle("#\(String(hole.id))")
+        .navigationTitle("#\(String(holeId))")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -74,12 +95,13 @@ struct PostPage: View {
     
     var toolbar: some View {
         Group {
+            
             Button(action: { showReplyPage = true }) {
                 Image(systemName: "arrowshape.turn.up.left")
             }
             .sheet(isPresented: $showReplyPage) {
                 ReplyPage(
-                    holeId: hole.id,
+                    holeId: holeId,
                     showReplyPage: $showReplyPage,
                     content: "")
             }
@@ -91,6 +113,7 @@ struct PostPage: View {
             } label: {
                 Image(systemName: bookmarked ? "bookmark.fill" : "bookmark")
             }
+            
         }
     }
 }
