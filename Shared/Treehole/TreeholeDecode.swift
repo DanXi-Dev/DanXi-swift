@@ -13,6 +13,7 @@ extension THFloor {
         case holeId = "hole_id"
         case storey, content
         case posterName = "anonyname"
+        case mention
     }
     
     init(from decoder: Decoder) throws {
@@ -29,6 +30,7 @@ extension THFloor {
         self.posterName = posterName
         iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
         iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
+        mention = try values.decode([THMention].self, forKey: .mention)
         
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
@@ -40,6 +42,15 @@ extension THFloor {
         }
         
         self.posterColor = randomColor(name: posterName)
+    }
+}
+
+extension THMention {
+    enum CodingKeys: String, CodingKey {
+        case floorId = "floor_id"
+        case holeId = "hole_id"
+        case content
+        case posterName = "anonyname"
     }
 }
 
