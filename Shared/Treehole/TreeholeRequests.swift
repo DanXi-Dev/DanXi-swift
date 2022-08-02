@@ -122,8 +122,14 @@ struct TreeholeNetworks {
         }
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
-        return decodedResponse
+        do {
+            let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
+            return decodedResponse
+        } catch {
+            print(error)
+            throw TreeholeError.invalidResponse
+        }
+        
     }
     
     func loadHoleById(holeId: Int) async throws -> THHole {

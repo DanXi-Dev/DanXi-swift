@@ -30,7 +30,7 @@ extension THFloor {
         self.posterName = posterName
         iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
         iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
-        mention = try values.decode([THMention].self, forKey: .mention)
+        mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
         
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
