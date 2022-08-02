@@ -37,7 +37,7 @@ struct PostPage: View {
         List {
             Section {
                 ForEach(floors) { floor in
-                    FloorView(floor: floor)
+                    FloorView(floor: floor, isPoster: floor.posterName == hole.firstFloor.posterName)
                         .task {
                             if floor == floors.last {
                                 await loadMoreFloors()

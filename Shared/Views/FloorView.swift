@@ -3,9 +3,20 @@ import MarkdownUI
 
 struct FloorView: View {
     @State var floor: THFloor
+    var isPoster: Bool
     
     @State var showReplyPage = false
     @State var showEditPage = false
+    
+    init(floor: THFloor) {
+        self._floor = State(initialValue: floor)
+        isPoster = false
+    }
+    
+    init(floor: THFloor, isPoster: Bool) {
+        self._floor = State(initialValue: floor)
+        self.isPoster = isPoster
+    }
     
     func like() {
         Task {
@@ -59,6 +70,17 @@ struct FloorView: View {
         HStack {
             Rectangle()
                 .frame(width: 3, height: 15)
+            
+            if isPoster {
+                Text("DZ")
+                    .font(.system(size: 13))
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 6.0)
+                    .background(floor.posterColor)
+                    .cornerRadius(3.0)
+            }
+            
             Text(floor.posterName)
                 .font(.system(size: 15))
                 .fontWeight(.bold)
@@ -153,7 +175,7 @@ struct FloorView: View {
 struct FloorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            FloorView(floor: PreviewDecode.decodeObj(name: "floor")!)
+            FloorView(floor: PreviewDecode.decodeObj(name: "floor")!, isPoster: true)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Floor")
             
