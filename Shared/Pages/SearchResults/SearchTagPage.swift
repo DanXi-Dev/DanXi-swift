@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SearchTagPage: View {
     let tagname: String
-    let divisionId: Int
+    let divisionId: Int?
     @State private var endReached = false
     @State var holes: [THHole] = []
     

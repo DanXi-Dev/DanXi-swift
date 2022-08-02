@@ -47,6 +47,21 @@ struct TagListSimple: View {
 }
 
 
+struct TagListNavigation: View {
+    let tags: [THTag]
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 5.0) {
+            ForEach(tags) { tag in
+                NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
+                    Text(tag.name)
+                        .tagStyle(color: tag.color)
+                }
+            }
+        }
+    }
+}
+
 
 struct TagList_Previews: PreviewProvider {    
     static var previews: some View {

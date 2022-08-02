@@ -45,7 +45,7 @@ struct PostPage: View {
                         }
                 }
             } header: {
-                TagListSimple(tags: hole.tags)
+                TagListNavigation(tags: hole.tags)
             } footer: {
                 if !endReached {
                     HStack() {
