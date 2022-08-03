@@ -98,6 +98,13 @@ struct TreeholePage: View {
                 }
             }
             
+            // navigate to floor by ID, assuming hole ID length is between 4 and 9
+            if searchText ~= "^##[0-9]{4,9}$", let floorId = Int(searchText.dropFirst(2)) {
+                NavigationLink(destination: PostPage(targetFloorId: floorId)) {
+                    Label(searchText, systemImage: "number")
+                }
+            }
+            
             ForEach(filteredTags) { tag in
                 NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: currentDivisionId)) {
                     Label(tag.name, systemImage: "tag")

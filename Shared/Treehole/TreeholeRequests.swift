@@ -145,6 +145,13 @@ struct TreeholeNetworks {
         return decodedResponse
     }
     
+    func loadFloorById(floorId: Int) async throws -> THFloor {
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
+        let data = try await networkRequest(url: components.url!)
+        let decodedResponse = try JSONDecoder().decode(THFloor.self, from: data)
+        return decodedResponse
+    }
+    
     func loadTags() async throws -> [THTag] {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/tags")!
         let data = try await networkRequest(url: components.url!)

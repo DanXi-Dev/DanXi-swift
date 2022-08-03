@@ -5,18 +5,26 @@ struct PostPage: View {
     @State var floors: [THFloor] = []
     @State var endReached = false
     @State var bookmarked: Bool
-    let holeId: Int
+    @State var holeId: Int
+    var targetFloorId: Int? = nil
     
     init(hole: THHole) {
         self._hole = State(initialValue: hole)
         self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
-        self.holeId = hole.id
+        self._holeId = State(initialValue: hole.id)
     }
     
     init(holeId: Int) { // init from hole ID, load info afterwards
         self._hole = State(initialValue: nil)
         self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(holeId) ?? false)
-        self.holeId = holeId
+        self._holeId = State(initialValue: holeId)
+    }
+    
+    init(targetFloorId: Int) { // init from floor ID, scroll to that floor
+        self.targetFloorId = targetFloorId
+        self._hole = State(initialValue: nil)
+        self._holeId = State(initialValue: 0)
+        self._bookmarked = State(initialValue: false)
     }
     
     @State var showReplyPage = false
@@ -39,6 +47,30 @@ struct PostPage: View {
         }
     }
     
+    func loadToTargetFloor() async {
+        guard let targetFloorId = targetFloorId else {
+            return
+        }
+        
+        do {
+            let targetFloor = try await networks.loadFloorById(floorId: targetFloorId)
+            
+            self.holeId = targetFloor.holeId
+            self.hole = try await networks.loadHoleById(holeId: holeId)
+            
+            var newFloors: [THFloor] = []
+            repeat {
+                newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
+                self.floors.append(contentsOf: newFloors)
+                if newFloors.contains(targetFloor) {
+                    break
+                }
+            } while !newFloors.isEmpty
+        } catch {
+            print("DANXI-DEBUG: load to target floor failed")
+        }
+    }
+    
     func toggleBookmark() async {
         do {
             let bookmarks = try await networks.toggleFavorites(holeId: holeId, add: !bookmarked)
@@ -50,70 +82,82 @@ struct PostPage: View {
     }
     
     var body: some View {
-        List {
-            Section {
-                ForEach(floors) { floor in
-                    FloorView(floor: floor, isPoster: floor.posterName == hole?.firstFloor.posterName ?? "")
+        ScrollViewReader { proxy in
+            List {
+                Section {
+                    ForEach(floors) { floor in
+                        FloorView(floor: floor, isPoster: floor.posterName == hole?.firstFloor.posterName ?? "")
+                            .task {
+                                if floor == floors.last {
+                                    await loadMoreFloors()
+                                }
+                            }
+                            .id(floor.id)
+                    }
+                } header: {
+                    if let hole = hole {
+                        TagListNavigation(tags: hole.tags)
+                    }
+                } footer: {
+                    if !endReached {
+                        HStack() {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
                         .task {
-                            if floor == floors.last {
+                            // initial load
+                            if self.hole == nil {
+                                if targetFloorId != nil { // init from target floor
+                                    await loadToTargetFloor()
+                                    withAnimation {
+                                        proxy.scrollTo(targetFloorId) // FIXME: proxy won't working
+                                    }
+                                } else { // initial load hole
+                                    await loadHoleInfo()
+                                }
+                            }
+                            
+                            if floors.isEmpty { // all relevant data present, ready to load floors
                                 await loadMoreFloors()
                             }
                         }
-                }
-            } header: {
-                if let hole = hole {
-                    TagListNavigation(tags: hole.tags)
-                }
-            } footer: {
-                if !endReached {
-                    HStack() {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
-                    }
-                    .task {
-                        if self.hole == nil {
-                            await loadHoleInfo()
-                        }
-                        if floors.isEmpty {
-                            await loadMoreFloors()
-                        }
                     }
                 }
+                .textCase(nil)
             }
-            .textCase(nil)
-        }
-        .listStyle(.grouped)
-        .navigationTitle("#\(String(holeId))")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                toolbar
+            .listStyle(.grouped)
+            .navigationTitle("#\(String(holeId))")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    toolbar
+                }
             }
         }
     }
     
     var toolbar: some View {
         Group {
-            
-            Button(action: { showReplyPage = true }) {
-                Image(systemName: "arrowshape.turn.up.left")
-            }
-            .sheet(isPresented: $showReplyPage) {
-                ReplyPage(
-                    holeId: holeId,
-                    showReplyPage: $showReplyPage,
-                    content: "")
-            }
-            
-            Button {
-                Task { @MainActor in
-                    await toggleBookmark()
+            if hole != nil {
+                Button(action: { showReplyPage = true }) {
+                    Image(systemName: "arrowshape.turn.up.left")
                 }
-            } label: {
-                Image(systemName: bookmarked ? "bookmark.fill" : "bookmark")
+                .sheet(isPresented: $showReplyPage) {
+                    ReplyPage(
+                        holeId: holeId,
+                        showReplyPage: $showReplyPage,
+                        content: "")
+                }
+                
+                Button {
+                    Task { @MainActor in
+                        await toggleBookmark()
+                    }
+                } label: {
+                    Image(systemName: bookmarked ? "bookmark.fill" : "bookmark")
+                }
             }
-            
         }
     }
 }
