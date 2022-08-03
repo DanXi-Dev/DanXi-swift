@@ -135,6 +135,7 @@
 				2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */,
 				2778D6032891D22D009F4DB1 /* TreeholeModel.swift */,
 				2778D6042891D22D009F4DB1 /* TreeholeRequests.swift */,
+				27D6F4532892C5D70059228F /* PreviewDecode.swift */,
 			);
 			path = Treehole;
 			sourceTree = "<group>";
@@ -206,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				27D6F4552892C7B30059228F /* JSON */,
-				27D6F4532892C5D70059228F /* PreviewDecode.swift */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
