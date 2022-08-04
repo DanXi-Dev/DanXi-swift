@@ -59,13 +59,15 @@ struct PostPage: View {
             self.hole = try await networks.loadHoleById(holeId: holeId)
             
             var newFloors: [THFloor] = []
+            var floors: [THFloor] = []
             repeat {
                 newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
-                self.floors.append(contentsOf: newFloors)
+                floors.append(contentsOf: newFloors)
                 if newFloors.contains(targetFloor) {
                     break
                 }
             } while !newFloors.isEmpty
+            self.floors = floors // insert to view at last, preventing automatic refresh causing URLSession to cancel
         } catch {
             print("DANXI-DEBUG: load to target floor failed")
         }
@@ -113,6 +115,7 @@ struct PostPage: View {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
                                         proxy.scrollTo(targetFloorId, anchor: .top) // FIXME: can't `withAnimation`, will cause Fatal error: List update took more than 1 layout cycle to converge
                                     }
+                                    return
                                 } else { // initial load hole
                                     await loadHoleInfo()
                                 }
