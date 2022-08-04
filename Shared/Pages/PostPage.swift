@@ -110,8 +110,8 @@ struct PostPage: View {
                             if self.hole == nil {
                                 if targetFloorId != nil { // init from target floor
                                     await loadToTargetFloor()
-                                    withAnimation {
-                                        proxy.scrollTo(targetFloorId) // FIXME: proxy won't working
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
+                                        proxy.scrollTo(targetFloorId, anchor: .top) // FIXME: can't `withAnimation`, will cause Fatal error: List update took more than 1 layout cycle to converge
                                     }
                                 } else { // initial load hole
                                     await loadHoleInfo()
