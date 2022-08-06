@@ -9,13 +9,15 @@ extension String {
         return regex.firstMatch(in: lhs, options: [], range: range) != nil
     }
     
-    /// Convert Treehole-formatted content to plain text, stripping URLs, markdown and latex
-    func stripTreeholeSyntax() -> String {
-        // TODO: This currently only removes markdown syntax
-        guard let attributedString = try? NSAttributedString(markdown: self) else {
-            return "DEBUG: Failed to convert content to Attributed String"
-        }
-        return attributedString.string
+    /// Convert Treehole-formatted content to basic markdown, stripping images and latex
+    func stripToBasicMarkdown() -> String {
+        let text = NSMutableString(string: self)
+        
+        _ = try? NSRegularExpression(pattern: #"\$\$.*?\$\$"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("formula_tag", comment: "Formula Tag"))
+        
+        _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("image_tag", comment: "Image Tag"))
+        
+        return String(text)
     }
 }
 

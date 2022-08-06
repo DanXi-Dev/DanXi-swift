@@ -37,6 +37,8 @@
 "copy_hole_id" = "复制主题贴ID";
 "add_bookmark" = "添加书签";
 "favorites" = "收藏";
+"image_tag" = "**[图片]**";
+"formula_tag" = "**[公式]**";
 
 // Treehole floor
 "report" = "举报";

@@ -7,12 +7,21 @@ struct HoleView: View {
         VStack(alignment: .leading) {
             TagListSimple(tags: hole.tags)
             
-            Text(hole.firstFloor.content.stripTreeholeSyntax())
-                .font(.system(size: 16))
-                .foregroundColor(.primary)
-                .multilineTextAlignment(.leading)
-                .lineLimit(6)
-                .transition(.slide)
+            if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {
+                Text(mdRendered)
+                    .font(.system(size: 16))
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(6)
+                    .transition(.slide)
+            } else {
+                Text(hole.firstFloor.content.stripToBasicMarkdown())
+                    .font(.system(size: 16))
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(6)
+                    .transition(.slide)
+            }
             HStack {
                 info
             }
