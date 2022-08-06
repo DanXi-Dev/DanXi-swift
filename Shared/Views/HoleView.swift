@@ -7,7 +7,7 @@ struct HoleView: View {
         VStack(alignment: .leading) {
             TagListSimple(tags: hole.tags)
             
-            Text(hole.firstFloor.content)
+            Text(hole.firstFloor.content.stripTreeholeSyntax())
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)

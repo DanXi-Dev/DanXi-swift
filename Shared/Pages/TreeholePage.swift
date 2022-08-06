@@ -1,11 +1,21 @@
 import SwiftUI
 import Foundation
 
-extension String { // regex match
+extension String {
+    /// If lhs content matches rhs regex, returns true
     static func ~= (lhs: String, rhs: String) -> Bool {
         guard let regex = try? NSRegularExpression(pattern: rhs) else { return false }
         let range = NSRange(location: 0, length: lhs.utf16.count)
         return regex.firstMatch(in: lhs, options: [], range: range) != nil
+    }
+    
+    /// Convert Treehole-formatted content to plain text, stripping URLs, markdown and latex
+    func stripTreeholeSyntax() -> String {
+        // TODO: This currently only removes markdown syntax
+        guard let attributedString = try? NSAttributedString(markdown: self) else {
+            return "DEBUG: Failed to convert content to Attributed String"
+        }
+        return attributedString.string
     }
 }
 
