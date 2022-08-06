@@ -37,8 +37,8 @@
 "copy_hole_id" = "Copy hole ID";
 "add_bookmark" = "Add bookmark";
 "favorites" = "Favorites";
-"image_tag" = "**[Image]**";
-"formula_tag" = "**[Formula]**";
+"image_tag" = "[Image]";
+"formula_tag" = "[Formula]";
 
 // Treehole floor
 "report" = "Report";
