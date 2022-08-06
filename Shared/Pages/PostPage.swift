@@ -4,19 +4,19 @@ struct PostPage: View {
     @State var hole: THHole?
     @State var floors: [THFloor] = []
     @State var endReached = false
-    @State var bookmarked: Bool
+    @State var favorited: Bool
     @State var holeId: Int
     var targetFloorId: Int? = nil
     
     init(hole: THHole) {
         self._hole = State(initialValue: hole)
-        self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
+        self._favorited = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
         self._holeId = State(initialValue: hole.id)
     }
     
     init(holeId: Int) { // init from hole ID, load info afterwards
         self._hole = State(initialValue: nil)
-        self._bookmarked = State(initialValue: treeholeDataModel.user?.favorites.contains(holeId) ?? false)
+        self._favorited = State(initialValue: treeholeDataModel.user?.favorites.contains(holeId) ?? false)
         self._holeId = State(initialValue: holeId)
     }
     
@@ -24,7 +24,7 @@ struct PostPage: View {
         self.targetFloorId = targetFloorId
         self._hole = State(initialValue: nil)
         self._holeId = State(initialValue: 0)
-        self._bookmarked = State(initialValue: false)
+        self._favorited = State(initialValue: false)
     }
     
     @State var showReplyPage = false
@@ -73,13 +73,13 @@ struct PostPage: View {
         }
     }
     
-    func toggleBookmark() async {
+    func toggleFavorites() async {
         do {
-            let bookmarks = try await networks.toggleFavorites(holeId: holeId, add: !bookmarked)
-            treeholeDataModel.updateBookmarks(bookmarks: bookmarks)
-            bookmarked = bookmarks.contains(holeId)
+            let favorites = try await networks.toggleFavorites(holeId: holeId, add: !favorited)
+            treeholeDataModel.updateFavorites(favorites: favorites)
+            favorited = favorites.contains(holeId)
         } catch {
-            print("DANXI-DEBUG: toggle bookmark failed")
+            print("DANXI-DEBUG: toggle favorite failed")
         }
     }
     
@@ -143,6 +143,14 @@ struct PostPage: View {
     var toolbar: some View {
         Group {
             if hole != nil {
+                Button {
+                    Task { @MainActor in
+                        await toggleFavorites()
+                    }
+                } label: {
+                    Image(systemName: favorited ? "star.fill" : "star")
+                }
+                
                 Button(action: { showReplyPage = true }) {
                     Image(systemName: "arrowshape.turn.up.left")
                 }
@@ -151,14 +159,6 @@ struct PostPage: View {
                         holeId: holeId,
                         showReplyPage: $showReplyPage,
                         content: "")
-                }
-                
-                Button {
-                    Task { @MainActor in
-                        await toggleBookmark()
-                    }
-                } label: {
-                    Image(systemName: bookmarked ? "bookmark.fill" : "bookmark")
                 }
             }
         }

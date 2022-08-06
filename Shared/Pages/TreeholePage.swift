@@ -70,7 +70,7 @@ struct TreeholePage: View {
             .refreshable {
                 await refresh()
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
             .listStyle(.grouped)
             .navigationTitle(currentDivision.name)
             .toolbar {
@@ -171,14 +171,14 @@ struct TreeholePage: View {
     
     private var toolBar: some View {
         Group {
+            ToolbarMenu() // menu item can't perform navigation, this is a workaround
+            
             Button(action: { showEditPage = true }) {
                 Image(systemName: "square.and.pencil")
             }
             .sheet(isPresented: $showEditPage) {
                 EditPage(divisionId: currentDivisionId, showNewPostPage: $showEditPage)
             }
-            
-            ToolbarMenu() // menu item can't perform navigation, this is a workaround
         }
     }
     

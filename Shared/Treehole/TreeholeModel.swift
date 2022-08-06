@@ -32,9 +32,9 @@ class TreeholeDataModel: ObservableObject {
         }
     }
     
-    func updateBookmarks(bookmarks: [Int]) {
+    func updateFavorites(favorites: [Int]) {
         Task { @MainActor in
-            user?.favorites = bookmarks
+            user?.favorites = favorites
         }
     }
 }
