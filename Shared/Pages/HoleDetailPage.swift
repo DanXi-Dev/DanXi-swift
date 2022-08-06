@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PostPage: View {
+struct HoleDetailPage: View {
     @State var hole: THHole?
     @State var floors: [THFloor] = []
     @State var endReached = false
@@ -12,6 +12,7 @@ struct PostPage: View {
         self._hole = State(initialValue: hole)
         self._favorited = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
         self._holeId = State(initialValue: hole.id)
+        self._floors = State(initialValue: hole.floors)
     }
     
     init(holeId: Int) { // init from hole ID, load info afterwards
@@ -167,7 +168,7 @@ struct PostPage: View {
 
 struct PostPage_Previews: PreviewProvider {
     static var previews: some View {
-        PostPage(hole: PreviewDecode.decodeObj(name: "hole")!)
+        HoleDetailPage(hole: PreviewDecode.decodeObj(name: "hole")!)
     }
 }
 

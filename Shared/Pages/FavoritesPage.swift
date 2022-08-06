@@ -24,7 +24,7 @@ struct FavoritesPage: View {
                 List {
                     ForEach(favorites) { hole in
                         HoleView(hole: hole)
-                            .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
+                            .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
                     }
                 }
                 .listStyle(.grouped)

@@ -20,7 +20,7 @@ struct SearchTextPage: View {
             Section {
                 ForEach(floors) { floor in
                     FloorView(floor: floor)
-                        .background(NavigationLink("", destination: PostPage(targetFloorId: floor.id)).opacity(0))
+                        .background(NavigationLink("", destination: HoleDetailPage(targetFloorId: floor.id)).opacity(0))
                         .task {
                             if floor == floors.last {
                                 await loadMoreFloors()

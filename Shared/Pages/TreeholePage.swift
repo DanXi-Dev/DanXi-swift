@@ -105,14 +105,14 @@ struct TreeholePage: View {
             
             // navigate to hole by ID, assuming hole ID length is between 3 and 8
             if searchText ~= "^#[0-9]{3,8}$", let holeId = Int(searchText.dropFirst(1)) {
-                NavigationLink(destination: PostPage(holeId: holeId)) {
+                NavigationLink(destination: HoleDetailPage(holeId: holeId)) {
                     Label(searchText, systemImage: "number")
                 }
             }
             
             // navigate to floor by ID, assuming hole ID length is between 4 and 9
             if searchText ~= "^##[0-9]{4,9}$", let floorId = Int(searchText.dropFirst(2)) {
-                NavigationLink(destination: PostPage(targetFloorId: floorId)) {
+                NavigationLink(destination: HoleDetailPage(targetFloorId: floorId)) {
                     Label(searchText, systemImage: "number")
                 }
             }
@@ -132,7 +132,7 @@ struct TreeholePage: View {
         Section {
             ForEach(currentDivision.pinned) { hole in
                 HoleView(hole: hole)
-                    .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
+                    .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
             }
         } header: {
             VStack(alignment: .leading) {
@@ -149,7 +149,7 @@ struct TreeholePage: View {
         Section {
             ForEach(holes) { hole in
                 HoleView(hole: hole)
-                    .background(NavigationLink("", destination: PostPage(hole: hole)).opacity(0))
+                    .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
                     .task {
                         if hole == holes.last {
                             await loadMoreHoles()
