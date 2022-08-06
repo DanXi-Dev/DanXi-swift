@@ -40,6 +40,18 @@ struct AppSidebarNavigation: View {
     }
 }
 
+// FIXME: This is a workaround to SwiftUI not exposing control APIs
+// This relies on the navigation view using UISplitViewController as its backend
+// Which may change and break things
+extension UISplitViewController {
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.preferredDisplayMode = .twoOverSecondary
+        self.preferredSplitBehavior = .automatic
+    }
+}
+
 struct AppSidebarNavigation_Previews: PreviewProvider {
     
     static var previews: some View {
