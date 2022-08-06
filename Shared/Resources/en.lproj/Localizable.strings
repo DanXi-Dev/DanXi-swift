@@ -61,3 +61,7 @@
 
 // Search Page
 "search_result" = "Search Result";
+"search_text" = "Search for Text";
+"jump_to_hole" = "Jump to Hole";
+"jump_to_floor" = "Jump to Floor";
+"tags" = "Tags";

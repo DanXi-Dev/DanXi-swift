@@ -62,5 +62,8 @@
 
 // Search Page
 "search_result" = "搜索结果";
-
+"search_text" = "搜索文字";
+"jump_to_hole" = "跳转到树洞";
+"jump_to_floor" = "跳转到楼层";
+"tags" = "标签";
 

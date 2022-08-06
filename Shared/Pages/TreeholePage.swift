@@ -97,34 +97,37 @@ struct TreeholePage: View {
         return model.tags.filter { $0.name.contains(searchText) }
     }
     
+    @ViewBuilder
     private var searchSection: some View {
-        Section {
+        Section("search_text") {
             NavigationLink(destination: SearchTextPage(keyword: searchText)) {
                 Label(searchText, systemImage: "magnifyingglass")
             }
-            
-            // navigate to hole by ID, assuming hole ID length is between 3 and 8
-            if searchText ~= "^#[0-9]{3,8}$", let holeId = Int(searchText.dropFirst(1)) {
+        }
+        // navigate to hole by ID, don't assume hole id length
+        if searchText ~= #"^#[0-9]+$"#, let holeId = Int(searchText.dropFirst(1)) {
+            Section("jump_to_hole") {
                 NavigationLink(destination: HoleDetailPage(holeId: holeId)) {
-                    Label(searchText, systemImage: "number")
+                    Label(searchText, systemImage: "arrow.right.square")
                 }
             }
-            
-            // navigate to floor by ID, assuming hole ID length is between 4 and 9
-            if searchText ~= "^##[0-9]{4,9}$", let floorId = Int(searchText.dropFirst(2)) {
+        }
+        
+        // navigate to floor by ID, don't assume floor id length
+        if searchText ~= #"^##[0-9]+$"#, let floorId = Int(searchText.dropFirst(2)) {
+            Section("jump_to_floor") {
                 NavigationLink(destination: HoleDetailPage(targetFloorId: floorId)) {
-                    Label(searchText, systemImage: "number")
+                    Label(searchText, systemImage: "arrow.right.square")
                 }
             }
-            
+        }
+        
+        Section("tags") {
             ForEach(filteredTags) { tag in
                 NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: currentDivisionId)) {
                     Label(tag.name, systemImage: "tag")
                 }
             }
-            
-        } header: {
-            switchBar
         }
     }
     

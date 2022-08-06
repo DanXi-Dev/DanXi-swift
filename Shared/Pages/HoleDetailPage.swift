@@ -128,7 +128,6 @@ struct HoleDetailPage: View {
                         }
                     }
                 }
-                .textCase(nil)
             }
             .listStyle(.grouped)
             .navigationTitle("#\(String(holeId))")
