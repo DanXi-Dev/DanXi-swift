@@ -122,10 +122,12 @@ struct TreeholePage: View {
             }
         }
         
-        Section("tags") {
-            ForEach(filteredTags) { tag in
-                NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: currentDivisionId)) {
-                    Label(tag.name, systemImage: "tag")
+        if !filteredTags.isEmpty {
+            Section("tags") {
+                ForEach(filteredTags) { tag in
+                    NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: currentDivisionId)) {
+                        Label(tag.name, systemImage: "tag")
+                    }
                 }
             }
         }
