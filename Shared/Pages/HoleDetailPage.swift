@@ -5,7 +5,7 @@ struct HoleDetailPage: View {
     @State var floors: [THFloor] = []
     @State var endReached = false
     @State var favorited: Bool
-    @State var holeId: Int
+    @State var holeId: Int?
     var targetFloorId: Int? = nil
     
     init(hole: THHole) {
@@ -24,13 +24,47 @@ struct HoleDetailPage: View {
     init(targetFloorId: Int) { // init from floor ID, scroll to that floor
         self.targetFloorId = targetFloorId
         self._hole = State(initialValue: nil)
-        self._holeId = State(initialValue: 0)
+        self._holeId = State(initialValue: nil)
         self._favorited = State(initialValue: false)
     }
     
     @State var showReplyPage = false
     
+    func initialLoad(proxy: ScrollViewProxy) async {
+        if targetFloorId != nil {
+            await loadToTargetFloor()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
+                proxy.scrollTo(targetFloorId, anchor: .top) // FIXME: can't `withAnimation`, will cause Fatal error: List update took more than 1 layout cycle to converge
+            }
+            return
+        }
+        
+        guard let holeId = holeId else {
+            return
+        }
+        
+        if hole == nil {
+            await loadHoleInfo()
+        }
+        
+        if floors.isEmpty { // all relevant data present, ready to load floors
+            await loadMoreFloors()
+        }
+        
+        Task { // update viewing number in background task
+            do {
+                try await networks.updateViews(holeId: holeId)
+            } catch {
+                print("DANXI-DEBUG: update views failed")
+            }
+        }
+    }
+    
     func loadMoreFloors() async {
+        guard let holeId = holeId else {
+            return
+        }
+        
         do {
             let newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
@@ -41,6 +75,10 @@ struct HoleDetailPage: View {
     }
     
     func loadHoleInfo() async {
+        guard let holeId = holeId else {
+            return
+        }
+        
         do {
             self.hole = try await networks.loadHoleById(holeId: holeId)
         } catch {
@@ -55,14 +93,14 @@ struct HoleDetailPage: View {
         
         do {
             let targetFloor = try await networks.loadFloorById(floorId: targetFloorId)
-            
+                
             self.holeId = targetFloor.holeId
-            self.hole = try await networks.loadHoleById(holeId: holeId)
+            self.hole = try await networks.loadHoleById(holeId: targetFloor.holeId)
             
             var newFloors: [THFloor] = []
             var floors: [THFloor] = []
             repeat {
-                newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
+                newFloors = try await networks.loadFloors(holeId: targetFloor.holeId, startFloor: floors.count)
                 floors.append(contentsOf: newFloors)
                 if newFloors.contains(targetFloor) {
                     break
@@ -75,6 +113,10 @@ struct HoleDetailPage: View {
     }
     
     func toggleFavorites() async {
+        guard let holeId = holeId else {
+            return
+        }
+        
         do {
             let favorites = try await networks.toggleFavorites(holeId: holeId, add: !favorited)
             treeholeDataModel.updateFavorites(favorites: favorites)
@@ -109,28 +151,13 @@ struct HoleDetailPage: View {
                             Spacer()
                         }
                         .task {
-                            // initial load
-                            if self.hole == nil {
-                                if targetFloorId != nil { // init from target floor
-                                    await loadToTargetFloor()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
-                                        proxy.scrollTo(targetFloorId, anchor: .top) // FIXME: can't `withAnimation`, will cause Fatal error: List update took more than 1 layout cycle to converge
-                                    }
-                                    return
-                                } else { // initial load hole
-                                    await loadHoleInfo()
-                                }
-                            }
-                            
-                            if floors.isEmpty { // all relevant data present, ready to load floors
-                                await loadMoreFloors()
-                            }
+                            await initialLoad(proxy: proxy)
                         }
                     }
                 }
             }
             .listStyle(.grouped)
-            .navigationTitle("#\(String(holeId))")
+            .navigationTitle("#\(String(holeId ?? 0))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -156,7 +183,7 @@ struct HoleDetailPage: View {
                 }
                 .sheet(isPresented: $showReplyPage) {
                     ReplyPage(
-                        holeId: holeId,
+                        holeId: holeId ?? 0,
                         showReplyPage: $showReplyPage,
                         content: "")
                 }
