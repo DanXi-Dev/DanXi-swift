@@ -5,6 +5,16 @@ struct CourseMainPage: View {
     @AppStorage("course-hash") var courseHash = ""
     @State var courses: [DKCourseGroup] = []
     
+    @State var searchText = ""
+    var searchResults: [DKCourseGroup] {
+        if searchText.isEmpty {
+            return courses
+        } else {
+            // TODO: search course ID
+            return courses.filter { $0.name.contains(searchText) }
+        }
+    }
+    
     func initialLoad() async {
         do { // check hash, try decode from local storage
             let newHash = try await networks.loadCourseHash()
@@ -28,10 +38,11 @@ struct CourseMainPage: View {
     
     var body: some View {
         List {
-            ForEach(courses) { course in
+            ForEach(searchResults) { course in
                 CourseView(courseGroup: course)
             }
         }
+        .searchable(text: $searchText)
         .navigationTitle("Curriculum Board")
         .listStyle(.grouped)
         .task {
