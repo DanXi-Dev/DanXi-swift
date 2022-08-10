@@ -12,6 +12,9 @@
 "DanXi Login" = "登录FDU Hole账户";
 "Login Failed" = "登录失败";
 "Incorrect username or password" = "用户名或密码错误";
+"Incorrect Information" = "信息不正确";
+"Enter username and password" = "请输入用户名和密码";
+"Invalid username" = "用户名格式不正确";
 
 // Settings Page
 "accounts_management" = "账户管理";

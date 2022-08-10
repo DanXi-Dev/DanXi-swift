@@ -9,9 +9,23 @@ struct LoginPage: View {
     @State var loading = false
     
     @State var errorPresenting = false
-    @State var errorInfo = NetworkErrorInfo()
+    @State var errorInfo = ErrorInfo()
     
     func login() {
+        // check info before submit to server
+        if username.isEmpty || password.isEmpty {
+            errorInfo = ErrorInfo(title: "Incorrect Information", description: "Enter username and password")
+            errorPresenting = true
+            return
+        }
+        
+        if !username.hasSuffix("fudan.edu.cn") {
+            errorInfo = ErrorInfo(title: "Incorrect Information", description: "Invalid username")
+            errorPresenting = true
+            return
+        }
+        
+        // submitting to server
         loading = true
         Task {
             do {
@@ -23,7 +37,7 @@ struct LoginPage: View {
             } catch let error as NetworkError {
                 switch error {
                 case .unauthorized:
-                    errorInfo = NetworkErrorInfo(title: "Login Failed", description: "Incorrect username or password")
+                    errorInfo = ErrorInfo(title: "Login Failed", description: "Incorrect username or password")
                 default:
                     errorInfo = error.localizedErrorDescription
                 }
@@ -67,7 +81,10 @@ struct LoginPage: View {
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Login", action: login)
+                    Button(action: login) {
+                        Text("Login")
+                            .bold()
+                    }
                         .alert(errorInfo.title, isPresented: $errorPresenting) {
                             Button("OK") { }
                         } message: {
