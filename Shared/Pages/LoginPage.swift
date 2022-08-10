@@ -8,6 +8,9 @@ struct LoginPage: View {
     @State var password = ""
     @State var loading = false
     
+    @State var errorPresenting = false
+    @State var errorInfo = NetworkErrorInfo()
+    
     func login() {
         loading = true
         Task {
@@ -17,7 +20,13 @@ struct LoginPage: View {
                 loading = false
                 showLoginPage = false
                 model.initialFetch()
-            } catch {
+            } catch let error as NetworkError {
+                errorInfo = error.localizedErrorDescription
+                errorPresenting = true
+                loading = false
+            }
+            
+            catch {
                 loading = false
                 print("DANXI-DEBUG: login failed")
             }
@@ -28,12 +37,12 @@ struct LoginPage: View {
         NavigationView {
             Form {
                 Section{
-                    TextField("email", text: $username)
+                    TextField("Email", text: $username)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .disableAutocorrection(true)
                     
-                    SecureField(NSLocalizedString("password", comment: ""), text: $password)
+                    SecureField(NSLocalizedString("Password", comment: ""), text: $password)
                 } footer: {
                     if loading {
                         HStack {
@@ -49,15 +58,20 @@ struct LoginPage: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("cancel") {
+                    Button("Cancel") {
                         showLoginPage = false
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("login", action: login)
-                        .disabled(loading)
+                    Button("Login", action: login)
+                        .alert(errorInfo.title, isPresented: $errorPresenting) {
+                            Button("OK") { }
+                        } message: {
+                            Text(errorInfo.description)
+                        }
                 }
             }
+            
         }
     }
 }

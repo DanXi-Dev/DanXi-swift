@@ -5,10 +5,10 @@
 "settings" = "设置";
 
 // Login Page
-"email" = "邮箱";
-"password" = "密码";
-"cancel" = "取消";
-"login" = "登录";
+"Email" = "邮箱";
+"Password" = "密码";
+"Cancel" = "取消";
+"Login" = "登录";
 "fduhole_login_prompt" = "登录FDU Hole账户";
 
 // Settings Page
@@ -71,3 +71,9 @@
 "%@ Credit" = "%@学分";
 "Curriculum Board" = "蛋壳课评";
 "Curriculum" = "课评";
+
+// Error
+"Network Error" = "网络错误";
+"Network error, try again later" = "网络错误，请稍后再试";
+
+"OK" = "确认";
