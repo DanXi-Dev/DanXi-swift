@@ -67,3 +67,7 @@
 "jump_to_floor" = "跳转到楼层";
 "tags" = "标签";
 
+// Course
+"%@ Credit" = "%@学分";
+"Curriculum Board" = "蛋壳课评";
+"Curriculum" = "课评";

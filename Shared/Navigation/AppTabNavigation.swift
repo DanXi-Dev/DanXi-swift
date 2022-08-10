@@ -28,6 +28,14 @@ struct AppTabNavigation: View {
             .tag(Tab.treehole)
             
             NavigationView {
+                CourseMainPage()
+            }
+            .tabItem {
+                Image(systemName: "books.vertical.fill")
+                Text("Curriculum")
+            }
+            
+            NavigationView {
                 SettingsPage()
             }
             .navigationViewStyle(.stack)
