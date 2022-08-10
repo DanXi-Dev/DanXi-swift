@@ -21,12 +21,16 @@ struct LoginPage: View {
                 showLoginPage = false
                 model.initialFetch()
             } catch let error as NetworkError {
-                errorInfo = error.localizedErrorDescription
+                switch error {
+                case .unauthorized:
+                    errorInfo = NetworkErrorInfo(title: "Login Failed", description: "Incorrect username or password")
+                default:
+                    errorInfo = error.localizedErrorDescription
+                }
+                
                 errorPresenting = true
                 loading = false
-            }
-            
-            catch {
+            } catch {
                 loading = false
                 print("DANXI-DEBUG: login failed")
             }
@@ -54,7 +58,7 @@ struct LoginPage: View {
                     }
                 }
             }
-            .navigationTitle("fduhole_login_prompt")
+            .navigationTitle("DanXi Login")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

@@ -9,7 +9,9 @@
 "Password" = "密码";
 "Cancel" = "取消";
 "Login" = "登录";
-"fduhole_login_prompt" = "登录FDU Hole账户";
+"DanXi Login" = "登录FDU Hole账户";
+"Login Failed" = "登录失败";
+"Incorrect username or password" = "用户名或密码错误";
 
 // Settings Page
 "accounts_management" = "账户管理";

@@ -61,37 +61,35 @@ struct NetworkRequests {
             let refresh: String
         }
         
-        do {
-            let loginBody = LoginBody(email: username, password: password)
-            let postData = try JSONEncoder().encode(loginBody)
+        
+        let loginBody = LoginBody(email: username, password: password)
+        let postData = try JSONEncoder().encode(loginBody)
+        
+        var request = URLRequest(url: URL(string: FDUHOLE_AUTH_URL + "/login")!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = postData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as! HTTPURLResponse
+
+        switch httpResponse.statusCode {
+        case 200..<300:
+            let responseToken = try JSONDecoder().decode(Token.self, from: data)
+            defaults?.setValue(responseToken.access, forKey: "user-credential")
+            self.token = responseToken.access
             
-            var request = URLRequest(url: URL(string: FDUHOLE_AUTH_URL + "/login")!)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
-            request.httpBody = postData
-            
-            let (data, response) = try await URLSession.shared.data(for: request)
-            let httpResponse = response as! HTTPURLResponse
-            
-            switch httpResponse.statusCode {
-            case 200..<300:
-                let responseToken = try JSONDecoder().decode(Token.self, from: data)
-                defaults?.setValue(responseToken.access, forKey: "user-credential")
-                self.token = responseToken.access
-                
-                if apnsToken != nil {
-                    Task.init {
-                        await networks.uploadAPNSKey()
-                    }
+            if apnsToken != nil {
+                Task.init {
+                    await networks.uploadAPNSKey()
                 }
-            case 400..<500:
-                throw NetworkError.unauthorized
-            default:
-                throw NetworkError.serverError(message: "")
             }
-        } catch {
-            throw NetworkError.networkError
+        case 400..<500:
+            throw NetworkError.unauthorized
+        default:
+            throw NetworkError.serverError(message: "")
         }
+        
     }
     
     mutating func logout() {
