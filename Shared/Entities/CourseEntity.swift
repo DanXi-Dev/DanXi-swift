@@ -8,6 +8,7 @@ struct DKCourseGroup: Hashable, Codable, Identifiable {
 
 struct DKCourse: Hashable, Codable, Identifiable {
     let id: Int
+    let credit: Double
     let name, code, codeId, department, campus, teachers: String
     let maxStudent, weekHour, year, semester: Int
     let reviews: [DKReview]

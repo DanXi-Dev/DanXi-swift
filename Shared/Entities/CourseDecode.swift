@@ -10,7 +10,7 @@ extension DKCourseGroup {
 
 extension DKCourse {
     enum CodingKeys: String, CodingKey {
-        case id, name, code, department, teachers, year, semester
+        case id, name, code, department, teachers, year, semester, credit
         case codeId = "code_id"
         case campus = "campus_name"
         case maxStudent = "max_student"
@@ -31,6 +31,7 @@ extension DKCourse {
         weekHour = try values.decode(Int.self, forKey: .weekHour)
         year = try values.decode(Int.self, forKey: .year)
         semester = try values.decode(Int.self, forKey: .semester)
+        credit = try values.decodeIfPresent(Double.self, forKey: .credit) ?? 0
         reviews = try values.decodeIfPresent([DKReview].self, forKey: .reviews) ?? []
     }
 }
