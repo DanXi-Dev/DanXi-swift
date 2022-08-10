@@ -4,26 +4,18 @@ struct CourseView: View {
     let courseGroup: DKCourseGroup
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(String(format: "%.1f", courseGroup.courses[0].credit)) Credit")
-                    .tagStyle(color: .accentColor)
-                
-                Text(courseGroup.code)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
+        VStack(alignment: .leading) {
+            Text("\(String(format: "%.1f", courseGroup.courses[0].credit)) Credit")
+                .tagStyle(color: .accentColor)
             
-            HStack {
-                Text(courseGroup.name)
-                    .bold()
-                    .font(.title2)
-                Spacer()
-                Text(courseGroup.department)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+            Text(courseGroup.name)
+                .bold()
+                .font(.title2)
+                .padding(.bottom, 1.0)
+            
+            Text("\(courseGroup.department) - \(courseGroup.code)")
+                .font(.caption)
+                .foregroundColor(.secondary)
         }
         .padding(.vertical)
     }
