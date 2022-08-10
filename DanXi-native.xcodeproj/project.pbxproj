@@ -21,6 +21,7 @@
 		27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA028A3E4DF00C661BD /* CourseView.swift */; };
 		27719AA428A3E8E100C661BD /* course.json in Resources */ = {isa = PBXBuildFile; fileRef = 27719AA328A3E8E100C661BD /* course.json */; };
 		27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA528A3EAB100C661BD /* CourseMainPage.swift */; };
+		27719AAA28A3FFEF00C661BD /* course-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27719AA928A3FFEF00C661BD /* course-list.json */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */; };
 		2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */; };
@@ -78,6 +79,7 @@
 		27719AA028A3E4DF00C661BD /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
 		27719AA328A3E8E100C661BD /* course.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = course.json; sourceTree = "<group>"; };
 		27719AA528A3EAB100C661BD /* CourseMainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMainPage.swift; sourceTree = "<group>"; };
+		27719AA928A3FFEF00C661BD /* course-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "course-list.json"; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeDecode.swift; sourceTree = "<group>"; };
 		2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeEntity.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				27719AA328A3E8E100C661BD /* course.json */,
+				27719AA928A3FFEF00C661BD /* course-list.json */,
 			);
 			path = course;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 			files = (
 				27719AA428A3E8E100C661BD /* course.json in Resources */,
 				272AC8DD2896E2B600092B0C /* tags.json in Resources */,
+				27719AAA28A3FFEF00C661BD /* course-list.json in Resources */,
 				27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */,
 				27D6F4582892C96E0059228F /* hole.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,

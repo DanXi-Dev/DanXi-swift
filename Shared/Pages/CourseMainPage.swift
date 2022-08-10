@@ -3,7 +3,15 @@ import SwiftUI
 struct CourseMainPage: View {
     @AppStorage("course-data") var courseData = Data() // cache data
     @AppStorage("course-hash") var courseHash = ""
-    @State var courses: [DKCourseGroup] = []
+    @State var courses: [DKCourseGroup]
+    
+    init() {
+        self._courses = State(initialValue: [])
+    }
+    
+    init(courses: [DKCourseGroup]) {
+        self._courses = State(initialValue: courses)
+    }
     
     @State var searchText = ""
     var searchResults: [DKCourseGroup] {
@@ -15,7 +23,7 @@ struct CourseMainPage: View {
         }
     }
     
-    func initialLoad() async {
+    func initialLoad() async {        
         do { // check hash, try decode from local storage
             let newHash = try await networks.loadCourseHash()
             if newHash == courseHash { // no change from last fetch, use local storage
@@ -54,6 +62,8 @@ struct CourseMainPage: View {
 
 struct CourseMainPage_Previews: PreviewProvider {
     static var previews: some View {
-        CourseMainPage()
+        NavigationView {
+            CourseMainPage(courses: PreviewDecode.decodeList(name: "course-list"))
+        }
     }
 }
