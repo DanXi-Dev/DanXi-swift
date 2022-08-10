@@ -38,7 +38,7 @@ extension THFloor {
             updateTime = ut
             createTime = ct
         } else {
-            throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
+            throw NetworkError.invalidResponse
         }
         
         self.posterColor = randomColor(name: posterName)
@@ -73,7 +73,7 @@ extension THUser {
         if let time = formatter.date(from: iso8601JoinTime) {
             joinTime = time
         } else {
-            throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
+            throw NetworkError.invalidResponse
         }
     }
 }
@@ -145,7 +145,7 @@ extension THHole {
             updateTime = ut
             createTime = ct
         } else {
-            throw TreeholeError.invalidFormat(reason: "Invalid ISO8601 Date")
+            throw NetworkError.invalidResponse
         }
         
         let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)

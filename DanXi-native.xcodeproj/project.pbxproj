@@ -22,6 +22,7 @@
 		27719AA428A3E8E100C661BD /* course.json in Resources */ = {isa = PBXBuildFile; fileRef = 27719AA328A3E8E100C661BD /* course.json */; };
 		27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA528A3EAB100C661BD /* CourseMainPage.swift */; };
 		27719AAA28A3FFEF00C661BD /* course-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27719AA928A3FFEF00C661BD /* course-list.json */; };
+		27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AAB28A4145F00C661BD /* NetworkError.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */; };
 		2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */; };
@@ -80,6 +81,7 @@
 		27719AA328A3E8E100C661BD /* course.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = course.json; sourceTree = "<group>"; };
 		27719AA528A3EAB100C661BD /* CourseMainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMainPage.swift; sourceTree = "<group>"; };
 		27719AA928A3FFEF00C661BD /* course-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "course-list.json"; sourceTree = "<group>"; };
+		27719AAB28A4145F00C661BD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeDecode.swift; sourceTree = "<group>"; };
 		2778D6022891D22D009F4DB1 /* TreeholeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeEntity.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				2778D6042891D22D009F4DB1 /* NetworkRequests.swift */,
 				27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */,
 				27719A9728A3C39E00C661BD /* CourseNetworks.swift */,
+				27719AAB28A4145F00C661BD /* NetworkError.swift */,
 			);
 			path = Networks;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
+				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
 				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */,
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,

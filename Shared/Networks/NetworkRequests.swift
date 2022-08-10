@@ -3,15 +3,7 @@ import Foundation
 let FDUHOLE_AUTH_URL = "https://auth.fduhole.com/api"
 let FDUHOLE_BASE_URL = "https://api.fduhole.com"
 
-public enum TreeholeError: LocalizedError {
-    case unauthorized
-    case notInitialized
-    case networkError
-    case serverError
-    case serverReturnedError(message: String)
-    case invalidResponse
-    case invalidFormat(reason: String)
-}
+
 
 var networks = NetworkRequests()
 
@@ -31,7 +23,7 @@ struct NetworkRequests {
     
     func networkRequest(url: URL, data: Data? = nil, method: String? = nil) async throws -> Data {
         guard let token = self.token else {
-            throw TreeholeError.notInitialized
+            throw NetworkError.notInitialized
         }
         
         var request = URLRequest(url: url)
@@ -50,9 +42,9 @@ struct NetworkRequests {
         case 200..<300:
             return data
         case 400..<500:
-            throw TreeholeError.unauthorized // TODO: if 401, refresh token
+            throw NetworkError.unauthorized // TODO: if 401, refresh token
         default:
-            throw TreeholeError.serverError
+            throw NetworkError.serverError(message: "")
         }
         
     }
@@ -93,12 +85,12 @@ struct NetworkRequests {
                     }
                 }
             case 400..<500:
-                throw TreeholeError.unauthorized
+                throw NetworkError.unauthorized
             default:
-                throw TreeholeError.serverError
+                throw NetworkError.serverError(message: "")
             }
         } catch {
-            throw TreeholeError.networkError
+            throw NetworkError.networkError
         }
     }
     
