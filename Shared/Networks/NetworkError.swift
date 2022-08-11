@@ -6,7 +6,7 @@ public enum NetworkError: Error {
     case invalidResponse
     case forbidden
     case unauthorized
-    case notInitialized
+    case notInitialized // make network request without token, representing a bug
     case invalidRequest(message: String)
     case serverError(message: String)
     

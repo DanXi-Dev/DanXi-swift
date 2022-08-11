@@ -40,6 +40,11 @@ struct NetworkRequests {
     }
     
     func networkRequest(url: URL, data: Data? = nil, method: String? = nil) async throws -> Data {
+        
+        struct ServerMessage: Codable {
+            let message: String
+        }
+        
         guard let token = self.token else {
             throw NetworkError.notInitialized
         }
@@ -59,12 +64,19 @@ struct NetworkRequests {
         switch httpResponse.statusCode {
         case 200..<300:
             return data
+        case 401:
+            throw NetworkError.unauthorized // TODO: refresh token
+        case 403:
+            throw NetworkError.forbidden
         case 400..<500:
-            throw NetworkError.unauthorized // TODO: if 401, refresh token
+            let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
+            throw NetworkError.invalidRequest(message: serverResponse?.message ?? "")
+        case 500..<600:
+            let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
+            throw NetworkError.serverError(message: serverResponse?.message ?? "")
         default:
-            throw NetworkError.serverError(message: "")
+            throw NetworkError.networkError
         }
-        
     }
     
     // MARK: auth
