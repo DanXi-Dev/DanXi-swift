@@ -9,6 +9,10 @@ class TreeholeViewMode: ObservableObject {
     @Published var errorInfo = ErrorInfo()
     
     func initialLoad() async { // FIXME: SwiftUI bug, .task modifier might be executed twice, causing NSURLErrorCancelled
+        guard treeholeDataModel.divisions.isEmpty else { // prevent duplicate loading
+            return
+        }
+        
         do {
             let divisions = try await networks.loadDivisions()
             currentDivision = divisions[0]
