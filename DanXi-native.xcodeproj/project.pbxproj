@@ -51,11 +51,10 @@
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
-		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
-		F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B11292890EC9F00124DF8 /* MarkdownUI */; };
 		F1CF6B3828A4C1C200DF1642 /* NetworkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3728A4C1C200DF1642 /* NetworkCache.swift */; };
 		F1CF6B3C28A4C5D100DF1642 /* TagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagPage.swift */; };
+		F1CF6B3E28A5263200DF1642 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F1CF6B3D28A5263200DF1642 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -134,8 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77F437F027D7A3180082920E /* Alamofire in Frameworks */,
-				F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */,
+				F1CF6B3E28A5263200DF1642 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,8 +394,7 @@
 			);
 			name = "DanXi-native";
 			packageProductDependencies = (
-				77F437EF27D7A3180082920E /* Alamofire */,
-				F14B11292890EC9F00124DF8 /* MarkdownUI */,
+				F1CF6B3D28A5263200DF1642 /* MarkdownUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -428,10 +425,7 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
-				77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
-				F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
-				F14B11282890EC9F00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -726,14 +720,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
@@ -742,33 +728,12 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		F14B11282890EC9F00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		77F437EF27D7A3180082920E /* Alamofire */ = {
+		F1CF6B3D28A5263200DF1642 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 77F437EE27D7A3180082920E /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		F14B11292890EC9F00124DF8 /* MarkdownUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F14B11272890EC5100124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			package = F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
 			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "alamofire",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Alamofire/Alamofire.git",
-      "state" : {
-        "revision" : "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
-        "version" : "5.5.0"
-      }
-    },
-    {
       "identity" : "attributedtext",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gonzalezreal/AttributedText",
@@ -32,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/gonzalezreal/MarkdownUI",
       "state" : {
-        "branch" : "main",
-        "revision" : "6a33c60ad430772d69ac5278e35474d6b3e5d30a"
+        "revision" : "6a33c60ad430772d69ac5278e35474d6b3e5d30a",
+        "version" : "1.1.1"
       }
     },
     {
