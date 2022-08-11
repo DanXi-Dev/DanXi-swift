@@ -26,6 +26,11 @@ struct TreeholePage: View {
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
         .listStyle(.grouped)
         .navigationTitle(viewModel.currentDivision.name)
+        .alert(viewModel.errorInfo.title, isPresented: $viewModel.errorPresenting) {
+            Button("OK") { }
+        } message: {
+            Text(viewModel.errorInfo.description)
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 toolBar
