@@ -50,6 +50,8 @@
 		77F437F027D7A3180082920E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 77F437EF27D7A3180082920E /* Alamofire */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		F14B112A2890EC9F00124DF8 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F14B11292890EC9F00124DF8 /* MarkdownUI */; };
+		F1CF6B3828A4C1C200DF1642 /* NetworkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3728A4C1C200DF1642 /* NetworkCache.swift */; };
+		F1CF6B3C28A4C5D100DF1642 /* TagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +117,8 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1CF6B3728A4C1C200DF1642 /* NetworkCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCache.swift; sourceTree = "<group>"; };
+		F1CF6B3B28A4C5D100DF1642 /* TagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 			children = (
 				2778D6042891D22D009F4DB1 /* NetworkRequests.swift */,
 				27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */,
+				F1CF6B3728A4C1C200DF1642 /* NetworkCache.swift */,
 				27719A9728A3C39E00C661BD /* CourseNetworks.swift */,
 				27719AAB28A4145F00C661BD /* NetworkError.swift */,
 			);
@@ -197,6 +202,7 @@
 				2778D6092891D22D009F4DB1 /* LoginPage.swift */,
 				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
+				F1CF6B3B28A4C5D100DF1642 /* TagPage.swift */,
 				272AC8D92896BE2500092B0C /* FavoritesPage.swift */,
 				27719AA528A3EAB100C661BD /* CourseMainPage.swift */,
 			);
@@ -440,6 +446,7 @@
 				2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */,
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
+				F1CF6B3828A4C1C200DF1642 /* NetworkCache.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
@@ -448,6 +455,7 @@
 				2778D6212891D22D009F4DB1 /* NetworkRequests.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
+				F1CF6B3C28A4C5D100DF1642 /* TagPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
 				2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */,
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,

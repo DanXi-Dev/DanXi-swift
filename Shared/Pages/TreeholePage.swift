@@ -190,19 +190,28 @@ struct TreeholePage: View {
 
 struct ToolbarMenu: View {
     @State private var isActive = false // menu navigation workaround
+    @State private var navigationTarget: AnyView?
     
     var body: some View {
         Menu {
             Button {
+                self.navigationTarget = AnyView(FavoritesPage())
                 self.isActive = true
             } label: {
                 Label("favorites", systemImage: "star")
+            }
+            
+            Button {
+                self.navigationTarget = AnyView(TagPage())
+                self.isActive = true
+            } label: {
+                Label("tags", systemImage: "tag")
             }
         } label: {
             Image(systemName: "ellipsis.circle")
         }
         .background(
-            NavigationLink(destination: FavoritesPage(), isActive: $isActive) {
+            NavigationLink(destination: navigationTarget, isActive: $isActive) {
                 EmptyView()
             })
     }

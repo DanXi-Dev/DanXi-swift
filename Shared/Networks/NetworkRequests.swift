@@ -9,11 +9,19 @@ var networks = NetworkRequests()
 
 struct NetworkRequests {
     private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
+    
+    // MARK: Stored Properties
     var token: String?
+    
+    // Networking cache
+    var tags: [THTag] = []
+    var user: THUser?
     
     var isInitialized: Bool {
         token != nil
     }
+    
+    // MARK: General Methods
     
     init() {
         if let token = defaults?.string(forKey: "user-credential") {
