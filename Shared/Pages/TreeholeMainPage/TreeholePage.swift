@@ -3,54 +3,10 @@ import Foundation
 
 struct TreeholePage: View {
     @ObservedObject var model = treeholeDataModel
-    @State var currentDivision = THDivision.dummy
-    @State var currentDivisionId = 1
-    @State var holes: [THHole] = []
-    @State private var errorInfo: String? = nil
-    @State private var isUpdating = false
-    
+    @StateObject var viewModel = TreeholeViewMode()
+
     @State var searchText = ""
-    
     @State var showEditPage = false
-    
-    func initialLoad() async {
-        errorInfo = nil
-        isUpdating = true
-        defer { isUpdating = false }
-        do {
-            let divisions = try await networks.loadDivisions()
-            currentDivision = divisions[0]
-            model.divisions = divisions
-            Task {
-                await loadMoreHoles()
-            }
-        } catch {
-            errorInfo = error.localizedDescription
-        }
-    }
-    
-    func loadMoreHoles() async {
-        errorInfo = nil
-        isUpdating = true
-        defer { isUpdating = false }
-        do {
-            let newHoles = try await networks.loadHoles(startTime: holes.last?.iso8601UpdateTime, divisionId: currentDivision.id)
-            holes.append(contentsOf: newHoles)
-        } catch {
-            errorInfo = error.localizedDescription
-        }
-    }
-    
-    func changeDivision(division: THDivision) async {
-        holes = []
-        currentDivision = division
-        await loadMoreHoles()
-    }
-    
-    func refresh() async {
-        holes = []
-        await loadMoreHoles()
-    }
     
     var body: some View {
         List {
@@ -60,34 +16,21 @@ struct TreeholePage: View {
             } else {
                 searchSection
             }
-            if let errorInfo = errorInfo {
-                Button(errorInfo) {
-                    Task.init {
-                        if model.divisions.isEmpty {
-                            await initialLoad()
-                        } else {
-                            await loadMoreHoles()
-                        }
-                    }
-                }
-                .foregroundColor(.red)
-            }
         }
         .task {
-            await initialLoad()
+            await viewModel.initialLoad()
         }
         .refreshable {
-            await refresh()
+            await viewModel.refresh()
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
         .listStyle(.grouped)
-        .navigationTitle(currentDivision.name)
+        .navigationTitle(viewModel.currentDivision.name)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 toolBar
             }
         }
-        
     }
     
     private var filteredTags: [THTag] {
@@ -122,7 +65,7 @@ struct TreeholePage: View {
         if !filteredTags.isEmpty {
             Section("tags") {
                 ForEach(filteredTags) { tag in
-                    NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: currentDivisionId)) {
+                    NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: viewModel.currentDivisionId)) {
                         Label(tag.name, systemImage: "tag")
                     }
                 }
@@ -132,14 +75,14 @@ struct TreeholePage: View {
     
     private var pinnedSection: some View {
         Section {
-            ForEach(currentDivision.pinned) { hole in
+            ForEach(viewModel.currentDivision.pinned) { hole in
                 HoleView(hole: hole)
                     .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
             }
         } header: {
             VStack(alignment: .leading) {
                 switchBar
-                if !currentDivision.pinned.isEmpty {
+                if !viewModel.currentDivision.pinned.isEmpty {
                     Label("pinned", systemImage: "pin.fill")
                 }
             }
@@ -149,25 +92,25 @@ struct TreeholePage: View {
     
     private var mainSection: some View {
         Section {
-            ForEach(holes) { hole in
+            ForEach(viewModel.holes) { hole in
                 HoleView(hole: hole)
                     .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
                     .task {
-                        if hole == holes.last {
-                            await loadMoreHoles()
+                        if hole == viewModel.holes.last {
+                            await viewModel.loadMoreHoles()
                         }
                     }
             }
         } header: {
             Label("main_section", systemImage: "text.bubble.fill")
         } footer: {
-            if (isUpdating) { spinner }
+            spinner
         }
         .textCase(nil)
     }
     
     private var switchBar: some View {
-        Picker("division_selector", selection: $currentDivisionId) {
+        Picker("division_selector", selection: $viewModel.currentDivisionId) {
             ForEach(model.divisions) { division in
                 Text(division.name)
                     .tag(division.id)
@@ -175,10 +118,10 @@ struct TreeholePage: View {
         }
         .pickerStyle(.segmented)
         .offset(x: 0, y: -40)
-        .onChange(of: currentDivisionId) { newValue in
+        .onChange(of: viewModel.currentDivisionId) { newValue in
             Task {
                 let newDivision = model.divisions[newValue - 1]
-                await changeDivision(division: newDivision)
+                await viewModel.changeDivision(division: newDivision)
             }
         }
     }
@@ -191,7 +134,7 @@ struct TreeholePage: View {
                 Image(systemName: "square.and.pencil")
             }
             .sheet(isPresented: $showEditPage) {
-                EditPage(divisionId: currentDivisionId, showNewPostPage: $showEditPage)
+                EditPage(divisionId: viewModel.currentDivisionId, showNewPostPage: $showEditPage)
             }
         }
     }
