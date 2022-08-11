@@ -166,7 +166,7 @@ struct HoleDetailPage: View {
                 } header: {
                     if let hole = hole {
                         TagListNavigation(tags: hole.tags)
-                            
+                            .textCase(nil)
                     }
                 } footer: {
                     if !endReached {
