@@ -8,25 +8,19 @@ extension NetworkRequests {
     
     func loadUserInfo() async throws -> THUser {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/users")!
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode(THUser.self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     func loadDivisions() async throws -> [THDivision] {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions")!
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode([THDivision].self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     // MARK: tags
     
     func loadTags() async throws -> [THTag] {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/tags")!
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode([THTag].self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     func searchTag(tagName: String, divisionId: Int?, startTime: String? = nil) async throws -> [THHole] {
@@ -39,9 +33,7 @@ extension NetworkRequests {
             components.queryItems?.append(URLQueryItem(name: "division_id", value: String(divisionId)))
         }
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     // MARK: holes
@@ -53,16 +45,12 @@ extension NetworkRequests {
             components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
         }
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode([THHole].self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     func loadHoleById(holeId: Int) async throws -> THHole {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode(THHole.self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     func updateViews(holeId: Int) async throws {
@@ -93,9 +81,7 @@ extension NetworkRequests {
     
     func loadFavorites() async throws -> [THHole] {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        let data = try await networkRequest(url: components.url!)
-        let holes = try JSONDecoder().decode([THHole].self, from: data)
-        return holes
+        return try await requestObj(url: components.url!)
     }
     
     func toggleFavorites(holeId: Int, add: Bool) async throws -> [Int] {
@@ -112,9 +98,7 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        let data = try await networkRequest(url: components.url!, data: payloadData, method: add ? "POST" : "DELETE")
-        let decodedData = try JSONDecoder().decode(ServerResponse.self, from: data)
-        return decodedData.data
+        return try await requestObj(url: components.url!, data: payloadData, method: add ? "POST" : "DELETE")
     }
     
     // MARK: floor
@@ -126,16 +110,12 @@ extension NetworkRequests {
             URLQueryItem(name: "length", value: String(length)),
             URLQueryItem(name: "start_floor", value: String(startFloor))
         ]
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode([THFloor].self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     func loadFloorById(floorId: Int) async throws -> THFloor {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        let data = try await networkRequest(url: components.url!)
-        let decodedResponse = try JSONDecoder().decode(THFloor.self, from: data)
-        return decodedResponse
+        return try await requestObj(url: components.url!)
     }
     
     func deleteFloor(floorId: Int) async throws -> THFloor {
@@ -147,10 +127,7 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        let data = try await networkRequest(url: components.url!, data: payloadData, method: "DELETE")
-        
-        let floor = try JSONDecoder().decode(THFloor.self, from: data)
-        return floor
+        return try await requestObj(url: components.url!, data: payloadData, method: "DELETE")
     }
     
     func like(floorId: Int, like: Bool) async throws -> THFloor {
@@ -162,10 +139,7 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        let data = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
-        
-        let floor = try JSONDecoder().decode(THFloor.self, from: data)
-        return floor
+        return try await requestObj(url: components.url!, data: payloadData, method: "PUT")
     }
     
     func searchKeyword(keyword: String, startFloor: Int = 0) async throws -> [THFloor] {
@@ -175,10 +149,7 @@ extension NetworkRequests {
             URLQueryItem(name: "length", value: "10"),
             URLQueryItem(name: "start_floor", value: String(startFloor))
         ]
-        let data = try await networkRequest(url: components.url!)
-        
-        let floors = try JSONDecoder().decode([THFloor].self, from: data)
-        return floors
+        return try await requestObj(url: components.url!)
     }
     
     func reply(content: String, holdId: Int) async throws -> THFloor {
@@ -196,10 +167,7 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
-        let data = try await networkRequest(url: components.url!, data: payloadData)
-        
-        let responseData = try JSONDecoder().decode(ServerResponse.self, from: data)
-        return responseData.data
+        return try await requestObj(url: components.url!, data: payloadData)
     }
     
     func editReply(content: String, floorId: Int) async throws -> THFloor {
@@ -211,9 +179,6 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        let data = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
-        
-        let floor = try JSONDecoder().decode(THFloor.self, from: data)
-        return floor
+        return try await requestObj(url: components.url!, data: payloadData, method: "PUT")
     }
 }

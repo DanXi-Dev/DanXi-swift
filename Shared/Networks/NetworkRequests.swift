@@ -29,6 +29,16 @@ struct NetworkRequests {
         }
     }
     
+    // use generic type to decode server response
+    func requestObj<T: Decodable>(url: URL, data: Data? = nil, method: String? = nil) async throws -> T {
+        let data = try await networkRequest(url: url, data: data, method: method)
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            throw NetworkError.invalidResponse
+        }
+    }
+    
     func networkRequest(url: URL, data: Data? = nil, method: String? = nil) async throws -> Data {
         guard let token = self.token else {
             throw NetworkError.notInitialized
