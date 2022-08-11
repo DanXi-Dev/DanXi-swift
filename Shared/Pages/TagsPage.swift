@@ -55,7 +55,7 @@ struct TagsPage: View {
         }
         .searchable(text: $searchText)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("tags")
+        .navigationTitle("Tags")
     }
 }
 

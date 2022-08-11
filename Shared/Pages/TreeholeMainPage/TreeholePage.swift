@@ -71,14 +71,14 @@ struct ToolbarMenu: View {
                 self.navigationTarget = AnyView(FavoritesPage())
                 self.isActive = true
             } label: {
-                Label("favorites", systemImage: "star")
+                Label("Favorites", systemImage: "star")
             }
             
             Button {
                 self.navigationTarget = AnyView(TagsPage())
                 self.isActive = true
             } label: {
-                Label("tags", systemImage: "tag")
+                Label("Tags", systemImage: "tag")
             }
         } label: {
             Image(systemName: "ellipsis.circle")
