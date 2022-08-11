@@ -10,6 +10,18 @@ import SwiftUI
 struct TagPage: View {
     @State var tags: [THTag] = []
     @State private var isUpdating = false
+    @State private var errorInfo: String? = nil
+    
+    func update() async {
+        isUpdating = true
+        errorInfo = nil
+        defer { isUpdating = false }
+        do {
+            tags = try await networks.getTags()
+        } catch {
+            errorInfo = error.localizedDescription
+        }
+    }
     
     var body: some View {
         List {
@@ -17,25 +29,26 @@ struct TagPage: View {
                 ProgressView()
             }
             
-            ForEach(tags) { tag in
-                NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
-                    HStack {
-                        Text(tag.name)
-                            .tagStyle(color: tag.color)
-                        Label(String(tag.temperature), systemImage: "flame")
-                    }
+            if let errorInfo = errorInfo {
+                Button(errorInfo) {
+                    Task.init { await update() }
+                }
+                .foregroundColor(.red)
+            } else {
+                ForEach(tags) { tag in
+                    NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
+                        HStack {
+                            Text(tag.name)
+                                .tagStyle(color: tag.color)
+                            Label(String(tag.temperature), systemImage: "flame")
+                        }
                         .foregroundColor(tag.color)
+                    }
                 }
             }
         }
         .task {
-            isUpdating = true
-            defer { isUpdating = false }
-            do {
-                tags = try await networks.getTags()
-            } catch {
-                print("Failed to get tags \(error)")
-            }
+            await update()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("tags")

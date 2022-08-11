@@ -6,12 +6,17 @@ struct TreeholePage: View {
     @State var currentDivision = THDivision.dummy
     @State var currentDivisionId = 1
     @State var holes: [THHole] = []
+    @State private var errorInfo: String? = nil
+    @State private var isUpdating = false
     
     @State var searchText = ""
     
     @State var showEditPage = false
     
     func initialLoad() async {
+        errorInfo = nil
+        isUpdating = true
+        defer { isUpdating = false }
         do {
             let divisions = try await networks.loadDivisions()
             currentDivision = divisions[0]
@@ -20,16 +25,19 @@ struct TreeholePage: View {
                 await loadMoreHoles()
             }
         } catch {
-            print("DANXI-DEBUG: load division failed")
+            errorInfo = error.localizedDescription
         }
     }
     
     func loadMoreHoles() async {
+        errorInfo = nil
+        isUpdating = true
+        defer { isUpdating = false }
         do {
             let newHoles = try await networks.loadHoles(startTime: holes.last?.iso8601UpdateTime, divisionId: currentDivision.id)
             holes.append(contentsOf: newHoles)
         } catch {
-            print("DANXI-DEBUG: load holes failed")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -45,32 +53,41 @@ struct TreeholePage: View {
     }
     
     var body: some View {
-        if model.divisions.isEmpty {
-            ProgressView()
-                .task {
-                    await initialLoad()
-                }
-        } else {
-            List {
-                if searchText.isEmpty {
-                    pinnedSection
-                    mainSection
-                } else {
-                    searchSection
-                }
+        List {
+            if searchText.isEmpty {
+                pinnedSection
+                mainSection
+            } else {
+                searchSection
             }
-            .refreshable {
-                await refresh()
-            }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
-            .listStyle(.grouped)
-            .navigationTitle(currentDivision.name)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    toolBar
+            if let errorInfo = errorInfo {
+                Button(errorInfo) {
+                    Task.init {
+                        if model.divisions.isEmpty {
+                            await initialLoad()
+                        } else {
+                            await loadMoreHoles()
+                        }
+                    }
                 }
+                .foregroundColor(.red)
             }
         }
+        .task {
+            await initialLoad()
+        }
+        .refreshable {
+            await refresh()
+        }
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+        .listStyle(.grouped)
+        .navigationTitle(currentDivision.name)
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                toolBar
+            }
+        }
+        
     }
     
     private var filteredTags: [THTag] {
@@ -144,7 +161,7 @@ struct TreeholePage: View {
         } header: {
             Label("main_section", systemImage: "text.bubble.fill")
         } footer: {
-            spinner
+            if (isUpdating) { spinner }
         }
         .textCase(nil)
     }

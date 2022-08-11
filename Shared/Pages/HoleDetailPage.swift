@@ -8,6 +8,9 @@ struct HoleDetailPage: View {
     @State var holeId: Int?
     var targetFloorId: Int? = nil
     
+    @State private var errorInfo: String? = nil
+    @State private var isUpdating = false
+    
     init(hole: THHole) {
         self._hole = State(initialValue: hole)
         self._favorited = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
@@ -31,6 +34,9 @@ struct HoleDetailPage: View {
     @State var showReplyPage = false
     
     func initialLoad(proxy: ScrollViewProxy) async {
+        errorInfo = nil
+        isUpdating = true
+        defer { isUpdating = false }
         if holeId == nil && targetFloorId != nil {
             await loadToTargetFloor()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
@@ -65,12 +71,16 @@ struct HoleDetailPage: View {
             return
         }
         
+        errorInfo = nil
+        isUpdating = true
+        defer { isUpdating = false }
+        
         do {
             let newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
         } catch {
-            print("DANXI-DEBUG: load floors failed")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -79,10 +89,14 @@ struct HoleDetailPage: View {
             return
         }
         
+        errorInfo = nil
+        isUpdating = true
+        defer { isUpdating = false }
+        
         do {
             self.hole = try await networks.loadHoleById(holeId: holeId)
         } catch {
-            print("DANXI-DEBUG: load hole info failed")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -90,6 +104,10 @@ struct HoleDetailPage: View {
         guard let targetFloorId = targetFloorId else {
             return
         }
+        
+        errorInfo = nil
+        isUpdating = true
+        defer { isUpdating = false }
         
         do {
             let targetFloor = try await networks.loadFloorById(floorId: targetFloorId)
@@ -108,7 +126,7 @@ struct HoleDetailPage: View {
             } while !newFloors.isEmpty
             self.floors = floors // insert to view at last, preventing automatic refresh causing URLSession to cancel
         } catch {
-            print("DANXI-DEBUG: load to target floor failed")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -139,15 +157,22 @@ struct HoleDetailPage: View {
                             }
                             .id(floor.id)
                     }
+                    if let errorInfo = errorInfo {
+                        Button(errorInfo) {
+                            //TODO: retry
+                        }
+                        .foregroundColor(.red)
+                    }
                 } header: {
                     if let hole = hole {
                         TagListNavigation(tags: hole.tags)
+                            
                     }
                 } footer: {
                     if !endReached {
-                        HStack() {
+                        HStack {
                             Spacer()
-                            ProgressView()
+                            if (isUpdating) { ProgressView() }
                             Spacer()
                         }
                         .task {
