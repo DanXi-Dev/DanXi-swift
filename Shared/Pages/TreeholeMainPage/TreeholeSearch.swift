@@ -5,22 +5,58 @@ struct TreeholeSearch: View {
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
     @EnvironmentObject var viewModel: TreeholeViewModel
+    @AppStorage("treehole-search-history") var searchHistory: [String] = []
     
     private var filteredTags: [THTag] {
         return model.tags.filter { $0.name.contains(searchText) }
     }
     
+    func appendHistory(_ content: String) {
+        if searchHistory.contains(content) {
+            return
+        }
+
+        searchHistory.append(content)
+    }
+    
+    struct SearchHistoryEntry: Identifiable {
+        let id = UUID()
+        let content: String
+    }
+    
+    private var searchHistoryIdentifiable: [SearchHistoryEntry] {
+        return searchHistory.map { history in
+            SearchHistoryEntry(content: history)
+        }
+    }
+    
     var body: some View {
         List {
-            if !searchText.isEmpty {
+            if !searchText.isEmpty { // search tag
                 Section("Search Text") {
                     NavigationLink(destination: SearchTextPage(keyword: searchText)) {
                         Label(searchText, systemImage: "magnifyingglass")
                     }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        appendHistory(searchText)
+                    })
                 }
-            } else {
-                Section("Search History") {
-                    Text("") // TODO: search history
+            } else if !searchHistory.isEmpty { // search history
+                Section {
+                    ForEach(searchHistoryIdentifiable) { history in
+                        Label(history.content, systemImage: "clock")
+                            .onTapGesture {
+                                searchText = history.content
+                            }
+                    }
+                } header: {
+                    HStack {
+                        Text("Search History")
+                        Spacer()
+                        Button("Clear History") {
+                            searchHistory = []
+                        }
+                    }
                 }
             }
             
@@ -30,6 +66,9 @@ struct TreeholeSearch: View {
                     NavigationLink(destination: HoleDetailPage(holeId: holeId)) {
                         Label(searchText, systemImage: "arrow.right.square")
                     }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        appendHistory(searchText)
+                    })
                 }
             }
             
@@ -39,15 +78,22 @@ struct TreeholeSearch: View {
                     NavigationLink(destination: HoleDetailPage(targetFloorId: floorId)) {
                         Label(searchText, systemImage: "arrow.right.square")
                     }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        appendHistory(searchText)
+                    })
                 }
             }
             
+            // search tag
             if !filteredTags.isEmpty {
                 Section("Tags") {
                     ForEach(filteredTags) { tag in
                         NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: viewModel.currentDivisionId)) {
                             Label(tag.name, systemImage: "tag")
                         }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            appendHistory(searchText)
+                        })
                     }
                 }
             }
