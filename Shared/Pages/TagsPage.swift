@@ -8,30 +8,27 @@
 import SwiftUI
 
 struct TagsPage: View {
-    @State var tags: [THTag] = []
-    @State private var isUpdating = false
+    @ObservedObject private var model = treeholeDataModel
     @State private var errorInfo: String? = nil
     @State private var searchText = ""
     
     func update() async {
-        isUpdating = true
         errorInfo = nil
-        defer { isUpdating = false }
         do {
-            tags = try await networks.getTags()
+            model.tags = try await networks.loadTags()
         } catch {
             errorInfo = error.localizedDescription
         }
     }
     
     private var filteredTags: [THTag] {
-        if searchText.isEmpty { return tags }
-        return tags.filter { $0.name.contains(searchText) }
+        if searchText.isEmpty { return model.tags }
+        return model.tags.filter { $0.name.contains(searchText) }
     }
     
     var body: some View {
         List {
-            if isUpdating {
+            if model.tags.isEmpty { // FIXME: This isn't a very good way to determine whether tags are being loaded
                 ProgressView()
             }
             
@@ -53,7 +50,7 @@ struct TagsPage: View {
                 }
             }
         }
-        .task {
+        .refreshable {
             await update()
         }
         .searchable(text: $searchText)
@@ -65,8 +62,8 @@ struct TagsPage: View {
 struct TagPage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TagsPage(tags: PreviewDecode.decodeObj(name: "tags")!)
-            TagsPage(tags: PreviewDecode.decodeObj(name: "tags")!)
+            TagsPage()
+            TagsPage()
                 .preferredColorScheme(.dark)
         }
     }

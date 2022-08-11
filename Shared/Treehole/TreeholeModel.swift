@@ -21,7 +21,7 @@ class TreeholeDataModel: ObservableObject {
     func initialFetch() {
         Task { @MainActor in
             do {
-                async let tags = networks.getTags()
+                async let tags = networks.loadTags()
                 async let user = networks.loadUserInfo()
                 
                 self.tags = try await tags
