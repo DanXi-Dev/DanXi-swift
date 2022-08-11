@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct TagPage: View {
+struct TagsPage: View {
     @State var tags: [THTag] = []
     @State private var isUpdating = false
     @State private var errorInfo: String? = nil
+    @State private var searchText = ""
     
     func update() async {
         isUpdating = true
@@ -21,6 +22,11 @@ struct TagPage: View {
         } catch {
             errorInfo = error.localizedDescription
         }
+    }
+    
+    private var filteredTags: [THTag] {
+        if searchText.isEmpty { return tags }
+        return tags.filter { $0.name.contains(searchText) }
     }
     
     var body: some View {
@@ -35,7 +41,7 @@ struct TagPage: View {
                 }
                 .foregroundColor(.red)
             } else {
-                ForEach(tags) { tag in
+                ForEach(filteredTags) { tag in
                     NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
                         HStack {
                             Text(tag.name)
@@ -50,6 +56,7 @@ struct TagPage: View {
         .task {
             await update()
         }
+        .searchable(text: $searchText)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("tags")
     }
@@ -58,8 +65,8 @@ struct TagPage: View {
 struct TagPage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TagPage(tags: PreviewDecode.decodeObj(name: "tags")!)
-            TagPage(tags: PreviewDecode.decodeObj(name: "tags")!)
+            TagsPage(tags: PreviewDecode.decodeObj(name: "tags")!)
+            TagsPage(tags: PreviewDecode.decodeObj(name: "tags")!)
                 .preferredColorScheme(.dark)
         }
     }

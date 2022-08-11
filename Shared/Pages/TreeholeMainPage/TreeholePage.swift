@@ -75,7 +75,7 @@ struct ToolbarMenu: View {
             }
             
             Button {
-                self.navigationTarget = AnyView(TagPage())
+                self.navigationTarget = AnyView(TagsPage())
                 self.isActive = true
             } label: {
                 Label("tags", systemImage: "tag")
