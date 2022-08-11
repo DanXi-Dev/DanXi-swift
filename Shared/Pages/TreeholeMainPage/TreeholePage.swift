@@ -7,6 +7,7 @@ struct TreeholePage: View {
 
     @State var searchText = ""
     @State var showEditPage = false
+    @State var searchSubmitted = false
     
     var body: some View {
         List {
@@ -15,6 +16,10 @@ struct TreeholePage: View {
                 mainSection
             } else {
                 searchSection
+                    .background(
+                        NavigationLink(destination: SearchTextPage(keyword: searchText), isActive: $searchSubmitted) {
+                            EmptyView()
+                        })
             }
         }
         .task {
@@ -24,6 +29,9 @@ struct TreeholePage: View {
             await viewModel.refresh()
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+        .onSubmit(of: .search) {
+            searchSubmitted = true
+        }
         .listStyle(.grouped)
         .navigationTitle(viewModel.currentDivision.name)
         .alert(viewModel.errorInfo.title, isPresented: $viewModel.errorPresenting) {
