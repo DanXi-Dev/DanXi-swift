@@ -67,10 +67,11 @@
 
 // Search Page
 "search_result" = "搜索结果";
-"search_text" = "搜索文字";
-"jump_to_hole" = "跳转到树洞";
-"jump_to_floor" = "跳转到楼层";
-"tags" = "标签";
+"Search Text" = "搜索文字";
+"Search History" = "搜索历史";
+"Jump to Hole" = "跳转到树洞";
+"Jump to Floor" = "跳转到楼层";
+"Tags" = "标签";
 
 // Course
 "%@ Credit" = "%@学分";

@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-class TreeholeViewMode: ObservableObject {
+class TreeholeViewModel: ObservableObject {
     @Published var currentDivision = THDivision.dummy
     @Published var currentDivisionId = 1
     @Published var holes: [THHole] = []
