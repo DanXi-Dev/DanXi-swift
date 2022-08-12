@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+struct TagRowView: View {
+    let tag: THTag
+    
+    var body: some View {
+        HStack {
+            Text(tag.name)
+                .tagStyle(color: tag.color)
+            Label(String(tag.temperature), systemImage: "flame")
+        }
+        .foregroundColor(tag.color)
+    }
+}
+
 struct TagsPage: View {
     @ObservedObject private var model = treeholeDataModel
     @State private var errorInfo: String? = nil
@@ -40,12 +53,7 @@ struct TagsPage: View {
             } else {
                 ForEach(filteredTags) { tag in
                     NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
-                        HStack {
-                            Text(tag.name)
-                                .tagStyle(color: tag.color)
-                            Label(String(tag.temperature), systemImage: "flame")
-                        }
-                        .foregroundColor(tag.color)
+                        TagRowView(tag: tag)
                     }
                 }
             }

@@ -125,15 +125,8 @@ struct THTagSelection: View {
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always)) {
             
             ForEach(searchResults) { result in
-                HStack(alignment: .bottom, spacing: 15) {
-                    Text(result.name)
-                        .tagStyle(color: .pink, fontSize: 18)
-                    Label(String(result.temperature), systemImage: "flame")
-                        .foregroundColor(.red)
-                        .font(.caption)
-                    
-                    Spacer()
-                    Button("add", action: { tagList.append(result) })
+                Button(action: { tagList.append(result) }) {
+                    TagRowView(tag: result)
                 }
             }
         }
