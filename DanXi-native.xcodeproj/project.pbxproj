@@ -52,8 +52,21 @@
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
+		F12D43EE28A635700075CCA1 /* RendererViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D43ED28A635700075CCA1 /* RendererViews.swift */; };
+		F191139A28A643090067BA61 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191138C28A643090067BA61 /* Deprecations.swift */; };
+		F191139B28A643090067BA61 /* Measurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191138E28A643090067BA61 /* Measurements.swift */; };
+		F191139C28A643090067BA61 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191138F28A643090067BA61 /* Font.swift */; };
+		F191139D28A643090067BA61 /* HeadingScales.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139028A643090067BA61 /* HeadingScales.swift */; };
+		F191139E28A643090067BA61 /* MarkdownStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139128A643090067BA61 /* MarkdownStyle.swift */; };
+		F191139F28A643090067BA61 /* MarkdownImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139228A643090067BA61 /* MarkdownImageHandler.swift */; };
+		F19113A028A643090067BA61 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139328A643090067BA61 /* Markdown.swift */; };
+		F19113A128A643090067BA61 /* Document+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139528A643090067BA61 /* Document+NSAttributedString.swift */; };
+		F19113A228A643090067BA61 /* NSAttributedString+ImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139628A643090067BA61 /* NSAttributedString+ImageLoading.swift */; };
+		F19113A328A643090067BA61 /* AttributedStringRenderer+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139728A643090067BA61 /* AttributedStringRenderer+Environment.swift */; };
+		F19113A428A643090067BA61 /* ResizableImageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139828A643090067BA61 /* ResizableImageAttachment.swift */; };
+		F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139928A643090067BA61 /* AttributedStringRenderer.swift */; };
+		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */; };
-		F1CF6B3E28A5263200DF1642 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F1CF6B3D28A5263200DF1642 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -123,6 +136,19 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F12D43ED28A635700075CCA1 /* RendererViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererViews.swift; sourceTree = "<group>"; };
+		F191138C28A643090067BA61 /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecations.swift; sourceTree = "<group>"; };
+		F191138E28A643090067BA61 /* Measurements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurements.swift; sourceTree = "<group>"; };
+		F191138F28A643090067BA61 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		F191139028A643090067BA61 /* HeadingScales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadingScales.swift; sourceTree = "<group>"; };
+		F191139128A643090067BA61 /* MarkdownStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStyle.swift; sourceTree = "<group>"; };
+		F191139228A643090067BA61 /* MarkdownImageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownImageHandler.swift; sourceTree = "<group>"; };
+		F191139328A643090067BA61 /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
+		F191139528A643090067BA61 /* Document+NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Document+NSAttributedString.swift"; sourceTree = "<group>"; };
+		F191139628A643090067BA61 /* NSAttributedString+ImageLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+ImageLoading.swift"; sourceTree = "<group>"; };
+		F191139728A643090067BA61 /* AttributedStringRenderer+Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AttributedStringRenderer+Environment.swift"; sourceTree = "<group>"; };
+		F191139828A643090067BA61 /* ResizableImageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizableImageAttachment.swift; sourceTree = "<group>"; };
+		F191139928A643090067BA61 /* AttributedStringRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringRenderer.swift; sourceTree = "<group>"; };
 		F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1CF6B3E28A5263200DF1642 /* MarkdownUI in Frameworks */,
+				F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +255,7 @@
 				2778D6152891D22D009F4DB1 /* HoleView.swift */,
 				2778D6132891D22D009F4DB1 /* FloorView.swift */,
 				2778D6142891D22D009F4DB1 /* TagView.swift */,
+				F12D43ED28A635700075CCA1 /* RendererViews.swift */,
 				27719AA028A3E4DF00C661BD /* CourseView.swift */,
 			);
 			path = Components;
@@ -333,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
+				F191138B28A643090067BA61 /* MarkdownUI */,
 				2778D6052891D22D009F4DB1 /* Pages */,
 				2778D6122891D22D009F4DB1 /* Components */,
 				27719A9928A3C43400C661BD /* Entities */,
@@ -373,6 +401,42 @@
 			path = "DanXi-native";
 			sourceTree = "<group>";
 		};
+		F191138B28A643090067BA61 /* MarkdownUI */ = {
+			isa = PBXGroup;
+			children = (
+				F191138C28A643090067BA61 /* Deprecations.swift */,
+				F191138D28A643090067BA61 /* Style */,
+				F191139228A643090067BA61 /* MarkdownImageHandler.swift */,
+				F191139328A643090067BA61 /* Markdown.swift */,
+				F191139428A643090067BA61 /* Rendering */,
+			);
+			name = MarkdownUI;
+			path = ../../../Downloads/MarkdownUI;
+			sourceTree = "<group>";
+		};
+		F191138D28A643090067BA61 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				F191138E28A643090067BA61 /* Measurements.swift */,
+				F191138F28A643090067BA61 /* Font.swift */,
+				F191139028A643090067BA61 /* HeadingScales.swift */,
+				F191139128A643090067BA61 /* MarkdownStyle.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
+		F191139428A643090067BA61 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				F191139528A643090067BA61 /* Document+NSAttributedString.swift */,
+				F191139628A643090067BA61 /* NSAttributedString+ImageLoading.swift */,
+				F191139728A643090067BA61 /* AttributedStringRenderer+Environment.swift */,
+				F191139828A643090067BA61 /* ResizableImageAttachment.swift */,
+				F191139928A643090067BA61 /* AttributedStringRenderer.swift */,
+			);
+			path = Rendering;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -391,7 +455,7 @@
 			);
 			name = "DanXi-native";
 			packageProductDependencies = (
-				F1CF6B3D28A5263200DF1642 /* MarkdownUI */,
+				F19113A728A644A80067BA61 /* MarkdownUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -422,7 +486,7 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
-				F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				F19113A628A644A80067BA61 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -457,13 +521,18 @@
 				2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */,
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
+				F19113A028A643090067BA61 /* Markdown.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				27227FD328A508CB00B3C99D /* TreeholeSearch.swift in Sources */,
 				27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */,
+				F191139B28A643090067BA61 /* Measurements.swift in Sources */,
+				F191139E28A643090067BA61 /* MarkdownStyle.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* NetworkRequests.swift in Sources */,
+				F191139D28A643090067BA61 /* HeadingScales.swift in Sources */,
+				F19113A428A643090067BA61 /* ResizableImageAttachment.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
@@ -472,26 +541,34 @@
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
+				F19113A128A643090067BA61 /* Document+NSAttributedString.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
+				F19113A228A643090067BA61 /* NSAttributedString+ImageLoading.swift in Sources */,
 				27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
+				F191139F28A643090067BA61 /* MarkdownImageHandler.swift in Sources */,
 				27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
+				F19113A328A643090067BA61 /* AttributedStringRenderer+Environment.swift in Sources */,
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */,
 				27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
+				F191139C28A643090067BA61 /* Font.swift in Sources */,
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
+				F12D43EE28A635700075CCA1 /* RendererViews.swift in Sources */,
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
+				F191139A28A643090067BA61 /* Deprecations.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
 				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */,
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,
+				F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */,
 				2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */,
 			);
@@ -716,20 +793,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+		F19113A628A644A80067BA61 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F1CF6B3D28A5263200DF1642 /* MarkdownUI */ = {
+		F19113A728A644A80067BA61 /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F14B11262890EC1D00124DF8 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			package = F19113A628A644A80067BA61 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
 			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */

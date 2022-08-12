@@ -1,5 +1,4 @@
 import SwiftUI
-import MarkdownUI
 
 struct FloorView: View {
     @State var floor: THFloor
