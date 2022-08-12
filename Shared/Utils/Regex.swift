@@ -13,7 +13,7 @@ extension String {
     func stripToBasicMarkdown() -> String {
         let text = NSMutableString(string: self)
         
-        _ = try? NSRegularExpression(pattern: #"\$\$.*?\$\$"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("formula_tag", comment: "Formula Tag"))
+        _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("formula_tag", comment: "Formula Tag"))
         
         _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("image_tag", comment: "Image Tag"))
         
