@@ -1,4 +1,5 @@
 import Foundation
+import UserNotifications
 
 class TreeholeDataModel: ObservableObject {
     static let shared = TreeholeDataModel()
@@ -19,6 +20,11 @@ class TreeholeDataModel: ObservableObject {
         
         loggedIn = true
         initialFetch()
+        
+        // Request Notification Permission After Log In
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .badge, .sound],
+            completionHandler: {_, _ in })
     }
     
     func initialFetch() {
