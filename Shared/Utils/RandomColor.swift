@@ -46,5 +46,4 @@ func randomColor(name: String) -> Color {
     }
     sum %= Color.randomColorList.count
     return Color.randomColorList[sum]
-    
 }

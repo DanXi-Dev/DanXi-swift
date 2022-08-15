@@ -11,14 +11,9 @@ import NaturalLanguage
 
 class TagPredictor {
     let models: [NLModel]
+    let modelCapacity = 25
     
     static let shared = try? TagPredictor()
-    
-    enum TagPredictionModelOption {
-        case maxEntropy
-        case transferLearning
-        case mixed
-    }
     
     init() throws {
         // TODO: Use Cloud Deployment
@@ -29,8 +24,19 @@ class TagPredictor {
         models = [tagPredModelME, tagPredModelTL]
     }
     
+    func suggest(_ text: String, threshold: Double = 0.2) -> [String] {
+        var suggestions: [String] = []
+        for model in models {
+            let labelHypotheses = model.predictedLabelHypotheses(for: text.stripToNLProcessableString(), maximumCount: modelCapacity)
+            suggestions += labelHypotheses.filter({ key, value in
+                return value >= threshold
+            }).keys
+        }
+        return suggestions
+    }
+    
     func debugPredictTagForText(_ text: String, modelId: Int = 0) -> String {
-        let labelHypotheses = self.models[modelId].predictedLabelHypotheses(for: text.stripToNLProcessableString(), maximumCount: 25)
+        let labelHypotheses = self.models[modelId].predictedLabelHypotheses(for: text.stripToNLProcessableString(), maximumCount: modelCapacity)
         var string = ""
         for (label, confd) in labelHypotheses {
             if confd < 0.1 {

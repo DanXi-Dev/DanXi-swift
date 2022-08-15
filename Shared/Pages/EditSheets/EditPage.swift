@@ -33,7 +33,7 @@ struct EditPage: View {
                             Label("select_tags", systemImage: "tag")
                         }
                     }
-                    
+                    suggestedTags
                     editSection
                 }
             }
@@ -41,7 +41,7 @@ struct EditPage: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("cancel", action: {
+                    Button("Cancel", action: {
                         showNewPostPage = false
                     })
                 }
@@ -49,6 +49,37 @@ struct EditPage: View {
                     Button("send", action: sendPost)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var suggestedTags: some View {
+        if let predictor = TagPredictor.shared {
+            Section("Suggested Tags") {
+                if (content.count > 10) {
+                    // TODO: Add a slight delay to prevent prediction at every type
+                    // TODO: Add animation
+                    // TODO: Put this in one row to save space
+                    List {
+                        ForEach(predictor.suggest(content), id: \.self) { prediction in
+                            Button(action: {tags.append(THTag(id: 0, temperature: 0, name: prediction))}) {
+                                Text(prediction)
+                                    .tagStyle(color: randomColor(name: prediction))
+                            }
+                        }
+                    }
+                    .transition(.slide)
+                } else {
+                    HStack {
+                        Text("Type more to get suggestions...")
+                        Spacer()
+                        ProgressView()
+                    }
+                    .transition(.slide)
+                }
+            }
+        } else {
+            // TODO: Handle CoreML init failure
         }
     }
     
