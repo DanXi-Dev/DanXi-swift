@@ -13,14 +13,14 @@ struct HoleDetailPage: View {
     
     init(hole: THHole) {
         self._hole = State(initialValue: hole)
-        self._favorited = State(initialValue: treeholeDataModel.user?.favorites.contains(hole.id) ?? false)
+        self._favorited = State(initialValue: TreeholeDataModel.shared.user?.favorites.contains(hole.id) ?? false)
         self._holeId = State(initialValue: hole.id)
         self._floors = State(initialValue: hole.floors)
     }
     
     init(holeId: Int) { // init from hole ID, load info afterwards
         self._hole = State(initialValue: nil)
-        self._favorited = State(initialValue: treeholeDataModel.user?.favorites.contains(holeId) ?? false)
+        self._favorited = State(initialValue: TreeholeDataModel.shared.user?.favorites.contains(holeId) ?? false)
         self._holeId = State(initialValue: holeId)
     }
     
@@ -59,7 +59,7 @@ struct HoleDetailPage: View {
         
         Task { // update viewing number in background task
             do {
-                try await networks.updateViews(holeId: holeId)
+                try await NetworkRequests.shared.updateViews(holeId: holeId)
             } catch {
                 print("DANXI-DEBUG: update views failed")
             }
@@ -76,7 +76,7 @@ struct HoleDetailPage: View {
         defer { isUpdating = false }
         
         do {
-            let newFloors = try await networks.loadFloors(holeId: holeId, startFloor: floors.count)
+            let newFloors = try await NetworkRequests.shared.loadFloors(holeId: holeId, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
         } catch {
@@ -94,7 +94,7 @@ struct HoleDetailPage: View {
         defer { isUpdating = false }
         
         do {
-            self.hole = try await networks.loadHoleById(holeId: holeId)
+            self.hole = try await NetworkRequests.shared.loadHoleById(holeId: holeId)
         } catch {
             errorInfo = error.localizedDescription
         }
@@ -110,15 +110,15 @@ struct HoleDetailPage: View {
         defer { isUpdating = false }
         
         do {
-            let targetFloor = try await networks.loadFloorById(floorId: targetFloorId)
+            let targetFloor = try await NetworkRequests.shared.loadFloorById(floorId: targetFloorId)
                 
             self.holeId = targetFloor.holeId
-            self.hole = try await networks.loadHoleById(holeId: targetFloor.holeId)
+            self.hole = try await NetworkRequests.shared.loadHoleById(holeId: targetFloor.holeId)
             
             var newFloors: [THFloor] = []
             var floors: [THFloor] = []
             repeat {
-                newFloors = try await networks.loadFloors(holeId: targetFloor.holeId, startFloor: floors.count)
+                newFloors = try await NetworkRequests.shared.loadFloors(holeId: targetFloor.holeId, startFloor: floors.count)
                 floors.append(contentsOf: newFloors)
                 if newFloors.contains(targetFloor) {
                     break
@@ -136,8 +136,8 @@ struct HoleDetailPage: View {
         }
         
         do {
-            let favorites = try await networks.toggleFavorites(holeId: holeId, add: !favorited)
-            treeholeDataModel.updateFavorites(favorites: favorites)
+            let favorites = try await NetworkRequests.shared.toggleFavorites(holeId: holeId, add: !favorited)
+            TreeholeDataModel.shared.updateFavorites(favorites: favorites)
             favorited = favorites.contains(holeId)
         } catch {
             print("DANXI-DEBUG: toggle favorite failed")

@@ -25,7 +25,7 @@ struct CourseMainPage: View {
     
     func initialLoad() async {        
         do { // check hash, try decode from local storage
-            let newHash = try await networks.loadCourseHash()
+            let newHash = try await NetworkRequests.shared.loadCourseHash()
             if newHash == courseHash { // no change from last fetch, use local storage
                 courses = try JSONDecoder().decode([DKCourseGroup].self, from: courseData)
                 return
@@ -37,7 +37,7 @@ struct CourseMainPage: View {
         }
         
         do { // make network call
-            (courses, courseData) = try await networks.loadCourseGroups()
+            (courses, courseData) = try await NetworkRequests.shared.loadCourseGroups()
         } catch {
             print(error)
             print("DANXI-DEBUG: initial load failed")

@@ -2,7 +2,7 @@ import SwiftUI
 import Foundation
 
 struct TreeholePage: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     @StateObject var viewModel = TreeholeViewModel()
     
     @State var searchText = ""

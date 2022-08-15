@@ -8,9 +8,9 @@ struct HoleView: View {
             TagListSimple(tags: hole.tags)
             
             // A temporary preview for CoreML Model, will remove later
-            Text(predictTagForText(hole.firstFloor.content))
+            Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 0) ?? "MaxEntropy NLModel init failed")
                 .foregroundColor(.green)
-            Text(predictTagForTextTL(hole.firstFloor.content))
+            Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 1) ?? "TransferLearning NLModel init failed")
                 .foregroundColor(.red)
             
             if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {

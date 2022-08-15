@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TreeholeBrowse: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     @EnvironmentObject var viewModel: TreeholeViewModel
     
     var body: some View {

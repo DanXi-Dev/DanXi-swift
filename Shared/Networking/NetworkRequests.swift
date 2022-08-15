@@ -3,11 +3,8 @@ import Foundation
 let FDUHOLE_AUTH_URL = "https://auth.fduhole.com/api"
 let FDUHOLE_BASE_URL = "https://api.fduhole.com"
 
-
-
-var networks = NetworkRequests()
-
 struct NetworkRequests {
+    static var shared = NetworkRequests()
     private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
     
     // MARK: Stored Properties
@@ -111,7 +108,7 @@ struct NetworkRequests {
             
             if apnsToken != nil {
                 Task.init {
-                    await networks.uploadAPNSKey()
+                    await NetworkRequests.shared.uploadAPNSKey()
                 }
             }
         case 400..<500:
@@ -134,7 +131,7 @@ struct NetworkRequests {
         apnsToken = APNSToken(service: "apns", device_id: deviceId, token: token)
         if isInitialized {
             Task.init {
-                await networks.uploadAPNSKey()
+                await NetworkRequests.shared.uploadAPNSKey()
             }
         }
     }

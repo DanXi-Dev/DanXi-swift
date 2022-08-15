@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     
     @State var showTreeHoleLogin = false
     @State var showTreeHoleActions = false
@@ -66,7 +66,7 @@ struct SettingsPage: View {
             Button("logout", role: .destructive) {
                 withAnimation {
                     model.loggedIn = false
-                    networks.logout()
+                    NetworkRequests.shared.logout()
                 }
             }
         }

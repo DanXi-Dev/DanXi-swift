@@ -9,14 +9,14 @@ class TreeholeViewModel: ObservableObject {
     @Published var errorInfo = ErrorInfo()
     
     func initialLoad() async { // FIXME: SwiftUI bug, .task modifier might be executed twice, causing NSURLErrorCancelled
-        guard treeholeDataModel.divisions.isEmpty else { // prevent duplicate loading
+        guard TreeholeDataModel.shared.divisions.isEmpty else { // prevent duplicate loading
             return
         }
         
         do {
-            let divisions = try await networks.loadDivisions()
+            let divisions = try await NetworkRequests.shared.loadDivisions()
             currentDivision = divisions[0]
-            treeholeDataModel.divisions = divisions
+            TreeholeDataModel.shared.divisions = divisions
             Task {
                 await loadMoreHoles()
             }
@@ -30,7 +30,7 @@ class TreeholeViewModel: ObservableObject {
     
     func loadMoreHoles() async {
         do {
-            let newHoles = try await networks.loadHoles(startTime: holes.last?.iso8601UpdateTime, divisionId: currentDivision.id)
+            let newHoles = try await NetworkRequests.shared.loadHoles(startTime: holes.last?.iso8601UpdateTime, divisionId: currentDivision.id)
             holes.append(contentsOf: newHoles)
         } catch let error as NetworkError {
             self.errorInfo = error.localizedErrorDescription

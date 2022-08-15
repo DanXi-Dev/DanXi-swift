@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LoginPage: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     
     @Binding var showLoginPage: Bool // passed from caller, exit after successful login
     @State var username = ""
@@ -29,7 +29,7 @@ struct LoginPage: View {
         loading = true
         Task {
             do {
-                try await networks.login(username: username, password: password)
+                try await NetworkRequests.shared.login(username: username, password: password)
                 model.loggedIn = true
                 loading = false
                 showLoginPage = false

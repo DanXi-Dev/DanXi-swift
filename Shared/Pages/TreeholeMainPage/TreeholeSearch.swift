@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TreeholeSearch: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
     @EnvironmentObject var viewModel: TreeholeViewModel

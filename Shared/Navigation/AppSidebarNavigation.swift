@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppSidebarNavigation: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
 
     enum NavigationItem {
         case treehole

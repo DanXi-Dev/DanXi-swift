@@ -1,8 +1,8 @@
 import Foundation
 
-var treeholeDataModel = TreeholeDataModel()
-
 class TreeholeDataModel: ObservableObject {
+    static let shared = TreeholeDataModel()
+    
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var user: THUser?
@@ -21,8 +21,8 @@ class TreeholeDataModel: ObservableObject {
     func initialFetch() {
         Task { @MainActor in
             do {
-                async let tags = networks.loadTags()
-                async let user = networks.loadUserInfo()
+                async let tags = NetworkRequests.shared.loadTags()
+                async let user = NetworkRequests.shared.loadUserInfo()
                 
                 self.tags = try await tags
                 self.user = try await user

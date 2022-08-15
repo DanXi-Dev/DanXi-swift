@@ -7,7 +7,7 @@ struct ReplyPage: View {
     
     func reply() async {
         do {
-            _ = try await networks.reply(content: content, holdId: holeId)
+            _ = try await NetworkRequests.shared.reply(content: content, holdId: holeId)
             showReplyPage = false
         } catch {
             print("DANXI-DEBUG: reply failed")

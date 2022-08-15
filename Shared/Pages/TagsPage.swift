@@ -21,14 +21,14 @@ struct TagRowView: View {
 }
 
 struct TagsPage: View {
-    @ObservedObject private var model = treeholeDataModel
+    @ObservedObject private var model = TreeholeDataModel.shared
     @State private var errorInfo: String? = nil
     @State private var searchText = ""
     
     func update() async {
         errorInfo = nil
         do {
-            model.tags = try await networks.loadTags()
+            model.tags = try await NetworkRequests.shared.loadTags()
         } catch {
             errorInfo = error.localizedDescription
         }

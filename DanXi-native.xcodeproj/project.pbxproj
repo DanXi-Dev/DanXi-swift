@@ -16,8 +16,8 @@
 		272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* ReplyPage.swift */; };
 		272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyPage.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
-		27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */; };
-		27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworks.swift */; };
+		27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */; };
+		27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworking.swift */; };
 		27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9A28A3C45E00C661BD /* CourseEntity.swift */; };
 		27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9B28A3C45E00C661BD /* CourseDecode.swift */; };
 		27719A9F28A3C52E00C661BD /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9E28A3C52E00C661BD /* Regex.swift */; };
@@ -67,7 +67,7 @@
 		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
-		F1AE7C1728AA3F1600A3FEBA /* TagPredictor.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */; };
+		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
 		F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */; };
 /* End PBXBuildFile section */
@@ -95,8 +95,8 @@
 		272AC8E22896F29800092B0C /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* EditReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyPage.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
-		27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeNetworks.swift; sourceTree = "<group>"; };
-		27719A9728A3C39E00C661BD /* CourseNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNetworks.swift; sourceTree = "<group>"; };
+		27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeNetworking.swift; sourceTree = "<group>"; };
+		27719A9728A3C39E00C661BD /* CourseNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNetworking.swift; sourceTree = "<group>"; };
 		27719A9A28A3C45E00C661BD /* CourseEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseEntity.swift; sourceTree = "<group>"; };
 		27719A9B28A3C45E00C661BD /* CourseDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDecode.swift; sourceTree = "<group>"; };
 		27719A9E28A3C52E00C661BD /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 		F191139928A643090067BA61 /* AttributedStringRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringRenderer.swift; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* TreeholeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeSearch.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
-		F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictor.mlpackage; sourceTree = "<group>"; };
+		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
 		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
 		F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,15 +199,15 @@
 			path = EditSheets;
 			sourceTree = "<group>";
 		};
-		27719A9428A3C1B700C661BD /* Networks */ = {
+		27719A9428A3C1B700C661BD /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				2778D6042891D22D009F4DB1 /* NetworkRequests.swift */,
-				27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */,
-				27719A9728A3C39E00C661BD /* CourseNetworks.swift */,
+				27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */,
+				27719A9728A3C39E00C661BD /* CourseNetworking.swift */,
 				27719AAB28A4145F00C661BD /* NetworkError.swift */,
 			);
-			path = Networks;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		27719A9928A3C43400C661BD /* Entities */ = {
@@ -371,7 +371,7 @@
 				2778D6052891D22D009F4DB1 /* Pages */,
 				2778D6122891D22D009F4DB1 /* Components */,
 				27719A9928A3C43400C661BD /* Entities */,
-				27719A9428A3C1B700C661BD /* Networks */,
+				27719A9428A3C1B700C661BD /* Networking */,
 				2778D6002891D22D009F4DB1 /* Treehole */,
 				2778D61B2891D22D009F4DB1 /* Navigation */,
 				2778D6162891D22D009F4DB1 /* Utils */,
@@ -446,7 +446,7 @@
 		F1AE7C1528AA3C3500A3FEBA /* MachineLearning */ = {
 			isa = PBXGroup;
 			children = (
-				F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */,
+				F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */,
 				F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */,
 				F1AE7C1128A9514B00A3FEBA /* MLModels.swift */,
 			);
@@ -539,7 +539,7 @@
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
 				F19113A028A643090067BA61 /* Markdown.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
-				27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */,
+				27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */,
 				F191139B28A643090067BA61 /* Measurements.swift in Sources */,
 				F191139E28A643090067BA61 /* MarkdownStyle.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
@@ -566,10 +566,10 @@
 				27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
 				F19113A328A643090067BA61 /* AttributedStringRenderer+Environment.swift in Sources */,
-				F1AE7C1728AA3F1600A3FEBA /* TagPredictor.mlpackage in Sources */,
+				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */,
-				27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */,
+				27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */,
 				27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,

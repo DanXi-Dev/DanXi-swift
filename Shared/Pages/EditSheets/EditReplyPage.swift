@@ -7,7 +7,7 @@ struct EditReplyPage: View {
     
     func edit() async {
         do {
-            floor = try await networks.editReply(content: content, floorId: floor.id)
+            floor = try await NetworkRequests.shared.editReply(content: content, floorId: floor.id)
             showPage = false
         } catch {
             print("DANXI-DEBUG: edit reply failed")

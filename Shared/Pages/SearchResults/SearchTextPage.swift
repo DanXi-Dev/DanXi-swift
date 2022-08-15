@@ -7,7 +7,7 @@ struct SearchTextPage: View {
     
     func loadMoreFloors() async {
         do {
-            let newFloors = try await networks.searchKeyword(keyword: keyword, startFloor: floors.count)
+            let newFloors = try await NetworkRequests.shared.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
             floors.append(contentsOf: newFloors)
         } catch {

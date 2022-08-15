@@ -20,7 +20,7 @@ struct FloorView: View {
     func like() {
         Task {
             do {
-                let newFloor = try await networks.like(floorId: floor.id, like: !(floor.liked ?? false))
+                let newFloor = try await NetworkRequests.shared.like(floorId: floor.id, like: !(floor.liked ?? false))
                 self.floor = newFloor
             } catch {
                 print("DANXI-DEBUG: like failed")
@@ -31,7 +31,7 @@ struct FloorView: View {
     func delete() {
         Task {
             do {
-                let newFloor = try await networks.deleteFloor(floorId: floor.id)
+                let newFloor = try await NetworkRequests.shared.deleteFloor(floorId: floor.id)
                 self.floor = newFloor
             } catch {
                 print("DANXI-DEBUG: delete failed")

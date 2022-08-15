@@ -6,7 +6,7 @@ struct FavoritesPage: View {
     
     func fetchFavorites() async {
         do {
-            self.favorites = try await networks.loadFavorites()
+            self.favorites = try await NetworkRequests.shared.loadFavorites()
             loading = false
         } catch {
             print("DANXI-DEBUG: load favorites")

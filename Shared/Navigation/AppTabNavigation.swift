@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AppTabNavigation: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     
     enum Tab {
         case treehole

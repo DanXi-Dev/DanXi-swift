@@ -12,7 +12,7 @@ struct EditPage: View {
             // TODO: pre post check (e.g.: empty tags)
             
             do {
-                try await networks.newPost(
+                try await NetworkRequests.shared.newPost(
                     content: content,
                     divisionId: divisionId,
                     tags: tags)
@@ -108,7 +108,7 @@ struct EditPage: View {
 }
 
 struct THTagSelection: View {
-    @ObservedObject var model = treeholeDataModel
+    @ObservedObject var model = TreeholeDataModel.shared
     
     @Binding var tagList: [THTag]
     @State var searchText = ""
