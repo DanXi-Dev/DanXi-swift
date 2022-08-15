@@ -7,6 +7,10 @@ struct HoleView: View {
         VStack(alignment: .leading) {
             TagListSimple(tags: hole.tags)
             
+            // A temporary preview for CoreML Model, will remove later
+            Text(predictTagForText(hole.firstFloor.content.stripToBasicMarkdown()))
+                .foregroundColor(.green)
+            
             if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {
                 Text(mdRendered)
                     .font(.system(size: 16))

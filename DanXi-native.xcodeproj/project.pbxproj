@@ -66,6 +66,8 @@
 		F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139928A643090067BA61 /* AttributedStringRenderer.swift */; };
 		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
+		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
+		F1AE7C1728AA3F1600A3FEBA /* TagPredictor.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */; };
 		F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +151,8 @@
 		F191139828A643090067BA61 /* ResizableImageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizableImageAttachment.swift; sourceTree = "<group>"; };
 		F191139928A643090067BA61 /* AttributedStringRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringRenderer.swift; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* TreeholeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeSearch.swift; sourceTree = "<group>"; };
+		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
+		F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictor.mlpackage; sourceTree = "<group>"; };
 		F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -360,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
+				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
 				F191138B28A643090067BA61 /* MarkdownUI */,
 				2778D6052891D22D009F4DB1 /* Pages */,
 				2778D6122891D22D009F4DB1 /* Components */,
@@ -434,6 +439,15 @@
 				F191139928A643090067BA61 /* AttributedStringRenderer.swift */,
 			);
 			path = Rendering;
+			sourceTree = "<group>";
+		};
+		F1AE7C1528AA3C3500A3FEBA /* MachineLearning */ = {
+			isa = PBXGroup;
+			children = (
+				F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */,
+				F1AE7C1128A9514B00A3FEBA /* MLModels.swift */,
+			);
+			path = MachineLearning;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -549,6 +563,7 @@
 				27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
 				F19113A328A643090067BA61 /* AttributedStringRenderer+Environment.swift in Sources */,
+				F1AE7C1728AA3F1600A3FEBA /* TagPredictor.mlpackage in Sources */,
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */,
 				27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */,
@@ -565,6 +580,7 @@
 				F191139A28A643090067BA61 /* Deprecations.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
 				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
+				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */,
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,
 				F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */,
