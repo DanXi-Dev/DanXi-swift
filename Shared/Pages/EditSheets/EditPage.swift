@@ -56,11 +56,11 @@ struct EditPage: View {
     private var suggestedTags: some View {
         if let predictor = TagPredictor.shared {
             Section("Suggested Tags") {
-                if (content.count > 10) {
+                if (content.count >= 5) {
                     // TODO: Add a slight delay to prevent prediction at every type
                     // TODO: Add animation
                     // TODO: Put this in one row to save space
-                    List {
+                    HStack {
                         ForEach(predictor.suggest(content), id: \.self) { prediction in
                             Button(action: {tags.append(THTag(id: 0, temperature: 0, name: prediction))}) {
                                 Text(prediction)
@@ -80,6 +80,8 @@ struct EditPage: View {
             }
         } else {
             // TODO: Handle CoreML init failure
+            Text("Failed to initialize CoreML")
+                .foregroundColor(.red)
         }
     }
     
