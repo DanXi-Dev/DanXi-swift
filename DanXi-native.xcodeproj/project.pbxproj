@@ -68,6 +68,7 @@
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictor.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */; };
+		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
 		F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +154,7 @@
 		F19113A928A65D260067BA61 /* TreeholeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeSearch.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictor.mlpackage; sourceTree = "<group>"; };
+		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
 		F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -445,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				F1AE7C1628AA3F1600A3FEBA /* TagPredictor.mlpackage */,
+				F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */,
 				F1AE7C1128A9514B00A3FEBA /* MLModels.swift */,
 			);
 			path = MachineLearning;
@@ -585,6 +588,7 @@
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,
 				F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */,
+				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
 				2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

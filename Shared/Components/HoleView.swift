@@ -8,8 +8,10 @@ struct HoleView: View {
             TagListSimple(tags: hole.tags)
             
             // A temporary preview for CoreML Model, will remove later
-            Text(predictTagForText(hole.firstFloor.content.stripToBasicMarkdown()))
+            Text(predictTagForText(hole.firstFloor.content))
                 .foregroundColor(.green)
+            Text(predictTagForTextTL(hole.firstFloor.content))
+                .foregroundColor(.red)
             
             if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {
                 Text(mdRendered)
@@ -36,7 +38,7 @@ struct HoleView: View {
         HStack {
             Text("#\(String(hole.id))")
             Spacer()
-            Text(hole.updateTime.formatted(date: .abbreviated, time: .shortened))
+            Text(hole.createTime.formatted(date: .abbreviated, time: .shortened))
             Spacer()
             actions
         }
