@@ -25,6 +25,7 @@
 "logged_in" = "已登录";
 "not_logged_in" = "未登录";
 "logout" = "退出登录";
+"NL Model Debugging Mode" = "自然语言处理模型调试模式";
 
 // Treehole Welcome Page
 "th_feature1" = "时刻保持最新";

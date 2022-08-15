@@ -2,16 +2,19 @@ import SwiftUI
 
 struct HoleView: View {
     let hole: THHole
+    @ObservedObject var treeholeDataModel = TreeholeDataModel.shared // FIXME: The entire thing is here only because we need to read debugging settings. Maybe there is a better way to achieve the purpose?
     
     var body: some View {
         VStack(alignment: .leading) {
             TagListSimple(tags: hole.tags)
             
-            // A temporary preview for CoreML Model, will remove later
-            Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 0) ?? "MaxEntropy NLModel init failed")
-                .foregroundColor(.green)
-            Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 1) ?? "TransferLearning NLModel init failed")
-                .foregroundColor(.red)
+            if (treeholeDataModel.nlModelDebuggingMode) {
+                // A preview for CoreML Model
+                Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 0) ?? "MaxEntropy NLModel init failed")
+                    .foregroundColor(.green)
+                Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 1) ?? "TransferLearning NLModel init failed")
+                    .foregroundColor(.red)
+            }
             
             if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {
                 Text(mdRendered)

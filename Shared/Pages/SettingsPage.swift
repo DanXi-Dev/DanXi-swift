@@ -18,6 +18,10 @@ struct SettingsPage: View {
                 
             }
             
+            Section("treehole") {
+                Toggle("NL Model Debugging Mode", isOn: $model.nlModelDebuggingMode)
+            }
+            
             Section("about") {
                 Text("legal")
                 Text("about")

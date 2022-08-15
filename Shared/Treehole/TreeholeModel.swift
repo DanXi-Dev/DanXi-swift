@@ -8,6 +8,9 @@ class TreeholeDataModel: ObservableObject {
     @Published var user: THUser?
     @Published var loggedIn: Bool = false
     
+    // Settings
+    @Published var nlModelDebuggingMode: Bool = false
+    
     init() {
         let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
         guard defaults?.string(forKey: "user-credential") != nil else {
