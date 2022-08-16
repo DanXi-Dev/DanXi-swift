@@ -21,7 +21,7 @@ struct HoleDetailPage: View {
             List {
                 Section {
                     if let hole = viewModel.hole {
-                        ForEach(viewModel.floors) { floor in
+                        ForEach(viewModel.filteredFloors) { floor in
                             FloorView(floor: floor, isPoster: floor.posterName == hole.firstFloor.posterName )
                                 .task {
                                     if floor == viewModel.floors.last {
@@ -65,28 +65,52 @@ struct HoleDetailPage: View {
         }
     }
     
+    @ViewBuilder
     var toolbar: some View {
-        Group {
-            if let hole = viewModel.hole {
-                Button {
-                    Task { @MainActor in
-                        await viewModel.toggleFavorites()
+        if let hole = viewModel.hole {
+            Button {
+                Task { @MainActor in
+                    await viewModel.toggleFavorites()
+                }
+            } label: {
+                Image(systemName: viewModel.favorited ? "star.fill" : "star")
+            }
+            
+            Button(action: { showReplyPage = true }) {
+                Image(systemName: "arrowshape.turn.up.left")
+            }
+            .sheet(isPresented: $showReplyPage) {
+                ReplyPage(
+                    holeId: hole.id,
+                    showReplyPage: $showReplyPage,
+                    content: "")
+            }
+            
+            Menu {
+                if viewModel.showPosterOnly {
+                    Button {
+                        viewModel.showPosterOnly = false
+                    } label: {
+                        Label("Show All", systemImage: "list.bullet")
                     }
-                } label: {
-                    Image(systemName: viewModel.favorited ? "star.fill" : "star")
+                } else {
+                    Button {
+                        viewModel.showPosterOnly = true
+                    } label: {
+                        Label("Show OP Only", systemImage: "person.fill")
+                    }
                 }
                 
-                Button(action: { showReplyPage = true }) {
-                    Image(systemName: "arrowshape.turn.up.left")
+                Button {
+                    // TODO: navigate to bottom
+                } label: {
+                    Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
                 }
-                .sheet(isPresented: $showReplyPage) {
-                    ReplyPage(
-                        holeId: hole.id,
-                        showReplyPage: $showReplyPage,
-                        content: "")
-                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
             }
         }
+        
     }
 }
 

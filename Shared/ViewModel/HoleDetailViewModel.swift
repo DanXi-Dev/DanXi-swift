@@ -5,8 +5,18 @@ import SwiftUI
 class HoleDetailViewModel: ObservableObject {
     @Published var hole: THHole?
     @Published var favorited: Bool
+    
     @Published var floors: [THFloor] = []
     @Published var endReached = false
+    
+    @Published var showPosterOnly = false
+    var filteredFloors: [THFloor] {
+        let poster = hole?.firstFloor.posterName ?? ""
+        
+        return floors.filter { floor in
+            (!showPosterOnly || floor.posterName == poster)
+        }
+    }
     
     @Published var errorPresenting = false
     @Published var errorInfo = ErrorInfo()
