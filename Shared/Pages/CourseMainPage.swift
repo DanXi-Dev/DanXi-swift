@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct CourseMainPage: View {
-    @AppStorage("course-data") var courseData = Data() // cache data
     @AppStorage("course-hash") var courseHash = ""
     @State var courses: [DKCourseGroup]
     
@@ -23,23 +22,24 @@ struct CourseMainPage: View {
         }
     }
     
-    func initialLoad() async {        
+    func initialLoad() async {
+        var newHash = courseHash
+        
         do { // check hash, try decode from local storage
-            let newHash = try await NetworkRequests.shared.loadCourseHash()
+            courses = loadDKCourseList()
+            newHash = try await NetworkRequests.shared.loadCourseHash()
             if newHash == courseHash { // no change from last fetch, use local storage
-                courses = try JSONDecoder().decode([DKCourseGroup].self, from: courseData)
                 return
-            } else {
-                courseHash = newHash // changed
             }
         } catch {
             print("DANXI-DEBUG: check local storage failed")
         }
         
         do { // make network call
-            (courses, courseData) = try await NetworkRequests.shared.loadCourseGroups()
+            courses = try await NetworkRequests.shared.loadCourseGroups()
+            saveDKCourseList(courses)
+            courseHash = newHash // defer update course hash to prevent loading course fail
         } catch {
-            print(error)
             print("DANXI-DEBUG: initial load failed")
         }
     }
