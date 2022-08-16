@@ -87,18 +87,12 @@ struct HoleDetailPage: View {
             }
             
             Menu {
-                if viewModel.showPosterOnly {
-                    Button {
-                        viewModel.showPosterOnly = false
-                    } label: {
-                        Label("Show All", systemImage: "list.bullet")
-                    }
-                } else {
-                    Button {
-                        viewModel.showPosterOnly = true
-                    } label: {
-                        Label("Show OP Only", systemImage: "person.fill")
-                    }
+                Picker("Filter Options", selection: $viewModel.filterOption) {
+                    Label("Show All", systemImage: "list.bullet")
+                        .tag(HoleDetailViewModel.FilterOptions.all)
+                    
+                    Label("Show OP Only", systemImage: "person.fill")
+                        .tag(HoleDetailViewModel.FilterOptions.posterOnly)
                 }
                 
                 Button {

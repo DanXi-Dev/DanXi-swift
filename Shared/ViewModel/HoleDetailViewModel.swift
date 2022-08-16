@@ -9,12 +9,12 @@ class HoleDetailViewModel: ObservableObject {
     @Published var floors: [THFloor] = []
     @Published var endReached = false
     
-    @Published var showPosterOnly = false
+    @Published var filterOption: FilterOptions = .all
     var filteredFloors: [THFloor] {
         let poster = hole?.firstFloor.posterName ?? ""
         
         return floors.filter { floor in
-            (!showPosterOnly || floor.posterName == poster)
+            (filterOption == .all || floor.posterName == poster)
         }
     }
     
@@ -27,6 +27,11 @@ class HoleDetailViewModel: ObservableObject {
         case normal
         case fromId(holeId: Int)
         case targetFloor(targetFloorId: Int)
+    }
+    
+    enum FilterOptions {
+        case all
+        case posterOnly
     }
     
     init(hole: THHole) { // normal initializer
