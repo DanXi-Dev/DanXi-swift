@@ -270,6 +270,8 @@
 		2778D6162891D22D009F4DB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F191138B28A643090067BA61 /* MarkdownUI */,
+				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				2778D6172891D22D009F4DB1 /* Flexible */,
@@ -366,8 +368,6 @@
 			isa = PBXGroup;
 			children = (
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
-				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
-				F191138B28A643090067BA61 /* MarkdownUI */,
 				2778D6052891D22D009F4DB1 /* Pages */,
 				2778D6122891D22D009F4DB1 /* Components */,
 				27719A9928A3C43400C661BD /* Entities */,
