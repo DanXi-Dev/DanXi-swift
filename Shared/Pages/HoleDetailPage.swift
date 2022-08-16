@@ -8,8 +8,8 @@ struct HoleDetailPage: View {
     @State var holeId: Int?
     var targetFloorId: Int? = nil
     
-    @State private var errorInfo: String? = nil
-    @State private var isUpdating = false
+    @State var errorPresenting = false
+    @State var errorInfo = ErrorInfo()
     
     init(hole: THHole) {
         self._hole = State(initialValue: hole)
@@ -34,9 +34,6 @@ struct HoleDetailPage: View {
     @State var showReplyPage = false
     
     func initialLoad(proxy: ScrollViewProxy) async {
-        errorInfo = nil
-        isUpdating = true
-        defer { isUpdating = false }
         if holeId == nil && targetFloorId != nil {
             await loadToTargetFloor()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
@@ -49,8 +46,19 @@ struct HoleDetailPage: View {
             return
         }
         
-        if hole == nil {
-            await loadHoleInfo()
+        // load hole info
+        do {
+            hole = try await NetworkRequests.shared.loadHoleById(holeId: holeId)
+        } catch NetworkError.notFound {
+            errorInfo = ErrorInfo(title: "Treehole Not Exist", description: "Treehole ID \(String(holeId)) not exist")
+            errorPresenting = true
+            return
+        } catch let error as NetworkError {
+            errorInfo = error.localizedErrorDescription
+            errorPresenting = true
+            return
+        } catch {
+            print("DANXI-DEBUG: load hole info failed")
         }
         
         if floors.isEmpty { // all relevant data present, ready to load floors
@@ -71,32 +79,12 @@ struct HoleDetailPage: View {
             return
         }
         
-        errorInfo = nil
-        isUpdating = true
-        defer { isUpdating = false }
-        
         do {
             let newFloors = try await NetworkRequests.shared.loadFloors(holeId: holeId, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
         } catch {
-            errorInfo = error.localizedDescription
-        }
-    }
-    
-    func loadHoleInfo() async {
-        guard let holeId = holeId else {
-            return
-        }
-        
-        errorInfo = nil
-        isUpdating = true
-        defer { isUpdating = false }
-        
-        do {
-            self.hole = try await NetworkRequests.shared.loadHoleById(holeId: holeId)
-        } catch {
-            errorInfo = error.localizedDescription
+            print("DANXI-DEBUG: load more floors failed")
         }
     }
     
@@ -104,10 +92,6 @@ struct HoleDetailPage: View {
         guard let targetFloorId = targetFloorId else {
             return
         }
-        
-        errorInfo = nil
-        isUpdating = true
-        defer { isUpdating = false }
         
         do {
             let targetFloor = try await NetworkRequests.shared.loadFloorById(floorId: targetFloorId)
@@ -126,7 +110,7 @@ struct HoleDetailPage: View {
             } while !newFloors.isEmpty
             self.floors = floors // insert to view at last, preventing automatic refresh causing URLSession to cancel
         } catch {
-            errorInfo = error.localizedDescription
+            
         }
     }
     
@@ -157,12 +141,6 @@ struct HoleDetailPage: View {
                             }
                             .id(floor.id)
                     }
-                    if let errorInfo = errorInfo {
-                        Button(errorInfo) {
-                            //TODO: retry
-                        }
-                        .foregroundColor(.red)
-                    }
                 } header: {
                     if let hole = hole {
                         TagListNavigation(tags: hole.tags)
@@ -172,7 +150,7 @@ struct HoleDetailPage: View {
                     if !endReached {
                         HStack {
                             Spacer()
-                            if (isUpdating) { ProgressView() }
+                            ProgressView()
                             Spacer()
                         }
                         .task {
@@ -188,6 +166,11 @@ struct HoleDetailPage: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     toolbar
                 }
+            }
+            .alert(errorInfo.title, isPresented: $errorPresenting) {
+                Button("OK") { }
+            } message: {
+                Text(errorInfo.description)
             }
         }
     }

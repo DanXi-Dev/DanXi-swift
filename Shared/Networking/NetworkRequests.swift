@@ -65,6 +65,8 @@ struct NetworkRequests {
             throw NetworkError.unauthorized // TODO: refresh token
         case 403:
             throw NetworkError.forbidden
+        case 404:
+            throw NetworkError.notFound
         case 400..<500:
             let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
             throw NetworkError.invalidRequest(message: serverResponse?.message ?? "")

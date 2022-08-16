@@ -6,6 +6,7 @@ public enum NetworkError: Error {
     case invalidResponse
     case forbidden
     case unauthorized
+    case notFound
     case notInitialized // make network request without token, representing a bug
     case invalidRequest(message: String)
     case serverError(message: String)
@@ -20,6 +21,8 @@ public enum NetworkError: Error {
             return ErrorInfo(title: "Forbidden", description: "Operation forbidden")
         case .unauthorized:
             return ErrorInfo(title: "Unauthorized", description: "Invalid credential")
+        case .notFound:
+            return ErrorInfo(title: "Not Found", description: "Requested resourse not found")
         case .notInitialized:
             return ErrorInfo(title: "Not Initialized", description: "Credential not initialized, contact developer for help")
         case .invalidRequest(let message):

@@ -85,3 +85,6 @@
 "Network error, try again later" = "网络错误，请稍后再试";
 
 "OK" = "确认";
+
+"Treehole Not Exist" = "树洞不存在";
+"Treehole ID %@ not exist" = "树洞ID%@不存在";
