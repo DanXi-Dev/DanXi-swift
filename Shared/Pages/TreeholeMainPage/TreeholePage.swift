@@ -30,6 +30,7 @@ struct TreeholePage: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     ToolbarMenu() // menu item can't perform navigation, this is a workaround
+                        .environmentObject(viewModel)
                     
                     Button(action: { showEditPage = true }) {
                         Image(systemName: "square.and.pencil")
@@ -64,6 +65,7 @@ struct TreeholeSearchable: View {
 struct ToolbarMenu: View {
     @State private var isActive = false // menu navigation workaround
     @State private var navigationTarget: AnyView?
+    @EnvironmentObject var viewModel: TreeholeViewModel
     
     var body: some View {
         Menu {
@@ -79,6 +81,32 @@ struct ToolbarMenu: View {
                 self.isActive = true
             } label: {
                 Label("Tags", systemImage: "tag")
+            }
+            
+            Divider()
+            // sort options
+            Button {
+                Task {
+                    await viewModel.switchSortOption(sortByReplyTime: true)
+                }
+            } label: {
+                if viewModel.sortByReplyTime {
+                    Label("Recently Replied", systemImage: "checkmark")
+                } else {
+                    Text("Recently Replied")
+                }
+            }
+            
+            Button {
+                Task {
+                   await viewModel.switchSortOption(sortByReplyTime: false)
+                }
+            } label: {
+                if viewModel.sortByReplyTime {
+                    Text("Recently Created")
+                } else {
+                    Label("Recently Created", systemImage: "checkmark")
+                }
             }
         } label: {
             Image(systemName: "ellipsis.circle")

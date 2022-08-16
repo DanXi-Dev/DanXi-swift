@@ -45,6 +45,8 @@
 "Favorites" = "收藏";
 "image_tag" = "[图片]";
 "formula_tag" = "[公式]";
+"Recently Created" = "最近创建";
+"Recently Replied" = "最近回复";
 
 // Treehole floor
 "report" = "举报";
@@ -87,4 +89,4 @@
 "OK" = "确认";
 
 "Treehole Not Exist" = "树洞不存在";
-"Treehole ID %@ not exist" = "树洞ID%@不存在";
+"Treehole ID %@ not exist" = "树洞ID #%@ 不存在";
