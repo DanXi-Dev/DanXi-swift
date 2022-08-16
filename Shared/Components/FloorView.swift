@@ -145,26 +145,26 @@ struct FloorView: View {
             Button {
                 // TODO: report
             } label: {
-                Label("report", systemImage: "exclamationmark.triangle")
+                Label("Report", systemImage: "exclamationmark.triangle")
             }
             
             Button {
                 // TODO: copy text
             } label: {
-                Label("copy_full_text", systemImage: "doc.on.doc")
+                Label("Copy full text", systemImage: "doc.on.doc")
             }
             
             Button {
                 // TODO: copy floor id
             } label: {
-                Label("copy_floor_id", systemImage: "square.and.arrow.up")
+                Label("Copy floor ID", systemImage: "square.and.arrow.up")
             }
             
             if floor.isMe && !floor.deleted {
                 Button {
                     showEditPage = true
                 } label: {
-                    Label("edit_reply", systemImage: "square.and.pencil")
+                    Label("Edit reply", systemImage: "square.and.pencil")
                 }
             }
         }

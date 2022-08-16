@@ -19,15 +19,15 @@ struct WelcomePage: View {
             Spacer()
             
             VStack(alignment: .leading, spacing: 10) {
-                FeatureEntry(imageName: "bell", title: "th_feature1", caption: "th_detail1")
-                FeatureEntry(imageName: "message", title: "th_feature2", caption: "th_detail2")
-                FeatureEntry(imageName: "pencil.and.outline", title: "th_feature3", caption: "th_detail3")
+                FeatureEntry(imageName: "bell", title: "TH Feature 1", caption: "TH Detail 1")
+                FeatureEntry(imageName: "message", title: "TH Feature 2", caption: "TH Detail 2")
+                FeatureEntry(imageName: "pencil.and.outline", title: "TH Feature 3", caption: "TH Detail 3")
             }
             .frame(width: 300)
             
             Spacer()
             
-            Text("th_welcome_login_prompt")
+            Text("Go to Settings Page to Login")
                 .foregroundColor(.secondary)
                 .bold()
                 .padding(.bottom, 40.0)

@@ -23,7 +23,7 @@ struct AppTabNavigation: View {
             }
             .tabItem {
                 Image(systemName: "text.bubble")
-                Text("treehole")
+                Text("Tree Hole")
             }
             .tag(Tab.treehole)
             
@@ -41,7 +41,7 @@ struct AppTabNavigation: View {
             .navigationViewStyle(.stack)
             .tabItem {
                 Image(systemName: "gearshape")
-                Text("settings")
+                Text("Settings")
             }
             .tag(Tab.settings)
         }

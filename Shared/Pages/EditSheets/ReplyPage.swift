@@ -20,18 +20,21 @@ struct ReplyPage: View {
                 Section {
                     editor
                 } header: {
-                    Text("th_edit_alert")
+                    Text("TH Edit Alert")
                 }
                 .textCase(nil)
             }
-            .navigationTitle("reply")
+            .navigationTitle("Reply")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    Button("send") {
+                    Button {
                         Task {
                             await reply()
                         }
+                    } label: {
+                        Text("Send")
+                            .bold()
                     }
                 }
             }
@@ -41,7 +44,7 @@ struct ReplyPage: View {
     private var editor: some View {
         ZStack(alignment: .topLeading) {
             if content.isEmpty {
-                Text("th_edit_prompt")
+                Text("Enter post content")
                     .foregroundColor(.primary.opacity(0.25))
                     .padding(.top, 7)
                     .padding(.leading, 4)

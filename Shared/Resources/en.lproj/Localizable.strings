@@ -1,60 +1,14 @@
-// Navigation
-"danxi" = "DanXi";
-"dashboard" = "Dashboard";
-"treehole" = "Tree Hole";
-"settings" = "Settings";
-
-// Settings Page
-"accounts_management" = "Accounts Management";
-"about" = "About";
-"legal" = "Legal";
-"uis_account" = "Fudan UIS Account";
-"fduhole_account" = "FDU Hole Account";
-"logged_in" = "Logged in";
-"not_logged_in" = "Not Logged in";
-"logout" = "Logout";
-
 // Treehole Welcome Page
-"th_feature1" = "Keep Updated";
-"th_detail1" = "Receive notifications when subscribed posts get update";
-"th_feature2" = "Focused Discussion";
-"th_detail2" = "Make focused discussions in dedicated divisions";
-"th_feature3" = "Edit with Ease";
-"th_detail3" = "Use Markdown and LaTeX syntax in posts";
-"th_welcome_login_prompt" = "Go to Settings Page to Login";
+"TH Feature 1" = "Keep Updated";
+"TH Detail 1" = "Receive notifications when subscribed posts get update";
+"TH Feature 2" = "Focused Discussion";
+"TH Detail 2" = "Make focused discussions in dedicated divisions";
+"TH Feature 3" = "Edit with Ease";
+"TH Detail 3" = "Use Markdown and LaTeX syntax in posts";
 
 // Treehole Page
-"bottom_reached" = "Bottom Reached";
-"pinned" = "Pinned";
-"main_section" = "Main Section";
-"copy_hole_id" = "Copy hole ID";
-"add_bookmark" = "Add bookmark";
-"favorites" = "Favorites";
 "image_tag" = "[Image]";
 "formula_tag" = "[Formula]";
 
 // Treehole floor
-"report" = "Report";
-"copy_full_text" = "Copy full text";
-"copy_floor_id" = "Copy floor ID";
-
-// Treehole Edit Page
-"edit" = "Edit";
-"preview" = "Preview";
-"new_post" = "New Post";
-"th_edit_prompt" = "Enter post content";
-"th_edit_alert" = "Comply with [community rules](https://www.fduhole.com/#/license) when posting";
-"select_tags" = "Select Tags";
-"send" = "Send";
-"no_tags" = "No tags";
-
-// Treehole Reply Page
-"reply" = "Reply";
-"edit_reply" = "Edit reply";
-
-// Search Page
-"search_result" = "Search Result";
-"search_text" = "Search for Text";
-"jump_to_hole" = "Jump to Hole";
-"jump_to_floor" = "Jump to Floor";
-"tags" = "Tags";
+"TH Edit Alert" = "Comply with [community rules](https://www.fduhole.com/#/license) when posting";

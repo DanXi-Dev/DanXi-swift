@@ -16,7 +16,7 @@ struct TreeholeBrowse: View {
                 VStack(alignment: .leading) {
                     switchBar
                     if !viewModel.currentDivision.pinned.isEmpty {
-                        Label("pinned", systemImage: "pin.fill")
+                        Label("Pinned", systemImage: "pin.fill")
                     }
                 }
             }
@@ -33,7 +33,7 @@ struct TreeholeBrowse: View {
                         }
                 }
             } header: {
-                Label("main_section", systemImage: "text.bubble.fill")
+                Label("Main Section", systemImage: "text.bubble.fill")
             } footer: {
                 spinner
             }

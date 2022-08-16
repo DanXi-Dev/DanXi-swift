@@ -22,16 +22,16 @@ struct AppSidebarNavigation: View {
                         }
                     }
                 } label: {
-                    Label("treehole", systemImage: "text.bubble")
+                    Label("Tree Hole", systemImage: "text.bubble")
                 }
                 
                 NavigationLink(tag: NavigationItem.settings, selection: $selection) {
                     SettingsPage()
                 } label: {
-                    Label("settings", systemImage: "gearshape")
+                    Label("Settings", systemImage: "gearshape")
                 }
             }
-            .navigationTitle("danxi")
+            .navigationTitle("DanXi")
             
             EmptyView()
             EmptyView()

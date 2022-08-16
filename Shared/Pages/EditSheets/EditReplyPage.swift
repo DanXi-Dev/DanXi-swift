@@ -20,18 +20,21 @@ struct EditReplyPage: View {
                 Section {
                     editor
                 } header: {
-                    Text("th_edit_alert")
+                    Text("TH Edit Alert")
                 }
                 .textCase(nil)
             }
-            .navigationTitle("edit_reply")
+            .navigationTitle("Edit reply")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    Button("edit") {
+                    Button {
                         Task {
                             await edit()
                         }
+                    } label: {
+                        Text("Edit")
+                            .bold()
                     }
                 }
             }
@@ -41,7 +44,7 @@ struct EditReplyPage: View {
     private var editor: some View {
         ZStack(alignment: .topLeading) {
             if content.isEmpty {
-                Text("th_edit_prompt")
+                Text("Enter post content")
                     .foregroundColor(.primary.opacity(0.25))
                     .padding(.top, 7)
                     .padding(.leading, 4)

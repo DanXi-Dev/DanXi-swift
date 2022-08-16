@@ -1,8 +1,7 @@
 // Navigation
-"danxi" = "旦夕";
-"dashboard" = "主页";
-"treehole" = "树洞";
-"settings" = "设置";
+"DanXi" = "旦夕";
+"Tree Hole" = "树洞";
+"Settings" = "设置";
 
 // Login Page
 "Email" = "邮箱";
@@ -17,31 +16,28 @@
 "Invalid username" = "用户名格式不正确";
 
 // Settings Page
-"accounts_management" = "账户管理";
-"about" = "关于";
-"legal" = "法律信息";
-"uis_account" = "复旦UIS账户";
-"fduhole_account" = "FDU Hole账户";
-"logged_in" = "已登录";
-"not_logged_in" = "未登录";
-"logout" = "退出登录";
+"Accounts Management" = "账户管理";
+"About" = "关于";
+"Legal" = "法律信息";
+"Fudan UIS Account" = "复旦UIS账户";
+"FDU Hole Account" = "FDU Hole账户";
+"Logged in" = "已登录";
+"Not Logged in" = "未登录";
+"Logout" = "退出登录";
 "NL Model Debugging Mode" = "自然语言处理模型调试模式";
 
 // Treehole Welcome Page
-"th_feature1" = "时刻保持最新";
-"th_detail1" = "在您关注的帖子更新时，您将收到推送通知";
-"th_feature2" = "分区讨论";
-"th_detail2" = "在专门的空间里进行更专注的讨论";
-"th_feature3" = "轻松编辑";
-"th_detail3" = "在帖子中使用LaTeX和Markdown语法";
-"th_welcome_login_prompt" = "请前往设置内登录旦夕账号";
+"TH Feature 1" = "时刻保持最新";
+"TH Detail 1" = "在您关注的帖子更新时，您将收到推送通知";
+"TH Feature 2" = "分区讨论";
+"TH Detail 2" = "在专门的空间里进行更专注的讨论";
+"TH Feature 3" = "轻松编辑";
+"TH Detail 3" = "在帖子中使用LaTeX和Markdown语法";
+"Go to Settings Page to Login" = "请前往设置内登录旦夕账号";
 
 // Treehole Page
-"bottom_reached" = "已到底部";
-"pinned" = "置顶贴";
-"main_section" = "主题贴";
-"copy_hole_id" = "复制主题贴ID";
-"add_bookmark" = "添加书签";
+"Pinned" = "置顶贴";
+"Main Section" = "主题贴";
 "Favorites" = "收藏";
 "image_tag" = "[图片]";
 "formula_tag" = "[公式]";
@@ -50,20 +46,19 @@
 "Loading" = "加载中";
 
 // Treehole floor
-"report" = "举报";
-"copy_full_text" = "复制全文";
-"copy_floor_id" = "复制回帖ID";
+"Report" = "举报";
+"Copy full text" = "复制全文";
+"Copy floor ID" = "复制回帖ID";
 
 // Treehole Edit Page
-"edit" = "编辑";
-"preview" = "预览";
-"new_post" = "新建主题贴";
-"th_edit_prompt" = "输入主题贴内容";
-"th_edit_alert" = "发帖时应遵守[社区公约](https://www.fduhole.com/#/license)";
-"select_tags" = "选择标签";
-"send" = "发送";
-"no_tags" = "未选择标签";
+"New Post" = "新建主题贴";
+"Enter post content" = "输入主题贴内容";
+"TH Edit Alert" = "发帖时应遵守[社区公约](https://www.fduhole.com/#/license)";
+"Select Tags" = "选择标签";
+"Send" = "发送";
+"No tags" = "未选择标签";
 "add" = "添加";
+"Edit" = "编辑";
 
 // Treehole Detail Page
 "Add to Favorites" = "收藏";
@@ -78,8 +73,8 @@
 "Floor ##%@ not exist" = "楼层 ##%@ 不存在";
 
 // Treehole Reply Page
-"reply" = "回复";
-"edit_reply" = "编辑回复";
+"Reply" = "回复";
+"Edit reply" = "编辑回复";
 
 // Search Page
 "search_result" = "搜索结果";

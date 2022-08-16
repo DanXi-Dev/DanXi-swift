@@ -30,14 +30,14 @@ struct EditPage: View {
                 Form {
                     Section {
                         NavigationLink(destination: THTagSelection(tagList: $tags)) {
-                            Label("select_tags", systemImage: "tag")
+                            Label("Select Tags", systemImage: "tag")
                         }
                     }
                     suggestedTags
                     editSection
                 }
             }
-            .navigationTitle("new_post")
+            .navigationTitle("New Post")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -46,7 +46,11 @@ struct EditPage: View {
                     })
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("send", action: sendPost)
+                    Button(action: sendPost) {
+                        Text("Send")
+                            .bold()
+                    }
+                        
                 }
             }
         }
@@ -88,7 +92,7 @@ struct EditPage: View {
     private var editSection: some View {
         Section {
             if tags.isEmpty {
-                Text("no_tags")
+                Text("No tags")
                     .foregroundColor(.primary.opacity(0.25))
             } else {
                 TagList(tags: tags)
@@ -100,7 +104,7 @@ struct EditPage: View {
                 editor
             }
         } header: {
-            Text("th_edit_alert")
+            Text("TH Edit Alert")
         } footer: {
             HStack {
                 // TODO: toolbar (bold, italics, ...)
@@ -117,7 +121,7 @@ struct EditPage: View {
     private var editor: some View {
         ZStack(alignment: .topLeading) {
             if content.isEmpty {
-                Text("th_edit_prompt")
+                Text("Enter post content")
                     .foregroundColor(.primary.opacity(0.25))
                     .padding(.top, 7)
                     .padding(.leading, 4)
@@ -149,7 +153,7 @@ struct THTagSelection: View {
     var body: some View {
         List {
             if tagList.isEmpty {
-                Text("no_tags")
+                Text("No tags")
                     .foregroundColor(.primary.opacity(0.25))
             } else {
                 TagList(tags: tagList)
@@ -163,7 +167,7 @@ struct THTagSelection: View {
                 }
             }
         }
-        .navigationTitle("select_tags")
+        .navigationTitle("Select Tags")
     }
     
     var searchResults: [THTag] {

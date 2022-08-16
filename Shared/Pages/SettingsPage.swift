@@ -8,7 +8,7 @@ struct SettingsPage: View {
     
     var body: some View {
         List {
-            Section("accounts_management") {
+            Section("Accounts Management") {
                 uisAccount
                 if model.loggedIn {
                     treeHoleAccount
@@ -18,13 +18,13 @@ struct SettingsPage: View {
                 
             }
             
-            Section("treehole") {
+            Section("Tree Hole") {
                 Toggle("NL Model Debugging Mode", isOn: $model.nlModelDebuggingMode)
             }
             
-            Section("about") {
-                Text("legal")
-                Text("about")
+            Section("About") {
+                Text("Legal")
+                Text("About")
             }
         }
         .navigationTitle("settings")
@@ -39,9 +39,9 @@ struct SettingsPage: View {
                     .foregroundStyle(Color.accentColor, Color.accentColor.opacity(0.3))
             }.padding()
             VStack(alignment: .leading, spacing: 3.0) {
-                Text("uis_account")
+                Text("Fudan UIS Account")
                     .fontWeight(.semibold)
-                Text("logged_in")
+                Text("Logged in")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
@@ -59,15 +59,15 @@ struct SettingsPage: View {
                     .foregroundStyle(Color.accentColor, Color.accentColor.opacity(0.3))
             }.padding()
             VStack(alignment: .leading, spacing: 3.0) {
-                Text("fduhole_account")
+                Text("FDU Hole Account")
                     .fontWeight(.semibold)
-                Text("logged_in")
+                Text("Logged in")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
         }
         .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
-            Button("logout", role: .destructive) {
+            Button("Logout", role: .destructive) {
                 withAnimation {
                     model.loggedIn = false
                     NetworkRequests.shared.logout()
@@ -85,9 +85,9 @@ struct SettingsPage: View {
                     .foregroundStyle(Color.secondary, Color.secondary.opacity(0.3))
             }.padding()
             VStack(alignment: .leading, spacing: 3.0) {
-                Text("fduhole_account")
+                Text("FDU Hole Account")
                     .fontWeight(.semibold)
-                Text("not_logged_in")
+                Text("Not Logged in")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
