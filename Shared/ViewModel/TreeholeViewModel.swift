@@ -31,7 +31,7 @@ class TreeholeViewModel: ObservableObject {
     
     func loadMoreHoles() async {
         do {
-            let startTime = sortByReplyTime ? holes.last?.iso8601UpdateTime : holes.last?.iso8601CreateTime // FIXME: first batch of holes not sorted
+            let startTime = sortByReplyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format() // FIXME: first batch of holes not sorted
             let newHoles = try await NetworkRequests.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             holes.append(contentsOf: newHoles)
         } catch let error as NetworkError {

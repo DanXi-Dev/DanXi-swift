@@ -24,7 +24,6 @@ struct THTag: Hashable, Codable, Identifiable {
 
 struct THFloor: Hashable, Codable, Identifiable {
     let id, holeId: Int
-    let iso8601UpdateTime, iso8601CreateTime: String
     let updateTime, createTime: Date
     let like: Int
     let liked: Bool?
@@ -47,7 +46,6 @@ struct THMention: Hashable, Codable {
 struct THHole: Hashable, Decodable, Identifiable {
     let id, divisionId: Int
     let view, reply: Int
-    let iso8601UpdateTime, iso8601CreateTime: String
     let updateTime, createTime: Date
     let tags: [THTag]
     let firstFloor, lastFloor: THFloor

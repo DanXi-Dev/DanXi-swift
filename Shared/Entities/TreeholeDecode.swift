@@ -1,11 +1,54 @@
 import Foundation
 import SwiftUI
 
+extension THHole {
+    enum CodingKeys: String, CodingKey {
+        case id = "hole_id"
+        case divisionId = "division_id"
+        case view
+        case reply
+        case updateTime = "time_updated"
+        case createTime = "time_created"
+        case tags
+        
+        case floorStruct = "floors"
+        enum FloorsKeys: String, CodingKey {
+            case firstFloor = "first_floor"
+            case lastFloor = "last_floor"
+            case floors = "prefetch"
+        }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        divisionId = try values.decode(Int.self, forKey: .divisionId)
+        view = try values.decode(Int.self, forKey: .view)
+        reply = try values.decode(Int.self, forKey: .reply)
+        tags = try values.decode([THTag].self, forKey: .tags)
+        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
+        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let updateTime = formatter.date(from: iso8601UpdateTime), let createTime = formatter.date(from: iso8601CreateTime) {
+            self.updateTime = updateTime
+            self.createTime = createTime
+        } else {
+            throw NetworkError.invalidResponse
+        }
+        
+        let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)
+        firstFloor = try floorStruct.decode(THFloor.self, forKey: .firstFloor)
+        lastFloor = try floorStruct.decode(THFloor.self, forKey: .lastFloor)
+        floors = try floorStruct.decode([THFloor].self, forKey: .floors)
+    }
+}
+
 extension THFloor {
     enum CodingKeys: String, CodingKey {
         case id = "floor_id"
-        case iso8601UpdateTime = "time_updated"
-        case iso8601CreateTime = "time_created"
+        case updateTime = "time_updated"
+        case createTime = "time_created"
         case like
         case liked
         case isMe = "is_me"
@@ -28,18 +71,19 @@ extension THFloor {
         content = try values.decode(String.self, forKey: .content)
         let posterName = try values.decode(String.self, forKey: .posterName)
         self.posterName = posterName
-        iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
-        iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
-        mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
         
+        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
+        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let ut = formatter.date(from: iso8601UpdateTime), let ct = formatter.date(from: iso8601CreateTime) {
-            updateTime = ut
-            createTime = ct
+        if let createTime = formatter.date(from: iso8601CreateTime),
+            let updateTime = formatter.date(from: iso8601UpdateTime) {
+            self.createTime = createTime
+            self.updateTime = updateTime
         } else {
             throw NetworkError.invalidResponse
         }
+        mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
         
         self.posterColor = randomColor(name: posterName)
     }
@@ -111,46 +155,4 @@ extension THTag {
     }
 }
 
-extension THHole {
-    enum CodingKeys: String, CodingKey {
-        case id = "hole_id"
-        case divisionId = "division_id"
-        case view
-        case reply
-        case iso8601UpdateTime = "time_updated"
-        case iso8601CreateTime = "time_created"
-        case tags
-        
-        case floorStruct = "floors"
-        enum FloorsKeys: String, CodingKey {
-            case firstFloor = "first_floor"
-            case lastFloor = "last_floor"
-            case floors = "prefetch"
-        }
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        divisionId = try values.decode(Int.self, forKey: .divisionId)
-        view = try values.decode(Int.self, forKey: .view)
-        reply = try values.decode(Int.self, forKey: .reply)
-        tags = try values.decode([THTag].self, forKey: .tags)
-        iso8601UpdateTime = try values.decode(String.self, forKey: .iso8601UpdateTime)
-        iso8601CreateTime = try values.decode(String.self, forKey: .iso8601CreateTime)
-        
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let ut = formatter.date(from: iso8601UpdateTime), let ct = formatter.date(from: iso8601CreateTime) {
-            updateTime = ut
-            createTime = ct
-        } else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)
-        firstFloor = try floorStruct.decode(THFloor.self, forKey: .firstFloor)
-        lastFloor = try floorStruct.decode(THFloor.self, forKey: .lastFloor)
-        floors = try floorStruct.decode([THFloor].self, forKey: .floors)
-    }
-}
+

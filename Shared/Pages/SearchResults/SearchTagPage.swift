@@ -8,7 +8,7 @@ struct SearchTagPage: View {
     
     func loadMoreHoles() async {
         do {
-            let newHoles = try await NetworkRequests.shared.searchTag(tagName: tagname, divisionId: divisionId, startTime: holes.last?.iso8601UpdateTime)
+            let newHoles = try await NetworkRequests.shared.searchTag(tagName: tagname, divisionId: divisionId, startTime: holes.last?.updateTime.ISO8601Format())
             endReached = newHoles.isEmpty
             holes.append(contentsOf: newHoles)
         } catch {
