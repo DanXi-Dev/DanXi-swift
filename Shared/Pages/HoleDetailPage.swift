@@ -116,7 +116,9 @@ struct HoleDetailPage: View {
 
 struct PostPage_Previews: PreviewProvider {
     static var previews: some View {
-        HoleDetailPage(hole: PreviewDecode.decodeObj(name: "hole")!)
+        NavigationView {
+            HoleDetailPage(hole: PreviewDecode.decodeObj(name: "hole")!)
+        }
     }
 }
 
