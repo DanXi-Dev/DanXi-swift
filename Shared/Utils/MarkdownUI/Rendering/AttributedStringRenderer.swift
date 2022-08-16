@@ -67,10 +67,10 @@ extension AttributedStringRenderer {
       for match in (try! NSRegularExpression(pattern: #"##([0-9]+)"#).matches(in: result.string, range: NSRange(location: 0, length: result.string.utf16.count))).reversed() {
           result.replaceCharacters(in: match.range, with: NSAttributedString(attachment: NSTextAttachment(data: Data("floor \(result.mutableString.substring(with: match.range(at: 1)))".utf8), ofType: "public.data")))
       }
-      for match in (try! NSRegularExpression(pattern: #"#[0-9]+"#).matches(in: result.string, range: NSRange(location: 0, length: result.string.utf16.count))).reversed() {
+      for match in (try! NSRegularExpression(pattern: #"#([0-9]+)"#).matches(in: result.string, range: NSRange(location: 0, length: result.string.utf16.count))).reversed() {
           result.replaceCharacters(in: match.range, with: NSAttributedString(attachment: NSTextAttachment(data: Data("hole \(result.mutableString.substring(with: match.range(at: 1)))".utf8), ofType: "public.data")))
       }
-      for match in (try! NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#).matches(in: result.string, range: NSRange(location: 0, length: result.string.utf16.count))).reversed() {
+      for match in (try! NSRegularExpression(pattern: #"\${1,2}(.*?)\${1,2}"#).matches(in: result.string, range: NSRange(location: 0, length: result.string.utf16.count))).reversed() {
           result.replaceCharacters(in: match.range, with: NSAttributedString(attachment: NSTextAttachment(data: Data("latex \(result.mutableString.substring(with: match.range(at: 1)))".utf8), ofType: "public.data")))
       }
 
