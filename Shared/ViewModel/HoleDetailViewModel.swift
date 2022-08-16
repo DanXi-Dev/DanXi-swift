@@ -110,6 +110,16 @@ class HoleDetailViewModel: ObservableObject {
         if floors.isEmpty {
             await loadMoreFloors()
         }
+        
+        Task { // update viewing count
+            if let hole = hole {
+                do {
+                    try await NetworkRequests.shared.updateViews(holeId: hole.id)
+                } catch {
+                    print("DANXI-DEBUG: update viewing count failed")
+                }
+            }
+        }
     }
     
     func loadMoreFloors() async {

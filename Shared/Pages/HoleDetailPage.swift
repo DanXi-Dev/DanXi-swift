@@ -43,9 +43,6 @@ struct HoleDetailPage: View {
                             ProgressView()
                             Spacer()
                         }
-                        .task {
-                            await viewModel.initialLoad(proxy: proxy)
-                        }
                     }
                 }
             }
@@ -56,6 +53,9 @@ struct HoleDetailPage: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     toolbar
                 }
+            }
+            .task {
+                await viewModel.initialLoad(proxy: proxy)
             }
             .alert(viewModel.errorInfo.title, isPresented: $viewModel.errorPresenting) {
                 Button("OK") { }
