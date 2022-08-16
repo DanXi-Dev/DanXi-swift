@@ -41,7 +41,7 @@ struct HoleView: View {
         HStack {
             Text("#\(String(hole.id))")
             Spacer()
-            Text(hole.createTime.formatted(date: .abbreviated, time: .shortened))
+            Text(hole.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
             Spacer()
             actions
         }

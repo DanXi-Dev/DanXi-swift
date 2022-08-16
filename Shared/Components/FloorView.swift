@@ -99,7 +99,7 @@ struct FloorView: View {
                 .foregroundColor(Color(uiColor: .systemGray2))
             
             Spacer()
-            Text(floor.createTime.formatted(date: .abbreviated, time: .shortened))
+            Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
                 .font(.caption)
                 .foregroundColor(Color(uiColor: .systemGray2))
 
