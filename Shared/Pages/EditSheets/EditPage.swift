@@ -63,7 +63,7 @@ struct EditPage: View {
                 if (content.count >= 5) {
                     // TODO: Add a slight delay to prevent prediction at every type
                     // TODO: Add animation
-                    // TODO: Put this in one row to save space
+                    // FIXME: Can't select individual tag
                     HStack {
                         ForEach(predictor.suggest(content), id: \.self) { prediction in
                             Button(action: {tags.append(THTag(id: 0, temperature: 0, name: prediction))}) {
@@ -72,14 +72,8 @@ struct EditPage: View {
                             }
                         }
                     }
-                    .transition(.slide)
                 } else {
-                    HStack {
-                        Text("Type more to get suggestions...")
-                        Spacer()
-                        ProgressView()
-                    }
-                    .transition(.slide)
+                    Text("Type more to get suggestions...")
                 }
             }
         } else {

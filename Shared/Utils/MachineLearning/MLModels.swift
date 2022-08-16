@@ -25,14 +25,14 @@ class TagPredictor {
     }
     
     func suggest(_ text: String, threshold: Double = 0.15) -> [String] {
-        var suggestions: [String] = []
+        var suggestions: Set<String> = Set<String>()
         for model in models {
             let labelHypotheses = model.predictedLabelHypotheses(for: text.stripToNLProcessableString(), maximumCount: modelCapacity)
-            suggestions += labelHypotheses.filter({ key, value in
+            suggestions = suggestions.union(labelHypotheses.filter({ key, value in
                 return value >= threshold
-            }).keys
+            }).keys)
         }
-        return suggestions
+        return suggestions.sorted()
     }
     
     func debugPredictTagForText(_ text: String, modelId: Int = 0) -> String {
