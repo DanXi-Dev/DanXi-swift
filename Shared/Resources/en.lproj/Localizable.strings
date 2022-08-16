@@ -6,6 +6,14 @@
 "TH Feature 3" = "Edit with Ease";
 "TH Detail 3" = "Use Markdown and LaTeX syntax in posts";
 
+// Danke Welcome Page
+"DK Feature 1" = "Feature";
+"DK Detail 1" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+"DK Feature 2" = "Feature";
+"DK Detail 2" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+"DK Feature 3" = "Feature";
+"DK Detail 3" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
 // Treehole Page
 "image_tag" = "[Image]";
 "formula_tag" = "[Formula]";

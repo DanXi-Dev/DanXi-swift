@@ -18,12 +18,14 @@ struct AppSidebarNavigation: View {
                         if (model.loggedIn) {
                             TreeholePage()
                         } else {
-                            WelcomePage()
+                            TreeholeWelcomePage()
                         }
                     }
                 } label: {
                     Label("Tree Hole", systemImage: "text.bubble")
                 }
+                
+                
                 
                 NavigationLink(tag: NavigationItem.settings, selection: $selection) {
                     SettingsPage()

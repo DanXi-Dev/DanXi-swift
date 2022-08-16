@@ -5,6 +5,7 @@ struct AppTabNavigation: View {
     
     enum Tab {
         case treehole
+        case curriculum
         case settings
     }
     
@@ -18,7 +19,7 @@ struct AppTabNavigation: View {
                         TreeholePage()
                     }
                 } else {
-                    WelcomePage()
+                    TreeholeWelcomePage()
                 }
             }
             .tabItem {
@@ -27,13 +28,20 @@ struct AppTabNavigation: View {
             }
             .tag(Tab.treehole)
             
-            NavigationView {
-                CourseMainPage()
+            Group {
+                if model.loggedIn {
+                    NavigationView {
+                        CourseMainPage()
+                    }
+                } else {
+                    CourseWelcomePage()
+                }
             }
             .tabItem {
                 Image(systemName: "books.vertical.fill")
                 Text("Curriculum")
             }
+            .tag(Tab.curriculum)
             
             NavigationView {
                 SettingsPage()
@@ -49,7 +57,6 @@ struct AppTabNavigation: View {
 }
 
 struct AppTabNavigation_Previews: PreviewProvider {
-    
     static var previews: some View {
         Group {
             AppTabNavigation()
@@ -57,5 +64,4 @@ struct AppTabNavigation_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
         }
     }
-    
 }

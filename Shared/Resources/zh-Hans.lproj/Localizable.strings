@@ -35,6 +35,14 @@
 "TH Detail 3" = "在帖子中使用LaTeX和Markdown语法";
 "Go to Settings Page to Login" = "请前往设置内登录旦夕账号";
 
+// Danke Welcome Page
+"DK Feature 1" = "功能点";
+"DK Detail 1" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+"DK Feature 2" = "功能点";
+"DK Detail 2" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+"DK Feature 3" = "功能点";
+"DK Detail 3" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
 // Treehole Page
 "Pinned" = "置顶贴";
 "Main Section" = "主题贴";
@@ -86,6 +94,7 @@
 "Tags" = "标签";
 
 // Course
+"Course Review" = "蛋壳课评平台";
 "%@ Credit" = "%@学分";
 "Curriculum Board" = "蛋壳课评";
 "Curriculum" = "课评";
