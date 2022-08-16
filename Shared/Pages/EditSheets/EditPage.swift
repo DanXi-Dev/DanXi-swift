@@ -2,10 +2,11 @@ import SwiftUI
 
 struct EditPage: View {
     let divisionId: Int
-    @Binding var showNewPostPage: Bool
     @State var content = ""
     @State var tags: [THTag] = []
     @State var previewMode = false
+    
+    @Environment(\.dismiss) private var dismiss
     
     func sendPost() {
         Task {
@@ -16,7 +17,7 @@ struct EditPage: View {
                     content: content,
                     divisionId: divisionId,
                     tags: tags)
-                showNewPostPage = false
+                dismiss()
             } catch {
                 // TODO: alert user
                 print("DANXI-DEBUG: post failed")
@@ -42,7 +43,7 @@ struct EditPage: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel", action: {
-                        showNewPostPage = false
+                        dismiss()
                     })
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -176,6 +177,6 @@ struct THTagSelection: View {
 
 struct THNewPost_Previews: PreviewProvider {
     static var previews: some View {
-        EditPage(divisionId: 1, showNewPostPage: .constant(true))
+        EditPage(divisionId: 1)
     }
 }

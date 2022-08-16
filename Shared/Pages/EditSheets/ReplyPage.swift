@@ -2,13 +2,14 @@ import SwiftUI
 
 struct ReplyPage: View {
     let holeId: Int
-    @Binding var showReplyPage: Bool
     @State var content: String
+    
+    @Environment(\.dismiss) private var dismiss
     
     func reply() async {
         do {
             _ = try await NetworkRequests.shared.reply(content: content, holdId: holeId)
-            showReplyPage = false
+            dismiss()
         } catch {
             print("DANXI-DEBUG: reply failed")
         }
@@ -57,6 +58,6 @@ struct ReplyPage: View {
 
 struct ReplyPage_Previews: PreviewProvider {
     static var previews: some View {
-        ReplyPage(holeId: 0, showReplyPage: .constant(true), content: "")
+        ReplyPage(holeId: 0, content: "")
     }
 }

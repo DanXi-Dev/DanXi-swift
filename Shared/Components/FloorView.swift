@@ -54,14 +54,12 @@ struct FloorView: View {
         .sheet(isPresented: $showReplyPage) {
             ReplyPage(
                 holeId: floor.holeId,
-                showReplyPage: $showReplyPage,
                 content: "##\(String(floor.id))\n")
         }
         .sheet(isPresented: $showEditPage) {
             EditReplyPage(
                 floor: $floor,
-                content: floor.content,
-                showPage: $showEditPage)
+                content: floor.content)
         }
     }
     

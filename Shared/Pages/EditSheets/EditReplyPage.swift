@@ -3,12 +3,13 @@ import SwiftUI
 struct EditReplyPage: View {
     @Binding var floor: THFloor
     @State var content: String
-    @Binding var showPage: Bool
+    
+    @Environment(\.dismiss) private var dismiss
     
     func edit() async {
         do {
             floor = try await NetworkRequests.shared.editReply(content: content, floorId: floor.id)
-            showPage = false
+            dismiss()
         } catch {
             print("DANXI-DEBUG: edit reply failed")
         }
@@ -57,6 +58,6 @@ struct EditReplyPage: View {
 
 struct EditReplyPage_Previews: PreviewProvider {
     static var previews: some View {
-        EditReplyPage(floor: .constant(PreviewDecode.decodeObj(name: "floor")!), content: "", showPage: .constant(true))
+        EditReplyPage(floor: .constant(PreviewDecode.decodeObj(name: "floor")!), content: "")
     }
 }

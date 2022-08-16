@@ -3,13 +3,14 @@ import SwiftUI
 struct LoginPage: View {
     @ObservedObject var model = TreeholeDataModel.shared
     
-    @Binding var showLoginPage: Bool // passed from caller, exit after successful login
     @State var username = ""
     @State var password = ""
     @State var loading = false
     
     @State var errorPresenting = false
     @State var errorInfo = ErrorInfo()
+    
+    @Environment(\.dismiss) private var dismiss
     
     func login() {
         // check info before submit to server
@@ -32,7 +33,7 @@ struct LoginPage: View {
                 try await NetworkRequests.shared.login(username: username, password: password)
                 model.loggedIn = true
                 loading = false
-                showLoginPage = false
+                dismiss()
                 model.initialFetch()
             } catch let error as NetworkError {
                 switch error {
@@ -77,7 +78,7 @@ struct LoginPage: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        showLoginPage = false
+                        dismiss()
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -99,6 +100,6 @@ struct LoginPage: View {
 
 struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPage(showLoginPage: .constant(true))
+        LoginPage()
     }
 }

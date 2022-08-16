@@ -82,7 +82,6 @@ struct HoleDetailPage: View {
             .sheet(isPresented: $showReplyPage) {
                 ReplyPage(
                     holeId: hole.id,
-                    showReplyPage: $showReplyPage,
                     content: "")
             }
             

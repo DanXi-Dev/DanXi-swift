@@ -93,7 +93,7 @@ struct SettingsPage: View {
             }
         }
         .sheet(isPresented: $showTreeHoleLogin) {
-            LoginPage(showLoginPage: $showTreeHoleLogin)
+            LoginPage()
         }
     }
 }

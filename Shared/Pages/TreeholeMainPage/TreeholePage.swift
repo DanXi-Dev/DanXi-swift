@@ -36,7 +36,7 @@ struct TreeholePage: View {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $showEditPage) {
-                        EditPage(divisionId: viewModel.currentDivisionId, showNewPostPage: $showEditPage)
+                        EditPage(divisionId: viewModel.currentDivisionId)
                     }
                 }
             }
