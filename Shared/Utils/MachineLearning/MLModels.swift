@@ -24,7 +24,7 @@ class TagPredictor {
         models = [tagPredModelME, tagPredModelTL]
     }
     
-    func suggest(_ text: String, threshold: Double = 0.2) -> [String] {
+    func suggest(_ text: String, threshold: Double = 0.15) -> [String] {
         var suggestions: [String] = []
         for model in models {
             let labelHypotheses = model.predictedLabelHypotheses(for: text.stripToNLProcessableString(), maximumCount: modelCapacity)
