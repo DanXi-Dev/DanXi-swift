@@ -84,8 +84,6 @@ extension THFloor {
             throw NetworkError.invalidResponse
         }
         mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
-        
-        self.posterColor = randomColor(name: posterName)
     }
 }
 
@@ -137,21 +135,12 @@ extension THTag {
         case name, temperature
     }
     
-    init(id: Int, temperature: Int, name: String) {
-        self.id = id
-        self.temperature = temperature
-        self.name = name
-        self.color = randomColor(name: name)
-    }
-    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         let nameStr = try values.decode(String.self, forKey: .name)
         name = nameStr
         temperature = try values.decode(Int.self, forKey: .temperature)
-        
-        color = randomColor(name: name)
     }
 }
 

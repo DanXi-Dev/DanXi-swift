@@ -28,7 +28,7 @@ struct TagList: View {
     var body: some View {
         FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
             Text(tag.name)
-                .tagStyle(color: tag.color)
+                .tagStyle(color: randomColor(name: tag.name))
         }
     }
 }
@@ -40,7 +40,7 @@ struct TagListSimple: View {
         HStack(alignment: .center, spacing: 5.0) {
             ForEach(tags) { tag in
                 Text(tag.name)
-                    .tagStyle(color: tag.color)
+                    .tagStyle(color: randomColor(name: tag.name))
             }
         }
     }
@@ -55,7 +55,7 @@ struct TagListNavigation: View {
             ForEach(tags) { tag in
                 NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
                     Text(tag.name)
-                        .tagStyle(color: tag.color)
+                        .tagStyle(color: randomColor(name: tag.name))
                 }
             }
         }

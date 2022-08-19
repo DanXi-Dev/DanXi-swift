@@ -19,7 +19,6 @@ struct THDivision: Hashable, Decodable, Identifiable {
 struct THTag: Hashable, Codable, Identifiable {
     let id, temperature: Int
     let name: String
-    let color: Color // tag color for display, calculated during init
 }
 
 struct THFloor: Hashable, Codable, Identifiable {
@@ -32,8 +31,6 @@ struct THFloor: Hashable, Codable, Identifiable {
     let storey: Int
     let content, posterName: String
     let mention: [THMention]
-    
-    let posterColor: Color // poster color for display, calculated during init
 }
 
 struct THMention: Hashable, Codable {
