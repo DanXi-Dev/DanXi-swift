@@ -7,6 +7,7 @@ struct FloorView: View {
     
     @State var showReplyPage = false
     @State var showEditPage = false
+    var holeViewModel: HoleDetailViewModel? = nil
     
     init(floor: THFloor) {
         self._floor = State(initialValue: floor)
@@ -16,6 +17,12 @@ struct FloorView: View {
     init(floor: THFloor, isPoster: Bool) {
         self._floor = State(initialValue: floor)
         self.isPoster = isPoster
+    }
+    
+    init(floor: THFloor, isPoster: Bool, model: HoleDetailViewModel) {
+        self._floor = State(initialValue: floor)
+        self.isPoster = isPoster
+        self.holeViewModel = model
     }
     
     func like() {
@@ -41,7 +48,9 @@ struct FloorView: View {
     }
     
     var body: some View {
-        let contentElements = parseMarkdownReferences(content: floor.content, mentions: floor.mention)
+        let contentElements = parseMarkdownReferences(floor.content,
+                                                      mentions: floor.mention,
+                                                      holeModel: holeViewModel)
         
         return VStack(alignment: .leading) {
             HStack {
@@ -55,14 +64,15 @@ struct FloorView: View {
                     switch element {
                     case .text(let content):
                         Markdown(content) // FIXME: may collapse in #124691
-                    case .reference(let floorId, let mention):
-                        if let mention = mention {
-                            Text(mention.content)
-                                .foregroundColor(.red)
-                        } else {
-                            Text("REFERENCE  \(String(floorId))")
-                                .foregroundColor(.red)
-                        }
+                    case .localReference(let floorId, let floor):
+                        Text(floor.content)
+                            .foregroundColor(.red)
+                    case .remoteReference(let floorId, let mention):
+                        Text(mention.content)
+                            .foregroundColor(.blue)
+                    case .reference(let floorId):
+                        Text(String(floorId))
+                            .foregroundColor(.green)
                     }
                 }
             }

@@ -22,7 +22,7 @@ struct HoleDetailPage: View {
                 Section {
                     if let hole = viewModel.hole {
                         ForEach(viewModel.filteredFloors) { floor in
-                            FloorView(floor: floor, isPoster: floor.posterName == hole.firstFloor.posterName )
+                            FloorView(floor: floor, isPoster: floor.posterName == hole.firstFloor.posterName, model: viewModel)
                                 .task {
                                     if floor == viewModel.floors.last {
                                         await viewModel.loadMoreFloors()

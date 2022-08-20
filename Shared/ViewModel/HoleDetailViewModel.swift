@@ -149,4 +149,13 @@ class HoleDetailViewModel: ObservableObject {
             print("DANXI-DEBUG: toggle favorite failed")
         }
     }
+    
+    func fetchFloorFromID(_ floorId: Int) -> THFloor? {
+        for floor in floors {
+            if floor.id == floorId {
+                return floor
+            }
+        }
+        return nil
+    }
 }

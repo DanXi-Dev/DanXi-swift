@@ -17,14 +17,18 @@ extension String {
 
 enum MarkdownElements: Identifiable {
     case text(content: String)
-    case reference(floorId: Int, mention: THMention?)
+    case reference(floorId: Int) // empty reference
+    case localReference(floorId: Int, floor: THFloor) // reference within same hole
+    case remoteReference(floorId: Int, mention: THMention) // reference in different hole, with mention
     
     var id: UUID {
         UUID()
     }
 }
 
-func parseMarkdownReferences(content: String, mentions: [THMention] = []) -> [MarkdownElements] {
+@MainActor func parseMarkdownReferences(_ content: String,
+                             mentions: [THMention] = [],
+                             holeModel: HoleDetailViewModel? = nil) -> [MarkdownElements] {
     var partialContent = content
     var parsedResult: [MarkdownElements] = []
     let referencePattern = try! NSRegularExpression(pattern: #"##[0-9]+"#)
@@ -39,15 +43,21 @@ func parseMarkdownReferences(content: String, mentions: [THMention] = []) -> [Ma
         
         // reference
         let floorId = Int(String(partialContent[searchResult]).dropFirst(2)) ?? 0
-
-        var correspondMention: THMention?
-        for mention in mentions {
-            if mention.floorId == floorId {
-                correspondMention = mention
+        var referenceElement = MarkdownElements.reference(floorId: floorId)
+        
+        
+        if let floor = holeModel?.fetchFloorFromID(floorId) { // reference: check local
+            referenceElement = .localReference(floorId: floorId, floor: floor)
+        } else { // reference: check remote
+            for mention in mentions {
+                if mention.floorId == floorId {
+                    referenceElement = .remoteReference(floorId: floorId, mention: mention)
+                }
             }
         }
         
-        parsedResult.append(.reference(floorId: floorId, mention: correspondMention))
+        parsedResult.append(referenceElement)
+        
         
         // cut partial content
         partialContent = String(partialContent[searchResult.upperBound..<partialContent.endIndex])
