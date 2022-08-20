@@ -11,7 +11,7 @@
 		27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */; };
 		27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */; };
 		2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */; };
-		2729071528B0B45F0087ACC0 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* ReferenceView.swift */; };
+		2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* MentionView.swift */; };
 		272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* FavoritesPage.swift */; };
 		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
 		272AC8E12896F27300092B0C /* EditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* EditPage.swift */; };
@@ -95,7 +95,7 @@
 		27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeBrowse.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayRawRepresentable.swift; sourceTree = "<group>"; };
 		2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParse.swift; sourceTree = "<group>"; };
-		2729071428B0B45F0087ACC0 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
+		2729071428B0B45F0087ACC0 /* MentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
 		272AC8D92896BE2500092B0C /* FavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPage.swift; sourceTree = "<group>"; };
 		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
 		272AC8E02896F27300092B0C /* EditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPage.swift; sourceTree = "<group>"; };
@@ -273,7 +273,7 @@
 				2778D6132891D22D009F4DB1 /* FloorView.swift */,
 				2778D6142891D22D009F4DB1 /* TagView.swift */,
 				F12D43ED28A635700075CCA1 /* RendererViews.swift */,
-				2729071428B0B45F0087ACC0 /* ReferenceView.swift */,
+				2729071428B0B45F0087ACC0 /* MentionView.swift */,
 				27719AA028A3E4DF00C661BD /* CourseView.swift */,
 			);
 			path = Components;
@@ -562,7 +562,7 @@
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
 				F19113A028A643090067BA61 /* Markdown.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
-				2729071528B0B45F0087ACC0 /* ReferenceView.swift in Sources */,
+				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
 				27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */,
 				F191139B28A643090067BA61 /* Measurements.swift in Sources */,
 				F191139E28A643090067BA61 /* MarkdownStyle.swift in Sources */,

@@ -8,6 +8,7 @@ struct FloorView: View {
     @State var showReplyPage = false
     @State var showEditPage = false
     var holeViewModel: HoleDetailViewModel? = nil
+    var proxy: ScrollViewProxy? = nil
     
     init(floor: THFloor) {
         self._floor = State(initialValue: floor)
@@ -19,10 +20,11 @@ struct FloorView: View {
         self.isPoster = isPoster
     }
     
-    init(floor: THFloor, isPoster: Bool, model: HoleDetailViewModel) {
+    init(floor: THFloor, isPoster: Bool, model: HoleDetailViewModel, proxy: ScrollViewProxy) {
         self._floor = State(initialValue: floor)
         self.isPoster = isPoster
         self.holeViewModel = model
+        self.proxy = proxy
     }
     
     func like() {
@@ -64,10 +66,14 @@ struct FloorView: View {
                     switch element {
                     case .text(let content):
                         Markdown(content) // FIXME: may collapse in #124691
-                    case .localReference(let floorId, let floor):
-                        Text(floor.content)
-                            .foregroundColor(.red)
-                    case .remoteReference(let floorId, let mention):
+                    case .localReference(let floor):
+                        MentionView(floor: floor)
+                            .onTapGesture {
+                                withAnimation {
+                                    proxy?.scrollTo(floor.id)
+                                }
+                            }
+                    case .remoteReference(let mention):
                         Text(mention.content)
                             .foregroundColor(.blue)
                     case .reference(let floorId):
@@ -91,27 +97,6 @@ struct FloorView: View {
                 content: floor.content)
         }
     }
-    
-    
-    
-    
-//    private var content: some View {
-//        if floor.mention.isEmpty {
-//            return Markdown(floor.content)
-//        } else {
-//            let contentElements = parseMarkdownElement(content: floor.content)
-//            return VStack {
-//                ForEach(contentElements) { element in
-//                    switch element {
-//                    case .text(let: content):
-//                        Markdown(content)
-//                    case .reference(let: id):
-//                        Text(String(id))
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     private var poster: some View {
         HStack {

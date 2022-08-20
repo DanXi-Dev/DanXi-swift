@@ -22,13 +22,16 @@ struct HoleDetailPage: View {
                 Section {
                     if let hole = viewModel.hole {
                         ForEach(viewModel.filteredFloors) { floor in
-                            FloorView(floor: floor, isPoster: floor.posterName == hole.firstFloor.posterName, model: viewModel)
-                                .task {
-                                    if floor == viewModel.floors.last {
-                                        await viewModel.loadMoreFloors()
-                                    }
+                            FloorView(floor: floor,
+                                      isPoster: floor.posterName == hole.firstFloor.posterName,
+                                      model: viewModel,
+                                      proxy: proxy)
+                            .task {
+                                if floor == viewModel.floors.last {
+                                    await viewModel.loadMoreFloors()
                                 }
-                                .id(floor.id)
+                            }
+                            .id(floor.id)
                         }
                     }
                 } header: {

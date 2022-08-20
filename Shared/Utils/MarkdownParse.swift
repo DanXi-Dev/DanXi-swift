@@ -18,8 +18,8 @@ extension String {
 enum MarkdownElements: Identifiable {
     case text(content: String)
     case reference(floorId: Int) // empty reference
-    case localReference(floorId: Int, floor: THFloor) // reference within same hole
-    case remoteReference(floorId: Int, mention: THMention) // reference in different hole, with mention
+    case localReference(floor: THFloor) // reference within same hole
+    case remoteReference(mention: THMention) // reference in different hole, with mention
     
     var id: UUID {
         UUID()
@@ -47,11 +47,11 @@ enum MarkdownElements: Identifiable {
         
         
         if let floor = holeModel?.fetchFloorFromID(floorId) { // reference: check local
-            referenceElement = .localReference(floorId: floorId, floor: floor)
+            referenceElement = .localReference(floor: floor)
         } else { // reference: check remote
             for mention in mentions {
                 if mention.floorId == floorId {
-                    referenceElement = .remoteReference(floorId: floorId, mention: mention)
+                    referenceElement = .remoteReference(mention: mention)
                 }
             }
         }
