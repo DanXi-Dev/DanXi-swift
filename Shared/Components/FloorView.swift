@@ -74,8 +74,8 @@ struct FloorView: View {
                                 }
                             }
                     case .remoteReference(let mention):
-                        Text(mention.content)
-                            .foregroundColor(.blue)
+                        MentionView(mention: mention)
+                            
                     case .reference(let floorId):
                         Text(String(floorId))
                             .foregroundColor(.green)

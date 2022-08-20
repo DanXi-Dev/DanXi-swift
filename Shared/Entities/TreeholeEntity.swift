@@ -37,7 +37,8 @@ struct THMention: Hashable, Codable {
     let floorId, holeId: Int
     let content: String
     let posterName: String
-    // TODO: time_updated, time_created, deleted, fold ([]), like, special_tag, storey
+    let createTime, updateTime: Date
+    let deleted: Bool
 }
 
 struct THHole: Hashable, Decodable, Identifiable {

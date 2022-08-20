@@ -13,6 +13,13 @@ struct MentionView: View {
         self.date = floor.createTime
     }
     
+    init(mention: THMention) {
+        self.poster = mention.posterName
+        self.content = mention.content
+        self.floorId = mention.floorId
+        self.date = mention.createTime
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {

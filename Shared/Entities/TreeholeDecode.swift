@@ -93,6 +93,30 @@ extension THMention {
         case holeId = "hole_id"
         case content
         case posterName = "anonyname"
+        case createTime = "time_created"
+        case updateTime = "time_updated"
+        case deleted
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        floorId = try values.decode(Int.self, forKey: .floorId)
+        holeId = try values.decode(Int.self, forKey: .holeId)
+        content = try values.decode(String.self, forKey: .content)
+        posterName = try values.decode(String.self, forKey: .posterName)
+        deleted = try values.decode(Bool.self, forKey: .deleted)
+        
+        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
+        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let createTime = formatter.date(from: iso8601CreateTime),
+            let updateTime = formatter.date(from: iso8601UpdateTime) {
+            self.createTime = createTime
+            self.updateTime = updateTime
+        } else {
+            throw NetworkError.invalidResponse
+        }
     }
 }
 
