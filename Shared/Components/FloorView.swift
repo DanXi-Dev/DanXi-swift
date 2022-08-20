@@ -1,4 +1,5 @@
 import SwiftUI
+import MarkdownUI
 
 struct FloorView: View {
     @State var floor: THFloor
@@ -40,14 +41,32 @@ struct FloorView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        let contentElements = parseMarkdownReferences(content: floor.content, mentions: floor.mention)
+        
+        return VStack(alignment: .leading) {
             HStack {
                 poster
                 Spacer()
                 actions
             }
-            Markdown(floor.content)
-                .font(.system(size: 16))
+            
+            VStack(alignment: .leading) {
+                ForEach(contentElements) { element in
+                    switch element {
+                    case .text(let content):
+                        Markdown(content) // FIXME: may collapse in #124691
+                    case .reference(let floorId, let mention):
+                        if let mention = mention {
+                            Text(mention.content)
+                                .foregroundColor(.red)
+                        } else {
+                            Text("REFERENCE  \(String(floorId))")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+            }
+            
             info
         }
         // FIXME: sheet header is force capitalized
@@ -62,6 +81,27 @@ struct FloorView: View {
                 content: floor.content)
         }
     }
+    
+    
+    
+    
+//    private var content: some View {
+//        if floor.mention.isEmpty {
+//            return Markdown(floor.content)
+//        } else {
+//            let contentElements = parseMarkdownElement(content: floor.content)
+//            return VStack {
+//                ForEach(contentElements) { element in
+//                    switch element {
+//                    case .text(let: content):
+//                        Markdown(content)
+//                    case .reference(let: id):
+//                        Text(String(id))
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     private var poster: some View {
         HStack {
