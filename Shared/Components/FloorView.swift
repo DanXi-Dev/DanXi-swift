@@ -67,12 +67,35 @@ struct FloorView: View {
                     case .text(let content):
                         Markdown(content) // FIXME: may collapse in #124691
                     case .localReference(let floor):
-                        MentionView(floor: floor)
-                            .onTapGesture {
-                                withAnimation {
-                                    proxy?.scrollTo(floor.id)
+                        Menu(content: {
+                            Button {
+                                UIPasteboard.general.string = floor.content.stripToBasicMarkdown() // TODO: Is this format suitable for copy?
+                            } label: {
+                                Label("Copy Full Text", systemImage: "doc.on.doc")
+                            }
+                            Button {
+                                UIPasteboard.general.string = "##\(String(floor.id))"
+                            } label: {
+                                Label("Copy Floor ID", systemImage: "doc.on.doc")
+                            }
+                            Button {
+                                // TODO: Not implemented
+                            } label: {
+                                Label("Reply (not implemented)", systemImage: "arrowshape.turn.up.left")
+                            }
+                            
+                            if let proxy = proxy {
+                                Button {
+                                    withAnimation {
+                                        proxy.scrollTo(floor.id, anchor: .top)
+                                    }
+                                } label: {
+                                    Label("Locate", systemImage: "arrow.right.square")
                                 }
                             }
+                        }, label: {
+                            MentionView(floor: floor)
+                        })
                     case .remoteReference(let mention):
                         MentionView(mention: mention)
                             
@@ -182,15 +205,15 @@ struct FloorView: View {
             }
             
             Button {
-                // TODO: copy text
+                UIPasteboard.general.string = floor.content.stripToBasicMarkdown() // TODO: Is this format suitable for copy?
             } label: {
-                Label("Copy full text", systemImage: "doc.on.doc")
+                Label("Copy Full Text", systemImage: "doc.on.doc")
             }
             
             Button {
-                // TODO: copy floor id
+                UIPasteboard.general.string = "##\(String(floor.id))"
             } label: {
-                Label("Copy floor ID", systemImage: "square.and.arrow.up")
+                Label("Copy Floor ID", systemImage: "doc.on.doc")
             }
             
             if floor.isMe && !floor.deleted {

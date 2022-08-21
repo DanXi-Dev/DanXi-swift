@@ -55,8 +55,9 @@
 
 // Treehole floor
 "Report" = "举报";
-"Copy full text" = "复制全文";
-"Copy floor ID" = "复制回帖ID";
+"Copy" = "复制";
+"Copy Full Text" = "复制全文";
+"Copy Floor ID" = "复制回帖ID";
 
 // Treehole Edit Page
 "New Post" = "新建主题贴";
@@ -74,6 +75,7 @@
 "Show OP Only" = "只看洞主";
 "Show All" = "全部回贴";
 "Navigate to Bottom" = "去往底部";
+"Locate" = "定位";
 
 "Treehole Not Exist" = "树洞不存在";
 "Treehole #%@ not exist" = "树洞 #%@ 不存在";
