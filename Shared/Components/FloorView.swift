@@ -95,6 +95,7 @@ struct FloorView: View {
                             }
                         }, label: {
                             MentionView(floor: floor)
+                                .foregroundColor(.primary)
                         })
                     case .remoteReference(let mention):
                         MentionView(mention: mention)
