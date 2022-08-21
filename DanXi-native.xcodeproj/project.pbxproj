@@ -56,7 +56,6 @@
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
-		F12D43EE28A635700075CCA1 /* RendererViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D43ED28A635700075CCA1 /* RendererViews.swift */; };
 		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
@@ -136,7 +135,6 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F12D43ED28A635700075CCA1 /* RendererViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererViews.swift; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* TreeholeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeSearch.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 				2778D6152891D22D009F4DB1 /* HoleView.swift */,
 				2778D6132891D22D009F4DB1 /* FloorView.swift */,
 				2778D6142891D22D009F4DB1 /* TagView.swift */,
-				F12D43ED28A635700075CCA1 /* RendererViews.swift */,
 				2729071428B0B45F0087ACC0 /* MentionView.swift */,
 				27719AA028A3E4DF00C661BD /* CourseView.swift */,
 			);
@@ -534,7 +531,6 @@
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
 				2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */,
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
-				F12D43EE28A635700075CCA1 /* RendererViews.swift in Sources */,
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
