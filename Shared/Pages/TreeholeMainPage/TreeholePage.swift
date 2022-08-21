@@ -83,33 +83,19 @@ struct ToolbarMenu: View {
                 Label("Tags", systemImage: "tag")
             }
             
-            Divider()
-            Menu("Sort By") {
-                // sort options
-                Button {
-                    Task {
-                        await viewModel.switchSortOption(sortByReplyTime: true)
-                    }
-                } label: {
-                    if viewModel.sortByReplyTime {
-                        Label("Last Updated", systemImage: "checkmark")
-                    } else {
-                        Text("Last Updated")
-                    }
-                }
+            Picker("Sort Options", selection: $viewModel.sortOption) {
+                Text("Last Updated")
+                    .tag(TreeholeViewModel.SortOptions.byReplyTime)
                 
-                Button {
-                    Task {
-                       await viewModel.switchSortOption(sortByReplyTime: false)
-                    }
-                } label: {
-                    if viewModel.sortByReplyTime {
-                        Text("Last Created")
-                    } else {
-                        Label("Last Created", systemImage: "checkmark")
-                    }
+                Text("Last Created")
+                    .tag(TreeholeViewModel.SortOptions.byCreateTime)
+            }
+            .onChange(of: viewModel.sortOption) { newValue in
+                Task {
+                    await viewModel.switchSortOption(newValue)
                 }
             }
+            
         } label: {
             Image(systemName: "ellipsis.circle")
         }

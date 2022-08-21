@@ -7,7 +7,12 @@ class TreeholeViewModel: ObservableObject {
     @Published var holes: [THHole] = []
     @Published var errorPresenting = false
     @Published var errorInfo = ErrorInfo()
-    @Published var sortByReplyTime: Bool = true
+    @Published var sortOption = SortOptions.byReplyTime
+    
+    enum SortOptions {
+        case byReplyTime
+        case byCreateTime
+    }
     
     func initialLoad() async { // FIXME: SwiftUI bug, .task modifier might be executed twice, causing NSURLErrorCancelled
         guard TreeholeDataModel.shared.divisions.isEmpty else { // prevent duplicate loading
@@ -31,7 +36,7 @@ class TreeholeViewModel: ObservableObject {
     
     func loadMoreHoles() async {
         do {
-            let startTime = sortByReplyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format() // FIXME: first batch of holes not sorted
+            let startTime = sortOption == .byReplyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format() // FIXME: first batch of holes not sorted // FIXME: first batch of holes not sorted
             let newHoles = try await NetworkRequests.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             holes.append(contentsOf: newHoles)
         } catch let error as NetworkError {
@@ -53,13 +58,9 @@ class TreeholeViewModel: ObservableObject {
         await loadMoreHoles()
     }
     
-    func switchSortOption(sortByReplyTime: Bool) async {
+    func switchSortOption(_ sortOption: SortOptions) async {
         // TODO: This preference should be remembered
-        if self.sortByReplyTime == sortByReplyTime {
-            return
-        }
-        
-        self.sortByReplyTime = sortByReplyTime
+        self.sortOption = sortOption
         holes = []
         await loadMoreHoles()
     }
