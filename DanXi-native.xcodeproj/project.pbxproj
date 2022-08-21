@@ -57,18 +57,6 @@
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		F12D43EE28A635700075CCA1 /* RendererViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D43ED28A635700075CCA1 /* RendererViews.swift */; };
-		F191139A28A643090067BA61 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191138C28A643090067BA61 /* Deprecations.swift */; };
-		F191139B28A643090067BA61 /* Measurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191138E28A643090067BA61 /* Measurements.swift */; };
-		F191139C28A643090067BA61 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191138F28A643090067BA61 /* Font.swift */; };
-		F191139D28A643090067BA61 /* HeadingScales.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139028A643090067BA61 /* HeadingScales.swift */; };
-		F191139E28A643090067BA61 /* MarkdownStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139128A643090067BA61 /* MarkdownStyle.swift */; };
-		F191139F28A643090067BA61 /* MarkdownImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139228A643090067BA61 /* MarkdownImageHandler.swift */; };
-		F19113A028A643090067BA61 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139328A643090067BA61 /* Markdown.swift */; };
-		F19113A128A643090067BA61 /* Document+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139528A643090067BA61 /* Document+NSAttributedString.swift */; };
-		F19113A228A643090067BA61 /* NSAttributedString+ImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139628A643090067BA61 /* NSAttributedString+ImageLoading.swift */; };
-		F19113A328A643090067BA61 /* AttributedStringRenderer+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139728A643090067BA61 /* AttributedStringRenderer+Environment.swift */; };
-		F19113A428A643090067BA61 /* ResizableImageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139828A643090067BA61 /* ResizableImageAttachment.swift */; };
-		F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F191139928A643090067BA61 /* AttributedStringRenderer.swift */; };
 		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
@@ -149,18 +137,6 @@
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F12D43ED28A635700075CCA1 /* RendererViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererViews.swift; sourceTree = "<group>"; };
-		F191138C28A643090067BA61 /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecations.swift; sourceTree = "<group>"; };
-		F191138E28A643090067BA61 /* Measurements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurements.swift; sourceTree = "<group>"; };
-		F191138F28A643090067BA61 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		F191139028A643090067BA61 /* HeadingScales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadingScales.swift; sourceTree = "<group>"; };
-		F191139128A643090067BA61 /* MarkdownStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownStyle.swift; sourceTree = "<group>"; };
-		F191139228A643090067BA61 /* MarkdownImageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownImageHandler.swift; sourceTree = "<group>"; };
-		F191139328A643090067BA61 /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
-		F191139528A643090067BA61 /* Document+NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Document+NSAttributedString.swift"; sourceTree = "<group>"; };
-		F191139628A643090067BA61 /* NSAttributedString+ImageLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+ImageLoading.swift"; sourceTree = "<group>"; };
-		F191139728A643090067BA61 /* AttributedStringRenderer+Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AttributedStringRenderer+Environment.swift"; sourceTree = "<group>"; };
-		F191139828A643090067BA61 /* ResizableImageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizableImageAttachment.swift; sourceTree = "<group>"; };
-		F191139928A643090067BA61 /* AttributedStringRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringRenderer.swift; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* TreeholeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeSearch.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
@@ -282,7 +258,6 @@
 		2778D6162891D22D009F4DB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				F191138B28A643090067BA61 /* MarkdownUI */,
 				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
@@ -431,41 +406,6 @@
 			path = "DanXi-native";
 			sourceTree = "<group>";
 		};
-		F191138B28A643090067BA61 /* MarkdownUI */ = {
-			isa = PBXGroup;
-			children = (
-				F191138C28A643090067BA61 /* Deprecations.swift */,
-				F191138D28A643090067BA61 /* Style */,
-				F191139228A643090067BA61 /* MarkdownImageHandler.swift */,
-				F191139328A643090067BA61 /* Markdown.swift */,
-				F191139428A643090067BA61 /* Rendering */,
-			);
-			path = MarkdownUI;
-			sourceTree = "<group>";
-		};
-		F191138D28A643090067BA61 /* Style */ = {
-			isa = PBXGroup;
-			children = (
-				F191138E28A643090067BA61 /* Measurements.swift */,
-				F191138F28A643090067BA61 /* Font.swift */,
-				F191139028A643090067BA61 /* HeadingScales.swift */,
-				F191139128A643090067BA61 /* MarkdownStyle.swift */,
-			);
-			path = Style;
-			sourceTree = "<group>";
-		};
-		F191139428A643090067BA61 /* Rendering */ = {
-			isa = PBXGroup;
-			children = (
-				F191139528A643090067BA61 /* Document+NSAttributedString.swift */,
-				F191139628A643090067BA61 /* NSAttributedString+ImageLoading.swift */,
-				F191139728A643090067BA61 /* AttributedStringRenderer+Environment.swift */,
-				F191139828A643090067BA61 /* ResizableImageAttachment.swift */,
-				F191139928A643090067BA61 /* AttributedStringRenderer.swift */,
-			);
-			path = Rendering;
-			sourceTree = "<group>";
-		};
 		F1AE7C1528AA3C3500A3FEBA /* MachineLearning */ = {
 			isa = PBXGroup;
 			children = (
@@ -560,18 +500,13 @@
 				2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */,
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
-				F19113A028A643090067BA61 /* Markdown.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
 				27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */,
-				F191139B28A643090067BA61 /* Measurements.swift in Sources */,
-				F191139E28A643090067BA61 /* MarkdownStyle.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* NetworkRequests.swift in Sources */,
-				F191139D28A643090067BA61 /* HeadingScales.swift in Sources */,
-				F19113A428A643090067BA61 /* ResizableImageAttachment.swift in Sources */,
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
@@ -581,17 +516,13 @@
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
-				F19113A128A643090067BA61 /* Document+NSAttributedString.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
-				F19113A228A643090067BA61 /* NSAttributedString+ImageLoading.swift in Sources */,
 				27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
-				F191139F28A643090067BA61 /* MarkdownImageHandler.swift in Sources */,
 				27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
-				F19113A328A643090067BA61 /* AttributedStringRenderer+Environment.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */,
@@ -600,7 +531,6 @@
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
-				F191139C28A643090067BA61 /* Font.swift in Sources */,
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
 				2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */,
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
@@ -608,13 +538,11 @@
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
-				F191139A28A643090067BA61 /* Deprecations.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
 				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */,
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,
-				F19113A528A643090067BA61 /* AttributedStringRenderer.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */,
 				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
 				2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */,
@@ -771,7 +699,7 @@
 				);
 				MARKETING_VERSION = 1.3.11;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
