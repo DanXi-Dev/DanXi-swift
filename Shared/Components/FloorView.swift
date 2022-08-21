@@ -81,7 +81,7 @@ struct FloorView: View {
                             Button {
                                 // TODO: Not implemented
                             } label: {
-                                Label("Reply (not implemented)", systemImage: "arrowshape.turn.up.left")
+                                Label("Reply", systemImage: "arrowshape.turn.up.left")
                             }
                             
                             if let proxy = proxy {

@@ -84,28 +84,30 @@ struct ToolbarMenu: View {
             }
             
             Divider()
-            // sort options
-            Button {
-                Task {
-                    await viewModel.switchSortOption(sortByReplyTime: true)
+            Menu("Sort By") {
+                // sort options
+                Button {
+                    Task {
+                        await viewModel.switchSortOption(sortByReplyTime: true)
+                    }
+                } label: {
+                    if viewModel.sortByReplyTime {
+                        Label("Last Updated", systemImage: "checkmark")
+                    } else {
+                        Text("Last Updated")
+                    }
                 }
-            } label: {
-                if viewModel.sortByReplyTime {
-                    Label("Recently Replied", systemImage: "checkmark")
-                } else {
-                    Text("Recently Replied")
-                }
-            }
-            
-            Button {
-                Task {
-                   await viewModel.switchSortOption(sortByReplyTime: false)
-                }
-            } label: {
-                if viewModel.sortByReplyTime {
-                    Text("Recently Created")
-                } else {
-                    Label("Recently Created", systemImage: "checkmark")
+                
+                Button {
+                    Task {
+                       await viewModel.switchSortOption(sortByReplyTime: false)
+                    }
+                } label: {
+                    if viewModel.sortByReplyTime {
+                        Text("Last Created")
+                    } else {
+                        Label("Last Created", systemImage: "checkmark")
+                    }
                 }
             }
         } label: {

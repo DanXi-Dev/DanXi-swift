@@ -54,6 +54,7 @@ class TreeholeViewModel: ObservableObject {
     }
     
     func switchSortOption(sortByReplyTime: Bool) async {
+        // TODO: This preference should be remembered
         if self.sortByReplyTime == sortByReplyTime {
             return
         }

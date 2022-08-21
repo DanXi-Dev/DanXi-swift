@@ -45,18 +45,22 @@ struct CourseMainPage: View {
     }
     
     var body: some View {
-        List {
-            ForEach(searchResults) { course in
-                CourseView(courseGroup: course)
+        if (courses.isEmpty) {
+            ProgressView()
+                .navigationTitle("Curriculum Board")
+                .task {
+                    await initialLoad()
+                }
+        } else {
+            List {
+                ForEach(searchResults) { course in
+                    CourseView(courseGroup: course)
+                }
             }
+            .searchable(text: $searchText)
+            .listStyle(.grouped)
+            .navigationTitle("Curriculum Board")
         }
-        .searchable(text: $searchText)
-        .navigationTitle("Curriculum Board")
-        .listStyle(.grouped)
-        .task {
-            await initialLoad()
-        }
-        
     }
 }
 
