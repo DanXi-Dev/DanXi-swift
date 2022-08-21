@@ -25,7 +25,7 @@ struct EditReplyPage: View {
                 }
                 .textCase(nil)
             }
-            .navigationTitle("Edit reply")
+            .navigationTitle("Edit Reply")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {

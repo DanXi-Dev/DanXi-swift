@@ -44,7 +44,7 @@ struct SearchTextPage: View {
         }
         .listStyle(.grouped)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("search_result")
+        .navigationTitle("Search Result")
     }
 }
 

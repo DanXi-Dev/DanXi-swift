@@ -184,20 +184,20 @@ struct FloorView: View {
             Button {
                 // TODO: copy text
             } label: {
-                Label("Copy full text", systemImage: "doc.on.doc")
+                Label("Copy Full text", systemImage: "doc.on.doc")
             }
             
             Button {
                 // TODO: copy floor id
             } label: {
-                Label("Copy floor ID", systemImage: "square.and.arrow.up")
+                Label("Copy Floor ID", systemImage: "square.and.arrow.up")
             }
             
             if floor.isMe && !floor.deleted {
                 Button {
                     showEditPage = true
                 } label: {
-                    Label("Edit reply", systemImage: "square.and.pencil")
+                    Label("Edit Reply", systemImage: "square.and.pencil")
                 }
             }
         }
