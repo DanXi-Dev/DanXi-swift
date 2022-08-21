@@ -38,6 +38,8 @@ struct MentionView: View {
             .foregroundColor(randomColor(name: poster))
             
             Text(content)
+                .foregroundColor(.primary)
+                .multilineTextAlignment(.leading)
                 .font(.callout)
                 .lineLimit(3)
             
