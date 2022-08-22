@@ -37,7 +37,6 @@ class HoleDetailViewModel: ObservableObject {
     init(hole: THHole) { // normal initializer
         self.hole = hole
         self.favorited = TreeholeDataModel.shared.user?.favorites.contains(hole.id) ?? false
-        self.floors = hole.floors
         
         self.initOption = .normal
     }
@@ -136,6 +135,11 @@ class HoleDetailViewModel: ObservableObject {
         }
     }
     
+    func refresh() async {
+        floors = []
+        await loadMoreFloors()
+    }
+    
     func toggleFavorites() async {
         guard let hole = hole else {
             return
@@ -158,4 +162,5 @@ class HoleDetailViewModel: ObservableObject {
         }
         return nil
     }
+    
 }
