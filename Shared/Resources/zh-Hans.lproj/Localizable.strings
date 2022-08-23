@@ -103,4 +103,18 @@
 // Error
 "Network Error" = "网络错误";
 "Network error, try again later" = "网络错误，请稍后再试";
+"Invalid Response" = "无效响应";
+"Server response is invalid" = "服务器返回的格式无效";
+"Forbidden" = "禁止访问";
+"Operation forbidden" = "没有权限进行该操作";
+"Unauthorized" = "登录过期";
+"Invalid credential" = "登录凭据无效，请重新登录";
+"Not Found" = "资源不存在";
+"Requested resourse not found" = "请求的资源不存在";
+"Not Initialized" = "未经初始化";
+"Credential not initialized, contact developer for help" = "登录凭据没有初始化，请联系开发者获取帮助";
+"Invalid Request" = "无效请求";
+"Request invalid, contact developer for help. message: %@" = "请求无效，请联系开发者获取帮助。诊断信息：%@";
+"Server Error" = "服务器错误";
+"Internal server error. message: %@" = "服务器内部错误，诊断信息：\@";
 "OK" = "确认";

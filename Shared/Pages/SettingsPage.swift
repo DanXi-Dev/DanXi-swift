@@ -27,7 +27,7 @@ struct SettingsPage: View {
                 Text("About")
             }
         }
-        .navigationTitle("settings")
+        .navigationTitle("Settings")
     }
     
     private var uisAccount: some View {
