@@ -26,6 +26,8 @@ class TreeholeViewModel: ObservableObject {
             Task {
                 await loadMoreHoles()
             }
+        } catch NetworkError.ignore {
+            // cancelled, ignore
         } catch let error as NetworkError {
             self.errorInfo = error.localizedErrorDescription
             errorPresenting = true
@@ -39,6 +41,8 @@ class TreeholeViewModel: ObservableObject {
             let startTime = sortOption == .byReplyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format() // FIXME: first batch of holes not sorted // FIXME: first batch of holes not sorted
             let newHoles = try await NetworkRequests.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             holes.append(contentsOf: newHoles)
+        } catch NetworkError.ignore {
+            // cancelled, ignore
         } catch let error as NetworkError {
             self.errorInfo = error.localizedErrorDescription
             errorPresenting = true

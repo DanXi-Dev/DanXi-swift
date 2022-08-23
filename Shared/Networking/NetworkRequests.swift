@@ -55,26 +55,37 @@ struct NetworkRequests {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let httpResponse = response as! HTTPURLResponse
-        
-        switch httpResponse.statusCode {
-        case 200..<300:
-            return data
-        case 401:
-            throw NetworkError.unauthorized // TODO: refresh token
-        case 403:
-            throw NetworkError.forbidden
-        case 404:
-            throw NetworkError.notFound
-        case 400..<500:
-            let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
-            throw NetworkError.invalidRequest(message: serverResponse?.message ?? "")
-        case 500..<600:
-            let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
-            throw NetworkError.serverError(message: serverResponse?.message ?? "")
-        default:
-            throw NetworkError.networkError
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200..<300:
+                    return data
+                case 401:
+                    throw NetworkError.unauthorized // TODO: refresh token
+                case 403:
+                    throw NetworkError.forbidden
+                case 404:
+                    throw NetworkError.notFound
+                case 400..<500:
+                    let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
+                    throw NetworkError.invalidRequest(message: serverResponse?.message ?? "")
+                case 500..<600:
+                    let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
+                    throw NetworkError.serverError(message: serverResponse?.message ?? "")
+                default:
+                    throw NetworkError.networkError
+                }
+            } else {
+                throw NetworkError.invalidResponse
+            }
+            
+        } catch let error as URLError {
+            if error.errorCode == -999 {
+                throw NetworkError.ignore // SwiftUI bug cause URLSession to cancel
+            } else {
+                throw NetworkError.networkError
+            }
         }
     }
     

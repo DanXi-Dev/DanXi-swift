@@ -10,6 +10,7 @@ public enum NetworkError: Error {
     case notInitialized // make network request without token, representing a bug
     case invalidRequest(message: String)
     case serverError(message: String)
+    case ignore // reserved for SwiftUI bug causing URLSession to cancel
     
     public var localizedErrorDescription: ErrorInfo {
         switch self {
@@ -29,6 +30,8 @@ public enum NetworkError: Error {
             return ErrorInfo(title: "Invalid Request", description: "Request invalid, contact developer for help. message: \(message)")
         case .serverError(let message):
             return ErrorInfo(title: "Server Error", description: "Internal server error. message: \(message)")
+        case .ignore:
+            return ErrorInfo()
         }
     }
 }
