@@ -3,11 +3,14 @@ import SwiftUI
 struct EditReplyPage: View {
     @Binding var floor: THFloor
     @State var content: String
+    @State var loading = false
     
     @Environment(\.dismiss) private var dismiss
     
     func edit() async {
         do {
+            loading = true
+            defer { loading = false }
             floor = try await NetworkRequests.shared.editReply(content: content, floorId: floor.id)
             dismiss()
         } catch {
@@ -37,6 +40,7 @@ struct EditReplyPage: View {
                         Text("Edit")
                             .bold()
                     }
+                    .disabled(loading)
                 }
             }
         }

@@ -167,7 +167,8 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
-        return try await requestObj(url: components.url!, data: payloadData)
+        let responseData: ServerResponse = try await requestObj(url: components.url!, data: payloadData)
+        return responseData.data
     }
     
     func editReply(content: String, floorId: Int) async throws -> THFloor {

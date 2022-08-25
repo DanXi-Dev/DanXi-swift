@@ -5,12 +5,16 @@ struct EditPage: View {
     @State var content = ""
     @State var tags: [THTag] = []
     @State var previewMode = false
+    @State var loading = false
     
     @Environment(\.dismiss) private var dismiss
     
     func sendPost() {
         Task {
             // TODO: pre post check (e.g.: empty tags)
+            
+            loading = true
+            defer { loading = false }
             
             do {
                 try await NetworkRequests.shared.newPost(
@@ -51,7 +55,7 @@ struct EditPage: View {
                         Text("Send")
                             .bold()
                     }
-                        
+                    .disabled(loading)
                 }
             }
         }

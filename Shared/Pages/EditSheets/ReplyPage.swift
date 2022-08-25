@@ -3,10 +3,12 @@ import SwiftUI
 struct ReplyPage: View {
     let holeId: Int
     @State var content: String
-    
+    @State var loading = false
     @Environment(\.dismiss) private var dismiss
     
     func reply() async {
+        loading = true
+        defer { loading = false }
         do {
             _ = try await NetworkRequests.shared.reply(content: content, holdId: holeId)
             dismiss()
@@ -37,6 +39,7 @@ struct ReplyPage: View {
                         Text("Send")
                             .bold()
                     }
+                    .disabled(loading)
                 }
             }
         }
