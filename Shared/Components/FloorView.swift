@@ -50,62 +50,13 @@ struct FloorView: View {
     }
     
     var body: some View {
-        let contentElements = parseMarkdownReferences(floor.content,
-                                                      mentions: floor.mention,
-                                                      holeModel: holeViewModel)
-        
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 poster
                 Spacer()
                 actions
             }
-            
-            VStack(alignment: .leading) {
-                ForEach(contentElements) { element in
-                    switch element {
-                    case .text(let content):
-                        Markdown(content) // FIXME: may collapse in #124691
-                    case .localReference(let floor):
-                        Menu(content: {
-                            Button {
-                                UIPasteboard.general.string = floor.content.stripToBasicMarkdown() // TODO: Is this format suitable for copy?
-                            } label: {
-                                Label("Copy Full Text", systemImage: "doc.on.doc")
-                            }
-                            Button {
-                                UIPasteboard.general.string = "##\(String(floor.id))"
-                            } label: {
-                                Label("Copy Floor ID", systemImage: "doc.on.doc")
-                            }
-                            Button {
-                                // TODO: Not implemented
-                            } label: {
-                                Label("Reply", systemImage: "arrowshape.turn.up.left")
-                            }
-                            
-                            if let proxy = proxy {
-                                Button {
-                                    withAnimation {
-                                        proxy.scrollTo(floor.id, anchor: .top)
-                                    }
-                                } label: {
-                                    Label("Locate", systemImage: "arrow.right.square")
-                                }
-                            }
-                        }, label: {
-                            MentionView(floor: floor)
-                        })
-                    case .remoteReference(let mention):
-                        MentionView(mention: mention)
-                            
-                    case .reference(let floorId):
-                        Text(String(floorId))
-                            .foregroundColor(.green)
-                    }
-                }
-            }
-            
+            renderedContent(floor.content)
             info
         }
         // FIXME: sheet header is force capitalized
@@ -118,6 +69,60 @@ struct FloorView: View {
             EditReplyPage(
                 floor: $floor,
                 content: floor.content)
+        }
+    }
+    
+    @MainActor
+    private func renderedContent(_ content: String) -> some View {
+        let contentElements = parseMarkdownReferences(floor.content,
+                                                      mentions: floor.mention,
+                                                      holeModel: holeViewModel)
+        
+        return VStack(alignment: .leading) {
+            ForEach(contentElements) { element in
+                switch element {
+                case .text(let content):
+                    Markdown(content) // FIXME: may collapse in #124691
+                        .markdownStyle(MarkdownStyle(font: .system(size: 16)))
+                        .textSelection(.enabled)
+                case .localReference(let floor):
+                    Menu(content: {
+                        Button {
+                            UIPasteboard.general.string = floor.content.stripToBasicMarkdown() // TODO: Is this format suitable for copy?
+                        } label: {
+                            Label("Copy Full Text", systemImage: "doc.on.doc")
+                        }
+                        Button {
+                            UIPasteboard.general.string = "##\(String(floor.id))"
+                        } label: {
+                            Label("Copy Floor ID", systemImage: "doc.on.doc")
+                        }
+                        Button {
+                            // TODO: Not implemented
+                        } label: {
+                            Label("Reply", systemImage: "arrowshape.turn.up.left")
+                        }
+                        
+                        if let proxy = proxy {
+                            Button {
+                                withAnimation {
+                                    proxy.scrollTo(floor.id, anchor: .top)
+                                }
+                            } label: {
+                                Label("Locate", systemImage: "arrow.right.square")
+                            }
+                        }
+                    }, label: {
+                        MentionView(floor: floor)
+                    })
+                case .remoteReference(let mention):
+                    MentionView(mention: mention)
+                    
+                case .reference(let floorId):
+                    Text(String(floorId))
+                        .foregroundColor(.green)
+                }
+            }
         }
     }
     
@@ -158,13 +163,13 @@ struct FloorView: View {
             Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
                 .font(.caption)
                 .foregroundColor(Color(uiColor: .systemGray2))
-
+            
         }
         .padding(.top, 2.0)
     }
     
     private var actions: some View {
-        HStack(alignment: .center, spacing: 15) {
+        HStack(alignment: .center, spacing: 30) {
             Button(action: like) {
                 HStack(alignment: .center, spacing: 3) {
                     Image(systemName: floor.liked ?? false ? "heart.fill" : "heart")
@@ -192,8 +197,9 @@ struct FloorView: View {
             }
         }
         .buttonStyle(.borderless) // prevent multiple tapping
-        .font(.caption2)
+        .font(.caption)
         .foregroundColor(.secondary)
+        .padding(.trailing, 10)
     }
     
     private var menu: some View {
