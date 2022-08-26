@@ -135,6 +135,26 @@ class HoleDetailViewModel: ObservableObject {
         }
     }
     
+    func loadToBottom() async {
+        guard let hole = hole else {
+            return
+        }
+        
+        do {
+            var newFloors: [THFloor] = []
+            var floors: [THFloor] = self.floors
+            
+            repeat {
+                newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
+                floors.append(contentsOf: newFloors)
+            } while !newFloors.isEmpty
+            
+            self.floors = floors
+        } catch {
+            print("DANXI-DEBUG: load to bottom failed")
+        }
+    }
+    
     func refresh() async {
         floors = []
         await loadMoreFloors()

@@ -3,6 +3,7 @@ import SwiftUI
 struct HoleDetailPage: View {
     @StateObject var viewModel: HoleDetailViewModel
     @State var showReplyPage = false
+    @State var scrollTarget: Int?
     
     init(hole: THHole) {
         self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(hole: hole))
@@ -60,6 +61,13 @@ struct HoleDetailPage: View {
                     toolbar
                 }
             }
+            // access scroll view proxy from outside, i.e., toolbar
+            .onChange(of: scrollTarget, perform: { target in
+                if let target = target {
+                    scrollTarget = nil
+                    proxy.scrollTo(target)
+                }
+            })
             .task {
                 await viewModel.initialLoad(proxy: proxy)
             }
@@ -101,7 +109,10 @@ struct HoleDetailPage: View {
                 }
                 
                 Button {
-                    // TODO: navigate to bottom
+                    Task {
+                        await viewModel.loadToBottom()
+                        scrollTarget = viewModel.floors.last?.id
+                    }
                 } label: {
                     Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
                 }
