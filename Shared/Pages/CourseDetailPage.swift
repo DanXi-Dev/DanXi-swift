@@ -125,7 +125,7 @@ struct CourseDetailPage: View {
     
     private var courseReview: some View {
         Group {
-//            courseReviewFilter
+            courseReviewFilter
             
             courseReviewSummary
             
@@ -153,22 +153,9 @@ struct CourseDetailPage: View {
             
             Spacer()
             
-            VStack(alignment: .trailing, spacing: 0) {
-                CourseReviewSummaryEntry(
-                    rating: filteredRank.overall,
-                    label: "Overall Rating")
-                
-                CourseReviewSummaryEntry(
-                    rating: filteredRank.content,
-                    label: "Course Content")
-                
-                CourseReviewSummaryEntry(
-                    rating: filteredRank.workload,
-                    label: "Course Workload")
-                
-                CourseReviewSummaryEntry(
-                    rating: filteredRank.assessment,
-                    label: "Course Assessment")
+            VStack(alignment: .trailing) {
+                RankView(rank: filteredRank)
+                    .frame(width: 200)
                 
                 Text("\(filteredReviews.count) Reviews")
                     .font(.caption)
@@ -180,24 +167,7 @@ struct CourseDetailPage: View {
     }
     
     private var courseReviewFilter: some View {
-        Text("Filter")
-    }
-}
-
-struct CourseReviewSummaryEntry: View {
-    let rating: Double
-    let label: LocalizedStringKey
-    
-    var body: some View {
-        HStack {
-            Text(label)
-                .frame(width: 70)
-                .foregroundColor(.primary.opacity(0.7))
-            ProgressView(value: rating, total: 5.0)
-                .frame(width: 130)
-        }
-        .font(.caption2)
-        .frame(height: 16)
+        Text("") // TODO: filter course
     }
 }
 
