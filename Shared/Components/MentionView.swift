@@ -61,7 +61,14 @@ struct MentionView: View {
 
 struct MentionView_Previews: PreviewProvider {
     static var previews: some View {
-        MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
-            .padding()
+        Group {
+            MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
+
+            MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
+                .preferredColorScheme(.dark)
+        }
+        .previewLayout(.sizeThatFits)
+        .padding()
+            
     }
 }

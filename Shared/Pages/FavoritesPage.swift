@@ -4,6 +4,13 @@ struct FavoritesPage: View {
     @State var loading = true
     @State var favorites: [THHole] = []
     
+    init() { }
+    
+    init(favorites: [THHole]) { // preview purpose
+        self._favorites = State(initialValue: favorites)
+        self._loading = State(initialValue: false)
+    }
+    
     func fetchFavorites() async {
         do {
             self.favorites = try await NetworkRequests.shared.loadFavorites()
@@ -38,7 +45,7 @@ struct FavoritesPage: View {
 struct FavoritesPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            FavoritesPage()
+            FavoritesPage(favorites: PreviewDecode.decodeList(name: "hole-list"))
         }
     }
 }

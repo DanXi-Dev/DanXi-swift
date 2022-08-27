@@ -10,6 +10,16 @@ struct TreeholePage: View {
     
     @State var showEditPage = false
     
+    init() { }
+    
+    init(divisions: [THDivision], holes: [THHole]) { // preview purpose
+        TreeholeDataModel.shared.divisions = divisions
+        let viewModel = TreeholeViewModel()
+        viewModel.currentDivision = divisions[0]
+        viewModel.holes = holes
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     
     var body: some View {
         TreeholeSearchable(searchText: $searchText, searchSubmitted: $searchSubmitted)
@@ -109,8 +119,14 @@ struct ToolbarMenu: View {
 
 struct TreeholePage_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            TreeholePage()
+        Group {
+            NavigationView {
+                TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"), holes: PreviewDecode.decodeList(name: "hole-list"))
+            }
+            NavigationView {
+                TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"), holes: PreviewDecode.decodeList(name: "hole-list"))
+            }
+            .preferredColorScheme(.dark)
         }
     }
 }

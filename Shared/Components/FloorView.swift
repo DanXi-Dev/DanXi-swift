@@ -59,7 +59,6 @@ struct FloorView: View {
             renderedContent(floor.content)
             info
         }
-        // FIXME: sheet header is force capitalized
         .sheet(isPresented: $showReplyPage) {
             ReplyPage(
                 holeId: floor.holeId,
@@ -236,6 +235,7 @@ struct FloorView: View {
 struct FloorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
+            
             FloorView(floor: PreviewDecode.decodeObj(name: "floor")!, isPoster: true)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Floor")
@@ -244,14 +244,14 @@ struct FloorView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Floor Dark")
-            
+
             FloorView(floor: PreviewDecode.decodeObj(name: "deleted-floor")!)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Deleted Floor")
-            
+
             FloorView(floor: PreviewDecode.decodeObj(name: "long-floor")!)
                 .previewDisplayName("Long Floor")
-            
+
             ScrollView {
                 FloorView(floor: PreviewDecode.decodeObj(name: "styled-floor")!)
             }
