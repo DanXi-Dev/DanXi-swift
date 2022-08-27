@@ -5,7 +5,7 @@ struct CourseReview: View {
     let course: DKCourse
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text(review.title)

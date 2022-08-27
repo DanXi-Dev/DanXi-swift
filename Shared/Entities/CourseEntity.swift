@@ -12,6 +12,14 @@ struct DKCourseGroup: Hashable, Codable, Identifiable {
         }
         return reviewList
     }
+    
+    var teachers: Set<String> {
+        var teachers = Set<String>()
+        for course in courses {
+            teachers.insert(course.teachers)
+        }
+        return teachers
+    }
 }
 
 struct DKCourse: Hashable, Codable, Identifiable {
@@ -33,5 +41,5 @@ struct DKReview: Hashable, Codable, Identifiable {
 }
 
 struct DKRank: Hashable, Codable {
-    let content, overall, workload, assessment: Int
+    let overall, content, workload, assessment: Double
 }

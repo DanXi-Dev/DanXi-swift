@@ -126,3 +126,10 @@
 "Campus" = "校区";
 "Department" = "开课院系";
 "Credit" = "学分";
+"Out of %lld" = "满分%lld分";
+
+"Overall Rating" = "总体评分";
+"Course Content" = "课程内容";
+"Course Workload" = "课程工作量";
+"Course Assessment" = "考核要求";
+"%lld Reviews" = "共%lld个评分";
