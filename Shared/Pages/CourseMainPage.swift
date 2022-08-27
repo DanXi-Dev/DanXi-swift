@@ -54,7 +54,9 @@ struct CourseMainPage: View {
         } else {
             List {
                 ForEach(searchResults) { course in
-                    CourseView(courseGroup: course)
+                    NavigationLink(destination: CourseDetailPage(course: course)) {
+                        CourseView(courseGroup: course)
+                    }
                 }
             }
             .searchable(text: $searchText)

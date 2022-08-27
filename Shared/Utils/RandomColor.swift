@@ -5,10 +5,10 @@ let randomColorList = [
     Color.red,
     Color.pink,
     Color.purple,
-    Color("deep purple"), // deep-purple, FIXME: not visible in dark mode
+    Color("deep purple"),
     Color.indigo,
     Color.blue,
-    Color("light blue"), // light-blue
+    Color("light blue"),
     Color.cyan,
     Color.teal,
     Color.green,

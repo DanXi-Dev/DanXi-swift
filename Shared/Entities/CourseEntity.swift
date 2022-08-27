@@ -4,6 +4,7 @@ struct DKCourseGroup: Hashable, Codable, Identifiable {
     let id: Int
     let name, code, department, campus: String
     let courses: [DKCourse]
+    
 }
 
 struct DKCourse: Hashable, Codable, Identifiable {

@@ -94,12 +94,6 @@
 "Jump to Floor" = "跳转到楼层";
 "Tags" = "标签";
 
-// Course
-"Course Review" = "蛋壳课评平台";
-"%@ Credit" = "%@学分";
-"Curriculum Board" = "蛋壳课评";
-"Curriculum" = "课评";
-
 // Error
 "Network Error" = "网络错误";
 "Network error, try again later" = "网络错误，请稍后再试";
@@ -118,3 +112,17 @@
 "Server Error" = "服务器错误";
 "Internal server error. message: %@" = "服务器内部错误，诊断信息：\@";
 "OK" = "确认";
+
+// Course
+"Course Review" = "蛋壳课评平台";
+"%@ Credit" = "%@学分";
+"Curriculum Board" = "蛋壳课评";
+"Curriculum" = "课评";
+
+// Course Detail
+"Course Information" = "课程信息";
+"Course Review" = "课程评价";
+"Professors" = "授课教师";
+"Campus" = "校区";
+"Department" = "开课院系";
+"Credit" = "学分";
