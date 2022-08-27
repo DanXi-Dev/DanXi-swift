@@ -61,6 +61,8 @@
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
 		27E5E82928BA0B560074D295 /* hole-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82828BA0B560074D295 /* hole-list.json */; };
 		27E5E82B28BA62140074D295 /* StarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* StarsView.swift */; };
+		27E5E82D28BA69600074D295 /* CourseReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* CourseReview.swift */; };
+		27E5E82F28BA699C0074D295 /* review.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82E28BA699C0074D295 /* review.json */; };
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
@@ -142,6 +144,8 @@
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
 		27E5E82828BA0B560074D295 /* hole-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hole-list.json"; sourceTree = "<group>"; };
 		27E5E82A28BA62130074D295 /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
+		27E5E82C28BA69600074D295 /* CourseReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReview.swift; sourceTree = "<group>"; };
+		27E5E82E28BA699C0074D295 /* review.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = review.json; sourceTree = "<group>"; };
 		27FA5F46289947DA000391A3 /* SearchTextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextPage.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* SearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagPage.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 		27719AA228A3E8B700C661BD /* course */ = {
 			isa = PBXGroup;
 			children = (
+				27E5E82E28BA699C0074D295 /* review.json */,
 				27719AA328A3E8E100C661BD /* course.json */,
 				27719AA928A3FFEF00C661BD /* course-list.json */,
 			);
@@ -262,6 +267,7 @@
 				2729071428B0B45F0087ACC0 /* MentionView.swift */,
 				27719AA028A3E4DF00C661BD /* CourseView.swift */,
 				27E5E82A28BA62130074D295 /* StarsView.swift */,
+				27E5E82C28BA69600074D295 /* CourseReview.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -506,6 +512,7 @@
 				27C7E8B128BA038200DCC2B2 /* long-floor.json in Resources */,
 				27C7E8AE28BA038200DCC2B2 /* deleted-floor.json in Resources */,
 				27E5E82628BA0AA00074D295 /* divisions.json in Resources */,
+				27E5E82F28BA699C0074D295 /* review.json in Resources */,
 				27719AA428A3E8E100C661BD /* course.json in Resources */,
 				27B9B3A928B29953007CA1E0 /* InfoPlist.strings in Resources */,
 				272AC8DD2896E2B600092B0C /* tags.json in Resources */,
@@ -568,6 +575,7 @@
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
 				27E5E82B28BA62140074D295 /* StarsView.swift in Sources */,
+				27E5E82D28BA69600074D295 /* CourseReview.swift in Sources */,
 				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */,
