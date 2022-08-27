@@ -38,10 +38,11 @@ extension DKCourse {
 
 extension DKReview {
     enum CodingKeys: String, CodingKey {
-        case id, title, content, remark, vote
+        case id, title, content, remark, vote, rank
         case reviewerId = "reviewer_id"
         case isMe = "is_me"
-//        case timeCreated = "time_created", timeUpdated = "time_updated"
+        case updateTime = "time_updated"
+        case createTime = "time_created"
     }
     
     init(from decoder: Decoder) throws {
@@ -52,11 +53,19 @@ extension DKReview {
         content = try values.decode(String.self, forKey: .content)
         remark = try values.decode(Int.self, forKey: .remark)
         
-//        let formatter = ISO8601DateFormatter()
-//        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-//        let timeCreatedStr = try values.decode(String.self, forKey: timeCreated)
-        
         isMe = try values.decode(Bool.self, forKey: .isMe)
         vote = try values.decode(Int.self, forKey: .vote)
+        rank = try values.decode(DKRank.self, forKey: .rank)
+        
+        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
+        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let updateTime = formatter.date(from: iso8601UpdateTime), let createTime = formatter.date(from: iso8601CreateTime) {
+            self.updateTime = updateTime
+            self.createTime = createTime
+        } else {
+            throw NetworkError.invalidResponse
+        }
     }
 }

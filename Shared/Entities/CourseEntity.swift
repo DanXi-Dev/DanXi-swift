@@ -5,6 +5,13 @@ struct DKCourseGroup: Hashable, Codable, Identifiable {
     let name, code, department, campus: String
     let courses: [DKCourse]
     
+    var reviews: [DKReview] {
+        var reviewList: [DKReview] = []
+        for course in courses {
+            reviewList.append(contentsOf: course.reviews)
+        }
+        return reviewList
+    }
 }
 
 struct DKCourse: Hashable, Codable, Identifiable {
@@ -19,8 +26,12 @@ struct DKReview: Hashable, Codable, Identifiable {
     let id, reviewerId: Int
     let title, content: String
     let remark: Int
-//    let timeCreated, timeUpdated: Date
-    // let rank ? (content, overall, workload, assessment: int)
+    let createTime, updateTime: Date
     let isMe: Bool
     let vote: Int
+    let rank: DKRank
+}
+
+struct DKRank: Hashable, Codable {
+    let content, overall, workload, assessment: Int
 }
