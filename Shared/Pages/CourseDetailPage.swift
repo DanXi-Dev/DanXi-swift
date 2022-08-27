@@ -3,10 +3,11 @@ import SwiftUI
 struct CourseDetailPage: View {
     @State var courseGroup: DKCourseGroup
     @State var showCourseInfo = true
+    @State var initialized = false
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            LazyVStack(alignment: .leading) {
                 Text(courseGroup.code)
                     .foregroundColor(.secondary)
                 Divider()
@@ -17,7 +18,16 @@ struct CourseDetailPage: View {
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                courseReview
+                if initialized {
+                    courseReview
+                } else {
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    
+                }
             }
             .padding(.horizontal)
             .frame(
@@ -29,6 +39,14 @@ struct CourseDetailPage: View {
             ) 
         }
         .navigationTitle(courseGroup.name)
+        .task {
+            do {
+                self.courseGroup = try await NetworkRequests.shared.loadCourseGroup(id: courseGroup.id)
+                initialized = true
+            } catch {
+                print("DANXI-DEBUG: load course group failed")
+            }
+        }
     }
     
     private var courseInfo: some View {

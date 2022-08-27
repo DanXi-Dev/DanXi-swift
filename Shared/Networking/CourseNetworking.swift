@@ -20,4 +20,9 @@ extension NetworkRequests {
         let hash = try JSONDecoder().decode(Hash.self, from: data)
         return hash.hash
     }
+    
+    func loadCourseGroup(id: Int) async throws -> DKCourseGroup {
+        let components = URLComponents(string: DANKE_BASE_URL + "/group/\(id)")!
+        return try await requestObj(url: components.url!)
+    }
 }
