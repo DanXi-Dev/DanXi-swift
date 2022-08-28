@@ -5,17 +5,21 @@ struct CourseDetailPage: View {
     @State var showCourseInfo = true
     @State var initialized = false
     
-    init(courseGroup: DKCourseGroup) {
-        self._courseGroup = State(initialValue: courseGroup)
-    }
-    
-    init(courseGroup: DKCourseGroup, initialized: Bool) { // preview purpose
-        self._courseGroup = State(initialValue: courseGroup)
-        self._initialized = State(initialValue: initialized)
-    }
+    @State var teacherSelected: String = ""
+    // @State var semester
     
     var filteredReviews: [DKReview] {
-        return courseGroup.reviews // TODO: filter this
+        var reviewList: [DKReview] = []
+        for course in courseGroup.courses {
+            let teacherMatched = teacherSelected.isEmpty || teacherSelected == course.teachers
+            let semesterMatched = true // TODO
+            
+            if teacherMatched && semesterMatched {
+                reviewList.append(contentsOf: course.reviews)
+            }
+        }
+        
+        return reviewList
     }
     
     var filteredRank: DKRank {
@@ -34,6 +38,16 @@ struct CourseDetailPage: View {
                       assessment: assessment / count)
     }
     
+    init(courseGroup: DKCourseGroup) {
+        self._courseGroup = State(initialValue: courseGroup)
+    }
+    
+    init(courseGroup: DKCourseGroup, initialized: Bool) { // preview purpose
+        self._courseGroup = State(initialValue: courseGroup)
+        self._initialized = State(initialValue: initialized)
+    }
+    
+    
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
@@ -48,7 +62,7 @@ struct CourseDetailPage: View {
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
                 
-                .pickerStyle(.segmented)
+                    .pickerStyle(.segmented)
                 if initialized {
                     courseReview
                 } else {
@@ -66,7 +80,7 @@ struct CourseDetailPage: View {
                 minHeight: 0,
                 maxHeight: .infinity,
                 alignment: .topLeading
-            ) 
+            )
         }
         .navigationTitle(courseGroup.name)
         .task {
@@ -127,12 +141,27 @@ struct CourseDetailPage: View {
         Group {
             courseReviewFilter
             
-            courseReviewSummary
+            if !filteredReviews.isEmpty {
+                courseReviewSummary
+            }
             
             ForEach(courseGroup.courses) { course in
                 ForEach(course.reviews) { review in
-                    CourseReview(review: review, course: course)
+                    if course.teachers == teacherSelected || teacherSelected.isEmpty {
+                        CourseReview(review: review, course: course)
+                    }
                 }
+            }
+            
+            if filteredReviews.isEmpty {
+                HStack {
+                    Spacer()
+                    Text("No Review")
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+                .padding(.top)
             }
         }
     }
@@ -166,8 +195,29 @@ struct CourseDetailPage: View {
         }
     }
     
+    
+    
     private var courseReviewFilter: some View {
-        Text("") // TODO: filter course
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Label("Professors", systemImage: "line.3.horizontal.decrease.circle")
+                Picker(selection: $teacherSelected, label: Text("Filter Teacher")) {
+                    Text("All Professors")
+                        .tag("")
+                    
+                    ForEach(Array(courseGroup.teachers), id: \.self) { teacher in
+                        Text(teacher)
+                            .tag(teacher)
+                    }
+                }
+            }
+            HStack {
+                Label("Semester", systemImage: "line.3.horizontal.decrease.circle")
+                // TODO: semester picker
+            }
+        }
+        .font(.callout)
+        .foregroundColor(.secondary)
     }
 }
 

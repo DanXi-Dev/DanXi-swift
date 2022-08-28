@@ -133,3 +133,6 @@
 "Course Workload" = "课程工作量";
 "Course Assessment" = "考核要求";
 "%lld Reviews" = "共%lld个评分";
+"All Professors" = "全部教师";
+"Semester" = "开课学期";
+"No Review" = "暂无评价";
