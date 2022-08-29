@@ -17,13 +17,13 @@ struct TreeholePage: View {
         let viewModel = TreeholeViewModel()
         viewModel.currentDivision = divisions[0]
         viewModel.holes = holes
-        viewModel.initLoading = false
+        viewModel.initFinished = true
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
         InitLoadingView(loading: $viewModel.initLoading,
-                        failed: $viewModel.initFailed,
+                        finished: $viewModel.initFinished,
                         errorDescription: viewModel.initError.description) {
             await viewModel.initialLoad()
         } content: {

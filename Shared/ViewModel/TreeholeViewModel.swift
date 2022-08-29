@@ -10,7 +10,7 @@ class TreeholeViewModel: ObservableObject {
     @Published var sortOption = SortOptions.byReplyTime
     
     @Published var initLoading = true
-    @Published var initFailed = false
+    @Published var initFinished = false
     @Published var initError = ErrorInfo()
     
     enum SortOptions {
@@ -18,22 +18,17 @@ class TreeholeViewModel: ObservableObject {
         case byCreateTime
     }
     
-    func initialLoad() async { // FIXME: SwiftUI bug, .task modifier might be executed twice, causing NSURLErrorCancelled
-        guard TreeholeDataModel.shared.divisions.isEmpty else { // prevent duplicate loading
-            return
-        }
-        
+    func initialLoad() async {
         do {
             let divisions = try await NetworkRequests.shared.loadDivisions()
             currentDivision = divisions[0]
             TreeholeDataModel.shared.divisions = divisions
+            initFinished = true
         } catch NetworkError.ignore {
             // cancelled, ignore
         } catch let error as NetworkError {
-            initFailed = true
             initError = error.localizedErrorDescription
         } catch {
-            initFailed = true
             initError = ErrorInfo(title: "Unknown Error",
                                   description: "Error description: \(error.localizedDescription)")
         }

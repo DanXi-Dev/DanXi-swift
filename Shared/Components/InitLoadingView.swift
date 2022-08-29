@@ -2,31 +2,31 @@ import SwiftUI
 
 struct InitLoadingView<Content: View>: View {
     @Binding var loading: Bool
-    @Binding var failed: Bool
+    @Binding var finished: Bool
     let errorDescription: LocalizedStringKey
     let content: Content
     
     let action: () async -> Void
     
     init(loading: Binding<Bool>,
-         failed: Binding<Bool>,
+         finished: Binding<Bool>,
          errorDescription: LocalizedStringKey,
          action: @escaping () async -> Void,
          @ViewBuilder content: () -> Content) {
         _loading = loading
-        _failed = failed
+        _finished = finished
         self.errorDescription = errorDescription
         self.action = action
         self.content = content()
     }
     
     var body: some View {
-        if loading {
-            loadingView
-        } else if failed {
-            failedView
-        } else {
+        if finished {
             content
+        } else if loading {
+            loadingView
+        } else {
+            failedView
         }
     }
     
@@ -39,9 +39,7 @@ struct InitLoadingView<Content: View>: View {
         }
         .task { @MainActor in
             loading = true
-            defer {
-                loading = false
-            }
+            defer { loading = false }
             await action()
         }
     }
@@ -55,11 +53,12 @@ struct InitLoadingView<Content: View>: View {
             Text(errorDescription)
                 .font(.callout)
                 .padding(.bottom)
+                .multilineTextAlignment(.center)
             
             Button("Retry") {
                 Task { @MainActor in
                     loading = true
-                    failed = false
+                    defer { loading = false }
                     await action()
                 }
             }
@@ -73,28 +72,30 @@ struct InitLoadingView<Content: View>: View {
     }
 }
 
+
+
 struct InitLoadingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             InitLoadingView(loading: .constant(false),
-                            failed: .constant(true),
-                            errorDescription: "Network error, try again later") {
+                            finished: .constant(false),
+                            errorDescription: "Requested resourse not found") {
                 // initialization code
             } content: {
                 EmptyView()
             }
-            
+
             InitLoadingView(loading: .constant(false),
-                            failed: .constant(true),
-                            errorDescription: "Network error, try again later") {
+                            finished: .constant(false),
+                            errorDescription: "Requested resourse not found") {
                 // initialization code
             } content: {
                 EmptyView()
             }
             .preferredColorScheme(.dark)
-            
+
             InitLoadingView(loading: .constant(true),
-                            failed: .constant(true),
+                            finished: .constant(false),
                             errorDescription: "") {
                 // initialization code
             } content: {

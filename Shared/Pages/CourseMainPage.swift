@@ -7,7 +7,7 @@ struct CourseMainPage: View {
     @State var searchText = ""
     
     @State var loading = true
-    @State var failed = false
+    @State var initFinished = false
     @State var errorInfo = ErrorInfo()
     
     
@@ -17,7 +17,7 @@ struct CourseMainPage: View {
     
     init(courses: [DKCourseGroup]) { // preview purpose
         self._courses = State(initialValue: courses)
-        self._loading = State(initialValue: false)
+        self._initFinished = State(initialValue: true)
     }
     
     
@@ -37,6 +37,7 @@ struct CourseMainPage: View {
             courses = loadDKCourseList()
             newHash = try await NetworkRequests.shared.loadCourseHash()
             if newHash == courseHash { // no change from last fetch, use local storage
+                initFinished = true
                 return
             }
         } catch {
@@ -47,13 +48,12 @@ struct CourseMainPage: View {
             courses = try await NetworkRequests.shared.loadCourseGroups()
             saveDKCourseList(courses)
             courseHash = newHash // defer update course hash to prevent hash-content inconsistent
+            initFinished = true
         } catch NetworkError.ignore {
             // cancelled, ignore
         } catch let error as NetworkError {
-            failed = true
             errorInfo = error.localizedErrorDescription
         } catch {
-            failed = true
             errorInfo = ErrorInfo(title: "Unknown Error",
                                   description: "Error description: \(error.localizedDescription)")
         }
@@ -61,7 +61,7 @@ struct CourseMainPage: View {
     
     var body: some View {
         InitLoadingView(loading: $loading,
-                        failed: $failed,
+                        finished: $initFinished,
                         errorDescription: errorInfo.description) {
             await initialLoad()
         } content: {
