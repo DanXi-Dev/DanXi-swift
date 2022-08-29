@@ -6,7 +6,7 @@ struct CourseDetailPage: View {
     
     
     @State var teacherSelected: String = ""
-    // @State var semester
+    @State var semesterSelected: DKSemester = DKSemester.empty
     
     @State var initialized = false
     @State var loading = true
@@ -16,7 +16,7 @@ struct CourseDetailPage: View {
         var reviewList: [DKReview] = []
         for course in courseGroup.courses {
             let teacherMatched = teacherSelected.isEmpty || teacherSelected == course.teachers
-            let semesterMatched = true // TODO
+            let semesterMatched = semesterSelected == DKSemester.empty || course.matchSemester(semesterSelected)
             
             if teacherMatched && semesterMatched {
                 reviewList.append(contentsOf: course.reviews)
@@ -160,7 +160,10 @@ struct CourseDetailPage: View {
             
             ForEach(courseGroup.courses) { course in
                 ForEach(course.reviews) { review in
-                    if course.teachers == teacherSelected || teacherSelected.isEmpty {
+                    let teacherMatched = teacherSelected.isEmpty || teacherSelected == course.teachers
+                    let semesterMatched = semesterSelected == DKSemester.empty || course.matchSemester(semesterSelected)
+                    
+                    if teacherMatched && semesterMatched {
                         CourseReview(review: review, course: course)
                     }
                 }
@@ -220,7 +223,7 @@ struct CourseDetailPage: View {
                     Text("All Professors")
                         .tag("")
                     
-                    ForEach(Array(courseGroup.teachers), id: \.self) { teacher in
+                    ForEach(courseGroup.teachers, id: \.self) { teacher in
                         Text(teacher)
                             .tag(teacher)
                     }
@@ -228,7 +231,16 @@ struct CourseDetailPage: View {
             }
             HStack {
                 Label("Semester", systemImage: "line.3.horizontal.decrease.circle")
-                // TODO: semester picker
+                Picker(selection: $semesterSelected, label: Text("Filter Semester")) {
+                    
+                    Text("All Semesters")
+                        .tag(DKSemester.empty)
+                    
+                    ForEach(courseGroup.semesters) { semester in
+                        Text(semester.formatted())
+                            .tag(semester)
+                    }
+                }
             }
         }
         .font(.callout)

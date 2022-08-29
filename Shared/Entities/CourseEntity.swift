@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct DKCourseGroup: Hashable, Codable, Identifiable {
     let id: Int
@@ -13,12 +14,22 @@ struct DKCourseGroup: Hashable, Codable, Identifiable {
         return reviewList
     }
     
-    var teachers: Set<String> {
+    var teachers: [String] {
         var teachers = Set<String>()
         for course in courses {
             teachers.insert(course.teachers)
         }
-        return teachers
+        return Array(teachers)
+    }
+    
+    var semesters: [DKSemester] {
+        var semesters = Set<DKSemester>()
+        for course in courses {
+            let semester = DKSemester(year: course.year,
+                                      semester: course.semester)
+            semesters.insert(semester)
+        }
+        return Array(semesters)
     }
 }
 
@@ -28,6 +39,38 @@ struct DKCourse: Hashable, Codable, Identifiable {
     let name, code, codeId, department, campus, teachers: String
     let maxStudent, weekHour, year, semester: Int
     let reviews: [DKReview]
+    
+    var formattedSemester: LocalizedStringKey {
+        return DKSemester(year: year, semester: semester).formatted()
+    }
+    
+    func matchSemester(_ semester: DKSemester) -> Bool {
+        return self.year == semester.year && self.semester == semester.semester
+    }
+}
+
+struct DKSemester: Identifiable, Hashable {
+    var id: Int {
+        year * 10 + semester
+    }
+    let year, semester: Int
+    
+    func formatted() -> LocalizedStringKey {
+        switch semester {
+        case 1:
+            return "\(String(year)) Fall Semester"
+        case 2:
+            return "\(String(year)) Winter Vacation"
+        case 3:
+            return "\(String(year)) Spring Semester"
+        case 4:
+            return "\(String(year)) Winter Vacation"
+        default:
+            return "\(String(year)) - \(semester)"
+        }
+    }
+    
+    static let empty = DKSemester(year: 0, semester: -1)
 }
 
 struct DKReview: Hashable, Codable, Identifiable {

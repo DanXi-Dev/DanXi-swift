@@ -140,3 +140,10 @@
 "All Professors" = "全部教师";
 "Semester" = "开课学期";
 "No Review" = "暂无评价";
+
+// Semesters
+"All Semesters" = "全部学期";
+"%@ Fall Semester" = "%@秋季学期";
+"%@ Spring Semester" = "%@春季学期";
+"%@ Summer Vacation" = "%@暑假";
+"%@ Winter Vacation" = "%@寒假";

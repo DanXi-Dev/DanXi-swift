@@ -25,7 +25,7 @@ struct CourseReview: View {
             HStack {
                 Text(course.teachers)
                     .tagStyle(color: .accentColor)
-                Text("\(String(course.year)) - \(course.semester)") // TODO: format semester style
+                Text(course.formattedSemester)
                     .tagStyle(color: .accentColor)
                 Spacer()
                 Text(review.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
