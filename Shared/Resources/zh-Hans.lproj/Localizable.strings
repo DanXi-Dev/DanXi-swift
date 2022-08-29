@@ -98,7 +98,9 @@
 "Loading Failed" = "加载失败";
 "Retry" = "重试";
 "Network Error" = "网络错误";
-"Network error, try again later" = "网络错误，请稍后再试";
+"Network error: %@" = "网络错误：%@";
+"Unknown Error" = "未知错误";
+"Error description: %@" = "错误原因：%@";
 "Invalid Response" = "无效响应";
 "Server response is invalid" = "服务器返回的格式无效";
 "Forbidden" = "禁止访问";

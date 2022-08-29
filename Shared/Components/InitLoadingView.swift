@@ -3,14 +3,14 @@ import SwiftUI
 struct InitLoadingView<Content: View>: View {
     @Binding var loading: Bool
     @Binding var failed: Bool
-    let errorDescription: String
+    let errorDescription: LocalizedStringKey
     let content: Content
     
     let action: () async -> Void
     
     init(loading: Binding<Bool>,
          failed: Binding<Bool>,
-         errorDescription: String,
+         errorDescription: LocalizedStringKey,
          action: @escaping () async -> Void,
          @ViewBuilder content: () -> Content) {
         _loading = loading

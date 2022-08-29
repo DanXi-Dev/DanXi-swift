@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 public enum NetworkError: Error {
-    case networkError
+    case networkError(message: String)
     case invalidResponse
     case forbidden
     case unauthorized
@@ -14,8 +14,8 @@ public enum NetworkError: Error {
     
     public var localizedErrorDescription: ErrorInfo {
         switch self {
-        case .networkError:
-            return ErrorInfo(title: "Network Error", description: "Network error, try again later")
+        case .networkError(let message):
+            return ErrorInfo(title: "Network Error", description: "Network error: \(message)")
         case .invalidResponse:
             return ErrorInfo(title: "Invalid Response", description: "Server response is invalid")
         case .forbidden:

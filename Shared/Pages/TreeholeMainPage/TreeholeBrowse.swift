@@ -38,6 +38,9 @@ struct TreeholeBrowse: View {
                 spinner
             }
         }
+        .task {
+            await viewModel.loadMoreHoles()
+        }
         .listStyle(.grouped)
         .refreshable {
             await viewModel.refresh()

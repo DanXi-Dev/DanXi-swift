@@ -17,39 +17,37 @@ struct TreeholePage: View {
         let viewModel = TreeholeViewModel()
         viewModel.currentDivision = divisions[0]
         viewModel.holes = holes
+        viewModel.initLoading = false
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
-    
     var body: some View {
-        TreeholeSearchable(searchText: $searchText, searchSubmitted: $searchSubmitted)
-            .environmentObject(viewModel)
-            .task {
-                await viewModel.initialLoad()
-            }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
-            .onSubmit(of: .search) {
-                searchSubmitted = true
-            }
-            .navigationTitle(viewModel.currentDivision.name)
-            .alert(viewModel.errorInfo.title, isPresented: $viewModel.errorPresenting) {
-                Button("OK") { }
-            } message: {
-                Text(viewModel.errorInfo.description)
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    ToolbarMenu() // menu item can't perform navigation, this is a workaround
-                        .environmentObject(viewModel)
-                    
-                    Button(action: { showEditPage = true }) {
-                        Image(systemName: "square.and.pencil")
-                    }
-                    .sheet(isPresented: $showEditPage) {
-                        EditPage(divisionId: viewModel.currentDivisionId)
+        InitLoadingView(loading: $viewModel.initLoading,
+                        failed: $viewModel.initFailed,
+                        errorDescription: viewModel.initError.description) {
+            await viewModel.initialLoad()
+        } content: {
+            TreeholeSearchable(searchText: $searchText, searchSubmitted: $searchSubmitted)
+                .environmentObject(viewModel)
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+                .onSubmit(of: .search) {
+                    searchSubmitted = true
+                }
+                .navigationTitle(viewModel.currentDivision.name)
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        ToolbarMenu() // menu item can't perform navigation, this is a workaround
+                            .environmentObject(viewModel)
+
+                        Button(action: { showEditPage = true }) {
+                            Image(systemName: "square.and.pencil")
+                        }
+                        .sheet(isPresented: $showEditPage) {
+                            EditPage(divisionId: viewModel.currentDivisionId)
+                        }
                     }
                 }
-            }
+        }
     }
 }
 

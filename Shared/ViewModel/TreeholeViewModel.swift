@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 @MainActor
 class TreeholeViewModel: ObservableObject {
@@ -6,8 +7,14 @@ class TreeholeViewModel: ObservableObject {
     @Published var currentDivisionId = 1
     @Published var holes: [THHole] = []
     @Published var errorPresenting = false
-    @Published var errorInfo = ErrorInfo()
+    
     @Published var sortOption = SortOptions.byReplyTime
+    
+    @Published var initLoading = true
+    @Published var initFailed = false
+    @Published var initError = ErrorInfo()
+    
+    @Published var errorInfo = ErrorInfo()
     
     enum SortOptions {
         case byReplyTime
@@ -23,16 +30,15 @@ class TreeholeViewModel: ObservableObject {
             let divisions = try await NetworkRequests.shared.loadDivisions()
             currentDivision = divisions[0]
             TreeholeDataModel.shared.divisions = divisions
-            Task {
-                await loadMoreHoles()
-            }
         } catch NetworkError.ignore {
             // cancelled, ignore
         } catch let error as NetworkError {
-            self.errorInfo = error.localizedErrorDescription
-            errorPresenting = true
+            initError = error.localizedErrorDescription
+            initFailed = true
         } catch {
-            print("DANXI-DEBUG: initial load failed, error: \(error)")
+            initFailed = true
+            initError = ErrorInfo(title: "Unknown Error",
+                                  description: "Error description: \(error.localizedDescription)")
         }
     }
     

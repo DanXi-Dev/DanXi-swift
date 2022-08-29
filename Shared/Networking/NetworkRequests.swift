@@ -74,7 +74,7 @@ struct NetworkRequests {
                     let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
                     throw NetworkError.serverError(message: serverResponse?.message ?? "")
                 default:
-                    throw NetworkError.networkError
+                    throw NetworkError.invalidResponse
                 }
             } else {
                 throw NetworkError.invalidResponse
@@ -84,7 +84,7 @@ struct NetworkRequests {
             if error.errorCode == -999 {
                 throw NetworkError.ignore // SwiftUI bug cause URLSession to cancel
             } else {
-                throw NetworkError.networkError
+                throw NetworkError.networkError(message: error.localizedDescription)
             }
         }
     }
