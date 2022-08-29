@@ -21,6 +21,9 @@ class HoleDetailViewModel: ObservableObject {
     @Published var errorPresenting = false
     @Published var errorInfo = ErrorInfo()
     
+    @Published var listLoading = true
+    @Published var listError = ErrorInfo()
+    
     let initOption: InitOptions
     
     enum InitOptions {
@@ -126,12 +129,20 @@ class HoleDetailViewModel: ObservableObject {
             return
         }
         
+        listLoading = true
+        defer { listLoading = false }
+        
         do {
             let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
             floors.append(contentsOf: newFloors)
             endReached = newFloors.isEmpty
+        } catch NetworkError.ignore {
+            // cancelled, ignore
+        } catch let error as NetworkError {
+            listError = error.localizedErrorDescription
         } catch {
-            print("DANXI-DEBUG: load more floors failed")
+            listError = ErrorInfo(title: "Unknown Error",
+                                  description: "Error description: \(error.localizedDescription)")
         }
     }
     

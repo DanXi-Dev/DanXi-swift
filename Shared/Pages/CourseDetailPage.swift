@@ -3,10 +3,14 @@ import SwiftUI
 struct CourseDetailPage: View {
     @State var courseGroup: DKCourseGroup
     @State var showCourseInfo = true
-    @State var initialized = false
+    
     
     @State var teacherSelected: String = ""
     // @State var semester
+    
+    @State var initialized = false
+    @State var loading = true
+    @State var errorInfo = ErrorInfo()
     
     var filteredReviews: [DKReview] {
         var reviewList: [DKReview] = []
@@ -47,6 +51,21 @@ struct CourseDetailPage: View {
         self._initialized = State(initialValue: initialized)
     }
     
+    func loadReviews() async {
+        do {
+            loading = true
+            defer { loading = false }
+            self.courseGroup = try await NetworkRequests.shared.loadCourseGroup(id: courseGroup.id)
+            initialized = true
+        } catch NetworkError.ignore {
+            // cancelled, ignore
+        } catch let error as NetworkError {
+            errorInfo = error.localizedErrorDescription
+        } catch {
+            errorInfo = ErrorInfo(title: "Unknown Error",
+                                  description: "Error description: \(error.localizedDescription)")
+        }
+    }
     
     var body: some View {
         ScrollView {
@@ -66,11 +85,10 @@ struct CourseDetailPage: View {
                 if initialized {
                     courseReview
                 } else {
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
-                    }
+                    ListLoadingView(loading: $loading,
+                                    errorDescription: errorInfo.description,
+                                    action: loadReviews)
+                    .padding()
                 }
             }
             .padding(.horizontal)
@@ -84,12 +102,7 @@ struct CourseDetailPage: View {
         }
         .navigationTitle(courseGroup.name)
         .task {
-            do {
-                self.courseGroup = try await NetworkRequests.shared.loadCourseGroup(id: courseGroup.id)
-                initialized = true
-            } catch {
-                print("DANXI-DEBUG: load course group failed")
-            }
+            await loadReviews()
         }
     }
     
@@ -163,6 +176,8 @@ struct CourseDetailPage: View {
                 }
                 .padding(.top)
             }
+            
+            
         }
     }
     

@@ -35,7 +35,9 @@ struct TreeholeBrowse: View {
             } header: {
                 Label("Main Section", systemImage: "text.bubble.fill")
             } footer: {
-                spinner
+                ListLoadingView(loading: $viewModel.listLoading,
+                                errorDescription: viewModel.listError.description,
+                                action: viewModel.loadMoreHoles)
             }
         }
         .task {
@@ -61,14 +63,6 @@ struct TreeholeBrowse: View {
                 let newDivision = model.divisions[newValue - 1]
                 await viewModel.changeDivision(division: newDivision)
             }
-        }
-    }
-    
-    private var spinner: some View {
-        HStack {
-            Spacer()
-            ProgressView()
-            Spacer()
         }
     }
 }

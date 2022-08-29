@@ -6,13 +6,23 @@ struct SearchTagPage: View {
     @State private var endReached = false
     @State var holes: [THHole] = []
     
+    @State var loading = false
+    @State var errorInfo = ErrorInfo()
+    
     func loadMoreHoles() async {
         do {
+            loading = true
+            defer { loading = false }
             let newHoles = try await NetworkRequests.shared.searchTag(tagName: tagname, divisionId: divisionId, startTime: holes.last?.updateTime.ISO8601Format())
             endReached = newHoles.isEmpty
             holes.append(contentsOf: newHoles)
+        } catch NetworkError.ignore {
+            // cancelled, ignore
+        } catch let error as NetworkError {
+            errorInfo = error.localizedErrorDescription
         } catch {
-            print("DANXI-DEBUG: load holes failed")
+            errorInfo = ErrorInfo(title: "Unknown Error",
+                                  description: "Error description: \(error.localizedDescription)")
         }
     }
     
@@ -30,17 +40,17 @@ struct SearchTagPage: View {
                 }
             } footer: {
                 if !endReached {
-                    HStack() {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
-                    }
-                    .task {
-                        if holes.isEmpty {
-                            await loadMoreHoles()
-                        }
+                    if !endReached {
+                        ListLoadingView(loading: $loading,
+                                        errorDescription: errorInfo.description,
+                                        action: loadMoreHoles)
                     }
                 }
+            }
+        }
+        .task {
+            if holes.isEmpty {
+                await loadMoreHoles()
             }
         }
         .listStyle(.grouped)

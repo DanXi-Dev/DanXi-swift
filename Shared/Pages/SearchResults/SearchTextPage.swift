@@ -5,13 +5,23 @@ struct SearchTextPage: View {
     @State private var endReached = false
     @State var floors: [THFloor] = []
     
+    @State var loading = false
+    @State var errorInfo = ErrorInfo()
+    
     func loadMoreFloors() async {
         do {
+            loading = true
+            defer { loading = false }
             let newFloors = try await NetworkRequests.shared.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
             floors.append(contentsOf: newFloors)
+        } catch NetworkError.ignore {
+            // cancelled, ignore
+        } catch let error as NetworkError {
+            errorInfo = error.localizedErrorDescription
         } catch {
-            print("DANXI-DEBUG: load more hole failed")
+            errorInfo = ErrorInfo(title: "Unknown Error",
+                                  description: "Error description: \(error.localizedDescription)")
         }
     }
     
@@ -29,17 +39,15 @@ struct SearchTextPage: View {
                 }
             } footer: {
                 if !endReached {
-                    HStack() {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
-                    }
-                    .task {
-                        if floors.isEmpty {
-                            await loadMoreFloors()
-                        }
-                    }
+                    ListLoadingView(loading: $loading,
+                                    errorDescription: errorInfo.description,
+                                    action: loadMoreFloors)
                 }
+            }
+        }
+        .task {
+            if floors.isEmpty {
+                await loadMoreFloors()
             }
         }
         .listStyle(.grouped)

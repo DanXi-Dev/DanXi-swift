@@ -42,11 +42,9 @@ struct HoleDetailPage: View {
                     }
                 } footer: {
                     if !viewModel.endReached {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
+                        ListLoadingView(loading: $viewModel.listLoading,
+                                        errorDescription: viewModel.listError.description,
+                                        action: viewModel.loadMoreFloors)
                     }
                 }
             }
