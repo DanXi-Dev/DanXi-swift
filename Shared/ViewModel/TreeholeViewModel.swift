@@ -6,15 +6,12 @@ class TreeholeViewModel: ObservableObject {
     @Published var currentDivision = THDivision.dummy
     @Published var currentDivisionId = 1
     @Published var holes: [THHole] = []
-    @Published var errorPresenting = false
     
     @Published var sortOption = SortOptions.byReplyTime
     
     @Published var initLoading = true
     @Published var initFailed = false
     @Published var initError = ErrorInfo()
-    
-    @Published var errorInfo = ErrorInfo()
     
     enum SortOptions {
         case byReplyTime
@@ -33,8 +30,8 @@ class TreeholeViewModel: ObservableObject {
         } catch NetworkError.ignore {
             // cancelled, ignore
         } catch let error as NetworkError {
-            initError = error.localizedErrorDescription
             initFailed = true
+            initError = error.localizedErrorDescription
         } catch {
             initFailed = true
             initError = ErrorInfo(title: "Unknown Error",
@@ -50,8 +47,8 @@ class TreeholeViewModel: ObservableObject {
         } catch NetworkError.ignore {
             // cancelled, ignore
         } catch let error as NetworkError {
-            self.errorInfo = error.localizedErrorDescription
-            errorPresenting = true
+            // TODO: deal with this error
+            print("DANXI-DEBUG: load more holes failed, error: \(error)")
         } catch {
             print("DANXI-DEBUG: load more holes failed, error: \(error)")
         }
