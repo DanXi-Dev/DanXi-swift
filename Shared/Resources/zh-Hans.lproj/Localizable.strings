@@ -95,6 +95,8 @@
 "Tags" = "标签";
 
 // Error
+"Loading Failed" = "加载失败";
+"Retry" = "重试";
 "Network Error" = "网络错误";
 "Network error, try again later" = "网络错误，请稍后再试";
 "Invalid Response" = "无效响应";
