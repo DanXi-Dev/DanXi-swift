@@ -14,7 +14,7 @@ class TreeholeDataModel: ObservableObject {
     
     init() {
         let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
-        guard defaults?.string(forKey: "user-credential") != nil else {
+        guard defaults?.data(forKey: "user-credential") != nil else {
             return
         }
         
