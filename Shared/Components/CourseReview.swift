@@ -17,9 +17,14 @@ struct CourseReview: View {
                 }
 
                 Spacer()
+                
+                Label("\(String(review.vote))", systemImage: "arrow.up")
+                    .font(.callout)
+                    .foregroundColor(.secondary)
             }
 
             Text(review.content)
+                .multilineTextAlignment(.leading)
                 .lineLimit(10)
 
             HStack {
@@ -33,6 +38,7 @@ struct CourseReview: View {
                     .foregroundColor(.secondary)
             }
         }
+        .foregroundColor(.primary)
         .padding()
         .background(Color.secondary.opacity(0.1))
         .cornerRadius(7.0)

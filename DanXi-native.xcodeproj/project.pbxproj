@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* ReviewPage.swift */; };
 		27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */; };
 		27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */; };
 		27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */; };
@@ -91,6 +92,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		270CA42928BD13A10024BDF2 /* ReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPage.swift; sourceTree = "<group>"; };
 		27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeViewModel.swift; sourceTree = "<group>"; };
 		27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeBrowse.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayRawRepresentable.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				2778D6082891D22D009F4DB1 /* WelcomePage.swift */,
 				27719AA528A3EAB100C661BD /* CourseMainPage.swift */,
 				2795EB1428AE6CB400518597 /* CourseDetailPage.swift */,
+				270CA42928BD13A10024BDF2 /* ReviewPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				27E4686528BCD22500CDE8CE /* ListLoadingView.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
+				270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */,
 				27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,

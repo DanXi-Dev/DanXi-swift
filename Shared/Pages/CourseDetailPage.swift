@@ -164,7 +164,9 @@ struct CourseDetailPage: View {
                     let semesterMatched = semesterSelected == DKSemester.empty || course.matchSemester(semesterSelected)
                     
                     if teacherMatched && semesterMatched {
-                        CourseReview(review: review, course: course)
+                        NavigationLink(destination: ReviewPage(course: course, review: review)) {
+                            CourseReview(review: review, course: course)
+                        }
                     }
                 }
             }
