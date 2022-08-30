@@ -18,6 +18,7 @@ struct ListLoadingView: View {
             Spacer()
             VStack {
                 Text(errorDescription)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
                 Button("Retry") {
                     Task {

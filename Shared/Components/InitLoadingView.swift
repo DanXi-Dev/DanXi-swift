@@ -62,6 +62,7 @@ struct InitLoadingView<Content: View>: View {
                     await action()
                 }
             }
+            .padding()
             .frame(width: 120, height: 25)
             .overlay(
                 RoundedRectangle(cornerRadius: 3)
