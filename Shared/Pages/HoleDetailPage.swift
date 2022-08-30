@@ -9,6 +9,13 @@ struct HoleDetailPage: View {
         self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(hole: hole))
     }
     
+    init(hole: THHole, floors: [THFloor]) { // for preview purpose
+        let viewModel = HoleDetailViewModel(hole: hole)
+        viewModel.floors = floors
+        viewModel.endReached = true
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     init(holeId: Int) { // init from hole ID, load info afterwards
         self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(holeId: holeId))
     }
@@ -125,7 +132,7 @@ struct HoleDetailPage: View {
 struct PostPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HoleDetailPage(hole: PreviewDecode.decodeObj(name: "hole")!)
+            HoleDetailPage(hole: PreviewDecode.decodeObj(name: "hole")!, floors: PreviewDecode.decodeList(name: "floor-list"))
         }
     }
 }

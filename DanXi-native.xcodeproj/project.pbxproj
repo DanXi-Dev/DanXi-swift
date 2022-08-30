@@ -69,6 +69,7 @@
 		27E5E82F28BA699C0074D295 /* review.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82E28BA699C0074D295 /* review.json */; };
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
+		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
 		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
@@ -156,6 +157,7 @@
 		27E5E82E28BA699C0074D295 /* review.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = review.json; sourceTree = "<group>"; };
 		27FA5F46289947DA000391A3 /* SearchTextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextPage.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* SearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagPage.swift; sourceTree = "<group>"; };
+		27FBAA4A28BE4E7E00B27F30 /* floor-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "floor-list.json"; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 		27C7E8A928BA038200DCC2B2 /* floor */ = {
 			isa = PBXGroup;
 			children = (
+				27FBAA4A28BE4E7E00B27F30 /* floor-list.json */,
 				27C7E8AA28BA038200DCC2B2 /* deleted-floor.json */,
 				27C7E8AB28BA038200DCC2B2 /* floor.json */,
 				27C7E8AC28BA038200DCC2B2 /* styled-floor.json */,
@@ -523,6 +526,7 @@
 			files = (
 				27C7E8B128BA038200DCC2B2 /* long-floor.json in Resources */,
 				27C7E8AE28BA038200DCC2B2 /* deleted-floor.json in Resources */,
+				27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */,
 				27E5E82628BA0AA00074D295 /* divisions.json in Resources */,
 				27E5E82F28BA699C0074D295 /* review.json in Resources */,
 				27719AA428A3E8E100C661BD /* course.json in Resources */,

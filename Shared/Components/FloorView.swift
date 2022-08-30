@@ -81,9 +81,10 @@ struct FloorView: View {
             ForEach(contentElements) { element in
                 switch element {
                 case .text(let content):
-                    Markdown(content) // FIXME: may collapse in #124691
+                    Text(content)
                         .markdownStyle(MarkdownStyle(font: .system(size: 16)))
                         .textSelection(.enabled)
+                    
                 case .localReference(let floor):
                     Menu(content: {
                         Button {
@@ -114,6 +115,7 @@ struct FloorView: View {
                     }, label: {
                         MentionView(floor: floor)
                     })
+                    
                 case .remoteReference(let mention):
                     MentionView(mention: mention)
                     
