@@ -1,57 +1,21 @@
 {
   "pins" : [
     {
-      "identity" : "attributedtext",
+      "identity" : "swift-cmark",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gonzalezreal/AttributedText",
+      "location" : "https://github.com/apple/swift-cmark.git",
       "state" : {
-        "revision" : "2dc2d7864e0fee4b524a5850d7d7cf9a7eeda0fc",
-        "version" : "1.0.0"
+        "branch" : "gfm",
+        "revision" : "476f7b4fcf12eba381b4aaed8987006fd8fcec9c"
       }
     },
     {
-      "identity" : "combine-schedulers",
+      "identity" : "swift-markdown",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/combine-schedulers",
-      "state" : {
-        "revision" : "73807a36dab1d676526c2267418fccaf86d8b0b4",
-        "version" : "0.7.1"
-      }
-    },
-    {
-      "identity" : "markdownui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gonzalezreal/MarkdownUI",
+      "location" : "https://github.com/apple/swift-markdown",
       "state" : {
         "branch" : "main",
-        "revision" : "6a33c60ad430772d69ac5278e35474d6b3e5d30a"
-      }
-    },
-    {
-      "identity" : "networkimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gonzalezreal/NetworkImage",
-      "state" : {
-        "revision" : "c97f83e771c95186af80ef6118f158852a9e54be",
-        "version" : "4.0.1"
-      }
-    },
-    {
-      "identity" : "swiftcommonmark",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gonzalezreal/SwiftCommonMark",
-      "state" : {
-        "revision" : "ed252beaddecce28ea6363f800c773d6169011b8",
-        "version" : "1.0.0"
-      }
-    },
-    {
-      "identity" : "xctest-dynamic-overlay",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
-      "state" : {
-        "revision" : "38bc9242e4388b80bd23ddfdf3071428859e3260",
-        "version" : "0.4.0"
+        "revision" : "52563fc74a540b29854fde20e836b27394be2749"
       }
     }
   ],

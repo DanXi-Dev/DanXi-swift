@@ -1,5 +1,4 @@
 import SwiftUI
-import MarkdownUI
 
 struct FloorView: View {
     @State var floor: THFloor
@@ -81,8 +80,7 @@ struct FloorView: View {
             ForEach(contentElements) { element in
                 switch element {
                 case .text(let content):
-                    Markdown(content)
-                        .markdownStyle(MarkdownStyle(font: .system(size: 16)))
+                    MarkdownView(content)
                         .textSelection(.enabled)
                     
                 case .localReference(let floor):

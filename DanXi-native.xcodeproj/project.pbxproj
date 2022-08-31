@@ -18,6 +18,9 @@
 		272AC8E12896F27300092B0C /* EditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* EditPage.swift */; };
 		272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* ReplyPage.swift */; };
 		272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyPage.swift */; };
+		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
+		2751E52D28BFB38D00104ACD /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 2751E52C28BFB38D00104ACD /* Markdown */; };
+		2751E53028BFB40500104ACD /* Conflict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52F28BFB40500104ACD /* Conflict.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */; };
 		27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworking.swift */; };
@@ -71,7 +74,6 @@
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
-		F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F19113A728A644A80067BA61 /* MarkdownUI */; };
 		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
@@ -104,6 +106,8 @@
 		272AC8E02896F27300092B0C /* EditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPage.swift; sourceTree = "<group>"; };
 		272AC8E22896F29800092B0C /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* EditReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyPage.swift; sourceTree = "<group>"; };
+		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
+		2751E52F28BFB40500104ACD /* Conflict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conflict.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
 		27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeNetworking.swift; sourceTree = "<group>"; };
 		27719A9728A3C39E00C661BD /* CourseNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNetworking.swift; sourceTree = "<group>"; };
@@ -174,7 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F19113A828A644A80067BA61 /* MarkdownUI in Frameworks */,
+				2751E52D28BFB38D00104ACD /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +211,16 @@
 				272AC8E52896F30E00092B0C /* EditReplyPage.swift */,
 			);
 			path = EditSheets;
+			sourceTree = "<group>";
+		};
+		2751E52E28BFB3F800104ACD /* Markdown */ = {
+			isa = PBXGroup;
+			children = (
+				2751E52928BFB33800104ACD /* MarkdownView.swift */,
+				2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */,
+				2751E52F28BFB40500104ACD /* Conflict.swift */,
+			);
+			path = Markdown;
 			sourceTree = "<group>";
 		};
 		27719A9428A3C1B700C661BD /* Networking */ = {
@@ -289,9 +303,9 @@
 		2778D6162891D22D009F4DB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2751E52E28BFB3F800104ACD /* Markdown */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
-				2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
 				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
 				2778D6172891D22D009F4DB1 /* Flexible */,
@@ -477,7 +491,7 @@
 			);
 			name = "DanXi-native";
 			packageProductDependencies = (
-				F19113A728A644A80067BA61 /* MarkdownUI */,
+				2751E52C28BFB38D00104ACD /* Markdown */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -508,7 +522,7 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
-				F19113A628A644A80067BA61 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -584,6 +598,7 @@
 				27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */,
 				27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
+				2751E53028BFB40500104ACD /* Conflict.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
@@ -602,6 +617,7 @@
 				2778D6202891D22D009F4DB1 /* TreeholeModel.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */,
 				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
+				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
 				2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -834,9 +850,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F19113A628A644A80067BA61 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+		2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
+			repositoryURL = "https://github.com/apple/swift-markdown";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -845,10 +861,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F19113A728A644A80067BA61 /* MarkdownUI */ = {
+		2751E52C28BFB38D00104ACD /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F19113A628A644A80067BA61 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
-			productName = MarkdownUI;
+			package = 2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			productName = Markdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
