@@ -81,7 +81,7 @@ struct FloorView: View {
             ForEach(contentElements) { element in
                 switch element {
                 case .text(let content):
-                    Text(content)
+                    Markdown(content)
                         .markdownStyle(MarkdownStyle(font: .system(size: 16)))
                         .textSelection(.enabled)
                     
