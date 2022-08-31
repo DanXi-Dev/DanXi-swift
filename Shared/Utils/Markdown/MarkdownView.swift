@@ -95,6 +95,7 @@ struct MarkdownView: View {
         return SwiftUIText(heading.plainText)
             .font(font)
             .fontWeight(.bold)
+            .fixedSize(horizontal: false, vertical: true)
     }
     
     private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
@@ -106,7 +107,7 @@ struct MarkdownView: View {
         
         return SwiftUIText(attributedContent ?? AttributedString(content))
             .font(.system(size: 16))
-
+            .fixedSize(horizontal: false, vertical: true)
     }
     
     private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
@@ -131,7 +132,10 @@ struct MarkdownView: View {
         return VStack(alignment: .leading) {
             ForEach(Array(unorderedList.items().enumerated()), id: \.offset) { index, item in
                 HStack(alignment: .top, spacing: 2.0) {
-                    SwiftUIText("*")
+                    SwiftUIText("·")
+                        .bold()
+                        .frame(width: 20)
+                        .textSelection(.disabled)
                     MarkdownView(item.markup)
                 }
             }
