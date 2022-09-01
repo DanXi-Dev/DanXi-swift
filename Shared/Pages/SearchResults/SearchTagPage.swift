@@ -31,7 +31,6 @@ struct SearchTagPage: View {
             Section {
                 ForEach(holes) { hole in
                     HoleView(hole: hole)
-                        .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
                         .task {
                             if hole == holes.last {
                                 await loadMoreHoles()

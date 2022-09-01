@@ -10,7 +10,6 @@ struct TreeholeBrowse: View {
             Section {
                 ForEach(viewModel.currentDivision.pinned) { hole in
                     HoleView(hole: hole)
-                        .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
                 }
             } header: {
                 VStack(alignment: .leading) {
@@ -25,7 +24,6 @@ struct TreeholeBrowse: View {
             Section {
                 ForEach(viewModel.holes) { hole in
                     HoleView(hole: hole)
-                        .background(NavigationLink("", destination: HoleDetailPage(hole: hole)).opacity(0))
                         .task {
                             if hole == viewModel.holes.last {
                                 await viewModel.loadMoreHoles()
