@@ -9,6 +9,9 @@ struct FloorView: View {
     var holeViewModel: HoleDetailViewModel? = nil
     var proxy: ScrollViewProxy? = nil
     
+    @State var mentionNavigationActive = false
+    @State var mentionFloorId = 0
+    
     init(floor: THFloor) {
         self._floor = State(initialValue: floor)
         isPoster = false
@@ -115,7 +118,18 @@ struct FloorView: View {
                     })
                     
                 case .remoteReference(let mention):
-                    MentionView(mention: mention)
+                    Button {
+                        mentionFloorId = mention.floorId
+                        mentionNavigationActive = true
+                    } label: {
+                        MentionView(mention: mention)
+                            .background(
+                                NavigationLink("",
+                                               destination: HoleDetailPage(targetFloorId: mentionFloorId),
+                                               isActive: $mentionNavigationActive)
+                                .opacity(0))
+                    }
+                    .buttonStyle(.borderless) // prevent multiple tapping
                     
                 case .reference(let floorId):
                     Text(String(floorId))
