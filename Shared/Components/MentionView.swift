@@ -37,7 +37,8 @@ struct MentionView: View {
             }
             .foregroundColor(randomColor(name: poster))
             
-            Text(content)
+            let attributedContent = try? AttributedString(markdown: content.stripToBasicMarkdown())
+            Text(attributedContent ?? AttributedString(content.stripToBasicMarkdown()))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .font(.callout)
