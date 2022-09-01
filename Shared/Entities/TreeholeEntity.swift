@@ -1,11 +1,36 @@
 import Foundation
 import SwiftUI
 
-struct THUser: Hashable, Codable, Identifiable {
-    let id: Int
-    let nickname: String
-    let joinTime: Date
-    var favorites: [Int]
+struct THHole: Hashable, Decodable, Identifiable {
+    let id, divisionId: Int
+    let view, reply: Int
+    let hidden: Bool
+    let updateTime, createTime: Date
+    let tags: [THTag]
+    let firstFloor, lastFloor: THFloor
+    var floors: [THFloor]
+}
+
+struct THFloor: Hashable, Codable, Identifiable {
+    let id, holeId: Int
+    let updateTime, createTime: Date
+    let like: Int
+    let liked: Bool
+    let isMe: Bool
+    let deleted: Bool
+    let storey: Int
+    // TODO: fold: [?]
+    let content, posterName, spetialTag: String
+    let mention: [THMention]
+    let history: [THHistory]
+}
+
+struct THMention: Hashable, Codable {
+    let floorId, holeId: Int
+    let content: String
+    let posterName: String
+    let createTime, updateTime: Date
+    let deleted: Bool
 }
 
 struct THDivision: Hashable, Decodable, Identifiable {
@@ -21,31 +46,16 @@ struct THTag: Hashable, Codable, Identifiable {
     let name: String
 }
 
-struct THFloor: Hashable, Codable, Identifiable {
-    let id, holeId: Int
-    let updateTime, createTime: Date
-    let like: Int
-    let liked: Bool?
-    let isMe: Bool
-    let deleted: Bool
-    let storey: Int
-    let content, posterName: String
-    let mention: [THMention]
-}
-
-struct THMention: Hashable, Codable {
-    let floorId, holeId: Int
+struct THHistory: Hashable, Codable {
     let content: String
-    let posterName: String
-    let createTime, updateTime: Date
-    let deleted: Bool
+    let alteredBy: Int
+    let alteredTime: Date
 }
 
-struct THHole: Hashable, Decodable, Identifiable {
-    let id, divisionId: Int
-    let view, reply: Int
-    let updateTime, createTime: Date
-    let tags: [THTag]
-    let firstFloor, lastFloor: THFloor
-    var floors: [THFloor]
+struct THUser: Hashable, Codable, Identifiable {
+    let id: Int
+    let nickname: String
+    let joinTime: Date
+    var favorites: [Int]
+    let isAdmin: Bool
 }

@@ -7,6 +7,7 @@ extension THHole {
         case divisionId = "division_id"
         case view
         case reply
+        case hidden
         case updateTime = "time_updated"
         case createTime = "time_created"
         case tags
@@ -26,6 +27,7 @@ extension THHole {
         view = try values.decode(Int.self, forKey: .view)
         reply = try values.decode(Int.self, forKey: .reply)
         tags = try values.decode([THTag].self, forKey: .tags)
+        hidden = try values.decode(Bool.self, forKey: .hidden)
         let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
         let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
         let formatter = ISO8601DateFormatter()
@@ -54,21 +56,23 @@ extension THFloor {
         case isMe = "is_me"
         case deleted
         case holeId = "hole_id"
-        case storey, content
+        case storey, content, spetialTag = "special_tag"
         case posterName = "anonyname"
         case mention
+        case history
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         like = try values.decode(Int.self, forKey: .like)
-        liked = try values.decodeIfPresent(Bool.self, forKey: .liked)
+        liked = try values.decodeIfPresent(Bool.self, forKey: .liked) ?? false
         isMe = try values.decodeIfPresent(Bool.self, forKey: .isMe) ?? false
         deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
         holeId = try values.decode(Int.self, forKey: .holeId)
         storey = try values.decode(Int.self, forKey: .storey)
         content = try values.decode(String.self, forKey: .content)
+        spetialTag = try values.decode(String.self, forKey: .spetialTag)
         let posterName = try values.decode(String.self, forKey: .posterName)
         self.posterName = posterName
         
@@ -77,13 +81,14 @@ extension THFloor {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
         if let createTime = formatter.date(from: iso8601CreateTime),
-            let updateTime = formatter.date(from: iso8601UpdateTime) {
+           let updateTime = formatter.date(from: iso8601UpdateTime) {
             self.createTime = createTime
             self.updateTime = updateTime
         } else {
             throw NetworkError.invalidResponse
         }
         mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
+        history = try values.decodeIfPresent([THHistory].self, forKey: .history) ?? []
     }
 }
 
@@ -111,33 +116,9 @@ extension THMention {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
         if let createTime = formatter.date(from: iso8601CreateTime),
-            let updateTime = formatter.date(from: iso8601UpdateTime) {
+           let updateTime = formatter.date(from: iso8601UpdateTime) {
             self.createTime = createTime
             self.updateTime = updateTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
-    }
-}
-
-extension THUser {
-    enum CodingKeys: String, CodingKey {
-        case id = "user_id"
-        case nickname
-        case favorites
-        case joinTime = "joined_time"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        nickname = try values.decode(String.self, forKey: .nickname)
-        favorites = try values.decode([Int].self, forKey: .favorites)
-        let iso8601JoinTime = try values.decode(String.self, forKey: .joinTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let time = formatter.date(from: iso8601JoinTime) {
-            joinTime = time
         } else {
             throw NetworkError.invalidResponse
         }
@@ -168,4 +149,51 @@ extension THTag {
     }
 }
 
+extension THHistory {
+    enum CodingKeys: String, CodingKey {
+        case content
+        case alteredBy = "altered_by"
+        case alteredTime = "altered_time"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        content = try values.decode(String.self, forKey: .content)
+        alteredBy = try values.decode(Int.self, forKey: .alteredBy)
+        let iso8601AlteredTime = try values.decode(String.self, forKey: .alteredTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let alteredTime = formatter.date(from: iso8601AlteredTime) {
+            self.alteredTime = alteredTime
+        } else {
+            throw NetworkError.invalidResponse
+        }
+    }
+}
 
+extension THUser {
+    enum CodingKeys: String, CodingKey {
+        case id = "user_id"
+        case nickname
+        case favorites
+        case joinTime = "joined_time"
+        case isAdmin = "is_admin"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        nickname = try values.decode(String.self, forKey: .nickname)
+        favorites = try values.decode([Int].self, forKey: .favorites)
+        isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
+        
+        let iso8601JoinTime = try values.decode(String.self, forKey: .joinTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let time = formatter.date(from: iso8601JoinTime) {
+            joinTime = time
+        } else {
+            throw NetworkError.invalidResponse
+        }
+    }
+}

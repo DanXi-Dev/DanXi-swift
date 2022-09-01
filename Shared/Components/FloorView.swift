@@ -32,7 +32,7 @@ struct FloorView: View {
     func like() {
         Task {
             do {
-                let newFloor = try await NetworkRequests.shared.like(floorId: floor.id, like: !(floor.liked ?? false))
+                let newFloor = try await NetworkRequests.shared.like(floorId: floor.id, like: !(floor.liked))
                 self.floor = newFloor
             } catch {
                 print("DANXI-DEBUG: like failed")
@@ -146,10 +146,10 @@ struct FloorView: View {
         HStack(alignment: .center, spacing: 30) {
             Button(action: like) {
                 HStack(alignment: .center, spacing: 3) {
-                    Image(systemName: floor.liked ?? false ? "heart.fill" : "heart")
+                    Image(systemName: floor.liked ? "heart.fill" : "heart")
                     Text(String(floor.like))
                 }
-                .foregroundColor(floor.liked ?? false ? .pink : .secondary)
+                .foregroundColor(floor.liked ? .pink : .secondary)
             }
             
             Button {
