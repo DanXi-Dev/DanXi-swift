@@ -98,16 +98,71 @@ struct MarkdownView: View {
             .fixedSize(horizontal: false, vertical: true)
     }
     
+    
     private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
+        enum ParagraphElement: Identifiable {
+            case paragraph(content: AttributedString)
+            case image(url: URL)
+            
+            var id: UUID {
+                UUID()
+            }
+        }
+        
         let content = paragraph
-                        .format()
-                        .trimmingCharacters(in: .whitespacesAndNewlines)
+            .format()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
         
-        let attributedContent = try? AttributedString(markdown: content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))
+        var elements: [ParagraphElement] = []
         
-        return SwiftUIText(attributedContent ?? AttributedString(content))
-            .font(.system(size: 16))
-            .fixedSize(horizontal: false, vertical: true)
+        if let attributedContent = try? AttributedString(markdown: content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+            var leadingBorder = attributedContent.startIndex
+            for run in attributedContent.runs {
+                if let url = run.imageURL {
+                    let leadingSegment = attributedContent[leadingBorder..<run.range.lowerBound]
+                    elements.append(.paragraph(content: AttributedString(leadingSegment)))
+                    elements.append(.image(url: url))
+                    leadingBorder = run.range.upperBound
+                }
+            }
+            if leadingBorder != attributedContent.endIndex {
+                let trailingSegment = attributedContent[leadingBorder..<attributedContent.endIndex]
+                elements.append(.paragraph(content: AttributedString(trailingSegment)))
+            }
+        } else {
+            elements.append(.paragraph(content: AttributedString(content)))
+        }
+        
+        return VStack(alignment: .leading, spacing: 5) {
+            ForEach(elements) { element in
+                switch(element) {
+                case .paragraph(let text):
+                    SwiftUIText(text)
+                        .font(.system(size: 16))
+                        .fixedSize(horizontal: false, vertical: true)
+                case .image(let url):
+                    HStack {
+                        Spacer()
+                        AsyncImage(url: url) { phase in
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } else if phase.error != nil {
+                                Color.gray.opacity(0.1)
+                                    .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
+                            } else {
+                                Color.gray.opacity(0.1)
+                                    .overlay { ProgressView() }
+                            }
+                        }
+                        .frame(width: 300, height: 300)
+                        Spacer()
+                    }
+                }
+            }
+        }
+        
     }
     
     private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
