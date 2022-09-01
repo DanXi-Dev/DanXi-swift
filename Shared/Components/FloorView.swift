@@ -55,9 +55,13 @@ struct FloorView: View {
         VStack(alignment: .leading) {
             HStack {
                 poster
+                if !floor.spetialTag.isEmpty {
+                    SpecialTagView(content: floor.spetialTag)
+                }
                 Spacer()
                 actions
             }
+            
             renderedContent(floor.content)
             info
         }
@@ -143,7 +147,7 @@ struct FloorView: View {
     }
     
     private var actions: some View {
-        HStack(alignment: .center, spacing: 30) {
+        HStack(alignment: .center, spacing: 20) {
             Button(action: like) {
                 HStack(alignment: .center, spacing: 3) {
                     Image(systemName: floor.liked ? "heart.fill" : "heart")
@@ -219,14 +223,14 @@ struct FloorView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Floor Dark")
-
+            
             FloorView(floor: PreviewDecode.decodeObj(name: "deleted-floor")!)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Deleted Floor")
-
+            
             FloorView(floor: PreviewDecode.decodeObj(name: "long-floor")!)
                 .previewDisplayName("Long Floor")
-
+            
             ScrollView {
                 FloorView(floor: PreviewDecode.decodeObj(name: "styled-floor")!)
             }

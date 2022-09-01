@@ -27,6 +27,13 @@ struct HoleView: View {
                     .foregroundColor(.red)
             }
             
+            if !hole.firstFloor.spetialTag.isEmpty {
+                HStack {
+                    Spacer()
+                    SpecialTagView(content: hole.firstFloor.spetialTag)
+                }
+            }
+            
             if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {
                 Text(mdRendered)
                     .font(.system(size: 16))
