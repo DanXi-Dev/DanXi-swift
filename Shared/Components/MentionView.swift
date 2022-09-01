@@ -81,7 +81,7 @@ struct MentionView: View {
             Text(attributedContent ?? AttributedString(content.stripToBasicMarkdown()))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
-                .font(.callout)
+                .font(.system(size: 15))
                 .lineLimit(3)
             
             HStack {

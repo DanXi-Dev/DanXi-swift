@@ -52,6 +52,21 @@ struct FloorView: View {
     }
     
     var body: some View {
+        if floor.deleted {
+            DisclosureGroup {
+                floorBody
+            } label: {
+                Text(floor.content)
+                    .font(.system(size: 16))
+                    .foregroundColor(.secondary)
+            }
+        } else {
+            floorBody
+        }
+    }
+    
+    @MainActor
+    private var floorBody: some View {
         VStack(alignment: .leading) {
             HStack {
                 poster
@@ -59,10 +74,14 @@ struct FloorView: View {
                     SpecialTagView(content: floor.spetialTag)
                 }
                 Spacer()
-                actions
+                
+                if !floor.deleted {
+                    actions
+                }
             }
-            
+
             renderedContent(floor.content)
+            
             info
         }
         .sheet(isPresented: $showReplyPage) {
@@ -135,14 +154,19 @@ struct FloorView: View {
             
             Text("(##\(String(floor.id)))")
                 .font(.caption2)
-                .foregroundColor(Color(uiColor: .systemGray2))
             
             Spacer()
-            Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
-                .font(.caption)
-                .foregroundColor(Color(uiColor: .systemGray2))
             
+            if floor.deleted {
+                Text("Deleted")
+            }
+            
+            Spacer()
+            
+            Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
         }
+        .font(.caption)
+        .foregroundColor(Color.secondary.opacity(0.7))
         .padding(.top, 2.0)
     }
     
