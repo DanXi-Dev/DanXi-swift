@@ -58,9 +58,6 @@ struct HoleDetailPage: View {
             .listStyle(.grouped)
             .navigationTitle(viewModel.hole == nil ? "Loading" : "#\(String(viewModel.hole!.id))")
             .navigationBarTitleDisplayMode(.inline)
-            .refreshable {
-                await viewModel.refresh()
-            }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     toolbar

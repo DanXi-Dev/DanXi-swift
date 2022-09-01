@@ -168,11 +168,6 @@ class HoleDetailViewModel: ObservableObject {
         }
     }
     
-    func refresh() async {
-        floors = []
-        await loadMoreFloors()
-    }
-    
     func toggleFavorites() async {
         guard let hole = hole else {
             return
