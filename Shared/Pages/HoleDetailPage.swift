@@ -70,7 +70,9 @@ struct HoleDetailPage: View {
             .onChange(of: scrollTarget, perform: { target in
                 if let target = target {
                     scrollTarget = nil
-                    proxy.scrollTo(target)
+                    withAnimation {
+                        proxy.scrollTo(target)
+                    }
                 }
             })
             .task {

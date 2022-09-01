@@ -105,7 +105,9 @@ class HoleDetailViewModel: ObservableObject {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
-                proxy.scrollTo(targetFloorId, anchor: .top) // FIXME: can't `withAnimation`, will cause Fatal error: List update took more than 1 layout cycle to converge
+                withAnimation {
+                    proxy.scrollTo(targetFloorId, anchor: .top)
+                }
             }
         }
         
