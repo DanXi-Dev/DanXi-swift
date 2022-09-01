@@ -87,53 +87,14 @@ struct FloorView: View {
                         .textSelection(.enabled)
                     
                 case .localReference(let floor):
-                    Menu(content: {
-                        Button {
-                            UIPasteboard.general.string = floor.content.stripToBasicMarkdown() // TODO: Is this format suitable for copy?
-                        } label: {
-                            Label("Copy Full Text", systemImage: "doc.on.doc")
-                        }
-                        Button {
-                            UIPasteboard.general.string = "##\(String(floor.id))"
-                        } label: {
-                            Label("Copy Floor ID", systemImage: "doc.on.doc")
-                        }
-                        Button {
-                            // TODO: Not implemented
-                        } label: {
-                            Label("Reply", systemImage: "arrowshape.turn.up.left")
-                        }
-                        
-                        if let proxy = proxy {
-                            Button {
-                                withAnimation {
-                                    proxy.scrollTo(floor.id, anchor: .top)
-                                }
-                            } label: {
-                                Label("Locate", systemImage: "arrow.right.square")
-                            }
-                        }
-                    }, label: {
-                        MentionView(floor: floor)
-                    })
+                    MentionView(floor: floor, proxy: proxy)
                     
                 case .remoteReference(let mention):
-                    Button {
-                        mentionFloorId = mention.floorId
-                        mentionNavigationActive = true
-                    } label: {
-                        MentionView(mention: mention)
-                            .background(
-                                NavigationLink("",
-                                               destination: HoleDetailPage(targetFloorId: mentionFloorId),
-                                               isActive: $mentionNavigationActive)
-                                .opacity(0))
-                    }
-                    .buttonStyle(.borderless) // prevent multiple tapping
+                    MentionView(mention: mention)
                     
                 case .reference(let floorId):
-                    Text(String(floorId))
-                        .foregroundColor(.green)
+                    Text("NOT SUPPOTED MENTION: \(String(floorId))")
+                        .foregroundColor(.red)
                 }
             }
         }

@@ -6,11 +6,23 @@ struct MentionView: View {
     let floorId: Int
     let date: Date
     
-    init(floor: THFloor) {
+    let mentionType: MentionType
+    let proxy: ScrollViewProxy?
+    
+    @State var navigationActive = false
+    
+    enum MentionType {
+        case local
+        case remote
+    }
+    
+    init(floor: THFloor, proxy: ScrollViewProxy? = nil) {
         self.poster = floor.posterName
         self.content = floor.content
         self.floorId = floor.id
         self.date = floor.createTime
+        self.proxy = proxy
+        self.mentionType = .local
     }
     
     init(mention: THMention) {
@@ -18,9 +30,37 @@ struct MentionView: View {
         self.content = mention.content
         self.floorId = mention.floorId
         self.date = mention.createTime
+        self.proxy = nil
+        self.mentionType = .remote
     }
     
     var body: some View {
+        switch mentionType {
+            
+        case .local:
+            Button {
+                if let proxy = proxy {
+                    withAnimation {
+                        proxy.scrollTo(floorId, anchor: .top)
+                    }
+                }
+            } label: {
+                mention
+            }
+            .buttonStyle(.borderless) // prevent multiple tapping
+            
+        case .remote:
+            Button {
+                navigationActive = true
+            } label: {
+                mention
+                    .background(navigation)
+            }
+            .buttonStyle(.borderless) // prevent multiple tapping
+        }
+    }
+    
+    private var mention: some View {
         VStack(alignment: .leading) {
             HStack {
                 Rectangle()
@@ -57,6 +97,11 @@ struct MentionView: View {
         .padding(.vertical, 7.0)
         .background(Color.secondary.opacity(0.1))
         .cornerRadius(7.0)
+    }
+    
+    private var navigation: some View {
+        NavigationLink("", destination: HoleDetailPage(targetFloorId: floorId), isActive: $navigationActive)
+            .opacity(0)
     }
 }
 
