@@ -102,7 +102,7 @@ struct FloorView: View {
                                                       mentions: floor.mention,
                                                       holeModel: holeViewModel)
         
-        return VStack(alignment: .leading) {
+        return VStack(alignment: .leading, spacing: 7) {
             ForEach(contentElements) { element in
                 switch element {
                 case .text(let content):
