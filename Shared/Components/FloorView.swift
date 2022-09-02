@@ -55,6 +55,7 @@ struct FloorView: View {
         if floor.deleted {
             DisclosureGroup {
                 floorBody
+                    .listRowSeparator(.hidden, edges: .top)
             } label: {
                 Text(floor.content)
                     .font(.system(size: 16))
@@ -79,7 +80,7 @@ struct FloorView: View {
                     actions
                 }
             }
-
+            
             renderedContent(floor.content)
             
             info
@@ -159,6 +160,8 @@ struct FloorView: View {
             
             if floor.deleted {
                 Text("Deleted")
+            } else if floor.edited {
+                Text("Edited")
             }
             
             Spacer()

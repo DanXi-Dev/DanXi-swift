@@ -23,6 +23,10 @@ struct THFloor: Hashable, Codable, Identifiable {
     let content, posterName, spetialTag: String
     let mention: [THMention]
     let history: [THHistory]
+    
+    var edited: Bool {
+        !deleted && !history.isEmpty
+    }
 }
 
 struct THMention: Hashable, Codable {
