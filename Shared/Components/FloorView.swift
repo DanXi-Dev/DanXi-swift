@@ -56,6 +56,10 @@ struct FloorView: View {
             DisclosureGroup {
                 floorBody
                     .listRowSeparator(.hidden, edges: .top)
+                    .listRowInsets(.init(top: 0,
+                                         leading: 0,
+                                         bottom: 5,
+                                         trailing: 15))
             } label: {
                 Text(floor.content)
                     .font(.system(size: 16))
