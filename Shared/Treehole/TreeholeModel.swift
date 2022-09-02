@@ -46,4 +46,10 @@ class TreeholeDataModel: ObservableObject {
             user?.favorites = favorites
         }
     }
+    
+    func removeFavorate(_ holeId: Int) {
+        if self.user != nil {
+            self.user!.favorites = self.user!.favorites.filter { $0 != holeId }
+        }
+    }
 }

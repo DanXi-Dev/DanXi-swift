@@ -1,40 +1,74 @@
 import SwiftUI
 
 struct FavoritesPage: View {
-    @State var loading = true
     @State var favorites: [THHole] = []
+    
+    @State var loading = true
+    @State var finished = false
+    @State var initError = ErrorInfo()
     
     init() { }
     
     init(favorites: [THHole]) { // preview purpose
         self._favorites = State(initialValue: favorites)
         self._loading = State(initialValue: false)
+        self._finished = State(initialValue: true)
     }
     
     func fetchFavorites() async {
         do {
             self.favorites = try await NetworkRequests.shared.loadFavorites()
-            loading = false
+            finished = true
+        } catch NetworkError.ignore {
+            // cancelled, ignore
+        } catch let error as NetworkError {
+            initError = error.localizedErrorDescription
         } catch {
-            print("DANXI-DEBUG: load favorites")
+            initError = ErrorInfo(title: "Unknown Error",
+                                  description: "Error description: \(error.localizedDescription)")
         }
     }
     
-    var body: some View {
-        Group {
-            if loading {
-                ProgressView()
-                    .task {
-                        await fetchFavorites()
-                    }
-            } else {
-                List {
-                    ForEach(favorites) { hole in
-                        HoleView(hole: hole)
+    func removeFavorites(at offsets: IndexSet) {
+        let previousList = favorites
+        favorites.remove(atOffsets: offsets) // UI change
+        
+        Task { // perform server communication
+            await withTaskGroup(of: Void.self) { taskGroup in
+                offsets.forEach { index in
+                    let holeId = previousList[index].id
+                    taskGroup.addTask {
+                        do {
+                            _ = try await NetworkRequests.shared.toggleFavorites(holeId: holeId, add: false)
+                            // update data model
+                            Task { @MainActor in
+                                TreeholeDataModel.shared.removeFavorate(holeId)
+                            }
+                        } catch {
+                            print("DANXI-DEBUG: remove favorite failed")
+                        }
                     }
                 }
-                .listStyle(.grouped)
             }
+        }
+    }
+    
+    
+    var body: some View {
+        InitLoadingView(loading: $loading,
+                        finished: $finished,
+                        errorDescription: initError.description,
+                        action: fetchFavorites) {
+            List {
+                ForEach(favorites) { hole in
+                    HoleView(hole: hole)
+                }
+                .onDelete(perform: removeFavorites)
+            }
+            .toolbar {
+                EditButton()
+            }
+            .listStyle(.grouped)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Favorites")

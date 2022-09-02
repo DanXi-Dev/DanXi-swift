@@ -62,9 +62,8 @@ struct CourseMainPage: View {
     var body: some View {
         InitLoadingView(loading: $loading,
                         finished: $initFinished,
-                        errorDescription: errorInfo.description) {
-            await initialLoad()
-        } content: {
+                        errorDescription: errorInfo.description,
+                        action: initialLoad) {
             List {
                 ForEach(searchResults) { course in
                     NavigationLink(destination: CourseDetailPage(courseGroup: course)) {

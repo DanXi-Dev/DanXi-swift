@@ -24,9 +24,8 @@ struct TreeholePage: View {
     var body: some View {
         InitLoadingView(loading: $viewModel.initLoading,
                         finished: $viewModel.initFinished,
-                        errorDescription: viewModel.initError.description) {
-            await viewModel.initialLoad()
-        } content: {
+                        errorDescription: viewModel.initError.description,
+                        action: viewModel.initialLoad) {
             TreeholeSearchable(searchText: $searchText, searchSubmitted: $searchSubmitted)
                 .environmentObject(viewModel)
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
