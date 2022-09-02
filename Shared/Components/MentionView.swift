@@ -5,6 +5,7 @@ struct MentionView: View {
     let content: String
     let floorId: Int
     let date: Date
+    let deleted: Bool
     
     let mentionType: MentionType
     let proxy: ScrollViewProxy?
@@ -22,6 +23,7 @@ struct MentionView: View {
         self.floorId = floor.id
         self.date = floor.createTime
         self.proxy = proxy
+        self.deleted = floor.deleted
         self.mentionType = .local
     }
     
@@ -31,6 +33,7 @@ struct MentionView: View {
         self.floorId = mention.floorId
         self.date = mention.createTime
         self.proxy = nil
+        self.deleted = mention.deleted
         self.mentionType = .remote
     }
     
@@ -79,7 +82,7 @@ struct MentionView: View {
             
             let attributedContent = try? AttributedString(markdown: content.stripToBasicMarkdown())
             Text(attributedContent ?? AttributedString(content.stripToBasicMarkdown()))
-                .foregroundColor(.primary)
+                .foregroundColor(deleted ? .secondary : .primary)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 15))
                 .lineLimit(3)
@@ -109,12 +112,12 @@ struct MentionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
-
+            
             MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
                 .preferredColorScheme(.dark)
         }
         .previewLayout(.sizeThatFits)
         .padding()
-            
+        
     }
 }
