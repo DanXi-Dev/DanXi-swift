@@ -58,6 +58,10 @@ struct HoleView: View {
             navActive = true
         }
         .background(NavigationLink("", destination: navTarget, isActive: $navActive).opacity(0))
+        #if os(iOS)
+        .previewContextMenu(destination: HoleDetailPage(hole: hole),
+                            preview: HoleDetailPage(hole: hole, floors: hole.floors))
+        #endif
     }
     
     private var info: some View {
