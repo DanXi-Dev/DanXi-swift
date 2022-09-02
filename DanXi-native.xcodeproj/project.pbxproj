@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* ReviewPage.swift */; };
+		271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596A28C2504500F72C3B /* PreviewContextMenu.swift */; };
+		271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */; };
+		271D596F28C2518800F72C3B /* PreviewCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596E28C2518800F72C3B /* PreviewCondition.swift */; };
+		271D597128C251BE00F72C3B /* PreivewContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597028C251BE00F72C3B /* PreivewContextView.swift */; };
+		271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597228C2521600F72C3B /* PreviewContextAction.swift */; };
 		27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */; };
 		27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */; };
 		27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */; };
@@ -97,6 +102,11 @@
 
 /* Begin PBXFileReference section */
 		270CA42928BD13A10024BDF2 /* ReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPage.swift; sourceTree = "<group>"; };
+		271D596A28C2504500F72C3B /* PreviewContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextMenu.swift; sourceTree = "<group>"; };
+		271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextModifier.swift; sourceTree = "<group>"; };
+		271D596E28C2518800F72C3B /* PreviewCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCondition.swift; sourceTree = "<group>"; };
+		271D597028C251BE00F72C3B /* PreivewContextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreivewContextView.swift; sourceTree = "<group>"; };
+		271D597228C2521600F72C3B /* PreviewContextAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextAction.swift; sourceTree = "<group>"; };
 		27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeViewModel.swift; sourceTree = "<group>"; };
 		27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeBrowse.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayRawRepresentable.swift; sourceTree = "<group>"; };
@@ -187,6 +197,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		271D596928C24F9300F72C3B /* Context Preview */ = {
+			isa = PBXGroup;
+			children = (
+				271D596A28C2504500F72C3B /* PreviewContextMenu.swift */,
+				271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */,
+				271D596E28C2518800F72C3B /* PreviewCondition.swift */,
+				271D597028C251BE00F72C3B /* PreivewContextView.swift */,
+				271D597228C2521600F72C3B /* PreviewContextAction.swift */,
+			);
+			path = "Context Preview";
+			sourceTree = "<group>";
+		};
 		27227FCD28A4F61900B3C99D /* TreeholeMainPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +332,7 @@
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
+				271D596928C24F9300F72C3B /* Context Preview */,
 				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
 				2778D6172891D22D009F4DB1 /* Flexible */,
 			);
@@ -579,6 +602,7 @@
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* NetworkRequests.swift in Sources */,
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,
+				271D597128C251BE00F72C3B /* PreivewContextView.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
@@ -599,7 +623,9 @@
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */,
 				27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */,
+				271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */,
 				27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */,
+				271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2751E53028BFB40500104ACD /* Conflict.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
@@ -607,8 +633,10 @@
 				273FAFB628C13C6100FC3950 /* SpecialTagView.swift in Sources */,
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
 				2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */,
+				271D596F28C2518800F72C3B /* PreviewCondition.swift in Sources */,
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
+				271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
