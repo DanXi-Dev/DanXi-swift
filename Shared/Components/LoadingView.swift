@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct InitLoadingView<Content: View>: View {
+struct LoadingView<Content: View>: View {
     @Binding var loading: Bool
     @Binding var finished: Bool
     let errorDescription: LocalizedStringKey
@@ -62,23 +62,23 @@ struct InitLoadingView<Content: View>: View {
                     await action()
                 }
             }
-            .padding()
             .frame(width: 120, height: 25)
             .overlay(
                 RoundedRectangle(cornerRadius: 3)
                     .stroke(Color.secondary, lineWidth: 1)
             )
         }
+        .padding()
         .foregroundColor(.secondary)
     }
 }
 
 
 
-struct InitLoadingView_Previews: PreviewProvider {
+struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            InitLoadingView(loading: .constant(false),
+            LoadingView(loading: .constant(false),
                             finished: .constant(false),
                             errorDescription: "Requested resourse not found") {
                 // initialization code
@@ -86,7 +86,7 @@ struct InitLoadingView_Previews: PreviewProvider {
                 EmptyView()
             }
 
-            InitLoadingView(loading: .constant(false),
+            LoadingView(loading: .constant(false),
                             finished: .constant(false),
                             errorDescription: "Requested resourse not found") {
                 // initialization code
@@ -95,7 +95,7 @@ struct InitLoadingView_Previews: PreviewProvider {
             }
             .preferredColorScheme(.dark)
 
-            InitLoadingView(loading: .constant(true),
+            LoadingView(loading: .constant(true),
                             finished: .constant(false),
                             errorDescription: "") {
                 // initialization code

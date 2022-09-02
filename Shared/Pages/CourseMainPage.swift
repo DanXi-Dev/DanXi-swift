@@ -60,7 +60,7 @@ struct CourseMainPage: View {
     }
     
     var body: some View {
-        InitLoadingView(loading: $loading,
+        LoadingView(loading: $loading,
                         finished: $initFinished,
                         errorDescription: errorInfo.description,
                         action: initialLoad) {

@@ -1,10 +1,9 @@
 import SwiftUI
 
-struct TreeholeSearch: View {
+struct SearchPage: View {
     @ObservedObject var model = TreeholeDataModel.shared
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
-    @EnvironmentObject var viewModel: TreeholeViewModel
     @AppStorage("treehole-search-history") var searchHistory: [String] = []
     
     private var filteredTags: [THTag] {
@@ -88,7 +87,7 @@ struct TreeholeSearch: View {
             if !filteredTags.isEmpty {
                 Section("Tags") {
                     ForEach(filteredTags) { tag in
-                        NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: viewModel.currentDivisionId)) {
+                        NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
                             Label(tag.name, systemImage: "tag")
                         }
                         .simultaneousGesture(TapGesture().onEnded {
@@ -99,11 +98,5 @@ struct TreeholeSearch: View {
             }
         }
         .listStyle(.grouped)
-    }
-}
-
-struct TreeholeSearch_Previews: PreviewProvider {
-    static var previews: some View {
-        TreeholeSearch(searchText: .constant(""), searchSubmitted: .constant(false))
     }
 }

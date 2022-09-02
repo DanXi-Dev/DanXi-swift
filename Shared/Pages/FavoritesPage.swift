@@ -55,7 +55,7 @@ struct FavoritesPage: View {
     
     
     var body: some View {
-        InitLoadingView(loading: $loading,
+        LoadingView(loading: $loading,
                         finished: $finished,
                         errorDescription: initError.description,
                         action: fetchFavorites) {

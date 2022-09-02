@@ -13,8 +13,7 @@
 		271D596F28C2518800F72C3B /* PreviewCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596E28C2518800F72C3B /* PreviewCondition.swift */; };
 		271D597128C251BE00F72C3B /* PreivewContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597028C251BE00F72C3B /* PreivewContextView.swift */; };
 		271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597228C2521600F72C3B /* PreviewContextAction.swift */; };
-		27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */; };
-		27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */; };
+		27227FD128A507AA00B3C99D /* BrowsePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* BrowsePage.swift */; };
 		27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */; };
 		2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */; };
 		2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* MentionView.swift */; };
@@ -70,7 +69,7 @@
 		27C7E8B128BA038200DCC2B2 /* long-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AD28BA038200DCC2B2 /* long-floor.json */; };
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
-		27E4686328BCABC100CDE8CE /* InitLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* InitLoadingView.swift */; };
+		27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingView.swift */; };
 		27E4686528BCD22500CDE8CE /* ListLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* ListLoadingView.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
 		27E5E82928BA0B560074D295 /* hole-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82828BA0B560074D295 /* hole-list.json */; };
@@ -81,7 +80,7 @@
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
-		F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* TreeholeSearch.swift */; };
+		F19113AA28A65D260067BA61 /* SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* SearchPage.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
@@ -108,8 +107,7 @@
 		271D596E28C2518800F72C3B /* PreviewCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCondition.swift; sourceTree = "<group>"; };
 		271D597028C251BE00F72C3B /* PreivewContextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreivewContextView.swift; sourceTree = "<group>"; };
 		271D597228C2521600F72C3B /* PreviewContextAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextAction.swift; sourceTree = "<group>"; };
-		27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeViewModel.swift; sourceTree = "<group>"; };
-		27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeBrowse.swift; sourceTree = "<group>"; };
+		27227FD028A507AA00B3C99D /* BrowsePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowsePage.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayRawRepresentable.swift; sourceTree = "<group>"; };
 		2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParse.swift; sourceTree = "<group>"; };
 		2729071428B0B45F0087ACC0 /* MentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
@@ -166,7 +164,7 @@
 		27C7E8AD28BA038200DCC2B2 /* long-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "long-floor.json"; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
-		27E4686228BCABC100CDE8CE /* InitLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitLoadingView.swift; sourceTree = "<group>"; };
+		27E4686228BCABC100CDE8CE /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* ListLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLoadingView.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
 		27E5E82828BA0B560074D295 /* hole-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hole-list.json"; sourceTree = "<group>"; };
@@ -180,7 +178,7 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F19113A928A65D260067BA61 /* TreeholeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholeSearch.swift; sourceTree = "<group>"; };
+		F19113A928A65D260067BA61 /* SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPage.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
 		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
@@ -209,16 +207,6 @@
 				271D597228C2521600F72C3B /* PreviewContextAction.swift */,
 			);
 			path = "Context Preview";
-			sourceTree = "<group>";
-		};
-		27227FCD28A4F61900B3C99D /* TreeholeMainPage */ = {
-			isa = PBXGroup;
-			children = (
-				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
-				F19113A928A65D260067BA61 /* TreeholeSearch.swift */,
-				27227FD028A507AA00B3C99D /* TreeholeBrowse.swift */,
-			);
-			path = TreeholeMainPage;
 			sourceTree = "<group>";
 		};
 		272AC8DB2896E1E000092B0C /* tag */ = {
@@ -293,11 +281,13 @@
 		2778D6052891D22D009F4DB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				27227FCD28A4F61900B3C99D /* TreeholeMainPage */,
-				27FA5F45289947AD000391A3 /* SearchResults */,
-				272AC8DE2896F20500092B0C /* EditSheets */,
+				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
+				27227FD028A507AA00B3C99D /* BrowsePage.swift */,
+				F19113A928A65D260067BA61 /* SearchPage.swift */,
 				2778D6072891D22D009F4DB1 /* HoleDetailPage.swift */,
 				272AC8D92896BE2500092B0C /* FavoritesPage.swift */,
+				27FA5F45289947AD000391A3 /* SearchResults */,
+				272AC8DE2896F20500092B0C /* EditSheets */,
 				2778D6092891D22D009F4DB1 /* LoginPage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
 				F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */,
@@ -321,7 +311,7 @@
 				27E5E82C28BA69600074D295 /* CourseReview.swift */,
 				278E406928BA963A008D6514 /* RankView.swift */,
 				27E5E82A28BA62130074D295 /* StarsView.swift */,
-				27E4686228BCABC100CDE8CE /* InitLoadingView.swift */,
+				27E4686228BCABC100CDE8CE /* LoadingView.swift */,
 				27E4686428BCD22500CDE8CE /* ListLoadingView.swift */,
 			);
 			path = Components;
@@ -376,7 +366,6 @@
 		27999CEE28AB9A35009F11A9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				27227FCE28A4F63600B3C99D /* TreeholeViewModel.swift */,
 				27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */,
 			);
 			path = ViewModel;
@@ -616,19 +605,18 @@
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */,
-				27E4686328BCABC100CDE8CE /* InitLoadingView.swift in Sources */,
+				27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
 				27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
-				27227FCF28A4F63600B3C99D /* TreeholeViewModel.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
-				F19113AA28A65D260067BA61 /* TreeholeSearch.swift in Sources */,
+				F19113AA28A65D260067BA61 /* SearchPage.swift in Sources */,
 				27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */,
 				271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */,
-				27227FD128A507AA00B3C99D /* TreeholeBrowse.swift in Sources */,
+				27227FD128A507AA00B3C99D /* BrowsePage.swift in Sources */,
 				271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */,
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2751E53028BFB40500104ACD /* Conflict.swift in Sources */,
