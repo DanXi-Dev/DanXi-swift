@@ -57,7 +57,7 @@ struct FloorView: View {
                 floorBody
                     .listRowSeparator(.hidden, edges: .top)
                     .listRowInsets(.init(top: 0,
-                                         leading: 0,
+                                         leading: -1,
                                          bottom: 5,
                                          trailing: 15))
             } label: {
@@ -85,7 +85,14 @@ struct FloorView: View {
                 }
             }
             
-            renderedContent(floor.content)
+            if floor.deleted {
+                Text(floor.history.first?.content ?? "NONE")
+                    .font(.system(size: 16))
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                renderedContent(floor.content)
+            }
+            
             
             info
         }

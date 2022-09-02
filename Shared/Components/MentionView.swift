@@ -1,11 +1,8 @@
 import SwiftUI
+import Foundation
 
 struct MentionView: View {
-    let poster: String
-    let content: String
-    let floorId: Int
-    let date: Date
-    let deleted: Bool
+    let floor: THFloor
     
     let mentionType: MentionType
     let proxy: ScrollViewProxy?
@@ -18,22 +15,20 @@ struct MentionView: View {
     }
     
     init(floor: THFloor, proxy: ScrollViewProxy? = nil) {
-        self.poster = floor.posterName
-        self.content = floor.content
-        self.floorId = floor.id
-        self.date = floor.createTime
+        self.floor = floor
         self.proxy = proxy
-        self.deleted = floor.deleted
         self.mentionType = .local
     }
     
     init(mention: THMention) {
-        self.poster = mention.posterName
-        self.content = mention.content
-        self.floorId = mention.floorId
-        self.date = mention.createTime
+        self.floor = THFloor(id: mention.floorId, holeId: mention.holeId,
+                             updateTime: mention.updateTime, createTime: mention.createTime,
+                             like: 0, liked: false, isMe: false,
+                             deleted: mention.deleted,
+                             storey: 0,
+                             content: mention.content, posterName: mention.posterName,
+                             spetialTag: "", mention: [], history: [])
         self.proxy = nil
-        self.deleted = mention.deleted
         self.mentionType = .remote
     }
     
@@ -44,13 +39,27 @@ struct MentionView: View {
             Button {
                 if let proxy = proxy {
                     withAnimation {
-                        proxy.scrollTo(floorId, anchor: .top)
+                        proxy.scrollTo(floor.id, anchor: .top)
                     }
                 }
             } label: {
                 mention
             }
             .buttonStyle(.borderless) // prevent multiple tapping
+            #if os(iOS)
+            // TODO: use geometry reader to determine size
+            .previewContextMenu(preview: ScrollView { FloorView(floor: floor).padding() }) {
+                PreviewContextAction(title: Bundle.main.localizedString(forKey: "Locate", value: nil, table: nil),
+                                     systemImage: "arrow.right.square") {
+                    if let proxy = proxy {
+                        withAnimation {
+                            proxy.scrollTo(floor.id, anchor: .top)
+                        }
+                    }
+                }
+            }
+            #endif
+            
             
         case .remote:
             Button {
@@ -60,6 +69,11 @@ struct MentionView: View {
                     .background(navigation)
             }
             .buttonStyle(.borderless) // prevent multiple tapping
+            #if os(iOS)
+            // TODO: use geometry reader to determine size
+            .previewContextMenu(destination: ScrollView { FloorView(floor: floor).padding() },
+                                preview: FloorView(floor: floor).padding())
+            #endif
         }
     }
     
@@ -69,7 +83,7 @@ struct MentionView: View {
                 Rectangle()
                     .frame(width: 3, height: 15)
                 
-                Text(poster)
+                Text(floor.posterName)
                     .font(.system(size: 15))
                     .fontWeight(.bold)
                 
@@ -78,18 +92,18 @@ struct MentionView: View {
                 Image(systemName: "quote.closing")
                     .foregroundColor(.secondary)
             }
-            .foregroundColor(randomColor(name: poster))
+            .foregroundColor(randomColor(name: floor.posterName))
             
-            Text(content.inlineAttributed())
-                .foregroundColor(deleted ? .secondary : .primary)
+            Text(floor.content.inlineAttributed())
+                .foregroundColor(floor.deleted ? .secondary : .primary)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 15))
                 .lineLimit(3)
             
             HStack {
-                Text("#\(String(floorId))")
+                Text("#\(String(floor.id))")
                 Spacer()
-                Text(date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+                Text(floor.updateTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
             }
             .font(.caption)
             .foregroundColor(.secondary)
@@ -102,7 +116,7 @@ struct MentionView: View {
     }
     
     private var navigation: some View {
-        NavigationLink("", destination: HoleDetailPage(targetFloorId: floorId), isActive: $navigationActive)
+        NavigationLink("", destination: HoleDetailPage(targetFloorId: floor.id), isActive: $navigationActive)
             .opacity(0)
     }
 }

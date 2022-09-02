@@ -328,10 +328,10 @@
 		2778D6162891D22D009F4DB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				2751E52E28BFB3F800104ACD /* Markdown */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
+				2751E52E28BFB3F800104ACD /* Markdown */,
 				271D596928C24F9300F72C3B /* Context Preview */,
 				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
 				2778D6172891D22D009F4DB1 /* Flexible */,
