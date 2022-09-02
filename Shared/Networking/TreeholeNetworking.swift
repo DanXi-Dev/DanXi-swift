@@ -98,7 +98,8 @@ extension NetworkRequests {
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        return try await requestObj(url: components.url!, data: payloadData, method: add ? "POST" : "DELETE")
+        let response: ServerResponse = try await requestObj(url: components.url!, data: payloadData, method: add ? "POST" : "DELETE")
+        return response.data
     }
     
     // MARK: floor

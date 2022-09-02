@@ -177,6 +177,7 @@ class HoleDetailViewModel: ObservableObject {
             let favorites = try await NetworkRequests.shared.toggleFavorites(holeId: hole.id, add: !favorited)
             TreeholeDataModel.shared.updateFavorites(favorites: favorites)
             favorited = favorites.contains(hole.id)
+            haptic()
         } catch {
             print("DANXI-DEBUG: toggle favorite failed")
         }
@@ -190,5 +191,4 @@ class HoleDetailViewModel: ObservableObject {
         }
         return nil
     }
-    
 }

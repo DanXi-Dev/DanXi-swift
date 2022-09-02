@@ -34,6 +34,7 @@ struct FloorView: View {
             do {
                 let newFloor = try await NetworkRequests.shared.like(floorId: floor.id, like: !(floor.liked))
                 self.floor = newFloor
+                haptic()
             } catch {
                 print("DANXI-DEBUG: like failed")
             }
