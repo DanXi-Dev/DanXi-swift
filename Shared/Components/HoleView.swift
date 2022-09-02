@@ -34,21 +34,12 @@ struct HoleView: View {
                 }
             }
             
-            if let mdRendered = try? AttributedString(markdown: hole.firstFloor.content.stripToBasicMarkdown()) {
-                Text(mdRendered)
-                    .font(.system(size: 16))
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(6)
-                    .transition(.slide)
-            } else {
-                Text(hole.firstFloor.content.stripToBasicMarkdown())
-                    .font(.system(size: 16))
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(6)
-                    .transition(.slide)
-            }
+            Text(hole.firstFloor.content.inlineAttributed())
+                .font(.system(size: 16))
+                .foregroundColor(.primary)
+                .multilineTextAlignment(.leading)
+                .lineLimit(6)
+                .transition(.slide)
             
             if hole.firstFloor.id != hole.lastFloor.id {
                 Button {
@@ -59,7 +50,7 @@ struct HoleView: View {
                 }
                 .buttonStyle(.borderless)
             }
-                
+            
             info
         }
         .onTapGesture {
@@ -104,14 +95,13 @@ struct HoleView: View {
     private var lastFloor: some View {
         HStack(alignment: .top) {
             Image(systemName: "arrowshape.turn.up.left.fill")
-
+            
             VStack(alignment: .leading, spacing: 3) {
                 Text("\(hole.lastFloor.posterName) replied \(hole.lastFloor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
                     .font(.system(size: 12))
                     .fixedSize(horizontal: false, vertical: true)
-
-                let attributedContent = try? AttributedString(markdown: hole.lastFloor.content.stripToBasicMarkdown())
-                Text(attributedContent ?? AttributedString(hole.lastFloor.content.stripToBasicMarkdown()))
+                
+                Text(hole.lastFloor.content.inlineAttributed())
                     .lineLimit(1)
                     .font(.system(size: 14))
                     .fixedSize(horizontal: false, vertical: true)

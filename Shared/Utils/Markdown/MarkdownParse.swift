@@ -13,6 +13,29 @@ extension String {
             else { return nil }
         return from ..< to
     }
+    
+    /// Convert Treehole-formatted content to basic markdown, stripping images and latex
+    func stripToBasicMarkdown() -> String {
+        let text = NSMutableString(string: self)
+        
+        _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("formula_tag", comment: "Formula Tag"))
+        _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("image_tag", comment: "Image Tag"))
+        _ = try? NSRegularExpression(pattern: #"^##[0-9]+$"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: "")
+        
+        return String(text)
+    }
+    
+    func attributed() -> AttributedString {
+        if let attributedString = try? AttributedString(markdown: self) {
+            return attributedString
+        }
+        
+        return AttributedString(self)
+    }
+    
+    func inlineAttributed() -> AttributedString {
+        return self.stripToBasicMarkdown().attributed()
+    }
 }
 
 enum MarkdownElements: Identifiable {

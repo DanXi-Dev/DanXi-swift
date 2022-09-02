@@ -9,16 +9,6 @@ extension String {
         return regex.firstMatch(in: lhs, options: [], range: range) != nil
     }
     
-    /// Convert Treehole-formatted content to basic markdown, stripping images and latex
-    func stripToBasicMarkdown() -> String {
-        let text = NSMutableString(string: self)
-        
-        _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("formula_tag", comment: "Formula Tag"))
-        _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("image_tag", comment: "Image Tag"))
-        
-        return String(text)
-    }
-    
     func stripToNLProcessableString() -> String {
         let text = NSMutableString(string: self)
         

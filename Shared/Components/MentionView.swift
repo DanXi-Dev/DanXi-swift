@@ -80,8 +80,7 @@ struct MentionView: View {
             }
             .foregroundColor(randomColor(name: poster))
             
-            let attributedContent = try? AttributedString(markdown: content.stripToBasicMarkdown())
-            Text(attributedContent ?? AttributedString(content.stripToBasicMarkdown()))
+            Text(content.inlineAttributed())
                 .foregroundColor(deleted ? .secondary : .primary)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 15))
