@@ -20,7 +20,7 @@ extension String {
         
         _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("formula_tag", comment: "Formula Tag"))
         _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: NSLocalizedString("image_tag", comment: "Image Tag"))
-        _ = try? NSRegularExpression(pattern: #"^##[0-9]+$"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: "")
+        _ = try? NSRegularExpression(pattern: #"#{1,2}[0-9]+\s+"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: "")
         
         return String(text)
     }
