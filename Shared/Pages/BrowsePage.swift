@@ -12,7 +12,10 @@ struct BrowsePage: View {
     @State var currentDivision: THDivision
     @State var holes: [THHole]
     @State var sortOption = SortOptions.byReplyTime
+    @State var baseDate: Date?
+    @State var endReached = false
     
+    @State var showDatePicker = false
     @State var showEditPage = false
     @State var showTagPage = false
     @State var showFavoritesPage = false
@@ -32,8 +35,15 @@ struct BrowsePage: View {
             defer { loading = false }
             
             let divisionId = currentDivision.id
-            let startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
+            var startTime: String? = nil
+            if !holes.isEmpty {
+                startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
+            } else if let baseDate = baseDate {
+                startTime = baseDate.ISO8601Format()
+            }
+            
             let newHoles = try await NetworkRequests.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
+            endReached = newHoles.isEmpty
             if divisionId == currentDivision.id { // user may change division during network request
                 holes.append(contentsOf: newHoles)
             }
@@ -74,11 +84,17 @@ struct BrowsePage: View {
                         }
                 }
             } header: {
-                Label("Main Section", systemImage: "text.bubble.fill")
+                HStack {
+                    Label("Main Section", systemImage: "text.bubble.fill")
+                    Spacer()
+                    datePicker
+                }
             } footer: {
-                ListLoadingView(loading: $loading,
-                                errorDescription: errorInfo.description,
-                                action: loadMoreHoles)
+                if !endReached {
+                    ListLoadingView(loading: $loading,
+                                    errorDescription: errorInfo.description,
+                                    action: loadMoreHoles)
+                }
             }
         }
         .task {
@@ -86,6 +102,7 @@ struct BrowsePage: View {
         }
         .listStyle(.grouped)
         .refreshable {
+            endReached = false
             holes = []
             await loadMoreHoles()
         }
@@ -115,9 +132,49 @@ struct BrowsePage: View {
         .offset(x: 0, y: -40)
         .onChange(of: currentDivision) { newValue in
             Task {
+                endReached = false
                 holes = []
                 await loadMoreHoles()
             }
+        }
+    }
+    
+    
+    private var datePicker: some View {
+        Button("Select Date") {
+            showDatePicker = true
+        }
+        .popover(isPresented: $showDatePicker) {
+            VStack(alignment: .trailing) {
+                DatePicker("Start Date",
+                           selection: Binding<Date>(
+                            get: { self.baseDate ?? Date() },
+                            set: { self.baseDate = $0 }
+                           ),
+                           in: ...Date.now,
+                           displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+                
+                .onChange(of: baseDate) { newValue in
+                    showDatePicker = false
+                    holes = []
+                    Task {
+                        await  loadMoreHoles()
+                    }
+                }
+                
+                if baseDate != nil {
+                    Button("Clear Date") {
+                        showDatePicker = false
+                        baseDate = nil
+                        holes = []
+                        Task {
+                            await loadMoreHoles()
+                        }
+                    }
+                }
+            }
+            .padding()
         }
     }
     

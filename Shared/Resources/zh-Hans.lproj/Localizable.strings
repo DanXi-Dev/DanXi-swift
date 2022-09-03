@@ -55,6 +55,7 @@
 "Loading" = "加载中";
 "Sort By" = "排序方式";
 "%@ replied %@:" = "%@于%@回复：";
+"Select Date" = "选择起始日期";
 
 // Treehole floor
 "Report" = "举报";
