@@ -35,7 +35,7 @@ struct HoleDetailPage: View {
                                       model: viewModel,
                                       proxy: proxy)
                             .task {
-                                if floor == viewModel.floors.last {
+                                if floor == viewModel.filteredFloors.last {
                                     await viewModel.loadMoreFloors()
                                 }
                             }

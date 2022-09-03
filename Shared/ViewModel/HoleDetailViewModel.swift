@@ -135,9 +135,12 @@ class HoleDetailViewModel: ObservableObject {
         defer { listLoading = false }
         
         do {
-            let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
-            floors.append(contentsOf: newFloors)
-            endReached = newFloors.isEmpty
+            let previousCount = filteredFloors.count
+            while filteredFloors.count == previousCount && !endReached {
+                let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
+                floors.append(contentsOf: newFloors)
+                endReached = newFloors.isEmpty
+            }
         } catch NetworkError.ignore {
             // cancelled, ignore
         } catch let error as NetworkError {
