@@ -21,6 +21,8 @@ struct BrowsePage: View {
     @State var showFavoritesPage = false
     
     @State var loading = false
+    /// uniquely identify a consistent flow of holes, should change when `holes` are cleared and a new flow is loading
+    @State var loadingId = UUID()
     @State var errorInfo = ErrorInfo()
     
     init(divisions: [THDivision], holes: [THHole] = []) {
@@ -31,10 +33,10 @@ struct BrowsePage: View {
     
     func loadMoreHoles() async {
         do {
+            let currentLoadingId = loadingId
             loading = true
             defer { loading = false }
             
-            let divisionId = currentDivision.id
             var startTime: String? = nil
             if !holes.isEmpty {
                 startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
@@ -44,7 +46,7 @@ struct BrowsePage: View {
             
             let newHoles = try await NetworkRequests.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             endReached = newHoles.isEmpty
-            if divisionId == currentDivision.id { // user may change division during network request
+            if currentLoadingId == loadingId { // prevent holes from older flow being inserted into new one, causing chaos
                 holes.append(contentsOf: newHoles)
             }
         } catch NetworkError.ignore {
@@ -87,6 +89,10 @@ struct BrowsePage: View {
                 HStack {
                     Label("Main Section", systemImage: "text.bubble.fill")
                     Spacer()
+                    if let baseDate = baseDate {
+                        Text(baseDate.formatted(date: .abbreviated, time: .omitted))
+                    }
+                    Spacer()
                     datePicker
                 }
             } footer: {
@@ -102,6 +108,7 @@ struct BrowsePage: View {
         }
         .listStyle(.grouped)
         .refreshable {
+            loadingId = UUID()
             endReached = false
             holes = []
             await loadMoreHoles()
@@ -132,6 +139,7 @@ struct BrowsePage: View {
         .offset(x: 0, y: -40)
         .onChange(of: currentDivision) { newValue in
             Task {
+                loadingId = UUID()
                 endReached = false
                 holes = []
                 await loadMoreHoles()
@@ -141,8 +149,10 @@ struct BrowsePage: View {
     
     
     private var datePicker: some View {
-        Button("Select Date") {
+        Button {
             showDatePicker = true
+        } label: {
+            Label("Select Date", systemImage: "clock.arrow.circlepath")
         }
         .popover(isPresented: $showDatePicker) {
             VStack(alignment: .trailing) {
@@ -156,10 +166,11 @@ struct BrowsePage: View {
                 .datePickerStyle(.graphical)
                 
                 .onChange(of: baseDate) { newValue in
+                    loadingId = UUID()
                     showDatePicker = false
                     holes = []
                     Task {
-                        await  loadMoreHoles()
+                        await loadMoreHoles()
                     }
                 }
                 
