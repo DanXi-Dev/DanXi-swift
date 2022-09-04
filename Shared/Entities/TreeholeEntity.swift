@@ -61,3 +61,12 @@ struct THUser: Hashable, Codable, Identifiable {
     var favorites: [Int]
     let isAdmin: Bool
 }
+
+struct THReport: Hashable, Codable, Identifiable {
+    let id, holeId: Int
+    let floor: THFloor
+    let reason: String
+    let createTime, updateTime: Date
+    let dealed: Bool
+    let dealedBy: Int?
+}

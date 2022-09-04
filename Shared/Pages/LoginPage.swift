@@ -34,7 +34,6 @@ struct LoginPage: View {
                 model.loggedIn = true
                 loading = false
                 dismiss()
-                model.initialFetch()
             } catch let error as NetworkError {
                 switch error {
                 case .unauthorized:

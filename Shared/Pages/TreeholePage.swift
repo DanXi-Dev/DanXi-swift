@@ -3,13 +3,13 @@ import Foundation
 
 /// Main page of treehole section
 struct TreeholePage: View {
-    @State var divisions: [THDivision] = []
+    @ObservedObject var dataModel = TreeholeDataModel.shared
     
     @State var searchText = ""
     @State var searchSubmitted = false
     
-    @State var loading = true
-    @State var initFinished = false
+    @State var loading = !TreeholeDataModel.shared.initialized
+    @State var initFinished = TreeholeDataModel.shared.initialized
     @State var initError = ErrorInfo()
     
     let holes: [THHole] // for preview purpose
@@ -22,13 +22,13 @@ struct TreeholePage: View {
     /// Creates a preview
     init(divisions: [THDivision], holes: [THHole]) {
         self._initFinished = State(initialValue: true)
-        self._divisions = State(initialValue: divisions)
+        TreeholeDataModel.shared.divisions = divisions
         self.holes = holes
     }
     
-    func loadDivisions() async {
+    func initialLoad() async {
         do {
-            divisions = try await NetworkRequests.shared.loadDivisions()
+            try await dataModel.fetchInfo()
             initFinished = true
         } catch NetworkError.ignore {
             // cancelled, ignore
@@ -44,10 +44,9 @@ struct TreeholePage: View {
         LoadingView(loading: $loading,
                         finished: $initFinished,
                         errorDescription: initError.description,
-                        action: loadDivisions) {
+                        action: initialLoad) {
             DelegatePage(searchText: $searchText,
                          searchSubmitted: $searchSubmitted,
-                         divisions: divisions,
                          holes: holes)
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
             .onSubmit(of: .search) {
@@ -64,7 +63,7 @@ struct DelegatePage: View {
     @Environment(\.isSearching) var isSearching
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
-    let divisions: [THDivision]
+
     let holes: [THHole]
     
     var body: some View {
@@ -73,7 +72,7 @@ struct DelegatePage: View {
                 SearchPage(searchText: $searchText,
                            searchSubmitted: $searchSubmitted)
             } else {
-                BrowsePage(divisions: divisions, holes: holes)
+                BrowsePage(holes: holes)
             }
         }
     }

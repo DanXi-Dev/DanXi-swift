@@ -3,6 +3,7 @@ import SwiftUI
 struct FloorView: View {
     @State var floor: THFloor
     var isPoster: Bool
+    let interactable: Bool
     
     @State var showReplyPage = false
     @State var showEditPage = false
@@ -12,14 +13,16 @@ struct FloorView: View {
     @State var mentionNavigationActive = false
     @State var mentionFloorId = 0
     
-    init(floor: THFloor) {
+    init(floor: THFloor, interactable: Bool = true) {
         self._floor = State(initialValue: floor)
         isPoster = false
+        self.interactable = interactable
     }
     
     init(floor: THFloor, isPoster: Bool) {
         self._floor = State(initialValue: floor)
         self.isPoster = isPoster
+        interactable = true
     }
     
     init(floor: THFloor, isPoster: Bool, model: HoleDetailViewModel, proxy: ScrollViewProxy) {
@@ -27,6 +30,7 @@ struct FloorView: View {
         self.isPoster = isPoster
         self.holeViewModel = model
         self.proxy = proxy
+        interactable = true
     }
     
     func like() {
@@ -81,7 +85,7 @@ struct FloorView: View {
                 }
                 Spacer()
                 
-                if !floor.deleted {
+                if !floor.deleted && interactable {
                     actions
                 }
             }

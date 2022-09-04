@@ -8,7 +8,7 @@ struct BrowsePage: View {
         case byCreateTime
     }
     
-    let divisions: [THDivision]
+    let divisions = TreeholeDataModel.shared.divisions
     @State var currentDivision: THDivision
     @State var holes: [THHole]
     @State var sortOption = SortOptions.byReplyTime
@@ -19,15 +19,15 @@ struct BrowsePage: View {
     @State var showEditPage = false
     @State var showTagPage = false
     @State var showFavoritesPage = false
+    @State var showReportPage = false
     
     @State var loading = false
     /// uniquely identify a consistent flow of holes, should change when `holes` are cleared and a new flow is loading
     @State var loadingId = UUID()
     @State var errorInfo = ErrorInfo()
     
-    init(divisions: [THDivision], holes: [THHole] = []) {
-        self.divisions = divisions
-        self._currentDivision = State(initialValue: divisions.first!)
+    init(holes: [THHole] = []) {
+        self._currentDivision = State(initialValue: TreeholeDataModel.shared.divisions.first!)
         self._holes = State(initialValue: holes)
     }
     
@@ -210,6 +210,17 @@ struct BrowsePage: View {
                 Text("Last Created")
                     .tag(SortOptions.byCreateTime)
             }
+            
+            if TreeholeDataModel.shared.isAdmin {
+                Divider()
+                
+                Button {
+                    showReportPage = true
+                } label: {
+                    Label("Reports Management", systemImage: "exclamationmark.triangle")
+                }
+            }
+            
         } label: {
             Image(systemName: "ellipsis.circle")
         }
@@ -219,6 +230,9 @@ struct BrowsePage: View {
                     EmptyView()
                 }
                 NavigationLink(destination: FavoritesPage(), isActive: $showFavoritesPage) {
+                    EmptyView()
+                }
+                NavigationLink(destination: ReportPage(), isActive: $showReportPage) {
                     EmptyView()
                 }
             }

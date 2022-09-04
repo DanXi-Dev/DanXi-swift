@@ -1,0 +1,48 @@
+[{
+    "report_id": 1234,
+    "hole_id": 123456,
+    "floor": {
+        "floor_id": 1234567,
+        "hole_id": 123456,
+        "content": "违反树洞公约的内容测试",
+        "history": [],
+        "anonyname": "Seamus",
+        "mention": [],
+        "time_updated": "2022-09-05T01:43:07.951842+08:00",
+        "time_created": "2022-09-05T01:43:07.951803+08:00",
+        "deleted": false,
+        "fold": [],
+        "like": 0,
+        "special_tag": "",
+        "storey": 0
+    },
+    "reason": "该内容违反树洞公约",
+    "time_created": "2022-09-05T01:46:15.589745+08:00",
+    "time_updated": "2022-09-05T01:46:15.589773+08:00",
+    "dealed": false,
+    "dealed_by": null
+},
+{
+    "report_id": 4321,
+    "hole_id": 654321,
+    "floor": {
+        "floor_id": 7654321,
+        "hole_id": 654321,
+        "content": "该内容已删除",
+        "history": [],
+        "anonyname": "Seamus",
+        "mention": [],
+        "time_updated": "2022-09-05T01:43:07.951842+08:00",
+        "time_created": "2022-09-05T01:43:07.951803+08:00",
+        "deleted": true,
+        "fold": [],
+        "like": 0,
+        "special_tag": "",
+        "storey": 0
+    },
+    "reason": "该内容违反树洞公约",
+    "time_created": "2022-09-05T01:46:15.589745+08:00",
+    "time_updated": "2022-09-05T01:46:15.589773+08:00",
+    "dealed": false,
+    "dealed_by": null
+}]

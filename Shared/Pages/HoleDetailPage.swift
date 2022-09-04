@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HoleDetailPage: View {
+    @ObservedObject var dataModel = TreeholeDataModel.shared
     @StateObject var viewModel: HoleDetailViewModel
     @State var showReplyPage = false
     @State var scrollTarget: Int?
@@ -119,6 +120,22 @@ struct HoleDetailPage: View {
                     }
                 } label: {
                     Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
+                }
+                
+                if dataModel.user?.isAdmin ?? false {
+                    Divider()
+                    
+                    Button {
+                        // TODO: hide hole
+                    } label: {
+                        Label("Hide Hole", systemImage: "eye.slash.fill")
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Label("Edit Tags & Division", systemImage: "square.and.pencil")
+                    }
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")

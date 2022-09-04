@@ -4,10 +4,15 @@ import UserNotifications
 class TreeholeDataModel: ObservableObject {
     static let shared = TreeholeDataModel()
     
+    @Published var initialized = false
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var user: THUser?
     @Published var loggedIn: Bool = false
+    
+    var isAdmin: Bool {
+        user?.isAdmin ?? false
+    }
     
     // Settings
     @Published var nlModelDebuggingMode: Bool = false
@@ -19,7 +24,6 @@ class TreeholeDataModel: ObservableObject {
         }
         
         loggedIn = true
-        initialFetch()
         
         // Request Notification Permission After Log In
         UNUserNotificationCenter.current().requestAuthorization(
@@ -27,18 +31,19 @@ class TreeholeDataModel: ObservableObject {
             completionHandler: {_, _ in })
     }
     
-    func initialFetch() {
-        Task { @MainActor in
-            do {
-                async let tags = NetworkRequests.shared.loadTags()
-                async let user = NetworkRequests.shared.loadUserInfo()
-                
-                self.tags = try await tags
-                self.user = try await user
-            } catch {
-                print("DANXI-DEBUG: initial load failed")
-            }
+    @MainActor
+    func fetchInfo() async throws {
+        if initialized {
+            return
         }
+        
+        async let tags = NetworkRequests.shared.loadTags()
+        async let user = NetworkRequests.shared.loadUserInfo()
+        async let divisions =  NetworkRequests.shared.loadDivisions()
+        
+        self.tags = try await tags
+        self.user = try await user
+        self.divisions = try await divisions
     }
     
     func updateFavorites(favorites: [Int]) {

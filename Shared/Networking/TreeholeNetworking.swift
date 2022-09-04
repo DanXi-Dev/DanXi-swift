@@ -119,12 +119,12 @@ extension NetworkRequests {
         return try await requestObj(url: components.url!)
     }
     
-    func deleteFloor(floorId: Int) async throws -> THFloor {
+    func deleteFloor(floorId: Int, reason: String = "") async throws -> THFloor {
         struct DeleteConfig: Codable {
             let delete_reason: String
         }
         
-        let payload = DeleteConfig(delete_reason: "")
+        let payload = DeleteConfig(delete_reason: reason)
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
@@ -182,5 +182,42 @@ extension NetworkRequests {
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
         return try await requestObj(url: components.url!, data: payloadData, method: "PUT")
+    }
+    
+    // MARK: management
+    
+    func report(floorId: Int, reason: String) async throws {
+        struct ReportConfig: Codable {
+            let floor_id: Int
+            let reason: String
+        }
+        
+        let payload = ReportConfig(floor_id: floorId, reason: reason)
+        let payloadData = try JSONEncoder().encode(payload)
+        
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!
+        _ = try await networkRequest(url: components.url!, data: payloadData, method: "POST")
+    }
+    
+    func loadReportsList() async throws -> [THReport] {
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!
+        components.queryItems = [ URLQueryItem(name: "category", value: "not_dealed") ]
+        return try await requestObj(url: components.url!)
+    }
+    
+    func alterHole(hole: THHole, tags: [THTag], view: Int? = nil, divisionId: Int?) async throws {
+        struct EditConfig: Codable {
+            let tags: [THTag]
+            let view: Int
+            let division_id: Int
+        }
+        
+        let payload = EditConfig(tags: tags,
+                                 view: view ?? hole.view,
+                                 division_id: divisionId ?? hole.divisionId)
+        let payloadData = try JSONEncoder().encode(payload)
+        
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(hole.id)")!
+        _ = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
     }
 }

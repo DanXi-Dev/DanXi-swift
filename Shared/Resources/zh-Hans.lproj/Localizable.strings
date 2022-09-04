@@ -154,3 +154,15 @@
 "%@ Spring Semester" = "%@春季学期";
 "%@ Summer Vacation" = "%@暑假";
 "%@ Winter Vacation" = "%@寒假";
+
+// Management
+"Reports Management" = "举办处理";
+"Incident ID: %@" = "案例编号：%@";
+"Report reason: " = "举报理由：";
+"Mark as Dealt" = "标记为已处理";
+"Modify Floor" = "修改本层";
+"Delete Floor" = "删除本层";
+"Fold Floor" = "折叠本层";
+"Add Ban" = "封禁用户";
+"Hide Hole" = "隐藏此树洞";
+"Edit Tags & Division" = "修改标签和分区";

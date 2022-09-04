@@ -197,3 +197,38 @@ extension THUser {
         }
     }
 }
+
+extension THReport {
+    enum CodingKeys: String, CodingKey {
+        case id = "report_id"
+        case holeId = "hole_id"
+        case floor
+        case reason
+        case createTime = "time_created"
+        case updateTime = "time_updated"
+        case dealed
+        case dealedBy = "dealed_by"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        holeId = try values.decode(Int.self, forKey: .holeId)
+        floor = try values.decode(THFloor.self, forKey: .floor)
+        reason = try values.decode(String.self, forKey: .reason)
+        dealed = try values.decode(Bool.self, forKey: .dealed)
+        dealedBy = try values.decode(Int?.self, forKey: .dealedBy)
+        
+        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
+        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
+        if let createTime = formatter.date(from: iso8601CreateTime),
+           let updateTime = formatter.date(from: iso8601UpdateTime) {
+            self.createTime = createTime
+            self.updateTime = updateTime
+        } else {
+            throw NetworkError.invalidResponse
+        }
+    }
+}
