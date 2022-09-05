@@ -60,6 +60,13 @@ class HoleDetailViewModel: ObservableObject {
         self.initOption = .targetFloor(targetFloorId: targetFloorId)
     }
     
+    /// Default initializer
+    init() {
+        self.hole = nil
+        self.favorited = false
+        self.initOption = .normal
+    }
+    
     func initialLoad(proxy: ScrollViewProxy) async {
         switch initOption {
         case .normal:

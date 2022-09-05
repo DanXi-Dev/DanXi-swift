@@ -56,6 +56,7 @@ struct LoginPage: View {
             Form {
                 Section{
                     TextField("Email", text: $username)
+                        .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .disableAutocorrection(true)

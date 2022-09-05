@@ -77,11 +77,17 @@
 // Treehole Edit Page
 "New Post" = "新建主题贴";
 "Enter post content" = "输入主题贴内容";
+"Enter reply content" = "输入回贴内容";
 "TH Edit Alert" = "发帖时应遵守[社区公约](https://www.fduhole.com/#/license)";
 "Select Tags" = "选择标签";
 "Send" = "发送";
 "No tags" = "未选择标签";
 "Edit" = "编辑";
+"Preview" = "预览";
+"Sending Reply..." = "正在发送回复...";
+"Send Reply Failed" = "发送回复失败";
+"Editing Reply..." = "正在编辑回复...";
+"Edit Reply Failed" = "编辑回复失败";
 
 // Treehole Detail Page
 "Add to Favorites" = "收藏";

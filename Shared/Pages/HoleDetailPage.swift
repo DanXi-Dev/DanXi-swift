@@ -117,7 +117,8 @@ struct HoleDetailPage: View {
             .sheet(isPresented: $showReplyPage) {
                 ReplyPage(
                     holeId: hole.id,
-                    content: "")
+                    content: "",
+                    endReached: $viewModel.endReached)
             }
             
             Menu {

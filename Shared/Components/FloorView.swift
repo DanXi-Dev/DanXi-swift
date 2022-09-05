@@ -11,7 +11,7 @@ struct FloorView: View {
     @State var showRemoveAlert = false
     @State var removeReason = "该内容由于违反社区公约被删除" // translation: content removed due to violation of community rules
     
-    var holeViewModel: HoleDetailViewModel? = nil
+    @ObservedObject var holeViewModel: HoleDetailViewModel
     var proxy: ScrollViewProxy? = nil
     
     @State var mentionNavigationActive = false
@@ -21,12 +21,14 @@ struct FloorView: View {
         self._floor = State(initialValue: floor)
         isPoster = false
         self.interactable = interactable
+        self.holeViewModel = HoleDetailViewModel()
     }
     
     init(floor: THFloor, isPoster: Bool) {
         self._floor = State(initialValue: floor)
         self.isPoster = isPoster
         interactable = true
+        self.holeViewModel = HoleDetailViewModel()
     }
     
     init(floor: THFloor,
@@ -111,7 +113,8 @@ struct FloorView: View {
         .sheet(isPresented: $showReplyPage) {
             ReplyPage(
                 holeId: floor.holeId,
-                content: "##\(String(floor.id))\n")
+                content: "##\(String(floor.id))\n",
+                endReached: $holeViewModel.endReached)
         }
         .sheet(isPresented: $showEditPage) {
             EditReplyPage(
