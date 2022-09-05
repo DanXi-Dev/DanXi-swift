@@ -9,9 +9,6 @@ class HoleDetailViewModel: ObservableObject {
     @Published var floors: [THFloor] = []
     @Published var endReached = false
     
-    @Published var prefetchReloaded = true
-    @Published var prefetchedCount = 0
-    
     @Published var filterOption: FilterOptions = .all
     var filteredFloors: [THFloor] {
         let poster = hole?.firstFloor.posterName ?? ""
@@ -44,9 +41,6 @@ class HoleDetailViewModel: ObservableObject {
     init(hole: THHole) {
         self.hole = hole
         self.favorited = TreeholeDataModel.shared.user?.favorites.contains(hole.id) ?? false
-        self.floors = hole.floors
-        self.prefetchReloaded = false
-        self.prefetchedCount = hole.floors.count
         self.initOption = .normal
     }
     
@@ -69,21 +63,7 @@ class HoleDetailViewModel: ObservableObject {
     func initialLoad(proxy: ScrollViewProxy) async {
         switch initOption {
         case .normal:
-            if !prefetchReloaded {
-                do {
-                    guard let hole = hole else {
-                        break
-                    }
-                    
-                    let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: 0, length: prefetchedCount)
-                    floors = newFloors
-                    floors.replaceSubrange(0..<prefetchedCount, with: newFloors) // FIXME: won't take effect on UI
-                    prefetchReloaded = true // prevent duplicate loading
-                } catch {
-                    print("DANXI-DEBUG: prefetch reload failed")
-                }
-            }
-
+            break
             
         case .fromId(let holeId):
             do {
@@ -158,13 +138,6 @@ class HoleDetailViewModel: ObservableObject {
         defer { listLoading = false }
         
         do {
-            if !prefetchReloaded { // The prefetched floors lacks `isMe` property, need to be reloaded
-                let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: 0, length: prefetchedCount)
-                floors = newFloors
-                floors.replaceSubrange(0..<prefetchedCount, with: newFloors) // FIXME: won't take effect on UI
-                prefetchReloaded = true // prevent duplicate loading
-            }
-            
             let previousCount = filteredFloors.count
             while filteredFloors.count == previousCount && !endReached {
                 let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)

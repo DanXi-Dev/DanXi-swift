@@ -30,17 +30,33 @@ struct HoleDetailPage: View {
             List {
                 Section {
                     if let hole = viewModel.hole {
-                        ForEach(viewModel.filteredFloors) { floor in
-                            FloorView(floor: floor,
-                                      isPoster: floor.posterName == hole.firstFloor.posterName,
-                                      model: viewModel,
-                                      proxy: proxy)
-                            .task {
-                                if floor == viewModel.filteredFloors.last {
-                                    await viewModel.loadMoreFloors()
+                        if viewModel.floors.isEmpty {
+                            // prefetched floors, to be replaced after reload prefetch is done
+                            ForEach(hole.floors) { floor in
+                                FloorView(floor: floor,
+                                          isPoster: floor.posterName == hole.firstFloor.posterName,
+                                          model: viewModel,
+                                          proxy: proxy)
+                                .task {
+                                    if floor == viewModel.filteredFloors.last {
+                                        await viewModel.loadMoreFloors()
+                                    }
                                 }
+                                .id(floor.id)
                             }
-                            .id(floor.id)
+                        } else {
+                            ForEach(viewModel.filteredFloors) { floor in
+                                FloorView(floor: floor,
+                                          isPoster: floor.posterName == hole.firstFloor.posterName,
+                                          model: viewModel,
+                                          proxy: proxy)
+                                .task {
+                                    if floor == viewModel.filteredFloors.last {
+                                        await viewModel.loadMoreFloors()
+                                    }
+                                }
+                                .id(floor.id)
+                            }
                         }
                     }
                 } header: {
