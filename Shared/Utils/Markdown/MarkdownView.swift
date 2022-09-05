@@ -69,7 +69,7 @@ struct MarkdownView: View {
                     quoteRenderer(quote)
                     
                 default:
-                    SwiftUIText("NOT SUPPORTED ELEMENT: \(String(describing: type(of: markup).self))")
+                    EmptyView()
                 }
             }
         }
@@ -97,7 +97,6 @@ struct MarkdownView: View {
             .fontWeight(.bold)
             .fixedSize(horizontal: false, vertical: true)
     }
-    
     
     private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
         enum ParagraphElement: Identifiable {
@@ -166,8 +165,10 @@ struct MarkdownView: View {
     }
     
     private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
-        return SwiftUIText(codeBlock.code)
-            .font(.system(size: 16, design: .monospaced))
+        return ScrollView(.horizontal, showsIndicators: false) {
+            SwiftUIText(codeBlock.code)
+                .font(.system(size: 16, design: .monospaced))
+        }
     }
     
     private func orderedListRenderer(_ orderedList: OrderedList) -> some View {
@@ -197,10 +198,43 @@ struct MarkdownView: View {
         }
     }
     
+    func quoteChilds(_ markup: Markup) -> Markup {
+        let content = NSMutableString(string: markup.format().deletingPrefix(">"))
+        _ = try? NSRegularExpression(pattern: #"\n>"#,
+                                     options: .dotMatchesLineSeparators).replaceMatches(in: content, range: NSRange(location: 0, length: content.length), withTemplate: "\n")
+        return Document(parsing: String(content))
+    }
+    
     private func quoteRenderer(_ quote: BlockQuote) -> some View {
+        let content = NSMutableString(string: quote.format().deletingPrefix(">"))
+        _ = try? NSRegularExpression(pattern: #"\n>"#,
+                                     options: .dotMatchesLineSeparators).replaceMatches(in: content, range: NSRange(location: 0, length: content.length), withTemplate: "\n")
+        let subcontent = Document(parsing: String(content))
+        
         return VStack(alignment: .leading, spacing: 10) {
-            ForEach(quote.childNodes()) { node in
-                MarkdownView(node.markup)
+            ForEach(subcontent.childNodes()) { node in
+                switch node.markup {
+                case let heading as Heading:
+                    headingRenderer(heading)
+                    
+                case let codeBlock as CodeBlock:
+                    codeBlockRenderer(codeBlock)
+                    
+                case _ as ThematicBreak:
+                    Divider()
+                    
+                case let paragraph as Paragraph:
+                    paragraphRenderer(paragraph)
+                    
+                case let orderedList as OrderedList:
+                    orderedListRenderer(orderedList)
+                    
+                case let unorderedList as UnorderedList:
+                    unorderedListRenderer(unorderedList)
+                    
+                default:
+                    MarkdownView(quoteChilds(node.markup))
+                }
             }
         }
         .padding(.leading, 10)
