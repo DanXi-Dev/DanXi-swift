@@ -7,6 +7,7 @@ struct FloorView: View {
     
     @State var showReplyPage = false
     @State var showEditPage = false
+    @State var showDeleteAlert = false
     var holeViewModel: HoleDetailViewModel? = nil
     var proxy: ScrollViewProxy? = nil
     
@@ -25,7 +26,10 @@ struct FloorView: View {
         interactable = true
     }
     
-    init(floor: THFloor, isPoster: Bool, model: HoleDetailViewModel, proxy: ScrollViewProxy) {
+    init(floor: THFloor,
+         isPoster: Bool,
+         model: HoleDetailViewModel,
+         proxy: ScrollViewProxy) {
         self._floor = State(initialValue: floor)
         self.isPoster = isPoster
         self.holeViewModel = model
@@ -110,6 +114,13 @@ struct FloorView: View {
             EditReplyPage(
                 floor: $floor,
                 content: floor.content)
+        }
+        .alert("Delete Floor", isPresented: $showDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                delete()
+            }
+        } message: {
+            Text("This floor will be deleted")
         }
     }
     
@@ -205,16 +216,10 @@ struct FloorView: View {
                 Image(systemName: "arrowshape.turn.up.left")
             }
             
-            if floor.isMe && !floor.deleted {
-                Button(action: delete) {
-                    Image(systemName: "trash")
-                }
-            }
-            
             Menu {
                 menu
             } label: {
-                Image(systemName: "ellipsis")
+                Image(systemName: "ellipsis.circle")
             }
         }
         .buttonStyle(.borderless) // prevent multiple tapping
@@ -237,17 +242,45 @@ struct FloorView: View {
                 Label("Copy Full Text", systemImage: "doc.on.doc")
             }
             
-            Button {
-                UIPasteboard.general.string = "##\(String(floor.id))"
-            } label: {
-                Label("Copy Floor ID", systemImage: "doc.on.doc")
-            }
-            
             if floor.isMe && !floor.deleted {
+                Divider()
+                
                 Button {
                     showEditPage = true
                 } label: {
-                    Label("Edit reply", systemImage: "square.and.pencil")
+                    Label("Edit Reply", systemImage: "square.and.pencil")
+                }
+                
+                Button(role: .destructive) {
+                    showDeleteAlert = true
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+            
+            if TreeholeDataModel.shared.isAdmin {
+                Divider()
+                
+                Menu {
+                    Button {
+                        // TODO: modify this floor
+                    } label: {
+                        Label("Modify Floor", systemImage: "pencil")
+                    }
+                    
+                    Button(role: .destructive) {
+                        // TODO: delete this floor
+                    } label: {
+                        Label("Remove Floor", systemImage: "xmark.square")
+                    }
+                    
+                    Button(role: .destructive) {
+                        // TODO: ban user
+                    } label: {
+                        Label("Ban User", systemImage: "person.fill.xmark")
+                    }
+                } label: {
+                    Label("Admin Actions", systemImage: "person.badge.key")
                 }
             }
         }
