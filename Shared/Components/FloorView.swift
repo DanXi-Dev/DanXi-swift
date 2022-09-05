@@ -8,6 +8,9 @@ struct FloorView: View {
     @State var showReplyPage = false
     @State var showEditPage = false
     @State var showDeleteAlert = false
+    @State var showRemoveAlert = false
+    @State var removeReason = "该内容由于违反社区公约被删除" // translation: content removed due to violation of community rules
+    
     var holeViewModel: HoleDetailViewModel? = nil
     var proxy: ScrollViewProxy? = nil
     
@@ -49,10 +52,10 @@ struct FloorView: View {
         }
     }
     
-    func delete() {
+    func delete(reason: String = "") {
         Task {
             do {
-                let newFloor = try await NetworkRequests.shared.deleteFloor(floorId: floor.id)
+                let newFloor = try await NetworkRequests.shared.deleteFloor(floorId: floor.id, reason: reason)
                 self.floor = newFloor
             } catch {
                 print("DANXI-DEBUG: delete failed")
@@ -121,6 +124,14 @@ struct FloorView: View {
             }
         } message: {
             Text("This floor will be deleted")
+        }
+        .alert("Remove Floor", isPresented: $showRemoveAlert) {
+            // FIXME: won't work under iOS 16
+            TextField("Remove Floor", text: $removeReason)
+            
+            Button("Delete", role: .destructive) {
+                delete(reason: removeReason)
+            }
         }
     }
     
@@ -269,7 +280,7 @@ struct FloorView: View {
                     }
                     
                     Button(role: .destructive) {
-                        // TODO: delete this floor
+                        showRemoveAlert = true
                     } label: {
                         Label("Remove Floor", systemImage: "xmark.square")
                     }

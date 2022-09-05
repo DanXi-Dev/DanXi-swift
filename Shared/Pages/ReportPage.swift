@@ -37,14 +37,29 @@ struct ReportPage: View {
             List {
                 ForEach(reportList) { report in
                     ReportCell(report: report)
-                    .swipeActions {
-                        Button {
-                            // TODO: mark
-                        } label: {
-                            Label("Mark as Dealt", systemImage: "checkmark")
+                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                            Button {
+                                // TODO: mark
+                            } label: {
+                                Label("Mark as Dealt", systemImage: "checkmark")
+                            }
+                            .tint(.blue)
                         }
-                        .tint(.blue)
-                    }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            if !report.floor.deleted {
+                                Button(role: .destructive) {
+                                    // TODO: delete floor
+                                } label: {
+                                    Label("Remove Floor", systemImage: "trash")
+                                }
+                            }
+                            
+                            Button {
+                                // TODO: ban user
+                            } label: {
+                                Label("Ban User", systemImage: "person.fill.xmark")
+                            }
+                        }
                 }
             }
             .listStyle(.grouped)
