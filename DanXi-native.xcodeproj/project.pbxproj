@@ -239,9 +239,9 @@
 			isa = PBXGroup;
 			children = (
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
+				277E432128C7810700EBAC23 /* ReferenceView.swift */,
 				2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */,
 				2751E52F28BFB40500104ACD /* Conflict.swift */,
-				277E432128C7810700EBAC23 /* ReferenceView.swift */,
 			);
 			path = Markdown;
 			sourceTree = "<group>";

@@ -104,12 +104,18 @@ struct FloorView: View {
                     .font(.system(size: 16))
                     .fixedSize(horizontal: false, vertical: true)
             } else {
-                ReferenceView(floor.content,
-                              proxy: proxy,
-                              mentions: floor.mention,
-                              floors: holeViewModel.floors)
+                if holeViewModel.floors.isEmpty, let hole = holeViewModel.hole {
+                    ReferenceView(floor.content,
+                                  proxy: proxy,
+                                  mentions: floor.mention,
+                                  floors: hole.floors)
+                } else {
+                    ReferenceView(floor.content,
+                                  proxy: proxy,
+                                  mentions: floor.mention,
+                                  floors: holeViewModel.floors)
+                }
             }
-            
             
             info
         }

@@ -101,7 +101,7 @@ struct MentionView: View {
                 .lineLimit(3)
             
             HStack {
-                Text("#\(String(floor.id))")
+                Text("##\(String(floor.id))")
                 Spacer()
                 Text(floor.updateTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
             }
@@ -121,6 +121,64 @@ struct MentionView: View {
     }
 }
 
+struct RemoteMentionView: View {
+    let floorId: Int
+    @State var loading = false
+    @State var floor: THFloor? = nil
+    
+    var body: some View {
+        if let floor = floor {
+            MentionView(floor: floor)
+        } else {
+            Button {
+                // FIXME: might not be reloaded in edit preview section
+                Task { @MainActor in
+                    do {
+                        loading = true
+                        floor = try await NetworkRequests.shared.loadFloorById(floorId: floorId)
+                    } catch {
+                        loading = false
+                    }
+                }
+            } label: {
+                previewPrompt
+            }
+            .buttonStyle(.borderless)
+        }
+    }
+    
+    var previewPrompt: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Rectangle()
+                    .frame(width: 3, height: 15)
+                
+                Text("Mention")
+                    .font(.system(size: 15))
+                    .fontWeight(.bold)
+                
+                Spacer()
+                
+                Image(systemName: "quote.closing")
+            }
+            .foregroundColor(.secondary)
+            
+            Text(loading ? "Loading" : "Tap to view detail")
+                .font(.system(size: 16))
+                .foregroundColor(.secondary)
+            
+            Text("##\(String(floorId))")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.top, 1.0)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 7.0)
+        .background(Color.secondary.opacity(0.1))
+        .cornerRadius(7.0)
+    }
+}
+
 struct MentionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -128,6 +186,8 @@ struct MentionView_Previews: PreviewProvider {
             
             MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
                 .preferredColorScheme(.dark)
+            
+            RemoteMentionView(floorId: 100000)
         }
         .previewLayout(.sizeThatFits)
         .padding()

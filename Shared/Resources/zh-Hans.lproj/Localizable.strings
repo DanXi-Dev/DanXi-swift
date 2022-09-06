@@ -67,6 +67,10 @@
 "Edited" = "已编辑";
 "Delete Floor" = "删除本层";
 "This floor will be deleted" = "该回复贴将被删除";
+"Mention" = "引用";
+"Tap to view detail" = "点击以查看预览";
+
+
 "Edit Reply" = "编辑";
 "Delete" = "删除";
 "Modify this floor" = "修改本层";

@@ -33,8 +33,7 @@ struct ReferenceView: View {
                         .foregroundColor(.red)
                     
                 case .reference(let floorId):
-                    Text("NOT SUPPOTED MENTION: \(String(floorId))")
-                        .foregroundColor(.red)
+                    RemoteMentionView(floorId: floorId)
                 }
             }
         }

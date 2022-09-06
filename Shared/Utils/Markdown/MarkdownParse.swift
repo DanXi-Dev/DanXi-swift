@@ -54,7 +54,7 @@ func parseReferences(_ content: String,
                      floors: [THFloor] = []) -> [MarkdownElements] {
     var partialContent = content
     var parsedResult: [MarkdownElements] = []
-    let referencePattern = try! NSRegularExpression(pattern: #"##[0-9]+"#)
+    let referencePattern = try! NSRegularExpression(pattern: #"##[0-9]+|#[0-9]+"#)
     
     while let searchResult = partialContent.range(from: referencePattern.rangeOfFirstMatch(in: partialContent, options: [], range: NSRange(location: 0, length: partialContent.utf16.count))) {
         
@@ -65,19 +65,29 @@ func parseReferences(_ content: String,
         }
         
         // reference
-        let floorId = Int(String(partialContent[searchResult]).dropFirst(2)) ?? 0
-        var referenceElement = MarkdownElements.reference(floorId: floorId)
-        
-        let matchedFloors = floors.filter { $0.id == floorId }
-        let matchedMentions = mentions.filter { $0.floorId == floorId }
-        
-        if let floor = matchedFloors.first {
-            referenceElement = .localReference(floor: floor)
-        } else if let mention = matchedMentions.first {
-            referenceElement = .remoteReference(mention: mention)
+        if partialContent[searchResult].hasPrefix("##") { // reference floor
+            let floorId = Int(String(partialContent[searchResult]).dropFirst(2)) ?? 0
+            var referenceElement = MarkdownElements.reference(floorId: floorId)
+            
+            let matchedFloors = floors.filter { $0.id == floorId }
+            let matchedMentions = mentions.filter { $0.floorId == floorId }
+            
+            if let floor = matchedFloors.first {
+                referenceElement = .localReference(floor: floor)
+            } else if let mention = matchedMentions.first {
+                referenceElement = .remoteReference(mention: mention)
+            }
+            
+            parsedResult.append(referenceElement)
+        } else { // reference hole
+            let holeId = Int(String(partialContent[searchResult]).dropFirst(1)) ?? 0
+            
+            let matchedMentions = mentions.filter { $0.holeId == holeId }
+            if let mention = matchedMentions.first {
+                parsedResult.append(.remoteReference(mention: mention))
+            }
+            // TODO: when no hole match, show view that allow user to load
         }
-        
-        parsedResult.append(referenceElement)
         
         // cut partial content
         partialContent = String(partialContent[searchResult.upperBound..<partialContent.endIndex])
