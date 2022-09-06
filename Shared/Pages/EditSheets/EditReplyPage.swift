@@ -6,7 +6,6 @@ struct EditReplyPage: View {
     
     @State var loading = false
     @Environment(\.dismiss) private var dismiss
-    @FocusState var editorActive: Bool
     
     @State var showError = false
     @State var errorInfo = ErrorInfo()
@@ -31,7 +30,8 @@ struct EditReplyPage: View {
         NavigationView {
             Form {
                 Section {
-                    editor
+                    TextEditView($content,
+                                 placeholder: "Enter reply content")
                 } header: {
                     Text("TH Edit Alert")
                 }
@@ -50,17 +50,6 @@ struct EditReplyPage: View {
                             .bold()
                     }
                     .disabled(loading || content.isEmpty)
-                }
-                
-                // hide the keyboard
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    
-                    Button {
-                        editorActive = false
-                    } label: {
-                        Image(systemName: "keyboard.chevron.compact.down")
-                    }
                 }
             }
             .alert("Edit Reply Failed", isPresented: $showError) {
@@ -81,20 +70,6 @@ struct EditReplyPage: View {
                     .opacity(loading ? 1 : 0)
             )
             .ignoresSafeArea(.keyboard) // prevent keyboard from pushing up loading overlay
-        }
-    }
-    
-    private var editor: some View {
-        ZStack(alignment: .topLeading) {
-            if content.isEmpty {
-                Text("Enter post content")
-                    .foregroundColor(.primary.opacity(0.25))
-                    .padding(.top, 7)
-                    .padding(.leading, 4)
-            }
-            TextEditor(text: $content)
-                .focused($editorActive)
-                .frame(height: 250)
         }
     }
     

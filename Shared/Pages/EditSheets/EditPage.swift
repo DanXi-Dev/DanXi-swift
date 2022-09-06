@@ -4,15 +4,32 @@ struct EditPage: View {
     let divisionId: Int
     @State var content = ""
     @State var tags: [THTag] = []
-    @State var previewMode = false
     @State var loading = false
     
     @Environment(\.dismiss) private var dismiss
+    @State var showTagsSelection = false
+    @State var searchTagText = ""
+    
+    @State var showError = false
+    @State var errorInfo = ErrorInfo()
+    
+    var filteredTags: [THTag] {
+        // filter tag that already selected
+        let tags = TreeholeDataModel.shared.tags.filter { tag in
+            !self.tags.contains(tag)
+        }
+
+        if searchTagText.isEmpty {
+            return tags
+        } else {
+            return tags.filter { tag in
+                tag.name.contains(searchTagText)
+            }
+        }
+    }
     
     func sendPost() {
         Task {
-            // TODO: pre post check (e.g.: empty tags)
-            
             loading = true
             defer { loading = false }
             
@@ -22,42 +39,136 @@ struct EditPage: View {
                     divisionId: divisionId,
                     tags: tags)
                 dismiss()
+            } catch let error as NetworkError {
+                errorInfo = error.localizedErrorDescription
+                showError = true
             } catch {
-                // TODO: alert user
-                print("DANXI-DEBUG: post failed")
+                errorInfo = ErrorInfo(title: "Unknown Error",
+                                      description: "Error description: \(error.localizedDescription)")
+                showError = true
             }
         }
     }
+    
+
     
     var body: some View {
         NavigationView {
             VStack {
                 Form {
+                    tagsSection
+                    
                     Section {
-                        NavigationLink(destination: THTagSelection(tagList: $tags)) {
-                            Label("Select Tags", systemImage: "tag")
+                        TextEditView($content,
+                                     placeholder: "Enter post content")
+                    } header: {
+                        Text("TH Edit Alert")
+                    }
+                    .textCase(nil)
+                    
+                    if !content.isEmpty {
+                        Section {
+                            MarkdownView(content)
+                                .padding(.vertical, 5)
+                        } header: {
+                            Text("Preview")
                         }
                     }
-                    suggestedTags
-                    editSection
                 }
             }
             .navigationTitle("New Post")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel", action: {
-                        dismiss()
-                    })
-                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: sendPost) {
                         Text("Send")
                             .bold()
                     }
-                    .disabled(loading)
+                    .disabled(loading || tags.isEmpty || content.isEmpty)
                 }
             }
+            .alert("Send Post Failed", isPresented: $showError) {
+                Button("OK") { }
+            } message: {
+                Text(errorInfo.description)
+            }
+            .sheet(isPresented: $showTagsSelection) {
+                NavigationView {
+                    List {
+                        ForEach(filteredTags) { tag in
+                            HStack {
+                                Text(tag.name)
+                                    .tagStyle(color: randomColor(name: tag.name))
+                                
+                                Spacer()
+                                
+                                Button {
+                                    tags.append(tag)
+                                    showTagsSelection = false
+                                } label: {
+                                    Label(String(tag.temperature), systemImage: "flame")
+                                        .foregroundColor(.red)
+                                }
+                            }
+                        }
+                    }
+                    .navigationTitle("Select Tags")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .searchable(text: $searchTagText, placement: .navigationBarDrawer(displayMode: .always))
+                }
+            }
+            .overlay(
+                HStack(alignment: .center, spacing: 20) {
+                    ProgressView()
+                    Text("Sending Post...")
+                        .foregroundColor(.secondary)
+                        .bold()
+                }
+                    .padding(35)
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .animation(.easeInOut, value: loading)
+                    .opacity(loading ? 1 : 0)
+            )
+            .ignoresSafeArea(.keyboard) // prevent keyboard from pushing up loading overlay
+        }
+    }
+    
+    private var tagsSection: some View {
+        Section {
+            if tags.isEmpty {
+                Text("No tags")
+                    .foregroundColor(.primary.opacity(0.25))
+            } else {
+                FlexibleView(data: tags, spacing: 15, alignment: .leading) { tag in
+                    Text(tag.name)
+                        .tagStyle(color: randomColor(name: tag.name), fontSize: 16)
+                        .overlay(alignment: .topTrailing) {
+                            Button { // remove this tag
+                                tags.removeAll { value in
+                                    value.id == tag.id
+                                }
+                            } label: {
+                                Image(systemName: "minus")
+                                    .font(.system(size: 11))
+                                    .frame(width: 17, height: 17)
+                                    .foregroundColor(.secondary)
+                                    .background(.regularMaterial)
+                                    .clipShape(Circle())
+                                    .offset(x: 8, y: -8)
+                            }
+                            .buttonStyle(.borderless)
+                            .transition(.opacity)
+                        }
+                }
+                .padding(.vertical, 5)
+            }
+        } header: {
+            Button {
+                showTagsSelection = true
+            } label: {
+                Label("Add Tag", systemImage: "tag")
+            }
+            .disabled(tags.count >= 5) // can't add more than 5 tags
         }
     }
     
@@ -85,96 +196,6 @@ struct EditPage: View {
             // TODO: Handle CoreML init failure
             Text("Failed to initialize CoreML")
                 .foregroundColor(.red)
-        }
-    }
-    
-    private var editSection: some View {
-        Section {
-            if tags.isEmpty {
-                Text("No tags")
-                    .foregroundColor(.primary.opacity(0.25))
-            } else {
-                TagList(tags: tags)
-            }
-            
-            if previewMode {
-                Text(content)
-            } else {
-                editor
-            }
-        } header: {
-            Text("TH Edit Alert")
-        } footer: {
-            HStack {
-                // TODO: toolbar (bold, italics, ...)
-                
-                Spacer()
-                Button(action: { previewMode.toggle() }) {
-                    Image(systemName: previewMode ? "eye.fill" : "eye")
-                }
-            }
-        }
-        .textCase(nil)
-    }
-    
-    private var editor: some View {
-        ZStack(alignment: .topLeading) {
-            if content.isEmpty {
-                Text("Enter post content")
-                    .foregroundColor(.primary.opacity(0.25))
-                    .padding(.top, 7)
-                    .padding(.leading, 4)
-            }
-            TextEditor(text: $content)
-                .frame(height: 250)
-        }
-    }
-    
-    private var preview: some View {
-        List {
-            Section {
-                Text(content)
-            } header: {
-                TagList(tags: tags)
-            }
-            .textCase(nil)
-        }
-        .listStyle(.grouped)
-    }
-}
-
-struct THTagSelection: View {
-    @ObservedObject var model = TreeholeDataModel.shared
-    
-    @Binding var tagList: [THTag]
-    @State var searchText = ""
-    
-    var body: some View {
-        List {
-            if tagList.isEmpty {
-                Text("No tags")
-                    .foregroundColor(.primary.opacity(0.25))
-            } else {
-                TagList(tags: tagList)
-            }
-        }
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always)) {
-            
-            ForEach(searchResults) { result in
-                Button(action: { tagList.append(result) }) {
-                    TagRowView(tag: result)
-                }
-            }
-        }
-        .navigationTitle("Select Tags")
-    }
-    
-    var searchResults: [THTag] {
-        if searchText.isEmpty {
-            return model.tags
-        } else {
-            // TODO: filter tags that already exists
-            return model.tags.filter { $0.name.contains(searchText) }
         }
     }
 }

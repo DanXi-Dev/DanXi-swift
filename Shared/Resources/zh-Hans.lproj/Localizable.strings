@@ -80,10 +80,13 @@
 "Enter reply content" = "输入回贴内容";
 "TH Edit Alert" = "发帖时应遵守[社区公约](https://www.fduhole.com/#/license)";
 "Select Tags" = "选择标签";
+"Add Tag" = "添加标签";
 "Send" = "发送";
 "No tags" = "未选择标签";
 "Edit" = "编辑";
 "Preview" = "预览";
+"Sending Post..." = "正在发帖...";
+"Send Post Failed" = "发帖失败";
 "Sending Reply..." = "正在发送回复...";
 "Send Reply Failed" = "发送回复失败";
 "Editing Reply..." = "正在编辑回复...";
