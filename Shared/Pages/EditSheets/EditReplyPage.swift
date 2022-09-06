@@ -3,12 +3,21 @@ import SwiftUI
 struct EditReplyPage: View {
     @Binding var floor: THFloor
     @State var content: String
+    let floors: [THFloor]
     
     @State var loading = false
     @Environment(\.dismiss) private var dismiss
     
     @State var showError = false
     @State var errorInfo = ErrorInfo()
+    
+    init(floor: Binding<THFloor>,
+         content: String = "",
+         floors: [THFloor] = []) {
+        self._floor = floor
+        self._content = State(initialValue: content)
+        self.floors = floors
+    }
     
     func edit() async {
         do {
@@ -36,6 +45,15 @@ struct EditReplyPage: View {
                     Text("TH Edit Alert")
                 }
                 .textCase(nil)
+                
+                if !content.isEmpty {
+                    Section {
+                        ReferenceView(content, floors: floors)
+                            .padding(.vertical, 5)
+                    } header: {
+                        Text("Preview")
+                    }
+                }
             }
             .navigationTitle("Edit Reply")
             .navigationBarTitleDisplayMode(.inline)
@@ -72,36 +90,10 @@ struct EditReplyPage: View {
             .ignoresSafeArea(.keyboard) // prevent keyboard from pushing up loading overlay
         }
     }
-    
-    @MainActor
-    private func renderedContent(_ content: String) -> some View {
-        let contentElements = parseMarkdownReferences(content)
-        
-        return VStack(alignment: .leading, spacing: 7) {
-            ForEach(contentElements) { element in
-                switch element {
-                case .text(let content):
-                    MarkdownView(content)
-                        .textSelection(.enabled)
-                    
-                case .localReference(let floor):
-                    MentionView(floor: floor)
-                    
-                case .remoteReference(let mention):
-                    MentionView(mention: mention)
-                    
-                case .reference(let floorId):
-                    Text("NOT SUPPOTED MENTION: \(String(floorId))")
-                        .foregroundColor(.red)
-                }
-            }
-        }
-    }
 }
 
 struct EditReplyPage_Previews: PreviewProvider {
     static var previews: some View {
-        EditReplyPage(floor: .constant(PreviewDecode.decodeObj(name: "floor")!),
-                      content: "")
+        EditReplyPage(floor: .constant(PreviewDecode.decodeObj(name: "floor")!))
     }
 }

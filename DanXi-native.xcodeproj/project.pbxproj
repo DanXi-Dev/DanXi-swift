@@ -58,6 +58,7 @@
 		2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61A2891D22D009F4DB1 /* SizeReader.swift */; };
 		2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61C2891D22D009F4DB1 /* AppSidebarNavigation.swift */; };
 		2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */; };
+		277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E432128C7810700EBAC23 /* ReferenceView.swift */; };
 		278E406A28BA963A008D6514 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* RankView.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* CourseDetailPage.swift */; };
@@ -154,6 +155,7 @@
 		2778D61A2891D22D009F4DB1 /* SizeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		2778D61C2891D22D009F4DB1 /* AppSidebarNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSidebarNavigation.swift; sourceTree = "<group>"; };
 		2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTabNavigation.swift; sourceTree = "<group>"; };
+		277E432128C7810700EBAC23 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* CourseDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailPage.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */,
 				2751E52F28BFB40500104ACD /* Conflict.swift */,
+				277E432128C7810700EBAC23 /* ReferenceView.swift */,
 			);
 			path = Markdown;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */,
 				27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */,
+				277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
 				27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */,

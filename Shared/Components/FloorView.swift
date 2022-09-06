@@ -104,7 +104,10 @@ struct FloorView: View {
                     .font(.system(size: 16))
                     .fixedSize(horizontal: false, vertical: true)
             } else {
-                renderedContent(floor.content)
+                ReferenceView(floor.content,
+                              proxy: proxy,
+                              mentions: floor.mention,
+                              floors: holeViewModel.floors)
             }
             
             
@@ -114,6 +117,7 @@ struct FloorView: View {
             ReplyPage(
                 holeId: floor.holeId,
                 content: "##\(String(floor.id))\n",
+                floors: holeViewModel.floors,
                 endReached: $holeViewModel.endReached)
         }
         .sheet(isPresented: $showEditPage) {
@@ -134,33 +138,6 @@ struct FloorView: View {
             
             Button("Delete", role: .destructive) {
                 delete(reason: removeReason)
-            }
-        }
-    }
-    
-    @MainActor
-    private func renderedContent(_ content: String) -> some View {
-        let contentElements = parseMarkdownReferences(floor.content,
-                                                      mentions: floor.mention,
-                                                      holeModel: holeViewModel)
-        
-        return VStack(alignment: .leading, spacing: 7) {
-            ForEach(contentElements) { element in
-                switch element {
-                case .text(let content):
-                    MarkdownView(content)
-                        .textSelection(.enabled)
-                    
-                case .localReference(let floor):
-                    MentionView(floor: floor, proxy: proxy)
-                    
-                case .remoteReference(let mention):
-                    MentionView(mention: mention)
-                    
-                case .reference(let floorId):
-                    Text("NOT SUPPOTED MENTION: \(String(floorId))")
-                        .foregroundColor(.red)
-                }
             }
         }
     }

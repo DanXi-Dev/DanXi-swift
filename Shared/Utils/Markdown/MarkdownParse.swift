@@ -10,7 +10,7 @@ extension String {
                                    limitedBy: utf16.endIndex),
             let from = String.Index(from16, within: self),
             let to = String.Index(to16, within: self)
-            else { return nil }
+        else { return nil }
         return from ..< to
     }
     
@@ -49,9 +49,9 @@ enum MarkdownElements: Identifiable {
     }
 }
 
-@MainActor func parseMarkdownReferences(_ content: String,
-                             mentions: [THMention] = [],
-                             holeModel: HoleDetailViewModel? = nil) -> [MarkdownElements] {
+func parseReferences(_ content: String,
+                     mentions: [THMention] = [],
+                     floors: [THFloor] = []) -> [MarkdownElements] {
     var partialContent = content
     var parsedResult: [MarkdownElements] = []
     let referencePattern = try! NSRegularExpression(pattern: #"##[0-9]+"#)
@@ -68,19 +68,16 @@ enum MarkdownElements: Identifiable {
         let floorId = Int(String(partialContent[searchResult]).dropFirst(2)) ?? 0
         var referenceElement = MarkdownElements.reference(floorId: floorId)
         
+        let matchedFloors = floors.filter { $0.id == floorId }
+        let matchedMentions = mentions.filter { $0.floorId == floorId }
         
-        if let floor = holeModel?.fetchFloorFromID(floorId) { // reference: check local
+        if let floor = matchedFloors.first {
             referenceElement = .localReference(floor: floor)
-        } else { // reference: check remote
-            for mention in mentions {
-                if mention.floorId == floorId {
-                    referenceElement = .remoteReference(mention: mention)
-                }
-            }
+        } else if let mention = matchedMentions.first {
+            referenceElement = .remoteReference(mention: mention)
         }
         
         parsedResult.append(referenceElement)
-        
         
         // cut partial content
         partialContent = String(partialContent[searchResult.upperBound..<partialContent.endIndex])

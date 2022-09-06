@@ -68,7 +68,7 @@ struct EditPage: View {
                     
                     if !content.isEmpty {
                         Section {
-                            MarkdownView(content)
+                            ReferenceView(content)
                                 .padding(.vertical, 5)
                         } header: {
                             Text("Preview")

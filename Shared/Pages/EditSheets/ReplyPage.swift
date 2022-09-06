@@ -4,12 +4,23 @@ struct ReplyPage: View {
     let holeId: Int
     @State var content: String
     @Binding var endReached: Bool
+    let floors: [THFloor]
     
     @State var loading = false
     @Environment(\.dismiss) private var dismiss
     
     @State var showError = false
     @State var errorInfo = ErrorInfo()
+    
+    init(holeId: Int,
+         content: String = "",
+         floors: [THFloor] = [],
+         endReached: Binding<Bool>) {
+        self.holeId = holeId
+        self._content = State(initialValue: content)
+        self.floors = floors
+        self._endReached = endReached
+    }
     
     func reply() async {
         loading = true
@@ -43,7 +54,7 @@ struct ReplyPage: View {
                 
                 if !content.isEmpty {
                     Section {
-                        renderedContent(content)
+                        ReferenceView(content, floors: floors)
                             .padding(.vertical, 5)
                     } header: {
                         Text("Preview")
@@ -83,31 +94,6 @@ struct ReplyPage: View {
                     .opacity(loading ? 1 : 0)
             )
             .ignoresSafeArea(.keyboard) // prevent keyboard from pushing up loading overlay
-        }
-    }
-    
-    @MainActor
-    private func renderedContent(_ content: String) -> some View {
-        let contentElements = parseMarkdownReferences(content)
-        
-        return VStack(alignment: .leading, spacing: 7) {
-            ForEach(contentElements) { element in
-                switch element {
-                case .text(let content):
-                    MarkdownView(content)
-                        .textSelection(.enabled)
-                    
-                case .localReference(let floor):
-                    MentionView(floor: floor)
-                    
-                case .remoteReference(let mention):
-                    MentionView(mention: mention)
-                    
-                case .reference(let floorId):
-                    Text("NOT SUPPOTED MENTION: \(String(floorId))")
-                        .foregroundColor(.red)
-                }
-            }
         }
     }
 }
