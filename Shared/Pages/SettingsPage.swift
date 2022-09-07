@@ -19,7 +19,15 @@ struct SettingsPage: View {
             }
             
             Section("Tree Hole") {
-                Toggle("NL Model Debugging Mode", isOn: $model.nlModelDebuggingMode)
+                Picker(selection: $model.nsfwPreference, label: Label("NSFW Content", systemImage: "eye.slash")) {
+                    Text("Show").tag(NSFWPreference.show)
+                    Text("Fold").tag(NSFWPreference.fold)
+                    Text("Hide").tag(NSFWPreference.hide)
+                }
+                
+                Toggle(isOn: $model.nlModelDebuggingMode) {
+                    Label("NL Model Debugging Mode", systemImage: "dice")
+                }
             }
             
             Section("About") {

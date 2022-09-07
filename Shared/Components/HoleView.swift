@@ -4,6 +4,7 @@ struct HoleView: View {
     @Environment(\.colorScheme) var colorScheme
     
     let hole: THHole
+    let fold: Bool
     @ObservedObject var treeholeDataModel = TreeholeDataModel.shared // FIXME: The entire thing is here only because we need to read debugging settings. Maybe there is a better way to achieve the purpose?
     
     enum NavigationType {
@@ -15,10 +16,54 @@ struct HoleView: View {
     @State var navActive = false
     @State var navType = NavigationType.top
     
+    init(hole: THHole, fold: Bool = false) {
+        self.hole = hole
+        self.fold = fold
+    }
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            tags
-            
+        if fold {
+            DisclosureGroup {
+                VStack(alignment: .leading) {
+                    holeContent
+                }
+                .onTapGesture {
+                    navType = .top
+                    navActive = true
+                }
+                .background(NavigationLink("", destination: navTarget, isActive: $navActive).opacity(0))
+                #if os(iOS)
+                .previewContextMenu(destination: HoleDetailPage(hole: hole),
+                                    preview: HoleDetailPage(hole: hole, floors: hole.floors))
+                #endif
+                .listRowSeparator(.hidden, edges: .top)
+                .listRowInsets(.init(top: 0,
+                                     leading: -1,
+                                     bottom: 5,
+                                     trailing: 15))
+            } label: {
+                tags
+            }
+        } else {
+            VStack(alignment: .leading) {
+                tags
+                
+                holeContent
+            }
+            .onTapGesture {
+                navType = .top
+                navActive = true
+            }
+            .background(NavigationLink("", destination: navTarget, isActive: $navActive).opacity(0))
+            #if os(iOS)
+            .previewContextMenu(destination: HoleDetailPage(hole: hole),
+                                preview: HoleDetailPage(hole: hole, floors: hole.floors))
+            #endif
+        }
+    }
+    
+    private var holeContent: some View {
+        Group {
             if (treeholeDataModel.nlModelDebuggingMode) {
                 // A preview for CoreML Model
                 Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 0) ?? "MaxEntropy NLModel init failed")
@@ -53,15 +98,6 @@ struct HoleView: View {
             
             info
         }
-        .onTapGesture {
-            navType = .top
-            navActive = true
-        }
-        .background(NavigationLink("", destination: navTarget, isActive: $navActive).opacity(0))
-        #if os(iOS)
-        .previewContextMenu(destination: HoleDetailPage(hole: hole),
-                            preview: HoleDetailPage(hole: hole, floors: hole.floors))
-        #endif
     }
     
     private var info: some View {

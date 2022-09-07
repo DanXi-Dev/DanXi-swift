@@ -24,7 +24,11 @@
 "Logged in" = "已登录";
 "Not Logged in" = "未登录";
 "Logout" = "退出登录";
-"NL Model Debugging Mode" = "自然语言处理模型调试模式";
+"NSFW Content" = "引起不适的内容";
+"Show" = "显示";
+"Hide" = "隐藏";
+"Fold" = "折叠";
+"NL Model Debugging Mode" = "自然语言处理";
 
 // Treehole Welcome Page
 "TH Feature 1" = "时刻保持最新";

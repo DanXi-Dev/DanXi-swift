@@ -15,7 +15,9 @@ class TreeholeDataModel: ObservableObject {
     }
     
     // Settings
+    // TODO: save to user defaults
     @Published var nlModelDebuggingMode: Bool = false
+    @Published var nsfwPreference = NSFWPreference.hide
     
     init() {
         let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
@@ -57,4 +59,10 @@ class TreeholeDataModel: ObservableObject {
             self.user!.favorites = self.user!.favorites.filter { $0 != holeId }
         }
     }
+}
+
+enum NSFWPreference: Hashable {
+    case show
+    case hide
+    case fold
 }

@@ -9,6 +9,16 @@ struct THHole: Hashable, Decodable, Identifiable {
     let tags: [THTag]
     let firstFloor, lastFloor: THFloor
     var floors: [THFloor]
+    
+    var nsfw: Bool {
+        for tag in tags {
+            if tag.name.hasPrefix("*") {
+                return true
+            }
+        }
+        
+        return false
+    }
 }
 
 struct THFloor: Hashable, Codable, Identifiable {

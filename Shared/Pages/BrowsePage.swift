@@ -7,13 +7,19 @@ struct BrowsePage: View {
         case byReplyTime
         case byCreateTime
     }
-    
+    @ObservedObject var dataModel = TreeholeDataModel.shared
     let divisions = TreeholeDataModel.shared.divisions
     @State var currentDivision: THDivision
     @State var holes: [THHole]
     @State var sortOption = SortOptions.byReplyTime
     @State var baseDate: Date?
     @State var endReached = false
+    
+    var filteredHoles: [THHole] {
+        holes.filter { hole in
+            !(hole.nsfw && dataModel.nsfwPreference == .hide)
+        }
+    }
     
     @State var showDatePicker = false
     @State var showEditPage = false
@@ -77,8 +83,8 @@ struct BrowsePage: View {
             
             // MARK: main section
             Section {
-                ForEach(holes) { hole in
-                    HoleView(hole: hole)
+                ForEach(filteredHoles) { hole in
+                    HoleView(hole: hole, fold: (hole.nsfw && dataModel.nsfwPreference == .fold))
                         .task {
                             if hole == holes.last {
                                 await loadMoreHoles()
