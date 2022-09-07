@@ -36,7 +36,7 @@ struct SettingsPage: View {
                     .navigationTitle("Blocked Tags")
                     .navigationBarTitleDisplayMode(.inline)
                 } label: {
-                    Label("Blocked Tags", systemImage: "tag")
+                    Label("Blocked Tags", systemImage: "tag.slash")
                 }
             }
             

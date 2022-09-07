@@ -71,8 +71,8 @@ struct MentionView: View {
             .buttonStyle(.borderless) // prevent multiple tapping
             #if os(iOS)
             // TODO: use geometry reader to determine size
-            .previewContextMenu(destination: ScrollView { FloorView(floor: floor).padding() },
-                                preview: FloorView(floor: floor).padding())
+            .previewContextMenu(destination: HoleDetailPage(targetFloorId: floor.id),
+                                preview: ScrollView { FloorView(floor: floor).padding() })
             #endif
         }
     }
