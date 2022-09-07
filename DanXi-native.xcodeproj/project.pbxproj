@@ -71,6 +71,7 @@
 		27C7E8AF28BA038200DCC2B2 /* floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AB28BA038200DCC2B2 /* floor.json */; };
 		27C7E8B028BA038200DCC2B2 /* styled-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AC28BA038200DCC2B2 /* styled-floor.json */; };
 		27C7E8B128BA038200DCC2B2 /* long-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AD28BA038200DCC2B2 /* long-floor.json */; };
+		27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4C3E928C88CF50073F4F2 /* Preference.swift */; };
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingView.swift */; };
@@ -170,6 +171,7 @@
 		27C7E8AB28BA038200DCC2B2 /* floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = floor.json; sourceTree = "<group>"; };
 		27C7E8AC28BA038200DCC2B2 /* styled-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "styled-floor.json"; sourceTree = "<group>"; };
 		27C7E8AD28BA038200DCC2B2 /* long-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "long-floor.json"; sourceTree = "<group>"; };
+		27D4C3E928C88CF50073F4F2 /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		2778D6002891D22D009F4DB1 /* Treehole */ = {
 			isa = PBXGroup;
 			children = (
+				27D4C3E928C88CF50073F4F2 /* Preference.swift */,
 				2778D6032891D22D009F4DB1 /* TreeholeModel.swift */,
 			);
 			path = Treehole;
@@ -618,6 +621,7 @@
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,
 				271D597128C251BE00F72C3B /* PreivewContextView.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
+				27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,

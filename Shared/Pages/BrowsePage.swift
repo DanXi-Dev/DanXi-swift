@@ -8,6 +8,7 @@ struct BrowsePage: View {
         case byCreateTime
     }
     @ObservedObject var dataModel = TreeholeDataModel.shared
+    @ObservedObject var preference = Preference.shared
     let divisions = TreeholeDataModel.shared.divisions
     @State var currentDivision: THDivision
     @State var holes: [THHole]
@@ -17,7 +18,7 @@ struct BrowsePage: View {
     
     var filteredHoles: [THHole] {
         holes.filter { hole in
-            !(hole.nsfw && dataModel.nsfwPreference == .hide)
+            !(hole.nsfw && preference.nsfwSetting == .hide)
         }
     }
     
@@ -84,7 +85,7 @@ struct BrowsePage: View {
             // MARK: main section
             Section {
                 ForEach(filteredHoles) { hole in
-                    HoleView(hole: hole, fold: (hole.nsfw && dataModel.nsfwPreference == .fold))
+                    HoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
                         .task {
                             if hole == holes.last {
                                 await loadMoreHoles()

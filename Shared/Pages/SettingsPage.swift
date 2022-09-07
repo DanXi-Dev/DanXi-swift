@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsPage: View {
     @ObservedObject var model = TreeholeDataModel.shared
+    @ObservedObject var preference = Preference.shared
     
     @State var showTreeHoleLogin = false
     @State var showTreeHoleActions = false
@@ -19,13 +20,13 @@ struct SettingsPage: View {
             }
             
             Section("Tree Hole") {
-                Picker(selection: $model.nsfwPreference, label: Label("NSFW Content", systemImage: "eye.slash")) {
+                Picker(selection: $preference.nsfwSetting, label: Label("NSFW Content", systemImage: "eye.slash")) {
                     Text("Show").tag(NSFWPreference.show)
                     Text("Fold").tag(NSFWPreference.fold)
                     Text("Hide").tag(NSFWPreference.hide)
                 }
                 
-                Toggle(isOn: $model.nlModelDebuggingMode) {
+                Toggle(isOn: $preference.nlModelDebuggingMode) {
                     Label("NL Model Debugging Mode", systemImage: "dice")
                 }
             }

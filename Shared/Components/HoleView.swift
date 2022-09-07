@@ -5,8 +5,8 @@ struct HoleView: View {
     
     let hole: THHole
     let fold: Bool
-    @ObservedObject var treeholeDataModel = TreeholeDataModel.shared // FIXME: The entire thing is here only because we need to read debugging settings. Maybe there is a better way to achieve the purpose?
-    
+    @ObservedObject var preference = Preference.shared
+
     enum NavigationType {
         case tag(tagname: String)
         case top
@@ -64,7 +64,7 @@ struct HoleView: View {
     
     private var holeContent: some View {
         Group {
-            if (treeholeDataModel.nlModelDebuggingMode) {
+            if (preference.nlModelDebuggingMode) {
                 // A preview for CoreML Model
                 Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 0) ?? "MaxEntropy NLModel init failed")
                     .foregroundColor(.green)
