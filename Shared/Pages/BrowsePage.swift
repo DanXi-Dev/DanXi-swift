@@ -18,7 +18,15 @@ struct BrowsePage: View {
     
     var filteredHoles: [THHole] {
         holes.filter { hole in
-            !(hole.nsfw && preference.nsfwSetting == .hide)
+            // filter for blocked tags
+            for tagName in hole.tags.map({ $0.name }) {
+                if !preference.blockedTags.filter({ $0.name == tagName }).isEmpty {
+                    return false
+                }
+            }
+            
+            // filter for NSFW tags
+            return !(preference.nsfwSetting == .hide && hole.nsfw)
         }
     }
     
@@ -87,7 +95,7 @@ struct BrowsePage: View {
                 ForEach(filteredHoles) { hole in
                     HoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
                         .task {
-                            if hole == holes.last {
+                            if hole == filteredHoles.last {
                                 await loadMoreHoles()
                             }
                         }

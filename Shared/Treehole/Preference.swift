@@ -11,7 +11,13 @@ class Preference: ObservableObject {
         nsfwSetting = NSFWPreference(rawValue: nsfwPreferenceRaw) ?? .fold
         showLastFloor = defaults?.bool(forKey: "show-last-floor") ?? true
         
-        // TODO: init blocked tags
+        if let data = defaults?.data(forKey: "blocked-tags") {
+            do {
+                blockedTags = try JSONDecoder().decode([THTag].self, from: data)
+            } catch {
+                blockedTags = []
+            }
+        }
     }
     
     @Published var nlModelDebuggingMode: Bool = false {
@@ -32,7 +38,16 @@ class Preference: ObservableObject {
         }
     }
     
-    @Published var blockedTags: Set<String> = []
+    @Published var blockedTags: [THTag] = [] {
+        didSet {
+            do {
+                let data = try JSONEncoder().encode(blockedTags)
+                defaults?.setValue(data, forKey: "blocked-tags")
+            } catch {
+                
+            }
+        }
+    }
 }
 
 enum NSFWPreference: Int {

@@ -7,26 +7,9 @@ struct EditPage: View {
     @State var loading = false
     
     @Environment(\.dismiss) private var dismiss
-    @State var showTagsSelection = false
-    @State var searchTagText = ""
     
     @State var showError = false
     @State var errorInfo = ErrorInfo()
-    
-    var filteredTags: [THTag] {
-        // filter tag that already selected
-        let tags = TreeholeDataModel.shared.tags.filter { tag in
-            !self.tags.contains(tag)
-        }
-
-        if searchTagText.isEmpty {
-            return tags
-        } else {
-            return tags.filter { tag in
-                tag.name.contains(searchTagText)
-            }
-        }
-    }
     
     func sendPost() {
         Task {
@@ -50,13 +33,11 @@ struct EditPage: View {
         }
     }
     
-
-    
     var body: some View {
         NavigationView {
             VStack {
                 Form {
-                    tagsSection
+                    TagField(tags: $tags, max: 5)
                     
                     Section {
                         TextEditView($content,
@@ -92,31 +73,6 @@ struct EditPage: View {
             } message: {
                 Text(errorInfo.description)
             }
-            .sheet(isPresented: $showTagsSelection) {
-                NavigationView {
-                    List {
-                        ForEach(filteredTags) { tag in
-                            HStack {
-                                Text(tag.name)
-                                    .tagStyle(color: randomColor(name: tag.name))
-                                
-                                Spacer()
-                                
-                                Button {
-                                    tags.append(tag)
-                                    showTagsSelection = false
-                                } label: {
-                                    Label(String(tag.temperature), systemImage: "flame")
-                                        .foregroundColor(.red)
-                                }
-                            }
-                        }
-                    }
-                    .navigationTitle("Select Tags")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .searchable(text: $searchTagText, placement: .navigationBarDrawer(displayMode: .always))
-                }
-            }
             .overlay(
                 HStack(alignment: .center, spacing: 20) {
                     ProgressView()
@@ -130,45 +86,6 @@ struct EditPage: View {
                     .opacity(loading ? 1 : 0)
             )
             .ignoresSafeArea(.keyboard) // prevent keyboard from pushing up loading overlay
-        }
-    }
-    
-    private var tagsSection: some View {
-        Section {
-            if tags.isEmpty {
-                Text("No tags")
-                    .foregroundColor(.primary.opacity(0.25))
-            } else {
-                FlexibleView(data: tags, spacing: 15, alignment: .leading) { tag in
-                    Text(tag.name)
-                        .tagStyle(color: randomColor(name: tag.name), fontSize: 16)
-                        .overlay(alignment: .topTrailing) {
-                            Button { // remove this tag
-                                tags.removeAll { value in
-                                    value.id == tag.id
-                                }
-                            } label: {
-                                Image(systemName: "minus")
-                                    .font(.system(size: 11))
-                                    .frame(width: 17, height: 17)
-                                    .foregroundColor(.secondary)
-                                    .background(.regularMaterial)
-                                    .clipShape(Circle())
-                                    .offset(x: 8, y: -8)
-                            }
-                            .buttonStyle(.borderless)
-                            .transition(.opacity)
-                        }
-                }
-                .padding(.vertical, 5)
-            }
-        } header: {
-            Button {
-                showTagsSelection = true
-            } label: {
-                Label("Add Tag", systemImage: "tag")
-            }
-            .disabled(tags.count >= 5) // can't add more than 5 tags
         }
     }
     

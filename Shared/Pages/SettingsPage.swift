@@ -16,7 +16,6 @@ struct SettingsPage: View {
                 } else {
                     treeHoleAccountNotLogged
                 }
-                
             }
             
             Section("Tree Hole") {
@@ -28,6 +27,16 @@ struct SettingsPage: View {
                 
                 Toggle(isOn: $preference.nlModelDebuggingMode) {
                     Label("NL Model Debugging Mode", systemImage: "dice")
+                }
+                
+                NavigationLink {
+                    Form {
+                        TagField(tags: $preference.blockedTags)
+                    }
+                    .navigationTitle("Blocked Tags")
+                    .navigationBarTitleDisplayMode(.inline)
+                } label: {
+                    Label("Blocked Tags", systemImage: "tag")
                 }
             }
             
