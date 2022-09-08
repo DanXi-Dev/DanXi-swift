@@ -6,6 +6,11 @@ struct SearchPage: View {
     @Binding var searchSubmitted: Bool
     @AppStorage("treehole-search-history") var searchHistory: [String] = []
     
+    @State var tagNavActive = false
+    @State var textNavActive = false
+    @State var floorNavActive = false
+    @State var holeNavActive = false
+    
     private var filteredTags: [THTag] {
         return model.tags.filter { $0.name.contains(searchText) }
     }
@@ -18,35 +23,30 @@ struct SearchPage: View {
         searchHistory.append(content)
     }
     
-    struct SearchHistoryEntry: Identifiable {
-        let id = UUID()
-        let content: String
-    }
-    
-    private var searchHistoryIdentifiable: [SearchHistoryEntry] {
-        return searchHistory.map { history in
-            SearchHistoryEntry(content: history)
-        }
-    }
-    
     var body: some View {
         List {
             if !searchText.isEmpty { // search tag
                 Section("Search Text") {
-                    NavigationLink(destination: SearchTextPage(keyword: searchText)) {
+                    NavigationLink {
+                        SearchTextPage(keyword: searchText)
+                            .onAppear { appendHistory(searchText) }
+                    } label: {
                         Label(searchText, systemImage: "magnifyingglass")
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        appendHistory(searchText)
-                    })
                 }
             } else if !searchHistory.isEmpty { // search history
                 Section {
-                    ForEach(searchHistoryIdentifiable) { history in
-                        Label(history.content, systemImage: "clock")
-                            .onTapGesture {
-                                searchText = history.content
+                    ForEach(searchHistory, id: \.self) { history in
+                        Button {
+                            searchText = history
+                        } label: {
+                            Label {
+                                Text(history)
+                                    .foregroundColor(.primary)
+                            } icon: {
+                                Image(systemName: "clock")
                             }
+                        }
                     }
                 } header: {
                     HStack {
@@ -59,27 +59,27 @@ struct SearchPage: View {
                 }
             }
             
-            // navigate to hole by ID, don't assume hole id length
+            // navigate to hole by ID
             if searchText ~= #"^#[0-9]+$"#, let holeId = Int(searchText.dropFirst(1)) {
                 Section("Jump to Hole") {
-                    NavigationLink(destination: HoleDetailPage(holeId: holeId)) {
+                    NavigationLink {
+                        HoleDetailPage(holeId: holeId)
+                            .onAppear { appendHistory(searchText) }
+                    } label: {
                         Label(searchText, systemImage: "arrow.right.square")
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        appendHistory(searchText)
-                    })
                 }
             }
             
             // navigate to floor by ID, don't assume floor id length
             if searchText ~= #"^##[0-9]+$"#, let floorId = Int(searchText.dropFirst(2)) {
                 Section("Jump to Floor") {
-                    NavigationLink(destination: HoleDetailPage(targetFloorId: floorId)) {
+                    NavigationLink {
+                        HoleDetailPage(targetFloorId: floorId)
+                            .onAppear { appendHistory(searchText) }
+                    } label: {
                         Label(searchText, systemImage: "arrow.right.square")
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        appendHistory(searchText)
-                    })
                 }
             }
             
@@ -87,16 +87,19 @@ struct SearchPage: View {
             if !filteredTags.isEmpty {
                 Section("Tags") {
                     ForEach(filteredTags) { tag in
-                        NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
+                        NavigationLink {
+                            SearchTagPage(tagname: tag.name, divisionId: nil)
+                                .onAppear { appendHistory(searchText) }
+                        } label: {
                             Label(tag.name, systemImage: "tag")
                         }
-                        .simultaneousGesture(TapGesture().onEnded {
-                            appendHistory(searchText)
-                        })
                     }
                 }
             }
         }
         .listStyle(.grouped)
+        // navigate to search page when user click `search` in keyboard
+        .background(NavigationLink("", destination: SearchTextPage(keyword: searchText),
+                                   isActive: $searchSubmitted).opacity(0))
     }
 }
