@@ -134,6 +134,7 @@
 // Error
 "Loading Failed" = "加载失败";
 "Retry" = "重试";
+"Load More" = "加载更多";
 "Network Error" = "网络错误";
 "Network error: %@" = "网络错误：%@";
 "Unknown Error" = "未知错误";

@@ -77,7 +77,7 @@
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingView.swift */; };
-		27E4686528BCD22500CDE8CE /* ListLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* ListLoadingView.swift */; };
+		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
 		27E5E82928BA0B560074D295 /* hole-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82828BA0B560074D295 /* hole-list.json */; };
 		27E5E82B28BA62140074D295 /* StarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* StarsView.swift */; };
@@ -179,7 +179,7 @@
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		27E4686428BCD22500CDE8CE /* ListLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLoadingView.swift; sourceTree = "<group>"; };
+		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
 		27E5E82828BA0B560074D295 /* hole-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hole-list.json"; sourceTree = "<group>"; };
 		27E5E82A28BA62130074D295 /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 				278E406928BA963A008D6514 /* RankView.swift */,
 				27E5E82A28BA62130074D295 /* StarsView.swift */,
 				27E4686228BCABC100CDE8CE /* LoadingView.swift */,
-				27E4686428BCD22500CDE8CE /* ListLoadingView.swift */,
+				27E4686428BCD22500CDE8CE /* LoadingFooter.swift */,
 				27B5D70E28C74E9400924264 /* TextEditView.swift */,
 				2748AE9828C8C4CC0014495F /* TagSelection.swift */,
 			);
@@ -616,7 +616,7 @@
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
-				27E4686528BCD22500CDE8CE /* ListLoadingView.swift in Sources */,
+				27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */,
 				27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */,

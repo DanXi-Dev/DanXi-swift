@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ListLoadingView: View {
+struct LoadingFooter: View {
     @Binding var loading: Bool
     let errorDescription: LocalizedStringKey
     let action: () async -> Void
@@ -38,30 +38,40 @@ struct ListLoadingView: View {
             Spacer()
         }
     }
+    
+    var retryView: some View {
+        HStack {
+            Spacer()
+            Button("Load More") {
+                Task {
+                    await action()
+                }
+            }
+                .font(.caption)
+            Spacer()
+        }
+    }
 }
 
-struct ListLoadingView_Previews: PreviewProvider {
+struct LoadingFooter_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ListLoadingView(loading: .constant(false),
+            LoadingFooter(loading: .constant(false),
                             errorDescription: "Requested resourse not found") {
                 // do something
             }
-            ListLoadingView(loading: .constant(false),
+            LoadingFooter(loading: .constant(false),
                             errorDescription: "Requested resourse not found") {
                 // do something
             }
                             .preferredColorScheme(.dark)
             
-            ListLoadingView(loading: .constant(true),
+            LoadingFooter(loading: .constant(true),
                             errorDescription: "Requested resourse not found") {
                 // do something
             }
         }
         .previewLayout(.sizeThatFits)
         .padding()
-        
-        
-        
     }
 }

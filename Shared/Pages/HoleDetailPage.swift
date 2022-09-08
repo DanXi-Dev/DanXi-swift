@@ -67,7 +67,7 @@ struct HoleDetailPage: View {
                     }
                 } footer: {
                     if !viewModel.endReached {
-                        ListLoadingView(loading: $viewModel.listLoading,
+                        LoadingFooter(loading: $viewModel.listLoading,
                                         errorDescription: viewModel.listError.description,
                                         action: viewModel.loadMoreFloors)
                     }

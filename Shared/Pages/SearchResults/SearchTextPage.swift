@@ -39,7 +39,7 @@ struct SearchTextPage: View {
                 }
             } footer: {
                 if !endReached {
-                    ListLoadingView(loading: $loading,
+                    LoadingFooter(loading: $loading,
                                     errorDescription: errorInfo.description,
                                     action: loadMoreFloors)
                 }

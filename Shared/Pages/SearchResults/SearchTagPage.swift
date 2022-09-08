@@ -40,7 +40,7 @@ struct SearchTagPage: View {
             } footer: {
                 if !endReached {
                     if !endReached {
-                        ListLoadingView(loading: $loading,
+                        LoadingFooter(loading: $loading,
                                         errorDescription: errorInfo.description,
                                         action: loadMoreHoles)
                     }

@@ -85,7 +85,7 @@ struct CourseDetailPage: View {
                 if initialized {
                     courseReview
                 } else {
-                    ListLoadingView(loading: $loading,
+                    LoadingFooter(loading: $loading,
                                     errorDescription: errorInfo.description,
                                     action: loadReviews)
                     .padding()
