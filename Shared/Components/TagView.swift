@@ -6,7 +6,7 @@ struct TagStyle: ViewModifier {
     let fontSize: CGFloat
     
     func body(content: Content) -> some View {
-            return content
+            content
                 .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                 .background(color.opacity(colorScheme == .light ? 0.1 : 0.2))
                 .cornerRadius(5)

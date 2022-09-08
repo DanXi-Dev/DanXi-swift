@@ -9,7 +9,8 @@ struct FloorView: View {
     @State var showEditPage = false
     @State var showDeleteAlert = false
     @State var showRemoveAlert = false
-    @State var removeReason = "该内容由于违反社区公约被删除" // translation: content removed due to violation of community rules
+    @State var showRemoveSheet = false
+    @State var showReportSheet = false
     
     @ObservedObject var holeViewModel: HoleDetailViewModel
     var proxy: ScrollViewProxy? = nil
@@ -84,7 +85,6 @@ struct FloorView: View {
         }
     }
     
-    @MainActor
     private var floorBody: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -131,20 +131,15 @@ struct FloorView: View {
                 floor: $floor,
                 content: floor.content)
         }
+        .sheet(isPresented: $showReportSheet, content: {
+            ReportForm(floor: floor)
+        })
         .alert("Delete Floor", isPresented: $showDeleteAlert) {
             Button("Delete", role: .destructive) {
                 delete()
             }
         } message: {
             Text("This floor will be deleted")
-        }
-        .alert("Remove Floor", isPresented: $showRemoveAlert) {
-            // FIXME: won't work under iOS 16
-            TextField("Remove Floor", text: $removeReason)
-            
-            Button("Delete", role: .destructive) {
-                delete(reason: removeReason)
-            }
         }
     }
     
@@ -228,7 +223,7 @@ struct FloorView: View {
     private var menu: some View {
         Group {
             Button {
-                // TODO: report
+                showReportSheet = true
             } label: {
                 Label("Report", systemImage: "exclamationmark.triangle")
             }
