@@ -205,19 +205,17 @@ extension NetworkRequests {
         return try await requestObj(url: components.url!)
     }
     
-    func alterHole(hole: THHole, tags: [THTag], view: Int? = nil, divisionId: Int?) async throws {
+    func alterHole(holeId: Int, tags: [THTag], divisionId: Int) async throws {
         struct EditConfig: Codable {
             let tags: [THTag]
-            let view: Int
             let division_id: Int
         }
         
         let payload = EditConfig(tags: tags,
-                                 view: view ?? hole.view,
-                                 division_id: divisionId ?? hole.divisionId)
+                                 division_id: divisionId)
         let payloadData = try JSONEncoder().encode(payload)
         
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(hole.id)")!
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         _ = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
     }
 }

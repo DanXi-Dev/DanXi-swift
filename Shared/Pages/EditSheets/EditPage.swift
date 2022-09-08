@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct EditPage: View {
-    let divisionId: Int
-    @State var content = ""
+    @State var divisionId: Int
+    @AppStorage("post-draft") var content = ""
     @State var tags: [THTag] = []
-    @State var loading = false
     
     @Environment(\.dismiss) private var dismiss
     
+    @State var loading = false
     @State var showError = false
     @State var errorInfo = ErrorInfo()
     
@@ -22,6 +22,7 @@ struct EditPage: View {
                     divisionId: divisionId,
                     tags: tags)
                 dismiss()
+                content = ""
             } catch let error as NetworkError {
                 errorInfo = error.localizedErrorDescription
                 showError = true
@@ -35,25 +36,32 @@ struct EditPage: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Form {
-                    TagField(tags: $tags, max: 5)
-                    
-                    Section {
-                        TextEditView($content,
-                                     placeholder: "Enter post content")
-                    } header: {
-                        Text("TH Edit Alert")
-                    }
-                    .textCase(nil)
-                    
-                    if !content.isEmpty {
-                        Section {
-                            ReferenceView(content)
-                                .padding(.vertical, 5)
-                        } header: {
-                            Text("Preview")
+            Form {
+                Section {
+                    Picker(selection: $divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
+                        ForEach(TreeholeDataModel.shared.divisions) { division in
+                            Text(division.name)
+                                .tag(division.id)
                         }
+                    }
+                }
+                
+                TagField(tags: $tags, max: 5)
+                
+                Section {
+                    TextEditView($content,
+                                 placeholder: "Enter post content")
+                } header: {
+                    Text("TH Edit Alert")
+                }
+                .textCase(nil)
+                
+                if !content.isEmpty {
+                    Section {
+                        ReferenceView(content)
+                            .padding(.vertical, 5)
+                    } header: {
+                        Text("Preview")
                     }
                 }
             }

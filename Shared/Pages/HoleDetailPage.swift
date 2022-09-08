@@ -4,6 +4,7 @@ struct HoleDetailPage: View {
     @ObservedObject var dataModel = TreeholeDataModel.shared
     @StateObject var viewModel: HoleDetailViewModel
     @State var showReplyPage = false
+    @State var showManagementPage = false
     @State var scrollTarget: Int?
     
     init(hole: THHole) {
@@ -80,6 +81,15 @@ struct HoleDetailPage: View {
                     toolbar
                 }
             }
+            .sheet(isPresented: $showManagementPage, content: {
+                if let hole = viewModel.hole {
+                    EditInfoPage(holeId: hole.id,
+                                 divisionId: hole.divisionId,
+                                 tags: hole.tags)
+                } else {
+                    ProgressView()
+                }
+            })
             // access scroll view proxy from outside, i.e., toolbar
             .onChange(of: scrollTarget, perform: { target in
                 if let target = target {
@@ -149,16 +159,15 @@ struct HoleDetailPage: View {
                     }
                     
                     Button {
-                        
+                        showManagementPage = true
                     } label: {
-                        Label("Edit Tags & Division", systemImage: "square.and.pencil")
+                        Label("Edit Tags & Division", systemImage: "info.circle")
                     }
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
             }
         }
-        
     }
 }
 
