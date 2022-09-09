@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LoginPage: View {
+struct LoginForm: View {
     @ObservedObject var model = TreeholeDataModel.shared
     
     @State var username = ""
@@ -100,6 +100,6 @@ struct LoginPage: View {
 
 struct LoginPage_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPage()
+        LoginForm()
     }
 }

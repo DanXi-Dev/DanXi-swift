@@ -30,8 +30,6 @@ struct TreeholePage: View {
         do {
             try await dataModel.fetchInfo()
             initFinished = true
-        } catch NetworkError.ignore {
-            // cancelled, ignore
         } catch let error as NetworkError {
             initError = error.localizedErrorDescription
         } catch {

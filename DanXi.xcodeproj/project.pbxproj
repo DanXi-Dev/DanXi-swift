@@ -19,10 +19,10 @@
 		2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* MentionView.swift */; };
 		272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* FavoritesPage.swift */; };
 		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
-		272AC8E12896F27300092B0C /* EditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* EditPage.swift */; };
-		272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* ReplyPage.swift */; };
-		272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyPage.swift */; };
-		273C1E6328C9CE5C0067E61E /* EditInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* EditInfoPage.swift */; };
+		272AC8E12896F27300092B0C /* EditForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* EditForm.swift */; };
+		272AC8E32896F29800092B0C /* ReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* ReplyForm.swift */; };
+		272AC8E62896F30E00092B0C /* EditReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyForm.swift */; };
+		273C1E6328C9CE5C0067E61E /* EditInfoForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* EditInfoForm.swift */; };
 		273FAFB628C13C6100FC3950 /* SpecialTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FAFB528C13C6100FC3950 /* SpecialTagView.swift */; };
 		2748AE9928C8C4CC0014495F /* TagSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2748AE9828C8C4CC0014495F /* TagSelection.swift */; };
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
@@ -48,7 +48,7 @@
 		2778D6212891D22D009F4DB1 /* NetworkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6042891D22D009F4DB1 /* NetworkRequests.swift */; };
 		2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6072891D22D009F4DB1 /* HoleDetailPage.swift */; };
 		2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6082891D22D009F4DB1 /* WelcomePage.swift */; };
-		2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6092891D22D009F4DB1 /* LoginPage.swift */; };
+		2778D6252891D22D009F4DB1 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6092891D22D009F4DB1 /* LoginForm.swift */; };
 		2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D60A2891D22D009F4DB1 /* TreeholePage.swift */; };
 		2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D60B2891D22D009F4DB1 /* SettingsPage.swift */; };
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
@@ -78,7 +78,7 @@
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27D7110828CA29B7001E9464 /* ReportForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* ReportForm.swift */; };
 		27D7110B28CA3167001E9464 /* FormOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* FormOverlay.swift */; };
-		27D7110D28CA38DC001E9464 /* PrimitiveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* PrimitiveForm.swift */; };
+		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
 		27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingView.swift */; };
 		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
@@ -89,7 +89,7 @@
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
-		8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */; };
+		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
 		F19113AA28A65D260067BA61 /* SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* SearchPage.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
@@ -123,10 +123,10 @@
 		2729071428B0B45F0087ACC0 /* MentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
 		272AC8D92896BE2500092B0C /* FavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPage.swift; sourceTree = "<group>"; };
 		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
-		272AC8E02896F27300092B0C /* EditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPage.swift; sourceTree = "<group>"; };
-		272AC8E22896F29800092B0C /* ReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPage.swift; sourceTree = "<group>"; };
-		272AC8E52896F30E00092B0C /* EditReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyPage.swift; sourceTree = "<group>"; };
-		273C1E6228C9CE5C0067E61E /* EditInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoPage.swift; sourceTree = "<group>"; };
+		272AC8E02896F27300092B0C /* EditForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditForm.swift; sourceTree = "<group>"; };
+		272AC8E22896F29800092B0C /* ReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyForm.swift; sourceTree = "<group>"; };
+		272AC8E52896F30E00092B0C /* EditReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyForm.swift; sourceTree = "<group>"; };
+		273C1E6228C9CE5C0067E61E /* EditInfoForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoForm.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* SpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTagView.swift; sourceTree = "<group>"; };
 		2748AE9828C8C4CC0014495F /* TagSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelection.swift; sourceTree = "<group>"; };
 		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		2778D6042891D22D009F4DB1 /* NetworkRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequests.swift; sourceTree = "<group>"; };
 		2778D6072891D22D009F4DB1 /* HoleDetailPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoleDetailPage.swift; sourceTree = "<group>"; };
 		2778D6082891D22D009F4DB1 /* WelcomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
-		2778D6092891D22D009F4DB1 /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		2778D6092891D22D009F4DB1 /* LoginForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		2778D60A2891D22D009F4DB1 /* TreeholePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeholePage.swift; sourceTree = "<group>"; };
 		2778D60B2891D22D009F4DB1 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		2778D6112891D22D009F4DB1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* ReportForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportForm.swift; sourceTree = "<group>"; };
 		27D7110A28CA3167001E9464 /* FormOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormOverlay.swift; sourceTree = "<group>"; };
-		27D7110C28CA38DC001E9464 /* PrimitiveForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveForm.swift; sourceTree = "<group>"; };
+		27D7110C28CA38DC001E9464 /* FormPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPrimitive.swift; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
@@ -194,9 +194,9 @@
 		27FA5F46289947DA000391A3 /* SearchTextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextPage.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* SearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagPage.swift; sourceTree = "<group>"; };
 		27FBAA4A28BE4E7E00B27F30 /* floor-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "floor-list.json"; sourceTree = "<group>"; };
-		8AAABD4326881E0500486D37 /* DanXi-native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-native.entitlements"; sourceTree = "<group>"; };
-		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_nativeApp.swift; sourceTree = "<group>"; };
+		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
+		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPage.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
@@ -436,14 +436,14 @@
 		27D7110928CA306C001E9464 /* Forms */ = {
 			isa = PBXGroup;
 			children = (
-				27D7110C28CA38DC001E9464 /* PrimitiveForm.swift */,
+				27D7110C28CA38DC001E9464 /* FormPrimitive.swift */,
 				27D7110A28CA3167001E9464 /* FormOverlay.swift */,
-				272AC8E02896F27300092B0C /* EditPage.swift */,
-				272AC8E22896F29800092B0C /* ReplyPage.swift */,
-				272AC8E52896F30E00092B0C /* EditReplyPage.swift */,
-				273C1E6228C9CE5C0067E61E /* EditInfoPage.swift */,
+				272AC8E02896F27300092B0C /* EditForm.swift */,
+				272AC8E22896F29800092B0C /* ReplyForm.swift */,
+				272AC8E52896F30E00092B0C /* EditReplyForm.swift */,
+				273C1E6228C9CE5C0067E61E /* EditInfoForm.swift */,
 				27D7110728CA29B7001E9464 /* ReportForm.swift */,
-				2778D6092891D22D009F4DB1 /* LoginPage.swift */,
+				2778D6092891D22D009F4DB1 /* LoginForm.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -495,7 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				8AA9F876269D97BE0085D93D /* Shared */,
-				8AC7A5CF26872C3E00C9CD98 /* DanXi-native */,
+				8AC7A5CF26872C3E00C9CD98 /* iOS */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
 			);
@@ -504,19 +504,19 @@
 		8AC7A5CE26872C3E00C9CD98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */,
+				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8AC7A5CF26872C3E00C9CD98 /* DanXi-native */ = {
+		8AC7A5CF26872C3E00C9CD98 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
+				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
-				8AAABD4326881E0500486D37 /* DanXi-native.entitlements */,
-				8AC7A5D026872C3E00C9CD98 /* DanXi_nativeApp.swift */,
 			);
-			path = "DanXi-native";
+			path = iOS;
 			sourceTree = "<group>";
 		};
 		F1AE7C1528AA3C3500A3FEBA /* MachineLearning */ = {
@@ -532,9 +532,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8AC7A5CC26872C3E00C9CD98 /* DanXi-native */ = {
+		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */;
+			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */;
 			buildPhases = (
 				8AC7A5C926872C3E00C9CD98 /* Sources */,
 				8AC7A5CA26872C3E00C9CD98 /* Frameworks */,
@@ -545,12 +545,12 @@
 			);
 			dependencies = (
 			);
-			name = "DanXi-native";
+			name = DanXi;
 			packageProductDependencies = (
 				2751E52C28BFB38D00104ACD /* Markdown */,
 			);
 			productName = "DanXi-native";
-			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
+			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -567,7 +567,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi-native" */;
+			buildConfigurationList = 8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -584,7 +584,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8AC7A5CC26872C3E00C9CD98 /* DanXi-native */,
+				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
 			);
 		};
 /* End PBXProject section */
@@ -621,7 +621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
-				2778D6252891D22D009F4DB1 /* LoginPage.swift in Sources */,
+				2778D6252891D22D009F4DB1 /* LoginForm.swift in Sources */,
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
 				27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
@@ -640,7 +640,7 @@
 				27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
-				8AC7A5D126872C3E00C9CD98 /* DanXi_nativeApp.swift in Sources */,
+				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */,
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
@@ -649,10 +649,10 @@
 				27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */,
 				277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
-				272AC8E62896F30E00092B0C /* EditReplyPage.swift in Sources */,
+				272AC8E62896F30E00092B0C /* EditReplyForm.swift in Sources */,
 				27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* ReportPage.swift in Sources */,
-				27D7110D28CA38DC001E9464 /* PrimitiveForm.swift in Sources */,
+				27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
@@ -665,7 +665,7 @@
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2751E53028BFB40500104ACD /* Conflict.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
-				273C1E6328C9CE5C0067E61E /* EditInfoPage.swift in Sources */,
+				273C1E6328C9CE5C0067E61E /* EditInfoForm.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
 				273FAFB628C13C6100FC3950 /* SpecialTagView.swift in Sources */,
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
@@ -675,13 +675,13 @@
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
 				271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */,
 				27D7110B28CA3167001E9464 /* FormOverlay.swift in Sources */,
-				272AC8E32896F29800092B0C /* ReplyPage.swift in Sources */,
+				272AC8E32896F29800092B0C /* ReplyForm.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
 				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,
 				27E5E82B28BA62140074D295 /* StarsView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* CourseReview.swift in Sources */,
-				272AC8E12896F27300092B0C /* EditPage.swift in Sources */,
+				272AC8E12896F27300092B0C /* EditForm.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* CourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* RankView.swift in Sources */,
@@ -836,7 +836,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
+				CODE_SIGN_ENTITLEMENTS = iOS/DanXi.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -845,7 +845,7 @@
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "DanXi-native/Info.plist";
+				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -869,7 +869,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "DanXi-native/DanXi-native.entitlements";
+				CODE_SIGN_ENTITLEMENTS = iOS/DanXi.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -878,7 +878,7 @@
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "DanXi-native/Info.plist";
+				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -901,7 +901,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi-native" */ = {
+		8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC7A62A26872C4100C9CD98 /* Debug */,
@@ -910,7 +910,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */ = {
+		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC7A63526872C4100C9CD98 /* Debug */,

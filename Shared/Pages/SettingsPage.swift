@@ -111,7 +111,7 @@ struct SettingsPage: View {
             }
         }
         .sheet(isPresented: $showTreeHoleLogin) {
-            LoginPage()
+            LoginForm()
         }
     }
 }

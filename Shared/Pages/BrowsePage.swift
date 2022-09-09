@@ -137,7 +137,7 @@ struct BrowsePage: View {
                     Image(systemName: "square.and.pencil")
                 }
                 .sheet(isPresented: $showEditPage) {
-                    EditPage(divisionId: currentDivision.id)
+                    EditForm(divisionId: currentDivision.id)
                 }
             }
         }

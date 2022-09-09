@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct EditInfoPage: View {
+struct EditInfoForm: View {
     let holeId: Int
     @State var divisionId: Int
     @State var tags: [THTag]
     
     var body: some View {
-        PrimitiveForm(title: "Edit Post Info",
+        FormPrimitive(title: "Edit Post Info",
                       allowSubmit: !tags.isEmpty,
                       errorTitle: "Edit Post Info Failed") {
             Section {
@@ -28,8 +28,8 @@ struct EditInfoPage: View {
     }
 }
 
-struct EditInfoPage_Previews: PreviewProvider {
+struct EditInfoForm_Previews: PreviewProvider {
     static var previews: some View {
-        EditInfoPage(holeId: 0, divisionId: 0, tags: [])
+        EditInfoForm(holeId: 0, divisionId: 0, tags: [])
     }
 }

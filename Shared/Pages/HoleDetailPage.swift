@@ -83,7 +83,7 @@ struct HoleDetailPage: View {
             }
             .sheet(isPresented: $showManagementPage, content: {
                 if let hole = viewModel.hole {
-                    EditInfoPage(holeId: hole.id,
+                    EditInfoForm(holeId: hole.id,
                                  divisionId: hole.divisionId,
                                  tags: hole.tags)
                 } else {
@@ -125,7 +125,7 @@ struct HoleDetailPage: View {
                 Image(systemName: "arrowshape.turn.up.left")
             }
             .sheet(isPresented: $showReplyPage) {
-                ReplyPage(
+                ReplyForm(
                     holeId: hole.id,
                     content: "",
                     endReached: $viewModel.endReached)

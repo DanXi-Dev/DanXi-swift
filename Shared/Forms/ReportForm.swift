@@ -5,7 +5,7 @@ struct ReportForm: View {
     @State var reportReason = ""
     
     var body: some View {
-        PrimitiveForm(title: "Report",
+        FormPrimitive(title: "Report",
                       allowSubmit: !reportReason.isEmpty,
                       errorTitle: "Report Failed") {
             Section {

@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct EditPage: View {
+struct EditForm: View {
     @State var divisionId: Int
     @AppStorage("post-draft") var content = ""
     @State var tags: [THTag] = []
     
     var body: some View {
-        PrimitiveForm(title: "New Post",
+        FormPrimitive(title: "New Post",
                       allowSubmit: !tags.isEmpty && !content.isEmpty,
                       errorTitle: "Send Post Failed") {
             Section {
@@ -46,8 +46,8 @@ struct EditPage: View {
     }
 }
 
-struct THNewPost_Previews: PreviewProvider {
+struct EditForm_Previews: PreviewProvider {
     static var previews: some View {
-        EditPage(divisionId: 1)
+        EditForm(divisionId: 1)
     }
 }

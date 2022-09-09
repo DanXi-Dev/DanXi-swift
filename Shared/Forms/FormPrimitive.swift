@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PrimitiveForm<Content: View>: View {
+struct FormPrimitive<Content: View>: View {
     let title: LocalizedStringKey
     let submitText: LocalizedStringKey
     let allowSubmit: Bool

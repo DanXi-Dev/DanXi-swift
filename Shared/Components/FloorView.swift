@@ -120,14 +120,14 @@ struct FloorView: View {
             info
         }
         .sheet(isPresented: $showReplyPage) {
-            ReplyPage(
+            ReplyForm(
                 holeId: floor.holeId,
                 content: "##\(String(floor.id))\n",
                 floors: holeViewModel.floors,
                 endReached: $holeViewModel.endReached)
         }
         .sheet(isPresented: $showEditPage) {
-            EditReplyPage(
+            EditReplyForm(
                 floor: $floor,
                 content: floor.content)
         }

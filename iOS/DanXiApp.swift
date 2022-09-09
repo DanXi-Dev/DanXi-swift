@@ -1,15 +1,8 @@
-//
-//  DanXi_nativeApp.swift
-//  DanXi-native
-//
-//  Created by Kavin Zhao on 2021/6/26.
-//
-
 import SwiftUI
 import WatchConnectivity
 
 @main
-struct DanXi_nativeApp: App {
+struct DanXiApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     init() {

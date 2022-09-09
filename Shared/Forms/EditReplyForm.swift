@@ -1,25 +1,22 @@
 import SwiftUI
 
-struct ReplyPage: View {
-    let holeId: Int
+struct EditReplyForm: View {
+    @Binding var floor: THFloor // replace original floor after edit succeeded
     @State var content: String
-    @Binding var endReached: Bool
     let floors: [THFloor]
     
-    init(holeId: Int,
+    init(floor: Binding<THFloor>,
          content: String = "",
-         floors: [THFloor] = [],
-         endReached: Binding<Bool>) {
-        self.holeId = holeId
+         floors: [THFloor] = []) {
+        self._floor = floor
         self._content = State(initialValue: content)
         self.floors = floors
-        self._endReached = endReached
     }
     
     var body: some View {
-        PrimitiveForm(title: "Reply",
+        FormPrimitive(title: "Edit Reply",
                       allowSubmit: !content.isEmpty,
-                      errorTitle: "Send Reply Failed") {
+                      errorTitle: "Edit Reply Failed") {
             Section {
                 TextEditView($content,
                              placeholder: "Enter reply content")
@@ -37,18 +34,13 @@ struct ReplyPage: View {
                 }
             }
         } action: {
-            _ = try await NetworkRequests.shared.reply(content: content, holdId: holeId)
-            Task { @MainActor in
-                endReached = false
-            }
+            floor = try await NetworkRequests.shared.editReply(content: content, floorId: floor.id)
         }
     }
 }
 
-struct ReplyPage_Previews: PreviewProvider {
+struct EditReplyForm_Previews: PreviewProvider {
     static var previews: some View {
-        ReplyPage(holeId: 0,
-                  content: "Hello this is some content",
-                  endReached: .constant(false))
+        EditReplyForm(floor: .constant(PreviewDecode.decodeObj(name: "floor")!))
     }
 }
