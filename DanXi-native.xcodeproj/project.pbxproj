@@ -195,7 +195,7 @@
 		27FA5F48289955C3000391A3 /* SearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagPage.swift; sourceTree = "<group>"; };
 		27FBAA4A28BE4E7E00B27F30 /* floor-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "floor-list.json"; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
-		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPage.swift; sourceTree = "<group>"; };
@@ -504,7 +504,7 @@
 		8AC7A5CE26872C3E00C9CD98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
+				8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,9 +532,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
+		8AC7A5CC26872C3E00C9CD98 /* DanXi-native */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */;
+			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */;
 			buildPhases = (
 				8AC7A5C926872C3E00C9CD98 /* Sources */,
 				8AC7A5CA26872C3E00C9CD98 /* Frameworks */,
@@ -545,12 +545,12 @@
 			);
 			dependencies = (
 			);
-			name = DanXi;
+			name = "DanXi-native";
 			packageProductDependencies = (
 				2751E52C28BFB38D00104ACD /* Markdown */,
 			);
 			productName = "DanXi-native";
-			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
+			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -560,14 +560,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					8AC7A5CC26872C3E00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
-			buildConfigurationList = 8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi" */;
+			buildConfigurationList = 8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi-native" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -584,7 +584,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
+				8AC7A5CC26872C3E00C9CD98 /* DanXi-native */,
 			);
 		};
 /* End PBXProject section */
@@ -753,6 +753,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -813,6 +814,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -901,7 +903,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi" */ = {
+		8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi-native" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC7A62A26872C4100C9CD98 /* Debug */,
@@ -910,7 +912,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */ = {
+		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC7A63526872C4100C9CD98 /* Debug */,
