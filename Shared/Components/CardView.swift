@@ -25,7 +25,6 @@ struct CardView<Content: View>: View {
             self.content
         }
         .cardStyle()
-        
     }
 }
 
@@ -35,11 +34,12 @@ struct CardStyle: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(size/9)
-            .frame(width: size, height: size, alignment: .topLeading)
+            .padding(20)
+            //.frame(width: size, height: size, alignment: .topLeading)
             .background(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
-            .cornerRadius(size/10)
-            .shadow(radius: size/10)
+            .cornerRadius(30)
+            .shadow(radius: 30)
+            .aspectRatio(1, contentMode: .fill)
     }
 }
 
