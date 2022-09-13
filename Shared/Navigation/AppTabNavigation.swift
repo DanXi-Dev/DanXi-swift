@@ -6,6 +6,7 @@ struct AppTabNavigation: View {
     enum Tab {
         case treehole
         case curriculum
+        case campusInfo
         case settings
     }
     
@@ -42,6 +43,15 @@ struct AppTabNavigation: View {
                 Text("Curriculum")
             }
             .tag(Tab.curriculum)
+            
+            NavigationView {
+                CampusInfoPage()
+            }
+            .tabItem {
+                Image(systemName: "books.vertical.fill")
+                Text("Campus Info")
+            }
+            .tag(Tab.campusInfo)
             
             NavigationView {
                 SettingsPage()

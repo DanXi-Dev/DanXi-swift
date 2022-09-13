@@ -90,6 +90,8 @@
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
+		F128E3C928D0A568009447E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3C828D0A568009447E6 /* CardView.swift */; };
+		F128E3CB28D0ABEA009447E6 /* CampusInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */; };
 		F19113AA28A65D260067BA61 /* SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* SearchPage.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
@@ -198,6 +200,8 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F128E3C828D0A568009447E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusInfoPage.swift; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPage.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
@@ -302,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
+				F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */,
 				27227FD028A507AA00B3C99D /* BrowsePage.swift */,
 				F19113A928A65D260067BA61 /* SearchPage.swift */,
 				2778D6072891D22D009F4DB1 /* HoleDetailPage.swift */,
@@ -325,6 +330,7 @@
 				2778D6132891D22D009F4DB1 /* FloorView.swift */,
 				273FAFB528C13C6100FC3950 /* SpecialTagView.swift */,
 				2778D6142891D22D009F4DB1 /* TagView.swift */,
+				F128E3C828D0A568009447E6 /* CardView.swift */,
 				2729071428B0B45F0087ACC0 /* MentionView.swift */,
 				27719AA028A3E4DF00C661BD /* CourseView.swift */,
 				27E5E82C28BA69600074D295 /* CourseReview.swift */,
@@ -666,10 +672,12 @@
 				2751E53028BFB40500104ACD /* Conflict.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				273C1E6328C9CE5C0067E61E /* EditInfoForm.swift in Sources */,
+				F128E3C928D0A568009447E6 /* CardView.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
 				273FAFB628C13C6100FC3950 /* SpecialTagView.swift in Sources */,
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
 				2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */,
+				F128E3CB28D0ABEA009447E6 /* CampusInfoPage.swift in Sources */,
 				271D596F28C2518800F72C3B /* PreviewCondition.swift in Sources */,
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
