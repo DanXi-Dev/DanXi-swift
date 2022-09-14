@@ -9,56 +9,14 @@ import SwiftUI
 
 struct CampusInfoPage: View {
     
-    var ecardView: some View {
-        CardView(title: "校园卡消费") {
-            VStack {
-                HStack {
-                    Text("12:00 北区")
-                    Spacer()
-                    Text("¥500")
-                }
-                HStack {
-                    Text("13:00 南区")
-                    Spacer()
-                    Text("¥600")
-                }
-                HStack {
-                    Text("13:30 交大")
-                    Spacer()
-                    Text("¥0")
-                }
-                HStack {
-                    Text("14:30 同济")
-                    Spacer()
-                    Text("¥10")
-                }
-                HStack {
-                    Text("18:30 财大")
-                    Spacer()
-                    Text("¥-10")
-                }
-            }
-            .font(.caption)
-            Spacer()
-            HStack {
-                Spacer()
-                Text("余额")
-                Spacer()
-                Text("¥10000.00")
-            }
-            .font(.body)
-        }
-        .padding()
-    }
-    
     var body: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 180, maximum: 220), spacing: 0, alignment: .top)]) {
-            ecardView
-            ecardView
-            ecardView
-            ecardView
-            ecardView
-            ecardView
+            EcardView()
+            EcardView()
+            EcardView()
+            EcardView()
+            EcardView()
+            EcardView()
         }
         .navigationTitle("校园信息")
     }
