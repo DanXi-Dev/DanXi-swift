@@ -27,32 +27,25 @@ struct EcardView: View {
                     Text("¥0")
                 }
                 HStack {
-                    Text("14:30 同济")
+                    Text("13:30 交大")
                     Spacer()
-                    Text("¥10")
-                }
-                HStack {
-                    Text("18:30 财大")
-                    Spacer()
-                    Text("¥-10")
+                    Text("¥0")
                 }
             }
             .font(.caption)
             Spacer()
             HStack {
                 Spacer()
-                Text("余额")
-                Spacer()
                 Text("¥10000.00")
             }
             .font(.body)
         }
-        .padding()
     }
 }
 
 struct EcardView_Previews: PreviewProvider {
     static var previews: some View {
         EcardView()
+            .frame(width: 180, height: 180)
     }
 }

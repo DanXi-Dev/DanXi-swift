@@ -10,7 +10,7 @@ import SwiftUI
 struct CampusInfoPage: View {
     
     var body: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 180, maximum: 220), spacing: 0, alignment: .top)]) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 100), spacing: 16, alignment: .top)]) {
             EcardView()
             EcardView()
             EcardView()
@@ -18,6 +18,7 @@ struct CampusInfoPage: View {
             EcardView()
             EcardView()
         }
+        .padding()
         .navigationTitle("校园信息")
     }
 }
