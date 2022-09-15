@@ -6,7 +6,7 @@ struct SearchTextPage: View {
     @State var floors: [THFloor] = []
     
     @State var loading = false
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     
     func loadMoreFloors() async {
         do {
@@ -15,13 +15,8 @@ struct SearchTextPage: View {
             let newFloors = try await NetworkRequests.shared.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
             floors.append(contentsOf: newFloors)
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            errorInfo = error.localizedErrorDescription
         } catch {
-            errorInfo = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -40,7 +35,7 @@ struct SearchTextPage: View {
             } footer: {
                 if !endReached {
                     LoadingFooter(loading: $loading,
-                                    errorDescription: errorInfo.description,
+                                    errorDescription: errorInfo,
                                     action: loadMoreFloors)
                 }
             }

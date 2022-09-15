@@ -10,7 +10,7 @@ struct CourseDetailPage: View {
     
     @State var initialized = false
     @State var loading = true
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     
     var filteredReviews: [DKReview] {
         var reviewList: [DKReview] = []
@@ -57,13 +57,8 @@ struct CourseDetailPage: View {
             defer { loading = false }
             self.courseGroup = try await NetworkRequests.shared.loadCourseGroup(id: courseGroup.id)
             initialized = true
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            errorInfo = error.localizedErrorDescription
         } catch {
-            errorInfo = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -86,7 +81,7 @@ struct CourseDetailPage: View {
                     courseReview
                 } else {
                     LoadingFooter(loading: $loading,
-                                    errorDescription: errorInfo.description,
+                                    errorDescription: errorInfo,
                                     action: loadReviews)
                     .padding()
                 }

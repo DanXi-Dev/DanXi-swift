@@ -67,7 +67,7 @@ struct HoleDetailPage: View {
                 } footer: {
                     if !viewModel.endReached {
                         LoadingFooter(loading: $viewModel.listLoading,
-                                        errorDescription: viewModel.listError.description,
+                                        errorDescription: viewModel.listError,
                                         action: viewModel.loadMoreFloors)
                     }
                 }
@@ -101,10 +101,10 @@ struct HoleDetailPage: View {
             .task {
                 await viewModel.initialLoad(proxy: proxy)
             }
-            .alert(viewModel.errorInfo.title, isPresented: $viewModel.errorPresenting) {
+            .alert(viewModel.errorTitle, isPresented: $viewModel.errorPresenting) {
                 Button("OK") { }
             } message: {
-                Text(viewModel.errorInfo.description)
+                Text(viewModel.errorInfo)
             }
         }
     }

@@ -39,7 +39,7 @@ struct BrowsePage: View {
     @State var loading = false
     /// uniquely identify a consistent flow of holes, should change when `holes` are cleared and a new flow is loading
     @State var loadingId = UUID()
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     
     init(holes: [THHole] = []) {
         self._currentDivision = State(initialValue: TreeholeDataModel.shared.divisions.first!)
@@ -64,13 +64,8 @@ struct BrowsePage: View {
             if currentLoadingId == loadingId { // prevent holes from older flow being inserted into new one, causing chaos
                 holes.append(contentsOf: newHoles)
             }
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            errorInfo = error.localizedErrorDescription
         } catch {
-            errorInfo = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            errorInfo = error.localizedDescription
         }
     }
     

@@ -5,7 +5,7 @@ struct FavoritesPage: View {
     
     @State var loading = true
     @State var finished = false
-    @State var initError = ErrorInfo()
+    @State var initError = ""
     
     init() { }
     
@@ -19,13 +19,8 @@ struct FavoritesPage: View {
         do {
             self.favorites = try await NetworkRequests.shared.loadFavorites()
             finished = true
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            initError = error.localizedErrorDescription
         } catch {
-            initError = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            initError = error.localizedDescription
         }
     }
     

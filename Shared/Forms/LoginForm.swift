@@ -8,20 +8,13 @@ struct LoginForm: View {
     @State var loading = false
     
     @State var errorPresenting = false
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     
     @Environment(\.dismiss) private var dismiss
     
     func login() {
-        // check info before submit to server
-        if username.isEmpty || password.isEmpty {
-            errorInfo = ErrorInfo(title: "Incorrect Information", description: "Enter username and password")
-            errorPresenting = true
-            return
-        }
-        
         if !username.hasSuffix("fudan.edu.cn") {
-            errorInfo = ErrorInfo(title: "Incorrect Information", description: "Invalid username")
+            errorInfo = NSLocalizedString("Invalid username", comment: "")
             errorPresenting = true
             return
         }
@@ -34,19 +27,14 @@ struct LoginForm: View {
                 model.loggedIn = true
                 loading = false
                 dismiss()
-            } catch let error as NetworkError {
-                switch error {
-                case .unauthorized:
-                    errorInfo = ErrorInfo(title: "Login Failed", description: "Incorrect username or password")
-                default:
-                    errorInfo = error.localizedErrorDescription
-                }
-                
+            } catch NetworkError.unauthorized {
+                errorInfo = NSLocalizedString("Incorrect username or password", comment: "")
                 errorPresenting = true
                 loading = false
             } catch {
+                errorInfo = error.localizedDescription
+                errorPresenting = true
                 loading = false
-                print("DANXI-DEBUG: login failed")
             }
         }
     }
@@ -86,7 +74,7 @@ struct LoginForm: View {
                         Text("Login")
                             .bold()
                     }
-                        .alert(errorInfo.title, isPresented: $errorPresenting) {
+                        .alert("Error", isPresented: $errorPresenting) {
                             Button("OK") { }
                         } message: {
                             Text(errorInfo.description)

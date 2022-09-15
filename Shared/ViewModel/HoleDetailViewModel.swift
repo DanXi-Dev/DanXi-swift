@@ -19,10 +19,11 @@ class HoleDetailViewModel: ObservableObject {
     }
     
     @Published var errorPresenting = false
-    @Published var errorInfo = ErrorInfo()
+    @Published var errorTitle: LocalizedStringKey = "Error"
+    @Published var errorInfo = ""
     
     @Published var listLoading = true
-    @Published var listError = ErrorInfo()
+    @Published var listError = ""
     
     let initOption: InitOptions
     
@@ -76,15 +77,14 @@ class HoleDetailViewModel: ObservableObject {
             do {
                 hole = try await NetworkRequests.shared.loadHoleById(holeId: holeId)
             } catch NetworkError.notFound {
-                errorInfo = ErrorInfo(title: "Treehole Not Exist", description: "Treehole #\(String(holeId)) not exist")
-                errorPresenting = true
-                return
-            } catch let error as NetworkError {
-                errorInfo = error.localizedErrorDescription
+                errorTitle = "Treehole Not Exist"
+                errorInfo = String(format: NSLocalizedString("Treehole #%@ not exist", comment: ""), String(holeId))
                 errorPresenting = true
                 return
             } catch {
-                print("DANXI-DEBUG: load hole info failed")
+                errorTitle = "Error"
+                errorInfo = error.localizedDescription
+                errorPresenting = true
             }
             
         case .targetFloor(let targetFloorId):
@@ -103,15 +103,14 @@ class HoleDetailViewModel: ObservableObject {
                 } while !newFloors.isEmpty
                 self.floors = floors // insert to view at last, preventing automatic refresh causing URLSession to cancel
             } catch NetworkError.notFound {
-                errorInfo = ErrorInfo(title: "Floor Not Exist", description: "Floor ##\(String(targetFloorId)) not exist")
-                errorPresenting = true
-                return
-            } catch let error as NetworkError {
-                errorInfo = error.localizedErrorDescription
+                errorTitle = "Floor Not Exist"
+                errorInfo = String(format: NSLocalizedString("Floor ##%@ not exist", comment: ""), String(targetFloorId))
                 errorPresenting = true
                 return
             } catch {
-                print("DANXI-DEBUG: load to target floor failed")
+                errorTitle = "Error"
+                errorInfo = error.localizedDescription
+                errorPresenting = true
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
@@ -151,13 +150,8 @@ class HoleDetailViewModel: ObservableObject {
                 floors.append(contentsOf: newFloors)
                 endReached = newFloors.isEmpty
             }
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            listError = error.localizedErrorDescription
         } catch {
-            listError = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            listError = error.localizedDescription
         }
     }
     

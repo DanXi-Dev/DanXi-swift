@@ -1,7 +1,7 @@
 import SwiftUI
 import Foundation
 
-/// Main page of treehole section
+/// Main page of treehole section.
 struct TreeholePage: View {
     @ObservedObject var dataModel = TreeholeDataModel.shared
     
@@ -10,16 +10,16 @@ struct TreeholePage: View {
     
     @State var loading = !TreeholeDataModel.shared.initialized
     @State var initFinished = TreeholeDataModel.shared.initialized
-    @State var initError = ErrorInfo()
+    @State var initError = ""
     
     let holes: [THHole] // for preview purpose
     
-    /// Default initializer
+    /// Default initializer.
     init() {
         holes = []
     }
     
-    /// Creates a preview
+    /// Creates a preview.
     init(divisions: [THDivision], holes: [THHole]) {
         self._initFinished = State(initialValue: true)
         TreeholeDataModel.shared.divisions = divisions
@@ -30,18 +30,15 @@ struct TreeholePage: View {
         do {
             try await dataModel.fetchInfo()
             initFinished = true
-        } catch let error as NetworkError {
-            initError = error.localizedErrorDescription
         } catch {
-            initError = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            initError = error.localizedDescription
         }
     }
     
     var body: some View {
         LoadingView(loading: $loading,
                         finished: $initFinished,
-                        errorDescription: initError.description,
+                        errorDescription: initError,
                         action: initialLoad) {
             DelegatePage(searchText: $searchText,
                          searchSubmitted: $searchSubmitted,

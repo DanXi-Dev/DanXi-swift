@@ -133,6 +133,7 @@
 "Tags" = "标签";
 
 // Error
+"Error" = "错误";
 "Loading Failed" = "加载失败";
 "Retry" = "重试";
 "Load More" = "加载更多";

@@ -9,7 +9,7 @@ struct FormPrimitive<Content: View>: View {
     let content: Content
     let action: () async throws -> Void
     
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     @State var showError = false
     
     @State var loading = false
@@ -39,12 +39,8 @@ struct FormPrimitive<Content: View>: View {
                 
                 try await action()
                 dismiss()
-            } catch let error as NetworkError {
-                errorInfo = error.localizedErrorDescription
-                showError = true
             } catch {
-                errorInfo = ErrorInfo(title: "Unknown Error",
-                                      description: "Error description: \(error.localizedDescription)")
+                errorInfo = error.localizedDescription
                 showError = true
             }
         }
@@ -71,7 +67,7 @@ struct FormPrimitive<Content: View>: View {
             .alert(errorTitle, isPresented: $showError) {
                 Button("OK") { }
             } message: {
-                Text(errorInfo.description)
+                Text(errorInfo)
             }
             .loadingOverlay(loading: loading, prompt: loadingPrompt)
         }

@@ -7,7 +7,7 @@ struct SearchTagPage: View {
     @State var holes: [THHole] = []
     
     @State var loading = false
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     
     func loadMoreHoles() async {
         do {
@@ -16,13 +16,8 @@ struct SearchTagPage: View {
             let newHoles = try await NetworkRequests.shared.searchTag(tagName: tagname, divisionId: divisionId, startTime: holes.last?.updateTime.ISO8601Format())
             endReached = newHoles.isEmpty
             holes.append(contentsOf: newHoles)
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            errorInfo = error.localizedErrorDescription
         } catch {
-            errorInfo = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            errorInfo = error.localizedDescription
         }
     }
     
@@ -41,7 +36,7 @@ struct SearchTagPage: View {
                 if !endReached {
                     if !endReached {
                         LoadingFooter(loading: $loading,
-                                        errorDescription: errorInfo.description,
+                                        errorDescription: errorInfo,
                                         action: loadMoreHoles)
                     }
                 }

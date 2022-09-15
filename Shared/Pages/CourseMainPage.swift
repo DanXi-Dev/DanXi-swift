@@ -8,7 +8,7 @@ struct CourseMainPage: View {
     
     @State var loading = true
     @State var initFinished = false
-    @State var errorInfo = ErrorInfo()
+    @State var errorInfo = ""
     
     
     init() {
@@ -49,20 +49,15 @@ struct CourseMainPage: View {
             saveDKCourseList(courses)
             courseHash = newHash // defer update course hash to prevent hash-content inconsistent
             initFinished = true
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            errorInfo = error.localizedErrorDescription
         } catch {
-            errorInfo = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            errorInfo = error.localizedDescription
         }
     }
     
     var body: some View {
         LoadingView(loading: $loading,
                         finished: $initFinished,
-                        errorDescription: errorInfo.description,
+                        errorDescription: errorInfo,
                         action: initialLoad) {
             List {
                 ForEach(searchResults) { course in

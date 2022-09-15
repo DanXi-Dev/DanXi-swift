@@ -3,10 +3,22 @@ import SwiftUI
 struct LoadingView<Content: View>: View {
     @Binding var loading: Bool
     @Binding var finished: Bool
-    let errorDescription: LocalizedStringKey
+    let errorDescription: String
     let content: Content
     
     let action: () async -> Void
+    
+    init(loading: Binding<Bool>,
+         finished: Binding<Bool>,
+         errorDescription: String,
+         action: @escaping () async -> Void,
+         @ViewBuilder content: () -> Content) {
+        _loading = loading
+        _finished = finished
+        self.errorDescription = errorDescription
+        self.action = action
+        self.content = content()
+    }
     
     init(loading: Binding<Bool>,
          finished: Binding<Bool>,
@@ -15,7 +27,7 @@ struct LoadingView<Content: View>: View {
          @ViewBuilder content: () -> Content) {
         _loading = loading
         _finished = finished
-        self.errorDescription = errorDescription
+        self.errorDescription = "NOT SUPPORT"
         self.action = action
         self.content = content()
     }
@@ -85,15 +97,6 @@ struct LoadingView_Previews: PreviewProvider {
             } content: {
                 EmptyView()
             }
-
-            LoadingView(loading: .constant(false),
-                            finished: .constant(false),
-                            errorDescription: "Requested resourse not found") {
-                // initialization code
-            } content: {
-                EmptyView()
-            }
-            .preferredColorScheme(.dark)
 
             LoadingView(loading: .constant(true),
                             finished: .constant(false),

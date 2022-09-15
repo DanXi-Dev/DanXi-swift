@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoadingFooter: View {
     @Binding var loading: Bool
-    let errorDescription: LocalizedStringKey
+    let errorDescription: String
     let action: () async -> Void
     
     var body: some View {

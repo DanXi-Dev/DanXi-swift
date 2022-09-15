@@ -5,7 +5,7 @@ struct ReportPage: View {
     @State var reportList: [THReport] = []
     @State var loading = true
     @State var initFinished = false
-    @State var initError = ErrorInfo()
+    @State var initError = ""
     
     init() { }
     
@@ -19,13 +19,8 @@ struct ReportPage: View {
         do {
             reportList = try await NetworkRequests.shared.loadReportsList()
             initFinished = true
-        } catch NetworkError.ignore {
-            // cancelled, ignore
-        } catch let error as NetworkError {
-            initError = error.localizedErrorDescription
         } catch {
-            initError = ErrorInfo(title: "Unknown Error",
-                                  description: "Error description: \(error.localizedDescription)")
+            initError = error.localizedDescription
         }
     }
     
