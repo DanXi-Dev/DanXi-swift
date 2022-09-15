@@ -11,11 +11,11 @@
 		271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596A28C2504500F72C3B /* PreviewContextMenu.swift */; };
 		271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */; };
 		271D596F28C2518800F72C3B /* PreviewCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596E28C2518800F72C3B /* PreviewCondition.swift */; };
-		271D597128C251BE00F72C3B /* PreivewContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597028C251BE00F72C3B /* PreivewContextView.swift */; };
+		271D597128C251BE00F72C3B /* PreviewContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597028C251BE00F72C3B /* PreviewContextView.swift */; };
 		271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D597228C2521600F72C3B /* PreviewContextAction.swift */; };
 		27227FD128A507AA00B3C99D /* BrowsePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* BrowsePage.swift */; };
 		27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */; };
-		2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */; };
+		2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
 		2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* MentionView.swift */; };
 		272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* FavoritesPage.swift */; };
 		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
@@ -149,11 +149,11 @@
 		271D596A28C2504500F72C3B /* PreviewContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextMenu.swift; sourceTree = "<group>"; };
 		271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextModifier.swift; sourceTree = "<group>"; };
 		271D596E28C2518800F72C3B /* PreviewCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCondition.swift; sourceTree = "<group>"; };
-		271D597028C251BE00F72C3B /* PreivewContextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreivewContextView.swift; sourceTree = "<group>"; };
+		271D597028C251BE00F72C3B /* PreviewContextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextView.swift; sourceTree = "<group>"; };
 		271D597228C2521600F72C3B /* PreviewContextAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextAction.swift; sourceTree = "<group>"; };
 		27227FD028A507AA00B3C99D /* BrowsePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowsePage.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayRawRepresentable.swift; sourceTree = "<group>"; };
-		2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParse.swift; sourceTree = "<group>"; };
+		2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextProcess.swift; sourceTree = "<group>"; };
 		2729071428B0B45F0087ACC0 /* MentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
 		272AC8D92896BE2500092B0C /* FavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPage.swift; sourceTree = "<group>"; };
 		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 				271D596A28C2504500F72C3B /* PreviewContextMenu.swift */,
 				271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */,
 				271D596E28C2518800F72C3B /* PreviewCondition.swift */,
-				271D597028C251BE00F72C3B /* PreivewContextView.swift */,
+				271D597028C251BE00F72C3B /* PreviewContextView.swift */,
 				271D597228C2521600F72C3B /* PreviewContextAction.swift */,
 			);
 			path = "Context Preview";
@@ -291,15 +291,15 @@
 			path = tag;
 			sourceTree = "<group>";
 		};
-		2751E52E28BFB3F800104ACD /* Markdown */ = {
+		2751E52E28BFB3F800104ACD /* Rich Text */ = {
 			isa = PBXGroup;
 			children = (
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				277E432128C7810700EBAC23 /* ReferenceView.swift */,
-				2729071028B0B3DE0087ACC0 /* MarkdownParse.swift */,
+				2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */,
 				2751E52F28BFB40500104ACD /* Conflict.swift */,
 			);
-			path = Markdown;
+			path = "Rich Text";
 			sourceTree = "<group>";
 		};
 		27544B4428C5284100600605 /* report */ = {
@@ -401,9 +401,8 @@
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
-				2751E52E28BFB3F800104ACD /* Markdown */,
-				271D596928C24F9300F72C3B /* Context Preview */,
-				F1AE7C1528AA3C3500A3FEBA /* MachineLearning */,
+				2751E52E28BFB3F800104ACD /* Rich Text */,
+				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
 				2778D6172891D22D009F4DB1 /* Flexible */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
 			);
@@ -553,7 +552,6 @@
 		8AC7A5C426872C3E00C9CD98 = {
 			isa = PBXGroup;
 			children = (
-				F165C51728D1882E0000DB6F /* DanXi-WidgetsExtension.entitlements */,
 				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* iOS */,
 				F165C50B28D1882C0000DB6F /* DanXi-Widgets */,
@@ -577,6 +575,7 @@
 				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
 				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
+				271D596928C24F9300F72C3B /* Context Preview */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -586,6 +585,7 @@
 			children = (
 				F165C50C28D1882C0000DB6F /* DanXi_Widgets.swift */,
 				F165C50E28D1882C0000DB6F /* DanXi_Widgets.intentdefinition */,
+				F165C51728D1882E0000DB6F /* DanXi-WidgetsExtension.entitlements */,
 				F165C50F28D1882E0000DB6F /* Assets.xcassets */,
 				F165C51128D1882E0000DB6F /* Info.plist */,
 			);
@@ -600,14 +600,14 @@
 			path = CampusInfoCards;
 			sourceTree = "<group>";
 		};
-		F1AE7C1528AA3C3500A3FEBA /* MachineLearning */ = {
+		F1AE7C1528AA3C3500A3FEBA /* Machine Learning */ = {
 			isa = PBXGroup;
 			children = (
 				F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */,
 				F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */,
 				F1AE7C1128A9514B00A3FEBA /* MLModels.swift */,
 			);
-			path = MachineLearning;
+			path = "Machine Learning";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -747,7 +747,7 @@
 				2748AE9928C8C4CC0014495F /* TagSelection.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* NetworkRequests.swift in Sources */,
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,
-				271D597128C251BE00F72C3B /* PreivewContextView.swift in Sources */,
+				271D597128C251BE00F72C3B /* PreviewContextView.swift in Sources */,
 				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
@@ -757,7 +757,7 @@
 				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
-				2729071128B0B3DE0087ACC0 /* MarkdownParse.swift in Sources */,
+				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
 				27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */,
 				277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
@@ -1044,11 +1044,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "DanXi-WidgetsExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "DanXi-Widgets/DanXi-WidgetsExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 190;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "DanXi-Widgets/Info.plist";
@@ -1060,7 +1060,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.debug.DanXi-Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1078,11 +1078,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "DanXi-WidgetsExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "DanXi-Widgets/DanXi-WidgetsExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 190;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "DanXi-Widgets/Info.plist";
@@ -1094,7 +1094,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.DanXi-Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

@@ -13,10 +13,10 @@ struct TagRowView: View {
     var body: some View {
         HStack {
             Text(tag.name)
-                .tagStyle(color: randomColor(name: tag.name))
+                .tagStyle(color: randomColor(tag.name))
             Label(String(tag.temperature), systemImage: "flame")
         }
-        .foregroundColor(randomColor(name: tag.name))
+        .foregroundColor(randomColor(tag.name))
     }
 }
 

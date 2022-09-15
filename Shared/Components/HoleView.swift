@@ -8,7 +8,6 @@ struct HoleView: View {
     @ObservedObject var preference = Preference.shared
 
     enum NavigationType {
-        case tag(tagname: String)
         case top
         case bottom
     }
@@ -42,12 +41,11 @@ struct HoleView: View {
                                      bottom: 5,
                                      trailing: 15))
             } label: {
-                tags
+                TagList(hole.tags, lineWrap: false)
             }
         } else {
             VStack(alignment: .leading) {
-                tags
-                
+                TagList(hole.tags, lineWrap: false)
                 holeContent
             }
             .onTapGesture {
@@ -155,26 +153,9 @@ struct HoleView: View {
         .cornerRadius(7)
     }
     
-    private var tags: some View {
-        HStack(alignment: .center, spacing: 5.0) {
-            ForEach(hole.tags) { tag in
-                Button {
-                    navType = .tag(tagname: tag.name)
-                    navActive = true
-                } label: {
-                    Text(tag.name)
-                        .tagStyle(color: randomColor(name: tag.name))
-                }
-                .buttonStyle(.borderless)
-            }
-        }
-    }
-    
     @ViewBuilder
     private var navTarget: some View {
         switch navType {
-        case .tag(let tagname):
-            SearchTagPage(tagname: tagname, divisionId: nil)
         case .top:
             HoleDetailPage(hole: hole)
         case .bottom:

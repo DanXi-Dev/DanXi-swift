@@ -92,7 +92,7 @@ struct MentionView: View {
                 Image(systemName: "quote.closing")
                     .foregroundColor(.secondary)
             }
-            .foregroundColor(randomColor(name: floor.posterName))
+            .foregroundColor(randomColor(floor.posterName))
             
             Text(floor.content.inlineAttributed())
                 .foregroundColor(floor.deleted ? .secondary : .primary)

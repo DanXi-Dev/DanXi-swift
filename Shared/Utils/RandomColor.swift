@@ -1,30 +1,31 @@
 import Foundation
 import SwiftUI
 
-let randomColorList = [
-    Color.red,
-    Color.pink,
-    Color.purple,
-    Color("deep purple"),
-    Color.indigo,
-    Color.blue,
-    Color("light blue"),
-    Color.cyan,
-    Color.teal,
-    Color.green,
-    Color("light green"),
-    Color("lime"),
-    Color.yellow,
-    Color("amber"),
-    Color.orange,
-    Color("deep orange"),
-    Color.brown,
-    Color("blue grey"),
-    Color.secondary // grey
-]
 
-
-func randomColor(name: String) -> Color {
+/// Pick a random color based on a name, used in tags & username color rendering.
+func randomColor(_ name: String) -> Color {
+    let randomColorList = [
+        Color.red,
+        Color.pink,
+        Color.purple,
+        Color("deep purple"),
+        Color.indigo,
+        Color.blue,
+        Color("light blue"),
+        Color.cyan,
+        Color.teal,
+        Color.green,
+        Color("light green"),
+        Color("lime"),
+        Color.yellow,
+        Color("amber"),
+        Color.orange,
+        Color("deep orange"),
+        Color.brown,
+        Color("blue grey"),
+        Color.secondary // grey
+    ]
+    
     if name.starts(with: "*") { // folding tags
         return Color.red
     }

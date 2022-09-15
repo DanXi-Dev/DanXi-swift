@@ -62,8 +62,7 @@ struct HoleDetailPage: View {
                     }
                 } header: {
                     if let hole = viewModel.hole {
-                        TagListNavigation(tags: hole.tags)
-                            .textCase(nil)
+                        TagList(hole.tags, lineWrap: false)
                     }
                 } footer: {
                     if !viewModel.endReached {

@@ -154,7 +154,7 @@ struct FloorView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding(.horizontal, 6.0)
-                    .background(randomColor(name: floor.posterName))
+                    .background(randomColor(floor.posterName))
                     .cornerRadius(3.0)
             }
             
@@ -162,7 +162,7 @@ struct FloorView: View {
                 .font(.system(size: 15))
                 .fontWeight(.bold)
         }
-        .foregroundColor(randomColor(name: floor.posterName))
+        .foregroundColor(randomColor(floor.posterName))
     }
     
     private var info: some View {

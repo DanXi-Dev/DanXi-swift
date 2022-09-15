@@ -1,45 +1,16 @@
 import SwiftUI
 import Markdown
 
-extension Markup {
-    func childNodes() -> [MarkupNode] {
-        return self.children.map { markup in
-            MarkupNode(markup)
-        }
-    }
-}
-
-extension ListItemContainer {
-    func items() -> [MarkupNode] {
-        return self.listItems.map { item in
-            MarkupNode(item)
-        }
-    }
-}
-
-extension String {
-    func deletingPrefix(_ prefix: String) -> String {
-        guard self.hasPrefix(prefix) else { return self }
-        return String(self.dropFirst(prefix.count))
-    }
-}
-
-struct MarkupNode: Identifiable {
-    let id = UUID()
-    let markup: Markup
-    
-    init(_ markup: Markup) {
-        self.markup = markup
-    }
-}
-
+/// A view that renders Markdown content.
 struct MarkdownView: View {
     let markup: Markup
     
+    /// Creates an instance from Markdown string.
     init(_ content: String) {
         self.markup = Document(parsing: content)
     }
     
+    /// Creates an instance from parsed `Markup` element.
     init(_ markup: Markup) {
         self.markup = markup
     }
@@ -92,10 +63,76 @@ struct MarkdownView: View {
             font = .system(size: 16)
         }
         
-        return SwiftUIText(heading.plainText)
+        return TextView(heading.plainText)
             .font(font)
             .fontWeight(.bold)
             .fixedSize(horizontal: false, vertical: true)
+    }
+    
+    private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
+        return ScrollView(.horizontal, showsIndicators: false) {
+            TextView(codeBlock.code)
+                .font(.system(size: 16, design: .monospaced))
+        }
+    }
+    
+    private func orderedListRenderer(_ orderedList: OrderedList) -> some View {
+        return VStack(alignment: .leading) {
+            ForEach(Array(orderedList.items().enumerated()), id: \.offset) { index, item in
+                HStack(alignment: .top, spacing: 2.0) {
+                    TextView("\(index + 1).")
+                        .frame(width: 20)
+                    MarkdownView(item.markup)
+                }
+            }
+        }
+        .font(.system(size: 16))
+    }
+    
+    private func unorderedListRenderer(_ unorderedList: UnorderedList) -> some View {
+        return VStack(alignment: .leading) {
+            ForEach(Array(unorderedList.items().enumerated()), id: \.offset) { index, item in
+                HStack(alignment: .top, spacing: 2.0) {
+                    TextView("·")
+                        .bold()
+                        .frame(width: 20)
+                        .textSelection(.disabled)
+                    MarkdownView(item.markup)
+                }
+            }
+        }
+    }
+    
+    private func quoteRenderer(_ quote: BlockQuote) -> some View {
+        return VStack(alignment: .leading, spacing: 10) {
+            ForEach(quote.childNodes()) { node in
+                switch node.markup {
+                case let heading as Heading:
+                    headingRenderer(heading)
+                    
+                case let codeBlock as CodeBlock:
+                    codeBlockRenderer(codeBlock)
+                    
+                case _ as ThematicBreak:
+                    Divider()
+                    
+                case let paragraph as Paragraph:
+                    paragraphRenderer(paragraph)
+                    
+                case let orderedList as OrderedList:
+                    orderedListRenderer(orderedList)
+                    
+                case let unorderedList as UnorderedList:
+                    unorderedListRenderer(unorderedList)
+                    
+                default:
+                    MarkdownView(node.markup)
+                }
+            }
+        }
+        .padding(.leading, 10)
+        .overlay(Rectangle().frame(width: 3, height: nil, alignment: .leading).foregroundColor(Color.secondary.opacity(0.5)), alignment: .leading)
+        .foregroundColor(.secondary)
     }
     
     private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
@@ -108,10 +145,7 @@ struct MarkdownView: View {
             }
         }
         
-        let content = paragraph
-            .format()
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        
+        let content = paragraph.detachedFromParent.format()
         var elements: [ParagraphElement] = []
         
         if let attributedContent = try? AttributedString(markdown: content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
@@ -136,7 +170,7 @@ struct MarkdownView: View {
             ForEach(elements) { element in
                 switch(element) {
                 case .paragraph(let text):
-                    SwiftUIText(text)
+                    TextView(text)
                         .font(.system(size: 16))
                         .fixedSize(horizontal: false, vertical: true)
                 case .image(let url):
@@ -161,84 +195,31 @@ struct MarkdownView: View {
                 }
             }
         }
-        
     }
-    
-    private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
-        return ScrollView(.horizontal, showsIndicators: false) {
-            SwiftUIText(codeBlock.code)
-                .font(.system(size: 16, design: .monospaced))
+}
+
+extension Markup {
+    fileprivate func childNodes() -> [MarkupNode] {
+        return self.children.map { markup in
+            MarkupNode(markup)
         }
     }
-    
-    private func orderedListRenderer(_ orderedList: OrderedList) -> some View {
-        return VStack(alignment: .leading) {
-            ForEach(Array(orderedList.items().enumerated()), id: \.offset) { index, item in
-                HStack(alignment: .top, spacing: 2.0) {
-                    SwiftUIText("\(index + 1).")
-                        .frame(width: 20)
-                    MarkdownView(item.markup)
-                }
-            }
-        }
-        .font(.system(size: 16))
-    }
-    
-    private func unorderedListRenderer(_ unorderedList: UnorderedList) -> some View {
-        return VStack(alignment: .leading) {
-            ForEach(Array(unorderedList.items().enumerated()), id: \.offset) { index, item in
-                HStack(alignment: .top, spacing: 2.0) {
-                    SwiftUIText("·")
-                        .bold()
-                        .frame(width: 20)
-                        .textSelection(.disabled)
-                    MarkdownView(item.markup)
-                }
-            }
+}
+
+extension ListItemContainer {
+    fileprivate func items() -> [MarkupNode] {
+        return self.listItems.map { item in
+            MarkupNode(item)
         }
     }
+}
+
+/// Struct holding `Markup` element, enabling random access and identifiable support for `ForEach`.
+fileprivate struct MarkupNode: Identifiable {
+    let id = UUID()
+    let markup: Markup
     
-    func quoteChilds(_ markup: Markup) -> Markup {
-        let content = NSMutableString(string: markup.format().deletingPrefix(">"))
-        _ = try? NSRegularExpression(pattern: #"\n>"#,
-                                     options: .dotMatchesLineSeparators).replaceMatches(in: content, range: NSRange(location: 0, length: content.length), withTemplate: "\n")
-        return Document(parsing: String(content))
-    }
-    
-    private func quoteRenderer(_ quote: BlockQuote) -> some View {
-        let content = NSMutableString(string: quote.format().deletingPrefix(">"))
-        _ = try? NSRegularExpression(pattern: #"\n>"#,
-                                     options: .dotMatchesLineSeparators).replaceMatches(in: content, range: NSRange(location: 0, length: content.length), withTemplate: "\n")
-        let subcontent = Document(parsing: String(content))
-        
-        return VStack(alignment: .leading, spacing: 10) {
-            ForEach(subcontent.childNodes()) { node in
-                switch node.markup {
-                case let heading as Heading:
-                    headingRenderer(heading)
-                    
-                case let codeBlock as CodeBlock:
-                    codeBlockRenderer(codeBlock)
-                    
-                case _ as ThematicBreak:
-                    Divider()
-                    
-                case let paragraph as Paragraph:
-                    paragraphRenderer(paragraph)
-                    
-                case let orderedList as OrderedList:
-                    orderedListRenderer(orderedList)
-                    
-                case let unorderedList as UnorderedList:
-                    unorderedListRenderer(unorderedList)
-                    
-                default:
-                    MarkdownView(quoteChilds(node.markup))
-                }
-            }
-        }
-        .padding(.leading, 10)
-        .overlay(Rectangle().frame(width: 3, height: nil, alignment: .leading).foregroundColor(Color.secondary.opacity(0.5)), alignment: .leading)
-        .foregroundColor(.secondary)
+    init(_ markup: Markup) {
+        self.markup = markup
     }
 }

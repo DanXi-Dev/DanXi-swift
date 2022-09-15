@@ -1,10 +1,12 @@
 import SwiftUI
 
+/// Present a section to select some tags.
 struct TagField: View {
     @Binding var tags: [THTag]
-    @State var showTagSelection = false
     let max: Int?
+    
     @State var searchText = ""
+    @State var showTagSelection = false
     
     var filteredTags: [THTag] {
         let tags = TreeholeDataModel.shared.tags.filter { tag in
@@ -40,7 +42,7 @@ struct TagField: View {
             } else {
                 FlexibleView(data: tags, spacing: 15, alignment: .leading) { tag in
                     Text(tag.name)
-                        .tagStyle(color: randomColor(name: tag.name), fontSize: 16)
+                        .tagStyle(color: randomColor(tag.name), fontSize: 16)
                         .overlay(alignment: .topTrailing) {
                             Button { // remove this tag
                                 tags.removeAll { value in
@@ -80,7 +82,7 @@ struct TagField: View {
                 ForEach(filteredTags) { tag in
                     HStack {
                         Text(tag.name)
-                            .tagStyle(color: randomColor(name: tag.name))
+                            .tagStyle(color: randomColor(tag.name))
                         
                         Spacer()
                         
