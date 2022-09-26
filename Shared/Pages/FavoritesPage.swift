@@ -17,7 +17,7 @@ struct FavoritesPage: View {
     
     func fetchFavorites() async {
         do {
-            self.favorites = try await NetworkRequests.shared.loadFavorites()
+            self.favorites = try await DXNetworks.shared.loadFavorites()
             finished = true
         } catch {
             initError = error.localizedDescription
@@ -34,7 +34,7 @@ struct FavoritesPage: View {
                     let holeId = previousList[index].id
                     taskGroup.addTask {
                         do {
-                            _ = try await NetworkRequests.shared.toggleFavorites(holeId: holeId, add: false)
+                            _ = try await DXNetworks.shared.toggleFavorites(holeId: holeId, add: false)
                             // update data model
                             Task { @MainActor in
                                 TreeholeDataModel.shared.removeFavorate(holeId)

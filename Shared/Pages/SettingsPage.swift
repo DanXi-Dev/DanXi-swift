@@ -88,7 +88,7 @@ struct SettingsPage: View {
             Button("Logout", role: .destructive) {
                 withAnimation {
                     model.loggedIn = false
-                    NetworkRequests.shared.logout()
+                    DXNetworks.shared.logout()
                 }
             }
         }

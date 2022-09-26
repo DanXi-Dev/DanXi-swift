@@ -35,7 +35,7 @@ struct CourseMainPage: View {
         
         do { // check hash, try decode from local storage
             courses = loadDKCourseList()
-            newHash = try await NetworkRequests.shared.loadCourseHash()
+            newHash = try await DXNetworks.shared.loadCourseHash()
             if newHash == courseHash { // no change from last fetch, use local storage
                 initFinished = true
                 return
@@ -45,7 +45,7 @@ struct CourseMainPage: View {
         }
         
         do { // make network call
-            courses = try await NetworkRequests.shared.loadCourseGroups()
+            courses = try await DXNetworks.shared.loadCourseGroups()
             saveDKCourseList(courses)
             courseHash = newHash // defer update course hash to prevent hash-content inconsistent
             initFinished = true

@@ -4,7 +4,7 @@ import Foundation
 
 let DANKE_BASE_URL = "https://danke.fduhole.com/api"
 
-extension NetworkRequests {
+extension DXNetworks {
     
     // MARK: course info
     

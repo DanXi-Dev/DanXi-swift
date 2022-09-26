@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ReportPage: View {
-    
     @State var reportList: [THReport] = []
     @State var loading = true
     @State var initFinished = false
@@ -17,7 +16,7 @@ struct ReportPage: View {
     
     func loadReports() async {
         do {
-            reportList = try await NetworkRequests.shared.loadReportsList()
+            reportList = try await DXNetworks.shared.loadReportsList()
             initFinished = true
         } catch {
             initError = error.localizedDescription
@@ -32,29 +31,6 @@ struct ReportPage: View {
             List {
                 ForEach(reportList) { report in
                     ReportCell(report: report)
-                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                            Button {
-                                // TODO: mark
-                            } label: {
-                                Label("Mark as Dealt", systemImage: "checkmark")
-                            }
-                            .tint(.blue)
-                        }
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            if !report.floor.deleted {
-                                Button(role: .destructive) {
-                                    // TODO: delete floor
-                                } label: {
-                                    Label("Remove Floor", systemImage: "trash")
-                                }
-                            }
-                            
-                            Button {
-                                // TODO: ban user
-                            } label: {
-                                Label("Ban User", systemImage: "person.fill.xmark")
-                            }
-                        }
                 }
             }
             .listStyle(.grouped)
@@ -62,12 +38,13 @@ struct ReportPage: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
-    
 }
 
 struct ReportCell: View {
-    let report: THReport
+    @State var report: THReport
+    
+    @State var showBanSheet = false
+    @State var showDeleteSheet = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
@@ -101,9 +78,39 @@ struct ReportCell: View {
             .background(Color.secondary.opacity(0.05))
             .cornerRadius(10)
             .padding(.bottom)
-            .background(NavigationLink(destination: HoleDetailPage(targetFloorId: report.floor.id)) {
-                EmptyView()
-            }.opacity(0))
+            .backgroundLink {
+                HoleDetailPage(targetFloorId: report.floor.id)
+            }
+            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                Button {
+                    // TODO: mark
+                } label: {
+                    Label("Mark as Dealt", systemImage: "checkmark")
+                }
+                .tint(.blue)
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                if !report.floor.deleted {
+                    Button {
+                        showDeleteSheet = true
+                    } label: {
+                        Label("Remove Floor", systemImage: "trash")
+                    }
+                    .tint(.red)
+                }
+                
+                Button {
+                    showBanSheet = true
+                } label: {
+                    Label("Ban User", systemImage: "person.fill.xmark")
+                }
+            }
+            .sheet(isPresented: $showBanSheet) {
+                BanForm(divisionId: 0)
+            }
+            .sheet(isPresented: $showDeleteSheet) {
+                DeleteForm(floor: $report.floor)
+            }
         }
     }
 }

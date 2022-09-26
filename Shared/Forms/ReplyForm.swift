@@ -37,7 +37,7 @@ struct ReplyForm: View {
                 }
             }
         } action: {
-            _ = try await NetworkRequests.shared.reply(content: content, holdId: holeId)
+            _ = try await DXNetworks.shared.reply(content: content, holdId: holeId)
             Task { @MainActor in
                 endReached = false
             }

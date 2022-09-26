@@ -37,7 +37,7 @@ struct EditForm: View {
                 }
             }
         } action: {
-            try await NetworkRequests.shared.newPost(
+            try await DXNetworks.shared.createHole(
                 content: content,
                 divisionId: divisionId,
                 tags: tags)

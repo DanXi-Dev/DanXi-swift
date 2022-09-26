@@ -1,6 +1,7 @@
 import SwiftUI
 import Foundation
 
+/// View that represent a mention in content.
 struct MentionView: View {
     let floor: THFloor
     
@@ -14,12 +15,20 @@ struct MentionView: View {
         case remote
     }
     
+    
+    /// Create a mention view from a floor.
+    /// - Parameters:
+    ///   - floor: Mentioned floor.
+    ///   - proxy: Optional scroll proxy.
     init(floor: THFloor, proxy: ScrollViewProxy? = nil) {
         self.floor = floor
         self.proxy = proxy
         self.mentionType = .local
     }
     
+    
+    /// Create a mention view from remote mention.
+    /// - Parameter mention: Mention struct.
     init(mention: THMention) {
         self.floor = THFloor(id: mention.floorId, holeId: mention.holeId,
                              updateTime: mention.updateTime, createTime: mention.createTime,
@@ -66,7 +75,9 @@ struct MentionView: View {
                 navigationActive = true
             } label: {
                 mention
-                    .background(navigation)
+                    .backgroundLink($navigationActive) {
+                        HoleDetailPage(targetFloorId: floor.id)
+                    }
             }
             .buttonStyle(.borderless) // prevent multiple tapping
             #if os(iOS)
@@ -114,13 +125,9 @@ struct MentionView: View {
         .background(Color.secondary.opacity(0.1))
         .cornerRadius(7.0)
     }
-    
-    private var navigation: some View {
-        NavigationLink("", destination: HoleDetailPage(targetFloorId: floor.id), isActive: $navigationActive)
-            .opacity(0)
-    }
 }
 
+/// Mention view that is not initialized, tap to load detailed info.
 struct RemoteMentionView: View {
     let floorId: Int
     @State var loading = false
@@ -135,7 +142,7 @@ struct RemoteMentionView: View {
                 Task { @MainActor in
                     do {
                         loading = true
-                        floor = try await NetworkRequests.shared.loadFloorById(floorId: floorId)
+                        floor = try await DXNetworks.shared.loadFloorById(floorId: floorId)
                     } catch {
                         loading = false
                     }
@@ -183,14 +190,9 @@ struct MentionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
-            
-            MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
-                .preferredColorScheme(.dark)
-            
             RemoteMentionView(floorId: 100000)
         }
-        .previewLayout(.sizeThatFits)
         .padding()
-        
+        .previewLayout(.sizeThatFits)
     }
 }

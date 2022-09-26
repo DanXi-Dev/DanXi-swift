@@ -3,8 +3,10 @@ import Foundation
 let FDUHOLE_AUTH_URL = "https://auth.fduhole.com/api"
 let FDUHOLE_BASE_URL = "https://api.fduhole.com"
 
-class NetworkRequests {
-    static var shared = NetworkRequests()
+/// Store the network APIs of DanXI services.
+class DXNetworks {
+    /// Shared instance of this class.
+    static var shared = DXNetworks()
     private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
     
     // MARK: Stored Properties
@@ -12,11 +14,8 @@ class NetworkRequests {
         let access: String
         let refresh: String
     }
+    /// The user token for protected APIs
     var token: Token?
-    
-    // Networking cache
-    var tags: [THTag] = []
-    var user: THUser?
     
     var isInitialized: Bool {
         token != nil
@@ -40,6 +39,13 @@ class NetworkRequests {
         }
     }
     
+    /// Network request primitive, add necessary HTTP headers and authentication infomation.
+    /// - Parameters:
+    ///   - url: URL to query.
+    ///   - data: data to upload.
+    ///   - method: HTTP method, default is `GET` or `POST`, depending on whether `data` is `nil`.
+    ///   - retry: internal parameter, used to prevent infinite recursion when refreshing token is needed.
+    /// - Returns: Server response data.
     func networkRequest(url: URL, data: Data? = nil, method: String? = nil, retry: Bool = false) async throws -> Data {
         struct ServerMessage: Codable {
             let message: String
@@ -98,7 +104,12 @@ class NetworkRequests {
         }
     }
     
-    // MARK: auth
+    // MARK: Authentication
+    
+    /// Login and store user token.
+    /// - Parameters:
+    ///   - username: username.
+    ///   - password: password.
     func login(username: String, password: String) async throws {
         struct LoginBody: Codable {
             let email: String
@@ -124,7 +135,7 @@ class NetworkRequests {
             
             if apnsToken != nil {
                 Task.init {
-                    await NetworkRequests.shared.uploadAPNSKey()
+                    await DXNetworks.shared.uploadAPNSKey()
                 }
             }
         case 400..<500:
@@ -140,6 +151,8 @@ class NetworkRequests {
         token = nil
     }
     
+    
+    /// Request a new token when current token is expired.
     func refreshToken() async throws {
         guard let token = self.token else {
             throw NetworkError.forbidden
@@ -165,7 +178,7 @@ class NetworkRequests {
         apnsToken = APNSToken(service: "apns", device_id: deviceId, token: token)
         if isInitialized {
             Task.init {
-                await NetworkRequests.shared.uploadAPNSKey()
+                await DXNetworks.shared.uploadAPNSKey()
             }
         }
     }

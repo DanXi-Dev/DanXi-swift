@@ -59,7 +59,7 @@ struct BrowsePage: View {
                 startTime = baseDate.ISO8601Format()
             }
             
-            let newHoles = try await NetworkRequests.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
+            let newHoles = try await DXNetworks.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             endReached = newHoles.isEmpty
             if currentLoadingId == loadingId { // prevent holes from older flow being inserted into new one, causing chaos
                 holes.append(contentsOf: newHoles)
@@ -102,8 +102,6 @@ struct BrowsePage: View {
                     if let baseDate = baseDate {
                         Text(baseDate.formatted(date: .abbreviated, time: .omitted))
                     }
-                    Spacer()
-                    datePicker
                 }
             } footer: {
                 if !endReached {
@@ -124,6 +122,9 @@ struct BrowsePage: View {
             await loadMoreHoles()
         }
         .navigationTitle(currentDivision.name)
+        .sheet(isPresented: $showDatePicker) {
+            datePicker
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 menu
@@ -146,7 +147,7 @@ struct BrowsePage: View {
             }
         }
         .pickerStyle(.segmented)
-        .offset(x: 0, y: -40)
+        .offset(x: 0, y: -20)
         .onChange(of: currentDivision) { newValue in
             Task {
                 loadingId = UUID()
@@ -159,13 +160,8 @@ struct BrowsePage: View {
     
     
     private var datePicker: some View {
-        Button {
-            showDatePicker = true
-        } label: {
-            Label("Select Date", systemImage: "clock.arrow.circlepath")
-        }
-        .popover(isPresented: $showDatePicker) {
-            VStack(alignment: .trailing) {
+        NavigationView {
+            Form {
                 DatePicker("Start Date",
                            selection: Binding<Date>(
                             get: { self.baseDate ?? Date() },
@@ -174,7 +170,6 @@ struct BrowsePage: View {
                            in: ...Date.now,
                            displayedComponents: [.date])
                 .datePickerStyle(.graphical)
-                
                 .onChange(of: baseDate) { newValue in
                     loadingId = UUID()
                     showDatePicker = false
@@ -185,7 +180,7 @@ struct BrowsePage: View {
                 }
                 
                 if baseDate != nil {
-                    Button("Clear Date") {
+                    Button("Clear Date", role: .destructive) {
                         showDatePicker = false
                         baseDate = nil
                         holes = []
@@ -195,7 +190,8 @@ struct BrowsePage: View {
                     }
                 }
             }
-            .padding()
+            .navigationTitle("Select Date")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
@@ -211,6 +207,12 @@ struct BrowsePage: View {
                 showTagPage = true
             } label: {
                 Label("Tags", systemImage: "tag")
+            }
+            
+            Button {
+                showDatePicker = true
+            } label: {
+                Label("Select Date", systemImage: "clock.arrow.circlepath")
             }
             
             Picker("Sort Options", selection: $sortOption) {

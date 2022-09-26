@@ -97,9 +97,9 @@ struct WelcomePage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             TreeholeWelcomePage()
+                .previewDisplayName("Treehole Welcome Page")
             CourseWelcomePage()
-            TreeholeWelcomePage()
-                .preferredColorScheme(.dark)
+                .previewDisplayName("DanKe Welcome Page")
         }
     }
 }

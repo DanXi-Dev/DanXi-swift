@@ -7,7 +7,8 @@ struct ReportForm: View {
     var body: some View {
         FormPrimitive(title: "Report",
                       allowSubmit: !reportReason.isEmpty,
-                      errorTitle: "Report Failed") {
+                      errorTitle: "Report Failed",
+                      needConfirmation: true) {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
                     ReferenceView(floor.content,
@@ -22,7 +23,7 @@ struct ReportForm: View {
                 TextField("Enter report reason", text: $reportReason)
             }
         } action: {
-            try await NetworkRequests.shared.report(floorId: floor.id,
+            try await DXNetworks.shared.report(floorId: floor.id,
                                                     reason: reportReason)
         }
     }

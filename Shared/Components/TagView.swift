@@ -22,22 +22,19 @@ struct TagList: View {
             FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
                 tagItem(tag)
             }
-            .background(navigation)
+            .backgroundLink($navActive) {
+                SearchTagPage(tagname: navTagName)
+            }
         } else {
             HStack(alignment: .center, spacing: 5.0) {
                 ForEach(tags) { tag in
                     tagItem(tag)
                 }
             }
-            .background(navigation)
+            .backgroundLink($navActive) {
+                SearchTagPage(tagname: navTagName)
+            }
         }
-    }
-    
-    private var navigation: some View {
-        NavigationLink("",
-                       destination: SearchTagPage(tagname: navTagName, divisionId: nil),
-                       isActive: $navActive)
-        .opacity(0)
     }
     
     private func tagItem(_ tag: THTag) -> some View {
@@ -60,7 +57,7 @@ struct TagListNavigation: View {
     var body: some View {
         HStack(alignment: .center, spacing: 5.0) {
             ForEach(tags) { tag in
-                NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
+                NavigationLink(destination: SearchTagPage(tagname: tag.name)) {
                     Text(tag.name)
                         .tagStyle(color: randomColor(tag.name))
                 }

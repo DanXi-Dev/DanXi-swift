@@ -1,5 +1,18 @@
 import SwiftUI
 
+
+/// A page that need to be initialized before presented to user.
+///
+/// This page will display a loading info when loading, and a retry button when loading fails. After the initial loading is complete, the content will be presented.
+/// Usage:
+/// ```
+/// LoadingView(loading: $loading,
+///             finished: $initFinished,
+///             errorDescription: initError,
+///             action: initialLoad) {
+///     DetailPage()
+/// }
+/// ```
 struct LoadingView<Content: View>: View {
     @Binding var loading: Bool
     @Binding var finished: Bool
@@ -8,6 +21,14 @@ struct LoadingView<Content: View>: View {
     
     let action: () async -> Void
     
+    
+    /// Create a loading view.
+    /// - Parameters:
+    ///   - loading: A boolean binding representing the loading status.
+    ///   - finished: Determine if the content is ready to be presented.
+    ///   - errorDescription: The description to be displayed when loading fails.
+    ///   - action: The loading function.
+    ///   - content: Content to be displayed when loading is done.
     init(loading: Binding<Bool>,
          finished: Binding<Bool>,
          errorDescription: String,
@@ -16,18 +37,6 @@ struct LoadingView<Content: View>: View {
         _loading = loading
         _finished = finished
         self.errorDescription = errorDescription
-        self.action = action
-        self.content = content()
-    }
-    
-    init(loading: Binding<Bool>,
-         finished: Binding<Bool>,
-         errorDescription: LocalizedStringKey,
-         action: @escaping () async -> Void,
-         @ViewBuilder content: () -> Content) {
-        _loading = loading
-        _finished = finished
-        self.errorDescription = "NOT SUPPORT"
         self.action = action
         self.content = content()
     }
@@ -92,11 +101,12 @@ struct LoadingView_Previews: PreviewProvider {
         Group {
             LoadingView(loading: .constant(false),
                             finished: .constant(false),
-                            errorDescription: "Requested resourse not found") {
+                            errorDescription: NSLocalizedString("Requested resourse not found", comment: "")) {
                 // initialization code
             } content: {
                 EmptyView()
             }
+            .previewDisplayName("Failed")
 
             LoadingView(loading: .constant(true),
                             finished: .constant(false),
@@ -105,6 +115,7 @@ struct LoadingView_Previews: PreviewProvider {
             } content: {
                 EmptyView()
             }
+            .previewDisplayName("Loading")
         }
     }
 }

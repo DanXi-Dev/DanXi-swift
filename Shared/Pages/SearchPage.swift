@@ -88,7 +88,7 @@ struct SearchPage: View {
                 Section("Tags") {
                     ForEach(filteredTags) { tag in
                         NavigationLink {
-                            SearchTagPage(tagname: tag.name, divisionId: nil)
+                            SearchTagPage(tagname: tag.name)
                                 .onAppear { appendHistory(searchText) }
                         } label: {
                             Label(tag.name, systemImage: "tag")
@@ -99,7 +99,8 @@ struct SearchPage: View {
         }
         .listStyle(.grouped)
         // navigate to search page when user click `search` in keyboard
-        .background(NavigationLink("", destination: SearchTextPage(keyword: searchText),
-                                   isActive: $searchSubmitted).opacity(0))
+        .backgroundLink($searchSubmitted) {
+            SearchTextPage(keyword: searchText)
+        }
     }
 }

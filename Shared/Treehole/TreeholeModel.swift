@@ -34,9 +34,9 @@ class TreeholeDataModel: ObservableObject {
             return
         }
         
-        async let tags = NetworkRequests.shared.loadTags()
-        async let user = NetworkRequests.shared.loadUserInfo()
-        async let divisions =  NetworkRequests.shared.loadDivisions()
+        async let tags = DXNetworks.shared.loadTags()
+        async let user = DXNetworks.shared.loadUserInfo()
+        async let divisions =  DXNetworks.shared.loadDivisions()
         
         self.tags = try await tags
         self.user = try await user

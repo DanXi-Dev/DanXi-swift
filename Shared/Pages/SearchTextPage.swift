@@ -12,7 +12,7 @@ struct SearchTextPage: View {
         do {
             loading = true
             defer { loading = false }
-            let newFloors = try await NetworkRequests.shared.searchKeyword(keyword: keyword, startFloor: floors.count)
+            let newFloors = try await DXNetworks.shared.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
             floors.append(contentsOf: newFloors)
         } catch {
@@ -25,7 +25,9 @@ struct SearchTextPage: View {
             Section {
                 ForEach(floors) { floor in
                     FloorView(floor: floor)
-                        .background(NavigationLink("", destination: HoleDetailPage(targetFloorId: floor.id)).opacity(0))
+                        .backgroundLink {
+                            HoleDetailPage(targetFloorId: floor.id)
+                        }
                         .task {
                             if floor == floors.last {
                                 await loadMoreFloors()

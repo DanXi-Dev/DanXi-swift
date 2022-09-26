@@ -74,7 +74,7 @@ struct THUser: Hashable, Codable, Identifiable {
 
 struct THReport: Hashable, Codable, Identifiable {
     let id, holeId: Int
-    let floor: THFloor
+    var floor: THFloor
     let reason: String
     let createTime, updateTime: Date
     let dealed: Bool

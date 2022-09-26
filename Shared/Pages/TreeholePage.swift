@@ -79,10 +79,6 @@ struct TreeholePage_Previews: PreviewProvider {
             NavigationView {
                 TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"), holes: PreviewDecode.decodeList(name: "hole-list"))
             }
-            NavigationView {
-                TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"), holes: PreviewDecode.decodeList(name: "hole-list"))
-            }
-            .preferredColorScheme(.dark)
         }
     }
 }

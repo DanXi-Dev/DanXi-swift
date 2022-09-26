@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SearchTagPage: View {
     let tagname: String
-    let divisionId: Int?
     @State private var endReached = false
     @State var holes: [THHole] = []
     
@@ -13,7 +12,7 @@ struct SearchTagPage: View {
         do {
             loading = true
             defer { loading = false }
-            let newHoles = try await NetworkRequests.shared.searchTag(tagName: tagname, divisionId: divisionId, startTime: holes.last?.updateTime.ISO8601Format())
+            let newHoles = try await DXNetworks.shared.listHoleByTag(tagName: tagname, startTime: holes.last?.updateTime.ISO8601Format())
             endReached = newHoles.isEmpty
             holes.append(contentsOf: newHoles)
         } catch {
@@ -55,6 +54,6 @@ struct SearchTagPage: View {
 
 struct SearchTagPage_Previews: PreviewProvider {
     static var previews: some View {
-        SearchTagPage(tagname: "test", divisionId: 1)
+        SearchTagPage(tagname: "test")
     }
 }

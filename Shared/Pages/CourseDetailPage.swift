@@ -55,7 +55,7 @@ struct CourseDetailPage: View {
         do {
             loading = true
             defer { loading = false }
-            self.courseGroup = try await NetworkRequests.shared.loadCourseGroup(id: courseGroup.id)
+            self.courseGroup = try await DXNetworks.shared.loadCourseGroup(id: courseGroup.id)
             initialized = true
         } catch {
             errorInfo = error.localizedDescription
@@ -247,14 +247,8 @@ struct CourseDetailPage: View {
 
 struct CourseDetailPage_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            NavigationView {
-                CourseDetailPage(courseGroup: PreviewDecode.decodeObj(name: "course")!, initialized: true)
-            }
-            NavigationView {
-                CourseDetailPage(courseGroup: PreviewDecode.decodeObj(name: "course")!, initialized: true)
-            }
-            .preferredColorScheme(.dark)
+        NavigationView {
+            CourseDetailPage(courseGroup: PreviewDecode.decodeObj(name: "course")!, initialized: true)
         }
     }
 }

@@ -28,7 +28,7 @@ struct TagsPage: View {
     func update() async {
         errorInfo = nil
         do {
-            model.tags = try await NetworkRequests.shared.loadTags()
+            model.tags = try await DXNetworks.shared.loadTags()
         } catch {
             errorInfo = error.localizedDescription
         }
@@ -52,7 +52,7 @@ struct TagsPage: View {
                 .foregroundColor(.red)
             } else {
                 ForEach(filteredTags) { tag in
-                    NavigationLink(destination: SearchTagPage(tagname: tag.name, divisionId: nil)) {
+                    NavigationLink(destination: SearchTagPage(tagname: tag.name)) {
                         TagRowView(tag: tag)
                     }
                 }

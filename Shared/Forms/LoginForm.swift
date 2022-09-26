@@ -23,7 +23,7 @@ struct LoginForm: View {
         loading = true
         Task {
             do {
-                try await NetworkRequests.shared.login(username: username, password: password)
+                try await DXNetworks.shared.login(username: username, password: password)
                 model.loggedIn = true
                 loading = false
                 dismiss()
@@ -49,39 +49,35 @@ struct LoginForm: View {
                         .textInputAutocapitalization(.never)
                         .disableAutocorrection(true)
                     
-                    SecureField(NSLocalizedString("Password", comment: ""), text: $password)
-                } footer: {
-                    if loading {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        
-                    }
+                    SecureField("Password", text: $password)
                 }
             }
             .navigationTitle("DanXi Login")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismiss()
                     }
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: login) {
-                        Text("Login")
-                            .bold()
-                    }
-                        .alert("Error", isPresented: $errorPresenting) {
-                            Button("OK") { }
-                        } message: {
-                            Text(errorInfo.description)
+                
+                ToolbarItemGroup(placement: .confirmationAction) {
+                    if loading {
+                        ProgressView()
+                    } else {
+                        Button(action: login) {
+                            Text("Login")
+                                .bold()
                         }
+                        .disabled(username.isEmpty || password.isEmpty)
+                    }
                 }
             }
-            
+            .alert("Error", isPresented: $errorPresenting) {
+                Button("OK") { }
+            } message: {
+                Text(errorInfo.description)
+            }
         }
     }
 }

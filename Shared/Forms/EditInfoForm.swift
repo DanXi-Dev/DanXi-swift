@@ -20,7 +20,7 @@ struct EditInfoForm: View {
             
             TagField(tags: $tags, max: 5)
         } action: {
-            try await NetworkRequests.shared.alterHole(holeId: holeId,
+            try await DXNetworks.shared.modifyHole(holeId: holeId,
                                                        tags: tags,
                                                        divisionId: divisionId)
         }

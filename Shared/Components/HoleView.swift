@@ -6,8 +6,9 @@ struct HoleView: View {
     let hole: THHole
     let fold: Bool
     @ObservedObject var preference = Preference.shared
-
+    
     enum NavigationType {
+        case tag(tagname: String)
         case top
         case bottom
     }
@@ -30,7 +31,7 @@ struct HoleView: View {
                     navType = .top
                     navActive = true
                 }
-                .background(NavigationLink("", destination: navTarget, isActive: $navActive).opacity(0))
+                .backgroundLink($navActive) { navTarget }
                 #if os(iOS)
                 .previewContextMenu(destination: HoleDetailPage(hole: hole),
                                     preview: HoleDetailPage(hole: hole, floors: hole.floors))
@@ -41,18 +42,18 @@ struct HoleView: View {
                                      bottom: 5,
                                      trailing: 15))
             } label: {
-                TagList(hole.tags, lineWrap: false)
+                tags
             }
         } else {
             VStack(alignment: .leading) {
-                TagList(hole.tags, lineWrap: false)
+                tags
                 holeContent
             }
             .onTapGesture {
                 navType = .top
                 navActive = true
             }
-            .background(NavigationLink("", destination: navTarget, isActive: $navActive).opacity(0))
+            .backgroundLink($navActive) { navTarget }
             #if os(iOS)
             .previewContextMenu(destination: HoleDetailPage(hole: hole),
                                 preview: HoleDetailPage(hole: hole, floors: hole.floors))
@@ -69,21 +70,21 @@ struct HoleView: View {
                 Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 1) ?? "TransferLearning NLModel init failed")
                     .foregroundColor(.red)
             }
-            
+
             if !hole.firstFloor.spetialTag.isEmpty {
                 HStack {
                     Spacer()
                     SpecialTagView(content: hole.firstFloor.spetialTag)
                 }
             }
-            
+
             Text(hole.firstFloor.content.inlineAttributed())
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
                 .transition(.slide)
-            
+
             if hole.firstFloor.id != hole.lastFloor.id {
                 Button {
                     navType = .bottom
@@ -93,11 +94,11 @@ struct HoleView: View {
                 }
                 .buttonStyle(.borderless)
             }
-            
+
             info
         }
     }
-    
+
     private var info: some View {
         HStack {
             Text("#\(String(hole.id))")
@@ -111,34 +112,34 @@ struct HoleView: View {
         .foregroundColor(Color(uiColor: .systemGray2))
         .padding(.top, 3)
     }
-    
+
     private var actions: some View {
         HStack(alignment: .center, spacing: 15) {
             HStack(alignment: .center, spacing: 3) {
                 Image(systemName: "eye")
                 Text(String(hole.view))
             }
-            
+
             HStack(alignment: .center, spacing: 3) {
                 Image(systemName: "ellipsis.bubble")
                 Text(String(hole.reply))
             }
-            
+
             // TODO: maybe add menu?
         }
         .font(.caption2)
         .foregroundColor(.secondary)
     }
-    
+
     private var lastFloor: some View {
         HStack(alignment: .top) {
             Image(systemName: "arrowshape.turn.up.left.fill")
-            
+
             VStack(alignment: .leading, spacing: 3) {
                 Text("\(hole.lastFloor.posterName) replied \(hole.lastFloor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
                     .font(.system(size: 12))
                     .fixedSize(horizontal: false, vertical: true)
-                
+
                 Text(hole.lastFloor.content.inlineAttributed())
                     .lineLimit(1)
                     .font(.system(size: 14))
@@ -152,10 +153,27 @@ struct HoleView: View {
         .background(Color.secondary.opacity(colorScheme == .dark ? 0.15 : 0.1))
         .cornerRadius(7)
     }
-    
+
+    private var tags: some View {
+        HStack(alignment: .center, spacing: 5.0) {
+            ForEach(hole.tags) { tag in
+                Button {
+                    navType = .tag(tagname: tag.name)
+                    navActive = true
+                } label: {
+                    Text(tag.name)
+                        .tagStyle(color: randomColor(tag.name))
+                }
+                .buttonStyle(.borderless)
+            }
+        }
+    }
+
     @ViewBuilder
     private var navTarget: some View {
         switch navType {
+        case .tag(let tagname):
+            SearchTagPage(tagname: tagname)
         case .top:
             HoleDetailPage(hole: hole)
         case .bottom:
@@ -166,12 +184,8 @@ struct HoleView: View {
 
 struct HoleView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            HoleView(hole: PreviewDecode.decodeObj(name: "hole")!)
-            HoleView(hole: PreviewDecode.decodeObj(name: "hole")!)
-                .preferredColorScheme(.dark)
-        }
-        .padding()
-        .previewLayout(.sizeThatFits)
+        HoleView(hole: PreviewDecode.decodeObj(name: "hole")!)
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }

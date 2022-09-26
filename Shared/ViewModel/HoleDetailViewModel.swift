@@ -75,7 +75,7 @@ class HoleDetailViewModel: ObservableObject {
             
         case .fromId(let holeId):
             do {
-                hole = try await NetworkRequests.shared.loadHoleById(holeId: holeId)
+                hole = try await DXNetworks.shared.loadHoleById(holeId: holeId)
             } catch NetworkError.notFound {
                 errorTitle = "Treehole Not Exist"
                 errorInfo = String(format: NSLocalizedString("Treehole #%@ not exist", comment: ""), String(holeId))
@@ -89,13 +89,13 @@ class HoleDetailViewModel: ObservableObject {
             
         case .targetFloor(let targetFloorId):
             do {
-                let targetFloor = try await NetworkRequests.shared.loadFloorById(floorId: targetFloorId)
-                self.hole = try await NetworkRequests.shared.loadHoleById(holeId: targetFloor.holeId)
+                let targetFloor = try await DXNetworks.shared.loadFloorById(floorId: targetFloorId)
+                self.hole = try await DXNetworks.shared.loadHoleById(holeId: targetFloor.holeId)
                 
                 var newFloors: [THFloor] = []
                 var floors: [THFloor] = []
                 repeat {
-                    newFloors = try await NetworkRequests.shared.loadFloors(holeId: targetFloor.holeId, startFloor: floors.count)
+                    newFloors = try await DXNetworks.shared.loadFloors(holeId: targetFloor.holeId, startFloor: floors.count)
                     floors.append(contentsOf: newFloors)
                     if newFloors.contains(targetFloor) {
                         break
@@ -127,7 +127,7 @@ class HoleDetailViewModel: ObservableObject {
         Task { // update viewing count
             if let hole = hole {
                 do {
-                    try await NetworkRequests.shared.updateViews(holeId: hole.id)
+                    try await DXNetworks.shared.updateViews(holeId: hole.id)
                 } catch {
                     print("DANXI-DEBUG: update viewing count failed")
                 }
@@ -146,7 +146,7 @@ class HoleDetailViewModel: ObservableObject {
         do {
             let previousCount = filteredFloors.count
             while filteredFloors.count == previousCount && !endReached {
-                let newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
+                let newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
                 floors.append(contentsOf: newFloors)
                 endReached = newFloors.isEmpty
             }
@@ -165,7 +165,7 @@ class HoleDetailViewModel: ObservableObject {
             var floors: [THFloor] = self.floors
             
             repeat {
-                newFloors = try await NetworkRequests.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
+                newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
                 floors.append(contentsOf: newFloors)
             } while !newFloors.isEmpty
             
@@ -181,7 +181,7 @@ class HoleDetailViewModel: ObservableObject {
         }
         
         do {
-            let favorites = try await NetworkRequests.shared.toggleFavorites(holeId: hole.id, add: !favorited)
+            let favorites = try await DXNetworks.shared.toggleFavorites(holeId: hole.id, add: !favorited)
             TreeholeDataModel.shared.updateFavorites(favorites: favorites)
             favorited = favorites.contains(hole.id)
             haptic()

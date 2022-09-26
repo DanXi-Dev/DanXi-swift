@@ -34,7 +34,7 @@ struct EditReplyForm: View {
                 }
             }
         } action: {
-            floor = try await NetworkRequests.shared.editReply(content: content, floorId: floor.id)
+            floor = try await DXNetworks.shared.editReply(content: content, floorId: floor.id)
         }
     }
 }

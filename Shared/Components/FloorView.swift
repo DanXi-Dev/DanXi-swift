@@ -8,7 +8,6 @@ struct FloorView: View {
     @State var showReplyPage = false
     @State var showEditPage = false
     @State var showDeleteAlert = false
-    @State var showRemoveAlert = false
     @State var showRemoveSheet = false
     @State var showReportSheet = false
     
@@ -46,7 +45,7 @@ struct FloorView: View {
     func like() {
         Task {
             do {
-                let newFloor = try await NetworkRequests.shared.like(floorId: floor.id, like: !(floor.liked))
+                let newFloor = try await DXNetworks.shared.like(floorId: floor.id, like: !(floor.liked))
                 self.floor = newFloor
                 haptic()
             } catch {
@@ -58,7 +57,7 @@ struct FloorView: View {
     func delete(reason: String = "") {
         Task {
             do {
-                let newFloor = try await NetworkRequests.shared.deleteFloor(floorId: floor.id, reason: reason)
+                let newFloor = try await DXNetworks.shared.deleteFloor(floorId: floor.id, reason: reason)
                 self.floor = newFloor
             } catch {
                 print("DANXI-DEBUG: delete failed")
@@ -131,9 +130,12 @@ struct FloorView: View {
                 floor: $floor,
                 content: floor.content)
         }
-        .sheet(isPresented: $showReportSheet, content: {
+        .sheet(isPresented: $showReportSheet) {
             ReportForm(floor: floor)
-        })
+        }
+        .sheet(isPresented: $showRemoveSheet) {
+            DeleteForm(floor: $floor)
+        }
         .alert("Delete Floor", isPresented: $showDeleteAlert) {
             Button("Delete", role: .destructive) {
                 delete()
@@ -261,7 +263,7 @@ struct FloorView: View {
                     }
                     
                     Button(role: .destructive) {
-                        showRemoveAlert = true
+                        showRemoveSheet = true
                     } label: {
                         Label("Remove Floor", systemImage: "xmark.square")
                     }
@@ -286,11 +288,6 @@ struct FloorView_Previews: PreviewProvider {
             FloorView(floor: PreviewDecode.decodeObj(name: "floor")!, isPoster: true)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Floor")
-            
-            FloorView(floor: PreviewDecode.decodeObj(name: "floor")!)
-                .preferredColorScheme(.dark)
-                .previewLayout(.sizeThatFits)
-                .previewDisplayName("Floor Dark")
             
             FloorView(floor: PreviewDecode.decodeObj(name: "deleted-floor")!)
                 .previewLayout(.sizeThatFits)

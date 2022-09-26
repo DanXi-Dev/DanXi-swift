@@ -6,9 +6,11 @@
 // Login Page
 "Email" = "邮箱";
 "Password" = "密码";
+"Confirm Submit" = "确认提交";
+"Confirm" = "确认";
 "Cancel" = "取消";
 "Login" = "登录";
-"DanXi Login" = "登录FDU Hole账户";
+"DanXi Login" = "登录旦夕账户";
 "Login Failed" = "登录失败";
 "Incorrect username or password" = "用户名或密码错误";
 "Incorrect Information" = "信息不正确";
@@ -20,7 +22,7 @@
 "About" = "关于";
 "Legal" = "法律信息";
 "Fudan UIS Account" = "复旦UIS账户";
-"FDU Hole Account" = "FDU Hole账户";
+"FDU Hole Account" = "旦夕账户";
 "Logged in" = "已登录";
 "Not Logged in" = "未登录";
 "Logout" = "退出登录";
@@ -82,6 +84,8 @@
 "Remove Floor" = "移除本层";
 "Ban User" = "封禁用户";
 "Admin Actions" = "管理功能";
+"Banned Division" = "封禁分区";
+"Penalty Level: %lld" = "封禁等级：%lld";
 
 // Treehole Edit Page
 "New Post" = "新建主题贴";
@@ -203,3 +207,6 @@
 "Enter report reason" = "填写举报理由";
 "Content to Report" = "待举报的内容";
 "Report Failed" = "举报失败";
+"Delete Post" = "删帖";
+"Content to Delete" = "将删除的内容";
+"Enter delete reason" = "输入删帖原因";
