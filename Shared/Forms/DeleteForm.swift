@@ -31,7 +31,7 @@ struct DeleteForm: View {
                 
                 if addBan {
                     Stepper(value: $penaltyLevel, in: 1...3) {
-                        Label("Penalty Level: \(penaltyLevel)", systemImage: "exclamationmark.triangle")
+                        Label("Penalty Level: \(penaltyLevel)", systemImage: "chevron.up.chevron.down")
                     }
                 }
             }

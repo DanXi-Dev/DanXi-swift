@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Present a section to select some tags.
 struct TagField: View {
-    @Binding var tags: [THTag]
+    @Binding var tags: [String]
     let max: Int?
     
     @State var searchText = ""
@@ -10,7 +10,7 @@ struct TagField: View {
     
     var filteredTags: [THTag] {
         let tags = TreeholeDataModel.shared.tags.filter { tag in
-            !self.tags.contains(tag)
+            !self.tags.contains(tag.name)
         }
         
         if searchText.isEmpty {
@@ -29,7 +29,7 @@ struct TagField: View {
         return true
     }
     
-    init(tags: Binding<[THTag]>, max: Int? = nil) {
+    init(tags: Binding<[String]>, max: Int? = nil) {
         self._tags = tags
         self.max = max
     }
@@ -41,13 +41,12 @@ struct TagField: View {
                     .foregroundColor(.primary.opacity(0.25))
             } else {
                 FlexibleView(data: tags, spacing: 15, alignment: .leading) { tag in
-                    Text(tag.name)
-                        .tagStyle(color: randomColor(tag.name), fontSize: 16)
+                    Text(tag)
+                        .tagStyle(color: randomColor(tag), fontSize: 16)
                         .overlay(alignment: .topTrailing) {
-                            Button { // remove this tag
-                                tags.removeAll { value in
-                                    value.id == tag.id
-                                }
+                            // remove this tag
+                            Button {
+                                tags.removeAll { $0 == tag }
                             } label: {
                                 Image(systemName: "minus")
                                     .font(.system(size: 11))
@@ -80,18 +79,22 @@ struct TagField: View {
         NavigationView {
             List {
                 ForEach(filteredTags) { tag in
-                    HStack {
-                        Text(tag.name)
-                            .tagStyle(color: randomColor(tag.name))
-                        
-                        Spacer()
-                        
-                        Button {
-                            showTagSelection = false
-                            tags.append(tag)
-                        } label: {
-                            Label(String(tag.temperature), systemImage: "flame")
-                                .foregroundColor(.red)
+                    Button {
+                        showTagSelection = false
+                        tags.append(tag.name)
+                    } label: {
+                        HStack {
+                            Text(tag.name)
+                                .tagStyle(color: randomColor(tag.name))
+                            Spacer()
+                            
+                            // FIXME: SwiftUI bug when using Label
+                            Group {
+                                Image(systemName: "flame")
+                                Text(String(tag.temperature))
+                            }
+                            .foregroundColor(.red)
+                            .font(.system(size: 15))
                         }
                     }
                 }

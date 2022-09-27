@@ -3,7 +3,7 @@ import SwiftUI
 struct EditInfoForm: View {
     let holeId: Int
     @State var divisionId: Int
-    @State var tags: [THTag]
+    @State var tags: [String]
     
     var body: some View {
         FormPrimitive(title: "Edit Post Info",
@@ -21,10 +21,9 @@ struct EditInfoForm: View {
             TagField(tags: $tags, max: 5)
         } action: {
             try await DXNetworks.shared.modifyHole(holeId: holeId,
-                                                       tags: tags,
-                                                       divisionId: divisionId)
+                                                   tags: tags,
+                                                   divisionId: divisionId)
         }
-
     }
 }
 

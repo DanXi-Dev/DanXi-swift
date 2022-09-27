@@ -20,7 +20,7 @@ struct BrowsePage: View {
         holes.filter { hole in
             // filter for blocked tags
             for tagName in hole.tags.map({ $0.name }) {
-                if !preference.blockedTags.filter({ $0.name == tagName }).isEmpty {
+                if !preference.blockedTags.filter({ $0 == tagName }).isEmpty {
                     return false
                 }
             }

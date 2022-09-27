@@ -54,7 +54,7 @@ extension DXNetworks {
     }
     
     // TODO: deprecated API
-    func createHole(content: String, divisionId: Int, tags: [THTag]) async throws {
+    func createHole(content: String, divisionId: Int, tags: [String]) async throws {
         struct Tag: Codable {
             let name: String
         }
@@ -65,9 +65,9 @@ extension DXNetworks {
             var tags: [Tag]
         }
         
-        var payload = Post(content: content,
+        let payload = Post(content: content,
                            division_id: divisionId,
-                           tags: tags.map { Tag(name: $0.name) })
+                           tags: tags.map { Tag(name: $0) })
         let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
@@ -89,13 +89,18 @@ extension DXNetworks {
     ///   - holeId: Hole ID to change.
     ///   - tags: New tags.
     ///   - divisionId: Move hole to new division.
-    func modifyHole(holeId: Int, tags: [THTag], divisionId: Int) async throws {
-        struct EditConfig: Codable {
-            let tags: [THTag]
-            let division_id: Int
+    func modifyHole(holeId: Int, tags: [String], divisionId: Int) async throws {
+        struct Tag: Codable {
+            let name: String
         }
         
-        let payload = EditConfig(tags: tags,
+        struct EditConfig: Codable {
+            let tags: [Tag]
+            let division_id: Int
+            // TODO: unhidden: Bool
+        }
+        
+        let payload = EditConfig(tags: tags.map { Tag(name: $0) },
                                  division_id: divisionId)
         let payloadData = try JSONEncoder().encode(payload)
         

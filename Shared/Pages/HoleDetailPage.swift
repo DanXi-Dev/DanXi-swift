@@ -84,7 +84,7 @@ struct HoleDetailPage: View {
                 if let hole = viewModel.hole {
                     EditInfoForm(holeId: hole.id,
                                  divisionId: hole.divisionId,
-                                 tags: hole.tags)
+                                 tags: hole.tags.map(\.name))
                 } else {
                     ProgressView()
                 }

@@ -3,7 +3,7 @@ import SwiftUI
 struct EditForm: View {
     @State var divisionId: Int
     @AppStorage("post-draft") var content = ""
-    @State var tags: [THTag] = []
+    @State var tags: [String] = []
     
     var body: some View {
         FormPrimitive(title: "New Post",

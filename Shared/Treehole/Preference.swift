@@ -13,7 +13,7 @@ class Preference: ObservableObject {
         
         if let data = defaults?.data(forKey: "blocked-tags") {
             do {
-                blockedTags = try JSONDecoder().decode([THTag].self, from: data)
+                blockedTags = try JSONDecoder().decode([String].self, from: data)
             } catch {
                 blockedTags = []
             }
@@ -38,7 +38,7 @@ class Preference: ObservableObject {
         }
     }
     
-    @Published var blockedTags: [THTag] = [] {
+    @Published var blockedTags: [String] = [] {
         didSet {
             do {
                 let data = try JSONEncoder().encode(blockedTags)
