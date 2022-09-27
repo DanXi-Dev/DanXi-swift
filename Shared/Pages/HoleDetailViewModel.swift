@@ -25,6 +25,9 @@ class HoleDetailViewModel: ObservableObject {
     @Published var listLoading = true
     @Published var listError = ""
     
+    @Published var scrollTarget: Int = -1
+    @Published var loadingToBottom = false
+    
     let initOption: InitOptions
     
     enum InitOptions {
@@ -38,14 +41,14 @@ class HoleDetailViewModel: ObservableObject {
         case posterOnly
     }
     
-    /// Initialize with hole info
+    /// Initialize with hole info.
     init(hole: THHole) {
         self.hole = hole
         self.favorited = TreeholeDataModel.shared.user?.favorites.contains(hole.id) ?? false
         self.initOption = .normal
     }
     
-    /// Initialize from hole ID, load hole info from networkr
+    /// Initialize from hole ID, load hole info from networks.
     init(holeId: Int) {
         self.hole = nil
         self.favorited = TreeholeDataModel.shared.user?.favorites.contains(holeId) ?? false
@@ -53,7 +56,7 @@ class HoleDetailViewModel: ObservableObject {
         self.initOption = .fromId(holeId: holeId)
     }
     
-    /// Initialize from floor ID, scroll to that floor
+    /// Initialize from floor ID, scroll to that floor.
     init(targetFloorId: Int) {
         self.hole = nil
         self.favorited = false
@@ -68,7 +71,7 @@ class HoleDetailViewModel: ObservableObject {
         self.initOption = .normal
     }
     
-    func initialLoad(proxy: ScrollViewProxy) async {
+    func initialLoad() async {
         switch initOption {
         case .normal:
             break
@@ -92,16 +95,9 @@ class HoleDetailViewModel: ObservableObject {
                 let targetFloor = try await DXNetworks.shared.loadFloorById(floorId: targetFloorId)
                 self.hole = try await DXNetworks.shared.loadHoleById(holeId: targetFloor.holeId)
                 
-                var newFloors: [THFloor] = []
-                var floors: [THFloor] = []
-                repeat {
-                    newFloors = try await DXNetworks.shared.loadFloors(holeId: targetFloor.holeId, startFloor: floors.count)
-                    floors.append(contentsOf: newFloors)
-                    if newFloors.contains(targetFloor) {
-                        break
-                    }
-                } while !newFloors.isEmpty
-                self.floors = floors // insert to view at last, preventing automatic refresh causing URLSession to cancel
+                self.floors = try await DXNetworks.shared.loadAllFloors(holeId: targetFloor.holeId)
+                try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
+                scrollTarget = targetFloorId
             } catch NetworkError.notFound {
                 errorTitle = "Floor Not Exist"
                 errorInfo = String(format: NSLocalizedString("Floor ##%@ not exist", comment: ""), String(targetFloorId))
@@ -111,12 +107,6 @@ class HoleDetailViewModel: ObservableObject {
                 errorTitle = "Error"
                 errorInfo = error.localizedDescription
                 errorPresenting = true
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // hack to give a time redraw
-                withAnimation {
-                    proxy.scrollTo(targetFloorId, anchor: .top)
-                }
             }
         }
         
@@ -128,12 +118,11 @@ class HoleDetailViewModel: ObservableObject {
             if let hole = hole {
                 do {
                     try await DXNetworks.shared.updateViews(holeId: hole.id)
-                } catch {
-                    print("DANXI-DEBUG: update viewing count failed")
                 }
             }
         }
     }
+    
     
     func loadMoreFloors() async {
         guard let hole = hole else {
@@ -145,6 +134,7 @@ class HoleDetailViewModel: ObservableObject {
         
         do {
             let previousCount = filteredFloors.count
+            // FIXME: adopt special API
             while filteredFloors.count == previousCount && !endReached {
                 let newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
                 floors.append(contentsOf: newFloors)
@@ -160,18 +150,25 @@ class HoleDetailViewModel: ObservableObject {
             return
         }
         
+        if endReached {
+            withAnimation {
+                scrollTarget = hole.lastFloor.id
+            }
+            return
+        }
+        
         do {
-            var newFloors: [THFloor] = []
-            var floors: [THFloor] = self.floors
-            
-            repeat {
-                newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
-                floors.append(contentsOf: newFloors)
-            } while !newFloors.isEmpty
-            
-            self.floors = floors
+            loadingToBottom = true
+            defer { loadingToBottom = false }
+            self.floors = try await DXNetworks.shared.loadAllFloors(holeId: hole.id)
+            endReached = true
+            withAnimation {
+                scrollTarget = hole.lastFloor.id
+            }
         } catch {
-            print("DANXI-DEBUG: load to bottom failed")
+            errorTitle = "Error"
+            errorInfo = error.localizedDescription
+            errorPresenting = true
         }
     }
     
@@ -186,16 +183,9 @@ class HoleDetailViewModel: ObservableObject {
             favorited = favorites.contains(hole.id)
             haptic()
         } catch {
-            print("DANXI-DEBUG: toggle favorite failed")
+            errorTitle = "Toggle Favorite Failed"
+            errorInfo = error.localizedDescription
+            errorPresenting = true
         }
-    }
-    
-    func fetchFloorFromID(_ floorId: Int) -> THFloor? {
-        for floor in floors {
-            if floor.id == floorId {
-                return floor
-            }
-        }
-        return nil
     }
 }

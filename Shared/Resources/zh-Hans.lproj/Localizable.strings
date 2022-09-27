@@ -113,6 +113,7 @@
 // Treehole Detail Page
 "Add to Favorites" = "收藏";
 "Remove from Favorites" = "移除收藏";
+"Toggle Favorite Failed" = "切换收藏失败";
 "Show OP Only" = "只看洞主";
 "Show All" = "全部回贴";
 "Navigate to Bottom" = "去往底部";
@@ -139,6 +140,7 @@
 // Error
 "Error" = "错误";
 "Loading Failed" = "加载失败";
+"Load More" = "加载更多";
 "Retry" = "重试";
 "Load More" = "加载更多";
 "Network Error" = "网络错误";
@@ -210,3 +212,5 @@
 "Delete Post" = "删帖";
 "Content to Delete" = "将删除的内容";
 "Enter delete reason" = "输入删帖原因";
+"Confirm Delete Post" = "确认删除此树洞";
+"This will affect all replies of this post" = "将影响该贴下全部回复贴";

@@ -80,7 +80,7 @@
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27D7110828CA29B7001E9464 /* ReportForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* ReportForm.swift */; };
-		27D7110B28CA3167001E9464 /* FormOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* FormOverlay.swift */; };
+		27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* LoadingOverlay.swift */; };
 		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
 		27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingView.swift */; };
 		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
@@ -222,7 +222,7 @@
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* ReportForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportForm.swift; sourceTree = "<group>"; };
-		27D7110A28CA3167001E9464 /* FormOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormOverlay.swift; sourceTree = "<group>"; };
+		27D7110A28CA3167001E9464 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		27D7110C28CA38DC001E9464 /* FormPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPrimitive.swift; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
@@ -365,6 +365,7 @@
 				27227FD028A507AA00B3C99D /* BrowsePage.swift */,
 				F19113A928A65D260067BA61 /* SearchPage.swift */,
 				2778D6072891D22D009F4DB1 /* HoleDetailPage.swift */,
+				27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */,
 				272AC8D92896BE2500092B0C /* FavoritesPage.swift */,
 				27FA5F46289947DA000391A3 /* SearchTextPage.swift */,
 				27FA5F48289955C3000391A3 /* SearchTagPage.swift */,
@@ -398,6 +399,7 @@
 				27E4686428BCD22500CDE8CE /* LoadingFooter.swift */,
 				27B5D70E28C74E9400924264 /* TextEditView.swift */,
 				2748AE9828C8C4CC0014495F /* TagField.swift */,
+				27D7110A28CA3167001E9464 /* LoadingOverlay.swift */,
 				F128E3C828D0A568009447E6 /* CardView.swift */,
 			);
 			path = Components;
@@ -448,14 +450,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		27999CEE28AB9A35009F11A9 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		27C7E8A928BA038200DCC2B2 /* floor */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,7 +487,6 @@
 			isa = PBXGroup;
 			children = (
 				27D7110C28CA38DC001E9464 /* FormPrimitive.swift */,
-				27D7110A28CA3167001E9464 /* FormOverlay.swift */,
 				272AC8E02896F27300092B0C /* EditForm.swift */,
 				272AC8E22896F29800092B0C /* ReplyForm.swift */,
 				272AC8E52896F30E00092B0C /* EditReplyForm.swift */,
@@ -528,7 +521,6 @@
 			isa = PBXGroup;
 			children = (
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
-				27999CEE28AB9A35009F11A9 /* ViewModel */,
 				2778D6052891D22D009F4DB1 /* Pages */,
 				2778D6122891D22D009F4DB1 /* Components */,
 				27D7110928CA306C001E9464 /* Forms */,
@@ -784,7 +776,7 @@
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
 				271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */,
 				27CC00EA28E1EE1800F0B026 /* BanForm.swift in Sources */,
-				27D7110B28CA3167001E9464 /* FormOverlay.swift in Sources */,
+				27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyForm.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
 				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,

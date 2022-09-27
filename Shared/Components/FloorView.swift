@@ -169,7 +169,7 @@ struct FloorView: View {
     
     private var info: some View {
         HStack {
-            Text("\(floor.storey + 1)F")
+            Text("\(String(floor.storey + 1))F")
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)

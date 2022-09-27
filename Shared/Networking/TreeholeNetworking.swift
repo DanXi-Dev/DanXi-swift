@@ -112,7 +112,7 @@ extension DXNetworks {
     /// Hide a hole, only visible to admins.
     /// - Parameter holeId: Hole ID.
     func deleteHole(holeId: Int) async throws {
-        let url = URL(string: FDUHOLE_BASE_URL + "holes/\(holeId)")!
+        let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         _ = try await networkRequest(url: url, method: "DELETE")
     }
     
@@ -149,6 +149,20 @@ extension DXNetworks {
             URLQueryItem(name: "hole_id", value: String(holeId)),
             URLQueryItem(name: "length", value: String(length)),
             URLQueryItem(name: "start_floor", value: String(startFloor))
+        ]
+        return try await requestObj(url: components.url!)
+    }
+    
+    
+    /// Load all floors within a given hole. (Undocumented API)
+    /// - Parameter holeId: Hole ID.
+    /// - Returns: A list of floors.
+    func loadAllFloors(holeId: Int) async throws -> [THFloor] {
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
+        components.queryItems = [
+            URLQueryItem(name: "hole_id", value: String(holeId)),
+            URLQueryItem(name: "length", value: "0"),
+            URLQueryItem(name: "start_floor", value: "0")
         ]
         return try await requestObj(url: components.url!)
     }

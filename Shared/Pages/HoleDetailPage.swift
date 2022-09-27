@@ -5,7 +5,7 @@ struct HoleDetailPage: View {
     @StateObject var viewModel: HoleDetailViewModel
     @State var showReplyPage = false
     @State var showManagementPage = false
-    @State var scrollTarget: Int?
+    @State var showHideAlert = false
     
     init(hole: THHole) {
         self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(hole: hole))
@@ -67,8 +67,8 @@ struct HoleDetailPage: View {
                 } footer: {
                     if !viewModel.endReached {
                         LoadingFooter(loading: $viewModel.listLoading,
-                                        errorDescription: viewModel.listError,
-                                        action: viewModel.loadMoreFloors)
+                                      errorDescription: viewModel.listError,
+                                      action: viewModel.loadMoreFloors)
                     }
                 }
             }
@@ -90,22 +90,33 @@ struct HoleDetailPage: View {
                 }
             })
             // access scroll view proxy from outside, i.e., toolbar
-            .onChange(of: scrollTarget, perform: { target in
-                if let target = target {
-                    scrollTarget = nil
-                    withAnimation {
-                        proxy.scrollTo(target)
-                    }
+            .onChange(of: viewModel.scrollTarget, perform: { target in
+                withAnimation {
+                    proxy.scrollTo(target)
                 }
+                viewModel.scrollTarget = -1 // reset scroll target, in case that the same target may be scrolled again
             })
             .task {
-                await viewModel.initialLoad(proxy: proxy)
+                await viewModel.initialLoad()
             }
             .alert(viewModel.errorTitle, isPresented: $viewModel.errorPresenting) {
                 Button("OK") { }
             } message: {
                 Text(viewModel.errorInfo)
             }
+            .alert("Confirm Delete Post", isPresented: $showHideAlert) {
+                Button("Confirm", role: .destructive) {
+                    Task {
+                        if let hole = viewModel.hole {
+                            try await DXNetworks.shared.deleteHole(holeId: hole.id)
+                        }
+                    }
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("This will affect all replies of this post")
+            }
+            .loadingOverlay(loading: viewModel.loadingToBottom, prompt: "Loading")
         }
     }
     
@@ -142,7 +153,6 @@ struct HoleDetailPage: View {
                 Button {
                     Task {
                         await viewModel.loadToBottom()
-                        scrollTarget = viewModel.floors.last?.id
                     }
                 } label: {
                     Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
@@ -152,7 +162,7 @@ struct HoleDetailPage: View {
                     Divider()
                     
                     Button {
-                        // TODO: hide hole
+                        showHideAlert = true
                     } label: {
                         Label("Hide Hole", systemImage: "eye.slash.fill")
                     }

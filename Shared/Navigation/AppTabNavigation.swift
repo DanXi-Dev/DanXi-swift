@@ -44,14 +44,15 @@ struct AppTabNavigation: View {
             }
             .tag(Tab.curriculum)
             
-            NavigationView {
-                CampusInfoPage()
-            }
-            .tabItem {
-                Image(systemName: "books.vertical.fill")
-                Text("Campus Info")
-            }
-            .tag(Tab.campusInfo)
+            // Temporary disable this section, will restore when necessary functions  are completed
+//            NavigationView {
+//                CampusInfoPage()
+//            }
+//            .tabItem {
+//                Image(systemName: "books.vertical.fill")
+//                Text("Campus Info")
+//            }
+//            .tag(Tab.campusInfo)
             
             NavigationView {
                 SettingsPage()
