@@ -171,7 +171,7 @@ extension THHistory {
     }
 }
 
-extension THUser {
+extension DXUser {
     enum CodingKeys: String, CodingKey {
         case id = "user_id"
         case nickname

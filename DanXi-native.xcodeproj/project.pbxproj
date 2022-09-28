@@ -67,6 +67,7 @@
 		2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* CourseDetailPage.swift */; };
 		27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
+		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5D70E28C74E9400924264 /* TextEditView.swift */; };
 		27B9B3A928B29953007CA1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27B9B3AB28B29953007CA1E0 /* InfoPlist.strings */; };
 		27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C1344828ABCD44007F66C5 /* CourseStore.swift */; };
@@ -76,6 +77,7 @@
 		27C7E8B128BA038200DCC2B2 /* long-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AD28BA038200DCC2B2 /* long-floor.json */; };
 		27CC00EA28E1EE1800F0B026 /* BanForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00E928E1EE1800F0B026 /* BanForm.swift */; };
 		27CC00EC28E203A400F0B026 /* DeleteForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* DeleteForm.swift */; };
+		27D3251528E3435500A0CFE3 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D3251428E3435500A0CFE3 /* Cache.swift */; };
 		27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4C3E928C88CF50073F4F2 /* Preference.swift */; };
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
@@ -208,6 +210,7 @@
 		27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleDetailViewModel.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		27B5D70E28C74E9400924264 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
 		27B9B3AA28B29953007CA1E0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27B9B3AC28B29957007CA1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -218,6 +221,7 @@
 		27C7E8AD28BA038200DCC2B2 /* long-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "long-floor.json"; sourceTree = "<group>"; };
 		27CC00E928E1EE1800F0B026 /* BanForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanForm.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* DeleteForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteForm.swift; sourceTree = "<group>"; };
+		27D3251428E3435500A0CFE3 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		27D4C3E928C88CF50073F4F2 /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
@@ -334,7 +338,6 @@
 				27719A9A28A3C45E00C661BD /* CourseEntity.swift */,
 				2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */,
 				27719A9B28A3C45E00C661BD /* CourseDecode.swift */,
-				27C1344828ABCD44007F66C5 /* CourseStore.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -349,13 +352,14 @@
 			path = course;
 			sourceTree = "<group>";
 		};
-		2778D6002891D22D009F4DB1 /* Treehole */ = {
+		2778D6002891D22D009F4DB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				27D4C3E928C88CF50073F4F2 /* Preference.swift */,
 				2778D6032891D22D009F4DB1 /* TreeholeModel.swift */,
+				27C1344828ABCD44007F66C5 /* CourseStore.swift */,
 			);
-			path = Treehole;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2778D6052891D22D009F4DB1 /* Pages */ = {
@@ -415,6 +419,7 @@
 				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
 				2778D6172891D22D009F4DB1 /* Flexible */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
+				27D3251428E3435500A0CFE3 /* Cache.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 		27D6F44D2892C5C50059228F /* Preview */ = {
 			isa = PBXGroup;
 			children = (
+				27AFBD3028E4688000ED8A3D /* user.json */,
 				27544B4428C5284100600605 /* report */,
 				27E5E82728BA0B300074D295 /* divisions */,
 				27C7E8A928BA038200DCC2B2 /* floor */,
@@ -526,7 +532,7 @@
 				27D7110928CA306C001E9464 /* Forms */,
 				27719A9928A3C43400C661BD /* Entities */,
 				27719A9428A3C1B700C661BD /* Networking */,
-				2778D6002891D22D009F4DB1 /* Treehole */,
+				2778D6002891D22D009F4DB1 /* Model */,
 				2778D61B2891D22D009F4DB1 /* Navigation */,
 				2778D6162891D22D009F4DB1 /* Utils */,
 				2778D6342891D316009F4DB1 /* Resources */,
@@ -696,6 +702,7 @@
 				27C7E8AF28BA038200DCC2B2 /* floor.json in Resources */,
 				27C7E8B028BA038200DCC2B2 /* styled-floor.json in Resources */,
 				27D6F4582892C96E0059228F /* hole.json in Resources */,
+				27AFBD3128E4688000ED8A3D /* user.json in Resources */,
 				27544B4628C5286300600605 /* report-list.json in Resources */,
 				27E5E82928BA0B560074D295 /* hole-list.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,
@@ -779,6 +786,7 @@
 				27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */,
 				272AC8E32896F29800092B0C /* ReplyForm.swift in Sources */,
 				27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */,
+				27D3251528E3435500A0CFE3 /* Cache.swift in Sources */,
 				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,
 				F165C51D28D1887C0000DB6F /* EcardView.swift in Sources */,
 				27719AAC28A4145F00C661BD /* NetworkError.swift in Sources */,

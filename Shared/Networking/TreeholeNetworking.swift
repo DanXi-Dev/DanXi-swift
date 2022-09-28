@@ -6,7 +6,7 @@ extension DXNetworks {
     
     // MARK: generic info
     
-    func loadUserInfo() async throws -> THUser {
+    func loadUserInfo() async throws -> DXUser {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/users")!
         return try await requestObj(url: components.url!)
     }

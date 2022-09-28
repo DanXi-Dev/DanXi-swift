@@ -1,7 +1,7 @@
 import Foundation
 
 func cacheFileURL() throws -> URL {
-    try FileManager.default.url(for: .documentDirectory,
+    try FileManager.default.url(for: .cachesDirectory,
                                 in: .userDomainMask,
                                 appropriateFor: nil,
                                 create: false)

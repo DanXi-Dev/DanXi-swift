@@ -8,6 +8,7 @@ struct TagField: View {
     @State var searchText = ""
     @State var showTagSelection = false
     
+    @MainActor
     var filteredTags: [THTag] {
         let tags = TreeholeDataModel.shared.tags.filter { tag in
             !self.tags.contains(tag.name)
@@ -75,6 +76,7 @@ struct TagField: View {
         }
     }
     
+    @MainActor
     private var tagSelection: some View {
         NavigationView {
             List {

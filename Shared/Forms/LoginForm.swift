@@ -23,8 +23,7 @@ struct LoginForm: View {
         loading = true
         Task {
             do {
-                try await DXNetworks.shared.login(username: username, password: password)
-                model.loggedIn = true
+                try await model.login(username, password)
                 loading = false
                 dismiss()
             } catch NetworkError.unauthorized {

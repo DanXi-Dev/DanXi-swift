@@ -32,6 +32,12 @@
 "Fold" = "折叠";
 "NL Model Debugging Mode" = "自然语言处理";
 "Blocked Tags" = "屏蔽的标签";
+"Account Info" = "账户信息";
+"User ID" = "用户ID";
+"Nickname" = "昵称";
+"Join Date" = "注册日期";
+"Admin Privilege" = "管理员权限";
+"Enabled" = "已启用";
 
 // Treehole Welcome Page
 "TH Feature 1" = "时刻保持最新";

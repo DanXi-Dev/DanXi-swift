@@ -64,7 +64,7 @@ struct THHistory: Hashable, Codable {
     let alteredTime: Date
 }
 
-struct THUser: Hashable, Codable, Identifiable {
+struct DXUser: Hashable, Codable, Identifiable {
     let id: Int
     let nickname: String
     let joinTime: Date
