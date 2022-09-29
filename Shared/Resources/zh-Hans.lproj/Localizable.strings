@@ -16,6 +16,10 @@
 "Incorrect Information" = "信息不正确";
 "Enter username and password" = "请输入用户名和密码";
 "Invalid username" = "用户名格式不正确";
+"Forget Password" = "忘记密码";
+
+// Register Page
+"Register" = "注册";
 
 // Settings Page
 "Accounts Management" = "账户管理";

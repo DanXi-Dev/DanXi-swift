@@ -7,9 +7,10 @@ let FDUHOLE_BASE_URL = "https://api.fduhole.com"
 class DXNetworks {
     /// Shared instance of this class.
     static var shared = DXNetworks()
-    private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
+    let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
     
     // MARK: Stored Properties
+    
     struct Token: Codable {
         let access: String
         let refresh: String
@@ -21,22 +22,73 @@ class DXNetworks {
         token != nil
     }
     
-    // MARK: General Methods
-    
     init() {
         if let tokenData = defaults?.data(forKey: "user-credential") {
             self.token = try? JSONDecoder().decode(Token.self, from: tokenData)
         }
     }
     
-    // use generic type to decode server response
-    func requestObj<T: Decodable>(url: URL, data: Data? = nil, method: String? = nil) async throws -> T {
-        let data = try await networkRequest(url: url, data: data, method: method)
+    // MARK: General Methods
+    
+    /// Request for a server response.
+    /// - Parameters:
+    ///   - url: URL to query.
+    ///   - method: HTTP method, default is `GET`.
+    /// - Returns: Server response decoded object.
+    func requestObj<T: Decodable>(url: URL,
+                                  method: String? = nil) async throws -> T {
+        let responseData = try await networkRequest(url: url,
+                                                    method: method)
         do {
-            return try JSONDecoder().decode(T.self, from: data)
+            return try JSONDecoder().decode(T.self, from: responseData)
         } catch {
             throw NetworkError.invalidResponse
         }
+    }
+    
+    /// Request for a server response.
+    /// - Parameters:
+    ///   - url: URL to query.
+    ///   - payload: Payload object, should conform to `Encodable`.
+    ///   - method: HTTP method, default is `GET` or `POST`, depending on whether `payload` is `nil`.
+    ///   - authorize: Whether to add authorization token in request, default `true`.
+    /// - Returns: Server response decoded object.
+    func requestObj<T: Decodable, S: Encodable>(url: URL,
+                                                payload: S,
+                                                method: String? = nil,
+                                                authorize: Bool = true) async throws -> T {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        let payloadData = try encoder.encode(payload)
+        
+        let responseData = try await networkRequest(url: url,
+                                                    data: payloadData,
+                                                    method: method,
+                                                    authorize: authorize)
+        do {
+            return try JSONDecoder().decode(T.self, from: responseData)
+        } catch {
+            throw NetworkError.invalidResponse
+        }
+    }
+    
+    /// Send request to server, ignore response.
+    /// - Parameters:
+    ///   - url: URL to query.
+    ///   - payload: Payload object, should conform to `Encodable`.
+    ///   - method: HTTP method, default is `GET` or `POST`, depending on whether `payload` is `nil`.
+    func sendRequest<S: Encodable>(url: URL,
+                                   payload: S? = nil,
+                                   method: String? = nil) async throws {
+        var payloadData: Data?
+        if let payload = payload {
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            payloadData = try encoder.encode(payload)
+        }
+        _ = try await networkRequest(url: url,
+                                     data: payloadData,
+                                     method: method)
     }
     
     /// Network request primitive, add necessary HTTP headers and authentication infomation.
@@ -44,19 +96,26 @@ class DXNetworks {
     ///   - url: URL to query.
     ///   - data: data to upload.
     ///   - method: HTTP method, default is `GET` or `POST`, depending on whether `data` is `nil`.
+    ///   - authorize: Whether to add authorization token in request, default `true`.
     ///   - retry: internal parameter, used to prevent infinite recursion when refreshing token is needed.
     /// - Returns: Server response data.
-    func networkRequest(url: URL, data: Data? = nil, method: String? = nil, retry: Bool = false) async throws -> Data {
+    func networkRequest(url: URL,
+                        data: Data? = nil,
+                        method: String? = nil,
+                        authorize: Bool = true,
+                        retry: Bool = false) async throws -> Data {
         struct ServerMessage: Codable {
             let message: String
         }
         
-        guard let token = self.token else {
-            throw NetworkError.notInitialized
-        }
-        
         var request = URLRequest(url: url)
-        request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
+        
+        if authorize {
+            guard let token = self.token else {
+                throw NetworkError.notInitialized
+            }
+            request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
+        }
         
         if let payloadData = data {
             request.httpMethod = method ?? "POST"
@@ -104,72 +163,20 @@ class DXNetworks {
         }
     }
     
-    // MARK: Authentication
     
-    /// Login and store user token.
-    /// - Parameters:
-    ///   - username: username.
-    ///   - password: password.
-    func login(username: String, password: String) async throws {
-        struct LoginBody: Codable {
-            let email: String
-            let password: String
-        }
-        
-        let loginBody = LoginBody(email: username, password: password)
-        let postData = try JSONEncoder().encode(loginBody)
-        
-        var request = URLRequest(url: URL(string: FDUHOLE_AUTH_URL + "/login")!)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = postData
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let httpResponse = response as! HTTPURLResponse
-        
-        switch httpResponse.statusCode {
-        case 200..<300:
-            let responseToken = try JSONDecoder().decode(Token.self, from: data)
+    /// Store token to `UserDefaults`.
+    /// - Parameter token: JWT Token. If `nil`, remove stored token.
+    func storeToken(_ token: Token?) {
+        if let token = token {
+            let data = try! JSONEncoder().encode(token)
             defaults?.setValue(data, forKey: "user-credential")
-            self.token = responseToken
-            
-            if apnsToken != nil {
-                Task.init {
-                    await DXNetworks.shared.uploadAPNSKey()
-                }
-            }
-        case 400..<500:
-            throw NetworkError.unauthorized
-        default:
-            throw NetworkError.serverError(message: "")
-        }
-        
-    }
-    
-    func logout() {
-        defaults?.removeObject(forKey: "user-credential")
-        token = nil
-    }
-    
-    
-    /// Request a new token when current token is expired.
-    func refreshToken() async throws {
-        guard let token = self.token else {
-            throw NetworkError.forbidden
-        }
-        
-        do {
-            var request = URLRequest(url: URL(string: FDUHOLE_AUTH_URL + "/refresh")!)
-            request.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
-            request.httpMethod = "POST"
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let responseToken = try JSONDecoder().decode(Token.self, from: data)
-            defaults?.setValue(data, forKey: "user-credential")
-            self.token = responseToken
-        } catch {
-            throw NetworkError.unauthorized
+            self.token = token
+        } else {
+            defaults?.removeObject(forKey: "user-credential")
+            self.token = nil
         }
     }
+    
     
     // MARK: APNS
     var apnsToken: APNSToken? = nil

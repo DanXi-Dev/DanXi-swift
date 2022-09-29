@@ -1,24 +1,13 @@
 import Foundation
 
-// FDU Hole API
-
 extension DXNetworks {
     
-    // MARK: generic info
-    
-    func loadUserInfo() async throws -> DXUser {
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/users")!
-        return try await requestObj(url: components.url!)
-    }
-    
     // MARK: Division
-    
     
     /// List all divisions.
     /// - Returns: A list of `THDivision`
     func loadDivisions() async throws -> [THDivision] {
-        let url = URL(string: FDUHOLE_BASE_URL + "/divisions")!
-        return try await requestObj(url: url)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/divisions")!)
     }
     
     
@@ -26,16 +15,14 @@ extension DXNetworks {
     /// - Parameter id: Division ID.
     /// - Returns: The matching `THDivision`.
     func getDivision(id: Int) async throws -> THDivision {
-        let url = URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!
-        return try await requestObj(url: url)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!)
     }
     
     
     // MARK: tags
     
     func loadTags() async throws -> [THTag] {
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/tags")!
-        return try await requestObj(url: components.url!)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/tags")!)
     }
     
     
@@ -61,17 +48,16 @@ extension DXNetworks {
         
         struct Post: Codable {
             let content: String
-            let division_id: Int
+            let divisionId: Int
             var tags: [Tag]
         }
         
         let payload = Post(content: content,
-                           division_id: divisionId,
+                           divisionId: divisionId,
                            tags: tags.map { Tag(name: $0) })
-        let payloadData = try JSONEncoder().encode(payload)
         
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
-        _ = try await networkRequest(url: components.url!, data: payloadData)
+        try await sendRequest(url: URL(string: FDUHOLE_BASE_URL + "/holes")!,
+                                     payload: payload)
     }
     
     
@@ -168,32 +154,32 @@ extension DXNetworks {
     }
     
     func loadFloorById(floorId: Int) async throws -> THFloor {
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        return try await requestObj(url: components.url!)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
     }
     
+    
+    /// Delete a floor.
+    /// - Parameters:
+    ///   - floorId: Floor ID to be deleted.
+    ///   - reason: Delete reason, admin only.
+    /// - Returns: Deleted floor struct.
     func deleteFloor(floorId: Int, reason: String = "") async throws -> THFloor {
         struct DeleteConfig: Codable {
-            let delete_reason: String
+            let deleteReason: String
         }
         
-        let payload = DeleteConfig(delete_reason: reason)
-        let payloadData = try JSONEncoder().encode(payload)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        return try await requestObj(url: components.url!, data: payloadData, method: "DELETE")
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+                                    payload: DeleteConfig(deleteReason: reason), method: "DELETE")
     }
     
+    // TODO: Deprecated API
     func like(floorId: Int, like: Bool) async throws -> THFloor {
         struct LikeConfig: Codable {
             let like: String
         }
-        
-        let payload = LikeConfig(like: like ? "add" : "cancel")
-        let payloadData = try JSONEncoder().encode(payload)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        return try await requestObj(url: components.url!, data: payloadData, method: "PUT")
+
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+                                    payload: LikeConfig(like: like ? "add" : "cancel"), method: "PUT")
     }
     
     func searchKeyword(keyword: String, startFloor: Int = 0) async throws -> [THFloor] {
@@ -209,19 +195,17 @@ extension DXNetworks {
     func reply(content: String, holdId: Int) async throws -> THFloor {
         struct ReplyObject: Codable {
             let content: String
-            var hole_id: Int
+            var holeId: Int
         }
         
         struct ServerResponse: Decodable {
             let message: String
             var data: THFloor
         }
-        
-        let payload = ReplyObject(content: content, hole_id: holdId)
-        let payloadData = try JSONEncoder().encode(payload)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
-        let responseData: ServerResponse = try await requestObj(url: components.url!, data: payloadData)
+
+        let responseData: ServerResponse =
+        try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors")!,
+                             payload: ReplyObject(content: content, holeId: holdId))
         return responseData.data
     }
     
@@ -230,22 +214,11 @@ extension DXNetworks {
             let content: String
         }
         
-        let payload = EditConfig(content: content)
-        let payloadData = try JSONEncoder().encode(payload)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!
-        return try await requestObj(url: components.url!, data: payloadData, method: "PUT")
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+                                    payload: EditConfig(content: content), method: "PUT")
     }
     
-    // MARK: management
-    
-
-
-    
-
-    
     // MARK: Report
-    
     
     /// List all reports.
     /// - Returns: A list of `THReport`
@@ -262,15 +235,12 @@ extension DXNetworks {
     ///   - reason: Report reason.
     func report(floorId: Int, reason: String) async throws {
         struct ReportConfig: Codable {
-            let floor_id: Int
+            let floorId: Int
             let reason: String
         }
-        
-        let payload = ReportConfig(floor_id: floorId, reason: reason)
-        let payloadData = try JSONEncoder().encode(payload)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!
-        _ = try await networkRequest(url: components.url!, data: payloadData, method: "POST")
+
+        try await sendRequest(url: URL(string: FDUHOLE_BASE_URL + "/reports")!,
+                              payload: ReportConfig(floorId: floorId, reason: reason))
     }
     
     
@@ -278,8 +248,7 @@ extension DXNetworks {
     /// - Parameter reportId: Report ID
     /// - Returns: A matching `THReport`.
     func getReportById(reportId: Int) async throws -> THReport {
-        let url = URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!
-        return try await requestObj(url: url)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!)
     }
     
     
@@ -287,22 +256,29 @@ extension DXNetworks {
     /// - Parameter reportId: Report ID.
     /// - Returns: Dealt `THReport` struct.
     func dealReport(reportId: Int) async throws -> THReport {
-        let url = URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!
-        return try await requestObj(url: url, method: "DELETE")
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!,
+                                    method: "DELETE")
     }
     
     
     // MARK: Favorite
     
+    
+    /// Load favorites hole.
+    /// - Returns: List of favorites hole.
     func loadFavorites() async throws -> [THHole] {
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        return try await requestObj(url: components.url!)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!)
     }
     
     
+    /// Set favorite status of a hole.
+    /// - Parameters:
+    ///   - holeId: Hole ID.
+    ///   - add: Add or remove this hole from favorites.
+    /// - Returns: List of favorites hole ID.
     func toggleFavorites(holeId: Int, add: Bool) async throws -> [Int] {
         struct FavoriteConfig: Codable {
-            let hole_id: Int
+            let holeId: Int
         }
         
         struct ServerResponse: Codable {
@@ -310,11 +286,10 @@ extension DXNetworks {
             var data: [Int]
         }
         
-        let payload = FavoriteConfig(hole_id: holeId)
-        let payloadData = try JSONEncoder().encode(payload)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
-        let response: ServerResponse = try await requestObj(url: components.url!, data: payloadData, method: add ? "POST" : "DELETE")
+        let response: ServerResponse =
+        try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
+                             payload: FavoriteConfig(holeId: holeId),
+                             method: add ? "POST" : "DELETE")
         return response.data
     }
     
@@ -327,17 +302,15 @@ extension DXNetworks {
     ///   - level: Ban level, range: 1-3.
     func addPenalty(floor: THFloor, level: Int) async throws {
         struct BanConfig: Codable {
-            let penalty_level: Int
-            let division_id: Int
+            let penaltyLevel: Int
+            let divisionId: Int
         }
         
         // get division ID
         let hole = try await loadHoleById(holeId: floor.holeId)
         let divisionId = hole.divisionId
         
-        let url = URL(string: FDUHOLE_BASE_URL + "/penalty/\(floor.id)")!
-        let payload = BanConfig(penalty_level: level, division_id: divisionId)
-        let payloadData = try JSONEncoder().encode(payload)
-        _ = try await networkRequest(url: url, data: payloadData)
+        _ = try await sendRequest(url: URL(string: FDUHOLE_BASE_URL + "/penalty/\(floor.id)")!,
+                                  payload: BanConfig(penaltyLevel: level, divisionId: divisionId))
     }
 }

@@ -3,4 +3,101 @@
    uuid = "088EAF9B-9FE2-4367-8CDA-561C16E49F98"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "930B670C-66F8-43B4-AE99-26E569ED82A4"
+            shouldBeEnabled = "No"
+            condition = "!authorize"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/Networking/DXNetworks.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "requestObj(url:payload:method:authorize:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "930B670C-66F8-43B4-AE99-26E569ED82A4 - 28d9ee0141ef70ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for DanXi_native.DXNetworks.requestObj&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(url: Foundation.URL, payload: &#x3c4;_0_1, method: Swift.Optional&lt;Swift.String&gt;, authorize: Swift.Bool) async throws -&gt; &#x3c4;_0_0"
+                  moduleName = "DanXi-native"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fsy/Projects/DanXi/DanXi-swift/Shared/Networking/DXNetworks.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "340">
+               </Location>
+               <Location
+                  uuid = "930B670C-66F8-43B4-AE99-26E569ED82A4 - 1ed3c7fbd5a3479c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for DanXi_native.DXNetworks.requestObj&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(url: Foundation.URL, payload: &#x3c4;_0_1, method: Swift.Optional&lt;Swift.String&gt;, authorize: Swift.Bool) async throws -&gt; &#x3c4;_0_0"
+                  moduleName = "DanXi-native"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fsy/Projects/DanXi/DanXi-swift/Shared/Networking/DXNetworks.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "930B670C-66F8-43B4-AE99-26E569ED82A4 - 5f606e8fe2ec8cab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for DanXi_native.DXNetworks.requestObj&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(url: Foundation.URL, payload: &#x3c4;_0_1, method: Swift.Optional&lt;Swift.String&gt;, authorize: Swift.Bool) async throws -&gt; &#x3c4;_0_0"
+                  moduleName = "DanXi-native"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fsy/Projects/DanXi/DanXi-swift/Shared/Networking/DXNetworks.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "930B670C-66F8-43B4-AE99-26E569ED82A4 - f63caf77536daa48"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for DanXi_native.DXNetworks.requestObj&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(url: Foundation.URL, payload: &#x3c4;_0_1, method: Swift.Optional&lt;Swift.String&gt;, authorize: Swift.Bool) async throws -&gt; &#x3c4;_0_0"
+                  moduleName = "DanXi-native"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fsy/Projects/DanXi/DanXi-swift/Shared/Networking/DXNetworks.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8D84FF3-7453-47A8-BC42-40CA53996D7B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/Networking/DXNetworks.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "networkRequest(url:data:method:authorize:retry:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -32,8 +32,8 @@
 		275B71CD28C5249800475BA3 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* ReportPage.swift */; };
 		275C096428E1D33A00B4815F /* BackgroundLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C096328E1D33A00B4815F /* BackgroundLink.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
-		27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */; };
-		27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworking.swift */; };
+		27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */; };
+		27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworks.swift */; };
 		27719A9C28A3C45E00C661BD /* CourseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9A28A3C45E00C661BD /* CourseEntity.swift */; };
 		27719A9D28A3C45E00C661BD /* CourseDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9B28A3C45E00C661BD /* CourseDecode.swift */; };
 		27719A9F28A3C52E00C661BD /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9E28A3C52E00C661BD /* Regex.swift */; };
@@ -66,6 +66,7 @@
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* CourseDetailPage.swift */; };
 		27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */; };
+		27999F2328E56B8700715D10 /* AuthNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999F2228E56B8700715D10 /* AuthNetworks.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5D70E28C74E9400924264 /* TextEditView.swift */; };
@@ -174,8 +175,8 @@
 		275B71CC28C5249800475BA3 /* ReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPage.swift; sourceTree = "<group>"; };
 		275C096328E1D33A00B4815F /* BackgroundLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundLink.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
-		27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeNetworking.swift; sourceTree = "<group>"; };
-		27719A9728A3C39E00C661BD /* CourseNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNetworking.swift; sourceTree = "<group>"; };
+		27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeholeNetworks.swift; sourceTree = "<group>"; };
+		27719A9728A3C39E00C661BD /* CourseNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNetworks.swift; sourceTree = "<group>"; };
 		27719A9A28A3C45E00C661BD /* CourseEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseEntity.swift; sourceTree = "<group>"; };
 		27719A9B28A3C45E00C661BD /* CourseDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDecode.swift; sourceTree = "<group>"; };
 		27719A9E28A3C52E00C661BD /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -208,6 +209,7 @@
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* CourseDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailPage.swift; sourceTree = "<group>"; };
 		27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleDetailViewModel.swift; sourceTree = "<group>"; };
+		27999F2228E56B8700715D10 /* AuthNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworks.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
@@ -324,8 +326,9 @@
 			isa = PBXGroup;
 			children = (
 				2778D6042891D22D009F4DB1 /* DXNetworks.swift */,
-				27719A9528A3C1F700C661BD /* TreeholeNetworking.swift */,
-				27719A9728A3C39E00C661BD /* CourseNetworking.swift */,
+				27999F2228E56B8700715D10 /* AuthNetworks.swift */,
+				27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */,
+				27719A9728A3C39E00C661BD /* CourseNetworks.swift */,
 				27719AAB28A4145F00C661BD /* NetworkError.swift */,
 			);
 			path = Networking;
@@ -412,14 +415,14 @@
 		2778D6162891D22D009F4DB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				27D3251428E3435500A0CFE3 /* Cache.swift */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
-				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
+				2778D6172891D22D009F4DB1 /* Flexible */,
 				2751E52E28BFB3F800104ACD /* Rich Text */,
 				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
-				2778D6172891D22D009F4DB1 /* Flexible */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
-				27D3251428E3435500A0CFE3 /* Cache.swift */,
+				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -733,9 +736,10 @@
 				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* DeleteForm.swift in Sources */,
-				27719A9628A3C1F700C661BD /* TreeholeNetworking.swift in Sources */,
+				27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */,
 				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,
+				27999F2328E56B8700715D10 /* AuthNetworks.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
 				2748AE9928C8C4CC0014495F /* TagField.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* DXNetworks.swift in Sources */,
@@ -764,7 +768,7 @@
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */,
 				F19113AA28A65D260067BA61 /* SearchPage.swift in Sources */,
-				27719A9828A3C39E00C661BD /* CourseNetworking.swift in Sources */,
+				27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */,
 				271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */,
 				27227FD128A507AA00B3C99D /* BrowsePage.swift in Sources */,
 				271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */,
