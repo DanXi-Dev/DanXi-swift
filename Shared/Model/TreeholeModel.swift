@@ -38,6 +38,12 @@ class TreeholeDataModel: ObservableObject {
         loggedIn = true
     }
     
+    func login() async throws {
+        user = try await DXNetworks.shared.loadUserInfo()
+        try saveData(user, filename: "danxi-user.data")
+        loggedIn = true
+    }
+    
     func logout() {
         user = nil
         DXNetworks.shared.logout()

@@ -49,6 +49,18 @@ struct LoginForm: View {
                         .disableAutocorrection(true)
                     
                     SecureField("Password", text: $password)
+                } footer: {
+                    HStack(spacing: 35) {
+                        Spacer()
+                        NavigationLink("Forget Password") {
+                            RegisterForm(create: false, dismiss: dismiss)
+                        }
+                        NavigationLink("Register") {
+                            RegisterForm(create: true, dismiss: dismiss)
+                        }
+                    }
+                    .padding(.top, 15)
+                    .font(.callout)
                 }
             }
             .navigationTitle("DanXi Login")

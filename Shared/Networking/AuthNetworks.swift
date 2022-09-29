@@ -9,7 +9,7 @@ extension DXNetworks {
     func verifyEmail(email: String) async throws {
         var components = URLComponents(string: FDUHOLE_AUTH_URL + "/verify/email")!
         components.queryItems = [URLQueryItem(name: "email", value: email)]
-        _ = try await networkRequest(url: components.url!)
+        _ = try await networkRequest(url: components.url!, authorize: false)
     }
     
     /// Register or change password, will reset authorization token.
@@ -31,7 +31,7 @@ extension DXNetworks {
         let payload = ChangePasswordConfig(password: password,
                                            email: email,
                                            verification: verification)
-        let token: Token = try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT")
+        let token: Token = try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT", authorize: false)
         storeToken(token)
     }
     

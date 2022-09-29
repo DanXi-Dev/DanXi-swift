@@ -17,6 +17,7 @@
 // Treehole Page
 "image_tag" = "[Image]";
 "formula_tag" = "[Formula]";
+"Register Prompt" = "By registering you agree to [terms and conditions](https://www.fduhole.com/#/license)";
 
 // Treehole floor
 "TH Edit Alert" = "Comply with [community rules](https://www.fduhole.com/#/license) when posting";

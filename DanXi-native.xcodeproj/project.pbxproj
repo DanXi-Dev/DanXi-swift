@@ -80,6 +80,7 @@
 		27CC00EC28E203A400F0B026 /* DeleteForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* DeleteForm.swift */; };
 		27D3251528E3435500A0CFE3 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D3251428E3435500A0CFE3 /* Cache.swift */; };
 		27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4C3E928C88CF50073F4F2 /* Preference.swift */; };
+		27D5E0EF28E5A91700E0BE0F /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* RegisterForm.swift */; };
 		27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* PreviewDecode.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27D7110828CA29B7001E9464 /* ReportForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* ReportForm.swift */; };
@@ -225,6 +226,7 @@
 		27CC00EB28E203A400F0B026 /* DeleteForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteForm.swift; sourceTree = "<group>"; };
 		27D3251428E3435500A0CFE3 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		27D4C3E928C88CF50073F4F2 /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		27D5E0EE28E5A91700E0BE0F /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* PreviewDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDecode.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* ReportForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportForm.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				27CC00EB28E203A400F0B026 /* DeleteForm.swift */,
 				27CC00E928E1EE1800F0B026 /* BanForm.swift */,
 				2778D6092891D22D009F4DB1 /* LoginForm.swift */,
+				27D5E0EE28E5A91700E0BE0F /* RegisterForm.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
 				273C1E6328C9CE5C0067E61E /* EditInfoForm.swift in Sources */,
 				F128E3C928D0A568009447E6 /* CardView.swift in Sources */,
+				27D5E0EF28E5A91700E0BE0F /* RegisterForm.swift in Sources */,
 				2778D61E2891D22D009F4DB1 /* TreeholeDecode.swift in Sources */,
 				273FAFB628C13C6100FC3950 /* SpecialTagView.swift in Sources */,
 				27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */,
