@@ -59,7 +59,6 @@ extension THFloor {
         case storey, content, spetialTag = "special_tag"
         case posterName = "anonyname"
         case mention
-        case history
     }
     
     init(from decoder: Decoder) throws {
@@ -88,7 +87,6 @@ extension THFloor {
             throw NetworkError.invalidResponse
         }
         mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
-        history = try values.decodeIfPresent([THHistory].self, forKey: .history) ?? []
     }
 }
 
@@ -134,6 +132,7 @@ extension THDivision {
     }
 }
 
+// FIXME: Delete this extension when backend temprature not exist bug is resolved.
 extension THTag {
     enum CodingKeys: String, CodingKey {
         case id
@@ -152,23 +151,9 @@ extension THTag {
 
 extension THHistory {
     enum CodingKeys: String, CodingKey {
-        case content
-        case alteredBy = "altered_by"
-        case alteredTime = "altered_time"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        content = try values.decode(String.self, forKey: .content)
-        alteredBy = try values.decode(Int.self, forKey: .alteredBy)
-        let iso8601AlteredTime = try values.decode(String.self, forKey: .alteredTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let alteredTime = formatter.date(from: iso8601AlteredTime) {
-            self.alteredTime = alteredTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
+        case content, id, reason
+        case floorId = "floor_id"
+        case userId = "user_id"
     }
 }
 

@@ -36,7 +36,7 @@ struct MentionView: View {
                              deleted: mention.deleted,
                              storey: 0,
                              content: mention.content, posterName: mention.posterName,
-                             spetialTag: "", mention: [], history: [])
+                             spetialTag: "", mention: [])
         self.proxy = nil
         self.mentionType = .remote
     }

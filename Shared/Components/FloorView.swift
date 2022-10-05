@@ -182,9 +182,8 @@ struct FloorView: View {
             
             if floor.deleted {
                 Text("Deleted")
-            } else if floor.edited {
-                Text("Edited")
             }
+            // FIXME: add Text("Edited")
             
             Spacer()
             

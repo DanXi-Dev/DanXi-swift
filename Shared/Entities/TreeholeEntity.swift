@@ -32,11 +32,6 @@ struct THFloor: Hashable, Codable, Identifiable {
     // TODO: fold: [?]
     let content, posterName, spetialTag: String
     let mention: [THMention]
-    let history: [THHistory]
-    
-    var edited: Bool {
-        !deleted && !history.isEmpty
-    }
 }
 
 struct THMention: Hashable, Codable {
@@ -58,10 +53,12 @@ struct THTag: Hashable, Codable, Identifiable {
     let name: String
 }
 
-struct THHistory: Hashable, Codable {
+struct THHistory: Hashable, Codable, Identifiable {
+    let id: Int
+    let floorId: Int
     let content: String
-    let alteredBy: Int
-    let alteredTime: Date
+    let reason: String
+    let userId: Int
 }
 
 struct DXUser: Hashable, Codable, Identifiable {

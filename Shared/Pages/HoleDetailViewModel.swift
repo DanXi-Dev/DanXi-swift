@@ -134,7 +134,6 @@ class HoleDetailViewModel: ObservableObject {
         
         do {
             let previousCount = filteredFloors.count
-            // FIXME: adopt special API
             while filteredFloors.count == previousCount && !endReached {
                 let newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
                 floors.append(contentsOf: newFloors)
