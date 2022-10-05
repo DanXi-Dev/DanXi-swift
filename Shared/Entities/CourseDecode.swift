@@ -57,15 +57,7 @@ extension DKReview {
         vote = try values.decode(Int.self, forKey: .vote)
         rank = try values.decode(DKRank.self, forKey: .rank)
         
-        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
-        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let updateTime = formatter.date(from: iso8601UpdateTime), let createTime = formatter.date(from: iso8601CreateTime) {
-            self.updateTime = updateTime
-            self.createTime = createTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
+        self.createTime = try decodeDate(values, key: .createTime)
+        self.updateTime = try decodeDate(values, key: .updateTime)
     }
 }

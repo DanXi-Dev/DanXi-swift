@@ -28,17 +28,8 @@ extension THHole {
         reply = try values.decode(Int.self, forKey: .reply)
         tags = try values.decode([THTag].self, forKey: .tags)
         hidden = try values.decode(Bool.self, forKey: .hidden)
-        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
-        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let updateTime = formatter.date(from: iso8601UpdateTime), let createTime = formatter.date(from: iso8601CreateTime) {
-            self.updateTime = updateTime
-            self.createTime = createTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
-        
+        self.createTime = try decodeDate(values, key: .createTime)
+        self.updateTime = try decodeDate(values, key: .updateTime)
         let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)
         firstFloor = try floorStruct.decode(THFloor.self, forKey: .firstFloor)
         lastFloor = try floorStruct.decode(THFloor.self, forKey: .lastFloor)
@@ -74,18 +65,8 @@ extension THFloor {
         spetialTag = try values.decode(String.self, forKey: .spetialTag)
         let posterName = try values.decode(String.self, forKey: .posterName)
         self.posterName = posterName
-        
-        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
-        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let createTime = formatter.date(from: iso8601CreateTime),
-           let updateTime = formatter.date(from: iso8601UpdateTime) {
-            self.createTime = createTime
-            self.updateTime = updateTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
+        self.createTime = try decodeDate(values, key: .createTime)
+        self.updateTime = try decodeDate(values, key: .updateTime)
         mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
     }
 }
@@ -108,18 +89,8 @@ extension THMention {
         content = try values.decode(String.self, forKey: .content)
         posterName = try values.decode(String.self, forKey: .posterName)
         deleted = try values.decode(Bool.self, forKey: .deleted)
-        
-        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
-        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let createTime = formatter.date(from: iso8601CreateTime),
-           let updateTime = formatter.date(from: iso8601UpdateTime) {
-            self.createTime = createTime
-            self.updateTime = updateTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
+        self.createTime = try decodeDate(values, key: .createTime)
+        self.updateTime = try decodeDate(values, key: .updateTime)
     }
 }
 
@@ -172,15 +143,7 @@ extension DXUser {
         nickname = try values.decode(String.self, forKey: .nickname)
         favorites = try values.decode([Int].self, forKey: .favorites)
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
-        
-        let iso8601JoinTime = try values.decode(String.self, forKey: .joinTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let time = formatter.date(from: iso8601JoinTime) {
-            joinTime = time
-        } else {
-            throw NetworkError.invalidResponse
-        }
+        self.joinTime = try decodeDate(values, key: .joinTime)
     }
 }
 
@@ -204,17 +167,7 @@ extension THReport {
         reason = try values.decode(String.self, forKey: .reason)
         dealed = try values.decode(Bool.self, forKey: .dealed)
         dealedBy = try values.decode(Int?.self, forKey: .dealedBy)
-        
-        let iso8601UpdateTime = try values.decode(String.self, forKey: .updateTime)
-        let iso8601CreateTime = try values.decode(String.self, forKey: .createTime)
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withTimeZone,.withFractionalSeconds,.withInternetDateTime]
-        if let createTime = formatter.date(from: iso8601CreateTime),
-           let updateTime = formatter.date(from: iso8601UpdateTime) {
-            self.createTime = createTime
-            self.updateTime = updateTime
-        } else {
-            throw NetworkError.invalidResponse
-        }
+        self.createTime = try decodeDate(values, key: .createTime)
+        self.updateTime = try decodeDate(values, key: .updateTime)
     }
 }
