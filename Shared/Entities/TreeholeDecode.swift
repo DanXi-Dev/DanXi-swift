@@ -136,7 +136,7 @@ extension THDivision {
 
 extension THTag {
     enum CodingKeys: String, CodingKey {
-        case id = "tag_id"
+        case id
         case name, temperature
     }
     
@@ -145,9 +145,10 @@ extension THTag {
         id = try values.decode(Int.self, forKey: .id)
         let nameStr = try values.decode(String.self, forKey: .name)
         name = nameStr
-        temperature = try values.decode(Int.self, forKey: .temperature)
+        temperature = try values.decodeIfPresent(Int.self, forKey: .temperature) ?? 0
     }
 }
+
 
 extension THHistory {
     enum CodingKeys: String, CodingKey {

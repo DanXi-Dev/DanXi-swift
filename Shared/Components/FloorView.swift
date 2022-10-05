@@ -99,7 +99,8 @@ struct FloorView: View {
             }
             
             if floor.deleted {
-                Text(floor.history.first?.content ?? "NONE")
+                Text(floor.content)
+                    .foregroundColor(.secondary)
                     .font(.system(size: 16))
                     .fixedSize(horizontal: false, vertical: true)
             } else {
@@ -169,7 +170,7 @@ struct FloorView: View {
     
     private var info: some View {
         HStack {
-            Text("\(String(floor.storey + 1))F")
+            Text("\(String(floor.storey))F")
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)

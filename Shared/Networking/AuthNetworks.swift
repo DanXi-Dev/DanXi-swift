@@ -40,7 +40,22 @@ extension DXNetworks {
     /// Get current user info.
     func loadUserInfo() async throws -> DXUser {
         // FIXME: deprecated API, new: /users/me
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/users")!)
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/users/me")!)
+    }
+    
+    /// Modify user's nickname.
+    /// - Parameters:
+    ///   - userId: User ID.
+    ///   - nickname: New nickname.
+    /// - Returns: New user struct.
+    func modifyUser(userId: Int, nickname: String) async throws -> DXUser {
+        struct NicknameConfig: Codable {
+            let nickname: String
+        }
+        
+        return try await requestObj(url: URL(string: "/users/\(userId)")!,
+                                    payload: NicknameConfig(nickname: nickname),
+                                    method: "PUT")
     }
     
     // MARK: Authentication
@@ -63,9 +78,9 @@ extension DXNetworks {
     }
     
     /// Logout and invalidate token.
-    func logout() {
-        // TODO: call API
+    func logout() async throws {
         storeToken(nil)
+        try await sendRequest(url: URL(string: FDUHOLE_AUTH_URL + "/logout")!)
     }
     
     /// Request a new token when current token is expired.
@@ -86,4 +101,6 @@ extension DXNetworks {
             throw NetworkError.unauthorized
         }
     }
+    
+    // TODO: Permission
 }

@@ -46,7 +46,9 @@ class TreeholeDataModel: ObservableObject {
     
     func logout() {
         user = nil
-        DXNetworks.shared.logout()
+        Task {
+            try await DXNetworks.shared.logout()
+        }
         loggedIn = false
         
         do {

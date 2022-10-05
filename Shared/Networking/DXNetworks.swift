@@ -1,7 +1,7 @@
 import Foundation
 
 let FDUHOLE_AUTH_URL = "https://auth.fduhole.com/api"
-let FDUHOLE_BASE_URL = "https://api.fduhole.com"
+let FDUHOLE_BASE_URL = "https://www.fduhole.com/api"
 
 /// Store the network APIs of DanXI services.
 class DXNetworks {
@@ -78,17 +78,25 @@ class DXNetworks {
     ///   - payload: Payload object, should conform to `Encodable`.
     ///   - method: HTTP method, default is `GET` or `POST`, depending on whether `payload` is `nil`.
     func sendRequest<S: Encodable>(url: URL,
-                                   payload: S? = nil,
+                                   payload: S,
                                    method: String? = nil) async throws {
         var payloadData: Data?
-        if let payload = payload {
-            let encoder = JSONEncoder()
-            encoder.keyEncodingStrategy = .convertToSnakeCase
-            payloadData = try encoder.encode(payload)
-        }
+        
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        payloadData = try encoder.encode(payload)
+        
         _ = try await networkRequest(url: url,
                                      data: payloadData,
                                      method: method)
+    }
+    
+    /// Send request to server, ignore response.
+    /// - Parameters:
+    ///   - url: URL to query.
+    ///   - method: HTTP method, default is `GET`.
+    func sendRequest(url: URL, method: String? = nil) async throws {
+        _ = try await networkRequest(url: url, method: method)
     }
     
     /// Network request primitive, add necessary HTTP headers and authentication infomation.
@@ -121,6 +129,8 @@ class DXNetworks {
             request.httpMethod = method ?? "POST"
             request.httpBody = payloadData
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        } else {
+            request.httpMethod = method ?? "GET"
         }
         
         do {
