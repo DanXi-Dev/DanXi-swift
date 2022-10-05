@@ -182,8 +182,8 @@ extension DXNetworks {
     
     /// Get a floor's history.
     /// - Parameter floorId: Floor ID.
-    func loadFloorHistory(floorId: Int) async throws {
-        // TODO: Implement API
+    func loadFloorHistory(floorId: Int) async throws -> [THHistory] {
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/history")!)
     }
     
     
