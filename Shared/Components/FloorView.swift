@@ -45,7 +45,8 @@ struct FloorView: View {
     func like() {
         Task {
             do {
-                let newFloor = try await DXNetworks.shared.like(floorId: floor.id, like: !(floor.liked))
+                let likeStatus = floor.liked ? 0 : 1
+                let newFloor = try await DXNetworks.shared.like(floorId: floor.id, like: likeStatus)
                 self.floor = newFloor
                 haptic()
             } catch {

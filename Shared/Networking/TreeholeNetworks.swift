@@ -190,11 +190,11 @@ extension DXNetworks {
     /// Like or unlike a floor.
     /// - Parameters:
     ///   - floorId: Floor ID.
-    ///   - like: Set like status.
+    ///   - like: Set like status, 1 is like, 0 is reset, -1 is dislike.
     /// - Returns: Modified floor.
-    func like(floorId: Int, like: Bool) async throws -> THFloor { // TODO: Implement dislike
-        let likeConfig = like ? 1 : 0
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/like/\(likeConfig)")!,
+    func like(floorId: Int, like: Int) async throws -> THFloor { // TODO: Implement dislike
+        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL +
+                                             "/floors/\(floorId)/like/\(like)")!,
                                     method: "POST")
     }
     
