@@ -31,7 +31,7 @@ extension DXNetworks {
     func loadHoles(startTime: String? = nil, divisionId: Int) async throws -> [THHole] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!
         if let time = startTime {
-            components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
+            components.queryItems = [URLQueryItem(name: "offset", value: time)]
             components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         }
         return try await requestObj(url: components.url!)
@@ -192,7 +192,7 @@ extension DXNetworks {
     ///   - floorId: Floor ID.
     ///   - like: Set like status, 1 is like, 0 is reset, -1 is dislike.
     /// - Returns: Modified floor.
-    func like(floorId: Int, like: Int) async throws -> THFloor { // TODO: Implement dislike
+    func like(floorId: Int, like: Int) async throws -> THFloor {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL +
                                              "/floors/\(floorId)/like/\(like)")!,
                                     method: "POST")

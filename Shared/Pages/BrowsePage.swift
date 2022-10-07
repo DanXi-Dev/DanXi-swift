@@ -61,8 +61,9 @@ struct BrowsePage: View {
             
             let newHoles = try await DXNetworks.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             endReached = newHoles.isEmpty
-            if currentLoadingId == loadingId { // prevent holes from older flow being inserted into new one, causing chaos
-                holes.append(contentsOf: newHoles)
+            if currentLoadingId == loadingId { // prevent holes from older flow being inserted into new one, causing bug
+                let currentIds = holes.map(\.id)
+                holes.append(contentsOf: newHoles.filter { !currentIds.contains($0.id) }) // filter duplicate holes
             }
         } catch {
             errorInfo = error.localizedDescription

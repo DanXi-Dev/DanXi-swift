@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 /// Error returned by requesting FDUHole API.
 public enum NetworkError: Error {
