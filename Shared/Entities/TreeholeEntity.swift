@@ -55,10 +55,11 @@ struct THTag: Hashable, Codable, Identifiable {
 
 struct THHistory: Hashable, Codable, Identifiable {
     let id: Int
+    let userId: Int
     let floorId: Int
     let content: String
     let reason: String
-    let userId: Int
+    let createTime, updateTime: Date
 }
 
 struct DXUser: Hashable, Codable, Identifiable {

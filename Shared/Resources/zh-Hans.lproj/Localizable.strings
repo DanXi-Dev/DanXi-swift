@@ -97,6 +97,10 @@
 "This floor will be deleted" = "该回复贴将被删除";
 "Mention" = "引用";
 "Tap to view detail" = "点击以查看预览";
+"Show Edit History" = "显示编辑历史";
+"Edit History" = "编辑历史";
+"Edit reason: %@" = "修改理由：%@";
+"User: %@" = "用户：%@";
 
 
 "Edit Reply" = "编辑";

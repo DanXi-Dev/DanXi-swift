@@ -165,11 +165,7 @@ class DXNetworks {
             }
             
         } catch let error as URLError {
-            if error.errorCode == -999 {
-                throw NetworkError.ignore // SwiftUI bug cause URLSession to cancel
-            } else {
-                throw NetworkError.networkError(message: error.localizedDescription)
-            }
+            throw NetworkError.networkError(message: error.localizedDescription)
         }
     }
     

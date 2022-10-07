@@ -56,21 +56,22 @@ class TreeholeDataModel: ObservableObject {
         } catch { }
     }
     
+    // FIXME: load tag
     func fetchInfo() async throws {
         if initialized {
             return
         }
         
-        async let tags = DXNetworks.shared.loadTags()
+//        async let tags = DXNetworks.shared.loadTags()
         async let user = DXNetworks.shared.loadUserInfo()
         async let divisions =  DXNetworks.shared.loadDivisions()
         
-        self.tags = try await tags
+//        self.tags = try await tags
         self.user = try await user
         self.divisions = try await divisions
         
         try saveData(await user, filename: "danxi-user.data")
-        try saveData(await tags, filename: "treehole-tags.data")
+//        try saveData(await tags, filename: "treehole-tags.data")
     }
     
     func updateFavorites(favorites: [Int]) {

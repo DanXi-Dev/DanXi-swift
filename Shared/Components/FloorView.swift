@@ -10,6 +10,7 @@ struct FloorView: View {
     @State var showDeleteAlert = false
     @State var showRemoveSheet = false
     @State var showReportSheet = false
+    @State var showHistorySheet = false
     
     @ObservedObject var holeViewModel: HoleDetailViewModel
     var proxy: ScrollViewProxy? = nil
@@ -97,6 +98,18 @@ struct FloorView: View {
                 if !floor.deleted && interactable {
                     actions
                 }
+                
+                if floor.deleted && TreeholeDataModel.shared.isAdmin {
+                    Menu {
+                        adminFunctions
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                    .buttonStyle(.borderless) // prevent multiple tapping
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.trailing, 10)
+                }
             }
             
             if floor.deleted {
@@ -138,6 +151,9 @@ struct FloorView: View {
         .sheet(isPresented: $showRemoveSheet) {
             DeleteForm(floor: $floor)
         }
+        .sheet(isPresented: $showHistorySheet, content: {
+            HistoryList(floor: $floor)
+        })
         .alert("Delete Floor", isPresented: $showDeleteAlert) {
             Button("Delete", role: .destructive) {
                 delete()
@@ -232,7 +248,7 @@ struct FloorView: View {
             }
             
             Button {
-                UIPasteboard.general.string = floor.content.stripToBasicMarkdown() // TODO: Is this format suitable for copy?
+                UIPasteboard.general.string = floor.content.stripToBasicMarkdown()
             } label: {
                 Label("Copy Full Text", systemImage: "doc.on.doc")
             }
@@ -257,27 +273,38 @@ struct FloorView: View {
                 Divider()
                 
                 Menu {
-                    Button {
-                        // TODO: modify this floor
-                    } label: {
-                        Label("Modify Floor", systemImage: "pencil")
-                    }
-                    
-                    Button(role: .destructive) {
-                        showRemoveSheet = true
-                    } label: {
-                        Label("Remove Floor", systemImage: "xmark.square")
-                    }
-                    
-                    Button(role: .destructive) {
-                        // TODO: ban user
-                    } label: {
-                        Label("Ban User", systemImage: "person.fill.xmark")
-                    }
+                    adminFunctions
                 } label: {
                     Label("Admin Actions", systemImage: "person.badge.key")
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var adminFunctions: some View {
+        Button {
+            // TODO: modify this floor
+        } label: {
+            Label("Modify Floor", systemImage: "pencil")
+        }
+        
+        Button(role: .destructive) {
+            showRemoveSheet = true
+        } label: {
+            Label("Remove Floor", systemImage: "xmark.square")
+        }
+        
+        Button(role: .destructive) {
+            // TODO: ban user
+        } label: {
+            Label("Ban User", systemImage: "person.fill.xmark")
+        }
+        
+        Button {
+            showHistorySheet = true
+        } label: {
+            Label("Show Edit History", systemImage: "clock.arrow.circlepath")
         }
     }
 }

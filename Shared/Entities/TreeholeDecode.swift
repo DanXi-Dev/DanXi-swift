@@ -125,6 +125,19 @@ extension THHistory {
         case content, id, reason
         case floorId = "floor_id"
         case userId = "user_id"
+        case createTime = "time_created"
+        case updateTime = "time_updated"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        userId = try values.decode(Int.self, forKey: .userId)
+        floorId = try values.decode(Int.self, forKey: .floorId)
+        content = try values.decode(String.self, forKey: .content)
+        reason = try values.decode(String.self, forKey: .reason)
+        createTime = try decodeDate(values, key: .createTime)
+        updateTime = try decodeDate(values, key: .updateTime)
     }
 }
 
@@ -142,7 +155,12 @@ extension DXUser {
         id = try values.decode(Int.self, forKey: .id)
         nickname = try values.decode(String.self, forKey: .nickname)
         favorites = try values.decode([Int].self, forKey: .favorites)
+        // FIXME: temporary measure, wait for backend API to update.
+        #if DEBUG
+        isAdmin = true
+        #else
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
+        #endif
         self.joinTime = try decodeDate(values, key: .joinTime)
     }
 }
