@@ -136,7 +136,7 @@ class HoleDetailViewModel: ObservableObject {
             let previousCount = filteredFloors.count
             while filteredFloors.count == previousCount && !endReached {
                 let newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
-                floors.append(contentsOf: newFloors)
+                insertFloors(newFloors)
                 endReached = newFloors.isEmpty
             }
         } catch {
@@ -186,5 +186,12 @@ class HoleDetailViewModel: ObservableObject {
             errorInfo = error.localizedDescription
             errorPresenting = true
         }
+    }
+    
+    // prevent duplicate inserting ID.
+    private func insertFloors(_ floors: [THFloor]) {
+        let ids = self.floors.map(\.id)
+        let filteredFloors = floors.filter { !ids.contains($0.id) }
+        self.floors.append(contentsOf: filteredFloors)
     }
 }
