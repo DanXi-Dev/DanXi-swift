@@ -1,11 +1,14 @@
 import SwiftUI
 
 struct FavoritesPage: View {
+    let model = TreeholeDataModel.shared
     @State var favorites: [THHole] = []
     
     @State var loading = true
     @State var finished = false
     @State var initError = ""
+    @State var showAlert = false
+    @State var deleteError = ""
     
     init() { }
     
@@ -28,22 +31,15 @@ struct FavoritesPage: View {
         let previousList = favorites
         favorites.remove(atOffsets: offsets) // UI change
         
-        Task { // perform server communication
-            await withTaskGroup(of: Void.self) { taskGroup in
-                offsets.forEach { index in
-                    let holeId = previousList[index].id
-                    taskGroup.addTask {
-                        do {
-                            _ = try await DXNetworks.shared.toggleFavorites(holeId: holeId, add: false)
-                            // update data model
-                            Task { @MainActor in
-                                TreeholeDataModel.shared.removeFavorate(holeId)
-                            }
-                        } catch {
-                            print("DANXI-DEBUG: remove favorite failed")
-                        }
-                    }
-                }
+        Task { @MainActor in
+            let removeIds = offsets.map { previousList[$0].id }
+            let newIds = model.favorites.filter { !removeIds.contains($0) }
+            do {
+                model.favorites = try await DXNetworks.shared.modifyFavorites(holeIds: newIds)
+            } catch {
+                showAlert = true
+                deleteError = error.localizedDescription
+                favorites = previousList // restore UI change
             }
         }
     }
@@ -62,6 +58,11 @@ struct FavoritesPage: View {
             }
             .toolbar {
                 EditButton()
+            }
+            .alert("Toggle Favorite Failed", isPresented: $showAlert) {
+                Button("OK") { }
+            } message: {
+                Text(deleteError)
             }
             .listStyle(.grouped)
         }

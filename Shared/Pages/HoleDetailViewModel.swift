@@ -3,6 +3,7 @@ import SwiftUI
 
 @MainActor
 class HoleDetailViewModel: ObservableObject {
+    let model = TreeholeDataModel.shared
     @Published var hole: THHole?
     @Published var favorited: Bool
     
@@ -44,23 +45,21 @@ class HoleDetailViewModel: ObservableObject {
     /// Initialize with hole info.
     init(hole: THHole) {
         self.hole = hole
-        self.favorited = TreeholeDataModel.shared.user?.favorites.contains(hole.id) ?? false
+        self.favorited = model.favorites.contains(hole.id)
         self.initOption = .normal
     }
     
     /// Initialize from hole ID, load hole info from networks.
     init(holeId: Int) {
         self.hole = nil
-        self.favorited = TreeholeDataModel.shared.user?.favorites.contains(holeId) ?? false
-        
+        self.favorited = model.favorites.contains(holeId)
         self.initOption = .fromId(holeId: holeId)
     }
     
     /// Initialize from floor ID, scroll to that floor.
     init(targetFloorId: Int) {
         self.hole = nil
-        self.favorited = false
-        
+        self.favorited = false // should be re-calculated after hole ID is loaded
         self.initOption = .targetFloor(targetFloorId: targetFloorId)
     }
     
@@ -93,7 +92,9 @@ class HoleDetailViewModel: ObservableObject {
         case .targetFloor(let targetFloorId):
             do {
                 let targetFloor = try await DXNetworks.shared.loadFloorById(floorId: targetFloorId)
-                self.hole = try await DXNetworks.shared.loadHoleById(holeId: targetFloor.holeId)
+                let hole = try await DXNetworks.shared.loadHoleById(holeId: targetFloor.holeId)
+                self.hole = hole
+                self.favorited = model.favorites.contains(hole.id)
                 
                 self.floors = try await DXNetworks.shared.loadAllFloors(holeId: targetFloor.holeId)
                 try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
@@ -171,20 +172,21 @@ class HoleDetailViewModel: ObservableObject {
         }
     }
     
-    func toggleFavorites() async {
+    func toggleFavorites() {
         guard let hole = hole else {
             return
         }
         
-        do {
-            let favorites = try await DXNetworks.shared.toggleFavorites(holeId: hole.id, add: !favorited)
-            TreeholeDataModel.shared.updateFavorites(favorites: favorites)
-            favorited = favorites.contains(hole.id)
-            haptic()
-        } catch {
-            errorTitle = "Toggle Favorite Failed"
-            errorInfo = error.localizedDescription
-            errorPresenting = true
+        Task {
+            do {
+                try await model.toggleFavorite(hole.id, add: !favorited)
+                favorited = model.favorites.contains(hole.id)
+                haptic()
+            } catch {
+                errorTitle = "Toggle Favorite Failed"
+                errorInfo = error.localizedDescription
+                errorPresenting = true
+            }
         }
     }
     

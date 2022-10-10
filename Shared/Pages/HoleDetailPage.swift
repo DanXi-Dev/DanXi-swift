@@ -124,9 +124,7 @@ struct HoleDetailPage: View {
     var toolbar: some View {
         if let hole = viewModel.hole {
             Button {
-                Task { @MainActor in
-                    await viewModel.toggleFavorites()
-                }
+                viewModel.toggleFavorites()
             } label: {
                 Image(systemName: viewModel.favorited ? "star.fill" : "star")
             }

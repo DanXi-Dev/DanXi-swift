@@ -330,7 +330,6 @@ extension DXNetworks {
     
     
     // MARK: Favorite
-    // TODO: Modify favorites API
     
     /// Load favorites hole.
     /// - Returns: List of favorites hole.
@@ -338,6 +337,35 @@ extension DXNetworks {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!)
     }
     
+    
+    /// Load favorites hole IDs.
+    /// - Returns: List of favorite hole ID.
+    func loadFavoritesIds() async throws -> [Int] {
+        var component = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
+        component.queryItems = [URLQueryItem(name: "plain", value: "true")]
+        return try await requestObj(url: component.url!)
+    }
+    
+    
+    /// Modify favorites.
+    /// - Parameter holeIds: New hole IDs.
+    /// - Returns: List of favorite hole ID.
+    func modifyFavorites(holeIds: [Int]) async throws -> [Int] {
+        struct FavoriteConfig: Codable {
+            let holeIds: [Int]
+        }
+        
+        struct ReturnConfig: Codable {
+            let data: [Int]
+            let message: String
+        }
+        
+        let payload = FavoriteConfig(holeIds: holeIds)
+        let response: ReturnConfig = try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
+                                                          payload: payload,
+                                                          method: "PUT")
+        return response.data
+    }
     
     /// Set favorite status of a hole.
     /// - Parameters:

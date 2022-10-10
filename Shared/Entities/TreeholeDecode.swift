@@ -145,7 +145,6 @@ extension DXUser {
     enum CodingKeys: String, CodingKey {
         case id = "user_id"
         case nickname
-        case favorites
         case joinTime = "joined_time"
         case isAdmin = "is_admin"
     }
@@ -154,7 +153,6 @@ extension DXUser {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         nickname = try values.decode(String.self, forKey: .nickname)
-        favorites = try values.decode([Int].self, forKey: .favorites)
         // FIXME: temporary measure, wait for backend API to update.
         #if DEBUG
         isAdmin = true

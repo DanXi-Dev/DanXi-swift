@@ -10,6 +10,7 @@ class TreeholeDataModel: ObservableObject {
     @Published var tags: [THTag] = []
     @Published var user: DXUser?
     @Published var loggedIn: Bool = false
+    var favorites: [Int] = []
     
     var isAdmin: Bool {
         user?.isAdmin ?? false
@@ -64,23 +65,19 @@ class TreeholeDataModel: ObservableObject {
         
 //        async let tags = DXNetworks.shared.loadTags()
         async let user = DXNetworks.shared.loadUserInfo()
-        async let divisions =  DXNetworks.shared.loadDivisions()
+        async let divisions = DXNetworks.shared.loadDivisions()
+        async let favorites = DXNetworks.shared.loadFavoritesIds()
         
 //        self.tags = try await tags
         self.user = try await user
         self.divisions = try await divisions
+        self.favorites = try await favorites
         
         try saveData(await user, filename: "danxi-user.data")
 //        try saveData(await tags, filename: "treehole-tags.data")
     }
     
-    func updateFavorites(favorites: [Int]) {
-        user?.favorites = favorites
-    }
-    
-    func removeFavorate(_ holeId: Int) {
-        if self.user != nil {
-            self.user!.favorites = self.user!.favorites.filter { $0 != holeId }
-        }
+    func toggleFavorite(_ holeId: Int, add: Bool) async throws {
+        self.favorites = try await DXNetworks.shared.toggleFavorites(holeId: holeId, add: add)
     }
 }
