@@ -67,7 +67,6 @@ struct CourseMainPage: View {
                 }
             }
             .searchable(text: $searchText)
-            .listStyle(.grouped)
             .navigationTitle("Curriculum Board")
         }
     }

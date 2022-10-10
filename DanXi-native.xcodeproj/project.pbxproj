@@ -61,8 +61,6 @@
 		2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6182891D22D009F4DB1 /* _FlexibleView.swift */; };
 		2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6192891D22D009F4DB1 /* FlexibleView.swift */; };
 		2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61A2891D22D009F4DB1 /* SizeReader.swift */; };
-		2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61C2891D22D009F4DB1 /* AppSidebarNavigation.swift */; };
-		2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */; };
 		277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E432128C7810700EBAC23 /* ReferenceView.swift */; };
 		278E406A28BA963A008D6514 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* RankView.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
@@ -207,8 +205,6 @@
 		2778D6182891D22D009F4DB1 /* _FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
 		2778D6192891D22D009F4DB1 /* FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		2778D61A2891D22D009F4DB1 /* SizeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
-		2778D61C2891D22D009F4DB1 /* AppSidebarNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSidebarNavigation.swift; sourceTree = "<group>"; };
-		2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTabNavigation.swift; sourceTree = "<group>"; };
 		277E432128C7810700EBAC23 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -445,15 +441,6 @@
 			path = Flexible;
 			sourceTree = "<group>";
 		};
-		2778D61B2891D22D009F4DB1 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				2778D61C2891D22D009F4DB1 /* AppSidebarNavigation.swift */,
-				2778D61D2891D22D009F4DB1 /* AppTabNavigation.swift */,
-			);
-			path = Navigation;
-			sourceTree = "<group>";
-		};
 		2778D6342891D316009F4DB1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,7 +532,6 @@
 				27719A9928A3C43400C661BD /* Entities */,
 				27719A9428A3C1B700C661BD /* Networking */,
 				2778D6002891D22D009F4DB1 /* Model */,
-				2778D61B2891D22D009F4DB1 /* Navigation */,
 				2778D6162891D22D009F4DB1 /* Utils */,
 				2778D6342891D316009F4DB1 /* Resources */,
 			);
@@ -754,13 +740,11 @@
 				2778D6212891D22D009F4DB1 /* DXNetworks.swift in Sources */,
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,
 				271D597128C251BE00F72C3B /* PreviewContextView.swift in Sources */,
-				2778D6312891D22E009F4DB1 /* AppSidebarNavigation.swift in Sources */,
 				27D4C3EA28C88CF50073F4F2 /* Preference.swift in Sources */,
 				27D6F4542892C5D70059228F /* PreviewDecode.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */,
-				2778D6322891D22E009F4DB1 /* AppTabNavigation.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
