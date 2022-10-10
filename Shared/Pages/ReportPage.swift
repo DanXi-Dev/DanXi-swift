@@ -1,42 +1,76 @@
 import SwiftUI
 
 struct ReportPage: View {
+    enum FilterOption: Int {
+        case notDealt = 0
+        case dealt = 1
+        case all = 2
+    }
+    
     @State var reportList: [THReport] = []
-    @State var loading = true
-    @State var initFinished = false
-    @State var initError = ""
+    @State var loading = false
+    @State var errorInfo = ""
+    @State var endReached = false
+    @State var filterOption = FilterOption.notDealt
     
     init() { }
     
     init(reportList: [THReport]) {
         self._reportList = State(initialValue: reportList)
-        self._loading = State(initialValue: false)
-        self._initFinished = State(initialValue: true)
     }
     
-    func loadReports() async {
+    func loadMoreReports() async {
         do {
-            reportList = try await DXNetworks.shared.loadReportsList()
-            initFinished = true
+            let newReports = try await DXNetworks.shared.loadReports(offset: reportList.count, range: filterOption.rawValue)
+            endReached = newReports.isEmpty
+            let ids = reportList.map(\.id)
+            let filteredReports = newReports.filter { !ids.contains($0.id) }
+            reportList.append(contentsOf: filteredReports)
         } catch {
-            initError = error.localizedDescription
+            errorInfo = error.localizedDescription
         }
     }
     
     var body: some View {
-        LoadingView(loading: $loading,
-                    finished: $initFinished,
-                    errorDescription: initError.description,
-                    action: loadReports) {
-            List {
-                ForEach(reportList) { report in
-                    ReportCell(report: report)
+        List {
+            Section {
+                Picker(selection: $filterOption) {
+                    Text("Not Dealt").tag(FilterOption.notDealt)
+                    Text("Dealt").tag(FilterOption.dealt)
+                    Text("All Reports").tag(FilterOption.all)
+                } label: {
+                    Label("Filter Reports", systemImage: "line.3.horizontal.decrease.circle")
+                }
+                .onChange(of: filterOption) { newValue in
+                    Task {
+                        reportList = []
+                        await loadMoreReports()
+                    }
                 }
             }
-            .listStyle(.grouped)
-            .navigationTitle("Reports Management")
-            .navigationBarTitleDisplayMode(.inline)
+            
+            Section {
+                ForEach(reportList) { report in
+                    ReportCell(report: report)
+                        .task {
+                            if report == reportList.last {
+                                await loadMoreReports()
+                            }
+                        }
+                }
+            } footer: {
+                if !endReached {
+                    LoadingFooter(loading: $loading,
+                                  errorDescription: errorInfo,
+                                  action: loadMoreReports)
+                }
+            }
         }
+        .task {
+            await loadMoreReports()
+        }
+        .navigationTitle("Reports Management")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -77,40 +111,52 @@ struct ReportCell: View {
             .background(Color.secondary.opacity(0.05))
             .background(Color.secondary.opacity(0.05))
             .cornerRadius(10)
-            .padding(.bottom)
-            .backgroundLink {
-                HoleDetailPage(targetFloorId: report.floor.id)
-            }
-            .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                Button {
-                    // TODO: mark
-                } label: {
-                    Label("Mark as Dealt", systemImage: "checkmark")
-                }
-                .tint(.blue)
-            }
-            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                if !report.floor.deleted {
-                    Button {
-                        showDeleteSheet = true
-                    } label: {
-                        Label("Remove Floor", systemImage: "trash")
+            .padding(.bottom, 5)
+            
+            if report.dealt {
+                Group {
+                    if let dealtBy = report.dealtBy {
+                        Text("Dealt by \(String(dealtBy))")
+                    } else {
+                        Text("Dealt")
                     }
-                    .tint(.red)
                 }
-                
+                .font(.caption)
+                .foregroundColor(.secondary)
+            }
+        }
+        .backgroundLink {
+            HoleDetailPage(targetFloorId: report.floor.id)
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+            Button {
+                // TODO: mark
+            } label: {
+                Label("Mark as Dealt", systemImage: "checkmark")
+            }
+            .tint(.blue)
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            if !report.floor.deleted {
                 Button {
-                    showBanSheet = true
+                    showDeleteSheet = true
                 } label: {
-                    Label("Ban User", systemImage: "person.fill.xmark")
+                    Label("Remove Floor", systemImage: "trash")
                 }
+                .tint(.red)
             }
-            .sheet(isPresented: $showBanSheet) {
-                BanForm(divisionId: 0)
+            
+            Button {
+                showBanSheet = true
+            } label: {
+                Label("Ban User", systemImage: "person.fill.xmark")
             }
-            .sheet(isPresented: $showDeleteSheet) {
-                DeleteForm(floor: $report.floor)
-            }
+        }
+        .sheet(isPresented: $showBanSheet) {
+            BanForm(divisionId: 0)
+        }
+        .sheet(isPresented: $showDeleteSheet) {
+            DeleteForm(floor: $report.floor)
         }
     }
 }

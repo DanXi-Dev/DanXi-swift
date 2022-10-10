@@ -74,6 +74,6 @@ struct THReport: Hashable, Codable, Identifiable {
     var floor: THFloor
     let reason: String
     let createTime, updateTime: Date
-    let dealed: Bool
-    let dealedBy: Int?
+    let dealt: Bool
+    let dealtBy: Int?
 }

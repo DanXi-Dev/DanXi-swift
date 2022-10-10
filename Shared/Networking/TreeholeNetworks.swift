@@ -278,12 +278,18 @@ extension DXNetworks {
     
     // MARK: Report
     
-    // TODO: Implement report paging
-    /// List all reports.
-    /// - Returns: A list of `THReport`
-    func loadReportsList() async throws -> [THReport] {
+    
+    /// Load a list of reports
+    /// - Parameters:
+    ///   - offset: Report list offset.
+    ///   - range: Report tyle, 0: not dealt; 1: dealt; 2: all
+    /// - Returns: Report list.
+    func loadReports(offset: Int, range: Int) async throws -> [THReport] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!
-        components.queryItems = [ URLQueryItem(name: "category", value: "not_dealed") ]
+        components.queryItems = [
+            URLQueryItem(name: "offset", value: String(offset)),
+            URLQueryItem(name: "range", value: String(range))
+        ]
         return try await requestObj(url: components.url!)
     }
     

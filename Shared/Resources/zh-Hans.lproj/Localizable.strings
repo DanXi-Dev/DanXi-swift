@@ -225,6 +225,11 @@
 "Incident ID: %@" = "案例编号：%@";
 "Report reason: " = "举报理由：";
 "Mark as Dealt" = "标记为已处理";
+"Dealt by %@" = "处理者：%@";
+"Dealt" = "已处理";
+"Not Dealt" = "未处理";
+"All Reports" = "全部举办";
+"Filter Reports" = "筛选举办";
 "Modify Floor" = "修改本层";
 "Delete Floor" = "删除本层";
 "Fold Floor" = "折叠本层";

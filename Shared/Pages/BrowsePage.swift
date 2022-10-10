@@ -107,7 +107,7 @@ struct BrowsePage: View {
             } footer: {
                 if !endReached {
                     LoadingFooter(loading: $loading,
-                                    errorDescription: errorInfo.description,
+                                    errorDescription: errorInfo,
                                     action: loadMoreHoles)
                 }
             }

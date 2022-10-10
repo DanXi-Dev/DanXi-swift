@@ -143,7 +143,7 @@ extension THHistory {
 
 extension DXUser {
     enum CodingKeys: String, CodingKey {
-        case id = "user_id"
+        case id
         case nickname
         case joinTime = "joined_time"
         case isAdmin = "is_admin"
@@ -154,36 +154,36 @@ extension DXUser {
         id = try values.decode(Int.self, forKey: .id)
         nickname = try values.decode(String.self, forKey: .nickname)
         // FIXME: temporary measure, wait for backend API to update.
-        #if DEBUG
+#if DEBUG
         isAdmin = true
-        #else
+#else
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
-        #endif
+#endif
         self.joinTime = try decodeDate(values, key: .joinTime)
     }
 }
 
 extension THReport {
     enum CodingKeys: String, CodingKey {
-        case id = "report_id"
+        case id
         case holeId = "hole_id"
         case floor
         case reason
         case createTime = "time_created"
         case updateTime = "time_updated"
-        case dealed
-        case dealedBy = "dealed_by"
+        case dealt
+        case dealtBy = "dealt_by"
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         holeId = try values.decode(Int.self, forKey: .holeId)
-        floor = try values.decode(THFloor.self, forKey: .floor)
         reason = try values.decode(String.self, forKey: .reason)
-        dealed = try values.decode(Bool.self, forKey: .dealed)
-        dealedBy = try values.decode(Int?.self, forKey: .dealedBy)
+        dealt = try values.decode(Bool.self, forKey: .dealt)
+        dealtBy = try values.decode(Int?.self, forKey: .dealtBy)
         self.createTime = try decodeDate(values, key: .createTime)
         self.updateTime = try decodeDate(values, key: .updateTime)
+        floor = try values.decode(THFloor.self, forKey: .floor)
     }
 }
