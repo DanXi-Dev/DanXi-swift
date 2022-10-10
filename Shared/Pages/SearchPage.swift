@@ -20,7 +20,7 @@ struct SearchPage: View {
             return
         }
 
-        searchHistory.append(content)
+        searchHistory.insert(content, at: 0)
     }
     
     var body: some View {
