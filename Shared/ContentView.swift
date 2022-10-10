@@ -6,39 +6,49 @@ struct ContentView: View {
     @State var showSettingPage = false
     
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink {
-                    if model.loggedIn {
-                        TreeholePage()
-                    } else {
-                        TreeholeWelcomePage()
-                    }
-                } label: {
-                    Label("Tree Hole", systemImage: "text.bubble")
-                }
-                
-                NavigationLink {
-                    if model.loggedIn {
-                        CourseMainPage()
-                    } else {
-                        CourseWelcomePage()
-                    }
-                } label: {
-                    Label("Curriculum", systemImage: "books.vertical")
-                }
+        if #available(iOS 16.0, *) {
+            NavigationStack {
+                contentList
             }
-            .navigationTitle("DanXi")
-            .toolbar {
-                Button {
-                    showSettingPage = true
-                } label: {
-                    Image(systemName: "gearshape")
+        } else {
+            NavigationView {
+                contentList
+            }
+        }
+    }
+    
+    private var contentList: some View {
+        List {
+            NavigationLink {
+                if model.loggedIn {
+                    TreeholePage()
+                } else {
+                    TreeholeWelcomePage()
                 }
+            } label: {
+                Label("Tree Hole", systemImage: "text.bubble")
             }
-            .sheet(isPresented: $showSettingPage) {
-                NavigationView { SettingsPage() }
+            
+            NavigationLink {
+                if model.loggedIn {
+                    CourseMainPage()
+                } else {
+                    CourseWelcomePage()
+                }
+            } label: {
+                Label("Curriculum", systemImage: "books.vertical")
             }
+        }
+        .navigationTitle("DanXi")
+        .toolbar {
+            Button {
+                showSettingPage = true
+            } label: {
+                Image(systemName: "gearshape")
+            }
+        }
+        .sheet(isPresented: $showSettingPage) {
+            NavigationView { SettingsPage() }
         }
     }
 }
