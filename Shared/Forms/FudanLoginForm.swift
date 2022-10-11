@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FudanLoginForm: View {
+    @ObservedObject var model = UniversityModel.shared
     @State var username = ""
     @State var password = ""
     
@@ -13,7 +14,7 @@ struct FudanLoginForm: View {
                 .keyboardType(.decimalPad)
             SecureField("Password", text: $password)
         } action: {
-            try await FDNetworks.shared.login(username, password)
+            try await model.login(username, password)
         }
     }
 }

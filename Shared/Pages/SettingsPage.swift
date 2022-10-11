@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var model = TreeholeDataModel.shared
+    @ObservedObject var danxiModel = TreeholeDataModel.shared
+    @ObservedObject var universityModel = UniversityModel.shared
     @ObservedObject var preference = Preference.shared
     
     @State var showTreeHoleLogin = false
@@ -13,8 +14,8 @@ struct SettingsPage: View {
     
     /// Init for preview.
     init(user: DXUser) {
-        model.user = user
-        model.loggedIn = true
+        danxiModel.user = user
+        danxiModel.loggedIn = true
     }
     
     var body: some View {
@@ -24,7 +25,7 @@ struct SettingsPage: View {
                 danxiAccount
             }
             
-            if model.loggedIn {
+            if danxiModel.loggedIn {
                 treeholeSettings
             }
             
@@ -40,7 +41,7 @@ struct SettingsPage: View {
     
     @ViewBuilder
     private var uisAccount: some View {
-        if FDNetworks.shared.loggedIn {
+        if universityModel.loggedIn {
             Button(action: {  }) {
                 HStack {
                     accountIcon(loggedIn: true)
@@ -66,7 +67,7 @@ struct SettingsPage: View {
     
     @ViewBuilder
     private var danxiAccount: some View {
-        if model.loggedIn {
+        if danxiModel.loggedIn {
             Button(action: {
                 showTreeHoleActions = true
             }) {
@@ -79,7 +80,7 @@ struct SettingsPage: View {
             .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
                 Button("Logout", role: .destructive) {
                     withAnimation {
-                        model.logout()
+                        danxiModel.logout()
                     }
                 }
             }
@@ -152,7 +153,7 @@ struct SettingsPage: View {
 
     private var danxiUserInfo: some View {
         List {
-            if let user = model.user {
+            if let user = danxiModel.user {
                 HStack {
                     Label("User ID", systemImage: "person.text.rectangle")
                     Spacer()

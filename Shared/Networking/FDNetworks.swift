@@ -24,7 +24,6 @@ class FDNetworks {
     
     func login(_ username: String, _ password: String) async throws {
         if try await needCaptcha(username: username) {
-            print("need captcha")
             throw NetworkError.unauthorized
         }
         let authUrl = URL(string: UIS_URL + "/authserver/login")!
@@ -33,10 +32,8 @@ class FDNetworks {
         let (loginFormData, _) = try await URLSession.shared.data(for: request)
         let authRequest = try prepareAuthRequest(authUrl: authUrl, formData: loginFormData,
                                                  username: username, password: password)
-        print(String(data: authRequest.httpBody!, encoding: String.Encoding.utf8)!)
-        let (data, response) = try await URLSession.shared.data(for: authRequest)
+        let (_, response) = try await URLSession.shared.data(for: authRequest)
         if response.url?.absoluteString != "https://uis.fudan.edu.cn/authserver/index.do" {
-            print(String(data: data, encoding: String.Encoding.utf8)!)
             throw NetworkError.unauthorized
         }
         persistLoginData(username, password)
