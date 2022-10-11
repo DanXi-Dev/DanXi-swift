@@ -71,6 +71,7 @@
 		27999F2328E56B8700715D10 /* AuthNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999F2228E56B8700715D10 /* AuthNetworks.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
+		27B19FC128F5769A0001587F /* FudanLoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FudanLoginForm.swift */; };
 		27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5D70E28C74E9400924264 /* TextEditView.swift */; };
 		27B9B3A928B29953007CA1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27B9B3AB28B29953007CA1E0 /* InfoPlist.strings */; };
 		27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C1344828ABCD44007F66C5 /* CourseStore.swift */; };
@@ -219,6 +220,7 @@
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		27B19FC028F5769A0001587F /* FudanLoginForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FudanLoginForm.swift; sourceTree = "<group>"; };
 		27B5D70E28C74E9400924264 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
 		27B9B3AA28B29953007CA1E0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27B9B3AC28B29957007CA1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				27CC00E928E1EE1800F0B026 /* BanForm.swift */,
 				2778D6092891D22D009F4DB1 /* LoginForm.swift */,
 				27D5E0EE28E5A91700E0BE0F /* RegisterForm.swift */,
+				27B19FC028F5769A0001587F /* FudanLoginForm.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				2778D6242891D22D009F4DB1 /* WelcomePage.swift in Sources */,
 				2751E53028BFB40500104ACD /* Conflict.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */,
+				27B19FC128F5769A0001587F /* FudanLoginForm.swift in Sources */,
 				273C1E6328C9CE5C0067E61E /* EditInfoForm.swift in Sources */,
 				F128E3C928D0A568009447E6 /* CardView.swift in Sources */,
 				27D5E0EF28E5A91700E0BE0F /* RegisterForm.swift in Sources */,

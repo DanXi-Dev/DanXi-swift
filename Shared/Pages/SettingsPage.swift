@@ -7,6 +7,8 @@ struct SettingsPage: View {
     @State var showTreeHoleLogin = false
     @State var showTreeHoleActions = false
     
+    @State var showFudanLogin = false
+    
     init() { }
     
     /// Init for preview.
@@ -38,11 +40,26 @@ struct SettingsPage: View {
     
     @ViewBuilder
     private var uisAccount: some View {
-        Button(action: {  }) {
-            HStack {
-                accountIcon(loggedIn: true)
-                    .padding()
-                accountText(title: "Fudan UIS Account", description: "Logged in")
+        if FDNetworks.shared.loggedIn {
+            Button(action: {  }) {
+                HStack {
+                    accountIcon(loggedIn: true)
+                        .padding()
+                    accountText(title: "Fudan UIS Account", description: "Logged in")
+                }
+            }
+        } else {
+            Button {
+                showFudanLogin = true
+            } label: {
+                HStack {
+                    accountIcon(loggedIn: false)
+                        .padding()
+                    accountText(title: "Fudan UIS Account", description: "Not Logged in")
+                }
+            }
+            .sheet(isPresented: $showFudanLogin) {
+                FudanLoginForm()
             }
         }
     }
@@ -175,7 +192,7 @@ struct SettingsPage: View {
 struct SettingsPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SettingsPage(user: PreviewDecode.decodeObj(name: "user")!)
+            SettingsPage()
         }
     }
 }

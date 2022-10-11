@@ -244,3 +244,6 @@
 "Enter delete reason" = "输入删帖原因";
 "Confirm Delete Post" = "确认删除此树洞";
 "This will affect all replies of this post" = "将影响该贴下全部回复贴";
+
+// Fudan Login
+"Fudan UIS Login" = "复旦大学统一认证登录";
