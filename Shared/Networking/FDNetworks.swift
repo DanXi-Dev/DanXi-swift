@@ -40,6 +40,45 @@ class FDNetworks {
     }
     
     
+    func authenticate(request: URLRequest) async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        if response.url?.host == request.url?.host { // authentication succeed
+            return data
+        } else { // authentication fails, redirect
+            guard let authUrl: URL = response.url else {
+                throw NetworkError.invalidResponse
+            }
+            if try await needCaptcha(username: username) {
+                throw NetworkError.unauthorized
+            }
+            let authRequest = try prepareAuthRequest(authUrl: authUrl, formData: data)
+            let (newData, newResponse) = try await URLSession.shared.data(for: authRequest)
+            guard newResponse.url?.host == request.url?.host else {
+                throw NetworkError.unauthorized
+            }
+            return newData
+        }
+    }
+
+    func authenticateRedirect(url: URL) async throws -> Data {
+        var components = URLComponents(string: UIS_URL + "/authserver/login")!
+        components.queryItems = [URLQueryItem(name: "service", value: url.absoluteString)]
+        var request = URLRequest(url: components.url!)
+        request.allHTTPHeaderFields = ["User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard response.url?.host == "uis.fudan.edu.cn" else {
+            return data
+        }
+        let authRequest = try prepareAuthRequest(authUrl: components.url!, formData: data)
+        let (newData, newResponse) = try await URLSession.shared.data(for: authRequest)
+        guard newResponse.url?.host != "uis.fudan.edu.cn" else {
+            throw NetworkError.unauthorized
+        }
+        return newData
+    }
+    
+    
     private func persistLoginData(_ username: String, _ password: String) {
         loggedIn = true
         self.username = username
@@ -51,8 +90,8 @@ class FDNetworks {
     
     
     private func prepareAuthRequest(authUrl: URL, formData: Data,
-                                    username: String?,
-                                    password: String?) throws -> URLRequest {
+                                    username: String? = nil,
+                                    password: String? = nil) throws -> URLRequest {
         var loginForm = [
             URLQueryItem(name: "username", value: username ?? self.username),
             URLQueryItem(name: "password", value: password ?? self.password)

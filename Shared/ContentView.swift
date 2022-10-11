@@ -20,6 +20,12 @@ struct ContentView: View {
     private var contentList: some View {
         List {
             NavigationLink {
+                QRCodePage()
+            } label: {
+                Label("Fudan QR Code", systemImage: "qrcode")
+            }
+            
+            NavigationLink {
                 if model.loggedIn {
                     TreeholePage()
                 } else {
