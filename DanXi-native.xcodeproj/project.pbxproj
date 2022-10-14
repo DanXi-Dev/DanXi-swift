@@ -1046,7 +1046,7 @@
 				);
 				MARKETING_VERSION = 1.3.11;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.beta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
