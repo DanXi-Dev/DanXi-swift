@@ -235,10 +235,11 @@ extension DXNetworks {
     /// - Parameter holeId: Hole ID.
     /// - Returns: A list of floors.
     func loadAllFloors(holeId: Int) async throws -> [THFloor] {
-        var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         components.queryItems = [
-            URLQueryItem(name: "size", value: "0"),
-            URLQueryItem(name: "offset", value: "0")
+            URLQueryItem(name: "hole_id", value: String(holeId)),
+            URLQueryItem(name: "start_floor", value: "0"),
+            URLQueryItem(name: "length", value: "0")
         ]
         return try await requestObj(url: components.url!)
     }
