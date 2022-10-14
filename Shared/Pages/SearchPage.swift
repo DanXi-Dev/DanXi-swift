@@ -75,7 +75,7 @@ struct SearchPage: View {
             if searchText ~= #"^##[0-9]+$"#, let floorId = Int(searchText.dropFirst(2)) {
                 Section("Jump to Floor") {
                     NavigationLink {
-                        HoleDetailPage(targetFloorId: floorId)
+                        HoleDetailPage(floorId: floorId)
                             .onAppear { appendHistory(searchText) }
                     } label: {
                         Label(searchText, systemImage: "arrow.right.square")

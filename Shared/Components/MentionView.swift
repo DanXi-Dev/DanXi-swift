@@ -76,13 +76,13 @@ struct MentionView: View {
             } label: {
                 mention
                     .backgroundLink($navigationActive) {
-                        HoleDetailPage(targetFloorId: floor.id)
+                        HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
                     }
             }
             .buttonStyle(.borderless) // prevent multiple tapping
             #if os(iOS)
             // TODO: use geometry reader to determine size
-            .previewContextMenu(destination: HoleDetailPage(targetFloorId: floor.id),
+            .previewContextMenu(destination: HoleDetailPage(holeId: floor.holeId, floorId: floor.id),
                                 preview: ScrollView { FloorView(floor: floor).padding() })
             #endif
         }

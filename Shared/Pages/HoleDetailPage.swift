@@ -7,23 +7,22 @@ struct HoleDetailPage: View {
     @State var showManagementPage = false
     @State var showHideAlert = false
     
-    init(hole: THHole) {
-        self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(hole: hole))
-    }
-    
-    init(hole: THHole, floors: [THFloor]) { // for preview purpose
-        let viewModel = HoleDetailViewModel(hole: hole)
-        viewModel.floors = floors
-        viewModel.endReached = true
+    init(hole: THHole, floorId: Int? = nil, floors: [THFloor] = []) {
+        let viewModel = HoleDetailViewModel(hole: hole, floorId: floorId)
+        if !floors.isEmpty { // preview purpose
+            viewModel.floors = floors
+            viewModel.endReached = true
+        }
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
-    init(holeId: Int) { // init from hole ID, load info afterwards
-        self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(holeId: holeId))
+    init(holeId: Int, floorId: Int? = nil) {
+        self._viewModel = StateObject(wrappedValue:
+                                        HoleDetailViewModel(holeId: holeId, floorId: floorId))
     }
     
-    init(targetFloorId: Int) { // init from floor ID, scroll to that floor
-        self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(targetFloorId: targetFloorId))
+    init(floorId: Int) { // init from floor ID, scroll to that floor
+        self._viewModel = StateObject(wrappedValue: HoleDetailViewModel(floorId: floorId))
     }
     
     var body: some View {
@@ -31,33 +30,17 @@ struct HoleDetailPage: View {
             List {
                 Section {
                     if let hole = viewModel.hole {
-                        if viewModel.floors.isEmpty {
-                            // prefetched floors, to be replaced after reload prefetch is done
-                            ForEach(hole.floors) { floor in
-                                FloorView(floor: floor,
-                                          isPoster: floor.posterName == hole.firstFloor.posterName,
-                                          model: viewModel,
-                                          proxy: proxy)
-                                .task {
-                                    if floor == viewModel.filteredFloors.last {
-                                        await viewModel.loadMoreFloors()
-                                    }
+                        ForEach(viewModel.filteredFloors) { floor in
+                            FloorView(floor: floor,
+                                      isPoster: floor.posterName == hole.firstFloor.posterName,
+                                      model: viewModel,
+                                      proxy: proxy)
+                            .task {
+                                if floor == viewModel.filteredFloors.last {
+                                    await viewModel.loadMoreFloors()
                                 }
-                                .id(floor.id)
                             }
-                        } else {
-                            ForEach(viewModel.filteredFloors) { floor in
-                                FloorView(floor: floor,
-                                          isPoster: floor.posterName == hole.firstFloor.posterName,
-                                          model: viewModel,
-                                          proxy: proxy)
-                                .task {
-                                    if floor == viewModel.filteredFloors.last {
-                                        await viewModel.loadMoreFloors()
-                                    }
-                                }
-                                .id(floor.id)
-                            }
+                            .id(floor.id)
                         }
                     }
                 } header: {
@@ -80,15 +63,6 @@ struct HoleDetailPage: View {
                     toolbar
                 }
             }
-            .sheet(isPresented: $showManagementPage, content: {
-                if let hole = viewModel.hole {
-                    EditInfoForm(holeId: hole.id,
-                                 divisionId: hole.divisionId,
-                                 tags: hole.tags.map(\.name))
-                } else {
-                    ProgressView()
-                }
-            })
             // access scroll view proxy from outside, i.e., toolbar
             .onChange(of: viewModel.scrollTarget, perform: { target in
                 withAnimation {
@@ -99,6 +73,15 @@ struct HoleDetailPage: View {
             .task {
                 await viewModel.initialLoad()
             }
+            .sheet(isPresented: $showManagementPage, content: {
+                if let hole = viewModel.hole {
+                    EditInfoForm(holeId: hole.id,
+                                 divisionId: hole.divisionId,
+                                 tags: hole.tags.map(\.name))
+                } else {
+                    ProgressView()
+                }
+            })
             .alert(viewModel.errorTitle, isPresented: $viewModel.errorPresenting) {
                 Button("OK") { }
             } message: {

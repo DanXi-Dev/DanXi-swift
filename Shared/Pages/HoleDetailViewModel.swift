@@ -32,9 +32,9 @@ class HoleDetailViewModel: ObservableObject {
     let initOption: InitOptions
     
     enum InitOptions {
-        case normal
-        case fromId(holeId: Int)
-        case targetFloor(targetFloorId: Int)
+        case fromHole(floorId: Int?)
+        case fromHoleId(holeId: Int, floorId: Int?)
+        case fromFloorId(floorId: Int)
     }
     
     enum FilterOptions {
@@ -43,41 +43,42 @@ class HoleDetailViewModel: ObservableObject {
     }
     
     /// Initialize with hole info.
-    init(hole: THHole) {
+    init(hole: THHole, floorId: Int?) {
         self.hole = hole
         self.favorited = model.favorites.contains(hole.id)
-        self.initOption = .normal
+        self.initOption = .fromHole(floorId: floorId)
     }
     
     /// Initialize from hole ID, load hole info from networks.
-    init(holeId: Int) {
+    init(holeId: Int, floorId: Int?) {
         self.hole = nil
         self.favorited = model.favorites.contains(holeId)
-        self.initOption = .fromId(holeId: holeId)
+        self.initOption = .fromHoleId(holeId: holeId, floorId: floorId)
     }
     
     /// Initialize from floor ID, scroll to that floor.
-    init(targetFloorId: Int) {
+    init(floorId: Int) {
         self.hole = nil
         self.favorited = false // should be re-calculated after hole ID is loaded
-        self.initOption = .targetFloor(targetFloorId: targetFloorId)
+        self.initOption = .fromFloorId(floorId: floorId)
     }
     
     /// Default initializer
     init() {
         self.hole = nil
         self.favorited = false
-        self.initOption = .normal
+        self.initOption = .fromHole(floorId: nil)
     }
     
     func initialLoad() async {
         switch initOption {
-        case .normal:
-            break
+        case .fromHole(floorId: let floorId):
+            scrollTarget = floorId ?? -1
             
-        case .fromId(let holeId):
+        case .fromHoleId(let holeId, let floorId):
             do {
                 hole = try await DXNetworks.shared.loadHoleById(holeId: holeId)
+                scrollTarget = floorId ?? -1
             } catch NetworkError.notFound {
                 errorTitle = "Treehole Not Exist"
                 errorInfo = String(format: NSLocalizedString("Treehole #%@ not exist", comment: ""), String(holeId))
@@ -89,19 +90,19 @@ class HoleDetailViewModel: ObservableObject {
                 errorPresenting = true
             }
             
-        case .targetFloor(let targetFloorId):
+        case .fromFloorId(let floorId):
             do {
-                let targetFloor = try await DXNetworks.shared.loadFloorById(floorId: targetFloorId)
+                let targetFloor = try await DXNetworks.shared.loadFloorById(floorId: floorId)
                 let hole = try await DXNetworks.shared.loadHoleById(holeId: targetFloor.holeId)
                 self.hole = hole
                 self.favorited = model.favorites.contains(hole.id)
                 
                 self.floors = try await DXNetworks.shared.loadAllFloors(holeId: targetFloor.holeId)
                 try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
-                scrollTarget = targetFloorId
+                scrollTarget = floorId
             } catch NetworkError.notFound {
                 errorTitle = "Floor Not Exist"
-                errorInfo = String(format: NSLocalizedString("Floor ##%@ not exist", comment: ""), String(targetFloorId))
+                errorInfo = String(format: NSLocalizedString("Floor ##%@ not exist", comment: ""), String(floorId))
                 errorPresenting = true
                 return
             } catch {

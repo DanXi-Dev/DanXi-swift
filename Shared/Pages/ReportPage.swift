@@ -128,7 +128,7 @@ struct ReportCell: View {
             }
         }
         .backgroundLink {
-            HoleDetailPage(targetFloorId: report.floor.id)
+            HoleDetailPage(holeId: report.holeId, floorId: report.floor.id)
         }
         .swipeActions(edge: .leading, allowsFullSwipe: false) {
             Button {

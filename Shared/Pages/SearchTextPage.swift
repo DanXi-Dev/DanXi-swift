@@ -26,7 +26,7 @@ struct SearchTextPage: View {
                 ForEach(floors) { floor in
                     FloorView(floor: floor)
                         .backgroundLink {
-                            HoleDetailPage(targetFloorId: floor.id)
+                            HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
                         }
                         .task {
                             if floor == floors.last {
