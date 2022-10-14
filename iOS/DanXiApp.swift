@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 import WatchConnectivity
 
 @main
@@ -34,7 +35,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     
     func sendString(text: String) {
         let session = WCSession.default;
-        if(WCSession.isSupported()){
+        if (WCSession.isSupported()) {
             DispatchQueue.main.async {
                 session.sendMessage(["token": text], replyHandler: nil)
             }
@@ -70,11 +71,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         // Clear badge on launch
         UIApplication.shared.applicationIconBadgeNumber = 0
         
-        /* watchOS Support */
-        if(WCSession.isSupported()){
-            let session = WCSession.default;
-            session.delegate = self;
-            session.activate();
+        // Request notification permission
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .badge, .sound],
+            completionHandler: {_, _ in })
+        
+        
+        // Request online content to activate internet privilege
+        Task {
+            do {
+                _ = try await URLSession.shared.data(for: URLRequest(url: URL(string: "https://www.fduhole.com/api/")!))
+            }
         }
         
         return true

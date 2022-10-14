@@ -1,5 +1,4 @@
 import Foundation
-import UserNotifications
 
 @MainActor
 class TreeholeDataModel: ObservableObject {
@@ -25,11 +24,6 @@ class TreeholeDataModel: ObservableObject {
         loggedIn = true
         self.user = loadData(filename: "danxi-user.data")
         self.tags = loadData(filename: "treehole-tags.data") ?? []
-        
-        // Request Notification Permission After Log In
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound],
-            completionHandler: {_, _ in })
     }
     
     func login(_ username: String, _ password: String) async throws {
