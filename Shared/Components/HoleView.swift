@@ -7,15 +7,6 @@ struct HoleView: View {
     let fold: Bool
     @ObservedObject var preference = Preference.shared
     
-    enum NavigationType {
-        case tag(tagname: String)
-        case top
-        case bottom
-    }
-    
-    @State var navActive = false
-    @State var navType = NavigationType.top
-    
     init(hole: THHole, fold: Bool = false) {
         self.hole = hole
         self.fold = fold
@@ -27,11 +18,7 @@ struct HoleView: View {
                 VStack(alignment: .leading) {
                     holeContent
                 }
-                .onTapGesture {
-                    navType = .top
-                    navActive = true
-                }
-                .backgroundLink($navActive) { navTarget }
+                .backgroundLink { HoleDetailPage(hole: hole) }
                 #if os(iOS)
                 .previewContextMenu(destination: HoleDetailPage(hole: hole),
                                     preview: HoleDetailPage(hole: hole, floors: hole.floors))
@@ -49,11 +36,7 @@ struct HoleView: View {
                 tags
                 holeContent
             }
-            .onTapGesture {
-                navType = .top
-                navActive = true
-            }
-            .backgroundLink($navActive) { navTarget }
+            .backgroundLink { HoleDetailPage(hole: hole) }
             #if os(iOS)
             .previewContextMenu(destination: HoleDetailPage(hole: hole),
                                 preview: HoleDetailPage(hole: hole, floors: hole.floors))
@@ -86,13 +69,7 @@ struct HoleView: View {
                 .transition(.slide)
 
             if hole.firstFloor.id != hole.lastFloor.id {
-                Button {
-                    navType = .bottom
-                    navActive = true
-                } label: {
-                    lastFloor
-                }
-                .buttonStyle(.borderless)
+                lastFloor
             }
 
             info
@@ -124,8 +101,6 @@ struct HoleView: View {
                 Image(systemName: "ellipsis.bubble")
                 Text(String(hole.reply))
             }
-
-            // TODO: maybe add menu?
         }
         .font(.caption2)
         .foregroundColor(.secondary)
@@ -155,30 +130,7 @@ struct HoleView: View {
     }
 
     private var tags: some View {
-        HStack(alignment: .center, spacing: 5.0) {
-            ForEach(hole.tags) { tag in
-                Button {
-                    navType = .tag(tagname: tag.name)
-                    navActive = true
-                } label: {
-                    Text(tag.name)
-                        .tagStyle(color: randomColor(tag.name))
-                }
-                .buttonStyle(.borderless)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private var navTarget: some View {
-        switch navType {
-        case .tag(let tagname):
-            SearchTagPage(tagname: tagname)
-        case .top:
-            HoleDetailPage(hole: hole)
-        case .bottom:
-            HoleDetailPage(targetFloorId: hole.lastFloor.id)
-        }
+        TagList(hole.tags)
     }
 }
 

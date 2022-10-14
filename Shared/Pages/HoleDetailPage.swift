@@ -62,7 +62,7 @@ struct HoleDetailPage: View {
                     }
                 } header: {
                     if let hole = viewModel.hole {
-                        TagList(hole.tags, lineWrap: false)
+                        TagList(hole.tags, navigation: true)
                     }
                 } footer: {
                     if !viewModel.endReached {

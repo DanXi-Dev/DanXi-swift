@@ -4,6 +4,7 @@ import SwiftUI
 struct TagList: View {
     let tags: [THTag]
     let lineWrap: Bool
+    let navigation: Bool
     
     @State var navActive = false
     @State var navTagName = ""
@@ -12,18 +13,29 @@ struct TagList: View {
     /// - Parameters:
     ///   - tags: tags to display.
     ///   - lineWrap: whether to start a new line when horizontal space is insufficient.
-    init(_ tags: [THTag], lineWrap: Bool = true) {
+    ///   - navigation: whether this view will respond to user tap action and perform navigation.
+    init(_ tags: [THTag], lineWrap: Bool = false, navigation: Bool = false) {
         self.tags = tags
         self.lineWrap = lineWrap
+        self.navigation = navigation
     }
     
     var body: some View {
+        if navigation {
+            staticView
+                .backgroundLink($navActive) {
+                    SearchTagPage(tagname: navTagName)
+                }
+        } else {
+            staticView
+        }
+    }
+    
+    @ViewBuilder
+    private var staticView: some View {
         if lineWrap {
             FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
                 tagItem(tag)
-            }
-            .backgroundLink($navActive) {
-                SearchTagPage(tagname: navTagName)
             }
         } else {
             HStack(alignment: .center, spacing: 5.0) {
@@ -31,37 +43,26 @@ struct TagList: View {
                     tagItem(tag)
                 }
             }
-            .backgroundLink($navActive) {
-                SearchTagPage(tagname: navTagName)
-            }
         }
     }
     
+    @ViewBuilder
     private func tagItem(_ tag: THTag) -> some View {
-        Button {
-            navTagName = tag.name
-            navActive = true
-        } label: {
+        if navigation {
+            Button {
+                navTagName = tag.name
+                navActive = true
+                
+            } label: {
+                Text(tag.name)
+                    .textCase(nil) // prevent capitalization in list header
+                    .tagStyle(color: randomColor(tag.name))
+            }
+            .buttonStyle(.borderless)
+        } else {
             Text(tag.name)
                 .textCase(nil) // prevent capitalization in list header
                 .tagStyle(color: randomColor(tag.name))
-        }
-        .buttonStyle(.borderless)
-    }
-}
-
-
-struct TagListNavigation: View {
-    let tags: [THTag]
-    
-    var body: some View {
-        HStack(alignment: .center, spacing: 5.0) {
-            ForEach(tags) { tag in
-                NavigationLink(destination: SearchTagPage(tagname: tag.name)) {
-                    Text(tag.name)
-                        .tagStyle(color: randomColor(tag.name))
-                }
-            }
         }
     }
 }
