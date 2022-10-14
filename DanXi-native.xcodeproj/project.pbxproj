@@ -105,33 +105,13 @@
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
 		F128E3C928D0A568009447E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3C828D0A568009447E6 /* CardView.swift */; };
 		F128E3CB28D0ABEA009447E6 /* CampusInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */; };
-		F165C50828D1882C0000DB6F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
-		F165C50A28D1882C0000DB6F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
-		F165C50D28D1882C0000DB6F /* DanXi_Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F165C50C28D1882C0000DB6F /* DanXi_Widgets.swift */; };
-		F165C51028D1882E0000DB6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F165C50F28D1882E0000DB6F /* Assets.xcassets */; };
-		F165C51228D1882E0000DB6F /* DanXi_Widgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F165C50E28D1882C0000DB6F /* DanXi_Widgets.intentdefinition */; };
-		F165C51328D1882E0000DB6F /* DanXi_Widgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F165C50E28D1882C0000DB6F /* DanXi_Widgets.intentdefinition */; };
-		F165C51628D1882E0000DB6F /* DanXi-WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F165C50628D1882C0000DB6F /* DanXi-WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F165C51D28D1887C0000DB6F /* EcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F165C51C28D1887C0000DB6F /* EcardView.swift */; };
-		F165C51E28D1887C0000DB6F /* EcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F165C51C28D1887C0000DB6F /* EcardView.swift */; };
-		F165C52428D188A90000DB6F /* CampusInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */; };
-		F165C52D28D188B20000DB6F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3C828D0A568009447E6 /* CardView.swift */; };
 		F19113AA28A65D260067BA61 /* SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19113A928A65D260067BA61 /* SearchPage.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
 		F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* TagsPage.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F165C51428D1882E0000DB6F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F165C50528D1882C0000DB6F;
-			remoteInfo = "DanXi-WidgetsExtension";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
@@ -150,7 +130,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F165C51628D1882E0000DB6F /* DanXi-WidgetsExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,14 +238,8 @@
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F128E3C828D0A568009447E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusInfoPage.swift; sourceTree = "<group>"; };
-		F165C50628D1882C0000DB6F /* DanXi-WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi-WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		F165C50C28D1882C0000DB6F /* DanXi_Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_Widgets.swift; sourceTree = "<group>"; };
-		F165C50E28D1882C0000DB6F /* DanXi_Widgets.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DanXi_Widgets.intentdefinition; sourceTree = "<group>"; };
-		F165C50F28D1882E0000DB6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F165C51128D1882E0000DB6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F165C51728D1882E0000DB6F /* DanXi-WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi-WidgetsExtension.entitlements"; sourceTree = "<group>"; };
 		F165C51C28D1887C0000DB6F /* EcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcardView.swift; sourceTree = "<group>"; };
 		F19113A928A65D260067BA61 /* SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPage.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
@@ -282,15 +255,6 @@
 			files = (
 				2751E52D28BFB38D00104ACD /* Markdown in Frameworks */,
 				27FF8DB628F54B7C00B964A1 /* SwiftSoup in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F165C50328D1882C0000DB6F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F165C50A28D1882C0000DB6F /* SwiftUI.framework in Frameworks */,
-				F165C50828D1882C0000DB6F /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,7 +524,6 @@
 			children = (
 				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* iOS */,
-				F165C50B28D1882C0000DB6F /* DanXi-Widgets */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
 			);
@@ -570,7 +533,6 @@
 			isa = PBXGroup;
 			children = (
 				8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */,
-				F165C50628D1882C0000DB6F /* DanXi-WidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -584,18 +546,6 @@
 				271D596928C24F9300F72C3B /* Context Preview */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		F165C50B28D1882C0000DB6F /* DanXi-Widgets */ = {
-			isa = PBXGroup;
-			children = (
-				F165C50C28D1882C0000DB6F /* DanXi_Widgets.swift */,
-				F165C50E28D1882C0000DB6F /* DanXi_Widgets.intentdefinition */,
-				F165C51728D1882E0000DB6F /* DanXi-WidgetsExtension.entitlements */,
-				F165C50F28D1882E0000DB6F /* Assets.xcassets */,
-				F165C51128D1882E0000DB6F /* Info.plist */,
-			);
-			path = "DanXi-Widgets";
 			sourceTree = "<group>";
 		};
 		F165C51F28D188800000DB6F /* CampusInfoCards */ = {
@@ -632,7 +582,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F165C51528D1882E0000DB6F /* PBXTargetDependency */,
 			);
 			name = "DanXi-native";
 			packageProductDependencies = (
@@ -642,23 +591,6 @@
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
 			productType = "com.apple.product-type.application";
-		};
-		F165C50528D1882C0000DB6F /* DanXi-WidgetsExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F165C51B28D1882E0000DB6F /* Build configuration list for PBXNativeTarget "DanXi-WidgetsExtension" */;
-			buildPhases = (
-				F165C50228D1882C0000DB6F /* Sources */,
-				F165C50328D1882C0000DB6F /* Frameworks */,
-				F165C50428D1882C0000DB6F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DanXi-WidgetsExtension";
-			productName = "DanXi-WidgetsExtension";
-			productReference = F165C50628D1882C0000DB6F /* DanXi-WidgetsExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -671,9 +603,6 @@
 				TargetAttributes = {
 					8AC7A5CC26872C3E00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
-					};
-					F165C50528D1882C0000DB6F = {
-						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
@@ -696,7 +625,6 @@
 			projectRoot = "";
 			targets = (
 				8AC7A5CC26872C3E00C9CD98 /* DanXi-native */,
-				F165C50528D1882C0000DB6F /* DanXi-WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -723,14 +651,6 @@
 				27544B4628C5286300600605 /* report-list.json in Resources */,
 				27E5E82928BA0B560074D295 /* hole-list.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F165C50428D1882C0000DB6F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F165C51028D1882E0000DB6F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,7 +698,6 @@
 				27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* ReportPage.swift in Sources */,
 				27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */,
-				F165C51328D1882E0000DB6F /* DanXi_Widgets.intentdefinition in Sources */,
 				2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* TreeholePage.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
@@ -830,27 +749,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F165C50228D1882C0000DB6F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F165C50D28D1882C0000DB6F /* DanXi_Widgets.swift in Sources */,
-				F165C52428D188A90000DB6F /* CampusInfoPage.swift in Sources */,
-				F165C51E28D1887C0000DB6F /* EcardView.swift in Sources */,
-				F165C52D28D188B20000DB6F /* CardView.swift in Sources */,
-				F165C51228D1882E0000DB6F /* DanXi_Widgets.intentdefinition in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F165C51528D1882E0000DB6F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F165C50528D1882C0000DB6F /* DanXi-WidgetsExtension */;
-			targetProxy = F165C51428D1882E0000DB6F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		27A28A0F288B0C3D00D6DD77 /* Localizable.strings */ = {
@@ -1058,75 +957,6 @@
 			};
 			name = Release;
 		};
-		F165C51928D1882E0000DB6F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "DanXi-Widgets/DanXi-WidgetsExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 190;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "DanXi-Widgets/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-Widgets";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.3.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.debug.DanXi-Widgets";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		F165C51A28D1882E0000DB6F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "DanXi-Widgets/DanXi-WidgetsExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 190;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "DanXi-Widgets/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-Widgets";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.3.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.DanXi-Widgets";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1144,15 +974,6 @@
 			buildConfigurations = (
 				8AC7A63526872C4100C9CD98 /* Debug */,
 				8AC7A63626872C4100C9CD98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F165C51B28D1882E0000DB6F /* Build configuration list for PBXNativeTarget "DanXi-WidgetsExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F165C51928D1882E0000DB6F /* Debug */,
-				F165C51A28D1882E0000DB6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
