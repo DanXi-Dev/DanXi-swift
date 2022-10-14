@@ -7,6 +7,9 @@ struct FloorView: View {
     
     @State var showReplyPage = false
     @State var showEditPage = false
+    @State var showErrorAlert = false
+    @State var errorTitle: LocalizedStringKey = ""
+    @State var errorInfo = ""
     @State var showDeleteAlert = false
     @State var showRemoveSheet = false
     @State var showReportSheet = false
@@ -51,7 +54,9 @@ struct FloorView: View {
                 self.floor = newFloor
                 haptic()
             } catch {
-                print("DANXI-DEBUG: like failed")
+                errorTitle = "Like Failed"
+                showErrorAlert = true
+                errorInfo = error.localizedDescription
             }
         }
     }
@@ -62,7 +67,9 @@ struct FloorView: View {
                 let newFloor = try await DXNetworks.shared.deleteFloor(floorId: floor.id, reason: reason)
                 self.floor = newFloor
             } catch {
-                print("DANXI-DEBUG: delete failed")
+                errorTitle = "Delete Failed"
+                showErrorAlert = true
+                errorInfo = error.localizedDescription
             }
         }
     }
@@ -160,6 +167,11 @@ struct FloorView: View {
             }
         } message: {
             Text("This floor will be deleted")
+        }
+        .alert(errorTitle, isPresented: $showErrorAlert) {
+            Button("OK") { }
+        } message: {
+            Text(errorInfo)
         }
     }
     

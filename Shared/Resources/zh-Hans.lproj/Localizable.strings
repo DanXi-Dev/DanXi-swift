@@ -101,6 +101,8 @@
 "Edit History" = "编辑历史";
 "Edit reason: %@" = "修改理由：%@";
 "User: %@" = "用户：%@";
+"Like Failed" = "点赞失败";
+"Delete Failed" = "删除失败";
 
 
 "Edit Reply" = "编辑";
