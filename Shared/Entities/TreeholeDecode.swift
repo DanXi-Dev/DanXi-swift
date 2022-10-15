@@ -153,12 +153,7 @@ extension DXUser {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         nickname = try values.decode(String.self, forKey: .nickname)
-        // FIXME: temporary measure, wait for backend API to update.
-#if DEBUG
-        isAdmin = true
-#else
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
-#endif
         self.joinTime = try decodeDate(values, key: .joinTime)
     }
 }

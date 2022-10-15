@@ -348,9 +348,14 @@ extension DXNetworks {
     /// Load favorites hole IDs.
     /// - Returns: List of favorite hole ID.
     func loadFavoritesIds() async throws -> [Int] {
+        struct FavoriteResponse: Codable {
+            let data: [Int]
+        }
+        
         var component = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
         component.queryItems = [URLQueryItem(name: "plain", value: "true")]
-        return try await requestObj(url: component.url!)
+        let response: FavoriteResponse = try await requestObj(url: component.url!)
+        return response.data
     }
     
     
