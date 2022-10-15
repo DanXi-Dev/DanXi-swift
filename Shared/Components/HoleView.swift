@@ -20,8 +20,8 @@ struct HoleView: View {
                 }
                 .backgroundLink { HoleDetailPage(hole: hole) }
                 #if os(iOS)
-                .previewContextMenu(destination: HoleDetailPage(hole: hole),
-                                    preview: HoleDetailPage(hole: hole, floors: hole.floors))
+                // FIXME: will cause "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.", consider update preview code.
+                .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors))
                 #endif
                 .listRowSeparator(.hidden, edges: .top)
                 .listRowInsets(.init(top: 0,
@@ -38,8 +38,7 @@ struct HoleView: View {
             }
             .backgroundLink { HoleDetailPage(hole: hole) }
             #if os(iOS)
-            .previewContextMenu(destination: HoleDetailPage(hole: hole),
-                                preview: HoleDetailPage(hole: hole, floors: hole.floors))
+            .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors))
             #endif
         }
     }

@@ -38,9 +38,11 @@ struct TagList: View {
                 tagItem(tag)
             }
         } else {
-            HStack(alignment: .center, spacing: 5.0) {
-                ForEach(tags) { tag in
-                    tagItem(tag)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .center, spacing: 5.0) {
+                    ForEach(tags) { tag in
+                        tagItem(tag)
+                    }
                 }
             }
         }
