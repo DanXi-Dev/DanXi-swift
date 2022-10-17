@@ -101,6 +101,7 @@
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
+		27FD626228FD8AC500B8ACDB /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* BrowseViewModel.swift */; };
 		27FF8DB628F54B7C00B964A1 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27FF8DB528F54B7C00B964A1 /* SwiftSoup */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
 		F128E3C928D0A568009447E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3C828D0A568009447E6 /* CardView.swift */; };
@@ -232,6 +233,7 @@
 		27FA5F46289947DA000391A3 /* SearchTextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextPage.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* SearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagPage.swift; sourceTree = "<group>"; };
 		27FBAA4A28BE4E7E00B27F30 /* floor-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "floor-list.json"; sourceTree = "<group>"; };
+		27FD626128FD8AC500B8ACDB /* BrowseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
 		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 			children = (
 				2778D60A2891D22D009F4DB1 /* TreeholePage.swift */,
 				27227FD028A507AA00B3C99D /* BrowsePage.swift */,
+				27FD626128FD8AC500B8ACDB /* BrowseViewModel.swift */,
 				F19113A928A65D260067BA61 /* SearchPage.swift */,
 				2778D6072891D22D009F4DB1 /* HoleDetailPage.swift */,
 				27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */,
@@ -675,6 +678,7 @@
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,
 				27999F2328E56B8700715D10 /* AuthNetworks.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
+				27FD626228FD8AC500B8ACDB /* BrowseViewModel.swift in Sources */,
 				2748AE9928C8C4CC0014495F /* TagField.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* DXNetworks.swift in Sources */,
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,

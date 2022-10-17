@@ -5,6 +5,8 @@ import Foundation
 struct TreeholePage: View {
     @ObservedObject var dataModel = TreeholeDataModel.shared
     
+    let holes: [THHole]
+    
     @State var searchText = ""
     @State var searchSubmitted = false
     
@@ -12,18 +14,16 @@ struct TreeholePage: View {
     @State var initFinished = TreeholeDataModel.shared.initialized
     @State var initError = ""
     
-    let holes: [THHole] // for preview purpose
-    
     /// Default initializer.
     init() {
-        holes = []
+        self.holes = []
     }
     
     /// Creates a preview.
     init(divisions: [THDivision], holes: [THHole]) {
+        self.holes = holes
         self._initFinished = State(initialValue: true)
         TreeholeDataModel.shared.divisions = divisions
-        self.holes = holes
     }
     
     func initialLoad() async {
@@ -40,9 +40,8 @@ struct TreeholePage: View {
                         finished: $initFinished,
                         errorDescription: initError,
                         action: initialLoad) {
-            DelegatePage(searchText: $searchText,
-                         searchSubmitted: $searchSubmitted,
-                         holes: holes)
+            DelegatePage(holes: holes, $searchText, $searchSubmitted)
+            
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
             .onSubmit(of: .search) {
                 searchSubmitted = true
@@ -53,13 +52,20 @@ struct TreeholePage: View {
     
 }
 
-/// Searchable delegation, switch between main view and search view based on searchbar status
+/// Searchable delegation, switch between main view and search view based on searchbar status.
 struct DelegatePage: View {
     @Environment(\.isSearching) var isSearching
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
-
-    let holes: [THHole]
+    
+    @StateObject var viewModel: BrowseViewModel
+    
+    init(holes: [THHole] = [], _ searchText: Binding<String>, _ searchSubmitted: Binding<Bool>) {
+        self._viewModel = StateObject(wrappedValue: BrowseViewModel(holes: holes))
+        self._searchText = searchText
+        self._searchSubmitted = searchSubmitted
+    }
+    
     
     var body: some View {
         Group {
@@ -67,7 +73,8 @@ struct DelegatePage: View {
                 SearchPage(searchText: $searchText,
                            searchSubmitted: $searchSubmitted)
             } else {
-                BrowsePage(holes: holes)
+                BrowsePage()
+                    .environmentObject(viewModel)
             }
         }
     }
@@ -77,7 +84,8 @@ struct TreeholePage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"), holes: PreviewDecode.decodeList(name: "hole-list"))
+                TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"),
+                             holes: PreviewDecode.decodeList(name: "hole-list"))
             }
         }
     }

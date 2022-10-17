@@ -3,32 +3,11 @@ import SwiftUI
 
 /// Main page section, displaying hole contents and division switch bar
 struct BrowsePage: View {
-    enum SortOptions {
-        case byReplyTime
-        case byCreateTime
-    }
     @ObservedObject var dataModel = TreeholeDataModel.shared
     @ObservedObject var preference = Preference.shared
     let divisions = TreeholeDataModel.shared.divisions
-    @State var currentDivision: THDivision
-    @State var holes: [THHole]
-    @State var sortOption = SortOptions.byReplyTime
-    @State var baseDate: Date?
-    @State var endReached = false
     
-    var filteredHoles: [THHole] {
-        holes.filter { hole in
-            // filter for blocked tags
-            for tagName in hole.tags.map({ $0.name }) {
-                if !preference.blockedTags.filter({ $0 == tagName }).isEmpty {
-                    return false
-                }
-            }
-            
-            // filter for NSFW tags
-            return !(preference.nsfwSetting == .hide && hole.nsfw)
-        }
-    }
+    @EnvironmentObject var viewModel: BrowseViewModel
     
     @State var showDatePicker = false
     @State var showEditPage = false
@@ -36,63 +15,29 @@ struct BrowsePage: View {
     @State var showFavoritesPage = false
     @State var showReportPage = false
     
-    @State var loading = false
-    /// uniquely identify a consistent flow of holes, should change when `holes` are cleared and a new flow is loading
-    @State var loadingId = UUID()
-    @State var errorInfo = ""
-    
-    init(holes: [THHole] = []) {
-        self._currentDivision = State(initialValue: TreeholeDataModel.shared.divisions.first!)
-        self._holes = State(initialValue: holes)
-    }
-    
-    func loadMoreHoles() async {
-        do {
-            let currentLoadingId = loadingId
-            loading = true
-            defer { loading = false }
-            
-            var startTime: String? = nil
-            if !holes.isEmpty {
-                startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
-            } else if let baseDate = baseDate {
-                startTime = baseDate.ISO8601Format()
-            }
-            
-            let newHoles = try await DXNetworks.shared.loadHoles(startTime: startTime, divisionId: currentDivision.id)
-            endReached = newHoles.isEmpty
-            if currentLoadingId == loadingId { // prevent holes from older flow being inserted into new one, causing bug
-                let currentIds = holes.map(\.id)
-                holes.append(contentsOf: newHoles.filter { !currentIds.contains($0.id) }) // filter duplicate holes
-            }
-        } catch {
-            errorInfo = error.localizedDescription
-        }
-    }
-    
     var body: some View {
         List {
-            // MARK: pinned section
+            // MARK: Pinned Section
             Section {
-                ForEach(currentDivision.pinned) { hole in
+                ForEach(viewModel.currentDivision.pinned) { hole in
                     HoleView(hole: hole)
                 }
             } header: {
                 VStack(alignment: .leading) {
                     switchBar
-                    if !currentDivision.pinned.isEmpty {
+                    if !viewModel.currentDivision.pinned.isEmpty {
                         Label("Pinned", systemImage: "pin.fill")
                     }
                 }
             }
             
-            // MARK: main section
+            // MARK: Main Section
             Section {
-                ForEach(filteredHoles) { hole in
+                ForEach(viewModel.filteredHoles) { hole in
                     HoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
                         .task {
-                            if hole == filteredHoles.last {
-                                await loadMoreHoles()
+                            if hole == viewModel.filteredHoles.last {
+                                await viewModel.loadMoreHoles()
                             }
                         }
                 }
@@ -100,29 +45,26 @@ struct BrowsePage: View {
                 HStack {
                     Label("Main Section", systemImage: "text.bubble.fill")
                     Spacer()
-                    if let baseDate = baseDate {
+                    if let baseDate = viewModel.baseDate {
                         Text(baseDate.formatted(date: .abbreviated, time: .omitted))
                     }
                 }
             } footer: {
-                if !endReached {
-                    LoadingFooter(loading: $loading,
-                                    errorDescription: errorInfo,
-                                    action: loadMoreHoles)
+                if !viewModel.endReached {
+                    LoadingFooter(loading: $viewModel.loading,
+                                  errorDescription: viewModel.errorInfo,
+                                  action: viewModel.loadMoreHoles)
                 }
             }
         }
         .task {
-            await loadMoreHoles()
+            await viewModel.loadMoreHoles()
         }
         .listStyle(.grouped)
         .refreshable {
-            loadingId = UUID()
-            endReached = false
-            holes = []
-            await loadMoreHoles()
+            await viewModel.refresh()
         }
-        .navigationTitle(currentDivision.name)
+        .navigationTitle(viewModel.currentDivision.name)
         .sheet(isPresented: $showDatePicker) {
             datePicker
         }
@@ -134,14 +76,14 @@ struct BrowsePage: View {
                     Image(systemName: "square.and.pencil")
                 }
                 .sheet(isPresented: $showEditPage) {
-                    EditForm(divisionId: currentDivision.id)
+                    EditForm(divisionId: viewModel.currentDivision.id)
                 }
             }
         }
     }
     
     private var switchBar: some View {
-        Picker("division_selector", selection: $currentDivision) {
+        Picker("division_selector", selection: $viewModel.currentDivision) {
             ForEach(divisions) { division in
                 Text(division.name)
                     .tag(division)
@@ -149,12 +91,9 @@ struct BrowsePage: View {
         }
         .pickerStyle(.segmented)
         .offset(x: 0, y: -20)
-        .onChange(of: currentDivision) { newValue in
+        .onChange(of: viewModel.currentDivision) { newValue in
             Task {
-                loadingId = UUID()
-                endReached = false
-                holes = []
-                await loadMoreHoles()
+                await viewModel.refresh()
             }
         }
     }
@@ -165,28 +104,24 @@ struct BrowsePage: View {
             Form {
                 DatePicker("Start Date",
                            selection: Binding<Date>(
-                            get: { self.baseDate ?? Date() },
-                            set: { self.baseDate = $0 }
+                            get: { viewModel.baseDate ?? Date() },
+                            set: { viewModel.baseDate = $0 }
                            ),
                            in: ...Date.now,
                            displayedComponents: [.date])
                 .datePickerStyle(.graphical)
-                .onChange(of: baseDate) { newValue in
-                    loadingId = UUID()
-                    showDatePicker = false
-                    holes = []
+                .onChange(of: viewModel.baseDate) { newValue in
                     Task {
-                        await loadMoreHoles()
+                        showDatePicker = false
+                        await viewModel.refresh()
                     }
                 }
                 
-                if baseDate != nil {
+                if viewModel.baseDate != nil {
                     Button("Clear Date", role: .destructive) {
                         showDatePicker = false
-                        baseDate = nil
-                        holes = []
                         Task {
-                            await loadMoreHoles()
+                            await viewModel.refresh()
                         }
                     }
                 }
@@ -216,15 +151,15 @@ struct BrowsePage: View {
                 Label("Select Date", systemImage: "clock.arrow.circlepath")
             }
             
-            Picker("Sort Options", selection: $sortOption) {
+            Picker("Sort Options", selection: $viewModel.sortOption) {
                 Text("Last Updated")
-                    .tag(SortOptions.byReplyTime)
+                    .tag(BrowseViewModel.SortOptions.byReplyTime)
                 
                 Text("Last Created")
-                    .tag(SortOptions.byCreateTime)
+                    .tag(BrowseViewModel.SortOptions.byCreateTime)
             }
             
-            if TreeholeDataModel.shared.isAdmin {
+            if dataModel.isAdmin {
                 Divider()
                 
                 Button {
