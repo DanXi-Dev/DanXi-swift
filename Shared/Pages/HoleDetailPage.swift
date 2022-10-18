@@ -27,35 +27,42 @@ struct HoleDetailPage: View {
     
     var body: some View {
         ScrollViewReader { proxy in
-            List {
-                Section {
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    // MARK: Header (tags)
                     if let hole = viewModel.hole {
+                        TagList(hole.tags, lineWrap: true, navigation: true)
+                    }
+                    
+                    // MARK: Body (floor list)
+                    if let hole = viewModel.hole {
+                        Divider()
+                        
                         ForEach(viewModel.filteredFloors) { floor in
                             FloorView(floor: floor,
                                       isPoster: floor.posterName == hole.firstFloor.posterName,
                                       model: viewModel,
                                       proxy: proxy)
                             .task {
-                                if floor == viewModel.filteredFloors.last {
+                                if floor == viewModel.filteredFloors.last && !viewModel.endReached {
                                     await viewModel.loadMoreFloors()
                                 }
                             }
                             .id(floor.id)
+                            
+                            Divider()
                         }
                     }
-                } header: {
-                    if let hole = viewModel.hole {
-                        TagList(hole.tags, navigation: true)
-                    }
-                } footer: {
+                    
+                    // MARK: Footer
                     if !viewModel.endReached {
                         LoadingFooter(loading: $viewModel.listLoading,
                                       errorDescription: viewModel.listError,
                                       action: viewModel.loadMoreFloors)
                     }
                 }
+                .padding(.horizontal)
             }
-            .listStyle(.grouped)
             .navigationTitle(viewModel.hole == nil ? "Loading" : "#\(String(viewModel.hole!.id))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -66,6 +73,7 @@ struct HoleDetailPage: View {
             // access scroll view proxy from outside, i.e., toolbar
             .onChange(of: viewModel.scrollTarget, perform: { target in
                 withAnimation {
+                    // FIXME: SwiftUI bug in iOS 16, ref: https://developer.apple.com/forums/thread/712510
                     proxy.scrollTo(target)
                 }
                 viewModel.scrollTarget = -1 // reset scroll target, in case that the same target may be scrolled again
