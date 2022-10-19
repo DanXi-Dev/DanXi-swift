@@ -1,5 +1,6 @@
 import SwiftUI
 import Markdown
+import CachedAsyncImage
 
 /// A view that renders Markdown content.
 struct MarkdownView: View {
@@ -176,7 +177,7 @@ struct MarkdownView: View {
                 case .image(let url):
                     HStack {
                         Spacer()
-                        AsyncImage(url: url) { phase in
+                        CachedAsyncImage(url: url, urlCache: .imageCache) { phase in
                             if let image = phase.image {
                                 image
                                     .resizable()
@@ -196,6 +197,11 @@ struct MarkdownView: View {
             }
         }
     }
+}
+
+extension URLCache {
+    static let imageCache = URLCache(memoryCapacity: 512 * 1000 * 1000, // 512 MB
+                                     diskCapacity: 1000 * 1000 * 1000) // 1 GB
 }
 
 extension Markup {

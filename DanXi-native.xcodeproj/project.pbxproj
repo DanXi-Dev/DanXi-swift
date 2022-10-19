@@ -34,6 +34,7 @@
 		2756D5E228F49A8D00E80B92 /* FDNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756D5E128F49A8D00E80B92 /* FDNetworks.swift */; };
 		275B71CD28C5249800475BA3 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* ReportPage.swift */; };
 		275C096428E1D33A00B4815F /* BackgroundLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C096328E1D33A00B4815F /* BackgroundLink.swift */; };
+		275D32E429004AA90020DBA5 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 275D32E329004AA90020DBA5 /* CachedAsyncImage */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */; };
 		27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworks.swift */; };
@@ -255,6 +256,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				275D32E429004AA90020DBA5 /* CachedAsyncImage in Frameworks */,
 				2751E52D28BFB38D00104ACD /* Markdown in Frameworks */,
 				27FF8DB628F54B7C00B964A1 /* SwiftSoup in Frameworks */,
 			);
@@ -590,6 +592,7 @@
 			packageProductDependencies = (
 				2751E52C28BFB38D00104ACD /* Markdown */,
 				27FF8DB528F54B7C00B964A1 /* SwiftSoup */,
+				275D32E329004AA90020DBA5 /* CachedAsyncImage */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
@@ -622,6 +625,7 @@
 			packageReferences = (
 				2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */,
 				27FF8DB428F54B7C00B964A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				275D32E229004AA90020DBA5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -993,6 +997,14 @@
 				kind = branch;
 			};
 		};
+		275D32E229004AA90020DBA5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		27FF8DB428F54B7C00B964A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -1008,6 +1020,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
+		};
+		275D32E329004AA90020DBA5 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 275D32E229004AA90020DBA5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		27FF8DB528F54B7C00B964A1 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
