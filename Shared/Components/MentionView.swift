@@ -9,6 +9,7 @@ struct MentionView: View {
     let proxy: ScrollViewProxy?
     
     @State var navigationActive = false
+    @Environment(\.colorScheme) var colorScheme
     
     enum MentionType {
         case local
@@ -122,7 +123,7 @@ struct MentionView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 7.0)
-        .background(Color.secondary.opacity(0.1))
+        .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
         .cornerRadius(7.0)
     }
 }

@@ -175,11 +175,15 @@ struct FloorView: View {
                               proxy: proxy,
                               mentions: floor.mention,
                               floors: hole.floors)
+                .foregroundColor(.primary)
+                .multilineTextAlignment(.leading)
             } else {
                 ReferenceView(floor.content,
                               proxy: proxy,
                               mentions: floor.mention,
                               floors: holeViewModel.floors)
+                .foregroundColor(.primary)
+                .multilineTextAlignment(.leading)
             }
         }
     }

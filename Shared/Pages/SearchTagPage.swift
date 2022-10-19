@@ -14,7 +14,8 @@ struct SearchTagPage: View {
             defer { loading = false }
             let newHoles = try await DXNetworks.shared.listHoleByTag(tagName: tagname, startTime: holes.last?.updateTime.ISO8601Format())
             endReached = newHoles.isEmpty
-            holes.append(contentsOf: newHoles)
+            let ids = holes.map(\.id)
+            holes.append(contentsOf: newHoles.filter { !ids.contains($0.id) })
         } catch {
             errorInfo = error.localizedDescription
         }

@@ -97,7 +97,6 @@ struct SearchPage: View {
                 }
             }
         }
-        .listStyle(.grouped)
         // navigate to search page when user click `search` in keyboard
         .backgroundLink($searchSubmitted) {
             SearchTextPage(keyword: searchText)

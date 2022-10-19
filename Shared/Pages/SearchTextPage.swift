@@ -14,40 +14,44 @@ struct SearchTextPage: View {
             defer { loading = false }
             let newFloors = try await DXNetworks.shared.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
-            floors.append(contentsOf: newFloors)
+            let ids = floors.map(\.id)
+            floors.append(contentsOf: newFloors.filter { !ids.contains($0.id) })
         } catch {
             errorInfo = error.localizedDescription
         }
     }
     
     var body: some View {
-        List {
-            Section {
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                Divider()
                 ForEach(floors) { floor in
-                    FloorView(floor: floor)
-                        .backgroundLink {
-                            HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
+                    NavigationLink {
+                        HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
+                    } label: {
+                        FloorView(floor: floor)
+                    }
+                    .task {
+                        if floor == floors.last {
+                            await loadMoreFloors()
                         }
-                        .task {
-                            if floor == floors.last {
-                                await loadMoreFloors()
-                            }
-                        }
+                    }
+                    Divider()
                 }
-            } footer: {
+                
                 if !endReached {
                     LoadingFooter(loading: $loading,
-                                    errorDescription: errorInfo,
-                                    action: loadMoreFloors)
+                                  errorDescription: errorInfo,
+                                  action: loadMoreFloors)
                 }
             }
+            .padding(.horizontal)
         }
         .task {
             if floors.isEmpty {
                 await loadMoreFloors()
             }
         }
-        .listStyle(.grouped)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Search Result")
     }
