@@ -15,31 +15,36 @@ struct HoleView: View {
     var body: some View {
         if fold {
             DisclosureGroup {
-                VStack(alignment: .leading) {
-                    holeContent
+                NavigationLink {
+                    HoleDetailPage(hole: hole)
+                } label: {
+                    VStack(alignment: .leading) {
+                        holeContent
+                    }
                 }
-                .backgroundLink { HoleDetailPage(hole: hole) }
+                /*
                 #if os(iOS)
-                // FIXME: will cause "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.", consider update preview code.
                 .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors))
                 #endif
-                .listRowSeparator(.hidden, edges: .top)
-                .listRowInsets(.init(top: 0,
-                                     leading: -1,
-                                     bottom: 5,
-                                     trailing: 15))
+                 */
             } label: {
                 tags
             }
         } else {
-            VStack(alignment: .leading) {
-                tags
-                holeContent
+            NavigationLink {
+                HoleDetailPage(hole: hole)
+            } label: {
+                VStack(alignment: .leading) {
+                    tags
+                    holeContent
+                }
             }
-            .backgroundLink { HoleDetailPage(hole: hole) }
+            // FIXME: Disable preview link due to iOS 16 navigation API bug, will cause "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.", consider update preview code.
+            /*
             #if os(iOS)
             .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors))
             #endif
+             */
         }
     }
     
@@ -129,7 +134,7 @@ struct HoleView: View {
     }
 
     private var tags: some View {
-        TagList(hole.tags)
+        TagList(hole.tags, lineWrap: true, navigation: true)
     }
 }
 

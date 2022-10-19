@@ -15,33 +15,25 @@ struct BrowsePage: View {
     @State var showFavoritesPage = false
     @State var showReportPage = false
     
-    var body: some View {
-        List {
-            // MARK: Pinned Section
-            Section {
+    var body: some View {        
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                switchBar
+                
+                // MARK: Pinned Section
+                if !viewModel.currentDivision.pinned.isEmpty {
+                    Label("Pinned", systemImage: "pin.fill")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.top)
+                }
+                Divider()
                 ForEach(viewModel.currentDivision.pinned) { hole in
                     HoleView(hole: hole)
+                    Divider()
                 }
-            } header: {
-                VStack(alignment: .leading) {
-                    switchBar
-                    if !viewModel.currentDivision.pinned.isEmpty {
-                        Label("Pinned", systemImage: "pin.fill")
-                    }
-                }
-            }
-            
-            // MARK: Main Section
-            Section {
-                ForEach(viewModel.filteredHoles) { hole in
-                    HoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
-                        .task {
-                            if hole == viewModel.filteredHoles.last {
-                                await viewModel.loadMoreHoles()
-                            }
-                        }
-                }
-            } header: {
+                
+                // MARK: Main Section
                 HStack {
                     Label("Main Section", systemImage: "text.bubble.fill")
                     Spacer()
@@ -49,18 +41,34 @@ struct BrowsePage: View {
                         Text(baseDate.formatted(date: .abbreviated, time: .omitted))
                     }
                 }
-            } footer: {
+                .foregroundColor(.secondary)
+                .font(.caption)
+                .padding(.top)
+                
+                Divider()
+                
+                ForEach(viewModel.filteredHoles) { hole in
+                    HoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
+                        .task {
+                            if hole == viewModel.filteredHoles.last {
+                                await viewModel.loadMoreHoles()
+                            }
+                        }
+                    Divider()
+                }
+                
                 if !viewModel.endReached {
                     LoadingFooter(loading: $viewModel.loading,
                                   errorDescription: viewModel.errorInfo,
                                   action: viewModel.loadMoreHoles)
                 }
+                
             }
+            .padding(.horizontal)
         }
         .task {
             await viewModel.loadMoreHoles()
         }
-        .listStyle(.grouped)
         .refreshable {
             await viewModel.refresh()
         }
@@ -90,7 +98,6 @@ struct BrowsePage: View {
             }
         }
         .pickerStyle(.segmented)
-        .offset(x: 0, y: -20)
         .onChange(of: viewModel.currentDivision) { newValue in
             Task {
                 await viewModel.refresh()
