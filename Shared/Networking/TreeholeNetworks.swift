@@ -117,7 +117,6 @@ extension DXNetworks {
         _ = try await networkRequest(url: components.url!, method: "PATCH")
     }
     
-    
     /// List holes by tag.
     /// - Parameters:
     ///   - tagName: Tag name.
@@ -125,9 +124,9 @@ extension DXNetworks {
     /// - Returns: List of `THHole`.
     func listHoleByTag(tagName: String, startTime: String? = nil) async throws -> [THHole] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
-        components.queryItems = [URLQueryItem(name: "tag_name", value: tagName)]
+        components.queryItems = [URLQueryItem(name: "tag", value: tagName)]
         if let time = startTime {
-            components.queryItems?.append(URLQueryItem(name: "offset", value: time))
+            components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
         }
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         return try await requestObj(url: components.url!)
