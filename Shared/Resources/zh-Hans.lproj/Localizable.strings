@@ -75,6 +75,7 @@
 "Pinned" = "置顶贴";
 "Main Section" = "主题贴";
 "Favorites" = "收藏";
+"Empty Favorites List" = "收藏列表为空";
 "Delete" = "删除";
 "image_tag" = "[图片]";
 "formula_tag" = "[公式]";

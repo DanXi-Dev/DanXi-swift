@@ -5,11 +5,13 @@ struct HoleView: View {
     
     let hole: THHole
     let fold: Bool
+    let listStyle: Bool
     @ObservedObject var preference = Preference.shared
     
-    init(hole: THHole, fold: Bool = false) {
+    init(hole: THHole, fold: Bool = false, listStyle: Bool = false) {
         self.hole = hole
         self.fold = fold
+        self.listStyle = listStyle
     }
     
     var body: some View {
@@ -31,20 +33,28 @@ struct HoleView: View {
                 tags
             }
         } else {
-            NavigationLink {
-                HoleDetailPage(hole: hole)
-            } label: {
+            if listStyle {
                 VStack(alignment: .leading) {
                     tags
                     holeContent
                 }
+                .backgroundLink { HoleDetailPage(hole: hole) }
+            } else {
+                NavigationLink {
+                    HoleDetailPage(hole: hole)
+                } label: {
+                    VStack(alignment: .leading) {
+                        tags
+                        holeContent
+                    }
+                }
+                // FIXME: Disable preview link due to iOS 16 navigation API bug, will cause "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.", consider update preview code.
+                /*
+                 #if os(iOS)
+                 .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors))
+                 #endif
+                 */
             }
-            // FIXME: Disable preview link due to iOS 16 navigation API bug, will cause "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.", consider update preview code.
-            /*
-            #if os(iOS)
-            .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors))
-            #endif
-             */
         }
     }
     
@@ -134,7 +144,7 @@ struct HoleView: View {
     }
 
     private var tags: some View {
-        TagList(hole.tags, lineWrap: true, navigation: true)
+        TagList(hole.tags, lineWrap: !listStyle, navigation: !listStyle)
     }
 }
 

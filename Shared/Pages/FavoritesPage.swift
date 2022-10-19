@@ -50,21 +50,26 @@ struct FavoritesPage: View {
                         finished: $finished,
                         errorDescription: initError.description,
                         action: fetchFavorites) {
-            List {
-                ForEach(favorites) { hole in
-                    HoleView(hole: hole)
+            if favorites.isEmpty {
+                Text("Empty Favorites List")
+                    .foregroundColor(.secondary)
+            } else {
+                List {
+                    ForEach(favorites) { hole in
+                        HoleView(hole: hole, listStyle: true)
+                    }
+                    .onDelete(perform: removeFavorites)
                 }
-                .onDelete(perform: removeFavorites)
+                .toolbar {
+                    EditButton()
+                }
+                .alert("Toggle Favorite Failed", isPresented: $showAlert) {
+                    Button("OK") { }
+                } message: {
+                    Text(deleteError)
+                }
+                .listStyle(.plain)
             }
-            .toolbar {
-                EditButton()
-            }
-            .alert("Toggle Favorite Failed", isPresented: $showAlert) {
-                Button("OK") { }
-            } message: {
-                Text(deleteError)
-            }
-            .listStyle(.grouped)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Favorites")
