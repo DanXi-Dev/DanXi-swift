@@ -80,9 +80,11 @@ extension View {
     }
 }
 
-struct TagList_Previews: PreviewProvider {    
+struct TagList_Previews: PreviewProvider {
     static var previews: some View {
-        TagList(PreviewDecode.decodeList(name: "tags"))
-            .previewLayout(.sizeThatFits)
+        Group {
+            TagList(PreviewDecode.decodeList(name: "tags"), lineWrap: true)
+                .previewLayout(.sizeThatFits)
+        }
     }
 }
