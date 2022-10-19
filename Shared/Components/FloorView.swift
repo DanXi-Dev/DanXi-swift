@@ -78,11 +78,7 @@ struct FloorView: View {
         if floor.deleted {
             DisclosureGroup {
                 floorBody
-                    .listRowSeparator(.hidden, edges: .top)
-                    .listRowInsets(.init(top: 0,
-                                         leading: -1,
-                                         bottom: 5,
-                                         trailing: 15))
+                    .padding(.top)
             } label: {
                 Text(floor.content)
                     .font(.system(size: 16))
@@ -101,43 +97,12 @@ struct FloorView: View {
                     SpecialTagView(content: floor.spetialTag)
                 }
                 Spacer()
-                
                 if !floor.deleted && interactable {
                     actions
                 }
-                
-                if floor.deleted && TreeholeDataModel.shared.isAdmin {
-                    Menu {
-                        adminFunctions
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                    }
-                    .buttonStyle(.borderless) // prevent multiple tapping
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .padding(.trailing, 10)
-                }
+                menu
             }
-            
-            if floor.deleted {
-                Text(floor.content)
-                    .foregroundColor(.secondary)
-                    .font(.system(size: 16))
-                    .fixedSize(horizontal: false, vertical: true)
-            } else {
-                if holeViewModel.floors.isEmpty, let hole = holeViewModel.hole {
-                    ReferenceView(floor.content,
-                                  proxy: proxy,
-                                  mentions: floor.mention,
-                                  floors: hole.floors)
-                } else {
-                    ReferenceView(floor.content,
-                                  proxy: proxy,
-                                  mentions: floor.mention,
-                                  floors: holeViewModel.floors)
-                }
-            }
-            
+            bodyText
             info
         }
         .sheet(isPresented: $showReplyPage) {
@@ -197,6 +162,28 @@ struct FloorView: View {
         .foregroundColor(randomColor(floor.posterName))
     }
     
+    @ViewBuilder
+    private var bodyText: some View {
+        if floor.deleted {
+            Text(floor.content)
+                .foregroundColor(.secondary)
+                .font(.system(size: 16))
+                .fixedSize(horizontal: false, vertical: true)
+        } else {
+            if holeViewModel.floors.isEmpty, let hole = holeViewModel.hole {
+                ReferenceView(floor.content,
+                              proxy: proxy,
+                              mentions: floor.mention,
+                              floors: hole.floors)
+            } else {
+                ReferenceView(floor.content,
+                              proxy: proxy,
+                              mentions: floor.mention,
+                              floors: holeViewModel.floors)
+            }
+        }
+    }
+    
     private var info: some View {
         HStack {
             Text("\(String(floor.storey))F")
@@ -238,12 +225,6 @@ struct FloorView: View {
             } label: {
                 Image(systemName: "arrowshape.turn.up.left")
             }
-            
-            Menu {
-                menu
-            } label: {
-                Image(systemName: "ellipsis.circle")
-            }
         }
         .buttonStyle(.borderless) // prevent multiple tapping
         .font(.caption)
@@ -251,50 +232,73 @@ struct FloorView: View {
         .padding(.trailing, 10)
     }
     
+    @ViewBuilder
     private var menu: some View {
-        Group {
-            Button {
-                showReportSheet = true
+        let admin = TreeholeDataModel.shared.isAdmin
+        
+        if !floor.deleted {
+            Menu {
+                menuNormalFunctions
+                if admin {
+                    Menu {
+                        menuAdminFunctions
+                    } label: {
+                        Label("Admin Actions", systemImage: "person.badge.key")
+                    }
+                }
             } label: {
-                Label("Report", systemImage: "exclamationmark.triangle")
+                menuLabel
             }
+        } else if admin {
+            Menu {
+                menuAdminFunctions
+            } label: {
+                menuLabel
+            }
+        }
+    }
+    
+    private var menuLabel: some View {
+        Image(systemName: "ellipsis.circle.fill")
+          .symbolRenderingMode(.hierarchical)
+          .imageScale(.large)
+          .font(.body)
+          .foregroundColor(.secondary)
+    }
+    
+    @ViewBuilder
+    private var menuNormalFunctions: some View {
+        Button {
+            showReportSheet = true
+        } label: {
+            Label("Report", systemImage: "exclamationmark.triangle")
+        }
+        
+        Button {
+            UIPasteboard.general.string = floor.content.stripToBasicMarkdown()
+        } label: {
+            Label("Copy Full Text", systemImage: "doc.on.doc")
+        }
+        
+        if floor.isMe {
+            Divider()
             
             Button {
-                UIPasteboard.general.string = floor.content.stripToBasicMarkdown()
+                showEditPage = true
             } label: {
-                Label("Copy Full Text", systemImage: "doc.on.doc")
+                Label("Edit Reply", systemImage: "square.and.pencil")
             }
             
-            if floor.isMe && !floor.deleted {
-                Divider()
-                
-                Button {
-                    showEditPage = true
-                } label: {
-                    Label("Edit Reply", systemImage: "square.and.pencil")
-                }
-                
-                Button(role: .destructive) {
-                    showDeleteAlert = true
-                } label: {
-                    Label("Delete", systemImage: "trash")
-                }
-            }
-            
-            if TreeholeDataModel.shared.isAdmin {
-                Divider()
-                
-                Menu {
-                    adminFunctions
-                } label: {
-                    Label("Admin Actions", systemImage: "person.badge.key")
-                }
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            } label: {
+                Label("Delete", systemImage: "trash")
             }
         }
     }
     
     @ViewBuilder
-    private var adminFunctions: some View {
+    private var menuAdminFunctions: some View {
         Button {
             // TODO: modify this floor
         } label: {
@@ -324,7 +328,6 @@ struct FloorView: View {
 struct FloorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            
             FloorView(floor: PreviewDecode.decodeObj(name: "floor")!, isPoster: true)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Floor")
