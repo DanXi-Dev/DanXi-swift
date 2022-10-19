@@ -6,9 +6,6 @@ struct TagList: View {
     let lineWrap: Bool
     let navigation: Bool
     
-    @State var navActive = false
-    @State var navTagName = ""
-    
     /// Create a Tag List.
     /// - Parameters:
     ///   - tags: tags to display.
@@ -21,18 +18,6 @@ struct TagList: View {
     }
     
     var body: some View {
-        if navigation {
-            staticView
-                .backgroundLink($navActive) {
-                    SearchTagPage(tagname: navTagName)
-                }
-        } else {
-            staticView
-        }
-    }
-    
-    @ViewBuilder
-    private var staticView: some View {
         if lineWrap {
             FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
                 tagItem(tag)
@@ -51,10 +36,8 @@ struct TagList: View {
     @ViewBuilder
     private func tagItem(_ tag: THTag) -> some View {
         if navigation {
-            Button {
-                navTagName = tag.name
-                navActive = true
-                
+            NavigationLink {
+                SearchTagPage(tagname: tag.name)
             } label: {
                 Text(tag.name)
                     .textCase(nil) // prevent capitalization in list header

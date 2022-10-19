@@ -21,8 +21,9 @@ struct SearchTagPage: View {
     }
     
     var body: some View {
-        List {
-            Section {
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                Divider()
                 ForEach(holes) { hole in
                     HoleView(hole: hole)
                         .task {
@@ -30,23 +31,22 @@ struct SearchTagPage: View {
                                 await loadMoreHoles()
                             }
                         }
+                    Divider()
                 }
-            } footer: {
+                
                 if !endReached {
-                    if !endReached {
-                        LoadingFooter(loading: $loading,
-                                        errorDescription: errorInfo,
-                                        action: loadMoreHoles)
-                    }
+                    LoadingFooter(loading: $loading,
+                                    errorDescription: errorInfo,
+                                    action: loadMoreHoles)
                 }
             }
+            .padding(.horizontal)
         }
         .task {
             if holes.isEmpty {
                 await loadMoreHoles()
             }
         }
-        .listStyle(.grouped)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(tagname)
     }
