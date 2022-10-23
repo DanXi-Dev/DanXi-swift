@@ -4,6 +4,7 @@ struct EditInfoForm: View {
     let holeId: Int
     @State var divisionId: Int
     @State var tags: [String]
+    @State var hidden: Bool
     
     var body: some View {
         FormPrimitive(title: "Edit Post Info",
@@ -19,16 +20,23 @@ struct EditInfoForm: View {
             }
             
             TagField(tags: $tags, max: 5)
+            
+            Section {
+                Toggle(isOn: $hidden) {
+                    Label("Hide Hole", systemImage: "eye.slash")
+                }
+            }
         } action: {
             try await DXNetworks.shared.modifyHole(holeId: holeId,
                                                    tags: tags,
-                                                   divisionId: divisionId)
+                                                   divisionId: divisionId,
+                                                   unhidden: !hidden)
         }
     }
 }
 
 struct EditInfoForm_Previews: PreviewProvider {
     static var previews: some View {
-        EditInfoForm(holeId: 0, divisionId: 0, tags: [])
+        EditInfoForm(holeId: 0, divisionId: 0, tags: [], hidden: false)
     }
 }

@@ -93,6 +93,9 @@ struct HoleView: View {
     private var info: some View {
         HStack {
             Text("#\(String(hole.id))")
+            if hole.hidden {
+                Image(systemName: "eye.slash")
+            }
             Spacer()
             Text(hole.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
             Spacer()

@@ -85,7 +85,8 @@ struct HoleDetailPage: View {
                 if let hole = viewModel.hole {
                     EditInfoForm(holeId: hole.id,
                                  divisionId: hole.divisionId,
-                                 tags: hole.tags.map(\.name))
+                                 tags: hole.tags.map(\.name),
+                                 hidden: hole.hidden)
                 } else {
                     ProgressView()
                 }
@@ -150,16 +151,18 @@ struct HoleDetailPage: View {
                 if dataModel.user?.isAdmin ?? false {
                     Divider()
                     
-                    Button {
-                        showHideAlert = true
-                    } label: {
-                        Label("Hide Hole", systemImage: "eye.slash.fill")
+                    if !hole.hidden {
+                        Button {
+                            showHideAlert = true
+                        } label: {
+                            Label("Hide Hole", systemImage: "eye.slash.fill")
+                        }
                     }
                     
                     Button {
                         showManagementPage = true
                     } label: {
-                        Label("Edit Tags & Division", systemImage: "info.circle")
+                        Label("Edit Post Info", systemImage: "info.circle")
                     }
                 }
             } label: {
