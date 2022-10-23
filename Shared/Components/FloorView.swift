@@ -75,21 +75,6 @@ struct FloorView: View {
     }
     
     var body: some View {
-        if floor.deleted {
-            DisclosureGroup {
-                floorBody
-                    .padding(.top)
-            } label: {
-                Text(floor.content)
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-            }
-        } else {
-            floorBody
-        }
-    }
-    
-    private var floorBody: some View {
         VStack(alignment: .leading) {
             HStack {
                 poster
