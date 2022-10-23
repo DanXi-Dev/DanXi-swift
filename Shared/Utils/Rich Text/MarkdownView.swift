@@ -97,7 +97,6 @@ struct MarkdownView: View {
                     TextView("·")
                         .bold()
                         .frame(width: 20)
-                        .textSelection(.disabled)
                     MarkdownView(item.markup)
                 }
             }

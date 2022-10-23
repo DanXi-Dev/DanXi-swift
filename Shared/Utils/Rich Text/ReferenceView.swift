@@ -34,7 +34,6 @@ struct ReferenceView: View {
                 switch element {
                 case .text(let content):
                     MarkdownView(content)
-                        .textSelection(.enabled)
                     
                 case .localReference(let floor):
                     MentionView(floor: floor, proxy: proxy)
