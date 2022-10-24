@@ -92,6 +92,7 @@
 		27D7110828CA29B7001E9464 /* ReportForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* ReportForm.swift */; };
 		27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* LoadingOverlay.swift */; };
 		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
+		27DD9F9D2906D0C2002F1DE0 /* FudanEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD9F9C2906D0C2002F1DE0 /* FudanEntity.swift */; };
 		27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingView.swift */; };
 		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
@@ -224,6 +225,7 @@
 		27D7110728CA29B7001E9464 /* ReportForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportForm.swift; sourceTree = "<group>"; };
 		27D7110A28CA3167001E9464 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		27D7110C28CA38DC001E9464 /* FormPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPrimitive.swift; sourceTree = "<group>"; };
+		27DD9F9C2906D0C2002F1DE0 /* FudanEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FudanEntity.swift; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				27719A9A28A3C45E00C661BD /* CourseEntity.swift */,
 				2778D6012891D22D009F4DB1 /* TreeholeDecode.swift */,
 				27719A9B28A3C45E00C661BD /* CourseDecode.swift */,
+				27DD9F9C2906D0C2002F1DE0 /* FudanEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				27999F2328E56B8700715D10 /* AuthNetworks.swift in Sources */,
 				2778D61F2891D22D009F4DB1 /* TreeholeEntity.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* BrowseViewModel.swift in Sources */,
+				27DD9F9D2906D0C2002F1DE0 /* FudanEntity.swift in Sources */,
 				2748AE9928C8C4CC0014495F /* TagField.swift in Sources */,
 				2778D6212891D22D009F4DB1 /* DXNetworks.swift in Sources */,
 				27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */,
