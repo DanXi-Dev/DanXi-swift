@@ -27,7 +27,7 @@ struct EditReplyForm: View {
             
             if !content.isEmpty {
                 Section {
-                    ReferenceView(content, floors: floors)
+                    ReferenceView(content, floors: floors, interactable: false)
                         .padding(.vertical, 5)
                 } header: {
                     Text("Preview")

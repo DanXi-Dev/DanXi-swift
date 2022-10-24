@@ -7,6 +7,7 @@ struct MentionView: View {
     
     let mentionType: MentionType
     let proxy: ScrollViewProxy?
+    let interactable: Bool
     
     @State var navigationActive = false
     @Environment(\.colorScheme) var colorScheme
@@ -25,12 +26,16 @@ struct MentionView: View {
         self.floor = floor
         self.proxy = proxy
         self.mentionType = .local
+        self.interactable = proxy != nil
     }
     
     
+
     /// Create a mention view from remote mention.
-    /// - Parameter mention: Mention struct.
-    init(mention: THMention) {
+    /// - Parameters:
+    ///   - mention: Mention struct.
+    ///   - interactable: Whether the view is interactable.
+    init(mention: THMention, interactable: Bool = false) {
         self.floor = THFloor(id: mention.floorId, holeId: mention.holeId,
                              updateTime: mention.updateTime, createTime: mention.createTime,
                              like: 0, liked: false, isMe: false,
@@ -40,56 +45,67 @@ struct MentionView: View {
                              spetialTag: "", mention: [])
         self.proxy = nil
         self.mentionType = .remote
+        self.interactable = interactable
     }
     
     var body: some View {
-        switch mentionType {
-            
-        case .local:
-            Button {
+        if interactable {
+            switch mentionType {
+            case .local:
+                localMention
+                
+            case .remote:
+                remoteMention
+            }
+        } else {
+            mentionView
+        }
+    }
+
+    private var localMention: some View {
+        Button {
+            if let proxy = proxy {
+                withAnimation {
+                    proxy.scrollTo(floor.id, anchor: .top)
+                }
+            }
+        } label: {
+            mentionView
+        }
+        .buttonStyle(.borderless) // prevent multiple tapping
+        #if os(iOS)
+        // TODO: use geometry reader to determine size
+        .previewContextMenu(preview: ScrollView { FloorView(floor: floor).padding() }) {
+            PreviewContextAction(title: Bundle.main.localizedString(forKey: "Locate", value: nil, table: nil),
+                                 systemImage: "arrow.right.square") {
                 if let proxy = proxy {
                     withAnimation {
                         proxy.scrollTo(floor.id, anchor: .top)
                     }
                 }
-            } label: {
-                mention
             }
-            .buttonStyle(.borderless) // prevent multiple tapping
-            #if os(iOS)
-            // TODO: use geometry reader to determine size
-            .previewContextMenu(preview: ScrollView { FloorView(floor: floor).padding() }) {
-                PreviewContextAction(title: Bundle.main.localizedString(forKey: "Locate", value: nil, table: nil),
-                                     systemImage: "arrow.right.square") {
-                    if let proxy = proxy {
-                        withAnimation {
-                            proxy.scrollTo(floor.id, anchor: .top)
-                        }
-                    }
-                }
-            }
-            #endif
-            
-            
-        case .remote:
-            Button {
-                navigationActive = true
-            } label: {
-                mention
-                    .backgroundLink($navigationActive) {
-                        HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
-                    }
-            }
-            .buttonStyle(.borderless) // prevent multiple tapping
-            #if os(iOS)
-            // TODO: use geometry reader to determine size
-            .previewContextMenu(destination: HoleDetailPage(holeId: floor.holeId, floorId: floor.id),
-                                preview: ScrollView { FloorView(floor: floor).padding() })
-            #endif
         }
+        #endif
     }
     
-    private var mention: some View {
+    private var remoteMention: some View {
+        Button {
+            navigationActive = true
+        } label: {
+            mentionView
+                .backgroundLink($navigationActive) {
+                    HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
+                }
+        }
+        .buttonStyle(.borderless) // prevent multiple tapping
+        #if os(iOS)
+        // TODO: use geometry reader to determine size
+        .previewContextMenu(destination: HoleDetailPage(holeId: floor.holeId, floorId: floor.id),
+                            preview: ScrollView { FloorView(floor: floor).padding() })
+        #endif
+    }
+
+    private var mentionView: some View {
         VStack(alignment: .leading) {
             HStack {
                 Rectangle()
