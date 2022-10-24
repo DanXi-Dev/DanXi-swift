@@ -7,7 +7,7 @@ extension FDNetworks {
         // network API
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
         var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = ["User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        setUserAgent(&request)
         let responseData = try await authenticate(request: request)
         guard let htmlText = String(data: responseData, encoding: String.Encoding.utf8) else {
             throw NetworkError.invalidResponse

@@ -28,7 +28,7 @@ class FDNetworks {
         }
         let authUrl = URL(string: UIS_URL + "/authserver/login")!
         var request = URLRequest(url: authUrl)
-        request.allHTTPHeaderFields = ["User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        setUserAgent(&request)
         let (loginFormData, _) = try await URLSession.shared.data(for: request)
         let authRequest = try prepareAuthRequest(authUrl: authUrl, formData: loginFormData,
                                                  username: username, password: password)
@@ -65,7 +65,7 @@ class FDNetworks {
         var components = URLComponents(string: UIS_URL + "/authserver/login")!
         components.queryItems = [URLQueryItem(name: "service", value: url.absoluteString)]
         var request = URLRequest(url: components.url!)
-        request.allHTTPHeaderFields = ["User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        setUserAgent(&request)
         let (data, response) = try await URLSession.shared.data(for: request)
         guard response.url?.host == "uis.fudan.edu.cn" else {
             return data
@@ -109,13 +109,13 @@ class FDNetworks {
             }
         }
         
-        let requestHeaders = ["Content-Type" : "application/x-www-form-urlencoded",
-                              "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        let requestHeaders = ["Content-Type" : "application/x-www-form-urlencoded"]
         var requestBodyComponents = URLComponents()
         requestBodyComponents.queryItems = loginForm
         var request = URLRequest(url: authUrl)
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = requestHeaders
+        setUserAgent(&request)
         request.httpBody = requestBodyComponents.query?.data(using: .ascii)
         
         return request
@@ -125,11 +125,19 @@ class FDNetworks {
         var component = URLComponents(string: UIS_URL + "/authserver/needCaptcha.html")!
         component.queryItems = [URLQueryItem(name: "username", value: username)]
         var request = URLRequest(url: component.url!)
-        request.allHTTPHeaderFields = ["User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        setUserAgent(&request)
         let (data, _) = try await URLSession.shared.data(for: request)
         guard let result = String(data: data, encoding: String.Encoding.ascii) else {
             throw NetworkError.invalidResponse
         }
         return result.trimmingCharacters(in: .whitespacesAndNewlines) != "false"
+    }
+    
+    func setUserAgent(_ request: inout URLRequest) {
+        if request.allHTTPHeaderFields == nil {
+            request.allHTTPHeaderFields = ["User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"]
+        } else {
+            request.allHTTPHeaderFields!["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15"
+        }
     }
 }
