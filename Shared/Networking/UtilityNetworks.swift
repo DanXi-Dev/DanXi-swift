@@ -28,4 +28,13 @@ extension FDNetworks {
         let uiimage = UIImage(ciImage: scaledCIImage)
         return uiimage.pngData()!
     }
+    
+    
+    func getDormInfo() async throws -> DormInfo {
+        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanelec/wap/default/info")!
+        var request = URLRequest(url: url)
+        setUserAgent(&request)
+        let responseData = try await authenticate(request: request)
+        return try JSONDecoder().decode(DormInfo.self, from: responseData)
+    }
 }
