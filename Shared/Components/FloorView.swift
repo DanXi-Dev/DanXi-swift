@@ -127,12 +127,9 @@ struct FloorView: View {
     
     private var poster: some View {
         HStack {
-            Rectangle()
-                .frame(width: 3, height: 15)
-            
             if isPoster {
                 Text("DZ")
-                    .font(.system(size: 13))
+                    .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding(.horizontal, 6.0)
@@ -141,10 +138,17 @@ struct FloorView: View {
             }
             
             Text(floor.posterName)
-                .font(.system(size: 15))
+                .font(.subheadline)
                 .fontWeight(.bold)
         }
         .foregroundColor(randomColor(floor.posterName))
+        .padding(.leading, 10)
+        .overlay(
+         Rectangle()
+         .frame(width: 3, height: nil, alignment: .leading)
+         .foregroundColor(randomColor(floor.posterName))
+         .padding(.vertical, 1), alignment: .leading)
+         
     }
     
     @ViewBuilder
@@ -152,7 +156,7 @@ struct FloorView: View {
         if floor.deleted {
             Text(floor.content)
                 .foregroundColor(.secondary)
-                .font(.system(size: 16))
+                .font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
         } else {
             if holeViewModel.floors.isEmpty, let hole = holeViewModel.hole {

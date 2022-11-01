@@ -43,7 +43,7 @@ struct TagField: View {
             } else {
                 FlexibleView(data: tags, spacing: 15, alignment: .leading) { tag in
                     Text(tag)
-                        .tagStyle(color: randomColor(tag), fontSize: 16)
+                        .tagStyle(color: randomColor(tag), font: .system(size: 16))
                         .overlay(alignment: .topTrailing) {
                             // remove this tag
                             Button {

@@ -76,7 +76,7 @@ struct HoleView: View {
             }
 
             Text(hole.firstFloor.content.inlineAttributed())
-                .font(.system(size: 16))
+                .font(.callout)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
@@ -129,12 +129,12 @@ struct HoleView: View {
 
             VStack(alignment: .leading, spacing: 3) {
                 Text("\(hole.lastFloor.posterName) replied \(hole.lastFloor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
-                    .font(.system(size: 12))
+                    .font(.custom("", size: 12))
                     .fixedSize(horizontal: false, vertical: true)
 
                 Text(hole.lastFloor.content.inlineAttributed())
                     .lineLimit(1)
-                    .font(.system(size: 14))
+                    .font(.custom("", size: 14))
                     .fixedSize(horizontal: false, vertical: true)
                     .foregroundColor(.primary)
             }

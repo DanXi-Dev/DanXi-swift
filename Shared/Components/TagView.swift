@@ -56,7 +56,7 @@ struct TagList: View {
 struct TagStyle: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     let color: Color
-    let fontSize: CGFloat
+    let font: Font
     
     func body(content: Content) -> some View {
         content
@@ -64,7 +64,7 @@ struct TagStyle: ViewModifier {
             .background(color.opacity(colorScheme == .light ? 0.1 : 0.2))
             .cornerRadius(5)
             .foregroundColor(color)
-            .font(.system(size: fontSize))
+            .font(font)
             .lineLimit(1)
     }
 }
@@ -73,10 +73,10 @@ extension View {
     /// Apply special tag style for a piece of text.
     /// - Parameters:
     ///   - color: The color of the tag.
-    ///   - fontSize: (Optional) Control the font size of the text.
+    ///   - font: (Optional) Control the font of the text.
     /// - Returns: A view that applies tag style
-    func tagStyle(color: Color, fontSize: CGFloat = 14) -> some View {
-        modifier(TagStyle(color: color, fontSize: fontSize))
+    func tagStyle(color: Color, font: Font = .footnote) -> some View {
+        modifier(TagStyle(color: color, font: font))
     }
 }
 

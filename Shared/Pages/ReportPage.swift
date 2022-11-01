@@ -104,7 +104,7 @@ struct ReportCell: View {
                     HStack {
                         Text(report.floor.content)
                             .foregroundColor(.secondary)
-                            .font(.system(size: 16))
+                            .font(.callout)
                         Spacer()
                     }
                 }

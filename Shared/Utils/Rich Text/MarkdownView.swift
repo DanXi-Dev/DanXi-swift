@@ -51,17 +51,17 @@ struct MarkdownView: View {
         let font: Font
         switch heading.level {
         case 1:
-            font = .system(size: 28)
+            font = .largeTitle
         case 2:
-            font = .system(size: 22)
+            font = .title
         case 3:
-            font = .system(size: 20)
+            font = .title2
         case 4:
-            font = .system(size: 18)
+            font = .title3
         case 5:
-            font = .system(size: 17)
+            font = .body
         default:
-            font = .system(size: 16)
+            font = .callout
         }
         
         return TextView(heading.plainText)
@@ -73,7 +73,7 @@ struct MarkdownView: View {
     private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
         return ScrollView(.horizontal, showsIndicators: false) {
             TextView(codeBlock.code)
-                .font(.system(size: 16, design: .monospaced))
+                .font(.callout.monospaced())
         }
     }
     
@@ -87,7 +87,7 @@ struct MarkdownView: View {
                 }
             }
         }
-        .font(.system(size: 16))
+        .font(.callout)
     }
     
     private func unorderedListRenderer(_ unorderedList: UnorderedList) -> some View {
@@ -171,7 +171,7 @@ struct MarkdownView: View {
                 switch(element) {
                 case .paragraph(let text):
                     TextView(text)
-                        .font(.system(size: 16))
+                        .font(.callout)
                         .fixedSize(horizontal: false, vertical: true)
                 case .image(let url):
                     HStack {

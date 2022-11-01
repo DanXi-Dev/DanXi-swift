@@ -112,7 +112,7 @@ struct MentionView: View {
                     .frame(width: 3, height: 15)
                 
                 Text(floor.posterName)
-                    .font(.system(size: 15))
+                    .font(.subheadline)
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -125,7 +125,7 @@ struct MentionView: View {
             Text(floor.content.inlineAttributed())
                 .foregroundColor(floor.deleted ? .secondary : .primary)
                 .multilineTextAlignment(.leading)
-                .font(.system(size: 15))
+                .font(.subheadline)
                 .lineLimit(3)
             
             HStack {
@@ -178,7 +178,7 @@ struct RemoteMentionView: View {
                     .frame(width: 3, height: 15)
                 
                 Text("Mention")
-                    .font(.system(size: 15))
+                    .font(.subheadline)
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -188,7 +188,7 @@ struct RemoteMentionView: View {
             .foregroundColor(.secondary)
             
             Text(loading ? "Loading" : "Tap to view detail")
-                .font(.system(size: 16))
+                .font(.callout)
                 .foregroundColor(.secondary)
             
             Text("##\(String(floorId))")
