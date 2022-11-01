@@ -27,14 +27,12 @@
 		274215D228EE1C4700A2A20B /* DecodeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274215D128EE1C4700A2A20B /* DecodeDate.swift */; };
 		2748AE9928C8C4CC0014495F /* TagField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2748AE9828C8C4CC0014495F /* TagField.swift */; };
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
-		2751E52D28BFB38D00104ACD /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 2751E52C28BFB38D00104ACD /* Markdown */; };
 		2751E53028BFB40500104ACD /* Conflict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52F28BFB40500104ACD /* Conflict.swift */; };
 		27544B4628C5286300600605 /* report-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27544B4528C5286300600605 /* report-list.json */; };
 		2756D5DE28F49A2900E80B92 /* UniversityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756D5DD28F49A2900E80B92 /* UniversityModel.swift */; };
 		2756D5E228F49A8D00E80B92 /* FDNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756D5E128F49A8D00E80B92 /* FDNetworks.swift */; };
 		275B71CD28C5249800475BA3 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* ReportPage.swift */; };
 		275C096428E1D33A00B4815F /* BackgroundLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C096328E1D33A00B4815F /* BackgroundLink.swift */; };
-		275D32E429004AA90020DBA5 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 275D32E329004AA90020DBA5 /* CachedAsyncImage */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719A9628A3C1F700C661BD /* TreeholeNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9528A3C1F700C661BD /* TreeholeNetworks.swift */; };
 		27719A9828A3C39E00C661BD /* CourseNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9728A3C39E00C661BD /* CourseNetworks.swift */; };
@@ -77,6 +75,9 @@
 		27B19FC528F59C2C0001587F /* QRCodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* QRCodePage.swift */; };
 		27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5D70E28C74E9400924264 /* TextEditView.swift */; };
 		27B9B3A928B29953007CA1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27B9B3AB28B29953007CA1E0 /* InfoPlist.strings */; };
+		27BBBCFF29119368007C2905 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBCFE29119368007C2905 /* Markdown */; };
+		27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD01291193A9007C2905 /* SwiftSoup */; };
+		27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD04291193D2007C2905 /* CachedAsyncImage */; };
 		27C1344928ABCD44007F66C5 /* CourseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C1344828ABCD44007F66C5 /* CourseStore.swift */; };
 		27C7E8AE28BA038200DCC2B2 /* deleted-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AA28BA038200DCC2B2 /* deleted-floor.json */; };
 		27C7E8AF28BA038200DCC2B2 /* floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AB28BA038200DCC2B2 /* floor.json */; };
@@ -104,7 +105,6 @@
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
 		27FD626228FD8AC500B8ACDB /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* BrowseViewModel.swift */; };
-		27FF8DB628F54B7C00B964A1 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27FF8DB528F54B7C00B964A1 /* SwiftSoup */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
 		F128E3C928D0A568009447E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3C828D0A568009447E6 /* CardView.swift */; };
 		F128E3CB28D0ABEA009447E6 /* CampusInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F128E3CA28D0ABEA009447E6 /* CampusInfoPage.swift */; };
@@ -238,7 +238,7 @@
 		27FBAA4A28BE4E7E00B27F30 /* floor-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "floor-list.json"; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* BrowseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
-		8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi-native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F128E3C828D0A568009447E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -258,9 +258,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				275D32E429004AA90020DBA5 /* CachedAsyncImage in Frameworks */,
-				2751E52D28BFB38D00104ACD /* Markdown in Frameworks */,
-				27FF8DB628F54B7C00B964A1 /* SwiftSoup in Frameworks */,
+				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
+				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
+				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,7 +540,7 @@
 		8AC7A5CE26872C3E00C9CD98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */,
+				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -577,9 +577,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8AC7A5CC26872C3E00C9CD98 /* DanXi-native */ = {
+		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */;
+			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */;
 			buildPhases = (
 				8AC7A5C926872C3E00C9CD98 /* Sources */,
 				8AC7A5CA26872C3E00C9CD98 /* Frameworks */,
@@ -591,14 +591,14 @@
 			);
 			dependencies = (
 			);
-			name = "DanXi-native";
+			name = DanXi;
 			packageProductDependencies = (
-				2751E52C28BFB38D00104ACD /* Markdown */,
-				27FF8DB528F54B7C00B964A1 /* SwiftSoup */,
-				275D32E329004AA90020DBA5 /* CachedAsyncImage */,
+				27BBBCFE29119368007C2905 /* Markdown */,
+				27BBBD01291193A9007C2905 /* SwiftSoup */,
+				27BBBD04291193D2007C2905 /* CachedAsyncImage */,
 			);
 			productName = "DanXi-native";
-			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi-native.app */;
+			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -626,15 +626,15 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
-				2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */,
-				27FF8DB428F54B7C00B964A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				275D32E229004AA90020DBA5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */,
+				27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8AC7A5CC26872C3E00C9CD98 /* DanXi-native */,
+				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
 			);
 		};
 /* End PBXProject section */
@@ -981,7 +981,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi-native" */ = {
+		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC7A63526872C4100C9CD98 /* Debug */,
@@ -993,7 +993,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
+		27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-markdown";
 			requirement = {
@@ -1001,15 +1001,7 @@
 				kind = branch;
 			};
 		};
-		275D32E229004AA90020DBA5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		27FF8DB428F54B7C00B964A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+		27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
 			requirement = {
@@ -1017,23 +1009,31 @@
 				kind = branch;
 			};
 		};
+		27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2751E52C28BFB38D00104ACD /* Markdown */ = {
+		27BBBCFE29119368007C2905 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2751E52B28BFB38D00104ACD /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			package = 27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
 		};
-		275D32E329004AA90020DBA5 /* CachedAsyncImage */ = {
+		27BBBD01291193A9007C2905 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 275D32E229004AA90020DBA5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
-		};
-		27FF8DB528F54B7C00B964A1 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27FF8DB428F54B7C00B964A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			package = 27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		27BBBD04291193D2007C2905 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
