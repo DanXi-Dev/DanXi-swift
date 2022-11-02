@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var model = TreeholeDataModel.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var showSettingPage = false
     
@@ -26,7 +25,7 @@ struct ContentView: View {
             }
             
             NavigationLink {
-                if model.loggedIn {
+                if AuthDelegate.shared.isLogged {
                     TreeholePage()
                 } else {
                     TreeholeWelcomePage()
@@ -36,7 +35,7 @@ struct ContentView: View {
             }
             
             NavigationLink {
-                if model.loggedIn {
+                if AuthDelegate.shared.isLogged {
                     CourseMainPage()
                 } else {
                     CourseWelcomePage()

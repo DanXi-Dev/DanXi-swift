@@ -10,7 +10,7 @@ struct TagField: View {
     
     @MainActor
     var filteredTags: [THTag] {
-        let tags = TreeholeDataModel.shared.tags.filter { tag in
+        let tags = TreeholeStore.shared.tags.filter { tag in
             !self.tags.contains(tag.name)
         }
         

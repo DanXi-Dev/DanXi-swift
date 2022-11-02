@@ -159,7 +159,7 @@ struct RemoteMentionView: View {
                 Task { @MainActor in
                     do {
                         loading = true
-                        floor = try await DXNetworks.shared.loadFloorById(floorId: floorId)
+                        floor = try await TreeholeRequests.loadFloorById(floorId: floorId)
                     } catch {
                         loading = false
                     }

@@ -24,7 +24,7 @@ struct ReportForm: View {
                 TextField("Enter report reason", text: $reportReason)
             }
         } action: {
-            try await DXNetworks.shared.report(floorId: floor.id,
+            try await TreeholeRequests.report(floorId: floor.id,
                                                     reason: reportReason)
         }
     }

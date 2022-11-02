@@ -147,7 +147,7 @@ struct HoleView: View {
     }
 
     private var tags: some View {
-        TagList(hole.tags, lineWrap: !listStyle, navigation: !listStyle)
+        TagList(hole.tags, lineWrap: false, navigation: !listStyle)
     }
 }
 

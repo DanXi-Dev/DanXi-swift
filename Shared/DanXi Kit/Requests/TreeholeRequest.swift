@@ -1,13 +1,13 @@
 import Foundation
 
-extension DXNetworks {
+struct TreeholeRequests {
     
     // MARK: Division
     
     
     /// List all divisions.
     /// - Returns: A list of `THDivision`
-    func loadDivisions() async throws -> [THDivision] {
+    static func loadDivisions() async throws -> [THDivision] {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/divisions")!)
     }
     
@@ -15,7 +15,7 @@ extension DXNetworks {
     /// Get division by ID.
     /// - Parameter id: Division ID.
     /// - Returns: The matching `THDivision`.
-    func getDivision(id: Int) async throws -> THDivision {
+    static func getDivision(id: Int) async throws -> THDivision {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!)
     }
     
@@ -28,7 +28,7 @@ extension DXNetworks {
     ///   - startTime: Updated time offset, default is now.
     ///   - divisionId: Division ID.
     /// - Returns: A list of holes.
-    func loadHoles(startTime: String? = nil, divisionId: Int) async throws -> [THHole] {
+    static func loadHoles(startTime: String? = nil, divisionId: Int) async throws -> [THHole] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!
         if let time = startTime {
             components.queryItems = [URLQueryItem(name: "offset", value: time)]
@@ -44,7 +44,7 @@ extension DXNetworks {
     ///   - divisionId: Division to post new hole.
     ///   - tags: Tags of the new hole.
     ///   - specialTag: First floor special tag, admin only.
-    func createHole(content: String, divisionId: Int, tags: [String], specialTag: String = "") async throws {
+    static func createHole(content: String, divisionId: Int, tags: [String], specialTag: String = "") async throws {
         struct Tag: Codable {
             let name: String
         }
@@ -66,7 +66,7 @@ extension DXNetworks {
     /// Get hole by ID.
     /// - Parameter holeId: Hole ID.
     /// - Returns: The matching `THHole`.
-    func loadHoleById(holeId: Int) async throws -> THHole {
+    static func loadHoleById(holeId: Int) async throws -> THHole {
         let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         return try await requestObj(url: url)
     }
@@ -78,7 +78,7 @@ extension DXNetworks {
     ///   - tags: New tags.
     ///   - divisionId: Move hole to new division.
     ///   - unhidden: Whether to delete
-    func modifyHole(holeId: Int,
+    static func modifyHole(holeId: Int,
                     tags: [String],
                     divisionId: Int,
                     unhidden: Bool = true) async throws {
@@ -104,7 +104,7 @@ extension DXNetworks {
     
     /// Hide a hole, only visible to admins.
     /// - Parameter holeId: Hole ID.
-    func deleteHole(holeId: Int) async throws {
+    static func deleteHole(holeId: Int) async throws {
         let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         _ = try await networkRequest(url: url, method: "DELETE")
     }
@@ -112,7 +112,7 @@ extension DXNetworks {
     
     /// Update hole view count.
     /// - Parameter holeId: Hole ID.
-    func updateViews(holeId: Int) async throws {
+    static func updateViews(holeId: Int) async throws {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         _ = try await networkRequest(url: components.url!, method: "PATCH")
     }
@@ -122,7 +122,7 @@ extension DXNetworks {
     ///   - tagName: Tag name.
     ///   - startTime: update time offset
     /// - Returns: List of `THHole`.
-    func listHoleByTag(tagName: String, startTime: String? = nil) async throws -> [THHole] {
+    static func listHoleByTag(tagName: String, startTime: String? = nil) async throws -> [THHole] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
         components.queryItems = [URLQueryItem(name: "tag", value: tagName)]
         if let time = startTime {
@@ -138,7 +138,7 @@ extension DXNetworks {
     
     /// Get a floor by ID.
     /// - Parameter floorId: Floor ID.
-    func loadFloorById(floorId: Int) async throws -> THFloor {
+    static func loadFloorById(floorId: Int) async throws -> THFloor {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
     }
     
@@ -149,7 +149,7 @@ extension DXNetworks {
     ///   - floorId: Floor ID.
     ///   - specialTag: Optional, special tag, admin only.
     /// - Returns: Modified floor.
-    func modifyFloor(content: String,
+    static func modifyFloor(content: String,
                      floorId: Int,
                      specialTag: String = "") async throws -> THFloor {
         struct EditConfig: Codable {
@@ -169,7 +169,7 @@ extension DXNetworks {
     ///   - floorId: Floor ID to be deleted.
     ///   - reason: Delete reason, admin only.
     /// - Returns: Deleted floor struct.
-    func deleteFloor(floorId: Int, reason: String = "") async throws -> THFloor {
+    static func deleteFloor(floorId: Int, reason: String = "") async throws -> THFloor {
         struct DeleteConfig: Codable {
             let deleteReason: String
         }
@@ -181,7 +181,7 @@ extension DXNetworks {
     
     /// Get a floor's history.
     /// - Parameter floorId: Floor ID.
-    func loadFloorHistory(floorId: Int) async throws -> [THHistory] {
+    static func loadFloorHistory(floorId: Int) async throws -> [THHistory] {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/history")!)
     }
     
@@ -191,7 +191,7 @@ extension DXNetworks {
     ///   - floorId: Floor ID.
     ///   - like: Set like status, 1 is like, 0 is reset, -1 is dislike.
     /// - Returns: Modified floor.
-    func like(floorId: Int, like: Int) async throws -> THFloor {
+    static func like(floorId: Int, like: Int) async throws -> THFloor {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL +
                                              "/floors/\(floorId)/like/\(like)")!,
                                     method: "POST")
@@ -204,7 +204,7 @@ extension DXNetworks {
     ///   - historyId: History ID.
     ///   - restoreReason: Restore reason.
     /// - Returns: Restored floor.
-    func restoreFloor(floorId: Int, historyId: Int, restoreReason: String) async throws -> THFloor {
+    static func restoreFloor(floorId: Int, historyId: Int, restoreReason: String) async throws -> THFloor {
         struct RestoreConfig: Codable {
             let restoreReason: String
         }
@@ -219,7 +219,7 @@ extension DXNetworks {
     ///   - holeId: Hole ID.
     ///   - startFloor: Start floor offset.
     /// - Returns: A list of floors.
-    func loadFloors(holeId: Int, startFloor: Int) async throws -> [THFloor] {
+    static func loadFloors(holeId: Int, startFloor: Int) async throws -> [THFloor] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!
         components.queryItems = [
             URLQueryItem(name: "offset", value: String(startFloor))
@@ -233,7 +233,7 @@ extension DXNetworks {
     /// Load all floors within a given hole. (Undocumented API)
     /// - Parameter holeId: Hole ID.
     /// - Returns: A list of floors.
-    func loadAllFloors(holeId: Int) async throws -> [THFloor] {
+    static func loadAllFloors(holeId: Int) async throws -> [THFloor] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         components.queryItems = [
             URLQueryItem(name: "hole_id", value: String(holeId)),
@@ -250,7 +250,7 @@ extension DXNetworks {
     ///   - holeId: Hole ID.
     ///   - specialTag: Optional, special tag, admin only.
     /// - Returns: Created floor.
-    func createFloor(content: String, holeId: Int, specialTag: String = "") async throws -> THFloor {
+    static func createFloor(content: String, holeId: Int, specialTag: String = "") async throws -> THFloor {
         struct ReplyConfig: Codable {
             let content: String
             let specialTag: String
@@ -265,7 +265,7 @@ extension DXNetworks {
     // MARK: Search
     
     // TODO: Implement new search API
-    func searchKeyword(keyword: String, startFloor: Int = 0) async throws -> [THFloor] {
+    static func searchKeyword(keyword: String, startFloor: Int = 0) async throws -> [THFloor] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         components.queryItems = [
             URLQueryItem(name: "s", value: keyword),
@@ -284,7 +284,7 @@ extension DXNetworks {
     ///   - offset: Report list offset.
     ///   - range: Report tyle, 0: not dealt; 1: dealt; 2: all
     /// - Returns: Report list.
-    func loadReports(offset: Int, range: Int) async throws -> [THReport] {
+    static func loadReports(offset: Int, range: Int) async throws -> [THReport] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!
         components.queryItems = [
             URLQueryItem(name: "offset", value: String(offset)),
@@ -298,7 +298,7 @@ extension DXNetworks {
     /// - Parameters:
     ///   - floorId: Floor ID to report.
     ///   - reason: Report reason.
-    func report(floorId: Int, reason: String) async throws {
+    static func report(floorId: Int, reason: String) async throws {
         struct ReportConfig: Codable {
             let floorId: Int
             let reason: String
@@ -312,7 +312,7 @@ extension DXNetworks {
     /// Get a report by ID.
     /// - Parameter reportId: Report ID
     /// - Returns: A matching `THReport`.
-    func getReportById(reportId: Int) async throws -> THReport {
+    static func getReportById(reportId: Int) async throws -> THReport {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!)
     }
     
@@ -320,7 +320,7 @@ extension DXNetworks {
     /// Mark a report as dealt.
     /// - Parameter reportId: Report ID.
     /// - Returns: Dealt `THReport` struct.
-    func dealReport(reportId: Int) async throws -> THReport {
+    static func dealReport(reportId: Int) async throws -> THReport {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!,
                                     method: "DELETE")
     }
@@ -330,7 +330,7 @@ extension DXNetworks {
     
     
     /// Load all tags.
-    func loadTags() async throws -> [THTag] {
+    static func loadTags() async throws -> [THTag] {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/tags")!)
     }
     
@@ -339,14 +339,14 @@ extension DXNetworks {
     
     /// Load favorites hole.
     /// - Returns: List of favorites hole.
-    func loadFavorites() async throws -> [THHole] {
+    static func loadFavorites() async throws -> [THHole] {
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!)
     }
     
     
     /// Load favorites hole IDs.
     /// - Returns: List of favorite hole ID.
-    func loadFavoritesIds() async throws -> [Int] {
+    static func loadFavoritesIds() async throws -> [Int] {
         struct FavoriteResponse: Codable {
             let data: [Int]
         }
@@ -361,7 +361,7 @@ extension DXNetworks {
     /// Modify favorites.
     /// - Parameter holeIds: New hole IDs.
     /// - Returns: List of favorite hole ID.
-    func modifyFavorites(holeIds: [Int]) async throws -> [Int] {
+    static func modifyFavorites(holeIds: [Int]) async throws -> [Int] {
         struct FavoriteConfig: Codable {
             let holeIds: [Int]
         }
@@ -383,7 +383,7 @@ extension DXNetworks {
     ///   - holeId: Hole ID.
     ///   - add: Add or remove this hole from favorites.
     /// - Returns: List of favorites hole ID.
-    func toggleFavorites(holeId: Int, add: Bool) async throws -> [Int] {
+    static func toggleFavorites(holeId: Int, add: Bool) async throws -> [Int] {
         struct FavoriteConfig: Codable {
             let holeId: Int
         }
@@ -408,7 +408,7 @@ extension DXNetworks {
     /// - Parameters:
     ///   - floor: floor to be banned.
     ///   - level: Ban level, range: 1-3.
-    func addPenalty(floor: THFloor, level: Int) async throws {
+    static func addPenalty(floor: THFloor, level: Int) async throws {
         struct BanConfig: Codable {
             let penaltyLevel: Int
             let divisionId: Int

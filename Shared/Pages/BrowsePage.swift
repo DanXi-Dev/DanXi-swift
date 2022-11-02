@@ -3,9 +3,7 @@ import SwiftUI
 
 /// Main page section, displaying hole contents and division switch bar
 struct BrowsePage: View {
-    @ObservedObject var dataModel = TreeholeDataModel.shared
     @ObservedObject var preference = Preference.shared
-    let divisions = TreeholeDataModel.shared.divisions
     
     @EnvironmentObject var viewModel: BrowseViewModel
     
@@ -92,7 +90,7 @@ struct BrowsePage: View {
     
     private var switchBar: some View {
         Picker("division_selector", selection: $viewModel.currentDivision) {
-            ForEach(divisions) { division in
+            ForEach(TreeholeStore.shared.divisions) { division in
                 Text(division.name)
                     .tag(division)
             }
@@ -166,7 +164,7 @@ struct BrowsePage: View {
                     .tag(BrowseViewModel.SortOptions.byCreateTime)
             }
             
-            if dataModel.isAdmin {
+            if UserStore.shared.isAdmin {
                 Divider()
                 
                 Button {

@@ -16,7 +16,7 @@ struct HistoryList: View {
     
     func loadHistory() async {
         do {
-            histories = try await DXNetworks.shared.loadFloorHistory(floorId: floor.id)
+            histories = try await TreeholeRequests.loadFloorHistory(floorId: floor.id)
             initFinished = true
         } catch {
             loadingError = error.localizedDescription
@@ -28,7 +28,7 @@ struct HistoryList: View {
             return
         }
         
-        floor = try await DXNetworks.shared.restoreFloor(floorId: floor.id,
+        floor = try await TreeholeRequests.restoreFloor(floorId: floor.id,
                                                          historyId: historyId,
                                                          restoreReason: restoreReason)
     }

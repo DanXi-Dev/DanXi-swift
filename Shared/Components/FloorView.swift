@@ -50,7 +50,7 @@ struct FloorView: View {
         Task {
             do {
                 let likeStatus = floor.liked ? 0 : 1
-                let newFloor = try await DXNetworks.shared.like(floorId: floor.id, like: likeStatus)
+                let newFloor = try await TreeholeRequests.like(floorId: floor.id, like: likeStatus)
                 self.floor = newFloor
                 haptic()
             } catch {
@@ -64,7 +64,7 @@ struct FloorView: View {
     func delete(reason: String = "") {
         Task {
             do {
-                let newFloor = try await DXNetworks.shared.deleteFloor(floorId: floor.id, reason: reason)
+                let newFloor = try await TreeholeRequests.deleteFloor(floorId: floor.id, reason: reason)
                 self.floor = newFloor
             } catch {
                 errorTitle = "Delete Failed"
@@ -227,7 +227,7 @@ struct FloorView: View {
     
     @ViewBuilder
     private var menu: some View {
-        let admin = TreeholeDataModel.shared.isAdmin
+        let admin = UserStore.shared.isAdmin
         
         if !floor.deleted {
             Menu {

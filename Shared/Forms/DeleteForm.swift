@@ -37,10 +37,10 @@ struct DeleteForm: View {
                 }
             }
         } action: {
-            floor = try await DXNetworks.shared.deleteFloor(floorId: floor.id, reason: deleteReason)
+            floor = try await TreeholeRequests.deleteFloor(floorId: floor.id, reason: deleteReason)
             
             if addBan {
-                let hole = try await DXNetworks.shared.loadHoleById(holeId: floor.holeId)
+                let hole = try await TreeholeRequests.loadHoleById(holeId: floor.holeId)
                 let divisionId = hole.divisionId
                 print(divisionId)
                 // TODO: add ban

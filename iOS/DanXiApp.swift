@@ -45,11 +45,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     func application(_ application: UIApplication,
                               didRegisterForRemoteNotificationsWithDeviceToken
                               deviceToken: Data) {
-        let token: String = deviceToken.map { String(format: "%.2hhx", $0) }.joined()
-        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "" //TODO: How to handle nil UUID?
+        // let token: String = deviceToken.map { String(format: "%.2hhx", $0) }.joined()
+        // let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "" //TODO: How to handle nil UUID?
         
-        /* Send token to FDUHole */
-        DXNetworks.shared.cacheOrUploadAPNSKey(token: token, deviceId: deviceId)
+        // TODO: Send token to server.
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct HoleDetailPage: View {
-    @ObservedObject var dataModel = TreeholeDataModel.shared
     @StateObject var viewModel: HoleDetailViewModel
     @State var showReplyPage = false
     @State var showManagementPage = false
@@ -100,7 +99,7 @@ struct HoleDetailPage: View {
                 Button("Confirm", role: .destructive) {
                     Task {
                         if let hole = viewModel.hole {
-                            try await DXNetworks.shared.deleteHole(holeId: hole.id)
+                            try await TreeholeRequests.deleteHole(holeId: hole.id)
                         }
                     }
                 }
@@ -148,7 +147,7 @@ struct HoleDetailPage: View {
                     Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
                 }
                 
-                if dataModel.user?.isAdmin ?? false {
+                if UserStore.shared.isAdmin {
                     Divider()
                     
                     if !hole.hidden {

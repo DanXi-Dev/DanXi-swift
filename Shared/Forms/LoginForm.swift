@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct LoginForm: View {
-    @ObservedObject var model = TreeholeDataModel.shared
-    
     @State var username = ""
     @State var password = ""
     @State var loading = false
@@ -23,7 +21,7 @@ struct LoginForm: View {
         loading = true
         Task {
             do {
-                try await model.login(username, password)
+                try await AuthDelegate.shared.login(username: username, password: password)
                 loading = false
                 dismiss()
             } catch NetworkError.unauthorized {

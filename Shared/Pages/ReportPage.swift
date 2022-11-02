@@ -23,7 +23,7 @@ struct ReportPage: View {
         do {
             loading = true
             defer { loading = false }
-            let newReports = try await DXNetworks.shared.loadReports(offset: reportList.count, range: filterOption.rawValue)
+            let newReports = try await TreeholeRequests.loadReports(offset: reportList.count, range: filterOption.rawValue)
             endReached = newReports.isEmpty
             let ids = reportList.map(\.id)
             let filteredReports = newReports.filter { !ids.contains($0.id) }

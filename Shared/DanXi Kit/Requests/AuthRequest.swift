@@ -1,12 +1,12 @@
 import Foundation
 
-extension DXNetworks {
+struct AuthReqest {
     
     // MARK: Account
     
     /// Request email verification code.
     /// - Parameter email: Email, must end with fudan domain name suffix.
-    func verifyEmail(email: String) async throws {
+    static func verifyEmail(email: String) async throws {
         var components = URLComponents(string: FDUHOLE_AUTH_URL + "/verify/email")!
         components.queryItems = [URLQueryItem(name: "email", value: email)]
         _ = try await networkRequest(url: components.url!, authorize: false)
@@ -18,10 +18,10 @@ extension DXNetworks {
     ///   - password: New password.
     ///   - verification: Email verification code requested earlier.
     ///   - create: Create account or change password.
-    func register(email: String,
+    static func register(email: String,
                   password: String,
                   verification: String,
-                  create: Bool) async throws {
+                  create: Bool) async throws -> Token {
         struct ChangePasswordConfig: Codable {
             let password: String
             let email: String
@@ -31,14 +31,13 @@ extension DXNetworks {
         let payload = ChangePasswordConfig(password: password,
                                            email: email,
                                            verification: verification)
-        let token: Token = try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT", authorize: false)
-        storeToken(token)
+        return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT", authorize: false)
     }
     
     // MARK: User
     
     /// Get current user info.
-    func loadUserInfo() async throws -> DXUser {
+    static func loadUserInfo() async throws -> DXUser {
         // FIXME: deprecated API, new: /users/me
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/users/me")!)
     }
@@ -48,7 +47,7 @@ extension DXNetworks {
     ///   - userId: User ID.
     ///   - nickname: New nickname.
     /// - Returns: New user struct.
-    func modifyUser(userId: Int, nickname: String) async throws -> DXUser {
+    static func modifyUser(userId: Int, nickname: String) async throws -> DXUser {
         struct NicknameConfig: Codable {
             let nickname: String
         }
@@ -60,32 +59,31 @@ extension DXNetworks {
     
     // MARK: Authentication
     
-    /// Login and store user token.
+    /// Login and get user token.
     /// - Parameters:
     ///   - username: username.
     ///   - password: password.
-    func login(username: String, password: String) async throws {
+    /// - Returns: User token.
+    static func login(username: String, password: String) async throws -> Token {
         struct LoginBody: Codable {
             let email: String
             let password: String
         }
         
-        let responseToken: Token =
-        try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/login")!,
-                             payload: LoginBody(email: username, password: password),
-                             authorize: false)
-        storeToken(responseToken)
+        return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/login")!,
+                                    payload: LoginBody(email: username, password: password),
+                                    authorize: false)
     }
     
     /// Logout and invalidate token.
-    func logout() async throws {
-        storeToken(nil)
+    static func logout() async throws {
         try await sendRequest(url: URL(string: FDUHOLE_AUTH_URL + "/logout")!)
     }
     
     /// Request a new token when current token is expired.
-    func refreshToken() async throws {
-        guard let token = self.token else {
+    /// - Returns: New token.
+    static func refreshToken() async throws -> Token {
+        guard let token = SecStore.shared.token else {
             throw NetworkError.forbidden
         }
         
@@ -94,9 +92,7 @@ extension DXNetworks {
             request.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
             request.httpMethod = "POST"
             let (data, _) = try await URLSession.shared.data(for: request)
-            let responseToken = try JSONDecoder().decode(Token.self, from: data)
-            defaults?.setValue(data, forKey: "user-credential")
-            self.token = responseToken
+            return try JSONDecoder().decode(Token.self, from: data)
         } catch {
             throw NetworkError.unauthorized
         }

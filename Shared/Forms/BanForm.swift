@@ -9,7 +9,7 @@ struct BanForm: View {
                       allowSubmit: true,
                       needConfirmation: true) {
             Picker(selection: $divisionId, label: Label("Banned Division", systemImage: "rectangle.3.group")) {
-                ForEach(TreeholeDataModel.shared.divisions) { division in
+                ForEach(TreeholeStore.shared.divisions) { division in
                     Text(division.name)
                         .tag(division.id)
                 }

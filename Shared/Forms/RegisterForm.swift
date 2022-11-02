@@ -3,8 +3,6 @@ import SwiftUI
 // TODO: check password strench (8 characters) & check email format
 
 struct RegisterForm: View {
-    @ObservedObject var model = TreeholeDataModel.shared
-    
     let create: Bool
     
     @State var email = ""
@@ -45,11 +43,10 @@ struct RegisterForm: View {
             }
             
             do {
-                try await DXNetworks.shared.register(email: email,
-                                                     password: password,
-                                                     verification: verification,
-                                                     create: create)
-                try await model.login()
+                try await AuthDelegate.shared.register(email: email,
+                                                       password: password,
+                                                       verification: verification,
+                                                       create: create)
                 if let dismiss = dismiss { dismiss() }
             } catch NetworkError.invalidRequest(let message) {
                 errorInfo = message
@@ -70,7 +67,7 @@ struct RegisterForm: View {
             
             sendingCode = true
             do {
-                try await DXNetworks.shared.verifyEmail(email: email)
+                try await AuthReqest.verifyEmail(email: email)
                 showVerificationAlert = true
                 sendingCode = false
             } catch {

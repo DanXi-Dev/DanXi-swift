@@ -3,7 +3,7 @@ import SwiftUI
 
 @MainActor
 class HoleDetailViewModel: ObservableObject {
-    let model = TreeholeDataModel.shared
+    let store = TreeholeStore.shared
     @Published var hole: THHole?
     @Published var favorited: Bool
     
@@ -45,14 +45,14 @@ class HoleDetailViewModel: ObservableObject {
     /// Initialize with hole info.
     init(hole: THHole, floorId: Int?) {
         self.hole = hole
-        self.favorited = model.favorites.contains(hole.id)
+        self.favorited = store.isFavorite(hole.id)
         self.initOption = .fromHole(floorId: floorId)
     }
     
     /// Initialize from hole ID, load hole info from networks.
     init(holeId: Int, floorId: Int?) {
         self.hole = nil
-        self.favorited = model.favorites.contains(holeId)
+        self.favorited = store.isFavorite(holeId)
         self.initOption = .fromHoleId(holeId: holeId, floorId: floorId)
     }
     
@@ -77,7 +77,7 @@ class HoleDetailViewModel: ObservableObject {
             
         case .fromHoleId(let holeId, let floorId):
             do {
-                hole = try await DXNetworks.shared.loadHoleById(holeId: holeId)
+                hole = try await TreeholeRequests.loadHoleById(holeId: holeId)
                 scrollTarget = floorId ?? -1
             } catch NetworkError.notFound {
                 errorTitle = "Treehole Not Exist"
@@ -92,12 +92,12 @@ class HoleDetailViewModel: ObservableObject {
             
         case .fromFloorId(let floorId):
             do {
-                let targetFloor = try await DXNetworks.shared.loadFloorById(floorId: floorId)
-                let hole = try await DXNetworks.shared.loadHoleById(holeId: targetFloor.holeId)
+                let targetFloor = try await TreeholeRequests.loadFloorById(floorId: floorId)
+                let hole = try await TreeholeRequests.loadHoleById(holeId: targetFloor.holeId)
                 self.hole = hole
-                self.favorited = model.favorites.contains(hole.id)
+                self.favorited = store.isFavorite(hole.id)
                 
-                self.floors = try await DXNetworks.shared.loadAllFloors(holeId: targetFloor.holeId)
+                self.floors = try await TreeholeRequests.loadAllFloors(holeId: targetFloor.holeId)
                 try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
                 scrollTarget = floorId
             } catch NetworkError.notFound {
@@ -119,7 +119,7 @@ class HoleDetailViewModel: ObservableObject {
         Task { // update viewing count
             if let hole = hole {
                 do {
-                    try await DXNetworks.shared.updateViews(holeId: hole.id)
+                    try await TreeholeRequests.updateViews(holeId: hole.id)
                 }
             }
         }
@@ -137,7 +137,7 @@ class HoleDetailViewModel: ObservableObject {
         do {
             let previousCount = filteredFloors.count
             while filteredFloors.count == previousCount && !endReached {
-                let newFloors = try await DXNetworks.shared.loadFloors(holeId: hole.id, startFloor: floors.count)
+                let newFloors = try await TreeholeRequests.loadFloors(holeId: hole.id, startFloor: floors.count)
                 insertFloors(newFloors)
                 endReached = newFloors.isEmpty
             }
@@ -161,7 +161,7 @@ class HoleDetailViewModel: ObservableObject {
         do {
             loadingToBottom = true
             defer { loadingToBottom = false }
-            self.floors = try await DXNetworks.shared.loadAllFloors(holeId: hole.id)
+            self.floors = try await TreeholeRequests.loadAllFloors(holeId: hole.id)
             endReached = true
             withAnimation {
                 scrollTarget = hole.lastFloor.id
@@ -180,8 +180,8 @@ class HoleDetailViewModel: ObservableObject {
         
         Task {
             do {
-                try await model.toggleFavorite(hole.id, add: !favorited)
-                favorited = model.favorites.contains(hole.id)
+                try await store.toggleFavorites(hole.id, add: !favorited)
+                favorited = store.favorites.contains(hole.id)
                 haptic()
             } catch {
                 errorTitle = "Toggle Favorite Failed"

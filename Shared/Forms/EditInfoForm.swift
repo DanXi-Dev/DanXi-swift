@@ -12,7 +12,7 @@ struct EditInfoForm: View {
                       errorTitle: "Edit Post Info Failed") {
             Section {
                 Picker(selection: $divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(TreeholeDataModel.shared.divisions) { division in
+                    ForEach(TreeholeStore.shared.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }
@@ -27,7 +27,7 @@ struct EditInfoForm: View {
                 }
             }
         } action: {
-            try await DXNetworks.shared.modifyHole(holeId: holeId,
+            try await TreeholeRequests.modifyHole(holeId: holeId,
                                                    tags: tags,
                                                    divisionId: divisionId,
                                                    unhidden: !hidden)

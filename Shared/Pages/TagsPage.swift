@@ -1,11 +1,27 @@
-//
-//  TagPage.swift
-//  DanXi-native
-//
-//  Created by Singularity on 2022/8/11.
-//
-
 import SwiftUI
+
+struct TagsPage: View {
+    @State private var errorInfo: String? = nil
+    @State private var searchText = ""
+    
+    private var filteredTags: [THTag] {
+        if searchText.isEmpty { return TreeholeStore.shared.tags }
+        return TreeholeStore.shared.tags.filter { $0.name.contains(searchText) }
+    }
+    
+    var body: some View {
+        List {
+            ForEach(filteredTags) { tag in
+                NavigationLink(destination: SearchTagPage(tagname: tag.name)) {
+                    TagRowView(tag: tag)
+                }
+            }
+        }
+        .searchable(text: $searchText)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Tags")
+    }
+}
 
 struct TagRowView: View {
     let tag: THTag
@@ -17,53 +33,6 @@ struct TagRowView: View {
             Label(String(tag.temperature), systemImage: "flame")
         }
         .foregroundColor(randomColor(tag.name))
-    }
-}
-
-struct TagsPage: View {
-    @ObservedObject private var model = TreeholeDataModel.shared
-    @State private var errorInfo: String? = nil
-    @State private var searchText = ""
-    
-    func update() async {
-        errorInfo = nil
-        do {
-            model.tags = try await DXNetworks.shared.loadTags()
-        } catch {
-            errorInfo = error.localizedDescription
-        }
-    }
-    
-    private var filteredTags: [THTag] {
-        if searchText.isEmpty { return model.tags }
-        return model.tags.filter { $0.name.contains(searchText) }
-    }
-    
-    var body: some View {
-        List {
-            if model.tags.isEmpty { // FIXME: This isn't a very good way to determine whether tags are being loaded
-                ProgressView()
-            }
-            
-            if let errorInfo = errorInfo {
-                Button(errorInfo) {
-                    Task.init { await update() }
-                }
-                .foregroundColor(.red)
-            } else {
-                ForEach(filteredTags) { tag in
-                    NavigationLink(destination: SearchTagPage(tagname: tag.name)) {
-                        TagRowView(tag: tag)
-                    }
-                }
-            }
-        }
-        .refreshable {
-            await update()
-        }
-        .searchable(text: $searchText)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Tags")
     }
 }
 

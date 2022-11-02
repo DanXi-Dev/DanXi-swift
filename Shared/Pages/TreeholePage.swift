@@ -3,15 +3,14 @@ import Foundation
 
 /// Main page of treehole section.
 struct TreeholePage: View {
-    @ObservedObject var dataModel = TreeholeDataModel.shared
-    
+    @ObservedObject var store = TreeholeStore.shared
     let holes: [THHole]
     
     @State var searchText = ""
     @State var searchSubmitted = false
     
-    @State var loading = !TreeholeDataModel.shared.initialized
-    @State var initFinished = TreeholeDataModel.shared.initialized
+    @State var loading = !TreeholeStore.shared.initialized
+    @State var initFinished = TreeholeStore.shared.initialized
     @State var initError = ""
     
     /// Default initializer.
@@ -23,13 +22,12 @@ struct TreeholePage: View {
     init(divisions: [THDivision], holes: [THHole]) {
         self.holes = holes
         self._initFinished = State(initialValue: true)
-        TreeholeDataModel.shared.divisions = divisions
+        TreeholeStore.shared.divisions = divisions
     }
     
     func initialLoad() async {
         do {
-            try await dataModel.fetchInfo()
-            initFinished = true
+            try await store.loadAll()
         } catch {
             initError = error.localizedDescription
         }
@@ -37,15 +35,14 @@ struct TreeholePage: View {
     
     var body: some View {
         LoadingView(loading: $loading,
-                        finished: $initFinished,
-                        errorDescription: initError,
-                        action: initialLoad) {
+                    finished: $store.initialized,
+                    errorDescription: initError,
+                    action: initialLoad) {
             DelegatePage(holes: holes, $searchText, $searchSubmitted)
-            
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
-            .onSubmit(of: .search) {
-                searchSubmitted = true
-            }
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+                .onSubmit(of: .search) {
+                    searchSubmitted = true
+                }
         }
     }
     

@@ -1,7 +1,24 @@
 import Foundation
-import SwiftUI
 
-extension THHole {
+struct THHole: Hashable, Decodable, Identifiable {
+    let id, divisionId: Int
+    let view, reply: Int
+    let hidden: Bool
+    let updateTime, createTime: Date
+    let tags: [THTag]
+    let firstFloor, lastFloor: THFloor
+    var floors: [THFloor]
+    
+    var nsfw: Bool {
+        for tag in tags {
+            if tag.name.hasPrefix("*") {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id = "hole_id"
         case divisionId = "division_id"
@@ -19,7 +36,7 @@ extension THHole {
             case floors = "prefetch"
         }
     }
-    
+        
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
@@ -35,6 +52,19 @@ extension THHole {
         lastFloor = try floorStruct.decode(THFloor.self, forKey: .lastFloor)
         floors = try floorStruct.decode([THFloor].self, forKey: .floors)
     }
+}
+
+struct THFloor: Hashable, Codable, Identifiable {
+    let id, holeId: Int
+    let updateTime, createTime: Date
+    let like: Int
+    let liked: Bool
+    let isMe: Bool
+    let deleted: Bool
+    let storey: Int
+    // TODO: fold: [?]
+    let content, posterName, spetialTag: String
+    let mention: [THMention]
 }
 
 extension THFloor {
@@ -71,7 +101,13 @@ extension THFloor {
     }
 }
 
-extension THMention {
+struct THMention: Hashable, Codable {
+    let floorId, holeId: Int
+    let content: String
+    let posterName: String
+    let createTime, updateTime: Date
+    let deleted: Bool
+    
     enum CodingKeys: String, CodingKey {
         case floorId = "floor_id"
         case holeId = "hole_id"
@@ -94,7 +130,11 @@ extension THMention {
     }
 }
 
-extension THDivision {
+struct THDivision: Hashable, Decodable, Identifiable {
+    let id: Int
+    let name, description: String
+    let pinned: [THHole]
+    
     enum CodingKeys: String, CodingKey {
         case id = "division_id"
         case name
@@ -103,8 +143,12 @@ extension THDivision {
     }
 }
 
-// FIXME: Delete this extension when backend temprature not exist bug is resolved.
-extension THTag {
+struct THTag: Hashable, Codable, Identifiable {
+    let id, temperature: Int
+    let name: String
+    
+    // FIXME: Delete this extension when backend temprature not exist bug is resolved.
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name, temperature
@@ -119,8 +163,14 @@ extension THTag {
     }
 }
 
-
-extension THHistory {
+struct THHistory: Hashable, Codable, Identifiable {
+    let id: Int
+    let userId: Int
+    let floorId: Int
+    let content: String
+    let reason: String
+    let createTime, updateTime: Date
+    
     enum CodingKeys: String, CodingKey {
         case content, id, reason
         case floorId = "floor_id"
@@ -141,24 +191,14 @@ extension THHistory {
     }
 }
 
-extension DXUser {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case nickname
-        case joinTime = "joined_time"
-        case isAdmin = "is_admin"
-    }
+struct THReport: Hashable, Codable, Identifiable {
+    let id, holeId: Int
+    var floor: THFloor
+    let reason: String
+    let createTime, updateTime: Date
+    let dealt: Bool
+    let dealtBy: Int?
     
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        nickname = try values.decode(String.self, forKey: .nickname)
-        isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
-        self.joinTime = try decodeDate(values, key: .joinTime)
-    }
-}
-
-extension THReport {
     enum CodingKeys: String, CodingKey {
         case id
         case holeId = "hole_id"

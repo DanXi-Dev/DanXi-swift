@@ -55,7 +55,7 @@ struct CourseDetailPage: View {
         do {
             loading = true
             defer { loading = false }
-            self.courseGroup = try await DXNetworks.shared.loadCourseGroup(id: courseGroup.id)
+            self.courseGroup = try await CourseRequest.loadCourseGroup(id: courseGroup.id)
             initialized = true
         } catch {
             errorInfo = error.localizedDescription
@@ -209,8 +209,6 @@ struct CourseDetailPage: View {
             }
         }
     }
-    
-    
     
     private var courseReviewFilter: some View {
         VStack(alignment: .leading, spacing: 0) {

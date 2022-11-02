@@ -10,8 +10,9 @@ struct EditForm: View {
                       allowSubmit: !tags.isEmpty && !content.isEmpty,
                       errorTitle: "Send Post Failed") {
             Section {
-                Picker(selection: $divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(TreeholeDataModel.shared.divisions) { division in
+                Picker(selection: $divisionId,
+                       label: Label("Select Division", systemImage: "rectangle.3.group")) {
+                    ForEach(TreeholeStore.shared.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }
@@ -37,7 +38,7 @@ struct EditForm: View {
                 }
             }
         } action: {
-            try await DXNetworks.shared.createHole(
+            try await TreeholeRequests.createHole(
                 content: content,
                 divisionId: divisionId,
                 tags: tags)

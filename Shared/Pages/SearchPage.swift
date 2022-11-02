@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SearchPage: View {
-    @ObservedObject var model = TreeholeDataModel.shared
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
     @AppStorage("treehole-search-history") var searchHistory: [String] = []
@@ -12,7 +11,7 @@ struct SearchPage: View {
     @State var holeNavActive = false
     
     private var filteredTags: [THTag] {
-        return model.tags.filter { $0.name.contains(searchText) }
+        return TreeholeStore.shared.tags.filter { $0.name.contains(searchText) }
     }
     
     func appendHistory(_ content: String) {

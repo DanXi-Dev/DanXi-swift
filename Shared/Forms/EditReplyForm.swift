@@ -34,7 +34,7 @@ struct EditReplyForm: View {
                 }
             }
         } action: {
-            floor = try await DXNetworks.shared.modifyFloor(content: content, floorId: floor.id)
+            floor = try await TreeholeRequests.modifyFloor(content: content, floorId: floor.id)
         }
     }
 }

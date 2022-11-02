@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var danxiModel = TreeholeDataModel.shared
+    @ObservedObject var userStore = UserStore.shared
+    @ObservedObject var authDelegate = AuthDelegate.shared
     @ObservedObject var universityModel = UniversityModel.shared
     @ObservedObject var preference = Preference.shared
     
@@ -14,8 +15,8 @@ struct SettingsPage: View {
     
     /// Init for preview.
     init(user: DXUser) {
-        danxiModel.user = user
-        danxiModel.loggedIn = true
+        UserStore.shared.user = user
+        AuthDelegate.shared.isLogged = true
     }
     
     var body: some View {
@@ -25,7 +26,7 @@ struct SettingsPage: View {
                 danxiAccount
             }
             
-            if danxiModel.loggedIn {
+            if authDelegate.isLogged {
                 treeholeSettings
             }
             
@@ -67,7 +68,7 @@ struct SettingsPage: View {
     
     @ViewBuilder
     private var danxiAccount: some View {
-        if danxiModel.loggedIn {
+        if authDelegate.isLogged {
             Button(action: {
                 showTreeHoleActions = true
             }) {
@@ -80,7 +81,7 @@ struct SettingsPage: View {
             .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
                 Button("Logout", role: .destructive) {
                     withAnimation {
-                        danxiModel.logout()
+                        authDelegate.logout()
                     }
                 }
             }
@@ -153,7 +154,7 @@ struct SettingsPage: View {
 
     private var danxiUserInfo: some View {
         List {
-            if let user = danxiModel.user {
+            if let user = userStore.user {
                 HStack {
                     Label("User ID", systemImage: "person.text.rectangle")
                     Spacer()
