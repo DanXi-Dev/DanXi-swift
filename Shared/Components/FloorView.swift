@@ -76,16 +76,24 @@ struct FloorView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                poster
-                if !floor.spetialTag.isEmpty {
-                    SpecialTagView(content: floor.spetialTag)
+            ZStack(alignment: .center) {
+                HStack {
+                    poster
+                    if !floor.spetialTag.isEmpty {
+                        SpecialTagView(content: floor.spetialTag)
+                    }
+                    Spacer()
+                    if !floor.deleted && interactable {
+                        actions
+                    }
+                    menu
                 }
-                Spacer()
-                if !floor.deleted && interactable {
-                    actions
+                
+                // invisible watermark for screenshot tracing
+                if let user = UserStore.shared.user {
+                    Text(String(user.id))
+                        .foregroundColor(.gray.opacity(0.01))
                 }
-                menu
             }
             bodyText
             info
@@ -192,7 +200,6 @@ struct FloorView: View {
             if floor.deleted {
                 Text("Deleted")
             }
-            // FIXME: add Text("Edited")
             
             Spacer()
             
