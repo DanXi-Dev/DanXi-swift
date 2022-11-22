@@ -222,8 +222,8 @@ struct TreeholeRequests {
     static func loadFloors(holeId: Int, startFloor: Int) async throws -> [THFloor] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!
         components.queryItems = [
-            URLQueryItem(name: "offset", value: String(startFloor))
-            // TODO: order by
+            URLQueryItem(name: "offset", value: String(startFloor)),
+            URLQueryItem(name: "order_by", value: "id")
             // TODO: sort
         ]
         return try await requestObj(url: components.url!)
@@ -282,7 +282,7 @@ struct TreeholeRequests {
     /// Load a list of reports
     /// - Parameters:
     ///   - offset: Report list offset.
-    ///   - range: Report tyle, 0: not dealt; 1: dealt; 2: all
+    ///   - range: Report type, 0: not dealt; 1: dealt; 2: all
     /// - Returns: Report list.
     static func loadReports(offset: Int, range: Int) async throws -> [THReport] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!

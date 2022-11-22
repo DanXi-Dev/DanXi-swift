@@ -184,6 +184,13 @@ struct SettingsPage: View {
                     Text(user.joinTime.formatted(date: .long, time: .omitted))
                         .foregroundColor(.secondary)
                 }
+            } else {
+                ProgressView()
+                    .task {
+                        do {
+                            try await userStore.updateUser()
+                        } catch { }
+                    }
             }
         }
         .navigationTitle("Account Info")

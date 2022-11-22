@@ -38,10 +38,6 @@ struct TagRowView: View {
 
 struct TagPage_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            TagsPage()
-            TagsPage()
-                .preferredColorScheme(.dark)
-        }
+        TagsPage()
     }
 }

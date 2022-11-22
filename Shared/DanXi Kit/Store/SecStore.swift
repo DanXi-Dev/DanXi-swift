@@ -90,9 +90,7 @@ struct SecStore {
     private func deleteToken() {
         let query = [
             kSecClass: kSecClassInternetPassword,
-            kSecAttrServer: "fduhole.com",
-            kSecReturnAttributes: true,
-            kSecReturnData: true
+            kSecAttrServer: "fduhole.com"
         ] as CFDictionary
         
         SecItemDelete(query)

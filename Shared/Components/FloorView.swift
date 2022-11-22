@@ -255,6 +255,9 @@ struct FloorView: View {
             } label: {
                 menuLabel
             }
+        } else {
+            menuLabel
+                .opacity(0)
         }
     }
     

@@ -28,6 +28,7 @@ struct TreeholePage: View {
     func initialLoad() async {
         do {
             try await store.loadAll()
+            try await UserStore.shared.updateUser()
         } catch {
             initError = error.localizedDescription
         }
@@ -45,8 +46,6 @@ struct TreeholePage: View {
                 }
         }
     }
-    
-    
 }
 
 /// Searchable delegation, switch between main view and search view based on searchbar status.

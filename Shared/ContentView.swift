@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var authDelegate = AuthDelegate.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var showSettingPage = false
     
@@ -24,24 +25,54 @@ struct ContentView: View {
                 Label("Fudan QR Code", systemImage: "qrcode")
             }
             
-            NavigationLink {
-                if AuthDelegate.shared.isLogged {
-                    TreeholePage()
-                } else {
-                    TreeholeWelcomePage()
-                }
-            } label: {
-                Label("Tree Hole", systemImage: "text.bubble")
-            }
             
-            NavigationLink {
-                if AuthDelegate.shared.isLogged {
-                    CourseMainPage()
+            Section {
+                if authDelegate.isLogged {
+                    NavigationLink {
+                        TreeholePage()
+                    } label: {
+                        Label("Tree Hole", systemImage: "text.bubble")
+                    }
+                    
+                    NavigationLink {
+                        CourseMainPage()
+                    } label: {
+                        Label("Curriculum", systemImage: "books.vertical")
+                    }
+                    
+                    Link(destination: URL(string: "https://canvas.fduhole.com")!) {
+                        HStack {
+                            Label {
+                                Text("Canvas")
+                                    .foregroundColor(.primary)
+                            } icon: {
+                                Image(systemName: "paintbrush.pointed")
+                            }
+                            Spacer()
+                            Image(systemName: "link")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    Link(destination: URL(string: "https://fdu-hotpot.top")!) {
+                        HStack {
+                            Label {
+                                Text("FDU Hotpot")
+                                    .foregroundColor(.primary)
+                            } icon: {
+                                Image(systemName: "figure.run")
+                            }
+                            Spacer()
+                            Image(systemName: "link")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
                 } else {
-                    CourseWelcomePage()
+                    // TODO: refine this section
+                    Text("Not Logged In")
+                        .foregroundColor(.secondary)
                 }
-            } label: {
-                Label("Curriculum", systemImage: "books.vertical")
             }
         }
         .navigationTitle("DanXi")
@@ -60,6 +91,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+//        AuthDelegate.shared.isLogged = true
+        
+        return ContentView()
     }
 }
