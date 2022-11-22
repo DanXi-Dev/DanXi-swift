@@ -9,10 +9,6 @@ struct TreeholePage: View {
     @State var searchText = ""
     @State var searchSubmitted = false
     
-    @State var loading = !TreeholeStore.shared.initialized
-    @State var initFinished = TreeholeStore.shared.initialized
-    @State var initError = ""
-    
     /// Default initializer.
     init() {
         self.holes = []
@@ -21,25 +17,16 @@ struct TreeholePage: View {
     /// Creates a preview.
     init(divisions: [THDivision], holes: [THHole]) {
         self.holes = holes
-        self._initFinished = State(initialValue: true)
         TreeholeStore.shared.divisions = divisions
     }
     
-    func initialLoad() async {
-        do {
-            try await store.loadAll()
-            try await UserStore.shared.updateUser()
-        } catch {
-            initError = error.localizedDescription
-        }
-    }
     
     var body: some View {
         NavigationStack(path: $store.path) {
-            LoadingView(loading: $loading,
-                        finished: $store.initialized,
-                        errorDescription: initError,
-                        action: initialLoad) {
+            LoadingView(finished: store.initialized) {
+                try await store.loadAll()
+                try await UserStore.shared.updateUser()
+            } content: {
                 DelegatePage(holes: holes, $searchText, $searchSubmitted)
                     .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
                     .onSubmit(of: .search) {

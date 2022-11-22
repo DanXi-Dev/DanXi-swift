@@ -4,24 +4,12 @@ struct HistoryList: View {
     @Binding var floor: THFloor
     
     @State var histories: [THHistory] = []
-    @State var loading = true
-    @State var initFinished = false
-    @State var loadingError = ""
     
     @State var showRestoreSheet = false
     @State var historyId: Int? = nil
     @State var restoreReason = ""
     @State var showRestoreError = false
     @State var restoreErrorInfo = ""
-    
-    func loadHistory() async {
-        do {
-            histories = try await TreeholeRequests.loadFloorHistory(floorId: floor.id)
-            initFinished = true
-        } catch {
-            loadingError = error.localizedDescription
-        }
-    }
     
     func restoreFloor() async throws {
         guard let historyId = historyId else {
@@ -35,10 +23,9 @@ struct HistoryList: View {
     
     var body: some View {
         NavigationView {
-            LoadingView(loading: $loading,
-                        finished: $initFinished,
-                        errorDescription: loadingError,
-                        action: loadHistory) {
+            LoadingView {
+                histories = try await TreeholeRequests.loadFloorHistory(floorId: floor.id)
+            } content: {
                 List {
                     ForEach(histories) { history in
                         VStack(alignment: .leading, spacing: 10) {

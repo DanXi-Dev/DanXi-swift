@@ -4,8 +4,6 @@ struct FavoritesPage: View {
     @ObservedObject var store = TreeholeStore.shared
     @State var favorites: [THHole] = []
 
-    @State var loading = true
-    @State var finished = false
     @State var initError = ""
     @State var showAlert = false
     @State var deleteError = ""
@@ -14,17 +12,10 @@ struct FavoritesPage: View {
 
     init(favorites: [THHole]) { // preview purpose
         self._favorites = State(initialValue: favorites)
-        self._loading = State(initialValue: false)
-        self._finished = State(initialValue: true)
     }
 
-    func fetchFavorites() async {
-        do {
-            self.favorites = try await TreeholeRequests.loadFavorites()
-            finished = true
-        } catch {
-            initError = error.localizedDescription
-        }
+    func fetchFavorites() async throws {
+        self.favorites = try await TreeholeRequests.loadFavorites()
     }
 
     func removeFavorites(at offsets: IndexSet) {
@@ -46,10 +37,9 @@ struct FavoritesPage: View {
 
     
     var body: some View {
-        LoadingView(loading: $loading,
-                        finished: $finished,
-                        errorDescription: initError.description,
-                        action: fetchFavorites) {
+        LoadingView {
+            self.favorites = try await TreeholeRequests.loadFavorites()
+        } content: {
             if favorites.isEmpty {
                 Text("Empty Favorites List")
                     .foregroundColor(.secondary)

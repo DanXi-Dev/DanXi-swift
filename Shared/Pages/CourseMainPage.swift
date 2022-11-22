@@ -25,22 +25,11 @@ struct CourseMainPage: View {
             return courseStore.courses.filter { $0.name.contains(searchText) }
         }
     }
-    
-    func initialLoad() async {
-        do {
-            loading = true
-            defer { loading = false }
-            try await courseStore.loadCourses()
-        } catch {
-            self.errorInfo = error.localizedDescription
-        }
-    }
 
     var body: some View {
-        LoadingView(loading: $loading,
-                    finished: $courseStore.initialized,
-                    errorDescription: errorInfo,
-                    action: initialLoad) {
+        LoadingView(finished: courseStore.initialized) {
+            try await courseStore.loadCourses()
+        } content: {
             List {
                 ForEach(searchResults) { course in
                     NavigationLink(value: course) {

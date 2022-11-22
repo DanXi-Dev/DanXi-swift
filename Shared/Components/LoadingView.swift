@@ -1,44 +1,31 @@
 import SwiftUI
 
 
-/// A page that need to be initialized before presented to user.
-///
-/// This page will display a loading info when loading, and a retry button when loading fails. After the initial loading is complete, the content will be presented.
-/// Usage:
-/// ```
-/// LoadingView(loading: $loading,
-///             finished: $initFinished,
-///             errorDescription: initError,
-///             action: initialLoad) {
-///     DetailPage()
-/// }
-/// ```
 struct LoadingView<Content: View>: View {
-    @Binding var loading: Bool
-    @Binding var finished: Bool
-    let errorDescription: String
+    @State var loading = true
+    @State var finished: Bool
+    @State var errorDescription = ""
     let content: Content
+    let action: () async throws -> Void
     
-    let action: () async -> Void
     
-    
-    /// Create a loading view.
-    /// - Parameters:
-    ///   - loading: A boolean binding representing the loading status.
-    ///   - finished: Determine if the content is ready to be presented.
-    ///   - errorDescription: The description to be displayed when loading fails.
-    ///   - action: The loading function.
-    ///   - content: Content to be displayed when loading is done.
-    init(loading: Binding<Bool>,
-         finished: Binding<Bool>,
-         errorDescription: String,
-         action: @escaping () async -> Void,
+    init(finished: Bool = false,
+         action: @escaping () async throws -> Void,
          @ViewBuilder content: () -> Content) {
-        _loading = loading
-        _finished = finished
-        self.errorDescription = errorDescription
+        self._finished = State(initialValue: finished)
         self.action = action
         self.content = content()
+    }
+    
+    func load() async {
+        do {
+            loading = true
+            defer { loading = false }
+            try await action()
+            finished = true
+        } catch {
+            errorDescription = error.localizedDescription
+        }
     }
     
     var body: some View {
@@ -59,9 +46,7 @@ struct LoadingView<Content: View>: View {
                 .foregroundColor(.secondary)
         }
         .task { @MainActor in
-            loading = true
-            defer { loading = false }
-            await action()
+            await load()
         }
     }
     
@@ -78,9 +63,7 @@ struct LoadingView<Content: View>: View {
             
             Button("Retry") {
                 Task { @MainActor in
-                    loading = true
-                    defer { loading = false }
-                    await action()
+                    await load()
                 }
             }
             .frame(width: 120, height: 25)
@@ -99,18 +82,14 @@ struct LoadingView<Content: View>: View {
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LoadingView(loading: .constant(false),
-                            finished: .constant(false),
-                            errorDescription: NSLocalizedString("Requested resourse not found", comment: "")) {
+            LoadingView(finished: false) {
                 // initialization code
             } content: {
                 EmptyView()
             }
             .previewDisplayName("Failed")
 
-            LoadingView(loading: .constant(true),
-                            finished: .constant(false),
-                            errorDescription: "") {
+            LoadingView(finished: false) {
                 // initialization code
             } content: {
                 EmptyView()
