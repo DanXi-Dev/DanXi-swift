@@ -27,7 +27,7 @@ struct SearchTextPage: View {
                 Divider()
                 ForEach(floors) { floor in
                     NavigationLink {
-                        HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
+                        HoleDetailPage(floorId: floor.id)
                     } label: {
                         FloorView(floor: floor)
                     }

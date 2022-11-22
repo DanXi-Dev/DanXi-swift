@@ -97,23 +97,13 @@ struct ReportCell: View {
                 .foregroundColor(.red)
             
             
-            Group {
-                if !report.floor.deleted {
-                    FloorView(floor: report.floor, interactable: false)
-                } else {
-                    HStack {
-                        Text(report.floor.content)
-                            .foregroundColor(.secondary)
-                            .font(.callout)
-                        Spacer()
-                    }
-                }
-            }
-            .padding(10)
-            .background(Color.secondary.opacity(0.05))
-            .background(Color.secondary.opacity(0.05))
-            .cornerRadius(10)
-            .padding(.bottom, 5)
+            
+            FloorView(floor: report.floor, interactable: false)
+                .padding(10)
+                .background(Color.secondary.opacity(0.05))
+                .background(Color.secondary.opacity(0.05))
+                .cornerRadius(10)
+                .padding(.bottom, 5)
             
             if report.dealt {
                 Group {
@@ -128,7 +118,7 @@ struct ReportCell: View {
             }
         }
         .backgroundLink {
-            HoleDetailPage(holeId: report.holeId, floorId: report.floor.id)
+            HoleDetailPage(floorId: report.floor.id)
         }
         .swipeActions(edge: .leading, allowsFullSwipe: false) {
             Button {

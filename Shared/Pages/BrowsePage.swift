@@ -139,13 +139,13 @@ struct BrowsePage: View {
     private var menu: some View {
         Menu {
             Button {
-                showFavoritesPage = true
+                TreeholeStore.shared.path.append(TreeholeStaticPages.favorites)
             } label: {
                 Label("Favorites", systemImage: "star")
             }
             
             Button {
-                showTagPage = true
+                TreeholeStore.shared.path.append(TreeholeStaticPages.tags)
             } label: {
                 Label("Tags", systemImage: "tag")
             }
@@ -168,7 +168,7 @@ struct BrowsePage: View {
                 Divider()
                 
                 Button {
-                    showReportPage = true
+                    TreeholeStore.shared.path.append(TreeholeStaticPages.reports)
                 } label: {
                     Label("Reports Management", systemImage: "exclamationmark.triangle")
                 }
@@ -177,18 +177,18 @@ struct BrowsePage: View {
         } label: {
             Image(systemName: "ellipsis.circle")
         }
-        .background(
-            Group {
-                NavigationLink(destination: TagsPage(), isActive: $showTagPage) {
-                    EmptyView()
-                }
-                NavigationLink(destination: FavoritesPage(), isActive: $showFavoritesPage) {
-                    EmptyView()
-                }
-                NavigationLink(destination: ReportPage(), isActive: $showReportPage) {
-                    EmptyView()
-                }
-            }
-        )
+//        .background(
+//            Group {
+//                NavigationLink(destination: TagsPage(), isActive: $showTagPage) {
+//                    EmptyView()
+//                }
+//                NavigationLink(destination: FavoritesPage(), isActive: $showFavoritesPage) {
+//                    EmptyView()
+//                }
+//                NavigationLink(destination: ReportPage(), isActive: $showReportPage) {
+//                    EmptyView()
+//                }
+//            }
+//        )
     }
 }

@@ -43,13 +43,16 @@ struct CourseMainPage: View {
                     action: initialLoad) {
             List {
                 ForEach(searchResults) { course in
-                    NavigationLink(destination: CourseDetailPage(courseGroup: course)) {
+                    NavigationLink(value: course) {
                         CourseView(courseGroup: course)
                     }
                 }
             }
             .searchable(text: $searchText)
             .navigationTitle("Curriculum Board")
+            .navigationDestination(for: DKCourseGroup.self) { course in
+                CourseDetailPage(courseGroup: course)
+            }
         }
     }
 }

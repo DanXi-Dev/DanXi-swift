@@ -36,9 +36,7 @@ struct TagList: View {
     @ViewBuilder
     private func tagItem(_ tag: THTag) -> some View {
         if navigation {
-            NavigationLink {
-                SearchTagPage(tagname: tag.name)
-            } label: {
+            NavigationLink(value: tag) {
                 Text(tag.name)
                     .textCase(nil) // prevent capitalization in list header
                     .tagStyle(color: randomColor(tag.name))

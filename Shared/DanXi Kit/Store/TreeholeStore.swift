@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 class TreeholeStore: ObservableObject {
     static var shared = TreeholeStore()
@@ -7,6 +8,7 @@ class TreeholeStore: ObservableObject {
     @Published var tags: [THTag] = []
     @Published var favorites: [Int] = []
     @Published var initialized = false
+    @Published var path = NavigationPath()
     
     // MARK: General Interfaces
     
@@ -53,11 +55,6 @@ class TreeholeStore: ObservableObject {
     // MARK: Tags Cache Control
     
     private let defaults = UserDefaults.standard
-    private let tagsCacheUrl = try! FileManager.default.url(for: .cachesDirectory,
-                                                           in: .userDomainMask,
-                                                           appropriateFor: nil,
-                                                           create: false)
-                                    .appendingPathComponent("th-tags.data")
     
     private func tagsCacheExpired() -> Bool {
         do {
@@ -75,10 +72,8 @@ class TreeholeStore: ObservableObject {
     }
     
     private func loadTagsCache() throws {
-        let file = try FileHandle(forReadingFrom: tagsCacheUrl)
-        let tags = try JSONDecoder().decode([THTag].self, from: file.availableData)
         Task { @MainActor in
-            self.tags = tags
+            self.tags = try loadData(filename: "th-tags.data")
         }
     }
     
@@ -96,7 +91,7 @@ class TreeholeStore: ObservableObject {
         self.tags = []
         defaults.removeObject(forKey: "th-tags-last-fetch")
         do {
-            try FileManager.default.removeItem(at: tagsCacheUrl)
+            try removeData(filename: "th-tags.data")
         } catch { }
     }
     

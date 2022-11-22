@@ -7,15 +7,11 @@ class CourseStore: ObservableObject {
     @Published var initialized = false
     
     private let defaults = UserDefaults.standard
-    private let courseCacheUrl = try! FileManager.default.url(for: .cachesDirectory,
-                                                             in: .userDomainMask,
-                                                             appropriateFor: nil,
-                                                             create: false)
-                                 .appendingPathComponent("dk-course-list.data")
     
     private func loadCourseCache() throws {
-        let file = try FileHandle(forReadingFrom: courseCacheUrl)
-        self.courses = try JSONDecoder().decode([DKCourseGroup].self, from: file.availableData)
+        Task { @MainActor in
+            self.courses = try loadData(filename: "dk-course-list.data")
+        }
     }
     
     private func updateCourseCache(_ newHash: String) async throws {
@@ -37,7 +33,9 @@ class CourseStore: ObservableObject {
             if oldHash == newHash {
                 do {
                     try loadCourseCache()
-                    self.initialized = true
+                    Task { @MainActor in
+                        self.initialized = true
+                    }
                     return
                 } catch { }
             }
@@ -54,7 +52,7 @@ class CourseStore: ObservableObject {
         defaults.removeObject(forKey: "dk-course-hash")
         self.initialized = false
         do {
-            try FileManager.default.removeItem(at: courseCacheUrl)
+            try removeData(filename: "dk-course-list.data")
         } catch { }
     }
 }

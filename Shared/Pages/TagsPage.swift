@@ -12,7 +12,7 @@ struct TagsPage: View {
     var body: some View {
         List {
             ForEach(filteredTags) { tag in
-                NavigationLink(destination: SearchTagPage(tagname: tag.name)) {
+                NavigationLink(value: tag) {
                     TagRowView(tag: tag)
                 }
             }

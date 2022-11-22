@@ -35,17 +35,39 @@ struct TreeholePage: View {
     }
     
     var body: some View {
-        LoadingView(loading: $loading,
-                    finished: $store.initialized,
-                    errorDescription: initError,
-                    action: initialLoad) {
-            DelegatePage(holes: holes, $searchText, $searchSubmitted)
-                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
-                .onSubmit(of: .search) {
-                    searchSubmitted = true
-                }
+        NavigationStack(path: $store.path) {
+            LoadingView(loading: $loading,
+                        finished: $store.initialized,
+                        errorDescription: initError,
+                        action: initialLoad) {
+                DelegatePage(holes: holes, $searchText, $searchSubmitted)
+                    .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+                    .onSubmit(of: .search) {
+                        searchSubmitted = true
+                    }
+            }
+                        .navigationDestination(for: THHole.self) { hole in
+                            HoleDetailPage(hole: hole)
+                        }
+                        .navigationDestination(for: THTag.self) { tag in
+                            SearchTagPage(tagname: tag.name)
+                        }
+                        .navigationDestination(for: THFloor.self) { floor in
+                            HoleDetailPage(floorId: floor.id)
+                        }
+                        .navigationDestination(for: TreeholeStaticPages.self) { page in
+                            switch page {
+                            case .favorites: FavoritesPage()
+                            case .reports: ReportPage()
+                            case .tags: TagsPage()
+                            }
+                        }
         }
     }
+}
+
+enum TreeholeStaticPages {
+    case favorites, reports, tags
 }
 
 /// Searchable delegation, switch between main view and search view based on searchbar status.
@@ -78,11 +100,7 @@ struct DelegatePage: View {
 
 struct TreeholePage_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            NavigationView {
-                TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"),
-                             holes: PreviewDecode.decodeList(name: "hole-list"))
-            }
-        }
+        TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"),
+                     holes: PreviewDecode.decodeList(name: "hole-list"))
     }
 }

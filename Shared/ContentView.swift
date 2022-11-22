@@ -6,27 +6,24 @@ struct ContentView: View {
     @State var showSettingPage = false
     
     var body: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
-                contentList
-            }
-        } else {
-            NavigationView {
-                contentList
-            }
+        NavigationSplitView {
+            contentList
+        } detail: {
+            Text("Not Selected")
         }
     }
     
     private var contentList: some View {
         List {
-            NavigationLink {
-                QRCodePage()
-            } label: {
-                Label("Fudan QR Code", systemImage: "qrcode")
+            Section("Campus Services") {
+                NavigationLink {
+                    QRCodePage()
+                } label: {
+                    Label("Fudan QR Code", systemImage: "qrcode")
+                }
             }
             
-            
-            Section {
+            Section("DanXi Services") {
                 if authDelegate.isLogged {
                     NavigationLink {
                         TreeholePage()
@@ -35,39 +32,16 @@ struct ContentView: View {
                     }
                     
                     NavigationLink {
-                        CourseMainPage()
+                        NavigationStack {
+                            CourseMainPage()
+                        }
                     } label: {
                         Label("Curriculum", systemImage: "books.vertical")
                     }
                     
-                    Link(destination: URL(string: "https://canvas.fduhole.com")!) {
-                        HStack {
-                            Label {
-                                Text("Canvas")
-                                    .foregroundColor(.primary)
-                            } icon: {
-                                Image(systemName: "paintbrush.pointed")
-                            }
-                            Spacer()
-                            Image(systemName: "link")
-                                .foregroundColor(.secondary)
-                        }
-                    }
+                    listLink(url: "https://canvas.fduhole.com", text: "Canvas", icon: "paintbrush.pointed")
                     
-                    Link(destination: URL(string: "https://fdu-hotpot.top")!) {
-                        HStack {
-                            Label {
-                                Text("FDU Hotpot")
-                                    .foregroundColor(.primary)
-                            } icon: {
-                                Image(systemName: "figure.run")
-                            }
-                            Spacer()
-                            Image(systemName: "link")
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    
+                    listLink(url: "https://fdu-hotpot.top", text: "FDU Hotpot", icon: "figure.run")
                 } else {
                     // TODO: refine this section
                     Text("Not Logged In")
@@ -87,11 +61,27 @@ struct ContentView: View {
             NavigationView { SettingsPage() }
         }
     }
+    
+    private func listLink(url: String, text: LocalizedStringKey, icon: String) -> some View {
+        Link(destination: URL(string: url)!) {
+            HStack {
+                Label {
+                    Text(text)
+                        .foregroundColor(.primary)
+                } icon: {
+                    Image(systemName: icon)
+                }
+                Spacer()
+                Image(systemName: "link")
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-//        AuthDelegate.shared.isLogged = true
+        AuthDelegate.shared.isLogged = true
         
         return ContentView()
     }

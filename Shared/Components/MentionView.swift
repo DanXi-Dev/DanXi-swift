@@ -89,15 +89,9 @@ struct MentionView: View {
     }
     
     private var remoteMention: some View {
-        Button {
-            navigationActive = true
-        } label: {
+        NavigationLink(value: floor) {
             mentionView
-                .backgroundLink($navigationActive) {
-                    HoleDetailPage(holeId: floor.holeId, floorId: floor.id)
-                }
         }
-        .buttonStyle(.borderless) // prevent multiple tapping
         #if os(iOS)
         // TODO: use geometry reader to determine size
         .previewContextMenu(destination: HoleDetailPage(holeId: floor.holeId, floorId: floor.id),

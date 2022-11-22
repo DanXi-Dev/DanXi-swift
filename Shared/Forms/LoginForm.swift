@@ -37,7 +37,7 @@ struct LoginForm: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section{
                     TextField("Email", text: $username)

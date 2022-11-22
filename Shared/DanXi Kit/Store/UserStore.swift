@@ -15,7 +15,11 @@ class UserStore: ObservableObject {
     }
     
     init() {
-        user = loadData(filename: "dx-user.data")
+        do {
+            user = try loadData(filename: "dx-user.data")
+        } catch {
+            user = nil
+        }
     }
     
     func updateUser() async throws {
@@ -33,7 +37,7 @@ class UserStore: ObservableObject {
     func clear() {
         do {
             self.user = nil
-            try saveData(self.user, filename: "dx-user.data")
+            try removeData(filename: "dx-user.data")
         } catch { }
     }
 }
