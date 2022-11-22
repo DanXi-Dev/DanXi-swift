@@ -52,7 +52,7 @@ class TreeholeStore: ObservableObject {
     
     // MARK: Tags Cache Control
     
-    private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
+    private let defaults = UserDefaults.standard
     private let tagsCacheUrl = try! FileManager.default.url(for: .cachesDirectory,
                                                            in: .userDomainMask,
                                                            appropriateFor: nil,
@@ -61,7 +61,7 @@ class TreeholeStore: ObservableObject {
     
     private func tagsCacheExpired() -> Bool {
         do {
-            if let data = defaults?.data(forKey: "th-tags-last-fetch") {
+            if let data = defaults.data(forKey: "th-tags-last-fetch") {
                 let lastFetchDate = try JSONDecoder().decode(Date.self, from: data)
                 let interval = Date().timeIntervalSince(lastFetchDate)
                 if interval < 60.0 * 60.0 * 24 {
@@ -85,7 +85,7 @@ class TreeholeStore: ObservableObject {
     private func updateTagsCache() async throws {
         let tags = try await TreeholeRequests.loadTags()
         try saveData(tags, filename: "th-tags.data")
-        defaults?.setValue(try JSONEncoder().encode(Date()), forKey: "th-tags-last-fetch")
+        defaults.setValue(try JSONEncoder().encode(Date()), forKey: "th-tags-last-fetch")
         
         Task { @MainActor in
             self.tags = tags
@@ -94,7 +94,7 @@ class TreeholeStore: ObservableObject {
     
     private func clearTags() {
         self.tags = []
-        defaults?.removeObject(forKey: "th-tags-last-fetch")
+        defaults.removeObject(forKey: "th-tags-last-fetch")
         do {
             try FileManager.default.removeItem(at: tagsCacheUrl)
         } catch { }

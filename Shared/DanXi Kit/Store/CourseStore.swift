@@ -6,7 +6,7 @@ class CourseStore: ObservableObject {
     @Published var courses: [DKCourseGroup] = []
     @Published var initialized = false
     
-    private let defaults = UserDefaults(suiteName: "group.io.github.kavinzhao.fdutools")
+    private let defaults = UserDefaults.standard
     private let courseCacheUrl = try! FileManager.default.url(for: .cachesDirectory,
                                                              in: .userDomainMask,
                                                              appropriateFor: nil,
@@ -19,9 +19,13 @@ class CourseStore: ObservableObject {
     }
     
     private func updateCourseCache(_ newHash: String) async throws {
-        self.courses = try await CourseRequest.loadCourseGroups()
+        let courses = try await CourseRequest.loadCourseGroups()
         try saveData(self.courses, filename: "dk-course-list.data")
-        defaults?.setValue(newHash, forKey: "dk-course-hash")
+        defaults.setValue(newHash, forKey: "dk-course-hash")
+        
+        Task { @MainActor in
+            self.courses = courses
+        }
     }
     
     func loadCourses() async throws {
@@ -29,7 +33,7 @@ class CourseStore: ObservableObject {
         
         let newHash = try await CourseRequest.loadCourseHash()
         
-        if let oldHash = defaults?.string(forKey: "dk-course-hash") {
+        if let oldHash = defaults.string(forKey: "dk-course-hash") {
             if oldHash == newHash {
                 do {
                     try loadCourseCache()
@@ -40,11 +44,14 @@ class CourseStore: ObservableObject {
         }
         
         try await updateCourseCache(newHash)
-        self.initialized = true
+        
+        Task { @MainActor in
+            self.initialized = true
+        }
     }
     
     func clear() {
-        defaults?.removeObject(forKey: "dk-course-hash")
+        defaults.removeObject(forKey: "dk-course-hash")
         self.initialized = false
         do {
             try FileManager.default.removeItem(at: courseCacheUrl)
