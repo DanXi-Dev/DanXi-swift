@@ -90,7 +90,6 @@ struct HoleView: View {
         }
         .font(.caption)
         .foregroundColor(.secondary)
-        .foregroundColor(Color(uiColor: .systemGray2))
         .padding(.top, 3)
     }
     

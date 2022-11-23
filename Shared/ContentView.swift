@@ -10,6 +10,7 @@ struct ContentView: View {
             contentList
         } detail: {
             Text("Not Selected")
+//            TestView()
         }
     }
     

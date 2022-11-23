@@ -14,6 +14,7 @@ struct FloorView: View {
     @State var showRemoveSheet = false
     @State var showReportSheet = false
     @State var showHistorySheet = false
+    @State var showSelectionSheet = false
     
     @ObservedObject var holeViewModel: HoleDetailViewModel
     var proxy: ScrollViewProxy? = nil
@@ -118,6 +119,9 @@ struct FloorView: View {
         }
         .sheet(isPresented: $showHistorySheet, content: {
             HistoryList(floor: $floor)
+        })
+        .sheet(isPresented: $showSelectionSheet, content: {
+            TextSelectionView(text: floor.content)
         })
         .alert("Delete Floor", isPresented: $showDeleteAlert) {
             Button("Delete", role: .destructive) {
@@ -278,9 +282,9 @@ struct FloorView: View {
         }
         
         Button {
-            UIPasteboard.general.string = floor.content.stripToBasicMarkdown()
+            showSelectionSheet = true
         } label: {
-            Label("Copy Full Text", systemImage: "doc.on.doc")
+            Label("Select Text", systemImage: "selection.pin.in.out")
         }
         
         if floor.isMe {
