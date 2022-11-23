@@ -43,6 +43,10 @@ struct EditForm: View {
                 divisionId: divisionId,
                 tags: tags)
             content = ""
+            
+            Task { // reload favorites since new post will automatically be favorited
+                try await TreeholeStore.shared.reloadFavorites()
+            }
         }
     }
 }
