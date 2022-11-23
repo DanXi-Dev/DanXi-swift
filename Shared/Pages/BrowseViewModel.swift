@@ -28,6 +28,11 @@ class BrowseViewModel: ObservableObject {
                 }
             }
             
+            // filter pinned hole
+            if currentDivision.pinned.map(\.id).contains(hole.id) {
+                return false
+            }
+            
             // filter for NSFW tags
             return !(preference.nsfwSetting == .hide && hole.nsfw)
         }

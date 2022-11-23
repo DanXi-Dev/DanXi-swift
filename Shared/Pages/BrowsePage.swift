@@ -177,18 +177,5 @@ struct BrowsePage: View {
         } label: {
             Image(systemName: "ellipsis.circle")
         }
-//        .background(
-//            Group {
-//                NavigationLink(destination: TagsPage(), isActive: $showTagPage) {
-//                    EmptyView()
-//                }
-//                NavigationLink(destination: FavoritesPage(), isActive: $showFavoritesPage) {
-//                    EmptyView()
-//                }
-//                NavigationLink(destination: ReportPage(), isActive: $showReportPage) {
-//                    EmptyView()
-//                }
-//            }
-//        )
     }
 }

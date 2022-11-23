@@ -24,7 +24,6 @@
 		272AC8E62896F30E00092B0C /* EditReplyForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* EditReplyForm.swift */; };
 		273C1E6328C9CE5C0067E61E /* EditInfoForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* EditInfoForm.swift */; };
 		273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 273D65B8292E07FF0064DCB1 /* Introspect */; };
-		273D65BB292E08100064DCB1 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D65BA292E08100064DCB1 /* TestView.swift */; };
 		273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D65BC292E08C10064DCB1 /* TextSelectionView.swift */; };
 		273FAFB628C13C6100FC3950 /* SpecialTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FAFB528C13C6100FC3950 /* SpecialTagView.swift */; };
 		274215D228EE1C4700A2A20B /* DecodeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274215D128EE1C4700A2A20B /* DecodeDate.swift */; };
@@ -162,7 +161,6 @@
 		272AC8E22896F29800092B0C /* ReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyForm.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* EditReplyForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReplyForm.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* EditInfoForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoForm.swift; sourceTree = "<group>"; };
-		273D65BA292E08100064DCB1 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		273D65BC292E08C10064DCB1 /* TextSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSelectionView.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* SpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTagView.swift; sourceTree = "<group>"; };
 		274215D128EE1C4700A2A20B /* DecodeDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeDate.swift; sourceTree = "<group>"; };
@@ -555,7 +553,6 @@
 				27BBBD092912C2EC007C2905 /* Fudan Kit */,
 				2778D6162891D22D009F4DB1 /* Utils */,
 				2778D6342891D316009F4DB1 /* Resources */,
-				273D65BA292E08100064DCB1 /* TestView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -769,7 +766,6 @@
 				27BBBD232912C33D007C2905 /* RequestPrimitives.swift in Sources */,
 				F128E3CB28D0ABEA009447E6 /* CampusInfoPage.swift in Sources */,
 				271D596F28C2518800F72C3B /* PreviewCondition.swift in Sources */,
-				273D65BB292E08100064DCB1 /* TestView.swift in Sources */,
 				27719AA628A3EAB100C661BD /* CourseMainPage.swift in Sources */,
 				27227FD528A512B300B3C99D /* ArrayRawRepresentable.swift in Sources */,
 				271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */,
