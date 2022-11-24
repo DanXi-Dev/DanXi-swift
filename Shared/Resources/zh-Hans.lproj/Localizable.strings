@@ -268,3 +268,12 @@
 // Fudan QR Code
 "Fudan QR Code" = "复旦生活码";
 "Refresh QR Code" = "刷新二维码";
+
+// About
+"Website" = "网站";
+"Version %@" = "版本%@";
+"Terms and Conditions" = "使用条款";
+"Acknowledgements" = "致谢";
+"Contributors" = "贡献者";
+"Open Source Software" = "开源软件";
+"Contact Us" = "联系我们";

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Swift Markdown",
+        "link": "https://github.com/apple/swift-markdown",
+        "license": "Apache-2.0 license"
+    },
+    {
+        "name": "SwiftSoup",
+        "link": "https://github.com/scinfu/SwiftSoup",
+        "license": "MIT license"
+    },
+    {
+        "name": "Introspect for SwiftUI",
+        "link": "https://github.com/siteline/SwiftUI-Introspect",
+        "license": "MIT license"
+    },
+    {
+        "name": "SwiftUI CachedAsyncImage",
+        "link": "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
+        "license": "MIT license"
+    }
+]

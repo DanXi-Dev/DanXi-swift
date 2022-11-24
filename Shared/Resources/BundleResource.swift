@@ -27,3 +27,19 @@ struct PreviewDecode {
         }
     }
 }
+
+extension Bundle {
+    var releaseVersionNumber: String? {
+        return infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    
+    var buildVersionNumber: String? {
+        return infoDictionary?["CFBundleVersion"] as? String
+    }
+    
+    func jsonData<T: Decodable>(name: String) -> T {
+        let path = path(forResource: name, ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path))
+        return try! JSONDecoder().decode(T.self, from: data)
+    }
+}
