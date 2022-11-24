@@ -29,11 +29,6 @@ struct SettingsPage: View {
             if authDelegate.isLogged {
                 treeholeSettings
             }
-            
-            Section("About") {
-                Text("Legal")
-                Text("About")
-            }
         }
         .navigationTitle("Settings")
     }
