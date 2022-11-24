@@ -90,7 +90,7 @@ struct HoleDetailPage: View {
                     ProgressView()
                 }
             })
-            .alert(viewModel.errorTitle, isPresented: $viewModel.errorPresenting) {
+            .alert("Error", isPresented: $viewModel.errorPresenting) {
                 Button("OK") { }
             } message: {
                 Text(viewModel.errorInfo)

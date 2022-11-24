@@ -20,7 +20,6 @@ class HoleDetailViewModel: ObservableObject {
     }
     
     @Published var errorPresenting = false
-    @Published var errorTitle: LocalizedStringKey = "Error"
     @Published var errorInfo = ""
     
     @Published var listLoading = true
@@ -79,13 +78,7 @@ class HoleDetailViewModel: ObservableObject {
             do {
                 hole = try await TreeholeRequests.loadHoleById(holeId: holeId)
                 scrollTarget = floorId ?? -1
-            } catch NetworkError.notFound {
-                errorTitle = "Treehole Not Exist"
-                errorInfo = String(format: NSLocalizedString("Treehole #%@ not exist", comment: ""), String(holeId))
-                errorPresenting = true
-                return
             } catch {
-                errorTitle = "Error"
                 errorInfo = error.localizedDescription
                 errorPresenting = true
             }
@@ -100,13 +93,7 @@ class HoleDetailViewModel: ObservableObject {
                 self.floors = try await TreeholeRequests.loadAllFloors(holeId: targetFloor.holeId)
                 try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
                 scrollTarget = floorId
-            } catch NetworkError.notFound {
-                errorTitle = "Floor Not Exist"
-                errorInfo = String(format: NSLocalizedString("Floor ##%@ not exist", comment: ""), String(floorId))
-                errorPresenting = true
-                return
             } catch {
-                errorTitle = "Error"
                 errorInfo = error.localizedDescription
                 errorPresenting = true
             }
@@ -167,7 +154,6 @@ class HoleDetailViewModel: ObservableObject {
                 scrollTarget = hole.lastFloor.id
             }
         } catch {
-            errorTitle = "Error"
             errorInfo = error.localizedDescription
             errorPresenting = true
         }
@@ -184,7 +170,6 @@ class HoleDetailViewModel: ObservableObject {
                 favorited = store.favorites.contains(hole.id)
                 haptic()
             } catch {
-                errorTitle = "Toggle Favorite Failed"
                 errorInfo = error.localizedDescription
                 errorPresenting = true
             }

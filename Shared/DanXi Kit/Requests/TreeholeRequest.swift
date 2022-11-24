@@ -67,8 +67,12 @@ struct TreeholeRequests {
     /// - Parameter holeId: Hole ID.
     /// - Returns: The matching `THHole`.
     static func loadHoleById(holeId: Int) async throws -> THHole {
-        let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-        return try await requestObj(url: url)
+        do {
+            let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
+            return try await requestObj(url: url)
+        } catch HTTPError.notFound {
+            throw DanXiError.holeNotExist(holeId: holeId)
+        }
     }
     
     
@@ -139,7 +143,11 @@ struct TreeholeRequests {
     /// Get a floor by ID.
     /// - Parameter floorId: Floor ID.
     static func loadFloorById(floorId: Int) async throws -> THFloor {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
+        do {
+            return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
+        } catch HTTPError.notFound {
+            throw DanXiError.floorNotExist(floorId: floorId)
+        }
     }
     
     

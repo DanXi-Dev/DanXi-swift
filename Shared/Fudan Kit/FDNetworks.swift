@@ -24,7 +24,7 @@ class FDNetworks {
     
     func login(_ username: String, _ password: String) async throws {
         if try await needCaptcha(username: username) {
-            throw NetworkError.unauthorized
+            throw HTTPError.unauthorized
         }
         let authUrl = URL(string: UIS_URL + "/authserver/login")!
         var request = URLRequest(url: authUrl)
@@ -34,7 +34,7 @@ class FDNetworks {
                                                  username: username, password: password)
         let (_, response) = try await URLSession.shared.data(for: authRequest)
         if response.url?.absoluteString != "https://uis.fudan.edu.cn/authserver/index.do" {
-            throw NetworkError.unauthorized
+            throw HTTPError.unauthorized
         }
         persistLoginData(username, password)
     }
@@ -50,12 +50,12 @@ class FDNetworks {
                 throw NetworkError.invalidResponse
             }
             if try await needCaptcha(username: username) {
-                throw NetworkError.unauthorized
+                throw HTTPError.unauthorized
             }
             let authRequest = try prepareAuthRequest(authUrl: authUrl, formData: data)
             let (newData, newResponse) = try await URLSession.shared.data(for: authRequest)
             guard newResponse.url?.host == request.url?.host else {
-                throw NetworkError.unauthorized
+                throw HTTPError.unauthorized
             }
             return newData
         }
@@ -73,7 +73,7 @@ class FDNetworks {
         let authRequest = try prepareAuthRequest(authUrl: components.url!, formData: data)
         let (newData, newResponse) = try await URLSession.shared.data(for: authRequest)
         guard newResponse.url?.host != "uis.fudan.edu.cn" else {
-            throw NetworkError.unauthorized
+            throw HTTPError.unauthorized
         }
         return newData
     }

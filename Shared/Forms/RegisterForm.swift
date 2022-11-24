@@ -48,9 +48,6 @@ struct RegisterForm: View {
                                                        verification: verification,
                                                        create: create)
                 if let dismiss = dismiss { dismiss() }
-            } catch NetworkError.invalidRequest(let message) {
-                errorInfo = message
-                showErrorAlert = true
             } catch {
                 errorInfo = error.localizedDescription
                 showErrorAlert = true

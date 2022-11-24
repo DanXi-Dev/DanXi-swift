@@ -21,24 +21,27 @@ struct AuthReqest {
     static func register(email: String,
                   password: String,
                   verification: String,
-                  create: Bool) async throws -> Token {
+                         create: Bool) async throws -> Token {
         struct ChangePasswordConfig: Codable {
             let password: String
             let email: String
             let verification: String
         }
         
-        let payload = ChangePasswordConfig(password: password,
-                                           email: email,
-                                           verification: verification)
-        return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT", authorize: false)
+        do {
+            let payload = ChangePasswordConfig(password: password,
+                                               email: email,
+                                               verification: verification)
+            return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT", authorize: false)
+        } catch HTTPError.badRequest(let message) {
+            throw DanXiError.registerFailed(message: message)
+        }
     }
     
     // MARK: User
     
     /// Get current user info.
     static func loadUserInfo() async throws -> DXUser {
-        // FIXME: deprecated API, new: /users/me
         return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/users/me")!)
     }
     
@@ -70,9 +73,13 @@ struct AuthReqest {
             let password: String
         }
         
-        return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/login")!,
-                                    payload: LoginBody(email: username, password: password),
-                                    authorize: false)
+        do {
+            return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/login")!,
+                                        payload: LoginBody(email: username, password: password),
+                                        authorize: false)
+        } catch HTTPError.unauthorized {
+            throw DanXiError.loginFailed
+        }
     }
     
     /// Logout and invalidate token.
@@ -84,7 +91,7 @@ struct AuthReqest {
     /// - Returns: New token.
     static func refreshToken() async throws -> Token {
         guard let token = SecStore.shared.token else {
-            throw NetworkError.forbidden
+            throw DanXiError.tokenNotFound
         }
         
         do {
@@ -94,7 +101,7 @@ struct AuthReqest {
             let (data, _) = try await URLSession.shared.data(for: request)
             return try JSONDecoder().decode(Token.self, from: data)
         } catch {
-            throw NetworkError.unauthorized
+            throw DanXiError.tokenExpired
         }
     }
     

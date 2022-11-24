@@ -15,7 +15,6 @@
 "Login" = "登录";
 "DanXi Login" = "登录旦夕账户";
 "Login Failed" = "登录失败";
-"Incorrect username or password" = "用户名或密码错误";
 "Incorrect Information" = "信息不正确";
 "Enter username and password" = "请输入用户名和密码";
 "Invalid username" = "用户名格式不正确";
@@ -188,12 +187,19 @@
 "Not Found" = "资源不存在";
 "Requested resourse not found" = "请求的资源不存在";
 "Not Initialized" = "未经初始化";
-"Credential not initialized, contact developer for help" = "登录凭据没有初始化，请联系开发者获取帮助";
 "Invalid Request" = "无效请求";
 "Request invalid, contact developer for help. message: %@" = "请求无效，请联系开发者获取帮助。诊断信息：%@";
 "Server Error" = "服务器错误";
 "Internal server error. message: %@" = "服务器内部错误，诊断信息：%@";
 "OK" = "确认";
+"Treehole #%@ not exist" = "树洞 #%@ 不存在";
+"Floor ##%@ not exist" = "楼层 ##%@ 不存在";
+"Token expired, login again" = "认证凭据失效，请重新登录";
+"Token not initialized, contact developer for help" = "登录凭据没有初始化，请联系开发者获取帮助";
+"Banned by admin" = "已被管理员封禁";
+"Incorrect username or password" = "用户名或密码错误";
+"Register failed: %@" = "注册失败：%@";
+
 
 // Course
 "Course Review" = "蛋壳课评平台";

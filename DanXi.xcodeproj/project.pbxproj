@@ -61,6 +61,7 @@
 		2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* CourseDetailPage.swift */; };
 		27999CF028AB9A4B009F11A9 /* HoleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
+		27ACA02A292E9CB1002A2B40 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ACA029292E9CB1002A2B40 /* NetworkError.swift */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B19FC128F5769A0001587F /* FudanLoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FudanLoginForm.swift */; };
 		27B19FC328F591A60001587F /* UtilityNetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC228F591A60001587F /* UtilityNetworks.swift */; };
@@ -199,6 +200,7 @@
 		27999CEF28AB9A4B009F11A9 /* HoleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleDetailViewModel.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		27ACA029292E9CB1002A2B40 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FudanLoginForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FudanLoginForm.swift; sourceTree = "<group>"; };
 		27B19FC228F591A60001587F /* UtilityNetworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityNetworks.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
+				27ACA029292E9CB1002A2B40 /* NetworkError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -421,7 +424,6 @@
 				27BBBD0C2912C33C007C2905 /* Entity */,
 				27BBBD102912C33C007C2905 /* Requests */,
 				27BBBD162912C33D007C2905 /* Store */,
-				27BBBD0A2912C330007C2905 /* DanXiError.swift */,
 			);
 			path = "DanXi Kit";
 			sourceTree = "<group>";
@@ -455,6 +457,7 @@
 				27BBBD132912C33C007C2905 /* CourseRequest.swift */,
 				27BBBD142912C33C007C2905 /* RequestPrimitives.swift */,
 				27BBBD152912C33C007C2905 /* TreeholeRequest.swift */,
+				27BBBD0A2912C330007C2905 /* DanXiError.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
 				27E4686328BCABC100CDE8CE /* LoadingView.swift in Sources */,
+				27ACA02A292E9CB1002A2B40 /* NetworkError.swift in Sources */,
 				2756D5DE28F49A2900E80B92 /* UniversityModel.swift in Sources */,
 				27BBBD1D2912C33D007C2905 /* CourseEntity.swift in Sources */,
 				27BBBD282912C33D007C2905 /* TreeholeStore.swift in Sources */,

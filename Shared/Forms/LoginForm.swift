@@ -24,10 +24,6 @@ struct LoginForm: View {
                 try await AuthDelegate.shared.login(username: username, password: password)
                 loading = false
                 dismiss()
-            } catch NetworkError.unauthorized {
-                errorInfo = NSLocalizedString("Incorrect username or password", comment: "")
-                errorPresenting = true
-                loading = false
             } catch {
                 errorInfo = error.localizedDescription
                 errorPresenting = true

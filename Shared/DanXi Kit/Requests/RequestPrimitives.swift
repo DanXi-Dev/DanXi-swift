@@ -90,7 +90,7 @@ func networkRequest(url: URL,
     
     if authorize {
         guard let token = SecStore.shared.token else {
-            throw NetworkError.notInitialized
+            throw DanXiError.tokenNotFound
         }
         request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
     }
@@ -110,30 +110,29 @@ func networkRequest(url: URL,
             case 200..<300:
                 return data
             case 401:
-                if retry {
-                    throw NetworkError.unauthorized
+                if retry || !authorize {
+                    throw HTTPError.unauthorized
                 }
                 
                 // refresh token and retry
                 try await AuthDelegate.shared.refreshToken()
                 return try await networkRequest(url: url, data: data, method: method, retry: true)
             case 403:
-                throw NetworkError.forbidden
+                throw HTTPError.forbidden
             case 404:
-                throw NetworkError.notFound
+                throw HTTPError.notFound
             case 400..<500:
                 let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
-                throw NetworkError.invalidRequest(message: serverResponse?.message ?? "")
+                throw HTTPError.clientError(message: serverResponse?.message ?? "")
             case 500..<600:
                 let serverResponse = try? JSONDecoder().decode(ServerMessage.self, from: data)
-                throw NetworkError.serverError(message: serverResponse?.message ?? "")
+                throw HTTPError.serverError(message: serverResponse?.message ?? "")
             default:
                 throw NetworkError.invalidResponse
             }
         } else {
             throw NetworkError.invalidResponse
         }
-        
     } catch let error as URLError {
         throw NetworkError.networkError(message: error.localizedDescription)
     }
