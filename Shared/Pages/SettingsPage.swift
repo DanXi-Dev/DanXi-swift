@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingsPage: View {
     @ObservedObject var userStore = UserStore.shared
     @ObservedObject var authDelegate = AuthDelegate.shared
-    @ObservedObject var universityModel = UniversityModel.shared
+    @ObservedObject var fudanAuthDelegate = FudanAuthDelegate.shared
     @ObservedObject var preference = Preference.shared
     
     @State var showTreeHoleLogin = false
@@ -37,7 +37,7 @@ struct SettingsPage: View {
     
     @ViewBuilder
     private var uisAccount: some View {
-        if universityModel.loggedIn {
+        if fudanAuthDelegate.isLogged {
             Button(action: {  }) {
                 HStack {
                     accountIcon(loggedIn: true)

@@ -10,7 +10,7 @@ struct QRCodePage: View {
             loading = true
             defer { loading = false }
             do {
-                qrCodeData = try await FDNetworks.shared.getQRCode()
+                qrCodeData = try await EcardRequests.getQRCode()
             } catch {
                 errorInfo = error.localizedDescription
             }

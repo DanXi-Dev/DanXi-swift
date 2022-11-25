@@ -2,13 +2,12 @@ import Foundation
 import SwiftSoup
 import UIKit
 
-extension FDNetworks {
-    func getQRCode() async throws -> Data? {
+
+struct EcardRequests {
+    static func getQRCode() async throws -> Data {
         // network API
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
-        var request = URLRequest(url: url)
-        setUserAgent(&request)
-        let responseData = try await authenticate(request: request)
+        let responseData = try await FudanAuthRequests.auth(url: url)
         guard let htmlText = String(data: responseData, encoding: String.Encoding.utf8) else {
             throw NetworkError.invalidResponse
         }
@@ -18,23 +17,19 @@ extension FDNetworks {
         }
         let qrcodeStr = try qrcodeElement.attr("value")
         
+        
         // generate QR code data
-        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+            throw NetworkError.invalidResponse
+        }
         let data = qrcodeStr.data(using: .ascii, allowLossyConversion: false)
         filter.setValue(data, forKey: "inputMessage")
-        guard let ciimage = filter.outputImage else { return nil }
+        guard let ciimage = filter.outputImage else {
+            throw NetworkError.invalidResponse
+        }
         let transform = CGAffineTransform(scaleX: 10, y: 10)
         let scaledCIImage = ciimage.transformed(by: transform)
         let uiimage = UIImage(ciImage: scaledCIImage)
         return uiimage.pngData()!
-    }
-    
-    
-    func getDormInfo() async throws -> DormInfo {
-        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanelec/wap/default/info")!
-        var request = URLRequest(url: url)
-        setUserAgent(&request)
-        let responseData = try await authenticate(request: request)
-        return try JSONDecoder().decode(DormInfo.self, from: responseData)
     }
 }

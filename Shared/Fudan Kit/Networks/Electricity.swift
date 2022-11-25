@@ -1,5 +1,13 @@
 import Foundation
 
+struct ElectricityRequest {
+    static func getDormInfo() async throws -> DormInfo {
+        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanelec/wap/default/info")!
+        let responseData = try await FudanAuthRequests.auth(url: url)
+        return try JSONDecoder().decode(DormInfo.self, from: responseData)
+    }
+}
+
 struct DormInfo: Decodable {
     
     let campus: String
