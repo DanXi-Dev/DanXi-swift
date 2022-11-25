@@ -11,7 +11,7 @@
 		2706602E292F51BC00F4C321 /* AcknowledgementsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602D292F51BC00F4C321 /* AcknowledgementsPage.swift */; };
 		27066030292F522B00F4C321 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602F292F522B00F4C321 /* LinkView.swift */; };
 		27066032292F56AF00F4C321 /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066031292F56AF00F4C321 /* license.json */; };
-		27066036292F6E8100F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066035292F6E8100F4C321 /* contributor.json */; };
+		27066038292FA34200F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066037292FA34200F4C321 /* contributor.json */; };
 		270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* ReviewPage.swift */; };
 		271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596A28C2504500F72C3B /* PreviewContextMenu.swift */; };
 		271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */; };
@@ -155,7 +155,7 @@
 		2706602D292F51BC00F4C321 /* AcknowledgementsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsPage.swift; sourceTree = "<group>"; };
 		2706602F292F522B00F4C321 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		27066031292F56AF00F4C321 /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
-		27066035292F6E8100F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = contributor.json; path = ../../../../../Downloads/contributor.json; sourceTree = "<group>"; };
+		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
 		270CA42928BD13A10024BDF2 /* ReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPage.swift; sourceTree = "<group>"; };
 		271D596A28C2504500F72C3B /* PreviewContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextMenu.swift; sourceTree = "<group>"; };
 		271D596C28C2512E00F72C3B /* PreviewContextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContextModifier.swift; sourceTree = "<group>"; };
@@ -424,8 +424,8 @@
 			children = (
 				27A28A0F288B0C3D00D6DD77 /* Localizable.strings */,
 				2778D5F52891C664009F4DB1 /* Assets.xcassets */,
+				27066037292FA34200F4C321 /* contributor.json */,
 				27066031292F56AF00F4C321 /* license.json */,
-				27066035292F6E8100F4C321 /* contributor.json */,
 				27D6F4532892C5D70059228F /* BundleResource.swift */,
 				27D6F44D2892C5C50059228F /* Preview */,
 				27B9B3AB28B29953007CA1E0 /* InfoPlist.strings */,
@@ -702,13 +702,13 @@
 				27719AA428A3E8E100C661BD /* course.json in Resources */,
 				27B9B3A928B29953007CA1E0 /* InfoPlist.strings in Resources */,
 				272AC8DD2896E2B600092B0C /* tags.json in Resources */,
+				27066038292FA34200F4C321 /* contributor.json in Resources */,
 				27719AAA28A3FFEF00C661BD /* course-list.json in Resources */,
 				27066032292F56AF00F4C321 /* license.json in Resources */,
 				27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */,
 				27C7E8AF28BA038200DCC2B2 /* floor.json in Resources */,
 				27C7E8B028BA038200DCC2B2 /* styled-floor.json in Resources */,
 				27D6F4582892C96E0059228F /* hole.json in Resources */,
-				27066036292F6E8100F4C321 /* contributor.json in Resources */,
 				27AFBD3128E4688000ED8A3D /* user.json in Resources */,
 				27544B4628C5286300600605 /* report-list.json in Resources */,
 				27E5E82928BA0B560074D295 /* hole-list.json in Resources */,
