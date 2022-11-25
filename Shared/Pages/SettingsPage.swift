@@ -10,6 +10,7 @@ struct SettingsPage: View {
     @State var showTreeHoleActions = false
     
     @State var showFudanLogin = false
+    @State var showFudanActions = false
     
     init() { }
     
@@ -38,11 +39,20 @@ struct SettingsPage: View {
     @ViewBuilder
     private var uisAccount: some View {
         if fudanAuthDelegate.isLogged {
-            Button(action: {  }) {
+            Button(action: {
+                showFudanActions = true
+            }) {
                 HStack {
                     accountIcon(loggedIn: true)
                         .padding()
                     accountText(title: "Fudan UIS Account", description: "Logged in")
+                }
+            }
+            .confirmationDialog("Accounts", isPresented: $showFudanActions) {
+                Button("Logout", role: .destructive) {
+                    withAnimation {
+                        fudanAuthDelegate.logout()
+                    }
                 }
             }
         } else {
