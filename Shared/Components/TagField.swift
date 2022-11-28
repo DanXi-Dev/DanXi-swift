@@ -1,4 +1,5 @@
 import SwiftUI
+import WrappingHStack
 
 /// Present a section to select some tags.
 struct TagField: View {
@@ -41,7 +42,7 @@ struct TagField: View {
                 Text("No tags")
                     .foregroundColor(.primary.opacity(0.25))
             } else {
-                FlexibleView(data: tags, spacing: 15, alignment: .leading) { tag in
+                WrappingHStack(tags, id: \.self, lineSpacing: 10.0) { tag in
                     Text(tag)
                         .tagStyle(color: randomColor(tag), font: .system(size: 16))
                         .overlay(alignment: .topTrailing) {

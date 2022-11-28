@@ -43,6 +43,7 @@
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
 		2751E53028BFB40500104ACD /* Conflict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52F28BFB40500104ACD /* Conflict.swift */; };
 		27544B4628C5286300600605 /* report-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27544B4528C5286300600605 /* report-list.json */; };
+		27550429293539AC00D28AA9 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27550428293539AC00D28AA9 /* WrappingHStack */; };
 		275B71CD28C5249800475BA3 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* ReportPage.swift */; };
 		275C096428E1D33A00B4815F /* BackgroundLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C096328E1D33A00B4815F /* BackgroundLink.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
@@ -62,9 +63,6 @@
 		2778D62B2891D22D009F4DB1 /* FloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6132891D22D009F4DB1 /* FloorView.swift */; };
 		2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6142891D22D009F4DB1 /* TagView.swift */; };
 		2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6152891D22D009F4DB1 /* HoleView.swift */; };
-		2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6182891D22D009F4DB1 /* _FlexibleView.swift */; };
-		2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6192891D22D009F4DB1 /* FlexibleView.swift */; };
-		2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D61A2891D22D009F4DB1 /* SizeReader.swift */; };
 		277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E432128C7810700EBAC23 /* ReferenceView.swift */; };
 		278E406A28BA963A008D6514 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* RankView.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
@@ -208,9 +206,6 @@
 		2778D6132891D22D009F4DB1 /* FloorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorView.swift; sourceTree = "<group>"; };
 		2778D6142891D22D009F4DB1 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		2778D6152891D22D009F4DB1 /* HoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoleView.swift; sourceTree = "<group>"; };
-		2778D6182891D22D009F4DB1 /* _FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
-		2778D6192891D22D009F4DB1 /* FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
-		2778D61A2891D22D009F4DB1 /* SizeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeReader.swift; sourceTree = "<group>"; };
 		277E432128C7810700EBAC23 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -289,6 +284,7 @@
 				273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
+				27550429293539AC00D28AA9 /* WrappingHStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +420,6 @@
 				274215D128EE1C4700A2A20B /* DecodeDate.swift */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
-				2778D6172891D22D009F4DB1 /* Flexible */,
 				2751E52E28BFB3F800104ACD /* Rich Text */,
 				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
@@ -432,16 +427,6 @@
 				27ACA029292E9CB1002A2B40 /* NetworkError.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		2778D6172891D22D009F4DB1 /* Flexible */ = {
-			isa = PBXGroup;
-			children = (
-				2778D6182891D22D009F4DB1 /* _FlexibleView.swift */,
-				2778D6192891D22D009F4DB1 /* FlexibleView.swift */,
-				2778D61A2891D22D009F4DB1 /* SizeReader.swift */,
-			);
-			path = Flexible;
 			sourceTree = "<group>";
 		};
 		2778D6342891D316009F4DB1 /* Resources */ = {
@@ -670,6 +655,7 @@
 				27BBBD01291193A9007C2905 /* SwiftSoup */,
 				27BBBD04291193D2007C2905 /* CachedAsyncImage */,
 				273D65B8292E07FF0064DCB1 /* Introspect */,
+				27550428293539AC00D28AA9 /* WrappingHStack */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -704,6 +690,7 @@
 				27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -758,7 +745,6 @@
 				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* ReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* DeleteForm.swift in Sources */,
-				2778D62E2891D22D009F4DB1 /* _FlexibleView.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* FavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* UserEntity.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* BrowseViewModel.swift in Sources */,
@@ -767,7 +753,6 @@
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
-				2778D62F2891D22D009F4DB1 /* FlexibleView.swift in Sources */,
 				2706605929312D8300F4C321 /* FudanAuthDelegate.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				27B19FC528F59C2C0001587F /* QRCodePage.swift in Sources */,
@@ -843,7 +828,6 @@
 				2706605B29312E4800F4C321 /* UserAgent.swift in Sources */,
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
 				273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */,
-				2778D6302891D22D009F4DB1 /* SizeReader.swift in Sources */,
 				2706602E292F51BC00F4C321 /* AcknowledgementsPage.swift in Sources */,
 				27BBBD292912C33D007C2905 /* SecStore.swift in Sources */,
 			);
@@ -1089,6 +1073,14 @@
 				kind = branch;
 			};
 		};
+		27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-markdown";
@@ -1120,6 +1112,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		27550428293539AC00D28AA9 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 		27BBBCFE29119368007C2905 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;

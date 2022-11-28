@@ -307,7 +307,7 @@ struct FloorView: View {
     @ViewBuilder
     private var menuAdminFunctions: some View {
         Button {
-            // TODO: modify this floor
+            showEditPage = true
         } label: {
             Label("Modify Floor", systemImage: "pencil")
         }

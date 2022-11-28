@@ -44,6 +44,15 @@
         "branch" : "master",
         "revision" : "d3cbf32788250741d397cfb5bcd532c37aa1096d"
       }
+    },
+    {
+      "identity" : "wrappinghstack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dkk/WrappingHStack",
+      "state" : {
+        "branch" : "main",
+        "revision" : "dbd65bd3442ffa14459470778b70c4604eac2c02"
+      }
     }
   ],
   "version" : 2

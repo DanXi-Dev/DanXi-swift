@@ -1,35 +1,23 @@
 import SwiftUI
+import WrappingHStack
 
 /// View that present a list of tags.
 struct TagList: View {
     let tags: [THTag]
-    let lineWrap: Bool
     let navigation: Bool
     
     /// Create a Tag List.
     /// - Parameters:
     ///   - tags: tags to display.
-    ///   - lineWrap: whether to start a new line when horizontal space is insufficient.
     ///   - navigation: whether this view will respond to user tap action and perform navigation.
-    init(_ tags: [THTag], lineWrap: Bool = false, navigation: Bool = false) {
+    init(_ tags: [THTag], navigation: Bool = false) {
         self.tags = tags
-        self.lineWrap = lineWrap
         self.navigation = navigation
     }
     
     var body: some View {
-        if lineWrap {
-            FlexibleView(data: tags, spacing: 5.0, alignment: .leading) { tag in
-                tagItem(tag)
-            }
-        } else {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .center, spacing: 5.0) {
-                    ForEach(tags) { tag in
-                        tagItem(tag)
-                    }
-                }
-            }
+        WrappingHStack(tags, lineSpacing: 5.0) { tag in
+            tagItem(tag)
         }
     }
     
@@ -81,7 +69,7 @@ extension View {
 struct TagList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TagList(PreviewDecode.decodeList(name: "tags"), lineWrap: true)
+            TagList(PreviewDecode.decodeList(name: "tags"))
                 .previewLayout(.sizeThatFits)
         }
     }

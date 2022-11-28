@@ -30,7 +30,7 @@ struct HoleDetailPage: View {
                 LazyVStack(alignment: .leading) {
                     // MARK: Header (tags)
                     if let hole = viewModel.hole {
-                        TagList(hole.tags, lineWrap: true, navigation: true)
+                        TagList(hole.tags, navigation: true)
                     }
                     
                     // MARK: Body (floor list)
