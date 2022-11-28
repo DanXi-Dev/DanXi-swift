@@ -5,14 +5,16 @@ struct HoleDetailPage: View {
     @State var showReplyPage = false
     @State var showManagementPage = false
     @State var showHideAlert = false
+    var contextPreviewMode = false
     
-    init(hole: THHole, floorId: Int? = nil, floors: [THFloor] = []) {
+    init(hole: THHole, floorId: Int? = nil, floors: [THFloor] = [], contextPreviewMode: Bool = false) {
         let viewModel = HoleDetailViewModel(hole: hole, floorId: floorId)
         if !floors.isEmpty { // preview purpose
             viewModel.floors = floors
             viewModel.endReached = true
         }
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.contextPreviewMode = contextPreviewMode
     }
     
     init(holeId: Int, floorId: Int? = nil) {
@@ -29,8 +31,10 @@ struct HoleDetailPage: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     // MARK: Header (tags)
-                    if let hole = viewModel.hole {
-                        TagList(hole.tags, navigation: true)
+                    if !contextPreviewMode {
+                        if let hole = viewModel.hole {
+                            TagList(hole.tags, navigation: true)
+                        }
                     }
                     
                     // MARK: Body (floor list)
