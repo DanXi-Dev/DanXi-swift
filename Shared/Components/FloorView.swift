@@ -287,6 +287,12 @@ struct FloorView: View {
             Label("Select Text", systemImage: "selection.pin.in.out")
         }
         
+        Button {
+            holeViewModel.filterOption = .user(name: floor.posterName)
+        } label: {
+            Label("Show This Person", systemImage: "message")
+        }
+        
         if floor.isMe {
             Divider()
             

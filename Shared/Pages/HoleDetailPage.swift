@@ -76,7 +76,6 @@ struct HoleDetailPage: View {
             // access scroll view proxy from outside, i.e., toolbar
             .onChange(of: viewModel.scrollTarget, perform: { target in
                 withAnimation {
-                    // FIXME: SwiftUI bug in iOS 16, ref: https://developer.apple.com/forums/thread/712510
                     proxy.scrollTo(target)
                 }
                 viewModel.scrollTarget = -1 // reset scroll target, in case that the same target may be scrolled again
