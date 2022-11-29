@@ -74,7 +74,13 @@ struct HoleView: View {
     }
     
     private var tags: some View {
-        TagList(hole.tags, navigation: false)
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(hole.tags) { tag in
+                    TagView(tag: tag)
+                }
+            }
+        }
     }
     
     private var info: some View {

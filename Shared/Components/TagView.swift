@@ -38,6 +38,16 @@ struct TagList: View {
     }
 }
 
+struct TagView: View {
+    let tag: THTag
+    
+    var body: some View {
+        Text(tag.name)
+            .textCase(nil)
+            .tagStyle(color: randomColor(tag.name))
+    }
+}
+
 /// Apply special tag style for a piece of text.
 struct TagStyle: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
