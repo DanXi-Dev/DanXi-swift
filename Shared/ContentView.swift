@@ -3,40 +3,50 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var authDelegate = AuthDelegate.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @State var navigationTarget: NavigationTarget?
+    
+    enum NavigationTarget {
+        case code, treehole, curriculum, settings, about
+    }
+    
     
     var body: some View {
         NavigationSplitView {
             contentList
         } detail: {
-            Text("Not Selected")
+            if let navigationTarget = navigationTarget {
+                switch navigationTarget {
+                case .code:
+                    QRCodePage()
+                case .treehole:
+                    TreeholePage()
+                case .curriculum:
+                    CourseMainPage()
+                case .about:
+                    AboutPage()
+                case .settings:
+                    SettingsPage()
+                }
+            } else {
+                Text("Not Selected")
+            }
         }
     }
-    
+
     private var contentList: some View {
-        List {
+        List(selection: $navigationTarget) {
             Section("Campus Services") {
-                NavigationLink {
-                    QRCodePage()
-                } label: {
-                    Label("Fudan QR Code", systemImage: "qrcode")
-                }
+                Label("Fudan QR Code", systemImage: "qrcode")
+                    .tag(NavigationTarget.code)
             }
             
             Section("DanXi Services") {
                 if authDelegate.isLogged {
-                    NavigationLink {
-                        TreeholePage()
-                    } label: {
-                        Label("Tree Hole", systemImage: "text.bubble")
-                    }
-                    
-                    NavigationLink {
-                        NavigationStack {
-                            CourseMainPage()
-                        }
-                    } label: {
-                        Label("Curriculum", systemImage: "books.vertical")
-                    }
+                    Label("Tree Hole", systemImage: "text.bubble")
+                        .tag(NavigationTarget.treehole)
+
+                    Label("Curriculum", systemImage: "books.vertical")
+                        .tag(NavigationTarget.curriculum)
                     
                     LinkView(url: "https://canvas.fduhole.com", text: "Canvas", icon: "paintbrush.pointed")
                     
@@ -49,17 +59,11 @@ struct ContentView: View {
             }
             
             Section {
-                NavigationLink {
-                    SettingsPage()
-                } label: {
-                    Label("Settings", systemImage: "gearshape")
-                }
+                Label("Settings", systemImage: "gearshape")
+                    .tag(NavigationTarget.settings)
                 
-                NavigationLink {
-                    AboutPage()
-                } label: {
-                    Label("About", systemImage: "info.circle")
-                }
+                Label("About", systemImage: "info.circle")
+                    .tag(NavigationTarget.about)
             }
         }
         .listStyle(.insetGrouped)
