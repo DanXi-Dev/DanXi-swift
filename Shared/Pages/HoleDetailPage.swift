@@ -1,4 +1,5 @@
 import SwiftUI
+import WrappingHStack
 
 struct HoleDetailPage: View {
     @StateObject var viewModel: HoleDetailViewModel
@@ -33,7 +34,12 @@ struct HoleDetailPage: View {
                     // MARK: Header (tags)
                     if !contextPreviewMode {
                         if let hole = viewModel.hole {
-                            TagList(hole.tags, navigation: true)
+                            WrappingHStack(hole.tags, lineSpacing: 5.0) { tag in
+                                TagView(tag: tag)
+                                    .onTapGesture {
+                                        TreeholeStore.shared.path.append(tag)
+                                    }
+                            }
                         }
                     }
                     

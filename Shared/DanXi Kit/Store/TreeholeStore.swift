@@ -41,15 +41,24 @@ class TreeholeStore: ObservableObject {
     }
     
     func toggleFavorites(_ holeId: Int, add: Bool) async throws {
-        self.favorites = try await TreeholeRequests.toggleFavorites(holeId: holeId, add: add)
+        favorites = try await TreeholeRequests.toggleFavorites(holeId: holeId, add: add)
+        Task { @MainActor in
+            self.favorites = favorites
+        }
     }
     
     func modifyFavorites(_ holeIds: [Int]) async throws {
-        self.favorites = try await TreeholeRequests.modifyFavorites(holeIds: holeIds)
+        favorites = try await TreeholeRequests.modifyFavorites(holeIds: holeIds)
+        Task { @MainActor in
+            self.favorites = favorites
+        }
     }
     
     func reloadFavorites() async throws {
-        self.favorites = try await TreeholeRequests.loadFavoritesIds()
+        favorites = try await TreeholeRequests.loadFavoritesIds()
+        Task { @MainActor in
+            self.favorites = favorites
+        }
     }
     
     // MARK: Tags Cache Control
