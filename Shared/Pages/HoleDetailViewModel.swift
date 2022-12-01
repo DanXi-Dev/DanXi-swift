@@ -24,6 +24,8 @@ class HoleDetailViewModel: ObservableObject {
             return floors.filter { floor in
                 floor.posterName == name
             }
+        case .conversation(let starting):
+            return traceConversation(starting)
         }
     }
     
@@ -48,6 +50,7 @@ class HoleDetailViewModel: ObservableObject {
         case all
         case posterOnly
         case user(name: String)
+        case conversation(starting: Int)
     }
     
     /// Initialize with hole info.
@@ -190,5 +193,21 @@ class HoleDetailViewModel: ObservableObject {
         let ids = self.floors.map(\.id)
         let filteredFloors = floors.filter { !ids.contains($0.id) }
         self.floors.append(contentsOf: filteredFloors)
+    }
+    
+    private func traceConversation(_ startId: Int) -> [THFloor] {
+        var id: Int? = startId
+        var conversation: [THFloor] = []
+        
+        while let floorId = id {
+            if let floor = floors.first(where: { $0.id == floorId }) {
+                conversation.append(floor)
+                id = floor.firstMention()
+            } else { // no matching floor is found, end searching
+                break
+            }
+        }
+        
+        return conversation.reversed()
     }
 }

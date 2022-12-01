@@ -63,8 +63,28 @@ struct THFloor: Hashable, Codable, Identifiable {
     let deleted: Bool
     let storey: Int
     // TODO: fold: [?]
-    let content, posterName, spetialTag: String
+    var content: String
+    let posterName, spetialTag: String
     let mention: [THMention]
+    
+    func firstMention() -> Int? {
+        let pattern = #/
+            \#\#
+            (?<id> \d+)
+        /#
+        if let result = content.firstMatch(of: pattern) {
+            return Int(result.id)
+        }
+        return nil
+    }
+    
+    func removeFirstMention() -> String {
+        let pattern =  #/
+            \#\#
+            (?<id> \d+)
+        /#
+        return content.replacing(pattern, with: "", maxReplacements: 1)
+    }
 }
 
 extension THFloor {

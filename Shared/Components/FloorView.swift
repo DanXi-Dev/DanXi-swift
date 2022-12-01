@@ -39,6 +39,7 @@ struct FloorView: View {
     init(floor: THFloor,
          isPoster: Bool,
          model: HoleDetailViewModel,
+         hideReplyTo: Bool = false,
          proxy: ScrollViewProxy) {
         self._floor = State(initialValue: floor)
         self.isPoster = isPoster
@@ -156,11 +157,11 @@ struct FloorView: View {
         .foregroundColor(randomColor(floor.posterName))
         .padding(.leading, 10)
         .overlay(
-         Rectangle()
-         .frame(width: 3, height: nil, alignment: .leading)
-         .foregroundColor(randomColor(floor.posterName))
-         .padding(.vertical, 1), alignment: .leading)
-         
+            Rectangle()
+                .frame(width: 3, height: nil, alignment: .leading)
+                .foregroundColor(randomColor(floor.posterName))
+                .padding(.vertical, 1), alignment: .leading)
+        
     }
     
     @ViewBuilder
@@ -171,21 +172,29 @@ struct FloorView: View {
                 .font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
         } else {
-            if holeViewModel.floors.isEmpty, let hole = holeViewModel.hole {
-                ReferenceView(floor.content,
-                              proxy: proxy,
-                              mentions: floor.mention,
-                              floors: hole.floors)
-                .foregroundColor(.primary)
-                .multilineTextAlignment(.leading)
-            } else {
-                ReferenceView(floor.content,
-                              proxy: proxy,
-                              mentions: floor.mention,
-                              floors: holeViewModel.floors)
-                .foregroundColor(.primary)
-                .multilineTextAlignment(.leading)
-            }
+            ReferenceView(bodyContent,
+                          proxy: proxy,
+                          mentions: floor.mention,
+                          floors: mentionSearchContext)
+            .foregroundColor(.primary)
+            .multilineTextAlignment(.leading)
+        }
+    }
+    
+    private var bodyContent: String {
+        switch holeViewModel.filterOption {
+        case .conversation(_):
+            return floor.removeFirstMention()
+        default:
+            return floor.content
+        }
+    }
+    
+    private var mentionSearchContext: [THFloor] {
+        if holeViewModel.floors.isEmpty, let hole = holeViewModel.hole {
+            return hole.floors
+        } else {
+            return holeViewModel.floors
         }
     }
     
@@ -267,10 +276,10 @@ struct FloorView: View {
     
     private var menuLabel: some View {
         Image(systemName: "ellipsis.circle.fill")
-          .symbolRenderingMode(.hierarchical)
-          .imageScale(.large)
-          .font(.body)
-          .foregroundColor(.secondary)
+            .symbolRenderingMode(.hierarchical)
+            .imageScale(.large)
+            .font(.body)
+            .foregroundColor(.secondary)
     }
     
     @ViewBuilder
@@ -291,6 +300,12 @@ struct FloorView: View {
             holeViewModel.filterOption = .user(name: floor.posterName)
         } label: {
             Label("Show This Person", systemImage: "message")
+        }
+        
+        Button {
+            holeViewModel.filterOption = .conversation(starting: floor.id)
+        } label: {
+            Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
         }
         
         if floor.isMe {
