@@ -8,14 +8,15 @@ struct HoleDetailPage: View {
     @State var showHideAlert = false
     var contextPreviewMode = false
     
-    init(hole: THHole, floorId: Int? = nil, floors: [THFloor] = [], contextPreviewMode: Bool = false) {
+    @Environment(\.previewMode) var previewMode
+    
+    init(hole: THHole, floorId: Int? = nil, floors: [THFloor] = []) {
         let viewModel = HoleDetailViewModel(hole: hole, floorId: floorId)
         if !floors.isEmpty { // preview purpose
             viewModel.floors = floors
             viewModel.endReached = true
         }
         self._viewModel = StateObject(wrappedValue: viewModel)
-        self.contextPreviewMode = contextPreviewMode
     }
     
     init(holeId: Int, floorId: Int? = nil) {
@@ -48,7 +49,7 @@ struct HoleDetailPage: View {
                     }
                 } header: {
                     // MARK: Header (tags)
-                    if !contextPreviewMode {
+                    if !previewMode {
                         if let hole = viewModel.hole {
                             // FIXME: use WrappingHStack and prevent navigation issue (WrappingHStack content is outside view hierarchy)
                             ScrollView(.horizontal) {

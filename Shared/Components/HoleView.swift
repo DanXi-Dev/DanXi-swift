@@ -23,7 +23,7 @@ struct HoleView: View {
                     }
                 }
                 #if os(iOS)
-                .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors, contextPreviewMode: true))
+                .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors).previewMode())
                 #endif
             } label: {
                 tags
@@ -36,7 +36,7 @@ struct HoleView: View {
                 }
             }
             #if os(iOS)
-            .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors, contextPreviewMode: true))
+            .previewContextMenu(preview: HoleDetailPage(hole: hole, floors: hole.floors).previewMode())
             #endif
         }
     }
