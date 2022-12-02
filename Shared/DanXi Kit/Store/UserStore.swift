@@ -15,18 +15,14 @@ class UserStore: ObservableObject {
     }
     
     init() {
-        do {
-            user = try loadData(filename: "dx-user.data")
-        } catch {
-            user = nil
-        }
+        user = FileStore.caches.loadIfExsits("dx-user.data")
     }
     
     func updateUser() async throws {
         if updated { return }
         
         let user = try await AuthReqest.loadUserInfo()
-        try saveData(user, filename: "dx-user.data")
+        try FileStore.caches.saveEncoded(user, filename: "dx-user.data")
         updated = true
         
         Task { @MainActor in
@@ -37,7 +33,7 @@ class UserStore: ObservableObject {
     func clear() {
         do {
             self.user = nil
-            try removeData(filename: "dx-user.data")
+            try FileStore.caches.remove("dx-user.data")
         } catch { }
     }
 }

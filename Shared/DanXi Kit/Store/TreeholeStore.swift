@@ -82,13 +82,13 @@ class TreeholeStore: ObservableObject {
     
     private func loadTagsCache() throws {
         Task { @MainActor in
-            self.tags = try loadData(filename: "th-tags.data")
+            self.tags = try FileStore.caches.loadDecoded("th-tags.data")
         }
     }
     
     private func updateTagsCache() async throws {
         let tags = try await TreeholeRequests.loadTags()
-        try saveData(tags, filename: "th-tags.data")
+        try FileStore.caches.saveEncoded(tags, filename: "th-tags.data")
         defaults.setValue(try JSONEncoder().encode(Date()), forKey: "th-tags-last-fetch")
         
         Task { @MainActor in
@@ -100,7 +100,7 @@ class TreeholeStore: ObservableObject {
         self.tags = []
         defaults.removeObject(forKey: "th-tags-last-fetch")
         do {
-            try removeData(filename: "th-tags.data")
+            try FileStore.caches.remove("th-tags.data")
         } catch { }
     }
     

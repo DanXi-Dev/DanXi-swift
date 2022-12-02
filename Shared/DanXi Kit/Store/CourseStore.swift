@@ -10,13 +10,13 @@ class CourseStore: ObservableObject {
     
     private func loadCourseCache() throws {
         Task { @MainActor in
-            self.courses = try loadData(filename: "dk-course-list.data")
+            self.courses = try FileStore.caches.loadDecoded("dk-course-list.data")
         }
     }
     
     private func updateCourseCache(_ newHash: String) async throws {
         let courses = try await CourseRequest.loadCourseGroups()
-        try saveData(self.courses, filename: "dk-course-list.data")
+        try FileStore.caches.saveEncoded(self.courses, filename: "dk-course-list.data")
         defaults.setValue(newHash, forKey: "dk-course-hash")
         
         Task { @MainActor in
@@ -52,7 +52,7 @@ class CourseStore: ObservableObject {
         defaults.removeObject(forKey: "dk-course-hash")
         self.initialized = false
         do {
-            try removeData(filename: "dk-course-list.data")
+            try FileStore.caches.remove("dk-course-list.data")
         } catch { }
     }
 }
