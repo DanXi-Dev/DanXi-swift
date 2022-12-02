@@ -47,10 +47,10 @@ struct CourseReview: View {
 }
 
 struct CourseReview_Previews: PreviewProvider {
-    static let courseGroup: DKCourseGroup = PreviewDecode.decodeObj(name: "course")!
+    static let courseGroup: DKCourseGroup = Bundle.main.decodeData("course")
     
     static var previews: some View {
-        CourseReview(review: PreviewDecode.decodeObj(name: "review")!, course: courseGroup.courses.first!)
+        CourseReview(review: Bundle.main.decodeData("review"), course: courseGroup.courses.first!)
             .padding()
             .previewLayout(.sizeThatFits)
     }

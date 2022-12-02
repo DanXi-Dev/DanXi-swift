@@ -23,7 +23,7 @@ struct CourseView: View {
 
 struct CourseView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseView(courseGroup: PreviewDecode.decodeObj(name: "course")!)
+        CourseView(courseGroup: Bundle.main.decodeData("course"))
             .previewLayout(.sizeThatFits)
             .padding()
     }

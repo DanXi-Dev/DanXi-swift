@@ -200,7 +200,7 @@ struct RemoteMentionView: View {
 struct MentionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MentionView(floor: PreviewDecode.decodeObj(name: "floor")!)
+            MentionView(floor: Bundle.main.decodeData("floor"))
             RemoteMentionView(floorId: 100000)
         }
         .padding()

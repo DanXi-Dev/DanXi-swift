@@ -69,7 +69,7 @@ struct FavoritesPage: View {
 struct FavoritesPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            FavoritesPage(favorites: PreviewDecode.decodeList(name: "hole-list"))
+            FavoritesPage(favorites: Bundle.main.decodeData("hole-list"))
         }
     }
 }

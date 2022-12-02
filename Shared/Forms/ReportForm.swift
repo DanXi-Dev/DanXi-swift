@@ -32,6 +32,6 @@ struct ReportForm: View {
 
 struct ReportForm_Previews: PreviewProvider {
     static var previews: some View {
-        ReportForm(floor: PreviewDecode.decodeObj(name: "long-floor")!)
+        ReportForm(floor: Bundle.main.decodeData("long-floor"))
     }
 }

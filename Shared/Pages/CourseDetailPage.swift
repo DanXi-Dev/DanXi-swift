@@ -245,8 +245,8 @@ struct CourseDetailPage: View {
 
 struct CourseDetailPage_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            CourseDetailPage(courseGroup: PreviewDecode.decodeObj(name: "course")!, initialized: true)
+        NavigationStack {
+            CourseDetailPage(courseGroup: Bundle.main.decodeData("course")!, initialized: true)
         }
     }
 }

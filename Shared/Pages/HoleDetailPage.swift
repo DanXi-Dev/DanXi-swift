@@ -184,8 +184,9 @@ struct HoleDetailPage: View {
 
 struct PostPage_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            HoleDetailPage(hole: PreviewDecode.decodeObj(name: "hole")!, floors: PreviewDecode.decodeList(name: "floor-list"))
+        NavigationStack {
+            HoleDetailPage(hole: Bundle.main.decodeData("hole"),
+                           floors: Bundle.main.decodeData("floor-list"))
         }
     }
 }

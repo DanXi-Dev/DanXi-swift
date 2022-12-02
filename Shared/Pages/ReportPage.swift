@@ -156,7 +156,7 @@ struct ReportCell: View {
 struct ReportPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ReportPage(reportList: PreviewDecode.decodeList(name: "report-list"))
+            ReportPage(reportList: Bundle.main.decodeData("report-list"))
         }
     }
 }

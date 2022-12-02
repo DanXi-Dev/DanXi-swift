@@ -16,9 +16,8 @@ struct TreeholePage: View {
     }
     
     /// Creates a preview.
-    init(divisions: [THDivision], holes: [THHole]) {
+    init(holes: [THHole]) {
         self.holes = holes
-        TreeholeStore.shared.divisions = divisions
     }
     
     
@@ -89,7 +88,10 @@ struct DelegatePage: View {
 
 struct TreeholePage_Previews: PreviewProvider {
     static var previews: some View {
-        TreeholePage(divisions: PreviewDecode.decodeList(name: "divisions"),
-                     holes: PreviewDecode.decodeList(name: "hole-list"))
+        AuthDelegate.shared.isLogged = true
+        TreeholeStore.shared.initialized = true
+        TreeholeStore.shared.divisions = Bundle.main.decodeData("divisions")
+        
+        return TreeholePage(holes: Bundle.main.decodeData("hole-list"))
     }
 }

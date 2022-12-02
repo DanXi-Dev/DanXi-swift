@@ -79,7 +79,7 @@ extension View {
 struct TagList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TagList(PreviewDecode.decodeList(name: "tags"))
+            TagList(Bundle.main.decodeData("tags"))
                 .previewLayout(.sizeThatFits)
         }
     }

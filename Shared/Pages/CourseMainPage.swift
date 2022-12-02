@@ -49,7 +49,7 @@ struct CourseMainPage: View {
 struct CourseMainPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CourseMainPage(courses: PreviewDecode.decodeList(name: "course-list"))
+            CourseMainPage(courses: Bundle.main.decodeData("course-list"))
         }
     }
 }

@@ -41,6 +41,6 @@ struct EditReplyForm: View {
 
 struct EditReplyForm_Previews: PreviewProvider {
     static var previews: some View {
-        EditReplyForm(floor: .constant(PreviewDecode.decodeObj(name: "floor")!))
+        EditReplyForm(floor: .constant(Bundle.main.decodeData("floor")))
     }
 }

@@ -51,6 +51,6 @@ struct DeleteForm: View {
 
 struct DeleteForm_Previews: PreviewProvider {
     static var previews: some View {
-        DeleteForm(floor: .constant(PreviewDecode.decodeObj(name: "long-floor")!))
+        DeleteForm(floor: .constant(Bundle.main.decodeData("long-floor")))
     }
 }

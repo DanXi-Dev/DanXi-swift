@@ -55,11 +55,11 @@ struct ReviewPage: View {
 }
 
 struct ReviewPage_Previews: PreviewProvider {
-    static let courseGroup: DKCourseGroup = PreviewDecode.decodeObj(name: "course")!
+    static let courseGroup: DKCourseGroup = Bundle.main.decodeData("course")
     
     static var previews: some View {
         NavigationView {
-            ReviewPage(course: courseGroup.courses.first!, review: PreviewDecode.decodeObj(name: "review")!)
+            ReviewPage(course: courseGroup.courses.first!, review: Bundle.main.decodeData("review")!)
         }
     }
 }

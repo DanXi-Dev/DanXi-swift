@@ -141,7 +141,7 @@ struct HoleView: View {
 
 struct HoleView_Previews: PreviewProvider {
     static var previews: some View {
-        HoleView(hole: PreviewDecode.decodeObj(name: "hole")!)
+        HoleView(hole: Bundle.main.decodeData("hole")!)
             .padding()
             .previewLayout(.sizeThatFits)
     }
