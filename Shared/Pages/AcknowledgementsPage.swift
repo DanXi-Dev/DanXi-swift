@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct AcknowledgementsPage: View {
-    let licenses: [License] = Bundle.main.jsonData(name: "license")
-    let contributors: [Contributor] = Bundle.main.jsonData(name: "contributor")
+    let licenses: [License] = Bundle.main.decodeData("license")
+    let contributors: [Contributor] = Bundle.main.decodeData("contributor")
 
     var body: some View {
         List {

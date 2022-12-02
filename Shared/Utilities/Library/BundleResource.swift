@@ -37,7 +37,7 @@ extension Bundle {
         return infoDictionary?["CFBundleVersion"] as? String
     }
     
-    func jsonData<T: Decodable>(name: String) -> T {
+    func decodeData<T: Decodable>(_ name: String) -> T {
         let path = path(forResource: name, ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         return try! JSONDecoder().decode(T.self, from: data)
