@@ -29,24 +29,10 @@ struct HoleDetailPage: View {
     
     var body: some View {
         ScrollViewReader { proxy in
-            ScrollView {
-                LazyVStack(alignment: .leading) {
-                    // MARK: Header (tags)
-                    if !contextPreviewMode {
-                        if let hole = viewModel.hole {
-                            WrappingHStack(hole.tags, lineSpacing: 5.0) { tag in
-                                TagView(tag: tag)
-                                    .onTapGesture {
-                                        TreeholeStore.shared.path.append(tag)
-                                    }
-                            }
-                        }
-                    }
-                    
+            List {
+                Section {
                     // MARK: Body (floor list)
                     if let hole = viewModel.hole {
-                        Divider()
-                        
                         ForEach(viewModel.filteredFloors) { floor in
                             FloorView(floor: floor,
                                       isPoster: floor.posterName == hole.firstFloor.posterName,
@@ -58,11 +44,26 @@ struct HoleDetailPage: View {
                                 }
                             }
                             .id(floor.id)
-                            
-                            Divider()
                         }
                     }
-                    
+                } header: {
+                    // MARK: Header (tags)
+                    if !contextPreviewMode {
+                        if let hole = viewModel.hole {
+                            // FIXME: use WrappingHStack and prevent navigation issue (WrappingHStack content is outside view hierarchy)
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(hole.tags) { tag in
+                                        NavigationLink(value: tag) {
+                                            TagView(tag: tag)
+                                        }
+                                    }
+                                }
+                            }
+                            .listRowSeparator(.hidden)
+                        }
+                    }
+                } footer: {
                     // MARK: Footer
                     if !viewModel.endReached {
                         LoadingFooter(loading: $viewModel.listLoading,
@@ -70,8 +71,8 @@ struct HoleDetailPage: View {
                                       action: viewModel.loadMoreFloors)
                     }
                 }
-                .padding(.horizontal)
             }
+            .listStyle(.inset)
             .navigationTitle(viewModel.hole == nil ? "Loading" : "#\(String(viewModel.hole!.id))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

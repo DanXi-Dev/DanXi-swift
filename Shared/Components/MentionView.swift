@@ -89,7 +89,7 @@ struct MentionView: View {
     }
     
     private var remoteMention: some View {
-        NavigationLink(value: floor) {
+        NavigationPlainLink(value: floor) {
             mentionView
         }
         #if os(iOS)

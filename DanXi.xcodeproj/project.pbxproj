@@ -64,6 +64,8 @@
 		2778D62C2891D22D009F4DB1 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6142891D22D009F4DB1 /* TagView.swift */; };
 		2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6152891D22D009F4DB1 /* HoleView.swift */; };
 		277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E432128C7810700EBAC23 /* ReferenceView.swift */; };
+		278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291929394973008C29ED /* EnvironmentSettings.swift */; };
+		278B291C2939D2D9008C29ED /* NavigationPlainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* NavigationPlainLink.swift */; };
 		278E406A28BA963A008D6514 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* RankView.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* CourseDetailPage.swift */; };
@@ -207,6 +209,8 @@
 		2778D6142891D22D009F4DB1 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		2778D6152891D22D009F4DB1 /* HoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoleView.swift; sourceTree = "<group>"; };
 		277E432128C7810700EBAC23 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
+		278B291929394973008C29ED /* EnvironmentSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSettings.swift; sourceTree = "<group>"; };
+		278B291B2939D2D9008C29ED /* NavigationPlainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPlainLink.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* CourseDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailPage.swift; sourceTree = "<group>"; };
@@ -417,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				27D3251428E3435500A0CFE3 /* Cache.swift */,
+				278B291929394973008C29ED /* EnvironmentSettings.swift */,
 				274215D128EE1C4700A2A20B /* DecodeDate.swift */,
 				27719A9E28A3C52E00C661BD /* Regex.swift */,
 				27227FD428A512B300B3C99D /* ArrayRawRepresentable.swift */,
@@ -425,6 +430,7 @@
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27ACA029292E9CB1002A2B40 /* NetworkError.swift */,
+				278B291B2939D2D9008C29ED /* NavigationPlainLink.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -753,6 +759,7 @@
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
+				278B291C2939D2D9008C29ED /* NavigationPlainLink.swift in Sources */,
 				2706605929312D8300F4C321 /* FudanAuthDelegate.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				27B19FC528F59C2C0001587F /* QRCodePage.swift in Sources */,
@@ -764,6 +771,7 @@
 				27BBBD282912C33D007C2905 /* TreeholeStore.swift in Sources */,
 				274215D228EE1C4700A2A20B /* DecodeDate.swift in Sources */,
 				27BBBD222912C33D007C2905 /* CourseRequest.swift in Sources */,
+				278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */,
 				277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* HoleDetailPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* EditReplyForm.swift in Sources */,

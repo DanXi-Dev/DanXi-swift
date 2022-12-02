@@ -4,7 +4,7 @@ import SwiftUI
 /// Main page section, displaying hole contents and division switch bar
 struct BrowsePage: View {
     @ObservedObject var preference = Preference.shared
-    
+    @Environment(\.navigation) var router
     @EnvironmentObject var viewModel: BrowseViewModel
     
     @State var showDatePicker = false
@@ -13,38 +13,24 @@ struct BrowsePage: View {
     @State var showFavoritesPage = false
     @State var showReportPage = false
     
-    var body: some View {        
-        ScrollView {
-            LazyVStack(alignment: .leading) {
-                switchBar
-                
-                // MARK: Pinned Section
-                if !viewModel.currentDivision.pinned.isEmpty {
-                    Label("Pinned", systemImage: "pin.fill")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.top)
-                }
-                Divider()
-                ForEach(viewModel.currentDivision.pinned) { hole in
-                    HoleView(hole: hole)
-                    Divider()
-                }
-                
-                // MARK: Main Section
-                HStack {
-                    Label("Main Section", systemImage: "text.bubble.fill")
-                    Spacer()
-                    if let baseDate = viewModel.baseDate {
-                        Text(baseDate.formatted(date: .abbreviated, time: .omitted))
+    var body: some View {
+        List {
+            switchBar
+                .listRowSeparator(.hidden)
+            
+            // MARK: Pinned Section
+            if !viewModel.currentDivision.pinned.isEmpty {
+                Section {
+                    ForEach(viewModel.currentDivision.pinned) { hole in
+                        HoleView(hole: hole)
                     }
+                } header: {
+                    Label("Pinned", systemImage: "pin.fill")
                 }
-                .foregroundColor(.secondary)
-                .font(.caption)
-                .padding(.top)
-                
-                Divider()
-                
+            }
+            
+            // MARK: Main Section
+            Section {
                 ForEach(viewModel.filteredHoles) { hole in
                     HoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
                         .task {
@@ -52,25 +38,32 @@ struct BrowsePage: View {
                                 await viewModel.loadMoreHoles()
                             }
                         }
-                    Divider()
                 }
                 
                 if !viewModel.endReached {
                     LoadingFooter(loading: $viewModel.loading,
                                   errorDescription: viewModel.errorInfo,
                                   action: viewModel.loadMoreHoles)
+                    .listRowSeparator(.hidden)
                 }
-                
+            } header: {
+                HStack {
+                    Label("Main Section", systemImage: "text.bubble.fill")
+                    Spacer()
+                    if let baseDate = viewModel.baseDate {
+                        Text(baseDate.formatted(date: .abbreviated, time: .omitted))
+                    }
+                }
             }
-            .padding(.horizontal)
+        }
+        .listStyle(.inset)
+        .navigationTitle(viewModel.currentDivision.name)
+        .refreshable {
+            await viewModel.refresh()
         }
         .task {
             await viewModel.loadMoreHoles()
         }
-        .refreshable {
-            await viewModel.refresh()
-        }
-        .navigationTitle(viewModel.currentDivision.name)
         .sheet(isPresented: $showDatePicker) {
             datePicker
         }
@@ -139,13 +132,13 @@ struct BrowsePage: View {
     private var menu: some View {
         Menu {
             Button {
-                TreeholeStore.shared.path.append(TreeholeStaticPages.favorites)
+                router?.path.append(TreeholeStaticPages.favorites)
             } label: {
                 Label("Favorites", systemImage: "star")
             }
             
             Button {
-                TreeholeStore.shared.path.append(TreeholeStaticPages.tags)
+                router?.path.append(TreeholeStaticPages.tags)
             } label: {
                 Label("Tags", systemImage: "tag")
             }
@@ -168,7 +161,7 @@ struct BrowsePage: View {
                 Divider()
                 
                 Button {
-                    TreeholeStore.shared.path.append(TreeholeStaticPages.reports)
+                    router?.path.append(TreeholeStaticPages.reports)
                 } label: {
                     Label("Reports Management", systemImage: "exclamationmark.triangle")
                 }

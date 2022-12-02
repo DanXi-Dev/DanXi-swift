@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HoleView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     let hole: THHole
     let fold: Bool
     let listStyle: Bool
@@ -17,7 +17,7 @@ struct HoleView: View {
     var body: some View {
         if fold {
             DisclosureGroup {
-                NavigationLink(value: hole) {
+                NavigationPlainLink(value: hole) {
                     VStack(alignment: .leading) {
                         holeContent
                     }
@@ -29,7 +29,7 @@ struct HoleView: View {
                 tags
             }
         } else {
-            NavigationLink(value: hole) {
+            NavigationPlainLink(value: hole) {
                 VStack(alignment: .leading) {
                     tags
                     holeContent

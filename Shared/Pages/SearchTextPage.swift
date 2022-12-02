@@ -22,31 +22,26 @@ struct SearchTextPage: View {
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading) {
+        List {
+            ForEach(floors) { floor in
+                NavigationLink(value: floor) {
+                    FloorView(floor: floor)
+                }
+                .task {
+                    if floor == floors.last {
+                        await loadMoreFloors()
+                    }
+                }
                 Divider()
-                ForEach(floors) { floor in
-                    NavigationLink {
-                        HoleDetailPage(floorId: floor.id)
-                    } label: {
-                        FloorView(floor: floor)
-                    }
-                    .task {
-                        if floor == floors.last {
-                            await loadMoreFloors()
-                        }
-                    }
-                    Divider()
-                }
-                
-                if !endReached {
-                    LoadingFooter(loading: $loading,
-                                  errorDescription: errorInfo,
-                                  action: loadMoreFloors)
-                }
             }
-            .padding(.horizontal)
+            
+            if !endReached {
+                LoadingFooter(loading: $loading,
+                              errorDescription: errorInfo,
+                              action: loadMoreFloors)
+            }
         }
+        .listStyle(.inset)
         .task {
             if floors.isEmpty {
                 await loadMoreFloors()

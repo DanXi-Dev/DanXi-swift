@@ -8,6 +8,7 @@ struct TreeholePage: View {
     
     @State var searchText = ""
     @State var searchSubmitted = false
+    @StateObject var router = NavigationRouter()
     
     /// Default initializer.
     init() {
@@ -22,12 +23,13 @@ struct TreeholePage: View {
     
     
     var body: some View {
-        NavigationStack(path: $store.path) {
+        NavigationStack(path: $router.path) {
             LoadingView(finished: store.initialized) {
                 try await store.loadAll()
                 try await UserStore.shared.updateUser()
             } content: {
                 DelegatePage(holes: holes, $searchText, $searchSubmitted)
+                    .navigation(router)
                     .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
                     .onSubmit(of: .search) {
                         searchSubmitted = true
