@@ -40,13 +40,6 @@ struct FileStore {
     /// - Parameter filename: filename.
     /// - Returns: Decoded object, `nil` if anything fails.
     func loadIfExsits<T: Codable>(_ filename: String) -> T? {
-        #if DEBUG
-        do {
-            print("checking directory")
-            print(try FileManager.default.contentsOfDirectory(at: base, includingPropertiesForKeys: nil))
-        } catch {}
-        #endif
-        
         do {
             if fileExists(filename) {
                 return try loadDecoded(filename)

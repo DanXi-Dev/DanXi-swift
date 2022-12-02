@@ -157,6 +157,7 @@ struct SettingsPage: View {
         }
     }
 
+    // FIXME: navigation split view problem
     private var danxiUserInfo: some View {
         List {
             if let user = userStore.user {

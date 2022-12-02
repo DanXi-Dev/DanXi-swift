@@ -271,6 +271,14 @@
 "Fudan QR Code" = "复旦生活码";
 "Refresh QR Code" = "刷新二维码";
 
+// Fudan Sport Page
+"Extracurricular Activities" = "课外活动考勤";
+"Exercise Logs" = "课外活动考勤记录";
+"PE Exam" = "体质健康测试";
+"PE Exam Logs" = "体质健康测试记录";
+"PE Curriculum" = "体育教学";
+"Total Score" = "总分";
+
 // About
 "Website" = "网站";
 "Version %@" = "版本%@";

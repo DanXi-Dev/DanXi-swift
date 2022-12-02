@@ -6,9 +6,8 @@ struct ContentView: View {
     @State var navigationTarget: NavigationTarget?
     
     enum NavigationTarget {
-        case code, treehole, curriculum, settings, about
+        case code, sport, treehole, curriculum, settings, about
     }
-    
     
     var body: some View {
         NavigationSplitView {
@@ -18,6 +17,8 @@ struct ContentView: View {
                 switch navigationTarget {
                 case .code:
                     QRCodePage()
+                case .sport:
+                    SportPage()
                 case .treehole:
                     TreeholePage()
                 case .curriculum:
@@ -38,6 +39,8 @@ struct ContentView: View {
             Section("Campus Services") {
                 Label("Fudan QR Code", systemImage: "qrcode")
                     .tag(NavigationTarget.code)
+                Label("PE Curriculum", systemImage: "figure.disc.sports")
+                    .tag(NavigationTarget.sport)
             }
             
             Section("DanXi Services") {

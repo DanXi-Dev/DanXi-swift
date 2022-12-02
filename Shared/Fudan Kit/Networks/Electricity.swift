@@ -9,7 +9,6 @@ struct ElectricityRequest {
 }
 
 struct DormInfo: Decodable {
-    
     let campus: String
     let building: String
     let roomNo: String
