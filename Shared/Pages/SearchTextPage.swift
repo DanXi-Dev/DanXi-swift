@@ -26,6 +26,7 @@ struct SearchTextPage: View {
             ForEach(floors) { floor in
                 NavigationPlainLink(value: floor) {
                     FloorView(floor: floor)
+                        .interactable(false)
                 }
                 .task {
                     if floor == floors.last {

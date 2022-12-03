@@ -35,24 +35,28 @@ struct TreeholePage: View {
             }
                         .navigationDestination(for: THHole.self) { hole in
                             HoleDetailPage(hole: hole)
+                                .environmentObject(router)
                         }
                         .navigationDestination(for: THTag.self) { tag in
                             SearchTagPage(tagname: tag.name)
+                                .environmentObject(router)
                         }
                         .navigationDestination(for: THFloor.self) { floor in
                             HoleDetailPage(floorId: floor.id)
+                                .environmentObject(router)
                         }
                         .navigationDestination(for: TreeholeStaticPages.self) { page in
                             switch page {
-                            case .favorites: FavoritesPage()
-                            case .reports: ReportPage()
-                            case .tags: TagsPage()
-                            case .searchText(let keyword): SearchTextPage(keyword: keyword)
-                            case .searchTag(let tag): SearchTagPage(tagname: tag)
+                            case .favorites: FavoritesPage().environmentObject(router)
+                            case .reports: ReportPage().environmentObject(router)
+                            case .tags: TagsPage().environmentObject(router)
+                            case .searchText(let keyword): SearchTextPage(keyword: keyword).environmentObject(router)
+                            case .searchTag(let tag): SearchTagPage(tagname: tag).environmentObject(router)
                             }
                         }
-                        .environmentObject(router)
+                        
         }
+        .environmentObject(router)
     }
 }
 

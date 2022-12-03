@@ -92,6 +92,7 @@ struct HoleDetailPage: View {
                 Text("This will affect all replies of this post")
             }
             .loadingOverlay(loading: viewModel.loadingToBottom, prompt: "Loading")
+            .interactable(true)
         }
     }
     

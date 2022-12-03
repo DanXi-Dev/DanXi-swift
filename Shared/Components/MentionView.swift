@@ -8,7 +8,7 @@ struct MentionView: View {
     
     let mentionType: MentionType
     let proxy: ScrollViewProxy?
-    let interactable: Bool
+    @Environment(\.interactable) var interactable
     
     @Environment(\.colorScheme) var colorScheme
     @OptionalEnvironmentObject var router: NavigationRouter?
@@ -27,7 +27,6 @@ struct MentionView: View {
         self.floor = floor
         self.proxy = proxy
         self.mentionType = .local
-        self.interactable = proxy != nil
     }
     
     
@@ -36,7 +35,7 @@ struct MentionView: View {
     /// - Parameters:
     ///   - mention: Mention struct.
     ///   - interactable: Whether the view is interactable.
-    init(mention: THMention, interactable: Bool = false) {
+    init(mention: THMention) {
         self.floor = THFloor(id: mention.floorId, holeId: mention.holeId,
                              updateTime: mention.updateTime, createTime: mention.createTime,
                              like: 0, liked: false, isMe: false,
@@ -46,7 +45,6 @@ struct MentionView: View {
                              spetialTag: "", mention: [])
         self.proxy = nil
         self.mentionType = .remote
-        self.interactable = interactable
     }
     
     var body: some View {

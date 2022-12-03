@@ -12,8 +12,8 @@ struct ReportForm: View {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
                     ReferenceView(floor.content,
-                                  mentions: floor.mention,
-                                  interactable: false)
+                                  mentions: floor.mention)
+                    .interactable(false)
                 }
                 .frame(maxHeight: 200)
             } header: {

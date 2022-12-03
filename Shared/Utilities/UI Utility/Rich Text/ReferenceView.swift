@@ -8,7 +8,6 @@ import SwiftUI
 struct ReferenceView: View {
     let elements: [ReferenceType]
     let proxy: ScrollViewProxy?
-    let interactable: Bool
     
     
     /// Creates a reference view.
@@ -17,17 +16,14 @@ struct ReferenceView: View {
     ///   - proxy: (Optional) Enable scrolling when user taps on a mention.
     ///   - mentions: Search base of remote mention, correspond to `floor.mentions`.
     ///   - floors: Search base of local mention.
-    ///   - interactable: Whether the mention views are clickable.
     init(_ content: String,
          proxy: ScrollViewProxy? = nil,
          mentions: [THMention] = [],
-         floors: [THFloor] = [],
-         interactable: Bool = true) {
+         floors: [THFloor] = []) {
         self.proxy = proxy
         elements = ReferenceView.parseReferences(content,
                                    mentions: mentions,
                                    floors: floors)
-        self.interactable = interactable
     }
     
     
@@ -43,7 +39,7 @@ struct ReferenceView: View {
                     MentionView(floor: floor, proxy: proxy)
                     
                 case .remoteReference(let mention):
-                    MentionView(mention: mention, interactable: interactable)
+                    MentionView(mention: mention)
                         .foregroundColor(.red)
                     
                 case .reference(let floorId):

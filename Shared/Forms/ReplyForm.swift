@@ -30,7 +30,8 @@ struct ReplyForm: View {
             
             if !content.isEmpty {
                 Section {
-                    ReferenceView(content, floors: floors, interactable: false)
+                    ReferenceView(content, floors: floors)
+                        .interactable(false)
                         .padding(.vertical, 5)
                 } header: {
                     Text("Preview")
