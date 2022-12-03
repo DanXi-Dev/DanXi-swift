@@ -1,14 +1,11 @@
 import SwiftUI
+import SwiftUIX
 
 struct SearchPage: View {
+    @OptionalEnvironmentObject var router: NavigationRouter?
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
     @AppStorage("treehole-search-history") var searchHistory: [String] = []
-    
-    @State var tagNavActive = false
-    @State var textNavActive = false
-    @State var floorNavActive = false
-    @State var holeNavActive = false
     
     private var filteredTags: [THTag] {
         return TreeholeStore.shared.tags.filter { $0.name.contains(searchText) }
@@ -26,11 +23,16 @@ struct SearchPage: View {
         List {
             if !searchText.isEmpty { // search tag
                 Section("Search Text") {
-                    NavigationLink {
-                        SearchTextPage(keyword: searchText)
-                            .onAppear { appendHistory(searchText) }
+                    Button {
+                        router?.path.append(TreeholeStaticPages.searchText(keyword: searchText))
+                        appendHistory(searchText)
                     } label: {
-                        Label(searchText, systemImage: "magnifyingglass")
+                        Label {
+                            Text(searchText)
+                                .foregroundColor(.primary)
+                        } icon: {
+                            Image(systemName: "magnifyingglass")
+                        }
                     }
                 }
             } else if !searchHistory.isEmpty { // search history
@@ -96,9 +98,11 @@ struct SearchPage: View {
                 }
             }
         }
-        // navigate to search page when user click `search` in keyboard
-        .backgroundLink($searchSubmitted) {
-            SearchTextPage(keyword: searchText)
+        .onChange(of: searchSubmitted) { submit in
+            if submit {
+                appendHistory(searchText)
+                router?.path.append(TreeholeStaticPages.searchText(keyword: searchText))
+            }
         }
     }
 }

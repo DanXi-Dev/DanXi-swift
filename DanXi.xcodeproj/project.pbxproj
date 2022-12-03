@@ -68,7 +68,7 @@
 		2778D62D2891D22D009F4DB1 /* HoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6152891D22D009F4DB1 /* HoleView.swift */; };
 		277E432228C7810700EBAC23 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E432128C7810700EBAC23 /* ReferenceView.swift */; };
 		278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291929394973008C29ED /* EnvironmentSettings.swift */; };
-		278B291C2939D2D9008C29ED /* NavigationPlainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* NavigationPlainLink.swift */; };
+		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* RankView.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* CourseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* CourseDetailPage.swift */; };
@@ -117,6 +117,7 @@
 		27E5E82B28BA62140074D295 /* StarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* StarsView.swift */; };
 		27E5E82D28BA69600074D295 /* CourseReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* CourseReview.swift */; };
 		27E5E82F28BA699C0074D295 /* review.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82E28BA699C0074D295 /* review.json */; };
+		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27FA5F47289947DA000391A3 /* SearchTextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F46289947DA000391A3 /* SearchTextPage.swift */; };
 		27FA5F49289955C3000391A3 /* SearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* SearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
@@ -215,7 +216,7 @@
 		2778D6152891D22D009F4DB1 /* HoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoleView.swift; sourceTree = "<group>"; };
 		277E432128C7810700EBAC23 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
 		278B291929394973008C29ED /* EnvironmentSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSettings.swift; sourceTree = "<group>"; };
-		278B291B2939D2D9008C29ED /* NavigationPlainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPlainLink.swift; sourceTree = "<group>"; };
+		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* CourseDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailPage.swift; sourceTree = "<group>"; };
@@ -291,6 +292,7 @@
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
+				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 				27550429293539AC00D28AA9 /* WrappingHStack in Frameworks */,
 			);
@@ -452,7 +454,7 @@
 				278B291929394973008C29ED /* EnvironmentSettings.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
-				278B291B2939D2D9008C29ED /* NavigationPlainLink.swift */,
+				278B291B2939D2D9008C29ED /* Navigation.swift */,
 			);
 			path = "UI Utility";
 			sourceTree = "<group>";
@@ -684,6 +686,7 @@
 				27BBBD04291193D2007C2905 /* CachedAsyncImage */,
 				273D65B8292E07FF0064DCB1 /* Introspect */,
 				27550428293539AC00D28AA9 /* WrappingHStack */,
+				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -719,6 +722,7 @@
 				27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -781,7 +785,7 @@
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				F1CF6B3C28A4C5D100DF1642 /* TagsPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
-				278B291C2939D2D9008C29ED /* NavigationPlainLink.swift in Sources */,
+				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				2706605929312D8300F4C321 /* FudanAuthDelegate.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				27B19FC528F59C2C0001587F /* QRCodePage.swift in Sources */,
@@ -1137,6 +1141,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1164,6 +1176,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
+		};
+		27EDD624293B6DFD0028CCE4 /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

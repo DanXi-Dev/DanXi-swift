@@ -1,10 +1,11 @@
 import SwiftUI
+import SwiftUIX
 
 
 /// Main page section, displaying hole contents and division switch bar
 struct BrowsePage: View {
     @ObservedObject var preference = Preference.shared
-    @Environment(\.navigation) var router
+    @OptionalEnvironmentObject var router: NavigationRouter?
     @EnvironmentObject var viewModel: BrowseViewModel
     
     @State var showDatePicker = false

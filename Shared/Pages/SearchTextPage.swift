@@ -24,7 +24,7 @@ struct SearchTextPage: View {
     var body: some View {
         List {
             ForEach(floors) { floor in
-                NavigationLink(value: floor) {
+                NavigationPlainLink(value: floor) {
                     FloorView(floor: floor)
                 }
                 .task {
@@ -32,7 +32,6 @@ struct SearchTextPage: View {
                         await loadMoreFloors()
                     }
                 }
-                Divider()
             }
             
             if !endReached {

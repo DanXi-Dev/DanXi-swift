@@ -37,26 +37,3 @@ extension View {
         environment(\.interactable, config)
     }
 }
-
-// MARK: - NavigationPath
-
-class NavigationRouter: ObservableObject {
-    @Published var path = NavigationPath()
-}
-
-struct NavigationConfig: EnvironmentKey {
-    static let defaultValue: NavigationRouter? = nil
-}
-
-extension EnvironmentValues {
-    var navigation: NavigationRouter? {
-        get { self[NavigationConfig.self] }
-        set { self[NavigationConfig.self] = newValue }
-    }
-}
-
-extension View {
-    func navigation(_ router: NavigationRouter) -> some View {
-        environment(\.navigation, router)
-    }
-}

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUIX
 import Foundation
 
 /// View that represent a mention in content.
@@ -9,8 +10,8 @@ struct MentionView: View {
     let proxy: ScrollViewProxy?
     let interactable: Bool
     
-    @State var navigationActive = false
     @Environment(\.colorScheme) var colorScheme
+    @OptionalEnvironmentObject var router: NavigationRouter?
     
     enum MentionType {
         case local
@@ -89,7 +90,9 @@ struct MentionView: View {
     }
     
     private var remoteMention: some View {
-        NavigationPlainLink(value: floor) {
+        Button {
+            router?.path.append(floor)
+        } label: {
             mentionView
         }
         #if os(iOS)

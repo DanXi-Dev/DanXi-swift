@@ -33,37 +33,10 @@ struct HoleDetailPage: View {
             List {
                 Section {
                     // MARK: Body (floor list)
-                    if let hole = viewModel.hole {
-                        ForEach(viewModel.filteredFloors) { floor in
-                            FloorView(floor: floor,
-                                      isPoster: floor.posterName == hole.firstFloor.posterName,
-                                      model: viewModel,
-                                      proxy: proxy)
-                            .task {
-                                if floor == viewModel.filteredFloors.last && !viewModel.endReached {
-                                    await viewModel.loadMoreFloors()
-                                }
-                            }
-                            .id(floor.id)
-                        }
-                    }
+                    floors(proxy)
                 } header: {
                     // MARK: Header (tags)
-                    if !previewMode {
-                        if let hole = viewModel.hole {
-                            // FIXME: use WrappingHStack and prevent navigation issue (WrappingHStack content is outside view hierarchy)
-                            ScrollView(.horizontal) {
-                                HStack {
-                                    ForEach(hole.tags) { tag in
-                                        NavigationLink(value: tag) {
-                                            TagView(tag: tag)
-                                        }
-                                    }
-                                }
-                            }
-                            .listRowSeparator(.hidden)
-                        }
-                    }
+                    tags
                 } footer: {
                     // MARK: Footer
                     if !viewModel.endReached {
@@ -119,6 +92,43 @@ struct HoleDetailPage: View {
                 Text("This will affect all replies of this post")
             }
             .loadingOverlay(loading: viewModel.loadingToBottom, prompt: "Loading")
+        }
+    }
+    
+    @ViewBuilder
+    var tags: some View {
+        if !previewMode {
+            if let hole = viewModel.hole {
+                // FIXME: use WrappingHStack and prevent navigation issue (WrappingHStack content is outside view hierarchy)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(hole.tags) { tag in
+                            NavigationLink(value: tag) {
+                                TagView(tag: tag)
+                            }
+                        }
+                    }
+                }
+                .listRowSeparator(.hidden)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func floors(_ proxy: ScrollViewProxy) -> some View {
+        if let hole = viewModel.hole {
+            ForEach(viewModel.filteredFloors) { floor in
+                FloorView(floor: floor,
+                          isPoster: floor.posterName == hole.firstFloor.posterName,
+                          model: viewModel,
+                          proxy: proxy)
+                .task {
+                    if floor == viewModel.filteredFloors.last && !viewModel.endReached {
+                        await viewModel.loadMoreFloors()
+                    }
+                }
+                .id(floor.id)
+            }
         }
     }
     

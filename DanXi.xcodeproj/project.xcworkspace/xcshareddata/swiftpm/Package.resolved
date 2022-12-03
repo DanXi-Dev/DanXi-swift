@@ -46,6 +46,15 @@
       }
     },
     {
+      "identity" : "swiftuix",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftUIX/SwiftUIX",
+      "state" : {
+        "revision" : "1c2ba19b91a1541b803f9d1b01b360cae5a752fa",
+        "version" : "0.1.3"
+      }
+    },
+    {
       "identity" : "wrappinghstack",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dkk/WrappingHStack",

@@ -28,7 +28,6 @@ struct TreeholePage: View {
                 try await UserStore.shared.updateUser()
             } content: {
                 DelegatePage(holes: holes, $searchText, $searchSubmitted)
-                    .navigation(router)
                     .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
                     .onSubmit(of: .search) {
                         searchSubmitted = true
@@ -48,14 +47,20 @@ struct TreeholePage: View {
                             case .favorites: FavoritesPage()
                             case .reports: ReportPage()
                             case .tags: TagsPage()
+                            case .searchText(let keyword): SearchTextPage(keyword: keyword)
+                            case .searchTag(let tag): SearchTagPage(tagname: tag)
                             }
                         }
+                        .environmentObject(router)
         }
     }
 }
 
-enum TreeholeStaticPages {
+enum TreeholeStaticPages: Hashable {
     case favorites, reports, tags
+//    case searchText(let text:
+    case searchText(keyword: String)
+    case searchTag(tag: String)
 }
 
 /// Searchable delegation, switch between main view and search view based on searchbar status.
