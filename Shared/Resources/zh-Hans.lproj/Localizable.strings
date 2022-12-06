@@ -247,6 +247,7 @@
 "Filter Reports" = "筛选举办";
 "Modify Floor" = "修改本层";
 "Delete Floor" = "删除本层";
+"Delete selected floors" = "删除选中的楼层";
 "Fold Floor" = "折叠本层";
 "Add Ban" = "封禁用户";
 "Hide Hole" = "隐藏此树洞";

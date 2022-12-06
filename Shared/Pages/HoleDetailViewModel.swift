@@ -210,4 +210,54 @@ class HoleDetailViewModel: ObservableObject {
         
         return conversation.reversed()
     }
+    
+    @Published var deleteSelection: Set<THFloor> = []
+    
+    func deleteSelected(_ floors: [THFloor]) async {
+        let previousFloors = self.floors
+        
+        // send delete request to server
+        let deletedFloors = await withTaskGroup(of: THFloor.self,
+                                                returning: [THFloor].self,
+                                                body: { taskGroup in
+            for floor in floors {
+                taskGroup.addTask {
+                    do {
+                        return try await TreeholeRequests.deleteFloor(floorId: floor.id)
+                    } catch {
+                        return floor
+                    }
+                }
+            }
+            
+            var deletedFloors: [THFloor] = []
+            for await floor in taskGroup {
+                deletedFloors.append(floor)
+            }
+            return deletedFloors
+        })
+        
+        // replace deleted floors with server-returned results
+        var newFloors: [THFloor] = []
+        for floor in previousFloors {
+            var newFloor: THFloor? = nil
+            for deletedFloor in deletedFloors {
+                if deletedFloor.id == floor.id {
+                    newFloor = deletedFloor
+                    break
+                }
+            }
+            
+            if let newFloor = newFloor { // find matched deleted floor
+                newFloors.append(newFloor)
+            } else { // nothing matched, use original
+                newFloors.append(floor)
+            }
+        }
+        
+        // submit UI change
+        Task { @MainActor in
+            self.floors = newFloors
+        }
+    }
 }

@@ -30,7 +30,7 @@ struct HoleDetailPage: View {
     
     var body: some View {
         ScrollViewReader { proxy in
-            List {
+            List(selection: $viewModel.deleteSelection) {
                 Section {
                     // MARK: Body (floor list)
                     floors(proxy)
@@ -52,6 +52,13 @@ struct HoleDetailPage: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     toolbar
+                }
+                
+                if !viewModel.deleteSelection.isEmpty {
+                    ToolbarItem(placement: .status) {
+                        BatchDeleteBar()
+                            .environmentObject(viewModel)
+                    }
                 }
             }
             // access scroll view proxy from outside, i.e., toolbar
@@ -118,7 +125,7 @@ struct HoleDetailPage: View {
     @ViewBuilder
     func floors(_ proxy: ScrollViewProxy) -> some View {
         if let hole = viewModel.hole {
-            ForEach(viewModel.filteredFloors) { floor in
+            ForEach(viewModel.filteredFloors, id: \.listId) { floor in
                 FloorView(floor: floor,
                           isPoster: floor.posterName == hole.firstFloor.posterName,
                           model: viewModel,
@@ -129,6 +136,7 @@ struct HoleDetailPage: View {
                     }
                 }
                 .id(floor.id)
+                .tag(floor)
             }
         }
     }
@@ -185,10 +193,34 @@ struct HoleDetailPage: View {
                     } label: {
                         Label("Edit Post Info", systemImage: "info.circle")
                     }
+                    
+                    EditButton()
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
             }
+        }
+    }
+}
+
+struct BatchDeleteBar: View {
+    @Environment(\.editMode) var editMode
+    @EnvironmentObject var viewModel: HoleDetailViewModel
+    
+    var body: some View {
+        Button(role: .destructive) {
+            let floors = Array(viewModel.deleteSelection)
+            Task {
+                await viewModel.deleteSelected(floors)
+            }
+            
+            withAnimation {
+                editMode?.wrappedValue = .inactive
+            }
+        } label: {
+            Label("Delete selected floors", systemImage: "trash")
+                .labelStyle(.titleAndIcon)
+                .foregroundColor(.red)
         }
     }
 }
