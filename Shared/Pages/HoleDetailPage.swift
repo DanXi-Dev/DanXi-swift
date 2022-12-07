@@ -54,11 +54,9 @@ struct HoleDetailPage: View {
                     toolbar
                 }
                 
-                if !viewModel.deleteSelection.isEmpty {
-                    ToolbarItem(placement: .status) {
-                        BatchDeleteBar()
-                            .environmentObject(viewModel)
-                    }
+                ToolbarItem(placement: .status) {
+                    BatchDeleteBar()
+                        .environmentObject(viewModel)
                 }
             }
             // access scroll view proxy from outside, i.e., toolbar
@@ -208,19 +206,23 @@ struct BatchDeleteBar: View {
     @EnvironmentObject var viewModel: HoleDetailViewModel
     
     var body: some View {
-        Button(role: .destructive) {
-            let floors = Array(viewModel.deleteSelection)
-            Task {
-                await viewModel.deleteSelected(floors)
+        if editMode?.wrappedValue.isEditing == true && !viewModel.deleteSelection.isEmpty {
+            Button(role: .destructive) {
+                let floors = Array(viewModel.deleteSelection)
+                Task {
+                    await viewModel.deleteSelected(floors)
+                }
+                
+                withAnimation {
+                    editMode?.wrappedValue = .inactive
+                }
+            } label: {
+                Label("Delete selected floors", systemImage: "trash")
+                    .labelStyle(.titleAndIcon)
+                    .foregroundColor(.red)
             }
-            
-            withAnimation {
-                editMode?.wrappedValue = .inactive
-            }
-        } label: {
-            Label("Delete selected floors", systemImage: "trash")
-                .labelStyle(.titleAndIcon)
-                .foregroundColor(.red)
+        } else {
+            EmptyView()
         }
     }
 }
