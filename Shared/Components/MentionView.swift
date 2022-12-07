@@ -93,6 +93,7 @@ struct MentionView: View {
         } label: {
             mentionView
         }
+        .buttonStyle(.borderless) // prevent multiple tapping
         #if os(iOS)
         // TODO: use geometry reader to determine size
         .previewContextMenu(destination: HoleDetailPage(holeId: floor.holeId, floorId: floor.id),

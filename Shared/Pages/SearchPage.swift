@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftUIX
 
 struct SearchPage: View {
-    @OptionalEnvironmentObject var router: NavigationRouter?
+    @EnvironmentObject var router: NavigationRouter
     @Binding var searchText: String
     @Binding var searchSubmitted: Bool
     @AppStorage("treehole-search-history") var searchHistory: [String] = []
@@ -24,7 +24,7 @@ struct SearchPage: View {
             if !searchText.isEmpty { // search tag
                 Section("Search Text") {
                     Button {
-                        router?.path.append(TreeholeStaticPages.searchText(keyword: searchText))
+                        router.path.append(TreeholeStaticPages.searchText(keyword: searchText))
                         appendHistory(searchText)
                     } label: {
                         Label {
@@ -66,6 +66,7 @@ struct SearchPage: View {
                     NavigationLink {
                         HoleDetailPage(holeId: holeId)
                             .onAppear { appendHistory(searchText) }
+                            .environmentObject(router)
                     } label: {
                         Label(searchText, systemImage: "arrow.right.square")
                     }
@@ -78,6 +79,7 @@ struct SearchPage: View {
                     NavigationLink {
                         HoleDetailPage(floorId: floorId)
                             .onAppear { appendHistory(searchText) }
+                            .environmentObject(router)
                     } label: {
                         Label(searchText, systemImage: "arrow.right.square")
                     }
@@ -101,7 +103,7 @@ struct SearchPage: View {
         .onChange(of: searchSubmitted) { submit in
             if submit {
                 appendHistory(searchText)
-                router?.path.append(TreeholeStaticPages.searchText(keyword: searchText))
+                router.path.append(TreeholeStaticPages.searchText(keyword: searchText))
             }
         }
     }
