@@ -41,21 +41,21 @@ class TreeholeStore: ObservableObject {
     }
     
     func toggleFavorites(_ holeId: Int, add: Bool) async throws {
-        favorites = try await TreeholeRequests.toggleFavorites(holeId: holeId, add: add)
+        let favorites: [Int] = try await TreeholeRequests.toggleFavorites(holeId: holeId, add: add)
         Task { @MainActor in
             self.favorites = favorites
         }
     }
     
     func modifyFavorites(_ holeIds: [Int]) async throws {
-        favorites = try await TreeholeRequests.modifyFavorites(holeIds: holeIds)
+        let favorites: [Int] = try await TreeholeRequests.modifyFavorites(holeIds: holeIds)
         Task { @MainActor in
             self.favorites = favorites
         }
     }
     
     func reloadFavorites() async throws {
-        favorites = try await TreeholeRequests.loadFavoritesIds()
+        let favorites: [Int] = try await TreeholeRequests.loadFavoritesIds()
         Task { @MainActor in
             self.favorites = favorites
         }

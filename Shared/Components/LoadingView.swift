@@ -19,7 +19,6 @@ struct LoadingView<Content: View>: View {
     
     func load() async {
         do {
-            loading = true
             defer { loading = false }
             try await action()
             finished = true
@@ -62,9 +61,7 @@ struct LoadingView<Content: View>: View {
                 .multilineTextAlignment(.center)
             
             Button("Retry") {
-                Task { @MainActor in
-                    await load()
-                }
+                loading = true
             }
             .frame(width: 120, height: 25)
             .overlay(
