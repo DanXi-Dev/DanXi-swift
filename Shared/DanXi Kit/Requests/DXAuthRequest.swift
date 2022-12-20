@@ -9,7 +9,8 @@ struct AuthReqest {
     static func verifyEmail(email: String) async throws {
         var components = URLComponents(string: FDUHOLE_AUTH_URL + "/verify/email")!
         components.queryItems = [URLQueryItem(name: "email", value: email)]
-        _ = try await networkRequest(url: components.url!, authorize: false)
+        let request = prepareRequest(components.url!)
+        _ = try await sendRequest(request)
     }
     
     /// Register or change password, will reset authorization token.
@@ -32,7 +33,10 @@ struct AuthReqest {
             let payload = ChangePasswordConfig(password: password,
                                                email: email,
                                                verification: verification)
-            return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: create ? "POST" : "PUT", authorize: false)
+            let method = create ? "POST" : "PUT"
+            let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: method)
+            let (data, _) = try await sendRequest(request)
+            return try processJSONData(data)
         } catch HTTPError.badRequest(let message) {
             throw DanXiError.registerFailed(message: message)
         }
@@ -42,7 +46,7 @@ struct AuthReqest {
     
     /// Get current user info.
     static func loadUserInfo() async throws -> DXUser {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/users/me")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/me")!)
     }
     
     /// Modify user's nickname.
@@ -55,9 +59,8 @@ struct AuthReqest {
             let nickname: String
         }
         
-        return try await requestObj(url: URL(string: "/users/\(userId)")!,
-                                    payload: NicknameConfig(nickname: nickname),
-                                    method: "PUT")
+        let payload = NicknameConfig(nickname: nickname)
+        return try await DXResponse(URL(string: "/users/\(userId)")!, payload: payload, method: "PUT")
     }
     
     // MARK: Authentication
@@ -74,9 +77,10 @@ struct AuthReqest {
         }
         
         do {
-            return try await requestObj(url: URL(string: FDUHOLE_AUTH_URL + "/login")!,
-                                        payload: LoginBody(email: username, password: password),
-                                        authorize: false)
+            let payload = LoginBody(email: username, password: password)
+            let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/login")!, payload: payload)
+            let (data, _) = try await sendRequest(request)
+            return try processJSONData(data)
         } catch HTTPError.unauthorized {
             throw DanXiError.loginFailed
         }
@@ -84,7 +88,7 @@ struct AuthReqest {
     
     /// Logout and invalidate token.
     static func logout() async throws {
-        try await sendRequest(url: URL(string: FDUHOLE_AUTH_URL + "/logout")!)
+        try await DXRequest(URL(string: FDUHOLE_AUTH_URL + "/logout")!)
     }
     
     /// Request a new token when current token is expired.
@@ -95,11 +99,10 @@ struct AuthReqest {
         }
         
         do {
-            var request = URLRequest(url: URL(string: FDUHOLE_AUTH_URL + "/refresh")!)
+            var request = prepareRequest(URL(string: FDUHOLE_AUTH_URL + "/refresh")!, method: "POST")
             request.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
-            request.httpMethod = "POST"
-            let (data, _) = try await URLSession.shared.data(for: request)
-            return try JSONDecoder().decode(Token.self, from: data)
+            let (data, _) = try await sendRequest(request)
+            return try processJSONData(data)
         } catch {
             throw DanXiError.tokenExpired
         }

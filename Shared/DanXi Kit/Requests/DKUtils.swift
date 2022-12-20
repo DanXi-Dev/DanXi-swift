@@ -7,14 +7,14 @@ struct CourseRequest {
     
     /// Get all course groups.
     static func loadCourseGroups() async throws -> [DKCourseGroup] {
-        return try await requestObj(url: URL(string: DANKE_BASE_URL + "/courses")!)
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/courses")!)
     }
     
     
     /// Get course group by ID.
     static func loadCourseGroup(id: Int) async throws -> DKCourseGroup {
         let components = URLComponents(string: DANKE_BASE_URL + "/group/\(id)")!
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -24,14 +24,14 @@ struct CourseRequest {
             let hash: String
         }
         
-        let hash: Hash = try await requestObj(url: URL(string: DANKE_BASE_URL + "/courses/hash")!)
+        let hash: Hash = try await DXResponse(URL(string: DANKE_BASE_URL + "/courses/hash")!)
         return hash.hash
     }
     
 
     /// Get course by ID.
     static func loadCourse(id: Int) async throws -> DKCourse {
-        return try await requestObj(url: URL(string: DANKE_BASE_URL + "/course/\(id)")!)
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/course/\(id)")!)
     }
     
     
@@ -40,7 +40,7 @@ struct CourseRequest {
     
     /// Get all reviews published by me.
     static func myReviews() async throws -> [DKReview] {
-        return try await requestObj(url: URL(string: DANKE_BASE_URL + "/reviews/me")!)
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/reviews/me")!)
     }
     
     
@@ -49,7 +49,7 @@ struct CourseRequest {
     /// - Parameter courseId: Course ID.
     /// - Returns: Review list.
     static func loadReviews(courseId: Int) async throws -> [DKReview] {
-        return try await requestObj(url: URL(string: DANKE_BASE_URL + "/courses/\(courseId)/reviews")!)
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/courses/\(courseId)/reviews")!)
     }
     
     
@@ -68,7 +68,7 @@ struct CourseRequest {
             let rank: DKRank
         }
 
-        return try await requestObj(url: URL(string: DANKE_BASE_URL + "/course/\(courseId)/reviews")!,
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/course/\(courseId)/reviews")!,
                                     payload: ReviewConfig(title: title, content: content, rank: rank),
                                     method: modify ? "PUT" : "POST")
     }
@@ -77,7 +77,7 @@ struct CourseRequest {
     /// Remove review by ID.
     /// - Parameter id: Review ID.
     static func removeReview(id: Int) async throws {
-        try await sendRequest(url: URL(string: DANKE_BASE_URL + "reviews/\(id)")!, method: "DELETE")
+        try await DXRequest(URL(string: DANKE_BASE_URL + "reviews/\(id)")!, method: "DELETE")
     }
     
     
@@ -92,7 +92,7 @@ struct CourseRequest {
             let upvote: Bool
         }
 
-        return try await requestObj(url: URL(string: DANKE_BASE_URL + "/reviews/\(reviewId)")!,
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/reviews/\(reviewId)")!,
                                     payload: UpvoteConfig(upvote: upvote), method: "PATCH")
     }
 }

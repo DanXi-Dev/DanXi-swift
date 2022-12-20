@@ -8,13 +8,8 @@ struct EcardRequests {
         // network API
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
         let responseData = try await FudanAuthRequests.auth(url: url)
-        guard let htmlText = String(data: responseData, encoding: String.Encoding.utf8) else {
-            throw NetworkError.invalidResponse
-        }
-        let doc = try SwiftSoup.parse(htmlText)
-        guard let qrcodeElement = try doc.select("#myText").first() else {
-            throw NetworkError.invalidResponse
-        }
+        
+        let qrcodeElement = try processHTMLData(responseData, selector: "#myText")
         let qrcodeStr = try qrcodeElement.attr("value")
         
         

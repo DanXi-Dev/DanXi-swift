@@ -8,7 +8,7 @@ struct TreeholeRequests {
     /// List all divisions.
     /// - Returns: A list of `THDivision`
     static func loadDivisions() async throws -> [THDivision] {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/divisions")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions")!)
     }
     
     
@@ -16,7 +16,7 @@ struct TreeholeRequests {
     /// - Parameter id: Division ID.
     /// - Returns: The matching `THDivision`.
     static func getDivision(id: Int) async throws -> THDivision {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!)
     }
     
     
@@ -34,7 +34,7 @@ struct TreeholeRequests {
             components.queryItems = [URLQueryItem(name: "offset", value: time)]
             components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         }
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -58,7 +58,7 @@ struct TreeholeRequests {
         let payload = Post(content: content,
                            specialTag: specialTag,
                            tags: tags.map { Tag(name: $0) })
-        try await sendRequest(url: URL(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!,
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!,
                                      payload: payload)
     }
     
@@ -69,7 +69,7 @@ struct TreeholeRequests {
     static func loadHoleById(holeId: Int) async throws -> THHole {
         do {
             let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-            return try await requestObj(url: url)
+            return try await DXResponse(url)
         } catch HTTPError.notFound {
             throw DanXiError.holeNotExist(holeId: holeId)
         }
@@ -99,10 +99,9 @@ struct TreeholeRequests {
         let payload = EditConfig(tags: tags.map { Tag(name: $0) },
                                  divisionId: divisionId,
                                  unhidden: unhidden)
-        let payloadData = try JSONEncoder().encode(payload)
         
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-        _ = try await networkRequest(url: components.url!, data: payloadData, method: "PUT")
+        try await DXRequest(components.url!, payload: payload, method: "PUT")
     }
     
     
@@ -110,7 +109,7 @@ struct TreeholeRequests {
     /// - Parameter holeId: Hole ID.
     static func deleteHole(holeId: Int) async throws {
         let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-        _ = try await networkRequest(url: url, method: "DELETE")
+        try await DXRequest(url, method: "DELETE")
     }
     
     
@@ -118,7 +117,7 @@ struct TreeholeRequests {
     /// - Parameter holeId: Hole ID.
     static func updateViews(holeId: Int) async throws {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-        _ = try await networkRequest(url: components.url!, method: "PATCH")
+        try await DXRequest(components.url!, method: "PATCH")
     }
     
     /// List holes by tag.
@@ -133,7 +132,7 @@ struct TreeholeRequests {
             components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
         }
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -144,7 +143,7 @@ struct TreeholeRequests {
     /// - Parameter floorId: Floor ID.
     static func loadFloorById(floorId: Int) async throws -> THFloor {
         do {
-            return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
+            return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
         } catch HTTPError.notFound {
             throw DanXiError.floorNotExist(floorId: floorId)
         }
@@ -166,7 +165,7 @@ struct TreeholeRequests {
             // TODO: fold
         }
         
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
                                     payload: EditConfig(content: content, specialTag: specialTag),
                                     method: "PUT")
     }
@@ -182,7 +181,7 @@ struct TreeholeRequests {
             let deleteReason: String
         }
         
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
                                     payload: DeleteConfig(deleteReason: reason), method: "DELETE")
     }
     
@@ -190,7 +189,7 @@ struct TreeholeRequests {
     /// Get a floor's history.
     /// - Parameter floorId: Floor ID.
     static func loadFloorHistory(floorId: Int) async throws -> [THHistory] {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/history")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/history")!)
     }
     
     
@@ -200,7 +199,7 @@ struct TreeholeRequests {
     ///   - like: Set like status, 1 is like, 0 is reset, -1 is dislike.
     /// - Returns: Modified floor.
     static func like(floorId: Int, like: Int) async throws -> THFloor {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL +
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL +
                                              "/floors/\(floorId)/like/\(like)")!,
                                     method: "POST")
     }
@@ -217,7 +216,7 @@ struct TreeholeRequests {
             let restoreReason: String
         }
         
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/restore/\(historyId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/restore/\(historyId)")!,
                                     payload: RestoreConfig(restoreReason: restoreReason))
     }
     
@@ -234,7 +233,7 @@ struct TreeholeRequests {
             URLQueryItem(name: "order_by", value: "id")
             // TODO: sort
         ]
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -248,7 +247,7 @@ struct TreeholeRequests {
             URLQueryItem(name: "start_floor", value: "0"),
             URLQueryItem(name: "length", value: "0")
         ]
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -265,7 +264,7 @@ struct TreeholeRequests {
             // TODO: reply to
         }
 
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!,
                              payload: ReplyConfig(content: content, specialTag: specialTag))
     }
     
@@ -280,7 +279,7 @@ struct TreeholeRequests {
             URLQueryItem(name: "length", value: "10"),
             URLQueryItem(name: "start_floor", value: String(startFloor))
         ]
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -298,7 +297,7 @@ struct TreeholeRequests {
             URLQueryItem(name: "offset", value: String(offset)),
             URLQueryItem(name: "range", value: String(range))
         ]
-        return try await requestObj(url: components.url!)
+        return try await DXResponse(components.url!)
     }
     
     
@@ -312,7 +311,7 @@ struct TreeholeRequests {
             let reason: String
         }
 
-        try await sendRequest(url: URL(string: FDUHOLE_BASE_URL + "/reports")!,
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/reports")!,
                               payload: ReportConfig(floorId: floorId, reason: reason))
     }
     
@@ -321,7 +320,7 @@ struct TreeholeRequests {
     /// - Parameter reportId: Report ID
     /// - Returns: A matching `THReport`.
     static func getReportById(reportId: Int) async throws -> THReport {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!)
     }
     
     
@@ -329,7 +328,7 @@ struct TreeholeRequests {
     /// - Parameter reportId: Report ID.
     /// - Returns: Dealt `THReport` struct.
     static func dealReport(reportId: Int) async throws -> THReport {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!,
                                     method: "DELETE")
     }
     
@@ -339,7 +338,7 @@ struct TreeholeRequests {
     
     /// Load all tags.
     static func loadTags() async throws -> [THTag] {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/tags")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/tags")!)
     }
     
     
@@ -348,7 +347,7 @@ struct TreeholeRequests {
     /// Load favorites hole.
     /// - Returns: List of favorites hole.
     static func loadFavorites() async throws -> [THHole] {
-        return try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/user/favorites")!)
     }
     
     
@@ -361,7 +360,7 @@ struct TreeholeRequests {
         
         var component = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
         component.queryItems = [URLQueryItem(name: "plain", value: "true")]
-        let response: FavoriteResponse = try await requestObj(url: component.url!)
+        let response: FavoriteResponse = try await DXResponse(component.url!)
         return response.data
     }
     
@@ -380,7 +379,7 @@ struct TreeholeRequests {
         }
         
         let payload = FavoriteConfig(holeIds: holeIds)
-        let response: ReturnConfig = try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
+        let response: ReturnConfig = try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
                                                           payload: payload,
                                                           method: "PUT")
         return response.data
@@ -402,7 +401,7 @@ struct TreeholeRequests {
         }
         
         let response: ServerResponse =
-        try await requestObj(url: URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
+        try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
                              payload: FavoriteConfig(holeId: holeId),
                              method: add ? "POST" : "DELETE")
         return response.data
@@ -426,7 +425,7 @@ struct TreeholeRequests {
         let hole = try await loadHoleById(holeId: floor.holeId)
         let divisionId = hole.divisionId
         
-        _ = try await sendRequest(url: URL(string: FDUHOLE_BASE_URL + "/penalty/\(floor.id)")!,
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/penalty/\(floor.id)")!,
                                   payload: BanConfig(penaltyLevel: level, divisionId: divisionId))
     }
 }

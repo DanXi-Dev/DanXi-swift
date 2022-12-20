@@ -12,26 +12,19 @@ struct SportRequest {
     
     static func fetchExerciseData() async throws -> ExerciseInfo {
         let exerciseURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stscore.aspx?item=1")!
-        let request = URLRequest(url: exerciseURL)
-        let (data, _) = try await URLSession.shared.data(for: request)
-        guard let htmlText = String(data: data, encoding: String.Encoding.utf8) else {
-            throw NetworkError.invalidResponse
-        }
-        let doc = try SwiftSoup.parse(htmlText)
+        let request = prepareRequest(exerciseURL)
+        let (data, _) = try await sendRequest(request)
         var info = ExerciseInfo()
-        info.parseExerciseItems(doc)
-        info.parseExerciseLogs(doc)
+        try info.parseExerciseItems(data)
+        try info.parseExerciseLogs(data)
         return info
     }
     
     static func fetchExamData() async throws -> SportExamInfo {
         let examURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stScore.aspx?item=3")!
-        let request = URLRequest(url: examURL)
-        let (data, _) = try await URLSession.shared.data(for: request)
-        guard let htmlText = String(data: data, encoding: String.Encoding.utf8) else {
-            throw NetworkError.invalidResponse
-        }
-        let doc = try SwiftSoup.parse(htmlText)
+        let request = prepareRequest(examURL)
+        let (data, _) = try await sendRequest(request)
+        let doc = try processHTMLData(data)
         
         var info = SportExamInfo()
         info.parseInfo(doc)
@@ -61,10 +54,8 @@ struct ExerciseInfo {
         let status: String
     }
     
-    mutating func parseExerciseItems(_ doc: Document) {
-        guard let statElement = try? doc.select("#pitem > table > tbody > tr:nth-of-type(4) > td > table > tbody").first() else {
-            return
-        }
+    mutating func parseExerciseItems(_ data: Data) throws {
+        let statElement = try processHTMLData(data, selector: "#pitem > table > tbody > tr:nth-of-type(4) > td > table > tbody")
         
         for row in statElement.children() {
             let count = row.childNodeSize()
@@ -83,10 +74,8 @@ struct ExerciseInfo {
         }
     }
     
-    mutating func parseExerciseLogs(_ doc: Document) {
-        guard let logElement = try? doc.select("#pitem > table > tbody > tr:nth-of-type(7) > td > table > tbody").first() else {
-            return
-        }
+    mutating func parseExerciseLogs(_ data: Data) throws {
+        let logElement = try processHTMLData(data, selector: "#pitem > table > tbody > tr:nth-of-type(7) > td > table > tbody")
         
         for row in logElement.children() {
             do {
