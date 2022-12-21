@@ -1,5 +1,66 @@
 import SwiftUI
 
+/*
+ .
+ ├── DanXi Kit
+ ├── Fudan Kit
+ └── View
+     ├── Campus
+     ├── Curriculum
+     │   ├── Page
+     │   │   ├── DKCoursePage
+     │   │   ├── DKHomePage
+     │   │   └── DKReviewPage
+     │   ├── Sheet
+     │   │   ├── DKEditSheet
+     │   │   └── DKPostSheet
+     │   └── View
+     │       ├── DKCourseView
+     │       ├── DKRankView
+     │       ├── DKReviewView
+     │       └── DKStarsView
+     ├── Forum
+     │   ├── Page
+     │   │   ├── THDetailPage
+     │   │   ├── THFavoritePage
+     │   │   ├── THHomePage
+     │   │   ├── THReportPage
+     │   │   ├── THSearchTagPage
+     │   │   ├── THSearchTextPage
+     │   │   └── THTagPage
+     │   ├── Sheet
+     │   │   ├── THBanSheet
+     │   │   ├── THDeleteSheet
+     │   │   ├── THEditSheet
+     │   │   ├── THHistorySheet
+     │   │   ├── THInfoSheet
+     │   │   ├── THPostSheet
+     │   │   ├── THReplySheet
+     │   │   └── THReportSheet
+     │   └── View
+     │       ├── THContentView
+     │       ├── THFloorView
+     │       ├── THHoleView
+     │       ├── THMentionView
+     │       ├── THSpetialTagView
+     │       ├── THTagFieldView
+     │       ├── THTagListView
+     │       └── THTagView
+     └── Support
+         ├── FormView
+         ├── LoadingOverlay
+         ├── LoadingPage
+         ├── LoadingView
+         ├── MarkdownView
+         ├── MathView
+         ├── SafariView
+         └── TextEditView
+
+ 13 directories, 40 files
+
+ 
+ */
+
 struct ContentView: View {
     @ObservedObject var authDelegate = AuthDelegate.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -20,9 +81,9 @@ struct ContentView: View {
                 case .sport:
                     SportPage()
                 case .treehole:
-                    TreeholePage()
+                    THHomePage()
                 case .curriculum:
-                    CourseMainPage()
+                    DKHomePage()
                 case .about:
                     AboutPage()
                 case .settings:
