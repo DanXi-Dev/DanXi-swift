@@ -1,6 +1,5 @@
 import SwiftUI
 import Markdown
-import CachedAsyncImage
 
 /// A view that renders Markdown content.
 struct MarkdownView: View {
@@ -40,12 +39,18 @@ struct MarkdownView: View {
                 case let quote as BlockQuote:
                     quoteRenderer(quote)
                     
+                case let table as TableElement:
+                    tableRenderer(table)
+                    
                 default:
-                    EmptyView()
+                    Label("Not Supported: \(String(describing: type(of: node.markup)))", systemImage: "exclamationmark.triangle.fill")
+                        .foregroundColor(.red)
                 }
             }
         }
     }
+    
+    // MARK: Renderer
     
     private func headingRenderer(_ heading: Heading) -> some View {
         let font: Font
@@ -81,7 +86,7 @@ struct MarkdownView: View {
         return VStack(alignment: .leading) {
             ForEach(Array(orderedList.items().enumerated()), id: \.offset) { index, item in
                 HStack(alignment: .top, spacing: 2.0) {
-                    TextView("\(index + 1).")
+                    TextView("\(index + Int(orderedList.startIndex)).")
                         .frame(width: 20)
                     MarkdownView(item.markup)
                 }
@@ -93,15 +98,29 @@ struct MarkdownView: View {
     private func unorderedListRenderer(_ unorderedList: UnorderedList) -> some View {
         return VStack(alignment: .leading) {
             ForEach(Array(unorderedList.items().enumerated()), id: \.offset) { index, item in
-                HStack(alignment: .top, spacing: 2.0) {
-                    TextView("·")
-                        .bold()
-                        .frame(width: 20)
-                    MarkdownView(item.markup)
-                }
+                listItemRenderer(item.markup as! ListItem)
             }
         }
     }
+    
+    @ViewBuilder
+    private func listItemRenderer(_ item: ListItem) -> some View {
+        HStack(alignment: .top, spacing: 2.0) {
+            if let checkbox = item.checkbox {
+                Image(systemName: checkbox == .checked ? "checkmark.circle.fill" : "circle")
+                    .font(.caption)
+                    .foregroundColor(.accentColor)
+                    .frame(width: 30)
+                    .padding(.top, 4)
+            } else {
+                TextView("·")
+                    .bold()
+                    .frame(width: 20)
+            }
+            MarkdownView(item)
+        }
+    }
+    
     
     private func quoteRenderer(_ quote: BlockQuote) -> some View {
         return VStack(alignment: .leading, spacing: 10) {
@@ -125,14 +144,57 @@ struct MarkdownView: View {
                 case let unorderedList as UnorderedList:
                     unorderedListRenderer(unorderedList)
                     
+                case let quote as BlockQuote:
+                    AnyView(quoteRenderer(quote)) // type erase, prevent type recursion
+                    
                 default:
                     MarkdownView(node.markup)
                 }
             }
         }
         .padding(.leading, 10)
-        .overlay(Rectangle().frame(width: 3, height: nil, alignment: .leading).foregroundColor(Color.secondary.opacity(0.5)), alignment: .leading)
+        .overlay(Rectangle()
+                    .frame(width: 3, height: nil, alignment: .leading)
+                    .foregroundColor(Color.secondary.opacity(0.5)),
+                 alignment: .leading)
         .foregroundColor(.secondary)
+    }
+    
+    @ViewBuilder
+    private func tableRenderer(_ table: TableElement) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            Grid {
+                Divider()
+                    .frame(minHeight: 2)
+                    .background(Color.secondary.opacity(0.5))
+                GridRow {
+                    tableRowRenderer(table.head)
+                        .fontWeight(.bold)
+                }
+                Divider()
+                    .background(Color.secondary.opacity(0.5))
+                ForEach(table.body.items()) { rowItem in
+                    tableRowRenderer(rowItem.markup as! TableCellContainer)
+                }
+                Divider()
+                    .frame(minHeight: 2)
+                    .background(Color.secondary.opacity(0.5))
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func tableRowRenderer(_ row: any TableCellContainer) -> some View {
+        GridRow {
+            ForEach(row.items()) { item in
+                tableCellRenderer(item.markup as! TableElement.Cell)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func tableCellRenderer(_ cell: TableElement.Cell) -> some View {
+        TextView(cell.plainText)
     }
     
     private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
@@ -176,7 +238,7 @@ struct MarkdownView: View {
                 case .image(let url):
                     HStack {
                         Spacer()
-                        CachedAsyncImage(url: url, urlCache: .imageCache) { phase in
+                        AsyncImage(url: url) { phase in
                             if let image = phase.image {
                                 image
                                     .resizable()
@@ -198,11 +260,6 @@ struct MarkdownView: View {
     }
 }
 
-extension URLCache {
-    static let imageCache = URLCache(memoryCapacity: 512 * 1000 * 1000, // 512 MB
-                                     diskCapacity: 1000 * 1000 * 1000) // 1 GB
-}
-
 extension Markup {
     fileprivate func childNodes() -> [MarkupNode] {
         return self.children.map { markup in
@@ -219,6 +276,22 @@ extension ListItemContainer {
     }
 }
 
+extension TableCellContainer {
+    fileprivate func items() -> [MarkupNode] {
+        return self.cells.map { cell in
+            MarkupNode(cell)
+        }
+    }
+}
+
+extension TableElement.Body {
+    fileprivate func items() -> [MarkupNode] {
+        return self.rows.map { row in
+            MarkupNode(row)
+        }
+    }
+}
+
 /// Struct holding `Markup` element, enabling random access and identifiable support for `ForEach`.
 fileprivate struct MarkupNode: Identifiable {
     let id = UUID()
@@ -226,5 +299,67 @@ fileprivate struct MarkupNode: Identifiable {
     
     init(_ markup: Markup) {
         self.markup = markup
+    }
+}
+
+struct MarkdownView_Previews: PreviewProvider {
+    static let previewContent = """
+    # Title 1
+    ## Title 2
+    ### Title 3
+    #### Title 4
+    ##### Title 5
+    
+    This is a paragraph. This is **bold** and _underline_, This is `inline_code`.
+    This is another sentence
+    
+    > Tip: This is a `tip` aside.
+    > It may have a presentation similar to a block quote, but with a
+    > different meaning.
+    
+    
+    | Section A | Section B | Section C |
+    | ---- | ---- | ---- |
+    | Yes | A     |A    |
+    | No  | A    | C |
+    | No | B | A    |
+    
+    ---------
+    
+    > This is a quote.
+    > Second quote.
+    > > Quote stack.
+    > > Another quote.
+    > - item
+    > # Title inside quote.
+    
+    1. Item 1
+    2. Item 2
+    3. Item 3
+    
+    -------
+    
+    2. Item 2
+    3. Item 3
+    4. Item 4
+    
+    - [x] Checked
+      - [ ] Not checked
+    
+    ```
+    #include <stdio.h>
+    int main() {
+        print("Hello world!);
+    
+        return 0;
+    }
+    ```
+    """
+    
+    static var previews: some View {
+        ScrollView {
+            MarkdownView(previewContent)
+                .padding()
+        }
     }
 }
