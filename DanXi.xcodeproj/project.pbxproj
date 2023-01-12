@@ -30,7 +30,7 @@
 		27227FD128A507AA00B3C99D /* THBrowsePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD028A507AA00B3C99D /* THBrowsePage.swift */; };
 		27227FD528A512B300B3C99D /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
 		2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
-		2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* MentionView.swift */; };
+		2729071528B0B45F0087ACC0 /* THMentionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* THMentionWrapper.swift */; };
 		272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* THFavoritesPage.swift */; };
 		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
 		272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* THPostSheet.swift */; };
@@ -176,7 +176,7 @@
 		27227FD028A507AA00B3C99D /* THBrowsePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowsePage.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextProcess.swift; sourceTree = "<group>"; };
-		2729071428B0B45F0087ACC0 /* MentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
+		2729071428B0B45F0087ACC0 /* THMentionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMentionWrapper.swift; sourceTree = "<group>"; };
 		272AC8D92896BE2500092B0C /* THFavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THFavoritesPage.swift; sourceTree = "<group>"; };
 		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
 		272AC8E02896F27300092B0C /* THPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostSheet.swift; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 				2778D6132891D22D009F4DB1 /* THFloorView.swift */,
 				273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */,
 				2778D6142891D22D009F4DB1 /* THTagView.swift */,
-				2729071428B0B45F0087ACC0 /* MentionView.swift */,
+				2729071428B0B45F0087ACC0 /* THMentionWrapper.swift */,
 				2748AE9828C8C4CC0014495F /* THTagField.swift */,
 				277E432128C7810700EBAC23 /* ReferenceView.swift */,
 			);
@@ -698,8 +698,8 @@
 			children = (
 				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
 				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
-				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 				271D596928C24F9300F72C3B /* Context Preview */,
+				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -826,7 +826,7 @@
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				2706605429312D8300F4C321 /* Ecard.swift in Sources */,
 				27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */,
-				2729071528B0B45F0087ACC0 /* MentionView.swift in Sources */,
+				2729071528B0B45F0087ACC0 /* THMentionWrapper.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */,
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,

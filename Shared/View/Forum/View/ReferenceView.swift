@@ -7,26 +7,20 @@ import SwiftUI
 /// Floor reference are similar, except it starts with two hashtag: \#\#123456.
 struct ReferenceView: View {
     let elements: [ReferenceType]
-    let proxy: ScrollViewProxy?
     
     
     /// Creates a reference view.
     /// - Parameters:
     ///   - content: Raw string of the content.
-    ///   - proxy: (Optional) Enable scrolling when user taps on a mention.
     ///   - mentions: Search base of remote mention, correspond to `floor.mentions`.
     ///   - floors: Search base of local mention.
     init(_ content: String,
-         proxy: ScrollViewProxy? = nil,
          mentions: [THMention] = [],
          floors: [THFloor] = []) {
-        self.proxy = proxy
         elements = ReferenceView.parseReferences(content,
                                    mentions: mentions,
                                    floors: floors)
     }
-    
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
@@ -36,14 +30,14 @@ struct ReferenceView: View {
                     MarkdownView(content)
                     
                 case .localReference(let floor):
-                    MentionView(floor: floor, proxy: proxy)
+                    THMentionWrapper(floor: floor)
                     
                 case .remoteReference(let mention):
-                    MentionView(mention: mention)
+                    THMentionWrapper(mention: mention)
                         .foregroundColor(.red)
                     
                 case .reference(let floorId):
-                    RemoteMentionView(floorId: floorId)
+                    THRemoteMentionView(floorId: floorId)
                 }
             }
         }

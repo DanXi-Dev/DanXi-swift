@@ -128,6 +128,7 @@ struct THDetailPage: View {
                           isPoster: floor.posterName == hole.firstFloor.posterName,
                           model: viewModel,
                           proxy: proxy)
+                .mentionProxy(proxy)
                 .task {
                     if floor == viewModel.filteredFloors.last && !viewModel.endReached {
                         await viewModel.loadMoreFloors()
