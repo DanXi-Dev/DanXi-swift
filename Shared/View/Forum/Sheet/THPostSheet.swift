@@ -12,7 +12,7 @@ struct THPostSheet: View {
             Section {
                 Picker(selection: $divisionId,
                        label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(TreeholeStore.shared.divisions) { division in
+                    ForEach(THStore.shared.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }
@@ -31,21 +31,21 @@ struct THPostSheet: View {
             
             if !content.isEmpty {
                 Section {
-                    ReferenceView(content)
+                    THContentView(content)
                         .padding(.vertical, 5)
                 } header: {
                     Text("Preview")
                 }
             }
         } action: {
-            try await TreeholeRequests.createHole(
+            try await THRequests.createHole(
                 content: content,
                 divisionId: divisionId,
                 tags: tags)
             content = ""
             
             Task { // reload favorites since new post will automatically be favorited
-                try await TreeholeStore.shared.reloadFavorites()
+                try await THStore.shared.reloadFavorites()
             }
         }
     }

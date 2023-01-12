@@ -11,7 +11,7 @@ struct THReportSheet: View {
                       needConfirmation: true) {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
-                    ReferenceView(floor.content,
+                    THContentView(floor.content,
                                   mentions: floor.mention)
                     .interactable(false)
                 }
@@ -24,7 +24,7 @@ struct THReportSheet: View {
                 TextField("Enter report reason", text: $reportReason)
             }
         } action: {
-            try await TreeholeRequests.report(floorId: floor.id,
+            try await THRequests.report(floorId: floor.id,
                                                     reason: reportReason)
         }
     }

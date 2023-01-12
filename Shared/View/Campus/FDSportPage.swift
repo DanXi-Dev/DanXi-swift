@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SportPage: View {
+struct FDSportPage: View {
     @State var exerciseInfo: ExerciseInfo? = nil
     @State var examInfo: SportExamInfo? = nil
     
@@ -100,6 +100,6 @@ struct SportPage: View {
 
 struct SportPage_Previews: PreviewProvider {
     static var previews: some View {
-        SportPage()
+        FDSportPage()
     }
 }

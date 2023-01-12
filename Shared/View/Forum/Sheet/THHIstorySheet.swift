@@ -16,7 +16,7 @@ struct THHistorySheet: View {
             return
         }
         
-        floor = try await TreeholeRequests.restoreFloor(floorId: floor.id,
+        floor = try await THRequests.restoreFloor(floorId: floor.id,
                                                          historyId: historyId,
                                                          restoreReason: restoreReason)
     }
@@ -24,7 +24,7 @@ struct THHistorySheet: View {
     var body: some View {
         NavigationView {
             LoadingPage {
-                histories = try await TreeholeRequests.loadFloorHistory(floorId: floor.id)
+                histories = try await THRequests.loadFloorHistory(floorId: floor.id)
             } content: {
                 List {
                     ForEach(histories) { history in

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct QRCodePage: View {
+struct FDPayPage: View {
     @State var qrCodeData: Data? = nil
     @State var loading = false
     @State var errorInfo = ""
@@ -45,10 +45,10 @@ struct QRCodePage: View {
     }
 }
 
-struct QRCodePage_Previews: PreviewProvider {
+struct FDPayPage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            QRCodePage()
+            FDPayPage()
         }
     }
 }

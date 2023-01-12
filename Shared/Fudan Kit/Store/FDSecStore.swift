@@ -1,8 +1,8 @@
 import Foundation
 import Security
 
-struct CredentialStore {
-    static var shared = CredentialStore()
+struct FDSecStore {
+    static var shared = FDSecStore()
     
     var username: String?
     var password: String?

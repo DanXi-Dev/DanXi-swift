@@ -84,7 +84,7 @@ struct THBrowsePage: View {
     
     private var switchBar: some View {
         Picker("division_selector", selection: $viewModel.currentDivision) {
-            ForEach(TreeholeStore.shared.divisions) { division in
+            ForEach(THStore.shared.divisions) { division in
                 Text(division.name)
                     .tag(division)
             }
@@ -158,7 +158,7 @@ struct THBrowsePage: View {
                     .tag(THBrowseModel.SortOptions.byCreateTime)
             }
             
-            if UserStore.shared.isAdmin {
+            if DXUserStore.shared.isAdmin {
                 Divider()
                 
                 Button {

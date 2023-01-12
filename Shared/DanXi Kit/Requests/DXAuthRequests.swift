@@ -1,6 +1,6 @@
 import Foundation
 
-struct AuthReqest {
+struct DXAuthRequests {
     
     // MARK: Account
     
@@ -94,7 +94,7 @@ struct AuthReqest {
     /// Request a new token when current token is expired.
     /// - Returns: New token.
     static func refreshToken() async throws -> Token {
-        guard let token = SecStore.shared.token else {
+        guard let token = DXSecStore.shared.token else {
             throw DanXiError.tokenNotFound
         }
         

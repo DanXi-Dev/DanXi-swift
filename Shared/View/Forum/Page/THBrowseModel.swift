@@ -40,7 +40,7 @@ class THBrowseModel: ObservableObject {
     
     init(holes: [THHole] = []) {
         self.holes = holes
-        self.currentDivision = TreeholeStore.shared.divisions.first!
+        self.currentDivision = THStore.shared.divisions.first!
     }
     
     func loadMoreHoles() async {
@@ -57,7 +57,7 @@ class THBrowseModel: ObservableObject {
             }
             
             // fetch holes
-            let newHoles = try await TreeholeRequests.loadHoles(startTime: startTime, divisionId: currentDivision.id)
+            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: currentDivision.id)
             endReached = newHoles.isEmpty
             
             // filter duplicate holes & incorrect division

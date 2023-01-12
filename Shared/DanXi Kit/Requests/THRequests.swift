@@ -1,6 +1,6 @@
 import Foundation
 
-struct TreeholeRequests {
+struct THRequests {
     
     // MARK: Division
     

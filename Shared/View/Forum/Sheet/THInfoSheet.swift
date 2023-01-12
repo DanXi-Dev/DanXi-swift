@@ -12,7 +12,7 @@ struct THInfoSheet: View {
                       errorTitle: "Edit Post Info Failed") {
             Section {
                 Picker(selection: $divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(TreeholeStore.shared.divisions) { division in
+                    ForEach(THStore.shared.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }
@@ -27,7 +27,7 @@ struct THInfoSheet: View {
                 }
             }
         } action: {
-            try await TreeholeRequests.modifyHole(holeId: holeId,
+            try await THRequests.modifyHole(holeId: holeId,
                                                    tags: tags,
                                                    divisionId: divisionId,
                                                    unhidden: !hidden)

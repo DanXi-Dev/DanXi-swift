@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DKHomePage: View {
-    @ObservedObject var courseStore = CourseStore.shared
+    @ObservedObject var courseStore = DKStore.shared
     @State var searchText = ""
     
     @State var loading = true
@@ -12,8 +12,8 @@ struct DKHomePage: View {
     init() { }
     
     init(courses: [DKCourseGroup]) { // preview purpose
-        CourseStore.shared.courses = courses
-        CourseStore.shared.initialized = true
+        DKStore.shared.courses = courses
+        DKStore.shared.initialized = true
     }
     
     

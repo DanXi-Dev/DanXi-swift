@@ -5,7 +5,7 @@ import SwiftUI
 /// Reference are a special syntax used in treehole to link to another floor/hole.
 /// Hole reference starts with one hashtag, with hole ID follows: \#123456.
 /// Floor reference are similar, except it starts with two hashtag: \#\#123456.
-struct ReferenceView: View {
+struct THContentView: View {
     let elements: [ReferenceType]
     
     
@@ -17,7 +17,7 @@ struct ReferenceView: View {
     init(_ content: String,
          mentions: [THMention] = [],
          floors: [THFloor] = []) {
-        elements = ReferenceView.parseReferences(content,
+         elements = THContentView.parseReferences(content,
                                    mentions: mentions,
                                    floors: floors)
     }

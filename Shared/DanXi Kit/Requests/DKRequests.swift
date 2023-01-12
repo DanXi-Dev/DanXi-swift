@@ -1,6 +1,6 @@
 import Foundation
 
-struct CourseRequest {
+struct DKRequests {
     
     // MARK: Course Info
     

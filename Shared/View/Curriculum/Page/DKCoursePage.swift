@@ -55,7 +55,7 @@ struct DKCoursePage: View {
         do {
             loading = true
             defer { loading = false }
-            self.courseGroup = try await CourseRequest.loadCourseGroup(id: courseGroup.id)
+            self.courseGroup = try await DKRequests.loadCourseGroup(id: courseGroup.id)
             initialized = true
         } catch {
             errorInfo = error.localizedDescription

@@ -43,7 +43,7 @@ struct DXRegisterSheet: View {
             }
             
             do {
-                try await AuthDelegate.shared.register(email: email,
+                try await DXAuthDelegate.shared.register(email: email,
                                                        password: password,
                                                        verification: verification,
                                                        create: create)
@@ -64,7 +64,7 @@ struct DXRegisterSheet: View {
             
             sendingCode = true
             do {
-                try await AuthReqest.verifyEmail(email: email)
+                try await DXAuthRequests.verifyEmail(email: email)
                 showVerificationAlert = true
                 sendingCode = false
             } catch {

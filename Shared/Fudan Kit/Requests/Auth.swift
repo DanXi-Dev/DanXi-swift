@@ -6,7 +6,7 @@ let UIS_URL = "https://uis.fudan.edu.cn"
 struct FudanAuthRequests {
     static func login(_ username: String, _ password: String) async throws {
         if try await needCaptcha(username: username) {
-            throw FudanError.needCaptcha
+            throw FDError.needCaptcha
         }
         
         // make request to server
@@ -22,9 +22,9 @@ struct FudanAuthRequests {
     }
     
     static func auth(url: URL) async throws -> Data {
-        guard let username = CredentialStore.shared.username,
-              let password = CredentialStore.shared.password else {
-            throw FudanError.credentialNotFound
+        guard let username = FDSecStore.shared.username,
+              let password = FDSecStore.shared.password else {
+            throw FDError.credentialNotFound
         }
         
         var components = URLComponents(string: UIS_URL + "/authserver/login")!

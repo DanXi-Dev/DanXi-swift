@@ -5,8 +5,8 @@ struct TagsPage: View {
     @State private var searchText = ""
     
     private var filteredTags: [THTag] {
-        if searchText.isEmpty { return TreeholeStore.shared.tags }
-        return TreeholeStore.shared.tags.filter { $0.name.contains(searchText) }
+        if searchText.isEmpty { return THStore.shared.tags }
+        return THStore.shared.tags.filter { $0.name.contains(searchText) }
     }
     
     var body: some View {

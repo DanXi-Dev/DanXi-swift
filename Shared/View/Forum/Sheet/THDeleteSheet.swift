@@ -12,7 +12,7 @@ struct THDeleteSheet: View {
                       needConfirmation: true) {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
-                    ReferenceView(floor.content,
+                    THContentView(floor.content,
                                   mentions: floor.mention)
                     .interactable(false)
                 }
@@ -37,10 +37,10 @@ struct THDeleteSheet: View {
                 }
             }
         } action: {
-            floor = try await TreeholeRequests.deleteFloor(floorId: floor.id, reason: deleteReason)
+            floor = try await THRequests.deleteFloor(floorId: floor.id, reason: deleteReason)
             
             if addBan {
-                let hole = try await TreeholeRequests.loadHoleById(holeId: floor.holeId)
+                let hole = try await THRequests.loadHoleById(holeId: floor.holeId)
                 let divisionId = hole.divisionId
                 print(divisionId)
                 // TODO: add ban

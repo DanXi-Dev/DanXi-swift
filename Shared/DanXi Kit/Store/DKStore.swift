@@ -1,7 +1,7 @@
 import Foundation
 
-class CourseStore: ObservableObject {
-    static var shared = CourseStore()
+class DKStore: ObservableObject {
+    static var shared = DKStore()
     
     @Published var courses: [DKCourseGroup] = []
     @Published var initialized = false
@@ -15,7 +15,7 @@ class CourseStore: ObservableObject {
     }
     
     private func updateCourseCache(_ newHash: String) async throws {
-        let courses = try await CourseRequest.loadCourseGroups()
+        let courses = try await DKRequests.loadCourseGroups()
         try FileStore.caches.saveEncoded(self.courses, filename: "dk-course-list.data")
         defaults.setValue(newHash, forKey: "dk-course-hash")
         
@@ -27,7 +27,7 @@ class CourseStore: ObservableObject {
     func loadCourses() async throws {
         guard !initialized else { return }
         
-        let newHash = try await CourseRequest.loadCourseHash()
+        let newHash = try await DKRequests.loadCourseHash()
         
         if let oldHash = defaults.string(forKey: "dk-course-hash") {
             if oldHash == newHash {

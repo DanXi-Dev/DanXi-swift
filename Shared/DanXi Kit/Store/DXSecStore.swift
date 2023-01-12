@@ -2,9 +2,9 @@ import Foundation
 import Security
 
 
-struct SecStore {
+struct DXSecStore {
     
-    static var shared = SecStore()
+    static var shared = DXSecStore()
     
     // MARK: Public Interfaces
     

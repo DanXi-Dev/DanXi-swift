@@ -12,7 +12,7 @@ struct THSearchTagPage: View {
         do {
             loading = true
             defer { loading = false }
-            let newHoles = try await TreeholeRequests.listHoleByTag(tagName: tagname, startTime: holes.last?.updateTime.ISO8601Format())
+            let newHoles = try await THRequests.listHoleByTag(tagName: tagname, startTime: holes.last?.updateTime.ISO8601Format())
             endReached = newHoles.isEmpty
             let ids = holes.map(\.id)
             holes.append(contentsOf: newHoles.filter { !ids.contains($0.id) })

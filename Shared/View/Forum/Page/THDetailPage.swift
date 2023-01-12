@@ -88,7 +88,7 @@ struct THDetailPage: View {
                 Button("Confirm", role: .destructive) {
                     Task {
                         if let hole = viewModel.hole {
-                            try await TreeholeRequests.deleteHole(holeId: hole.id)
+                            try await THRequests.deleteHole(holeId: hole.id)
                         }
                     }
                 }
@@ -176,7 +176,7 @@ struct THDetailPage: View {
                     Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
                 }
                 
-                if UserStore.shared.isAdmin {
+                if DXUserStore.shared.isAdmin {
                     Divider()
                     
                     if !hole.hidden {

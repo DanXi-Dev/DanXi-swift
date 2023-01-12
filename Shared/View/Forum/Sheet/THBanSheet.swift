@@ -9,7 +9,7 @@ struct THBanSheet: View {
                       allowSubmit: true,
                       needConfirmation: true) {
             Picker(selection: $divisionId, label: Label("Banned Division", systemImage: "rectangle.3.group")) {
-                ForEach(TreeholeStore.shared.divisions) { division in
+                ForEach(THStore.shared.divisions) { division in
                     Text(division.name)
                         .tag(division.id)
                 }

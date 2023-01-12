@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct THFavoritesPage: View {
-    @ObservedObject var store = TreeholeStore.shared
+    @ObservedObject var store = THStore.shared
     @State var favorites: [THHole] = []
 
     @State var initError = ""
@@ -15,7 +15,7 @@ struct THFavoritesPage: View {
     }
 
     func fetchFavorites() async throws {
-        self.favorites = try await TreeholeRequests.loadFavorites()
+        self.favorites = try await THRequests.loadFavorites()
     }
 
     func removeFavorites(at offsets: IndexSet) {
@@ -26,7 +26,7 @@ struct THFavoritesPage: View {
             let removeIds = offsets.map { previousList[$0].id }
             let newIds = store.favorites.filter { !removeIds.contains($0) }
             do {
-                store.favorites = try await TreeholeRequests.modifyFavorites(holeIds: newIds)
+                store.favorites = try await THRequests.modifyFavorites(holeIds: newIds)
             } catch {
                 showAlert = true
                 deleteError = error.localizedDescription
@@ -38,7 +38,7 @@ struct THFavoritesPage: View {
     
     var body: some View {
         LoadingPage {
-            self.favorites = try await TreeholeRequests.loadFavorites()
+            self.favorites = try await THRequests.loadFavorites()
         } content: {
             if favorites.isEmpty {
                 Text("Empty Favorites List")

@@ -62,7 +62,7 @@ import SwiftUI
  */
 
 struct ContentView: View {
-    @ObservedObject var authDelegate = AuthDelegate.shared
+    @ObservedObject var authDelegate = DXAuthDelegate.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var navigationTarget: NavigationTarget?
     
@@ -77,9 +77,9 @@ struct ContentView: View {
             if let navigationTarget = navigationTarget {
                 switch navigationTarget {
                 case .code:
-                    QRCodePage()
+                    FDPayPage()
                 case .sport:
-                    SportPage()
+                    FDSportPage()
                 case .treehole:
                     THHomePage()
                 case .curriculum:
@@ -137,7 +137,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        AuthDelegate.shared.isLogged = true
+        DXAuthDelegate.shared.isLogged = true
         
         return ContentView()
     }

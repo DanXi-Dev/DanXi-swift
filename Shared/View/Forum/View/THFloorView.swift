@@ -52,7 +52,7 @@ struct THFloorView: View {
         Task {
             do {
                 let likeStatus = floor.liked ? 0 : 1
-                let newFloor = try await TreeholeRequests.like(floorId: floor.id, like: likeStatus)
+                let newFloor = try await THRequests.like(floorId: floor.id, like: likeStatus)
                 self.floor = newFloor
                 haptic()
             } catch {
@@ -66,7 +66,7 @@ struct THFloorView: View {
     func delete(reason: String = "") {
         Task {
             do {
-                let newFloor = try await TreeholeRequests.deleteFloor(floorId: floor.id, reason: reason)
+                let newFloor = try await THRequests.deleteFloor(floorId: floor.id, reason: reason)
                 self.floor = newFloor
             } catch {
                 errorTitle = "Delete Failed"
@@ -92,7 +92,7 @@ struct THFloorView: View {
                 }
                 
                 // invisible watermark for screenshot tracing
-                if let user = UserStore.shared.user {
+                if let user = DXUserStore.shared.user {
                     Text(String(user.id))
                         .foregroundColor(.gray.opacity(0.01))
                 }
@@ -172,8 +172,7 @@ struct THFloorView: View {
                 .font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
         } else {
-            ReferenceView(bodyContent,
-                          proxy: proxy,
+            THContentView(bodyContent,
                           mentions: floor.mention,
                           floors: mentionSearchContext)
             .foregroundColor(.primary)
@@ -247,7 +246,7 @@ struct THFloorView: View {
     
     @ViewBuilder
     private var menu: some View {
-        let admin = UserStore.shared.isAdmin
+        let admin = DXUserStore.shared.isAdmin
         
         if !floor.deleted {
             Menu {

@@ -1,8 +1,8 @@
 import Foundation
 import SwiftUI
 
-class TreeholeStore: ObservableObject {
-    static var shared = TreeholeStore()
+class THStore: ObservableObject {
+    static var shared = THStore()
     
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
@@ -15,8 +15,8 @@ class TreeholeStore: ObservableObject {
     func loadAll() async throws {
         guard !initialized else { return }
         
-        let divisions = try await TreeholeRequests.loadDivisions()
-        let favorites = try await TreeholeRequests.loadFavoritesIds()
+        let divisions = try await THRequests.loadDivisions()
+        let favorites = try await THRequests.loadFavoritesIds()
         try await loadTags()
         
         Task { @MainActor in
@@ -41,21 +41,21 @@ class TreeholeStore: ObservableObject {
     }
     
     func toggleFavorites(_ holeId: Int, add: Bool) async throws {
-        let favorites: [Int] = try await TreeholeRequests.toggleFavorites(holeId: holeId, add: add)
+        let favorites: [Int] = try await THRequests.toggleFavorites(holeId: holeId, add: add)
         Task { @MainActor in
             self.favorites = favorites
         }
     }
     
     func modifyFavorites(_ holeIds: [Int]) async throws {
-        let favorites: [Int] = try await TreeholeRequests.modifyFavorites(holeIds: holeIds)
+        let favorites: [Int] = try await THRequests.modifyFavorites(holeIds: holeIds)
         Task { @MainActor in
             self.favorites = favorites
         }
     }
     
     func reloadFavorites() async throws {
-        let favorites: [Int] = try await TreeholeRequests.loadFavoritesIds()
+        let favorites: [Int] = try await THRequests.loadFavoritesIds()
         Task { @MainActor in
             self.favorites = favorites
         }
@@ -87,7 +87,7 @@ class TreeholeStore: ObservableObject {
     }
     
     private func updateTagsCache() async throws {
-        let tags = try await TreeholeRequests.loadTags()
+        let tags = try await THRequests.loadTags()
         try FileStore.caches.saveEncoded(tags, filename: "th-tags.data")
         defaults.setValue(try JSONEncoder().encode(Date()), forKey: "th-tags-last-fetch")
         

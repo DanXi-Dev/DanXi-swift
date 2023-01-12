@@ -12,7 +12,7 @@ struct THSearchTextPage: View {
         do {
             loading = true
             defer { loading = false }
-            let newFloors = try await TreeholeRequests.searchKeyword(keyword: keyword, startFloor: floors.count)
+            let newFloors = try await THRequests.searchKeyword(keyword: keyword, startFloor: floors.count)
             endReached = newFloors.isEmpty
             let ids = floors.map(\.id)
             floors.append(contentsOf: newFloors.filter { !ids.contains($0.id) })

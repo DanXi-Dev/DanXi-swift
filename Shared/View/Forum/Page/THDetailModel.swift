@@ -3,7 +3,7 @@ import SwiftUI
 
 @MainActor
 class THDetailModel: ObservableObject {
-    let store = TreeholeStore.shared
+    let store = THStore.shared
     @Published var hole: THHole?
     @Published var favorited: Bool
     
@@ -88,7 +88,7 @@ class THDetailModel: ObservableObject {
             
         case .fromHoleId(let holeId, let floorId):
             do {
-                hole = try await TreeholeRequests.loadHoleById(holeId: holeId)
+                hole = try await THRequests.loadHoleById(holeId: holeId)
                 scrollTarget = floorId ?? -1
             } catch {
                 errorInfo = error.localizedDescription
@@ -97,12 +97,12 @@ class THDetailModel: ObservableObject {
             
         case .fromFloorId(let floorId):
             do {
-                let targetFloor = try await TreeholeRequests.loadFloorById(floorId: floorId)
-                let hole = try await TreeholeRequests.loadHoleById(holeId: targetFloor.holeId)
+                let targetFloor = try await THRequests.loadFloorById(floorId: floorId)
+                let hole = try await THRequests.loadHoleById(holeId: targetFloor.holeId)
                 self.hole = hole
                 self.favorited = store.isFavorite(hole.id)
                 
-                self.floors = try await TreeholeRequests.loadAllFloors(holeId: targetFloor.holeId)
+                self.floors = try await THRequests.loadAllFloors(holeId: targetFloor.holeId)
                 try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
                 scrollTarget = floorId
             } catch {
@@ -118,7 +118,7 @@ class THDetailModel: ObservableObject {
         Task { // update viewing count
             if let hole = hole {
                 do {
-                    try await TreeholeRequests.updateViews(holeId: hole.id)
+                    try await THRequests.updateViews(holeId: hole.id)
                 }
             }
         }
@@ -136,7 +136,7 @@ class THDetailModel: ObservableObject {
         do {
             let previousCount = filteredFloors.count
             while filteredFloors.count == previousCount && !endReached {
-                let newFloors = try await TreeholeRequests.loadFloors(holeId: hole.id, startFloor: floors.count)
+                let newFloors = try await THRequests.loadFloors(holeId: hole.id, startFloor: floors.count)
                 insertFloors(newFloors)
                 endReached = newFloors.isEmpty
             }
@@ -160,7 +160,7 @@ class THDetailModel: ObservableObject {
         do {
             loadingToBottom = true
             defer { loadingToBottom = false }
-            self.floors = try await TreeholeRequests.loadAllFloors(holeId: hole.id)
+            self.floors = try await THRequests.loadAllFloors(holeId: hole.id)
             endReached = true
             withAnimation {
                 scrollTarget = hole.lastFloor.id
@@ -223,7 +223,7 @@ class THDetailModel: ObservableObject {
             for floor in floors {
                 taskGroup.addTask {
                     do {
-                        return try await TreeholeRequests.deleteFloor(floorId: floor.id)
+                        return try await THRequests.deleteFloor(floorId: floor.id)
                     } catch {
                         return floor
                     }

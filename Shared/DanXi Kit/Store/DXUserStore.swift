@@ -1,7 +1,7 @@
 import Foundation
 
-class UserStore: ObservableObject {
-    static var shared = UserStore()
+class DXUserStore: ObservableObject {
+    static var shared = DXUserStore()
     
     @Published var user: DXUser?
     var updated = false
@@ -21,7 +21,7 @@ class UserStore: ObservableObject {
     func updateUser() async throws {
         if updated { return }
         
-        let user = try await AuthReqest.loadUserInfo()
+        let user = try await DXAuthRequests.loadUserInfo()
         try FileStore.caches.saveEncoded(user, filename: "dx-user.data")
         updated = true
         

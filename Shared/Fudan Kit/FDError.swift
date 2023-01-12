@@ -1,6 +1,6 @@
 import Foundation
 
-public enum FudanError: Error {
+public enum FDError: Error {
     case credentialNotFound
     case needCaptcha
 }

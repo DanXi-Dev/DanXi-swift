@@ -27,7 +27,7 @@ struct THEditSheet: View {
             
             if !content.isEmpty {
                 Section {
-                    ReferenceView(content, floors: floors)
+                    THContentView(content, floors: floors)
                         .interactable(false)
                         .padding(.vertical, 5)
                 } header: {
@@ -35,7 +35,7 @@ struct THEditSheet: View {
                 }
             }
         } action: {
-            floor = try await TreeholeRequests.modifyFloor(content: content, floorId: floor.id)
+            floor = try await THRequests.modifyFloor(content: content, floorId: floor.id)
         }
     }
 }

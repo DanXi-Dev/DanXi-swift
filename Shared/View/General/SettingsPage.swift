@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var userStore = UserStore.shared
-    @ObservedObject var authDelegate = AuthDelegate.shared
-    @ObservedObject var fudanAuthDelegate = FudanAuthDelegate.shared
+    @ObservedObject var userStore = DXUserStore.shared
+    @ObservedObject var authDelegate = DXAuthDelegate.shared
+    @ObservedObject var fudanAuthDelegate = FDAuthDelegate.shared
     @ObservedObject var preference = Preference.shared
     
     @State var showTreeHoleLogin = false
@@ -16,8 +16,8 @@ struct SettingsPage: View {
     
     /// Init for preview.
     init(user: DXUser) {
-        UserStore.shared.user = user
-        AuthDelegate.shared.isLogged = true
+        DXUserStore.shared.user = user
+        DXAuthDelegate.shared.isLogged = true
     }
     
     var body: some View {
@@ -66,7 +66,7 @@ struct SettingsPage: View {
                 }
             }
             .sheet(isPresented: $showFudanLogin) {
-                FudanLoginForm()
+                FDLoginSheet()
             }
         }
     }

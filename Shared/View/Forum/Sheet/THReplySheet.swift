@@ -30,7 +30,7 @@ struct THReplySheet: View {
             
             if !content.isEmpty {
                 Section {
-                    ReferenceView(content, floors: floors)
+                    THContentView(content, floors: floors)
                         .interactable(false)
                         .padding(.vertical, 5)
                 } header: {
@@ -38,7 +38,7 @@ struct THReplySheet: View {
                 }
             }
         } action: {
-            _ = try await TreeholeRequests.createFloor(content: content, holeId: holeId)
+            _ = try await THRequests.createFloor(content: content, holeId: holeId)
             Task { @MainActor in
                 endReached = false
             }

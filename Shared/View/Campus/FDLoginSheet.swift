@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FudanLoginForm: View {
+struct FDLoginSheet: View {
     @State var username = ""
     @State var password = ""
     
@@ -13,13 +13,13 @@ struct FudanLoginForm: View {
                 .keyboardType(.decimalPad)
             SecureField("Password", text: $password)
         } action: {
-            try await FudanAuthDelegate.shared.login(username, password)
+            try await FDAuthDelegate.shared.login(username, password)
         }
     }
 }
 
-struct FudanLoginForm_Previews: PreviewProvider {
+struct FDLoginSheet_Previews: PreviewProvider {
     static var previews: some View {
-        FudanLoginForm()
+        FDLoginSheet()
     }
 }
