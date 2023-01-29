@@ -139,12 +139,6 @@ struct THBrowsePage: View {
             }
             
             Button {
-                router?.path.append(TreeholeStaticPages.tags)
-            } label: {
-                Label("Tags", systemImage: "tag")
-            }
-            
-            Button {
                 showDatePicker = true
             } label: {
                 Label("Select Date", systemImage: "clock.arrow.circlepath")

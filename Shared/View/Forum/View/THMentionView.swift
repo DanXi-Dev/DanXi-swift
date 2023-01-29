@@ -83,90 +83,49 @@ struct THMentionView: View {
 
 // MARK: - Wrapper View
 
-/// View that display a mention view and include user interaction.
-struct THMentionWrapper: View {
-    let targetId: Int
-    let mentionType: MentionType
-    let mentionView: THMentionView
-    
-    @Environment(\.interactable) var interactable
-    @Environment(\.colorScheme) var colorScheme
+/// View that presents a local mention, scroll to target when tapped.
+struct THLocalMentionView: View {
+    let floor: THFloor
     @Environment(\.mentionProxy) var proxy
-    @OptionalEnvironmentObject var router: NavigationRouter?
-    
-    enum MentionType {
-        case local
-        case remote
-    }
-    
-    /// Create a mention view from a floor.
-    /// - Parameters:
-    ///   - floor: Mentioned floor.
-    init(floor: THFloor) {
-        self.targetId = floor.id
-        self.mentionView = THMentionView(floor: floor)
-        self.mentionType = .local
-    }
-    
-
-    /// Create a mention view from remote mention.
-    /// - Parameters:
-    ///   - mention: Mention struct.
-    init(mention: THMention) {
-        self.targetId = mention.floorId
-        self.mentionView = THMentionView(mention: mention)
-        self.mentionType = .remote
-    }
     
     var body: some View {
-        if interactable {
-            switch mentionType {
-            case .local:
-                localMention
-                
-            case .remote:
-                remoteMention
-            }
-        } else {
-            mentionView
-        }
-    }
-
-    private var localMention: some View {
         Button {
             if let proxy = proxy {
                 withAnimation {
-                    proxy.scrollTo(targetId, anchor: .top)
+                    proxy.scrollTo(floor.id, anchor: .top)
                 }
             }
         } label: {
-            mentionView
+            THMentionView(floor: floor)
         }
         .buttonStyle(.borderless) // prevent multiple tapping
     }
+}
+
+/// View that represents a remote mention, navigate to target when tapped.
+struct THRemoteMentionView: View {
+    let mention: THMention
+    @EnvironmentObject var router: NavigationRouter
     
-    private var remoteMention: some View {
+    var body: some View {
         Button {
-            router?.path.append(targetId)
+            router.path.append(mention)
         } label: {
-            mentionView
+            THMentionView(mention: mention)
         }
-        .navigationDestination(for: Int.self, destination: { floorId in
-            THDetailPage(floorId: floorId)
-        })
         .buttonStyle(.borderless) // prevent multiple tapping
     }
 }
 
 /// Mention view that is not initialized, tap to load detailed info.
-struct THRemoteMentionView: View {
+struct THLoadingMentionView: View {
     let floorId: Int
     @State var loading = false
     @State var floor: THFloor? = nil
     
     var body: some View {
         if let floor = floor {
-            THMentionWrapper(floor: floor)
+            THMentionView(floor: floor)
         } else {
             Button {
                 // FIXME: might not be reloaded in edit preview section
@@ -188,22 +147,22 @@ struct THRemoteMentionView: View {
     var previewPrompt: some View {
         VStack(alignment: .leading) {
             HStack {
-                Rectangle()
-                    .frame(width: 3, height: 15)
-                
-                Text("Mention")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                
                 Spacer()
-                
                 Image(systemName: "quote.closing")
             }
             .foregroundColor(.secondary)
             
-            Text(loading ? "Loading" : "Tap to view detail")
-                .font(.callout)
-                .foregroundColor(.secondary)
+            HStack {
+                Spacer()
+                if loading {
+                    ProgressView()
+                }
+                Text(loading ? "Loading" : "Tap to view detail")
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+            .padding()
             
             Text("##\(String(floorId))")
                 .font(.caption)
@@ -240,11 +199,8 @@ extension View {
 
 struct THMentionView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            THMentionView(floor: Bundle.main.decodeData("floor"))
-            THRemoteMentionView(floorId: 100000)
-        }
-        .padding()
-        .previewLayout(.sizeThatFits)
+        THMentionView(floor: Bundle.main.decodeData("floor"))
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }

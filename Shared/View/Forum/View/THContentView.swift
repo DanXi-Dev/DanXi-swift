@@ -30,14 +30,13 @@ struct THContentView: View {
                     MarkdownView(content)
                     
                 case .localReference(let floor):
-                    THMentionWrapper(floor: floor)
+                    THLocalMentionView(floor: floor)
                     
                 case .remoteReference(let mention):
-                    THMentionWrapper(mention: mention)
-                        .foregroundColor(.red)
+                    THRemoteMentionView(mention: mention)
                     
                 case .reference(let floorId):
-                    THRemoteMentionView(floorId: floorId)
+                    THLoadingMentionView(floorId: floorId)
                 }
             }
         }

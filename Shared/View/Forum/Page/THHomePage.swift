@@ -45,11 +45,14 @@ struct THHomePage: View {
                             THDetailPage(floorId: floor.id)
                                 .environmentObject(router)
                         }
+                        .navigationDestination(for: THMention.self) { mention in
+                            THDetailPage(floorId: mention.floorId)
+                                .environmentObject(router)
+                        }
                         .navigationDestination(for: TreeholeStaticPages.self) { page in
                             switch page {
                             case .favorites: THFavoritesPage().environmentObject(router)
                             case .reports: THReportPage().environmentObject(router)
-                            case .tags: TagsPage().environmentObject(router)
                             case .searchText(let keyword): THSearchTextPage(keyword: keyword).environmentObject(router)
                             case .searchTag(let tag): THSearchTagPage(tagname: tag).environmentObject(router)
                             }
@@ -61,8 +64,7 @@ struct THHomePage: View {
 }
 
 enum TreeholeStaticPages: Hashable {
-    case favorites, reports, tags
-//    case searchText(let text:
+    case favorites, reports
     case searchText(keyword: String)
     case searchTag(tag: String)
 }

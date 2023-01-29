@@ -126,7 +126,6 @@
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
-		F1CF6B3C28A4C5D100DF1642 /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CF6B3B28A4C5D100DF1642 /* THTagsPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -273,7 +272,6 @@
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
 		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
-		F1CF6B3B28A4C5D100DF1642 /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -528,7 +526,6 @@
 				2778D6072891D22D009F4DB1 /* THDetailPage.swift */,
 				27999CEF28AB9A4B009F11A9 /* THDetailModel.swift */,
 				F19113A928A65D260067BA61 /* THSearchPage.swift */,
-				F1CF6B3B28A4C5D100DF1642 /* THTagsPage.swift */,
 				272AC8D92896BE2500092B0C /* THFavoritesPage.swift */,
 				27FA5F46289947DA000391A3 /* THSearchTextPage.swift */,
 				27FA5F48289955C3000391A3 /* THSearchTagPage.swift */,
@@ -837,7 +834,6 @@
 				271D597128C251BE00F72C3B /* PreviewContextView.swift in Sources */,
 				2732C8B5296F3C0900A5248D /* Conflict+Text.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
-				F1CF6B3C28A4C5D100DF1642 /* THTagsPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				2706605929312D8300F4C321 /* FDAuthDelegate.swift in Sources */,
