@@ -9,8 +9,9 @@ class DKStore: ObservableObject {
     private let defaults = UserDefaults.standard
     
     private func loadCourseCache() throws {
+        let courses: [DKCourseGroup] = try FileStore.caches.loadDecoded("dk-course-list.data")
         Task { @MainActor in
-            self.courses = try FileStore.caches.loadDecoded("dk-course-list.data")
+            self.courses = courses
         }
     }
     

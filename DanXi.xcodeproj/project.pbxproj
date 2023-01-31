@@ -479,8 +479,8 @@
 			isa = PBXGroup;
 			children = (
 				27CBA08829522E3100F422DB /* General */,
-				27CBA0792952219500F422DB /* Forum */,
 				27CBA07B2952219D00F422DB /* Campus */,
+				27CBA0792952219500F422DB /* Forum */,
 				27CBA07C295221B100F422DB /* Curriculum */,
 				27CBA08729522CE000F422DB /* Support */,
 			);

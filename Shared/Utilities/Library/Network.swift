@@ -98,6 +98,7 @@ func processJSONData<T: Decodable>(_ data: Data) throws -> T {
         
         return try JSONDecoder().decode(T.self, from: data)
     } catch {
+        print(error)
         throw NetworkError.invalidResponse
     }
 }

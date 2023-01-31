@@ -27,20 +27,24 @@ struct DKHomePage: View {
     }
 
     var body: some View {
-        LoadingPage(finished: courseStore.initialized) {
-            try await courseStore.loadCourses()
-        } content: {
-            List {
-                ForEach(searchResults) { course in
-                    NavigationLink(value: course) {
-                        DKCourseView(courseGroup: course)
+        NavigationStack {
+            LoadingPage(finished: courseStore.initialized) {
+                // FIXME: DKStore cannot create file in filesystem
+                courseStore.courses = try await DKRequests.loadCourseGroups()
+                courseStore.initialized = true
+            } content: {
+                List {
+                    ForEach(searchResults) { course in
+                        NavigationLink(value: course) {
+                            DKCourseView(courseGroup: course)
+                        }
                     }
                 }
-            }
-            .searchable(text: $searchText)
-            .navigationTitle("Curriculum Board")
-            .navigationDestination(for: DKCourseGroup.self) { course in
-                DKCoursePage(courseGroup: course)
+                .searchable(text: $searchText)
+                .navigationTitle("Curriculum Board")
+                .navigationDestination(for: DKCourseGroup.self) { course in
+                    DKCoursePage(courseGroup: course)
+                }
             }
         }
     }

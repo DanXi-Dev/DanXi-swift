@@ -15,7 +15,7 @@ struct FileStore {
     
     /// Initialize using standard system path.
     init(directory: FileManager.SearchPathDirectory) {
-        self.base = try! FileManager.default.url(for: directory, in: .userDomainMask, appropriateFor: nil, create: false)
+        self.base = try! FileManager.default.url(for: directory, in: .userDomainMask, appropriateFor: nil, create: true)
     }
     
     /// Check if the file exists under base direcotry.
@@ -79,5 +79,3 @@ struct FileStore {
         try FileManager.default.removeItem(at: url)
     }
 }
-
-// TODO: CacheManager

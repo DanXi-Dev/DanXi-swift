@@ -154,8 +154,8 @@ struct MarkdownView: View {
         }
         .padding(.leading, 10)
         .overlay(Rectangle()
-                    .frame(width: 3, height: nil, alignment: .leading)
-                    .foregroundColor(Color.secondary.opacity(0.5)),
+            .frame(width: 3, height: nil, alignment: .leading)
+            .foregroundColor(Color.secondary.opacity(0.5)),
                  alignment: .leading)
         .foregroundColor(.secondary)
     }
