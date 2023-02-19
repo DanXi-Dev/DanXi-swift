@@ -60,7 +60,7 @@ struct LoadingPage<Content: View>: View {
                 .padding(.bottom)
                 .multilineTextAlignment(.center)
             
-            Button("Retry") {
+            Button(LocalizedStringKey("Retry")) {
                 loading = true
             }
             .frame(width: 120, height: 25)
@@ -84,14 +84,14 @@ struct LoadingPage_Previews: PreviewProvider {
             } content: {
                 EmptyView()
             }
-            .previewDisplayName("Failed")
+            .previewDisplayName("Loading")
 
             LoadingPage(finished: false) {
                 throw NetworkError.invalidResponse
             } content: {
                 EmptyView()
             }
-            .previewDisplayName("Loading")
+            .previewDisplayName("Failed")
         }
     }
 }

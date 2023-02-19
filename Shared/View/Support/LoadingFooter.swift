@@ -20,7 +20,7 @@ struct LoadingFooter: View {
                 Text(errorDescription)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
-                Button("Retry") {
+                Button(LocalizedStringKey("Retry")) {
                     Task {
                         await action()
                     }
@@ -60,6 +60,7 @@ struct LoadingFooter_Previews: PreviewProvider {
                             errorDescription: "Requested resourse not found") {
                 // do something
             }
+            
             LoadingFooter(loading: .constant(false),
                             errorDescription: "Requested resourse not found") {
                 // do something

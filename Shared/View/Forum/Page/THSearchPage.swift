@@ -53,7 +53,7 @@ struct THSearchPage: View {
                     HStack {
                         Text("Search History")
                         Spacer()
-                        Button("Clear History") {
+                        Button(LocalizedStringKey("Clear History")) {
                             searchHistory = []
                         }
                     }
