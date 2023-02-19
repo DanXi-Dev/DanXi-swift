@@ -112,7 +112,7 @@ extension THFloor {
         isMe = try values.decodeIfPresent(Bool.self, forKey: .isMe) ?? false
         deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
         holeId = try values.decode(Int.self, forKey: .holeId)
-        storey = try values.decode(Int.self, forKey: .storey)
+        storey = try values.decodeIfPresent(Int.self, forKey: .storey) ?? 0
         content = try values.decode(String.self, forKey: .content)
         spetialTag = try values.decode(String.self, forKey: .spetialTag)
         let posterName = try values.decode(String.self, forKey: .posterName)
