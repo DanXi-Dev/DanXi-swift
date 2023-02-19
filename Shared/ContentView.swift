@@ -1,83 +1,92 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var authDelegate = DXAuthDelegate.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @State var navigationTarget: NavigationTarget?
-    
-    enum NavigationTarget {
-        case code, sport, treehole, curriculum, settings, about
-    }
+    @State var section: AppSection? = AppSection.campus
     
     var body: some View {
-        NavigationSplitView {
-            contentList
-        } detail: {
-            if let navigationTarget = navigationTarget {
-                switch navigationTarget {
-                case .code:
-                    FDPayPage()
-                case .sport:
-                    FDSportPage()
-                case .treehole:
-                    THHomePage()
-                case .curriculum:
-                    DKHomePage()
-                case .about:
-                    AboutPage()
-                case .settings:
-                    SettingsPage()
-                }
-            } else {
-                Text("Not Selected")
-            }
+        if horizontalSizeClass == .compact {
+            TabHomePage(section: $section)
+        } else {
+            SplitHomePage(section: $section)
         }
-    }
-
-    private var contentList: some View {
-        List(selection: $navigationTarget) {
-            Section("Campus Services") {
-                Label("Fudan QR Code", systemImage: "qrcode")
-                    .tag(NavigationTarget.code)
-                Label("PE Curriculum", systemImage: "figure.disc.sports")
-                    .tag(NavigationTarget.sport)
-            }
-            
-            Section("DanXi Services") {
-                if authDelegate.isLogged {
-                    Label("Tree Hole", systemImage: "text.bubble")
-                        .tag(NavigationTarget.treehole)
-
-                    Label("Curriculum", systemImage: "books.vertical")
-                        .tag(NavigationTarget.curriculum)
-                    
-                    LinkView(url: "https://canvas.fduhole.com", text: "Canvas", icon: "paintbrush.pointed")
-                    
-                    LinkView(url: "https://fdu-hotpot.top", text: "FDU Hotpot", icon: "figure.run")
-                } else {
-                    // TODO: refine this section
-                    Text("Not Logged In")
-                        .foregroundColor(.secondary)
-                }
-            }
-            
-            Section {
-                Label("Settings", systemImage: "gearshape")
-                    .tag(NavigationTarget.settings)
-                
-                Label("About", systemImage: "info.circle")
-                    .tag(NavigationTarget.about)
-            }
-        }
-        .listStyle(.insetGrouped)
-        .navigationTitle("DanXi")
     }
 }
 
+enum AppSection {
+    case campus, forum, curriculum, settings
+}
+
+struct TabHomePage: View {
+    @Binding var section: AppSection?
+    
+    var body: some View {
+        // SwiftUI bug: using `Tabview(selection: $section)` will cause selection to change when sheet pops up
+        TabView {
+            FDHomePage()
+                .tag(AppSection.campus)
+                .tabItem {
+                    Label("Campus Services", systemImage: "square.stack")
+                }
+            
+            THHomePage()
+                .tag(AppSection.forum)
+                .tabItem {
+                    Label("Tree Hole", systemImage: "text.bubble")
+                }
+            
+            DKHomePage()
+                .tag(AppSection.curriculum)
+                .tabItem {
+                    Label("Curriculum", systemImage: "books.vertical")
+                }
+            
+            SettingsPage()
+                .tag(AppSection.settings)
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape")
+                }
+        }
+    }
+}
+
+struct SplitHomePage: View {
+    @Binding var section: AppSection?
+    
+    var body: some View {
+        NavigationSplitView {
+            List(selection: $section) {
+                Label("Campus Services", systemImage: "square.stack")
+                    .tag(AppSection.campus)
+                Label("Tree Hole", systemImage: "text.bubble")
+                    .tag(AppSection.forum)
+                Label("Curriculum", systemImage: "books.vertical")
+                    .tag(AppSection.curriculum)
+                Label("Settings", systemImage: "gearshape")
+                    .tag(AppSection.settings)
+            }
+            .navigationTitle("DanXi")
+        } detail: {
+            if let section = section {
+                switch section {
+                case .campus:
+                    FDHomePage()
+                case .forum:
+                    THHomePage()
+                case .curriculum:
+                    DKHomePage()
+                case .settings:
+                    SettingsPage()
+                }
+            }
+        }
+
+    }
+}
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DXAuthDelegate.shared.isLogged = true
-        
-        return ContentView()
+        ContentView()
     }
 }

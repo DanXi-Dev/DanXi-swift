@@ -2,25 +2,23 @@ import SwiftUI
 
 struct AboutPage: View {
     var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    LinkView(url: "https://danxi.fduhole.com", text: "Website", icon: "safari")
-                    LinkView(url: "https://www.fduhole.com/#/license", text: "Terms and Conditions", icon: "info.circle")
-                    
-                    NavigationLink {
-                        CreditPage()
-                    } label: {
-                        Label("Acknowledgements", systemImage: "heart")
-                    }
-                } header: {
-                    appIcon
+        List {
+            Section {
+                LinkView(url: "https://danxi.fduhole.com", text: "Website", icon: "safari")
+                LinkView(url: "https://www.fduhole.com/#/license", text: "Terms and Conditions", icon: "info.circle")
+
+                NavigationLink {
+                    CreditPage()
+                } label: {
+                    Label("Acknowledgements", systemImage: "heart")
                 }
+            } header: {
+                appIcon
             }
-            .navigationTitle("About")
         }
+        .navigationTitle("About")
     }
-    
+
     private var appIcon: some View {
         HStack {
             Spacer()
@@ -39,7 +37,6 @@ struct AboutPage: View {
             .padding(.bottom)
             Spacer()
         }
-        
     }
 }
 

@@ -44,7 +44,6 @@ struct CreditPage: View {
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Acknowledgements")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

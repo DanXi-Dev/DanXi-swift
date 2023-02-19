@@ -105,6 +105,7 @@
 		27CC00EA28E1EE1800F0B026 /* THBanSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00E928E1EE1800F0B026 /* THBanSheet.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
 		27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */; };
+		27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D69EDB29A2B0B10024D242 /* FDHomePage.swift */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
@@ -249,6 +250,7 @@
 		27CC00E928E1EE1800F0B026 /* THBanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBanSheet.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
 		27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXRegisterSheet.swift; sourceTree = "<group>"; };
+		27D69EDB29A2B0B10024D242 /* FDHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDHomePage.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* THReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportSheet.swift; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
 				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
+				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
 			);
 			path = Campus;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */,
 				278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */,
 				277E432228C7810700EBAC23 /* THContentView.swift in Sources */,
+				27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */,
 				2778D6232891D22D009F4DB1 /* THDetailPage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* THEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,

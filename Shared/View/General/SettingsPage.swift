@@ -21,17 +21,28 @@ struct SettingsPage: View {
     }
     
     var body: some View {
-        List {
-            Section("Accounts Management") {
-                uisAccount
-                danxiAccount
+        NavigationStack {
+            List {
+                Section("Accounts Management") {
+                    uisAccount
+                    danxiAccount
+                }
+                
+                if authDelegate.isLogged {
+                    treeholeSettings
+                }
+                
+                Section {
+                    NavigationLink {
+                        AboutPage()
+                    } label: {
+                        Label("About", systemImage: "info.circle")
+                    }
+
+                }
             }
-            
-            if authDelegate.isLogged {
-                treeholeSettings
-            }
+            .navigationTitle("Settings")
         }
-        .navigationTitle("Settings")
     }
     
     // MARK: Accounts
@@ -206,8 +217,6 @@ struct SettingsPage: View {
 
 struct SettingsPage_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            SettingsPage()
-        }
+        SettingsPage()
     }
 }
