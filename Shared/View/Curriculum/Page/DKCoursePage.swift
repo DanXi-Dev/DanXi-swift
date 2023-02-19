@@ -3,7 +3,7 @@ import SwiftUI
 struct DKCoursePage: View {
     @State var courseGroup: DKCourseGroup
     @State var showCourseInfo = true
-    
+    @State var showPostSheet = false
     
     @State var teacherSelected: String = ""
     @State var semesterSelected: DKSemester = DKSemester.empty
@@ -96,6 +96,18 @@ struct DKCoursePage: View {
             )
         }
         .navigationTitle(courseGroup.name)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing, content: {
+                Button {
+                    showPostSheet = true
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                }
+            })
+        }
+        .sheet(isPresented: $showPostSheet, content: {
+            DKPostSheet(courseGroup: courseGroup)
+        })
         .task {
             await loadReviews()
         }

@@ -208,6 +208,14 @@
 "%@ Credit" = "%@学分";
 "Curriculum Board" = "蛋壳课评";
 "Curriculum" = "课评";
+"New Review" = "新课评";
+"Send Review Failed" = "提交课评失败";
+"Enter review content" = "输入课评内容";
+"Course Evaluation" = "课程评价";
+"Review Title" = "课评标题";
+"Write Review" = "写课评";
+"Select Course" = "选择课程";
+"Not Selected" = "未选择";
 
 // Course Detail
 "Course Information" = "课程信息";

@@ -46,7 +46,7 @@ struct DKCourse: Hashable, Codable, Identifiable {
     let maxStudent, weekHour, year, semester: Int
     let reviews: [DKReview]
     
-    var formattedSemester: LocalizedStringKey {
+    var formattedSemester: LocalizedStringResource {
         return DKSemester(year: year, semester: semester).formatted()
     }
     
@@ -87,18 +87,18 @@ struct DKSemester: Identifiable, Hashable {
     }
     let year, semester: Int
     
-    func formatted() -> LocalizedStringKey {
+    func formatted() -> LocalizedStringResource {
         switch semester {
         case 1:
-            return "\(String(year)) Fall Semester"
+            return LocalizedStringResource("\(String(year)) Fall Semester")
         case 2:
-            return "\(String(year)) Winter Vacation"
+            return LocalizedStringResource("\(String(year)) Winter Vacation")
         case 3:
-            return "\(String(year)) Spring Semester"
+            return LocalizedStringResource("\(String(year)) Spring Semester")
         case 4:
-            return "\(String(year)) Winter Vacation"
+            return LocalizedStringResource("\(String(year)) Winter Vacation")
         default:
-            return "\(String(year)) - \(semester)"
+            return LocalizedStringResource("\(String(year)) - \(semester)")
         }
     }
     
@@ -140,5 +140,5 @@ struct DKReview: Hashable, Codable, Identifiable {
 }
 
 struct DKRank: Hashable, Codable {
-    let overall, content, workload, assessment: Double
+    var overall, content, workload, assessment: Double
 }

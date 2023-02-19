@@ -68,7 +68,7 @@ struct DKRequests {
             let rank: DKRank
         }
 
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/course/\(courseId)/reviews")!,
+        return try await DXResponse(URL(string: DANKE_BASE_URL + "/courses/\(courseId)/reviews")!,
                                     payload: ReviewConfig(title: title, content: content, rank: rank),
                                     method: modify ? "PUT" : "POST")
     }
