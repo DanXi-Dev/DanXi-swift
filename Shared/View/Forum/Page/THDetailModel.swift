@@ -102,7 +102,11 @@ class THDetailModel: ObservableObject {
                 self.hole = hole
                 self.favorited = store.isFavorite(hole.id)
                 
-                self.floors = try await THRequests.loadAllFloors(holeId: targetFloor.holeId)
+                var floors = try await THRequests.loadAllFloors(holeId: targetFloor.holeId)
+                for i in 0..<floors.count {
+                    floors[i].storey = i + 1
+                }
+                self.floors = floors
                 try await Task.sleep(nanoseconds: UInt64(0.1 * Double(NSEC_PER_SEC))) // create a delay to prepare UI before scrolling
                 scrollTarget = floorId
             } catch {
@@ -160,7 +164,12 @@ class THDetailModel: ObservableObject {
         do {
             loadingToBottom = true
             defer { loadingToBottom = false }
-            self.floors = try await THRequests.loadAllFloors(holeId: hole.id)
+            var floors = try await THRequests.loadAllFloors(holeId: hole.id)
+            for i in 0..<floors.count {
+                floors[i].storey = i + 1
+            }
+            self.floors = floors
+            
             endReached = true
             withAnimation {
                 scrollTarget = hole.lastFloor.id
@@ -188,10 +197,19 @@ class THDetailModel: ObservableObject {
         }
     }
     
-    // prevent duplicate inserting ID.
+    
     private func insertFloors(_ floors: [THFloor]) {
+        
+        // prevent duplicate inserting ID.
         let ids = self.floors.map(\.id)
-        let filteredFloors = floors.filter { !ids.contains($0.id) }
+        var filteredFloors = floors.filter { !ids.contains($0.id) }
+        
+        // calc storey
+        let baseStorey = self.floors.count
+        for i in 0..<filteredFloors.count {
+            filteredFloors[i].storey = baseStorey + i + 1
+        }
+        
         self.floors.append(contentsOf: filteredFloors)
     }
     

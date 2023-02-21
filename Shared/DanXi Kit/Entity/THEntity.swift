@@ -61,7 +61,7 @@ struct THFloor: Hashable, Codable, Identifiable {
     let liked: Bool
     let isMe: Bool
     let deleted: Bool
-    let storey: Int
+    var storey: Int
     // TODO: fold: [?]
     var content: String
     let posterName, spetialTag: String
