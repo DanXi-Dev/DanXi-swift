@@ -23,7 +23,7 @@ struct THBrowsePage: View {
             if !viewModel.currentDivision.pinned.isEmpty {
                 Section {
                     ForEach(viewModel.currentDivision.pinned) { hole in
-                        THHoleView(hole: hole)
+                        THBrowseRow(hole: hole)
                     }
                 } header: {
                     Label("Pinned", systemImage: "pin.fill")
@@ -33,7 +33,7 @@ struct THBrowsePage: View {
             // MARK: Main Section
             Section {
                 ForEach(viewModel.filteredHoles) { hole in
-                    THHoleView(hole: hole, fold: (hole.nsfw && preference.nsfwSetting == .fold))
+                    THBrowseRow(hole: hole)
                         .task {
                             if hole == viewModel.filteredHoles.last {
                                 await viewModel.loadMoreHoles()
@@ -164,6 +164,19 @@ struct THBrowsePage: View {
             
         } label: {
             Image(systemName: "ellipsis.circle")
+        }
+    }
+}
+
+struct THBrowseRow: View {
+    @ObservedObject var preference = Preference.shared
+    let hole: THHole
+    
+    var body: some View {
+        ListSeparatorWrapper {
+            THHoleView(hole: hole,
+                       fold: (hole.nsfw && preference.nsfwSetting == .fold))
+                .padding(.top)
         }
     }
 }

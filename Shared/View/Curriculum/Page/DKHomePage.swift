@@ -40,6 +40,7 @@ struct DKHomePage: View {
                         }
                     }
                 }
+                .listStyle(.plain)
                 .searchable(text: $searchText)
                 .navigationTitle("Curriculum Board")
                 .navigationDestination(for: DKCourseGroup.self) { course in
