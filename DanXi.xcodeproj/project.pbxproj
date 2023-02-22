@@ -74,6 +74,7 @@
 		2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* DKCoursePage.swift */; };
 		27999CF028AB9A4B009F11A9 /* THDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999CEF28AB9A4B009F11A9 /* THDetailModel.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
+		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
@@ -112,6 +113,9 @@
 		27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* LoadingOverlay.swift */; };
 		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
+		27DDBABB29A50190008849D1 /* FDBusRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusRequests.swift */; };
+		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
+		27DDBABF29A501D2008849D1 /* bus.json in Resources */ = {isa = PBXBuildFile; fileRef = 27DDBABE29A501D2008849D1 /* bus.json */; };
 		27E4686328BCABC100CDE8CE /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingPage.swift */; };
 		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
@@ -258,6 +262,9 @@
 		27D7110A28CA3167001E9464 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		27D7110C28CA38DC001E9464 /* FormPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPrimitive.swift; sourceTree = "<group>"; };
 		27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarRatingView.swift; sourceTree = "<group>"; };
+		27DDBABA29A50190008849D1 /* FDBusRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusRequests.swift; sourceTree = "<group>"; };
+		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
+		27DDBABE29A501D2008849D1 /* bus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bus.json; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
@@ -288,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
+				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
@@ -306,6 +314,7 @@
 				2706604E29312D8200F4C321 /* Auth.swift */,
 				2706604F29312D8200F4C321 /* Electricity.swift */,
 				2713B5E6293A7B9E00ADE348 /* Sport.swift */,
+				27DDBABA29A50190008849D1 /* FDBusRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -509,10 +518,11 @@
 		27CBA07B2952219D00F422DB /* Campus */ = {
 			isa = PBXGroup;
 			children = (
+				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
 				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
 				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
-				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
+				27DDBABC29A501A7008849D1 /* FDBusPage.swift */,
 			);
 			path = Campus;
 			sourceTree = "<group>";
@@ -634,6 +644,7 @@
 		27D6F44D2892C5C50059228F /* Preview */ = {
 			isa = PBXGroup;
 			children = (
+				27DDBABE29A501D2008849D1 /* bus.json */,
 				27AFBD3028E4688000ED8A3D /* user.json */,
 				27544B4428C5284100600605 /* report */,
 				27E5E82728BA0B300074D295 /* divisions */,
@@ -748,6 +759,7 @@
 				273D65B8292E07FF0064DCB1 /* Introspect */,
 				27550428293539AC00D28AA9 /* WrappingHStack */,
 				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
+				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -784,6 +796,7 @@
 				273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -817,6 +830,7 @@
 				27AFBD3128E4688000ED8A3D /* user.json in Resources */,
 				27544B4628C5286300600605 /* report-list.json in Resources */,
 				27E5E82928BA0B560074D295 /* hole-list.json in Resources */,
+				27DDBABF29A501D2008849D1 /* bus.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -828,6 +842,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DDBABB29A50190008849D1 /* FDBusRequests.swift in Sources */,
 				27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */,
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
 				2778D6252891D22D009F4DB1 /* DXLoginSheet.swift in Sources */,
@@ -846,6 +861,7 @@
 				271D597128C251BE00F72C3B /* PreviewContextView.swift in Sources */,
 				2732C8B5296F3C0900A5248D /* Conflict+Text.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
+				27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				2706605929312D8300F4C321 /* FDAuthDelegate.swift in Sources */,
@@ -1177,6 +1193,14 @@
 				kind = branch;
 			};
 		};
+		27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-markdown";
@@ -1221,6 +1245,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
+		};
+		27A308C629A6753B00E8F646 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 		27BBBCFE29119368007C2905 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;

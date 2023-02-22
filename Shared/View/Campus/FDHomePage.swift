@@ -16,6 +16,11 @@ struct FDHomePage: View {
                     Label("PE Curriculum", systemImage: "figure.disc.sports")
                 }
 
+                NavigationLink {
+                    FDBusPage()
+                } label: {
+                    Label("Bus Schedule", systemImage: "bus.fill")
+                }
             }
             .navigationTitle("Campus Services")
         }
