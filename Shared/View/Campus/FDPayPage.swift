@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct FDPayPage: View {
     @State var qrCodeData: Data? = nil
@@ -10,7 +11,21 @@ struct FDPayPage: View {
             loading = true
             defer { loading = false }
             do {
-                qrCodeData = try await EcardRequests.getQRCode()
+                let qrcodeStr = try await FDEcardRequests.getQRCodeString()
+                
+                // generate QR code data
+                guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+                    throw NetworkError.invalidResponse
+                }
+                let data = qrcodeStr.data(using: .ascii, allowLossyConversion: false)
+                filter.setValue(data, forKey: "inputMessage")
+                guard let ciimage = filter.outputImage else {
+                    throw NetworkError.invalidResponse
+                }
+                let transform = CGAffineTransform(scaleX: 10, y: 10)
+                let scaledCIImage = ciimage.transformed(by: transform)
+                let uiimage = UIImage(ciImage: scaledCIImage)
+                qrCodeData = uiimage.pngData()!
             } catch {
                 errorInfo = error.localizedDescription
             }
