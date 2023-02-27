@@ -293,6 +293,10 @@
 "To" = "终点站";
 "Holiday" = "节假日";
 
+// Fudan Ecard
+"ECard Information" = "校园卡信息";
+"ECard Balance" = "校园卡余额";
+"Transaction Record" = "交易记录";
 
 // About
 "Website" = "网站";

@@ -15,8 +15,7 @@ struct FDEcardRequests {
         return qrcodeStr
     }
     
-    static func getEcardInfo() async throws -> String {
-        print("getting ecard info")
+    static func getEcardBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
         let responseData = try await FudanAuthRequests.auth(url: url)
         let cashElement = try processHTMLData(responseData, selector: ".payway-box-bottom-item > p")
@@ -58,7 +57,8 @@ struct FDEcardRequests {
     }
 }
 
-struct FDTradeRecord {
+struct FDTradeRecord: Identifiable, Equatable {
+    let id = UUID()
     let createTime: String
     let location: String
     let amount: String

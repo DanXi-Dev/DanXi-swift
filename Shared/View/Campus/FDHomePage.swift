@@ -21,6 +21,12 @@ struct FDHomePage: View {
                 } label: {
                     Label("Bus Schedule", systemImage: "bus.fill")
                 }
+                
+                NavigationLink {
+                    FDEcardPage()
+                } label: {
+                    Label("ECard Information", systemImage: "creditcard")
+                }
             }
             .navigationTitle("Campus Services")
         }
