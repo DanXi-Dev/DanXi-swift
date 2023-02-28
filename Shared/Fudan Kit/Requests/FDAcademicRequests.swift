@@ -47,23 +47,40 @@ struct FDAcademicRequests {
         
         var scoreList: [FDScore] = []
         for row in tableElement.children() {
-            let score = FDScore(courseId: try row.child(2).html(),
-                                name: try row.child(3).html(),
-                                type: try row.child(4).html(),
-                                credit: try row.child(5).html(),
-                                grade: try row.child(6).html(),
-                                gradePoint: try row.child(7).html())
-            scoreList.append(score)
+            if row.childNodeSize() > 7 {
+                let score = FDScore(courseId: try row.child(2).html(),
+                                    name: try row.child(3).html(),
+                                    type: try row.child(4).html(),
+                                    credit: try row.child(5).html(),
+                                    grade: try row.child(6).html(),
+                                    gradePoint: try row.child(7).html())
+                scoreList.append(score)
+            }
         }
         
         return scoreList
     }
 }
 
-struct FDSemester: Codable, Identifiable {
+struct FDSemester: Codable, Identifiable, Equatable, Hashable {
     let id: Int
     let schoolYear: String
     let name: String
+    
+    func formatted() -> LocalizedStringResource {
+        switch name {
+        case "1":
+            return LocalizedStringResource("\(String(schoolYear)) Fall Semester")
+        case "2":
+            return LocalizedStringResource("\(String(schoolYear)) Spring Semester")
+        case "寒假":
+            return LocalizedStringResource("\(String(schoolYear)) Winter Vacation")
+        case "暑期":
+            return LocalizedStringResource("\(String(schoolYear)) Summer Vacation")
+        default:
+            return "\(schoolYear) \(name)"
+        }
+    }
 }
 
 struct FDScore: Identifiable {

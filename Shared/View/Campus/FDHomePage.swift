@@ -27,6 +27,12 @@ struct FDHomePage: View {
                 } label: {
                     Label("ECard Information", systemImage: "creditcard")
                 }
+                
+                NavigationLink {
+                    FDScorePage()
+                } label: {
+                    Label("Exams & Score", systemImage: "graduationcap")
+                }
             }
             .navigationTitle("Campus Services")
         }

@@ -96,7 +96,7 @@ struct DKSemester: Identifiable, Hashable {
         case 3:
             return LocalizedStringResource("\(String(year)) Spring Semester")
         case 4:
-            return LocalizedStringResource("\(String(year)) Winter Vacation")
+            return LocalizedStringResource("\(String(year)) Summer Vacation")
         default:
             return LocalizedStringResource("\(String(year)) - \(semester)")
         }
