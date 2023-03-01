@@ -60,6 +60,34 @@ struct FDAcademicRequests {
         
         return scoreList
     }
+    
+    static func getGPA() async throws -> [FDRank] {
+        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action")!
+        let (data, _) = try await sendRequest(URLRequest(url: url))
+        let tableElement = try processHTMLData(data, selector: "tbody")
+        
+        var rankList: [FDRank] = []
+        for row in tableElement.children() {
+            if row.childNodeSize() > 8 {
+                guard let gpa = Double(try row.child(5).html()),
+                      let credit = Double(try row.child(6).html()),
+                      let rankIndex = Int(try row.child(7).html()) else {
+                    continue
+                }
+                
+                let rank = FDRank(name: try row.child(1).html(),
+                                  grade: try row.child(2).html(),
+                                  major: try row.child(3).html(),
+                                  department: try row.child(4).html(),
+                                  gpa: gpa,
+                                  credit: credit,
+                                  rank: rankIndex)
+                rankList.append(rank)
+            }
+        }
+        
+        return rankList
+    }
 }
 
 struct FDSemester: Codable, Identifiable, Equatable, Hashable {
@@ -91,4 +119,19 @@ struct FDScore: Identifiable {
     let credit: String
     let grade: String
     let gradePoint: String
+}
+
+struct FDRank: Identifiable {
+    let id = UUID()
+    let name: String
+    let grade: String
+    let major: String
+    let department: String
+    let gpa: Double
+    let credit: Double
+    let rank: Int
+    
+    var isMe: Bool {
+        !name.contains("*")
+    }
 }
