@@ -33,6 +33,12 @@ struct FDHomePage: View {
                 } label: {
                     Label("Exams & Score", systemImage: "graduationcap")
                 }
+                
+                NavigationLink {
+                    FDRankPage()
+                } label: {
+                    Label("GPA Rank", systemImage: "chart.bar.xaxis")
+                }
             }
             .navigationTitle("Campus Services")
         }

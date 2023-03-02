@@ -77,6 +77,7 @@
 		27999CF028AB9A4B009F11A9 /* THDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999CEF28AB9A4B009F11A9 /* THDetailModel.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
+		27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A44E9D29AF253500CE6661 /* FDRankPage.swift */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
@@ -231,6 +232,7 @@
 		27999CEF28AB9A4B009F11A9 /* THDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDetailModel.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		27A44E9D29AF253500CE6661 /* FDRankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDRankPage.swift; sourceTree = "<group>"; };
 		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27B19FC428F59C2C0001587F /* FDPayPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPayPage.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				27DDBABC29A501A7008849D1 /* FDBusPage.swift */,
 				27BDF9E529AD287600EE8131 /* FDEcardPage.swift */,
 				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
+				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
 			);
 			path = Campus;
@@ -953,6 +956,7 @@
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
 				273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */,
 				2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */,
+				27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */,
 				27BBBD292912C33D007C2905 /* DXSecStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

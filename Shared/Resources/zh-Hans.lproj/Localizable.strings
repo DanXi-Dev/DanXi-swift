@@ -302,6 +302,10 @@
 "Exams & Score" = "考试与成绩";
 "No Score Entry" = "没有成绩记录";
 
+// Fudan Rank
+"GPA Rank" = "绩点排名";
+"Total credit %@, rank %@" = "总学分数%@，绩点排名%@";
+
 // About
 "Website" = "网站";
 "Version %@" = "版本%@";
