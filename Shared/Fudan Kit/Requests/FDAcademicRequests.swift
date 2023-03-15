@@ -88,6 +88,72 @@ struct FDAcademicRequests {
         
         return rankList
     }
+    
+    static func getCourseList(semester: Int? = nil, startWeek: Int = 1) async throws -> [FDCourse] {
+        // get ids param
+        let metaURL = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd.action")!
+        let (data, _) = try await sendRequest(URLRequest(url: metaURL))
+        let html = String(data: data, encoding: String.Encoding.utf8)!
+        let idsPattern = /bg\.form\.addInput\(form,\s*"ids",\s*"(?<ids>\d+)"\);/
+        let semesterIdPattern = /empty:\s*"false",\s*onChange:\s*"",\s*value:\s*"(?<semester>\d+)"/
+        guard let ids = html.firstMatch(of: idsPattern)?.ids else {
+            throw NetworkError.invalidResponse
+        }
+        
+        // get semesterId param
+        var semesterId: String?
+        if let semester = semester {
+            semesterId = String(semester)
+        } else if let result = html.firstMatch(of: semesterIdPattern) {
+            semesterId = String(result.semester)
+        } else {
+            throw NetworkError.invalidResponse
+        }
+        
+        // get course table
+        let courseURL = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd!courseTable.action")!
+        let form = [URLQueryItem(name: "ignoreHead", value: "1"),
+                    URLQueryItem(name: "semester.id", value: semesterId!), // semesterId can't be nil here
+                    URLQueryItem(name: "startWeek", value: String(startWeek)),
+                    URLQueryItem(name: "setting.kind", value: "std"),
+                    URLQueryItem(name: "ids", value: String(ids))]
+        let request = prepareFormRequest(courseURL, form: form)
+        let (courseData, _) = try await sendRequest(request)
+        let element = try processHTMLData(courseData, selector: "body > script:nth-of-type(3)")
+        let script = try element.html()
+        let lines = script.split(separator: "\n")
+        var courseList: [FDCourse] = []
+        
+        // Regex for matching JS info
+        let newCoursePattern = /new TaskActivity\("(?<id>.*)","(?<instructor>.*)","\d+\((?<code>.*)\)","(?<name>.*)\(.*\)","(.*?)","(?<location>.*)","(.*?)"\);/
+        let courseTimePattern = /index\s*=\s*(?<weekday>\d+)\s*\*unitCount\s*\+\s*(?<time>\d+)/
+        
+        // Parse JS info into an array of course `courseList`
+        for line in lines {
+            if let result = line.firstMatch(of: newCoursePattern) {
+                // JS: `new Activity(<course info>)`, parse and create a new course
+                let course = FDCourse(id: Int(result.id) ?? 0,
+                                  instructor: String(result.instructor),
+                                  code: String(result.code),
+                                  name: String(result.name),
+                                  location: String(result.location))
+                courseList.append(course)
+            } else if let result = line.firstMatch(of: courseTimePattern) {
+                // JS: `index =5*unitCount+10;`, parse and edit course info
+                let last = courseList.count - 1
+                // weekday, time pattern is \d+, so this should be Int, using force unwrap
+                courseList[last].weekday = Int(result.weekday)!
+                let time = Int(result.time)!
+                if courseList[last].startTime == 0 {
+                    courseList[last].startTime = time
+                } else {
+                    courseList[last].endTime = max(courseList[last].endTime, time)
+                }
+            }
+        }
+        
+        return courseList
+    }
 }
 
 struct FDSemester: Codable, Identifiable, Equatable, Hashable {
@@ -134,4 +200,15 @@ struct FDRank: Identifiable {
     var isMe: Bool {
         !name.contains("*")
     }
+}
+
+struct FDCourse {
+    let id: Int
+    let instructor: String
+    let code: String
+    let name: String
+    let location: String
+    var weekday = 0
+    var startTime = 0
+    var endTime = 0
 }
