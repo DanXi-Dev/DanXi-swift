@@ -112,6 +112,7 @@
 		27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */; };
 		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
 		27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
+		27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */; };
 		27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D69EDB29A2B0B10024D242 /* FDHomePage.swift */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
@@ -267,6 +268,7 @@
 		27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXRegisterSheet.swift; sourceTree = "<group>"; };
 		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
 		27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryAPI.swift; sourceTree = "<group>"; };
+		27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCanteenAPI.swift; sourceTree = "<group>"; };
 		27D69EDB29A2B0B10024D242 /* FDHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDHomePage.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				2706604E29312D8200F4C321 /* FDAuthAPI.swift */,
 				2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */,
 				27DDBABA29A50190008849D1 /* FDBusAPI.swift */,
+				27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */,
 				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
 				2706604D29312D8200F4C321 /* FDECardAPI.swift */,
 				2706604F29312D8200F4C321 /* FDElectricityAPI.swift */,
@@ -885,6 +888,7 @@
 				27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
+				27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */,
 				2706605929312D8300F4C321 /* FDAuthDelegate.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */,
