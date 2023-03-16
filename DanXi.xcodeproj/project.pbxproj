@@ -110,6 +110,7 @@
 		27CC00EA28E1EE1800F0B026 /* THBanSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00E928E1EE1800F0B026 /* THBanSheet.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
 		27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */; };
+		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
 		27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D69EDB29A2B0B10024D242 /* FDHomePage.swift */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
@@ -263,6 +264,7 @@
 		27CC00E928E1EE1800F0B026 /* THBanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBanSheet.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
 		27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXRegisterSheet.swift; sourceTree = "<group>"; };
+		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
 		27D69EDB29A2B0B10024D242 /* FDHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDHomePage.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				2706604E29312D8200F4C321 /* FDAuthAPI.swift */,
 				2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */,
 				27DDBABA29A50190008849D1 /* FDBusAPI.swift */,
+				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
 				2706604D29312D8200F4C321 /* FDECardAPI.swift */,
 				2706604F29312D8200F4C321 /* FDElectricityAPI.swift */,
 				2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */,
@@ -859,6 +862,7 @@
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
 				2778D6252891D22D009F4DB1 /* DXLoginSheet.swift in Sources */,
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
+				27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */,
 				2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */,
