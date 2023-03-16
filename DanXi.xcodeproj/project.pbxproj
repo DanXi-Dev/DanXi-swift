@@ -111,6 +111,7 @@
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
 		27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */; };
 		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
+		27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
 		27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D69EDB29A2B0B10024D242 /* FDHomePage.swift */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
@@ -265,6 +266,7 @@
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
 		27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXRegisterSheet.swift; sourceTree = "<group>"; };
 		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
+		27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryAPI.swift; sourceTree = "<group>"; };
 		27D69EDB29A2B0B10024D242 /* FDHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDHomePage.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
 				2706604D29312D8200F4C321 /* FDECardAPI.swift */,
 				2706604F29312D8200F4C321 /* FDElectricityAPI.swift */,
+				27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */,
 				2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */,
 			);
 			path = Requests;
@@ -915,6 +918,7 @@
 				F19113AA28A65D260067BA61 /* THSearchPage.swift in Sources */,
 				2772231128F05B3300458EAC /* THHIstorySheet.swift in Sources */,
 				271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */,
+				27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */,
 				27227FD128A507AA00B3C99D /* THBrowsePage.swift in Sources */,
 				271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */,
 				27BBBD0B2912C330007C2905 /* DXError.swift in Sources */,

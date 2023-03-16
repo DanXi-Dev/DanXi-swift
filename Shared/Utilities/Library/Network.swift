@@ -129,6 +129,18 @@ func processHTMLData(_ data: Data, selector: String) throws -> Element {
     }
 }
 
+func processHTMLDataList(_ data: Data, selector: String) throws -> Elements {
+    do {
+        guard let htmlText = String(data: data, encoding: String.Encoding.utf8) else {
+            throw NetworkError.invalidResponse
+        }
+        let doc = try SwiftSoup.parse(htmlText)
+        return try doc.select(selector)
+    } catch {
+        throw NetworkError.invalidResponse
+    }
+}
+
 
 // MARK: - Error
 
