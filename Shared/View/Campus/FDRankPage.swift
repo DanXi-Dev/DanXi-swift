@@ -5,8 +5,8 @@ struct FDRankPage: View {
     @State var myRank: FDRank?
     
     func initialLoad() async throws {
-        try await FDAcademicRequests.login()
-        rankList = try await FDAcademicRequests.getGPA()
+        try await FDAcademicAPI.login()
+        rankList = try await FDAcademicAPI.getGPA()
         myRank = rankList.filter { $0.isMe }.first
     }
     

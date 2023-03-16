@@ -1,10 +1,10 @@
 import Foundation
 import SwiftyJSON
 
-struct FDAcademicRequests {
+struct FDAcademicAPI {
     static func login() async throws {
         let loginURL = URL(string: "http://jwfw.fudan.edu.cn/eams/home.action")!
-        _ = try await FudanAuthRequests.auth(url: loginURL)
+        _ = try await FDAuthAPI.auth(url: loginURL)
     }
     
     static func getSemesters() async throws -> [FDSemester] {

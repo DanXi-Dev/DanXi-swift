@@ -11,7 +11,7 @@ class FDAuthDelegate: ObservableObject {
     }
     
     func login(_ username: String, _ password: String) async throws {
-        try await FudanAuthRequests.login(username, password)
+        try await FDAuthAPI.login(username, password)
         
         FDSecStore.shared.store(username, password)
         Task { @MainActor in

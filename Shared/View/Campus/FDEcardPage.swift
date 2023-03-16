@@ -10,8 +10,8 @@ struct FDEcardPage: View {
     @State var recordError = ""
     
     func initialFetch() async throws {
-        balance = try await FDEcardRequests.getEcardBalance()
-        try await FDEcardRequests.getCSRF()
+        balance = try await FDECardAPI.getEcardBalance()
+        try await FDECardAPI.getCSRF()
         await loadMoreRecords()
     }
     
@@ -19,7 +19,7 @@ struct FDEcardPage: View {
         do {
             recordLoading = true
             defer { recordLoading = false }
-            let newRecords = try await FDEcardRequests.getTradeRecord(page: page)
+            let newRecords = try await FDECardAPI.getTradeRecord(page: page)
             if !newRecords.isEmpty {
                 records.append(contentsOf: newRecords)
                 page += 1

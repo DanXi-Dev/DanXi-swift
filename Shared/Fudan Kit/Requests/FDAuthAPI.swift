@@ -3,7 +3,7 @@ import SwiftSoup
 
 let UIS_URL = "https://uis.fudan.edu.cn"
 
-struct FudanAuthRequests {
+struct FDAuthAPI {
     static func login(_ username: String, _ password: String) async throws {
         if try await needCaptcha(username: username) {
             throw FDError.needCaptcha

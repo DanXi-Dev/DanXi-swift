@@ -11,7 +11,7 @@ struct FDPayPage: View {
             loading = true
             defer { loading = false }
             do {
-                let qrcodeStr = try await FDEcardRequests.getQRCodeString()
+                let qrcodeStr = try await FDECardAPI.getQRCodeString()
                 
                 // generate QR code data
                 guard let filter = CIFilter(name: "CIQRCodeGenerator") else {

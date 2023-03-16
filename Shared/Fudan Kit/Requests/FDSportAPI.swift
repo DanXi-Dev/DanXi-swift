@@ -3,30 +3,30 @@ import SwiftSoup
 
 // MARK: - Request
 
-struct SportRequest {
+struct FDSportAPI {
     
     static func login() async throws {
         let loginURL = URL(string: "http://tac.fudan.edu.cn/thirds/tjb.act?redir=sportScore")!
-        _ = try await FudanAuthRequests.auth(url: loginURL)
+        _ = try await FDAuthAPI.auth(url: loginURL)
     }
     
-    static func fetchExerciseData() async throws -> ExerciseInfo {
+    static func fetchExerciseData() async throws -> FDExercise {
         let exerciseURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stscore.aspx?item=1")!
         let request = prepareRequest(exerciseURL)
         let (data, _) = try await sendRequest(request)
-        var info = ExerciseInfo()
+        var info = FDExercise()
         try info.parseExerciseItems(data)
         try info.parseExerciseLogs(data)
         return info
     }
     
-    static func fetchExamData() async throws -> SportExamInfo {
+    static func fetchExamData() async throws -> FDSportExam {
         let examURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stScore.aspx?item=3")!
         let request = prepareRequest(examURL)
         let (data, _) = try await sendRequest(request)
         let doc = try processHTMLData(data)
         
-        var info = SportExamInfo()
+        var info = FDSportExam()
         info.parseInfo(doc)
         info.parseItems(doc)
         info.parseLogs(doc)
@@ -36,7 +36,7 @@ struct SportRequest {
 
 // MARK: - Model
 
-struct ExerciseInfo {
+struct FDExercise {
     var exerciseItems: [ExerciseItem] = []
     var exerciseLogs: [ExerciseLog] = []
 
@@ -101,7 +101,7 @@ struct ExerciseInfo {
     }
 }
 
-struct SportExamInfo {
+struct FDSportExam {
     var items: [TestItem] = []
     var logs: [TestLog] = []
     var total: Double = 0.0

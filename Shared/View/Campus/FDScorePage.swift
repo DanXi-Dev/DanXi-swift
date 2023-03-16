@@ -9,8 +9,8 @@ struct FDScorePage: View {
     @State var scoreLoadingError = ""
     
     func initialLoad() async throws {
-        try await FDAcademicRequests.login()
-        semesters = try await FDAcademicRequests.getSemesters()
+        try await FDAcademicAPI.login()
+        semesters = try await FDAcademicAPI.getSemesters()
         semester = semesters.last
     }
     
@@ -19,7 +19,7 @@ struct FDScorePage: View {
             guard let semester = semester else { return }
             scoreLoading = true
             defer { scoreLoading = false }
-            scoreList = try await FDAcademicRequests.getScore(semester: semester.id)
+            scoreList = try await FDAcademicAPI.getScore(semester: semester.id)
         } catch {
             scoreLoadingError = error.localizedDescription
         }

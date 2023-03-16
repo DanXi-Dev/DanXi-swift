@@ -1,14 +1,14 @@
 import Foundation
 
-struct ElectricityRequest {
-    static func getDormInfo() async throws -> DormInfo {
+struct FDElectricityAPI {
+    static func getDormInfo() async throws -> FDDormInfo {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanelec/wap/default/info")!
-        let responseData = try await FudanAuthRequests.auth(url: url)
+        let responseData = try await FDAuthAPI.auth(url: url)
         return try processJSONData(responseData)
     }
 }
 
-struct DormInfo: Decodable {
+struct FDDormInfo: Decodable {
     let campus: String
     let building: String
     let roomNo: String

@@ -3,12 +3,12 @@ import SwiftSoup
 import UIKit
 
 
-struct FDEcardRequests {
+struct FDECardAPI {
     static var csrf: String?
     
     static func getQRCodeString() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
-        let responseData = try await FudanAuthRequests.auth(url: url)
+        let responseData = try await FDAuthAPI.auth(url: url)
         
         let qrcodeElement = try processHTMLData(responseData, selector: "#myText")
         let qrcodeStr = try qrcodeElement.attr("value")
@@ -17,14 +17,14 @@ struct FDEcardRequests {
     
     static func getEcardBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let responseData = try await FudanAuthRequests.auth(url: url)
+        let responseData = try await FDAuthAPI.auth(url: url)
         let cashElement = try processHTMLData(responseData, selector: ".payway-box-bottom-item > p")
         return try cashElement.html()
     }
     
     static func getCSRF() async throws {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/consume/index")!
-        let responseData = try await FudanAuthRequests.auth(url: url)
+        let responseData = try await FDAuthAPI.auth(url: url)
         let csrfElement = try processHTMLData(responseData, selector: "meta[name=\"_csrf\"]")
         csrf = try csrfElement.attr("content")
     }

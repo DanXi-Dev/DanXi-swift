@@ -1,14 +1,18 @@
 import Foundation
 import SwiftyJSON
 
-struct FDBusRequest {
+// MARK: - Requests
+
+struct FDBusAPI {
     static func fetchBusRoutes() async throws -> [FDBusRoute] {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanbus/wap/default/lists")!
-        let responseData = try await FudanAuthRequests.auth(url: url)
+        let responseData = try await FDAuthAPI.auth(url: url)
         let routeData = try JSON(data: responseData)["d"]["data"].rawData()
         return try processJSONData(routeData)
     }
 }
+
+// MARK: - Model
 
 struct FDBusRoute: Codable {
     let route: String
@@ -18,7 +22,6 @@ struct FDBusRoute: Codable {
         if start == end {
             return false
         }
-        
         let stations = Set(route.components(separatedBy: "-"))
         return stations.contains(start) && stations.contains(end)
     }

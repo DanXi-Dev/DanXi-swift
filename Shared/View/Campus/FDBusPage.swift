@@ -26,7 +26,7 @@ struct FDBusPage: View {
     }
     
     func loadRoutes() async throws {
-        self.routes = try await FDBusRequest.fetchBusRoutes()
+        self.routes = try await FDBusAPI.fetchBusRoutes()
     }
     
     var body: some View {

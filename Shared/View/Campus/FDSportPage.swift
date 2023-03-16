@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct FDSportPage: View {
-    @State var exerciseInfo: ExerciseInfo? = nil
-    @State var examInfo: SportExamInfo? = nil
+    @State var exerciseInfo: FDExercise? = nil
+    @State var examInfo: FDSportExam? = nil
     
     @State var showExerciseSheet = false
     @State var showExamSheet = false
     
     func loadAll() async throws {
-        try await SportRequest.login()
-        self.examInfo = try await SportRequest.fetchExamData()
-        self.exerciseInfo = try await SportRequest.fetchExerciseData()
+        try await FDSportAPI.login()
+        self.examInfo = try await FDSportAPI.fetchExamData()
+        self.exerciseInfo = try await FDSportAPI.fetchExerciseData()
     }
     
     
