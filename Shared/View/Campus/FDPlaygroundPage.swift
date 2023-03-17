@@ -70,7 +70,7 @@ struct FDPlaygroundPage: View {
                 Section("Playground List") {
                     ForEach(filteredPlaygrounds) { playground in
                         NavigationLink {
-                            Text("TODO")
+                            FDReservePage(playground: playground)
                         } label: {
                             Label(playground.name, systemImage: categoryIcon(playground.type))
                         }

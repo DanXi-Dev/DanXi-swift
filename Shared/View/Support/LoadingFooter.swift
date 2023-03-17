@@ -38,19 +38,6 @@ struct LoadingFooter: View {
             Spacer()
         }
     }
-    
-    var retryView: some View {
-        HStack {
-            Spacer()
-            Button("Load More") {
-                Task {
-                    await action()
-                }
-            }
-                .font(.caption)
-            Spacer()
-        }
-    }
 }
 
 struct LoadingFooter_Previews: PreviewProvider {

@@ -53,7 +53,7 @@ struct FDPlaygroundAPI {
             }
             
             // match category from row with header 项目 (活动项目 or 运动项目)
-            guard let category = try? row
+            guard let type = try? row
                 .select("tr")
                 .filter ({ (try? $0.children().first()?.html().contains("项目")) ?? false })
                 .last? // first is 服务项目
@@ -63,7 +63,7 @@ struct FDPlaygroundAPI {
             }
             
             // construct playground and append list
-            let playground = FDPlayground(id: String(id), name: name, campus: campus, type: category)
+            let playground = FDPlayground(id: String(id), name: name, campus: campus, type: type, categoryId: category.id)
             rows.append(playground)
         }
         
@@ -106,14 +106,14 @@ struct FDPlaygroundAPI {
                 continue
             }
             
-            var registerId: String?
-            if let registerIdMatch = try? row
+            var reserveId: String?
+            if let reserveIdMatch = try? row
                 .select("img")
                 .filter({ $0.hasAttr("onclick") })
                 .first?
                 .attr("onclick")
                 .firstMatch(of: /checkUser\('(?<code>[A-Za-z0-9]+)',this\)/) {
-                registerId = String(registerIdMatch.code)
+                reserveId = String(reserveIdMatch.code)
             }
             
             let timeSlot = FDPlaygroundTimeSlot(name: name,
@@ -121,7 +121,9 @@ struct FDPlaygroundAPI {
                                                 endTime: String(timeMatch.endTime),
                                                 reserved: reserved,
                                                 total: total,
-                                                registerId: registerId)
+                                                reserveId: reserveId,
+                                                categoryId: playground.categoryId,
+                                                playgroundId: playground.id)
             timeSlotList.append(timeSlot)
         }
         return timeSlotList
@@ -145,16 +147,29 @@ struct FDPlayground: Identifiable, Hashable {
     let name: String
     let campus: String
     let type: String
+    let categoryId: String
 }
 
-struct FDPlaygroundTimeSlot {
+struct FDPlaygroundTimeSlot: Identifiable {
+    let id = UUID()
+    
     let name: String
     let beginTime: String
     let endTime: String
     let reserved: Int
     let total: Int
-    let registerId: String?
+    let reserveId: String?
+    let categoryId: String
+    let playgroundId: String
+    
+    var registerURL: URL? {
+        guard let reserveId = reserveId else { return nil }
+        var component = URLComponents(string: "https://elife.fudan.edu.cn/public/front/loadOrderForm_ordinary.htm")!
+        component.queryItems = [URLQueryItem(name: "serviceContent.id", value: playgroundId),
+                                URLQueryItem(name: "serviceCategory.id", value: categoryId),
+                                URLQueryItem(name: "resourceIds", value: reserveId),
+                                URLQueryItem(name: "codeStr", value: nil),
+                                URLQueryItem(name: "orderCounts", value: "1")]
+        return component.url!
+    }
 }
-
-let playgrounds = [FDPlayground(id: "hello", name: "正大体育馆羽毛球场", campus: "邯郸校区", type: "羽毛球"),
-                   FDPlayground(id: "hi", name: "国权路篮球场", campus: "邯郸校区", type: "篮球")]

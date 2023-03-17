@@ -40,6 +40,7 @@
 		272AC8E62896F30E00092B0C /* THEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THEditSheet.swift */; };
 		2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2732C8B2296F3BF600A5248D /* Conflict+Table.swift */; };
 		2732C8B5296F3C0900A5248D /* Conflict+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2732C8B4296F3C0900A5248D /* Conflict+Text.swift */; };
+		2736FDCE29C4F8C900D096D3 /* FDReservePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */; };
 		273C1E6328C9CE5C0067E61E /* THInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THInfoSheet.swift */; };
 		273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 273D65B8292E07FF0064DCB1 /* Introspect */; };
 		273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D65BC292E08C10064DCB1 /* TextSelectionView.swift */; };
@@ -202,6 +203,7 @@
 		272AC8E52896F30E00092B0C /* THEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THEditSheet.swift; sourceTree = "<group>"; };
 		2732C8B2296F3BF600A5248D /* Conflict+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict+Table.swift"; sourceTree = "<group>"; };
 		2732C8B4296F3C0900A5248D /* Conflict+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict+Text.swift"; sourceTree = "<group>"; };
+		2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDReservePage.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THInfoSheet.swift; sourceTree = "<group>"; };
 		273D65BC292E08C10064DCB1 /* TextSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSelectionView.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
 				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
 				27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */,
+				2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */,
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
 			);
 			path = Campus;
@@ -968,6 +971,7 @@
 				27BBBD212912C33D007C2905 /* DXConstants.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
+				2736FDCE29C4F8C900D096D3 /* FDReservePage.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,

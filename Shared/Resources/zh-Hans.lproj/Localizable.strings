@@ -311,6 +311,11 @@
 "Playground Type" = "场馆类型";
 "Playground List" = "场馆列表";
 "All" = "全部";
+"Select Reservation Date" = "选择预约日期";
+"Available Time Slots Only" = "只显示可预约的时段";
+"Reservation Time Slots" = "预约时段";
+"Reserve" = "预约";
+"Reserved" = "已约满";
 
 // About
 "Website" = "网站";
