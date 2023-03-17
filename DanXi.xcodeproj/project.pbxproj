@@ -123,6 +123,7 @@
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
 		27DDBABF29A501D2008849D1 /* bus.json in Resources */ = {isa = PBXBuildFile; fileRef = 27DDBABE29A501D2008849D1 /* bus.json */; };
+		27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
 		27E4686328BCABC100CDE8CE /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingPage.swift */; };
 		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
@@ -279,6 +280,7 @@
 		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
 		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
 		27DDBABE29A501D2008849D1 /* bus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bus.json; sourceTree = "<group>"; };
+		27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDPlaygroundAPI.swift; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */,
 				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
 				2706604D29312D8200F4C321 /* FDECardAPI.swift */,
+				27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */,
 				2706604F29312D8200F4C321 /* FDElectricityAPI.swift */,
 				27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */,
 				2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */,
@@ -923,6 +926,7 @@
 				2772231128F05B3300458EAC /* THHIstorySheet.swift in Sources */,
 				271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */,
 				27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */,
+				27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */,
 				27227FD128A507AA00B3C99D /* THBrowsePage.swift in Sources */,
 				271D596D28C2512E00F72C3B /* PreviewContextModifier.swift in Sources */,
 				27BBBD0B2912C330007C2905 /* DXError.swift in Sources */,
