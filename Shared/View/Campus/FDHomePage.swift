@@ -39,6 +39,12 @@ struct FDHomePage: View {
                 } label: {
                     Label("GPA Rank", systemImage: "chart.bar.xaxis")
                 }
+                
+                NavigationLink {
+                    FDPlaygroundPage()
+                } label: {
+                    Label("Playground Reservation", systemImage: "sportscourt")
+                }
             }
             .navigationTitle("Campus Services")
         }

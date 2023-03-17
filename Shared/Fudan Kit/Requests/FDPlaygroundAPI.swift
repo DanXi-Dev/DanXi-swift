@@ -63,7 +63,7 @@ struct FDPlaygroundAPI {
             }
             
             // construct playground and append list
-            let playground = FDPlayground(id: String(id), name: name, campus: campus, category: category)
+            let playground = FDPlayground(id: String(id), name: name, campus: campus, type: category)
             rows.append(playground)
         }
         
@@ -97,11 +97,11 @@ struct FDPlaygroundAPI {
                 .select("td.site_td4")
                 .first()?
                 .html()
-                .firstMatch(of: /.*(?<booked>\d+).*(?<total>\d+)/) else {
+                .firstMatch(of: /.*(?<reserved>\d+).*(?<total>\d+)/) else {
                 continue
             }
             
-            guard let booked = Int(capacityMatch.booked),
+            guard let reserved = Int(capacityMatch.reserved),
                   let total = Int(capacityMatch.total) else {
                 continue
             }
@@ -119,7 +119,7 @@ struct FDPlaygroundAPI {
             let timeSlot = FDPlaygroundTimeSlot(name: name,
                                                 beginTime: String(timeMatch.startTime),
                                                 endTime: String(timeMatch.endTime),
-                                                booked: booked,
+                                                reserved: reserved,
                                                 total: total,
                                                 registerId: registerId)
             timeSlotList.append(timeSlot)
@@ -140,18 +140,21 @@ struct FDPlaygroundCategory: Codable {
     }
 }
 
-struct FDPlayground {
+struct FDPlayground: Identifiable, Hashable {
     let id: String
     let name: String
     let campus: String
-    let category: String
+    let type: String
 }
 
 struct FDPlaygroundTimeSlot {
     let name: String
     let beginTime: String
     let endTime: String
-    let booked: Int
+    let reserved: Int
     let total: Int
     let registerId: String?
 }
+
+let playgrounds = [FDPlayground(id: "hello", name: "正大体育馆羽毛球场", campus: "邯郸校区", type: "羽毛球"),
+                   FDPlayground(id: "hi", name: "国权路篮球场", campus: "邯郸校区", type: "篮球")]

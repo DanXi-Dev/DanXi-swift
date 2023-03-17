@@ -306,6 +306,12 @@
 "GPA Rank" = "绩点排名";
 "Total credit %@, rank %@" = "总学分数%@，绩点排名%@";
 
+// Fudan Playground
+"Playground Reservation" = "场馆预约";
+"Playground Type" = "场馆类型";
+"Playground List" = "场馆列表";
+"All" = "全部";
+
 // About
 "Website" = "网站";
 "Version %@" = "版本%@";
