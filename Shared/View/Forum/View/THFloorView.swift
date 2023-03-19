@@ -80,7 +80,7 @@ struct THFloorView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .center) {
                 HStack {
-                    poster
+                    THPosterView(name: floor.posterName, isPoster: isPoster)
                     if !floor.spetialTag.isEmpty {
                         THSpecialTagView(content: floor.spetialTag)
                     }
@@ -136,32 +136,6 @@ struct THFloorView: View {
         } message: {
             Text(errorInfo)
         }
-    }
-    
-    private var poster: some View {
-        HStack {
-            if isPoster {
-                Text("DZ")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 6.0)
-                    .background(randomColor(floor.posterName))
-                    .cornerRadius(3.0)
-            }
-            
-            Text(floor.posterName)
-                .font(.subheadline)
-                .fontWeight(.bold)
-        }
-        .foregroundColor(randomColor(floor.posterName))
-        .padding(.leading, 10)
-        .overlay(
-            Rectangle()
-                .frame(width: 3, height: nil, alignment: .leading)
-                .foregroundColor(randomColor(floor.posterName))
-                .padding(.vertical, 1), alignment: .leading)
-        
     }
     
     @ViewBuilder

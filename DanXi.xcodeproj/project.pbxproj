@@ -73,6 +73,7 @@
 		278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291929394973008C29ED /* EnvironmentSettings.swift */; };
 		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
+		2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791030C29C7640F003B9FD9 /* THPosterView.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* DKCoursePage.swift */; };
 		27999CF028AB9A4B009F11A9 /* THDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27999CEF28AB9A4B009F11A9 /* THDetailModel.swift */; };
@@ -234,6 +235,7 @@
 		278B291929394973008C29ED /* EnvironmentSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSettings.swift; sourceTree = "<group>"; };
 		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
+		2791030C29C7640F003B9FD9 /* THPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPosterView.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* DKCoursePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCoursePage.swift; sourceTree = "<group>"; };
 		27999CEF28AB9A4B009F11A9 /* THDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDetailModel.swift; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 			children = (
 				2778D6152891D22D009F4DB1 /* THHoleView.swift */,
 				2778D6132891D22D009F4DB1 /* THFloorView.swift */,
+				2791030C29C7640F003B9FD9 /* THPosterView.swift */,
 				273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */,
 				2778D6142891D22D009F4DB1 /* THTagView.swift */,
 				2748AE9828C8C4CC0014495F /* THTagField.swift */,
@@ -962,6 +965,7 @@
 				2706605829312D8300F4C321 /* FDSecStore.swift in Sources */,
 				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
+				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27BBBD272912C33D007C2905 /* DKStore.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
 				275C096428E1D33A00B4815F /* BackgroundLink.swift in Sources */,
