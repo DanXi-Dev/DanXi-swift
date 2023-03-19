@@ -79,6 +79,10 @@ struct FDPlaygroundAPI {
                                 URLQueryItem(name: "currentDate", value: dateFormatter.string(from: date))]
         let (data, _) = try await sendRequest(URLRequest(url: component.url!))
         
+        // check if is available
+        guard let html = String(data: data, encoding: String.Encoding.utf8) else { return [] }
+        if html.contains("无可预约场地") { return [] }
+        
         // parse data
         let rows = try processHTMLDataList(data, selector: "#con_one_1 > table > tbody > tr")
         var timeSlotList: [FDPlaygroundTimeSlot] = []

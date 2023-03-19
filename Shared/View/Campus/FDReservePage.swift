@@ -25,6 +25,7 @@ struct FDReservePage: View {
                 self.timeSlots = timeSlots
             }
         } catch {
+            print(error)
             errorDescription = error.localizedDescription
         }
     }
@@ -45,9 +46,6 @@ struct FDReservePage: View {
             } footer: {
                 if timeSlots.isEmpty {
                     LoadingFooter(loading: $loading, errorDescription: errorDescription, action: loadTimeSlots)
-                        .task {
-                            await loadTimeSlots()
-                        }
                 }
             }
         }
@@ -56,6 +54,12 @@ struct FDReservePage: View {
             Task {
                 await loadTimeSlots()
             }
+        }
+        .task {
+            await loadTimeSlots()
+        }
+        .refreshable {
+            await loadTimeSlots()
         }
     }
 }
@@ -71,8 +75,11 @@ struct FDReservationTimeSlotView: View {
             Spacer()
             if let url = timeSlot.registerURL {
                 Link("Reserve", destination: url)
-            } else {
+            } else if timeSlot.reserved == timeSlot.total {
                 Text("Reserved")
+                    .foregroundColor(.secondary)
+            } else {
+                Text("Cannot Reserve")
                     .foregroundColor(.secondary)
             }
         }

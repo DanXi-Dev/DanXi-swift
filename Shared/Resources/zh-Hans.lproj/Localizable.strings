@@ -316,6 +316,7 @@
 "Reservation Time Slots" = "预约时段";
 "Reserve" = "预约";
 "Reserved" = "已约满";
+"Cannot Reserve" = "无法预约";
 
 // About
 "Website" = "网站";
