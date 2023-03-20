@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var userStore = DXUserStore.shared
     @ObservedObject var authDelegate = DXAuthDelegate.shared
     @ObservedObject var fudanAuthDelegate = FDAuthDelegate.shared
     @ObservedObject var preference = Preference.shared
@@ -13,12 +12,6 @@ struct SettingsPage: View {
     @State var showFudanActions = false
     
     init() { }
-    
-    /// Init for preview.
-    init(user: DXUser) {
-        DXUserStore.shared.user = user
-        DXAuthDelegate.shared.isLogged = true
-    }
     
     var body: some View {
         NavigationStack {
@@ -141,7 +134,7 @@ struct SettingsPage: View {
     private var treeholeSettings: some View {
         Section("Tree Hole") {
             NavigationLink {
-                danxiUserInfo
+                DXUserInfoPage()
             } label: {
                 Label("Account Info", systemImage: "info.circle")
             }
@@ -167,11 +160,17 @@ struct SettingsPage: View {
             }
         }
     }
+}
 
-    // FIXME: navigation split view problem
-    private var danxiUserInfo: some View {
-        List {
-            if let user = userStore.user {
+struct DXUserInfoPage: View {
+    @State var user: DXUser? = DXModel.shared.user
+    
+    var body: some View {
+        LoadingPage(finished: user == nil) {
+            try await DXModel.shared.loadUser()
+            self.user = DXModel.shared.user
+        } content: {
+            if let user = user {
                 HStack {
                     Label("User ID", systemImage: "person.text.rectangle")
                     Spacer()
@@ -201,17 +200,9 @@ struct SettingsPage: View {
                     Text(user.joinTime.formatted(date: .long, time: .omitted))
                         .foregroundColor(.secondary)
                 }
-            } else {
-                ProgressView()
-                    .task {
-                        do {
-                            try await userStore.updateUser()
-                        } catch { }
-                    }
             }
         }
-        .navigationTitle("Account Info")
-        .navigationBarTitleDisplayMode(.inline)
+
     }
 }
 

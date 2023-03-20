@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct THFavoritesPage: View {
-    @ObservedObject var store = THStore.shared
     @State var favorites: [THHole] = []
 
     @State var initError = ""
@@ -24,9 +23,9 @@ struct THFavoritesPage: View {
 
         Task { @MainActor in
             let removeIds = offsets.map { previousList[$0].id }
-            let newIds = store.favorites.filter { !removeIds.contains($0) }
+            let newIds = DXModel.shared.favoriteIds.filter { !removeIds.contains($0) }
             do {
-                store.favorites = try await THRequests.modifyFavorites(holeIds: newIds)
+                DXModel.shared.favoriteIds = try await THRequests.modifyFavorites(holeIds: newIds)
             } catch {
                 showAlert = true
                 deleteError = error.localizedDescription

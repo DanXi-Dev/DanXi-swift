@@ -12,7 +12,7 @@ struct THInfoSheet: View {
                       errorTitle: "Edit Post Info Failed") {
             Section {
                 Picker(selection: $divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(THStore.shared.divisions) { division in
+                    ForEach(DXModel.shared.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }

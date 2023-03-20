@@ -3,7 +3,6 @@ import SwiftUI
 
 @MainActor
 class THDetailModel: ObservableObject {
-    let store = THStore.shared
     @Published var hole: THHole?
     @Published var favorited: Bool
     
@@ -56,14 +55,14 @@ class THDetailModel: ObservableObject {
     /// Initialize with hole info.
     init(hole: THHole, floorId: Int?) {
         self.hole = hole
-        self.favorited = store.isFavorite(hole.id)
+        self.favorited = DXModel.shared.isFavorite(hole.id)
         self.initOption = .fromHole(floorId: floorId)
     }
     
     /// Initialize from hole ID, load hole info from networks.
     init(holeId: Int, floorId: Int?) {
         self.hole = nil
-        self.favorited = store.isFavorite(holeId)
+        self.favorited = DXModel.shared.isFavorite(holeId)
         self.initOption = .fromHoleId(holeId: holeId, floorId: floorId)
     }
     
@@ -100,7 +99,7 @@ class THDetailModel: ObservableObject {
                 let targetFloor = try await THRequests.loadFloorById(floorId: floorId)
                 let hole = try await THRequests.loadHoleById(holeId: targetFloor.holeId)
                 self.hole = hole
-                self.favorited = store.isFavorite(hole.id)
+                self.favorited = DXModel.shared.isFavorite(hole.id)
                 
                 var floors = try await THRequests.loadAllFloors(holeId: targetFloor.holeId)
                 for i in 0..<floors.count {
@@ -187,8 +186,8 @@ class THDetailModel: ObservableObject {
         
         Task {
             do {
-                try await store.toggleFavorites(hole.id, add: !favorited)
-                favorited = store.favorites.contains(hole.id)
+                try await DXModel.shared.toggleFavorite(hole.id)
+                self.favorited.toggle()
                 haptic()
             } catch {
                 errorInfo = error.localizedDescription

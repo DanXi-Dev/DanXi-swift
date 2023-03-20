@@ -3,7 +3,7 @@ import Foundation
 
 /// Main page of treehole section.
 struct THHomePage: View {
-    @ObservedObject var store = THStore.shared
+    @ObservedObject var model = DXModel.shared
     let holes: [THHole]
     
     @State var searchText = ""
@@ -23,9 +23,8 @@ struct THHomePage: View {
     
     var body: some View {
         NavigationStack(path: $router.path) {
-            LoadingPage(finished: store.initialized) {
-                try await store.loadAll()
-                try await DXUserStore.shared.updateUser()
+            LoadingPage(finished: model.forumLoaded) {
+                try await model.loadForum()
             } content: {
                 DelegatePage(holes: holes, $searchText, $searchSubmitted)
                     .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
@@ -94,15 +93,5 @@ struct DelegatePage: View {
                     .environmentObject(viewModel)
             }
         }
-    }
-}
-
-struct THHomePage_Previews: PreviewProvider {
-    static var previews: some View {
-        DXAuthDelegate.shared.isLogged = true
-        THStore.shared.initialized = true
-        THStore.shared.divisions = Bundle.main.decodeData("divisions")
-        
-        return THHomePage(holes: Bundle.main.decodeData("hole-list"))
     }
 }

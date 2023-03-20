@@ -92,7 +92,7 @@ struct THFloorView: View {
                 }
                 
                 // invisible watermark for screenshot tracing
-                if let user = DXUserStore.shared.user {
+                if let user = DXModel.shared.user {
                     Text(String(user.id))
                         .foregroundColor(.gray.opacity(0.01))
                 }
@@ -220,12 +220,12 @@ struct THFloorView: View {
     
     @ViewBuilder
     private var menu: some View {
-        let admin = DXUserStore.shared.isAdmin
+        let isAdmin = DXModel.shared.isAdmin
         
         if !floor.deleted {
             Menu {
                 menuNormalFunctions
-                if admin {
+                if isAdmin {
                     Menu {
                         menuAdminFunctions
                     } label: {
@@ -235,7 +235,7 @@ struct THFloorView: View {
             } label: {
                 menuLabel
             }
-        } else if admin {
+        } else if isAdmin {
             Menu {
                 menuAdminFunctions
             } label: {

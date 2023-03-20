@@ -8,7 +8,7 @@ struct THSearchPage: View {
     @AppStorage("treehole-search-history") var searchHistory: [String] = []
     
     private var filteredTags: [THTag] {
-        return THStore.shared.tags.filter { $0.name.contains(searchText) }
+        return DXModel.shared.tags.filter { $0.name.contains(searchText) }
     }
     
     func appendHistory(_ content: String) {

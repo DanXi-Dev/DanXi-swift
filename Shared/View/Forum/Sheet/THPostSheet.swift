@@ -12,7 +12,7 @@ struct THPostSheet: View {
             Section {
                 Picker(selection: $divisionId,
                        label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(THStore.shared.divisions) { division in
+                    ForEach(DXModel.shared.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }
@@ -45,7 +45,7 @@ struct THPostSheet: View {
             content = ""
             
             Task { // reload favorites since new post will automatically be favorited
-                try await THStore.shared.reloadFavorites()
+                try await DXModel.shared.loadFavoriteIds()
             }
         }
     }

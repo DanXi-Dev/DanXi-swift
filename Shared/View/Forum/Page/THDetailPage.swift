@@ -176,7 +176,7 @@ struct THDetailPage: View {
                     Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
                 }
                 
-                if DXUserStore.shared.isAdmin {
+                if DXModel.shared.isAdmin {
                     Divider()
                     
                     if !hole.hidden {

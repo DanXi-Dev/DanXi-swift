@@ -1,37 +1,24 @@
 import SwiftUI
 
 struct DKHomePage: View {
-    @ObservedObject var courseStore = DKStore.shared
+    @State var courses: [DKCourseGroup] = []
     @State var searchText = ""
-    
-    @State var loading = true
-    @State var initFinished = false
-    @State var errorInfo = ""
-    
-    
-    init() { }
-    
-    init(courses: [DKCourseGroup]) { // preview purpose
-        DKStore.shared.courses = courses
-        DKStore.shared.initialized = true
-    }
-    
     
     var searchResults: [DKCourseGroup] {
         if searchText.isEmpty {
-            return courseStore.courses
+            return courses
         } else {
             // TODO: search course ID
-            return courseStore.courses.filter { $0.name.contains(searchText) }
+            return courses.filter { $0.name.contains(searchText) }
         }
     }
 
     var body: some View {
         NavigationStack {
-            LoadingPage(finished: courseStore.initialized) {
-                // FIXME: DKStore cannot create file in filesystem
-                courseStore.courses = try await DKRequests.loadCourseGroups()
-                courseStore.initialized = true
+            LoadingPage(finished: !DXModel.shared.courses.isEmpty) {
+                try await DXModel.shared.loadCurriculum()
+                self.courses = DXModel.shared.courses
+                print(self.courses.count)
             } content: {
                 List {
                     ForEach(searchResults) { course in
@@ -54,7 +41,7 @@ struct DKHomePage: View {
 struct DKHomePage_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DKHomePage(courses: Bundle.main.decodeData("course-list"))
+            DKHomePage()
         }
     }
 }

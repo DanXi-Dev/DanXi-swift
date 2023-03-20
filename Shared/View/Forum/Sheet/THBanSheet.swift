@@ -9,7 +9,7 @@ struct THBanSheet: View {
                       allowSubmit: true,
                       needConfirmation: true) {
             Picker(selection: $divisionId, label: Label("Banned Division", systemImage: "rectangle.3.group")) {
-                ForEach(THStore.shared.divisions) { division in
+                ForEach(DXModel.shared.divisions) { division in
                     Text(division.name)
                         .tag(division.id)
                 }

@@ -11,7 +11,7 @@ struct THTagField: View {
     
     @MainActor
     var filteredTags: [THTag] {
-        let tags = THStore.shared.tags.filter { tag in
+        let tags = DXModel.shared.tags.filter { tag in
             !self.tags.contains(tag.name)
         }
         

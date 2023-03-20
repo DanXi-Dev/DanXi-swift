@@ -40,7 +40,7 @@ class THBrowseModel: ObservableObject {
     
     init(holes: [THHole] = []) {
         self.holes = holes
-        self.currentDivision = THStore.shared.divisions.first!
+        self.currentDivision = DXModel.shared.divisions.first!
     }
     
     func loadMoreHoles() async {

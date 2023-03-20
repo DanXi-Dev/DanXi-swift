@@ -17,7 +17,7 @@ class DXAuthDelegate: ObservableObject {
     func login(username: String, password: String) async throws {
         let token = try await DXAuthRequests.login(username: username, password: password)
         DXSecStore.shared.store(token)
-        try await DXUserStore.shared.updateUser()
+        try await DXModel.shared.loadUser()
         Task { @MainActor in
             isLogged = true
         }
@@ -33,9 +33,7 @@ class DXAuthDelegate: ObservableObject {
         DXSecStore.shared.delete()
         isLogged = false
         
-        DXUserStore.shared.clear()
-        THStore.shared.clear()
-        DKStore.shared.clear()
+        DXModel.shared.clearAll()
     }
     
     func register(email: String, password: String, verification: String, create: Bool) async throws {
