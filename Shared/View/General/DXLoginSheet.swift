@@ -21,7 +21,7 @@ struct DXLoginSheet: View {
         loading = true
         Task {
             do {
-                try await DXAuthDelegate.shared.login(username: username, password: password)
+                try await DXModel.shared.login(username: username, password: password)
                 loading = false
                 dismiss()
             } catch {

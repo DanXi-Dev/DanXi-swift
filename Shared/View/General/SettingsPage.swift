@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var authDelegate = DXAuthDelegate.shared
+    @ObservedObject var model = DXModel.shared
     @ObservedObject var fudanAuthDelegate = FDAuthDelegate.shared
     @ObservedObject var preference = Preference.shared
     
@@ -21,7 +21,7 @@ struct SettingsPage: View {
                     danxiAccount
                 }
                 
-                if authDelegate.isLogged {
+                if model.isLogged {
                     treeholeSettings
                 }
                 
@@ -77,7 +77,7 @@ struct SettingsPage: View {
     
     @ViewBuilder
     private var danxiAccount: some View {
-        if authDelegate.isLogged {
+        if model.isLogged {
             Button(action: {
                 showTreeHoleActions = true
             }) {
@@ -90,7 +90,7 @@ struct SettingsPage: View {
             .confirmationDialog("Accounts", isPresented: $showTreeHoleActions) {
                 Button("Logout", role: .destructive) {
                     withAnimation {
-                        authDelegate.logout()
+                        model.logout()
                     }
                 }
             }

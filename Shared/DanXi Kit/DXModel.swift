@@ -1,9 +1,15 @@
 import Foundation
+import KeychainAccess
 
 class DXModel: ObservableObject {
     // MARK: - General
     static var shared = DXModel()
     private init() {
+        // initialize token from keychain
+        guard let data = keychain[data: "token"] else { return }
+        guard let token = try? JSONDecoder().decode(Token.self, from: data) else { return }
+        self.token = token
+        self.isLogged = true
     }
     
     func clearAll() {
@@ -62,7 +68,43 @@ class DXModel: ObservableObject {
         }
     }
     
-    // MARK: - DIsk Cache
+    // MARK: - Authentication
+    
+    let keychain = Keychain(service: "com.fduhole.danxi")
+    @Published var isLogged: Bool = false
+    var token: Token? {
+        didSet {
+            Task { @MainActor in self.isLogged = token != nil }
+            if let token = token {
+                keychain[data: "token"] = try! JSONEncoder().encode(token)
+            } else {
+                keychain["token"] = nil
+            }
+        }
+    }
+    
+    func login(username: String, password: String) async throws {
+        token = try await DXRequests.login(username: username, password: password)
+    }
+    
+    func resetPassword(email: String, password: String, verification: String, create: Bool) async throws {
+        token = try await DXRequests.register(email: email, password: password, verification: verification, create: false)
+    }
+    
+    func logout() {
+        Task {
+            do { try await DXRequests.logout() }
+        }
+        isLogged = false
+        token = nil
+        clearAll()
+    }
+    
+    func refreshToken() async throws {
+        token = try await DXRequests.refreshToken()
+    }
+    
+    // MARK: - Disk Cache
     
     // MARK: User
     
@@ -72,7 +114,7 @@ class DXModel: ObservableObject {
     }
     
     func loadUser() async throws {
-        self.user = try await DXAuthRequests.loadUserInfo()
+        self.user = try await DXRequests.loadUserInfo()
     }
     
     // MARK: Tags

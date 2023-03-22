@@ -94,14 +94,11 @@
 		27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0D2912C33C007C2905 /* DKEntity.swift */; };
 		27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0E2912C33C007C2905 /* THEntity.swift */; };
 		27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0F2912C33C007C2905 /* DXEntity.swift */; };
-		27BBBD202912C33D007C2905 /* DXAuthRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD112912C33C007C2905 /* DXAuthRequests.swift */; };
+		27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD112912C33C007C2905 /* DXRequests.swift */; };
 		27BBBD212912C33D007C2905 /* DXConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD122912C33C007C2905 /* DXConstants.swift */; };
 		27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD132912C33C007C2905 /* DKRequests.swift */; };
 		27BBBD232912C33D007C2905 /* DXUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD142912C33C007C2905 /* DXUtils.swift */; };
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
-		27BBBD252912C33D007C2905 /* DXUserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD172912C33D007C2905 /* DXUserStore.swift */; };
-		27BBBD262912C33D007C2905 /* DXAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD182912C33D007C2905 /* DXAuthDelegate.swift */; };
-		27BBBD292912C33D007C2905 /* DXSecStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD1B2912C33D007C2905 /* DXSecStore.swift */; };
 		27BBBD2A2912C33D007C2905 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD1C2912C33D007C2905 /* SettingsStore.swift */; };
 		27BDF9E629AD287600EE8131 /* FDEcardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDEcardPage.swift */; };
 		27C7E8AE28BA038200DCC2B2 /* deleted-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AA28BA038200DCC2B2 /* deleted-floor.json */; };
@@ -121,6 +118,7 @@
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
 		27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* LoadingOverlay.swift */; };
 		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
+		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
@@ -253,14 +251,11 @@
 		27BBBD0D2912C33C007C2905 /* DKEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKEntity.swift; sourceTree = "<group>"; };
 		27BBBD0E2912C33C007C2905 /* THEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THEntity.swift; sourceTree = "<group>"; };
 		27BBBD0F2912C33C007C2905 /* DXEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXEntity.swift; sourceTree = "<group>"; };
-		27BBBD112912C33C007C2905 /* DXAuthRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXAuthRequests.swift; sourceTree = "<group>"; };
+		27BBBD112912C33C007C2905 /* DXRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXRequests.swift; sourceTree = "<group>"; };
 		27BBBD122912C33C007C2905 /* DXConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXConstants.swift; sourceTree = "<group>"; };
 		27BBBD132912C33C007C2905 /* DKRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKRequests.swift; sourceTree = "<group>"; };
 		27BBBD142912C33C007C2905 /* DXUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXUtils.swift; sourceTree = "<group>"; };
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
-		27BBBD172912C33D007C2905 /* DXUserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXUserStore.swift; sourceTree = "<group>"; };
-		27BBBD182912C33D007C2905 /* DXAuthDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXAuthDelegate.swift; sourceTree = "<group>"; };
-		27BBBD1B2912C33D007C2905 /* DXSecStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXSecStore.swift; sourceTree = "<group>"; };
 		27BBBD1C2912C33D007C2905 /* SettingsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		27BDF9E529AD287600EE8131 /* FDEcardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDEcardPage.swift; sourceTree = "<group>"; };
 		27C7E8AA28BA038200DCC2B2 /* deleted-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "deleted-floor.json"; sourceTree = "<group>"; };
@@ -317,6 +312,7 @@
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
+				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
@@ -455,6 +451,7 @@
 		27BBBD082912C2E6007C2905 /* DanXi Kit */ = {
 			isa = PBXGroup;
 			children = (
+				2791031529C82BC3003B9FD9 /* DXModel.swift */,
 				27BBBD0C2912C33C007C2905 /* Entity */,
 				27BBBD102912C33C007C2905 /* Requests */,
 				27BBBD162912C33D007C2905 /* Store */,
@@ -485,7 +482,7 @@
 		27BBBD102912C33C007C2905 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				27BBBD112912C33C007C2905 /* DXAuthRequests.swift */,
+				27BBBD112912C33C007C2905 /* DXRequests.swift */,
 				27BBBD152912C33C007C2905 /* THRequests.swift */,
 				27BBBD132912C33C007C2905 /* DKRequests.swift */,
 				27BBBD142912C33C007C2905 /* DXUtils.swift */,
@@ -498,11 +495,7 @@
 		27BBBD162912C33D007C2905 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				27BBBD172912C33D007C2905 /* DXUserStore.swift */,
-				27BBBD182912C33D007C2905 /* DXAuthDelegate.swift */,
-				27BBBD1B2912C33D007C2905 /* DXSecStore.swift */,
 				27BBBD1C2912C33D007C2905 /* SettingsStore.swift */,
-				2791031529C82BC3003B9FD9 /* DXModel.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -793,6 +786,7 @@
 				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
+				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -831,6 +825,7 @@
 				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
+				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -924,14 +919,13 @@
 				27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */,
 				2778D62B2891D22D009F4DB1 /* THFloorView.swift in Sources */,
 				2778D6262891D22D009F4DB1 /* THHomePage.swift in Sources */,
-				27BBBD262912C33D007C2905 /* DXAuthDelegate.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
 				27FA5F47289947DA000391A3 /* THSearchTextPage.swift in Sources */,
 				2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
-				27BBBD202912C33D007C2905 /* DXAuthRequests.swift in Sources */,
+				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,
 				F19113AA28A65D260067BA61 /* THSearchPage.swift in Sources */,
 				2772231128F05B3300458EAC /* THHIstorySheet.swift in Sources */,
@@ -980,12 +974,10 @@
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
-				27BBBD252912C33D007C2905 /* DXUserStore.swift in Sources */,
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
 				273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */,
 				2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */,
 				27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */,
-				27BBBD292912C33D007C2905 /* DXSecStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1277,6 +1269,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
@@ -1322,6 +1322,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
+		};
+		27DAFA6129CAF1BC00F32093 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		27EDD624293B6DFD0028CCE4 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;

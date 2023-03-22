@@ -6,15 +6,15 @@ func DXAutoRefresh(_ urlRequest: URLRequest) async throws -> Data {
     var request = urlRequest
     
     do {
-        guard let token = DXSecStore.shared.token else {
+        guard let token = DXModel.shared.token else {
             throw DanXiError.tokenNotFound
         }
         request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
         let (data, _) = try await sendRequest(request)
         return data
     } catch HTTPError.unauthorized {
-        try await DXAuthDelegate.shared.refreshToken()
-        guard let token = DXSecStore.shared.token else {
+        try await DXModel.shared.refreshToken()
+        guard let token = DXModel.shared.token else {
             throw DanXiError.tokenNotFound
         }
         request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
