@@ -16,8 +16,6 @@
 		2706605529312D8300F4C321 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
 		2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604F29312D8200F4C321 /* FDElectricityAPI.swift */; };
 		2706605729312D8300F4C321 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
-		2706605829312D8300F4C321 /* FDSecStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605229312D8200F4C321 /* FDSecStore.swift */; };
-		2706605929312D8300F4C321 /* FDAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605329312D8200F4C321 /* FDAuthDelegate.swift */; };
 		270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* DKReviewPage.swift */; };
 		2713B5DD2939F91700ADE348 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5DC2939F91700ADE348 /* LocalStorage.swift */; };
 		2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
@@ -119,6 +117,7 @@
 		27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* LoadingOverlay.swift */; };
 		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
 		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
+		27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
@@ -178,8 +177,6 @@
 		2706604E29312D8200F4C321 /* FDAuthAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDAuthAPI.swift; sourceTree = "<group>"; };
 		2706604F29312D8200F4C321 /* FDElectricityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDElectricityAPI.swift; sourceTree = "<group>"; };
 		2706605029312D8200F4C321 /* FDError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDError.swift; sourceTree = "<group>"; };
-		2706605229312D8200F4C321 /* FDSecStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDSecStore.swift; sourceTree = "<group>"; };
-		2706605329312D8200F4C321 /* FDAuthDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDAuthDelegate.swift; sourceTree = "<group>"; };
 		270CA42928BD13A10024BDF2 /* DKReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewPage.swift; sourceTree = "<group>"; };
 		2713B5DC2939F91700ADE348 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportAPI.swift; sourceTree = "<group>"; };
@@ -275,6 +272,7 @@
 		27D7110728CA29B7001E9464 /* THReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportSheet.swift; sourceTree = "<group>"; };
 		27D7110A28CA3167001E9464 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		27D7110C28CA38DC001E9464 /* FormPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPrimitive.swift; sourceTree = "<group>"; };
+		27DAFA6329CB270E00F32093 /* FDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDModel.swift; sourceTree = "<group>"; };
 		27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarRatingView.swift; sourceTree = "<group>"; };
 		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
 		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
@@ -340,15 +338,6 @@
 				2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */,
 			);
 			path = Requests;
-			sourceTree = "<group>";
-		};
-		2706605129312D8200F4C321 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				2706605229312D8200F4C321 /* FDSecStore.swift */,
-				2706605329312D8200F4C321 /* FDAuthDelegate.swift */,
-			);
-			path = Store;
 			sourceTree = "<group>";
 		};
 		271D596928C24F9300F72C3B /* Context Preview */ = {
@@ -462,9 +451,9 @@
 		27BBBD092912C2EC007C2905 /* Fudan Kit */ = {
 			isa = PBXGroup;
 			children = (
+				27DAFA6329CB270E00F32093 /* FDModel.swift */,
 				2706605029312D8200F4C321 /* FDError.swift */,
 				2706604C29312D8200F4C321 /* Requests */,
-				2706605129312D8200F4C321 /* Store */,
 			);
 			path = "Fudan Kit";
 			sourceTree = "<group>";
@@ -897,7 +886,6 @@
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */,
-				2706605929312D8300F4C321 /* FDAuthDelegate.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
@@ -922,6 +910,7 @@
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
+				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				27FA5F47289947DA000391A3 /* THSearchTextPage.swift in Sources */,
 				2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
@@ -957,7 +946,6 @@
 				27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
 				272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */,
-				2706605829312D8300F4C321 /* FDSecStore.swift in Sources */,
 				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,

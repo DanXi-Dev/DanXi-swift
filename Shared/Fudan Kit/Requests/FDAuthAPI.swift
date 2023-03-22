@@ -22,8 +22,8 @@ struct FDAuthAPI {
     }
     
     static func auth(url: URL) async throws -> Data {
-        guard let username = FDSecStore.shared.username,
-              let password = FDSecStore.shared.password else {
+        guard let username = FDModel.shared.username,
+              let password = FDModel.shared.password else {
             throw FDError.credentialNotFound
         }
         

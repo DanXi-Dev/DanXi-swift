@@ -18,7 +18,6 @@ struct DKHomePage: View {
             LoadingPage(finished: !DXModel.shared.courses.isEmpty) {
                 try await DXModel.shared.loadCurriculum()
                 self.courses = DXModel.shared.courses
-                print(self.courses.count)
             } content: {
                 List {
                     ForEach(searchResults) { course in

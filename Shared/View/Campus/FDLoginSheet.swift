@@ -13,7 +13,7 @@ struct FDLoginSheet: View {
                 .keyboardType(.decimalPad)
             SecureField("Password", text: $password)
         } action: {
-            try await FDAuthDelegate.shared.login(username, password)
+            try await FDModel.shared.login(username, password)
         }
     }
 }
