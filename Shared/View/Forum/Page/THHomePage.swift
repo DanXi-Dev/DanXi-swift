@@ -33,20 +33,23 @@ struct THHomePage: View {
                     }
             }
                         .navigationDestination(for: THHole.self) { hole in
-                            THDetailPage(hole: hole)
-                                .environmentObject(router)
+                            THHolePage(hole)
                         }
                         .navigationDestination(for: THTag.self) { tag in
                             THSearchTagPage(tagname: tag.name)
                                 .environmentObject(router)
                         }
                         .navigationDestination(for: THFloor.self) { floor in
-                            THDetailPage(floorId: floor.id)
-                                .environmentObject(router)
+                            Group {
+                                let loader = THHoleLoader(floor)
+                                THLoaderPage(loader)
+                            }
                         }
                         .navigationDestination(for: THMention.self) { mention in
-                            THDetailPage(floorId: mention.floorId)
-                                .environmentObject(router)
+                            Group {
+                                let loader = THHoleLoader(floorId: mention.floorId)
+                                THLoaderPage(loader)
+                            }
                         }
                         .navigationDestination(for: TreeholeStaticPages.self) { page in
                             switch page {

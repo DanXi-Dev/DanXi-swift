@@ -98,12 +98,13 @@ struct THReportCell: View {
             
             
             
-            THFloorView(floor: report.floor, interactable: false)
-                .padding(10)
-                .background(Color.secondary.opacity(0.05))
-                .background(Color.secondary.opacity(0.05))
-                .cornerRadius(10)
-                .padding(.bottom, 5)
+            // TODO
+//            THFloorView(floor: report.floor, interactable: false)
+//                .padding(10)
+//                .background(Color.secondary.opacity(0.05))
+//                .background(Color.secondary.opacity(0.05))
+//                .cornerRadius(10)
+//                .padding(.bottom, 5)
             
             if report.dealt {
                 Group {
@@ -116,9 +117,6 @@ struct THReportCell: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             }
-        }
-        .backgroundLink {
-            THDetailPage(floorId: report.floor.id)
         }
         .swipeActions(edge: .leading, allowsFullSwipe: false) {
             Button {

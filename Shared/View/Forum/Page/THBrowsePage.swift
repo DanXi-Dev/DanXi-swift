@@ -23,7 +23,7 @@ struct THBrowsePage: View {
             if !viewModel.currentDivision.pinned.isEmpty {
                 Section {
                     ForEach(viewModel.currentDivision.pinned) { hole in
-                        THBrowseRow(hole: hole)
+                        THHoleView(hole: hole)
                     }
                 } header: {
                     Label("Pinned", systemImage: "pin.fill")
@@ -33,7 +33,7 @@ struct THBrowsePage: View {
             // MARK: Main Section
             Section {
                 ForEach(viewModel.filteredHoles) { hole in
-                    THBrowseRow(hole: hole)
+                    THHoleView(hole: hole)
                         .task {
                             if hole == viewModel.filteredHoles.last {
                                 await viewModel.loadMoreHoles()

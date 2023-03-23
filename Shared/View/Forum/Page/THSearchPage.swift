@@ -60,6 +60,8 @@ struct THSearchPage: View {
                 }
             }
             
+            // TODO
+            /*
             // navigate to hole by ID
             if searchText ~= #"^#[0-9]+$"#, let holeId = Int(searchText.dropFirst(1)) {
                 Section("Jump to Hole") {
@@ -85,6 +87,7 @@ struct THSearchPage: View {
                     }
                 }
             }
+             */
             
             // search tag
             if !filteredTags.isEmpty {

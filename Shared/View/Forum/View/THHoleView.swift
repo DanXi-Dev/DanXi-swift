@@ -20,9 +20,6 @@ struct THHoleView: View {
                         holeContent
                     }
                 }
-                #if os(iOS)
-                .previewContextMenu(preview: THDetailPage(hole: hole, floors: hole.floors).previewMode())
-                #endif
             } label: {
                 tags
             }
@@ -33,9 +30,6 @@ struct THHoleView: View {
                     holeContent
                 }
             }
-            #if os(iOS)
-            .previewContextMenu(preview: THDetailPage(hole: hole, floors: hole.floors).previewMode())
-            #endif
         }
     }
     

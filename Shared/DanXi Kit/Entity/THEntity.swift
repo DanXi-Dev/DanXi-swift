@@ -3,7 +3,7 @@ import Foundation
 struct THHole: Hashable, Decodable, Identifiable {
     let id, divisionId: Int
     let view, reply: Int
-    let hidden: Bool
+    var hidden: Bool
     let updateTime, createTime: Date
     let tags: [THTag]
     let firstFloor, lastFloor: THFloor

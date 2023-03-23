@@ -25,8 +25,7 @@ struct THSearchTextPage: View {
         List {
             ForEach(floors) { floor in
                 NavigationPlainLink(value: floor) {
-                    THFloorView(floor: floor)
-                        .interactable(false)
+                    THSimpleFloor(floor: floor)
                 }
                 .task {
                     if floor == floors.last {
