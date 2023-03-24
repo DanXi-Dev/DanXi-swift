@@ -1,25 +1,15 @@
 import SwiftUI
 
 struct THReplySheet: View {
-    let holeId: Int
+    @EnvironmentObject var model: THHoleModel
     @State var content: String
-    @Binding var endReached: Bool
-    let floors: [THFloor]
     
-    init(holeId: Int,
-         content: String = "",
-         floors: [THFloor] = [],
-         endReached: Binding<Bool>) {
-        self.holeId = holeId
+    init(_ content: String = "") {
         self._content = State(initialValue: content)
-        self.floors = floors
-        self._endReached = endReached
     }
     
     var body: some View {
-        FormPrimitive(title: "Reply",
-                      allowSubmit: !content.isEmpty,
-                      errorTitle: "Send Reply Failed") {
+        FormPrimitive(title: "Reply", allowSubmit: !content.isEmpty) {
             Section {
                 TextEditView($content,
                              placeholder: "Enter reply content")
@@ -27,29 +17,16 @@ struct THReplySheet: View {
                 Text("TH Edit Alert")
             }
             .textCase(nil)
-            
+
             if !content.isEmpty {
                 Section {
-                    THContentView(content, floors: floors)
-                        .interactable(false)
-                        .padding(.vertical, 5)
+                    THFloorContent(content)
                 } header: {
                     Text("Preview")
                 }
             }
         } action: {
-            _ = try await THRequests.createFloor(content: content, holeId: holeId)
-            Task { @MainActor in
-                endReached = false
-            }
+            try await model.reply(content)
         }
-    }
-}
-
-struct THReplySheet_Previews: PreviewProvider {
-    static var previews: some View {
-        THReplySheet(holeId: 0,
-                  content: "Hello this is some content",
-                  endReached: .constant(false))
     }
 }

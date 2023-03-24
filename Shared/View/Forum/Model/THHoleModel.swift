@@ -82,6 +82,15 @@ class THHoleModel: ObservableObject {
         false
     }
     
+    // MARK: - Reply
+    
+    func reply(_ content: String) async throws {
+        _ = try await THRequests.createFloor(content: content, holeId: hole.id)
+        Task {
+            await self.loadAllFloors()
+        }
+    }
+    
     // MARK: - Page Scrolling
     
     @Published var scrollTarget: Int

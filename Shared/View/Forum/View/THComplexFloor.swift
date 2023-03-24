@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUIX
 
 struct THComplexFloor: View {
     @StateObject var model: THFloorModel
@@ -11,7 +12,7 @@ struct THComplexFloor: View {
     var body: some View {
         VStack(alignment: .leading) {
             headLine
-            THFloorContent()
+            THFloorContent(model.floor.content)
             bottomLine
         }
         .environmentObject(model)
@@ -75,6 +76,9 @@ struct THFloorActions: View {
         .font(.caption)
         .foregroundColor(.secondary)
         .padding(.trailing, 10)
+        .sheet(isPresented: $showReplySheet) {
+            THReplySheet("##\(String(model.floor.id))")
+        }
     }
     
     private var likeButton: some View {
@@ -97,9 +101,6 @@ struct THFloorActions: View {
             showReplySheet = true
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
-        }
-        .sheet(isPresented: $showReplySheet) {
-            Text("TODO: Reply Sheet")
         }
     }
     
@@ -134,7 +135,13 @@ struct THFloorActions: View {
 
 struct THFloorContent: View {
     @EnvironmentObject var holeModel: THHoleModel
-    @EnvironmentObject var floorModel: THFloorModel
+    @OptionalEnvironmentObject var floorModel: THFloorModel?
+    
+    let content: String
+    
+    init(_ content: String) {
+        self.content = content
+    }
     
     enum ReferenceType: Identifiable {
         case text(content: String)
@@ -148,9 +155,9 @@ struct THFloorContent: View {
     
     func parse() -> [ReferenceType] {
         let floors = holeModel.floors
-        let mentions = floorModel.floor.mention
+        let mentions = floorModel?.floor.mention ?? []
         
-        var partialContent = floorModel.floor.content
+        var partialContent = self.content
         var parsedElements: [ReferenceType] = []
         
         while let match = partialContent.firstMatch(of: /(?<prefix>#{1,2})(?<id>\d+)/) {

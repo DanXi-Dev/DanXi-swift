@@ -52,7 +52,7 @@ struct THHolePage: View {
                     }
                 }
             }
-            .listStyle(.plain)
+            .listStyle(.inset)
             .navigationTitle("#\(String(model.hole.id))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -88,7 +88,7 @@ struct THHoleToolbar: View {
             Image(systemName: "arrowshape.turn.up.left")
         }
         .sheet(isPresented: $showReplySheet) {
-            Text("TODO: Reply Sheet")
+            THReplySheet()
         }
     }
     
