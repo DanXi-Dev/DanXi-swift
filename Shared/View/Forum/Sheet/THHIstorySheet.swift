@@ -1,78 +1,66 @@
 import SwiftUI
 
 struct THHistorySheet: View {
-    @Binding var floor: THFloor
-    
+    @EnvironmentObject var model: THFloorModel
     @State var histories: [THHistory] = []
-    
-    @State var showRestoreSheet = false
-    @State var historyId: Int? = nil
-    @State var restoreReason = ""
-    @State var showRestoreError = false
-    @State var restoreErrorInfo = ""
-    
-    func restoreFloor() async throws {
-        guard let historyId = historyId else {
-            return
-        }
-        
-        floor = try await THRequests.restoreFloor(floorId: floor.id,
-                                                         historyId: historyId,
-                                                         restoreReason: restoreReason)
-    }
     
     var body: some View {
         NavigationView {
             LoadingPage {
-                histories = try await THRequests.loadFloorHistory(floorId: floor.id)
+                self.histories = try await model.loadHistory()
             } content: {
                 List {
                     ForEach(histories) { history in
-                        VStack(alignment: .leading, spacing: 10) {
-                            if !history.reason.isEmpty {
-                                Text("Edit reason: \(history.reason)")
-                                    .foregroundColor(.secondary)
-                                    .font(.caption)
-                            }
-                            
-                            MarkdownView(history.content)
-                            
-                            HStack {
-                                Text(history.updateTime.formatted())
-                                Spacer()
-                                Text("User: \(String(history.userId))")
-                            }
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                        }
-                        .swipeActions {
-                            Button {
-                                self.historyId = history.id
-                                showRestoreSheet = true
-                            } label: {
-                                Label("Restore", systemImage: "arrow.uturn.backward")
-                            }
-                        }
+                        THHistorySheetItem(history: history)
                     }
                 }
-                .sheet(isPresented: $showRestoreSheet) {
-                    restoreForm
-                }
+                .listStyle(.insetGrouped)
             }
-                        .navigationTitle("Edit History")
-                        .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Edit History")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
+}
+
+struct THHistorySheetItem: View {
+    @EnvironmentObject var model: THFloorModel
+    let history: THHistory
     
-    var restoreForm: some View {
-        FormPrimitive(title: "Restore History",
-                      allowSubmit: true,
-                      errorTitle: "Restore Failed") {
-            Section {
-                TextField("Restore reason", text: $restoreReason)
+    @State var showAlert = false
+    @State var restoreReason = ""
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            if !history.reason.isEmpty {
+                Text("Edit reason: \(history.reason)")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
             }
-        } action: {
-            try await restoreFloor()
+            
+            MarkdownView(history.content)
+                .foregroundColor(.primary)
+            
+            HStack {
+                Text(history.updateTime.formatted())
+                Spacer()
+                Text("User: \(String(history.userId))")
+            }
+            .foregroundColor(.secondary)
+            .font(.caption)
+        }
+        .alert("Restore History", isPresented: $showAlert) {
+            TextField("Restore reason", text: $restoreReason)
+            AsyncButton("Submit") {
+                try await model.restore(history.id, reason: restoreReason)
+            }
+            Button("Cancel", role: .cancel) { }
+        }
+        .swipeActions {
+            Button {
+                showAlert = true
+            } label: {
+                Label("Restore", systemImage: "arrow.uturn.backward")
+            }
         }
     }
 }

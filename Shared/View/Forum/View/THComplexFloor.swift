@@ -79,6 +79,9 @@ struct THFloorActions: View {
         .sheet(isPresented: $showReplySheet) {
             THReplySheet("##\(String(model.floor.id))")
         }
+        .sheet(isPresented: $showHistorySheet) {
+            THHistorySheet()
+        }
     }
     
     private var likeButton: some View {
@@ -122,6 +125,16 @@ struct THFloorActions: View {
                 
             } label: {
                 Label("Show This Person", systemImage: "message")
+            }
+            
+            Menu {
+                Button {
+                    showHistorySheet = true
+                } label: {
+                    Label("Show Edit History", systemImage: "clock.arrow.circlepath")
+                }
+            } label: {
+                Label("Admin Actions", systemImage: "person.badge.key")
             }
         } label: {
             Image(systemName: "ellipsis.circle.fill")

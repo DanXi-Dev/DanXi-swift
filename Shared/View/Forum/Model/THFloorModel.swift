@@ -33,6 +33,10 @@ class THFloorModel: ObservableObject {
         self.floor = likedFloor
     }
     
+    func loadHistory() async throws -> [THHistory] {
+        return try await THRequests.loadFloorHistory(floorId: floor.id)
+    }
+    
     func restore(_ id: Int, reason: String) async throws {
         let restoredFloor = try await THRequests.restoreFloor(floorId: floor.id, historyId: id, restoreReason: reason)
         self.floor = restoredFloor
