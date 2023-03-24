@@ -1,16 +1,12 @@
 import SwiftUI
 
-struct THEditSheet: View {
-    @Binding var floor: THFloor // replace original floor after edit succeeded
+struct THFloorEditSheet: View {
+    @EnvironmentObject var model: THFloorModel
     @State var content: String
-    let floors: [THFloor]
+    @State var specialTag = ""
     
-    init(floor: Binding<THFloor>,
-         content: String = "",
-         floors: [THFloor] = []) {
-        self._floor = floor
+    init(_ content: String) {
         self._content = State(initialValue: content)
-        self.floors = floors
     }
     
     var body: some View {
@@ -18,6 +14,9 @@ struct THEditSheet: View {
                       allowSubmit: !content.isEmpty,
                       errorTitle: "Edit Reply Failed") {
             Section {
+                if DXModel.shared.isAdmin {
+                    TextField("Special Tag", text: $specialTag)
+                }
                 TextEditView($content,
                              placeholder: "Enter reply content")
             } header: {
@@ -25,23 +24,16 @@ struct THEditSheet: View {
             }
             .textCase(nil)
             
+            
             if !content.isEmpty {
                 Section {
-                    THContentView(content, floors: floors)
-                        .interactable(false)
-                        .padding(.vertical, 5)
+                    THFloorContent(content)
                 } header: {
                     Text("Preview")
                 }
             }
         } action: {
-            floor = try await THRequests.modifyFloor(content: content, floorId: floor.id)
+            try await model.edit(content, specialTag: specialTag)
         }
-    }
-}
-
-struct THEditSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        THEditSheet(floor: .constant(Bundle.main.decodeData("floor")))
     }
 }

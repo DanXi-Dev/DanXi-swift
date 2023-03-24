@@ -35,7 +35,7 @@
 		272AC8DD2896E2B600092B0C /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = 272AC8DC2896E2B600092B0C /* tags.json */; };
 		272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* THPostSheet.swift */; };
 		272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* THReplySheet.swift */; };
-		272AC8E62896F30E00092B0C /* THEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THEditSheet.swift */; };
+		272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */; };
 		2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2732C8B2296F3BF600A5248D /* Conflict+Table.swift */; };
 		2732C8B5296F3C0900A5248D /* Conflict+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2732C8B4296F3C0900A5248D /* Conflict+Text.swift */; };
 		2736FDCE29C4F8C900D096D3 /* FDReservePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */; };
@@ -201,7 +201,7 @@
 		272AC8DC2896E2B600092B0C /* tags.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
 		272AC8E02896F27300092B0C /* THPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostSheet.swift; sourceTree = "<group>"; };
 		272AC8E22896F29800092B0C /* THReplySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReplySheet.swift; sourceTree = "<group>"; };
-		272AC8E52896F30E00092B0C /* THEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THEditSheet.swift; sourceTree = "<group>"; };
+		272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorEditSheet.swift; sourceTree = "<group>"; };
 		2732C8B2296F3BF600A5248D /* Conflict+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict+Table.swift"; sourceTree = "<group>"; };
 		2732C8B4296F3C0900A5248D /* Conflict+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conflict+Text.swift"; sourceTree = "<group>"; };
 		2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDReservePage.swift; sourceTree = "<group>"; };
@@ -582,7 +582,7 @@
 			children = (
 				272AC8E02896F27300092B0C /* THPostSheet.swift */,
 				272AC8E22896F29800092B0C /* THReplySheet.swift */,
-				272AC8E52896F30E00092B0C /* THEditSheet.swift */,
+				272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */,
 				273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */,
 				27D7110728CA29B7001E9464 /* THReportSheet.swift */,
 				27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */,
@@ -923,7 +923,7 @@
 				278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */,
 				277E432228C7810700EBAC23 /* THContentView.swift in Sources */,
 				27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */,
-				272AC8E62896F30E00092B0C /* THEditSheet.swift in Sources */,
+				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
 				27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */,

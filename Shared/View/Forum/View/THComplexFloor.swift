@@ -62,6 +62,7 @@ struct THFloorActions: View {
     @State var showReplySheet = false
     @State var showReportSheet = false
     @State var showSelectionSheet = false
+    @State var showEditSheet = false
     @State var showHistorySheet = false
     @State var showDeleteAlert = false
     @State var showDeleteSheet = false
@@ -73,12 +74,11 @@ struct THFloorActions: View {
             replyButton
             menu
         }
-        .buttonStyle(.borderless)
-        .font(.caption)
-        .foregroundColor(.secondary)
-        .padding(.trailing, 10)
-        .sheet(isPresented: $showReplySheet) {
-            THReplySheet("##\(String(model.floor.id))")
+        .sheet(isPresented: $showReportSheet) {
+            THReportSheet()
+        }
+        .sheet(isPresented: $showSelectionSheet) {
+            TextSelectionView(text: model.floor.content)
         }
         .sheet(isPresented: $showHistorySheet) {
             THHistorySheet()
@@ -86,11 +86,8 @@ struct THFloorActions: View {
         .sheet(isPresented: $showRemoveSheet) {
             THDeleteSheet()
         }
-        .sheet(isPresented: $showReportSheet) {
-            THReportSheet()
-        }
-        .sheet(isPresented: $showSelectionSheet) {
-            TextSelectionView(text: model.floor.content)
+        .sheet(isPresented: $showEditSheet) {
+            THFloorEditSheet(model.floor.content)
         }
     }
     
@@ -106,6 +103,8 @@ struct THFloorActions: View {
                 }
                 .foregroundColor(floor.liked ? .pink : .secondary)
             }
+            .buttonStyle(.borderless)
+            .font(.caption)
         }
     }
     
@@ -114,6 +113,12 @@ struct THFloorActions: View {
             showReplySheet = true
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
+        }
+        .buttonStyle(.borderless)
+        .foregroundColor(.secondary)
+        .font(.caption)
+        .sheet(isPresented: $showReplySheet) {
+            THReplySheet("##\(String(model.floor.id))")
         }
     }
     
@@ -139,15 +144,21 @@ struct THFloorActions: View {
             
             Menu {
                 Button {
-                    showHistorySheet = true
+                    showEditSheet = true
                 } label: {
-                    Label("Show Edit History", systemImage: "clock.arrow.circlepath")
+                    Label("Modify Floor", systemImage: "pencil")
                 }
                 
                 Button(role: .destructive) {
                     showRemoveSheet = true
                 } label: {
                     Label("Remove Floor", systemImage: "xmark.square")
+                }
+                
+                Button {
+                    showHistorySheet = true
+                } label: {
+                    Label("Show Edit History", systemImage: "clock.arrow.circlepath")
                 }
             } label: {
                 Label("Admin Actions", systemImage: "person.badge.key")
