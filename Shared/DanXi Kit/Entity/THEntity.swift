@@ -19,6 +19,14 @@ struct THHole: Hashable, Decodable, Identifiable {
         return false
     }
     
+    var info: THHoleInfo {
+        return THHoleInfo(holeId: id,
+                          divisionId: divisionId,
+                          tags: tags.map(\.name),
+                          unhidden: !hidden,
+                          locked: false) // TODO: locked
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id = "hole_id"
         case divisionId = "division_id"
@@ -52,6 +60,14 @@ struct THHole: Hashable, Decodable, Identifiable {
         lastFloor = try floorStruct.decode(THFloor.self, forKey: .lastFloor)
         floors = try floorStruct.decode([THFloor].self, forKey: .floors)
     }
+}
+
+struct THHoleInfo: Hashable, Codable {
+    let holeId: Int
+    var divisionId: Int
+    var tags: [String]
+    var unhidden: Bool
+    var locked: Bool
 }
 
 struct THFloor: Hashable, Codable, Identifiable {

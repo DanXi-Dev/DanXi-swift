@@ -26,7 +26,7 @@ struct THHolePage: View {
                 } header: {
                     HStack {
                         ForEach(model.hole.tags) { tag in
-                            THTagView(tag: tag)
+                            THTagView(tag)
                         }
                     }
                 } footer: {
@@ -135,7 +135,7 @@ struct THHoleToolbar: View {
             Image(systemName: "ellipsis.circle")
         }
         .sheet(isPresented: $showEditSheet) {
-            Text("TODO: EditSheet")
+            THHoleEditSheet(model.hole.info)
         }
         .alert("Confirm Delete Post", isPresented: $showDeleteAlert) {
             Button("Confirm", role: .destructive) {

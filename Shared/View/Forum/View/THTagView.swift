@@ -39,12 +39,20 @@ struct THTagListView: View {
 }
 
 struct THTagView: View {
-    let tag: THTag
+    let name: String
+    
+    init(_ tag: THTag) {
+        self.name = tag.name
+    }
+    
+    init(_ name: String) {
+        self.name = name
+    }
     
     var body: some View {
-        Text(tag.name)
+        Text(name)
             .textCase(nil)
-            .tagStyle(color: randomColor(tag.name))
+            .tagStyle(color: randomColor(name))
     }
 }
 

@@ -69,7 +69,7 @@ struct THHoleView: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(hole.tags) { tag in
-                    THTagView(tag: tag)
+                    THTagView(tag)
                 }
             }
         }

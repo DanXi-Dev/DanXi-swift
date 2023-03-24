@@ -258,6 +258,8 @@
 "Fold Floor" = "折叠本层";
 "Add Ban" = "封禁用户";
 "Hide Hole" = "隐藏此树洞";
+"Set Visibility" = "设置是否可见";
+"Lock Post" = "锁定帖子";
 "Edit Post Info" = "修改主题帖信息";
 "Enter report reason" = "填写举报理由";
 "Content to Report" = "待举报的内容";

@@ -118,7 +118,7 @@ class THHoleModel: ObservableObject {
         }
     }
     
-    // MARK: - Hole Info Edit
+    // MARK: - Favorite
     
     @Published var isFavorite: Bool
     
@@ -128,9 +128,10 @@ class THHoleModel: ObservableObject {
         self.isFavorite = DXModel.shared.isFavorite(hole.id)
     }
     
+    // MARK: - Hole Info Edit
     
-    func editHole() async throws {
-        // TODO
+    func modifyHole(_ info: THHoleInfo) async throws {
+        self.hole = try await THRequests.modifyHole(info)
     }
     
     func deleteHole() async throws {

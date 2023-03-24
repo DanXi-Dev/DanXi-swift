@@ -77,31 +77,9 @@ struct THRequests {
     
     
     /// Modify hole.
-    /// - Parameters:
-    ///   - holeId: Hole ID to change.
-    ///   - tags: New tags.
-    ///   - divisionId: Move hole to new division.
-    ///   - unhidden: Whether to delete
-    static func modifyHole(holeId: Int,
-                    tags: [String],
-                    divisionId: Int,
-                    unhidden: Bool = true) async throws {
-        struct Tag: Codable {
-            let name: String
-        }
-        
-        struct EditConfig: Codable {
-            let tags: [Tag]
-            let divisionId: Int
-            let unhidden: Bool
-        }
-        
-        let payload = EditConfig(tags: tags.map { Tag(name: $0) },
-                                 divisionId: divisionId,
-                                 unhidden: unhidden)
-        
-        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
-        try await DXRequest(components.url!, payload: payload, method: "PUT")
+    static func modifyHole(_ info: THHoleInfo) async throws -> THHole {
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(info.holeId)")!
+        return try await DXResponse(components.url!, payload: info, method: "PUT")
     }
     
     
