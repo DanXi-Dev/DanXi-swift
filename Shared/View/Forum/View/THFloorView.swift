@@ -1,7 +1,31 @@
 import SwiftUI
 import SwiftUIX
 
+struct THSimpleFloor: View {
+    let floor: THFloor
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5.0) {
+            THPosterView(name: floor.posterName, isPoster: false)
+            MarkdownView(floor.content)
+            bottom
+        }
+    }
+
+    var bottom: some View {
+        HStack {
+            Text("##\(String(floor.id))")
+            Spacer()
+            Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+        }
+        .font(.caption)
+        .foregroundColor(.separator)
+    }
+}
+
+
 struct THComplexFloor: View {
+    @EnvironmentObject var holeModel: THHoleModel
     @StateObject var model: THFloorModel
     
     init(_ floor: THFloor, context: THHoleModel) {
@@ -9,10 +33,23 @@ struct THComplexFloor: View {
         self._model = StateObject(wrappedValue: model)
     }
     
+    private var floor: THFloor {
+        model.floor
+    }
+    
+    private var text: String {
+        switch holeModel.filterOption {
+        case .conversation(_):
+            return floor.removeFirstMention()
+        default:
+            return floor.content
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             headLine
-            THFloorContent(model.floor.content)
+            content
             bottomLine
         }
         .environmentObject(model)
@@ -20,10 +57,23 @@ struct THComplexFloor: View {
     
     private var headLine: some View {
         HStack {
-            THPosterView(name: model.floor.posterName,
+            THPosterView(name: floor.posterName,
                          isPoster: model.isPoster)
+            if !model.floor.spetialTag.isEmpty {
+                THSpecialTagView(content: floor.spetialTag)
+            }
             Spacer()
             THFloorActions()
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        if !floor.deleted {
+            THFloorContent(text)
+        } else {
+            Text(floor.content)
+                .foregroundColor(.secondary)
         }
     }
     
@@ -43,6 +93,8 @@ struct THComplexFloor: View {
             
             if floor.deleted {
                 Text("Deleted")
+            } else if floor.modified != 0 {
+                Text("Edited")
             }
             
             Spacer()
@@ -57,6 +109,7 @@ struct THComplexFloor: View {
 }
 
 struct THFloorActions: View {
+    @EnvironmentObject var holeModel: THHoleModel
     @EnvironmentObject var model: THFloorModel
     
     @State var showReplySheet = false
@@ -70,9 +123,14 @@ struct THFloorActions: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
-            likeButton
-            replyButton
-            menu
+            if !model.floor.deleted {
+                likeButton
+                replyButton
+            }
+            
+            if !model.floor.deleted || DXModel.shared.isAdmin {
+                menu
+            }
         }
         .sheet(isPresented: $showReportSheet) {
             THReportSheet()
@@ -88,6 +146,17 @@ struct THFloorActions: View {
         }
         .sheet(isPresented: $showEditSheet) {
             THFloorEditSheet(model.floor.content)
+        }
+        .alert("Delete Floor", isPresented: $showDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                Task {
+                    do {
+                        try await model.delete()
+                    }
+                }
+            }
+        } message: {
+            Text("This floor will be deleted")
         }
     }
     
@@ -137,9 +206,31 @@ struct THFloorActions: View {
             }
             
             Button {
-                
+                holeModel.filterOption = .user(name: model.floor.posterName)
             } label: {
                 Label("Show This Person", systemImage: "message")
+            }
+            
+            Button {
+                holeModel.filterOption = .conversation(starting: model.floor.id)
+            } label: {
+                Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
+            }
+            
+            if model.floor.isMe {
+                Divider()
+                
+                Button {
+                    showEditSheet = true
+                } label: {
+                    Label("Edit Reply", systemImage: "square.and.pencil")
+                }
+                
+                Button(role: .destructive) {
+                    showDeleteAlert = true
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
             }
             
             Menu {

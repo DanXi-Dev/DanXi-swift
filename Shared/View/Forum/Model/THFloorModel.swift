@@ -20,7 +20,8 @@ class THFloorModel: ObservableObject {
     }
     
     func delete() async throws {
-        self.floor = try await THRequests.deleteFloor(floorId: floor.id)
+        let deletedFloor = try await THRequests.deleteFloor(floorId: floor.id)
+        updateFloor(deletedFloor)
     }
     
     func edit(_ content: String, specialTag: String = "") async throws {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC529CE3022004A5D2F /* THFloorView.swift */; };
 		2706602C292F513700F4C321 /* AboutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602B292F513700F4C321 /* AboutPage.swift */; };
 		2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602D292F51BC00F4C321 /* CreditPage.swift */; };
 		27066030292F522B00F4C321 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602F292F522B00F4C321 /* LinkView.swift */; };
@@ -65,7 +66,6 @@
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
 		2778D62C2891D22D009F4DB1 /* THTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6142891D22D009F4DB1 /* THTagView.swift */; };
 		2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6152891D22D009F4DB1 /* THHoleView.swift */; };
-		277E432228C7810700EBAC23 /* THContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E432128C7810700EBAC23 /* THContentView.swift */; };
 		278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291929394973008C29ED /* EnvironmentSettings.swift */; };
 		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
@@ -101,7 +101,6 @@
 		27C7E8B028BA038200DCC2B2 /* styled-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AC28BA038200DCC2B2 /* styled-floor.json */; };
 		27C7E8B128BA038200DCC2B2 /* long-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AD28BA038200DCC2B2 /* long-floor.json */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
-		27CC00EA28E1EE1800F0B026 /* THBanSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00E928E1EE1800F0B026 /* THBanSheet.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
 		27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */; };
 		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
@@ -120,8 +119,6 @@
 		27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6C29CB529D00F32093 /* THLoaderPage.swift */; };
 		27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6E29CB589000F32093 /* THHolePage.swift */; };
 		27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7029CB5B4500F32093 /* THFloorModel.swift */; };
-		27DAFA7529CC39C100F32093 /* THComplexFloor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7429CC39C100F32093 /* THComplexFloor.swift */; };
-		27DAFA7729CC498100F32093 /* THSimpleFloor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7629CC498100F32093 /* THSimpleFloor.swift */; };
 		27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7829CC50E100F32093 /* AsnyncButton.swift */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
@@ -173,6 +170,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27013BC529CE3022004A5D2F /* THFloorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorView.swift; sourceTree = "<group>"; };
 		2706602B292F513700F4C321 /* AboutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPage.swift; sourceTree = "<group>"; };
 		2706602D292F51BC00F4C321 /* CreditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditPage.swift; sourceTree = "<group>"; };
 		2706602F292F522B00F4C321 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 		2778D6112891D22D009F4DB1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2778D6142891D22D009F4DB1 /* THTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THTagView.swift; sourceTree = "<group>"; };
 		2778D6152891D22D009F4DB1 /* THHoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THHoleView.swift; sourceTree = "<group>"; };
-		277E432128C7810700EBAC23 /* THContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentView.swift; sourceTree = "<group>"; };
 		278B291929394973008C29ED /* EnvironmentSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSettings.swift; sourceTree = "<group>"; };
 		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
@@ -262,7 +259,6 @@
 		27C7E8AC28BA038200DCC2B2 /* styled-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "styled-floor.json"; sourceTree = "<group>"; };
 		27C7E8AD28BA038200DCC2B2 /* long-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "long-floor.json"; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		27CC00E928E1EE1800F0B026 /* THBanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBanSheet.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
 		27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXRegisterSheet.swift; sourceTree = "<group>"; };
 		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
@@ -280,8 +276,6 @@
 		27DAFA6C29CB529D00F32093 /* THLoaderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THLoaderPage.swift; sourceTree = "<group>"; };
 		27DAFA6E29CB589000F32093 /* THHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHolePage.swift; sourceTree = "<group>"; };
 		27DAFA7029CB5B4500F32093 /* THFloorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorModel.swift; sourceTree = "<group>"; };
-		27DAFA7429CC39C100F32093 /* THComplexFloor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THComplexFloor.swift; sourceTree = "<group>"; };
-		27DAFA7629CC498100F32093 /* THSimpleFloor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSimpleFloor.swift; sourceTree = "<group>"; };
 		27DAFA7829CC50E100F32093 /* AsnyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsnyncButton.swift; sourceTree = "<group>"; };
 		27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarRatingView.swift; sourceTree = "<group>"; };
 		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
@@ -586,7 +580,6 @@
 				273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */,
 				27D7110728CA29B7001E9464 /* THReportSheet.swift */,
 				27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */,
-				27CC00E928E1EE1800F0B026 /* THBanSheet.swift */,
 				2772231028F05B3300458EAC /* THHIstorySheet.swift */,
 			);
 			path = Sheet;
@@ -596,14 +589,12 @@
 			isa = PBXGroup;
 			children = (
 				2778D6152891D22D009F4DB1 /* THHoleView.swift */,
+				27013BC529CE3022004A5D2F /* THFloorView.swift */,
 				2791030C29C7640F003B9FD9 /* THPosterView.swift */,
 				273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */,
 				2778D6142891D22D009F4DB1 /* THTagView.swift */,
 				2748AE9828C8C4CC0014495F /* THTagField.swift */,
-				277E432128C7810700EBAC23 /* THContentView.swift */,
 				2729071428B0B45F0087ACC0 /* THMentionView.swift */,
-				27DAFA7629CC498100F32093 /* THSimpleFloor.swift */,
-				27DAFA7429CC39C100F32093 /* THComplexFloor.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -920,8 +911,8 @@
 				2713B5DD2939F91700ADE348 /* LocalStorage.swift in Sources */,
 				274215D228EE1C4700A2A20B /* DecodeDate.swift in Sources */,
 				27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */,
+				27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */,
 				278B291A29394973008C29ED /* EnvironmentSettings.swift in Sources */,
-				277E432228C7810700EBAC23 /* THContentView.swift in Sources */,
 				27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
@@ -934,7 +925,6 @@
 				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				27FA5F47289947DA000391A3 /* THSearchTextPage.swift in Sources */,
 				2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */,
-				27DAFA7529CC39C100F32093 /* THComplexFloor.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,
@@ -942,7 +932,6 @@
 				F19113AA28A65D260067BA61 /* THSearchPage.swift in Sources */,
 				2772231128F05B3300458EAC /* THHIstorySheet.swift in Sources */,
 				271D597328C2521600F72C3B /* PreviewContextAction.swift in Sources */,
-				27DAFA7729CC498100F32093 /* THSimpleFloor.swift in Sources */,
 				27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */,
 				27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */,
 				27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */,
@@ -968,7 +957,6 @@
 				27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */,
 				27227FD528A512B300B3C99D /* Defaults.swift in Sources */,
 				271D596B28C2504500F72C3B /* PreviewContextMenu.swift in Sources */,
-				27CC00EA28E1EE1800F0B026 /* THBanSheet.swift in Sources */,
 				27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,

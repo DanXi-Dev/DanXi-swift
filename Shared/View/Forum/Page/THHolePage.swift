@@ -48,7 +48,9 @@ struct THHolePage: View {
                 }
                 .onChange(of: model.scrollTarget) { target in
                     if target > 0 {
-                        proxy.scrollTo(target, anchor: .top)
+                        withAnimation {
+                            proxy.scrollTo(target, anchor: .top)
+                        }
                     }
                 }
             }
@@ -58,6 +60,10 @@ struct THHolePage: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     THHoleToolbar()
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    THHoleBottomBar()
                 }
             }
             .environmentObject(model)
@@ -151,7 +157,16 @@ struct THHoleToolbar: View {
 }
 
 struct THHoleBottomBar: View {
+    @EnvironmentObject var model: THHoleModel
+    
     var body: some View {
-        Text("Hello")
+        if model.showBottomBar {
+            Button {
+                model.filterOption = .all
+            } label: {
+                Label("Show All Floors", systemImage: "bubble.left.and.bubble.right")
+                    .labelStyle(.titleAndIcon)
+            }
+        }
     }
 }

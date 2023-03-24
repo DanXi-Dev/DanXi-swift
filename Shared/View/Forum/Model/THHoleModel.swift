@@ -64,6 +64,8 @@ class THHoleModel: ObservableObject {
     enum FilterOptions: Hashable {
         case all
         case posterOnly
+        case user(name: String)
+        case conversation(starting: Int)
     }
     
     @Published var filterOption = FilterOptions.all
@@ -76,10 +78,38 @@ class THHoleModel: ObservableObject {
             return self.floors.filter { floor in
                 floor.posterName == posterName
             }
+        case .user(let name):
+            return self.floors.filter { $0.posterName == name }
+        case .conversation(let starting):
+            return traceConversation(starting)
         }
     }
-    var displayBottomBar: Bool {
-        false
+    
+    private func traceConversation(_ startId: Int) -> [THFloor] {
+        var id: Int? = startId
+        var conversation: [THFloor] = []
+        
+        while let floorId = id {
+            if let floor = floors.first(where: { $0.id == floorId }) {
+                conversation.append(floor)
+                id = floor.firstMention()
+            } else { // no matching floor is found, end searching
+                break
+            }
+        }
+        
+        return conversation.reversed()
+    }
+    
+    var showBottomBar: Bool {
+        switch filterOption {
+        case .user(_):
+            return true
+        case .conversation(_):
+            return true
+        default:
+            return false
+        }
     }
     
     // MARK: - Reply
@@ -110,9 +140,7 @@ class THHoleModel: ObservableObject {
             let floors = try await THRequests.loadAllFloors(holeId: hole.id)
             insertFloors(floors)
             endReached = true
-            withAnimation {
-                scrollTarget = hole.lastFloor.id
-            }
+            scrollTarget = hole.lastFloor.id
         } catch {
             loadingError = error
         }
