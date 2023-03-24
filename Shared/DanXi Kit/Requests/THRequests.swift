@@ -388,22 +388,19 @@ struct THRequests {
     
     // MARK: Penalty
     
-    // TODO: Update penalty to new model
+    
     /// Ban user.
     /// - Parameters:
-    ///   - floor: floor to be banned.
-    ///   - level: Ban level, range: 1-3.
-    static func addPenalty(floor: THFloor, level: Int) async throws {
+    ///   - days: Penalty duration.
+    ///   - reason: Reason.
+    static func addPenalty(_ floorId: Int, _ days: Int, reason: String = "") async throws {
         struct BanConfig: Codable {
-            let penaltyLevel: Int
-            let divisionId: Int
+            let days: Int
+            let reason: String
         }
         
-        // get division ID
-        let hole = try await loadHoleById(holeId: floor.holeId)
-        let divisionId = hole.divisionId
-        
-        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/penalty/\(floor.id)")!,
-                                  payload: BanConfig(penaltyLevel: level, divisionId: divisionId))
+        let payload = BanConfig(days: days, reason: reason)
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/penalty/\(floorId)")!,
+                                  payload: payload)
     }
 }

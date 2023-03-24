@@ -13,13 +13,8 @@ class THFloorModel: ObservableObject {
         floor.posterName == context.floors.first?.posterName
     }
     
-    private func updateFloor(_ floor: THFloor) {
-        self.floor = floor
-    }
-    
     func delete() async throws {
-        let deletedFloor = try await THRequests.deleteFloor(floorId: floor.id)
-        updateFloor(deletedFloor)
+        self.floor = try await THRequests.deleteFloor(floorId: floor.id)
     }
     
     func edit(_ content: String, specialTag: String = "") async throws {
@@ -42,7 +37,10 @@ class THFloorModel: ObservableObject {
         self.floor = restoredFloor
     }
     
-    func adminDelete(_ reason: String) async throws {
-        
+    func punish(_ reason: String, days: Int = 0) async throws {
+        self.floor = try await THRequests.deleteFloor(floorId: floor.id, reason: reason)
+        if days > 0 {
+            try await THRequests.addPenalty(floor.id, days, reason: reason)
+        }
     }
 }

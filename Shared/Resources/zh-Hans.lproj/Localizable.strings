@@ -117,7 +117,7 @@
 "Ban User" = "封禁用户";
 "Admin Actions" = "管理功能";
 "Banned Division" = "封禁分区";
-"Penalty Level: %lld" = "封禁等级：%lld";
+"Penalty Duration: %lld" = "封禁时长：%lld";
 
 // Treehole Edit Page
 "New Post" = "新建主题贴";

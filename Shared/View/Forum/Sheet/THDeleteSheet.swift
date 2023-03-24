@@ -1,10 +1,11 @@
 import SwiftUI
 
 struct THDeleteSheet: View {
-    @Binding var floor: THFloor
-    @State var deleteReason = ""
-    @State var addBan = false
-    @State var penaltyLevel = 1
+    @EnvironmentObject var model: THFloorModel
+    
+    @State var reason = ""
+    @State var ban = false
+    @State var days = 1
     
     var body: some View {
         FormPrimitive(title: "Delete Post",
@@ -12,9 +13,7 @@ struct THDeleteSheet: View {
                       needConfirmation: true) {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
-                    THContentView(floor.content,
-                                  mentions: floor.mention)
-                    .interactable(false)
+                    THFloorContent(model.floor.content)
                 }
                 .frame(maxHeight: 200)
             } header: {
@@ -22,35 +21,22 @@ struct THDeleteSheet: View {
             }
             
             Section {
-                TextField("Enter delete reason", text: $deleteReason)
+                TextField("Enter delete reason", text: $reason)
             }
             
             Section {
-                Toggle(isOn: $addBan.animation()) {
+                Toggle(isOn: $ban.animation()) {
                     Label("Add Ban", systemImage: "nosign")
                 }
                 
-                if addBan {
-                    Stepper(value: $penaltyLevel, in: 1...3) {
-                        Label("Penalty Level: \(penaltyLevel)", systemImage: "chevron.up.chevron.down")
+                if ban {
+                    Stepper(value: $days, in: 1...3600) {
+                        Label("Penalty Duration: \(days)", systemImage: "chevron.up.chevron.down")
                     }
                 }
             }
         } action: {
-            floor = try await THRequests.deleteFloor(floorId: floor.id, reason: deleteReason)
-            
-            if addBan {
-                let hole = try await THRequests.loadHoleById(holeId: floor.holeId)
-                let divisionId = hole.divisionId
-                print(divisionId)
-                // TODO: add ban
-            }
+            try await model.punish(reason, days: ban ? days : 0)
         }
-    }
-}
-
-struct THDeleteSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        THDeleteSheet(floor: .constant(Bundle.main.decodeData("long-floor")))
     }
 }

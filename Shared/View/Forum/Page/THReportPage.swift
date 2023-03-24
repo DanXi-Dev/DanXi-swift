@@ -142,12 +142,6 @@ struct THReportCell: View {
                 Label("Ban User", systemImage: "person.fill.xmark")
             }
         }
-        .sheet(isPresented: $showBanSheet) {
-            THBanSheet(divisionId: 0)
-        }
-        .sheet(isPresented: $showDeleteSheet) {
-            THDeleteSheet(floor: $report.floor)
-        }
     }
 }
 

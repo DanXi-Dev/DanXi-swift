@@ -65,6 +65,7 @@ struct THFloorActions: View {
     @State var showHistorySheet = false
     @State var showDeleteAlert = false
     @State var showDeleteSheet = false
+    @State var showRemoveSheet = false
     
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
@@ -81,6 +82,9 @@ struct THFloorActions: View {
         }
         .sheet(isPresented: $showHistorySheet) {
             THHistorySheet()
+        }
+        .sheet(isPresented: $showRemoveSheet) {
+            THDeleteSheet()
         }
     }
     
@@ -132,6 +136,12 @@ struct THFloorActions: View {
                     showHistorySheet = true
                 } label: {
                     Label("Show Edit History", systemImage: "clock.arrow.circlepath")
+                }
+                
+                Button(role: .destructive) {
+                    showRemoveSheet = true
+                } label: {
+                    Label("Remove Floor", systemImage: "xmark.square")
                 }
             } label: {
                 Label("Admin Actions", systemImage: "person.badge.key")
