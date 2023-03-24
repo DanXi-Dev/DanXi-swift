@@ -3,6 +3,7 @@ import Introspect
 
 struct TextSelectionView: View {
     let text: String
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -17,6 +18,7 @@ struct TextSelectionView: View {
                     ToolbarItem(placement: .status) {
                         Button {
                             UIPasteboard.general.string = text
+                            dismiss()
                         } label: {
                             Label {
                                 Text("Copy Full Text")

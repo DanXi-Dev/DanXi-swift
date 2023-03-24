@@ -1,19 +1,17 @@
 import SwiftUI
 
 struct THReportSheet: View {
-    let floor: THFloor
-    @State var reportReason = ""
+    @EnvironmentObject var model: THFloorModel
+    @State var reason = ""
     
     var body: some View {
         FormPrimitive(title: "Report",
-                      allowSubmit: !reportReason.isEmpty,
+                      allowSubmit: !reason.isEmpty,
                       errorTitle: "Report Failed",
                       needConfirmation: true) {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
-                    THContentView(floor.content,
-                                  mentions: floor.mention)
-                    .interactable(false)
+                    THFloorContent(model.floor.content)
                 }
                 .frame(maxHeight: 200)
             } header: {
@@ -21,17 +19,11 @@ struct THReportSheet: View {
             }
             
             Section {
-                TextField("Enter report reason", text: $reportReason)
+                TextField("Enter report reason", text: $reason)
             }
         } action: {
-            try await THRequests.report(floorId: floor.id,
-                                                    reason: reportReason)
+            try await THRequests.report(floorId: model.floor.id,
+                                        reason: reason)
         }
-    }
-}
-
-struct THReportSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        THReportSheet(floor: Bundle.main.decodeData("long-floor"))
     }
 }

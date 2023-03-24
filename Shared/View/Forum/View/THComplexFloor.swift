@@ -86,6 +86,12 @@ struct THFloorActions: View {
         .sheet(isPresented: $showRemoveSheet) {
             THDeleteSheet()
         }
+        .sheet(isPresented: $showReportSheet) {
+            THReportSheet()
+        }
+        .sheet(isPresented: $showSelectionSheet) {
+            TextSelectionView(text: model.floor.content)
+        }
     }
     
     private var likeButton: some View {
