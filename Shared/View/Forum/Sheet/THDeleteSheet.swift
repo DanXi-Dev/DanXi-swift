@@ -33,10 +33,42 @@ struct THDeleteSheet: View {
                     Stepper(value: $days, in: 1...3600) {
                         Label("Penalty Duration: \(days)", systemImage: "chevron.up.chevron.down")
                     }
+                    
+                    NavigationLink {
+                        THPunishmentHistorySheet()
+                    } label: {
+                        Label("Punishment History", systemImage: "person.badge.clock")
+                    }
                 }
             }
         } action: {
             try await model.punish(reason, days: ban ? days : 0)
+        }
+    }
+    
+
+}
+
+struct THPunishmentHistorySheet: View {
+    struct PunishmentHistory: Identifiable {
+        let id = UUID()
+        let reason: String
+    }
+    
+    @EnvironmentObject var model: THFloorModel
+    @State var punishmentHistory: [PunishmentHistory] = []
+    
+    var body: some View {
+        LoadingPage {
+            self.punishmentHistory = try await THRequests.loadPunishmenthistory(model.floor.id)
+                .map { PunishmentHistory(reason: $0) }
+        } content: {
+            List(punishmentHistory) { history in
+                Text(history.reason)
+            }
+            .listStyle(.insetGrouped)
+            .navigationTitle("Punishment History")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

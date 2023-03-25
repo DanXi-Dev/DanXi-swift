@@ -403,4 +403,11 @@ struct THRequests {
         try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/penalty/\(floorId)")!,
                                   payload: payload)
     }
+    
+    /// Get punishment history of a floor's poster.
+    /// - Parameter floorId: Floor ID.
+    /// - Returns: A list of reasons.
+    static func loadPunishmenthistory(_ floorId: Int) async throws -> [String] {
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/punishment")!)
+    }
 }

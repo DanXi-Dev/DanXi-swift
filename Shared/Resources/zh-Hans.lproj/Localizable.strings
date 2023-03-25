@@ -119,6 +119,7 @@
 "Admin Actions" = "管理功能";
 "Banned Division" = "封禁分区";
 "Penalty Duration: %lld" = "封禁时长：%lld";
+"Punishment History" = "违规记录";
 
 // Treehole Edit Page
 "New Post" = "新建主题贴";
