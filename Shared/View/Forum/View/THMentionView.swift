@@ -85,16 +85,17 @@ struct THMentionView: View {
 
 /// View that presents a local mention, scroll to target when tapped.
 struct THLocalMentionView: View {
+    @EnvironmentObject var model: THHoleModel
+    
     let floor: THFloor
-    @Environment(\.mentionProxy) var proxy
+    
+    init(_ floor: THFloor) {
+        self.floor = floor
+    }
     
     var body: some View {
         Button {
-            if let proxy = proxy {
-                withAnimation {
-                    proxy.scrollTo(floor.id, anchor: .top)
-                }
-            }
+            model.scrollTarget = floor.id
         } label: {
             THMentionView(floor: floor)
         }

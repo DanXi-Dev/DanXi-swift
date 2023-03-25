@@ -49,6 +49,7 @@ struct THHolePage: View {
                 .onChange(of: model.scrollTarget) { target in
                     if target > 0 {
                         withAnimation {
+                            // SwiftUI bug: App may crash, ref: https://useyourloaf.com/blog/swiftui-scrollviewproxy-crash/
                             proxy.scrollTo(target, anchor: .top)
                         }
                         model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times

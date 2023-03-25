@@ -271,9 +271,11 @@ struct THFloorContent: View {
     @OptionalEnvironmentObject var floorModel: THFloorModel?
     
     let content: String
+    let interactable: Bool
     
-    init(_ content: String) {
+    init(_ content: String, interactable: Bool = true) {
         self.content = content
+        self.interactable = interactable
     }
     
     enum ReferenceType: Identifiable {
@@ -335,7 +337,11 @@ struct THFloorContent: View {
                 case .text(let content):
                     MarkdownView(content)
                 case .local(let floor):
-                    THMentionView(floor: floor)
+                    if interactable {
+                        THLocalMentionView(floor)
+                    } else {
+                        THMentionView(floor: floor)
+                    }
                 case .remote(let mention):
                     THMentionView(mention: mention)
                 }
