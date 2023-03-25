@@ -34,12 +34,14 @@ struct TabHomePage: View {
                 .tabItem {
                     Label("Tree Hole", systemImage: "text.bubble")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
             
             DKHomePage()
                 .tag(AppSection.curriculum)
                 .tabItem {
                     Label("Curriculum", systemImage: "books.vertical")
                 }
+                .toolbarBackground(.visible, for: .tabBar)
             
             SettingsPage()
                 .tag(AppSection.settings)
