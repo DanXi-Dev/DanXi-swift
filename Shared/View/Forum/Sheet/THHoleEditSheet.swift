@@ -3,14 +3,16 @@ import SwiftUI
 struct THHoleEditSheet: View {
     @EnvironmentObject var model: THHoleModel
     @State var info: THHoleInfo
+    @State var tags: [String]
     
-    init(_ info: THHoleInfo) {
-        self._info = State(initialValue: info)
+    init(_ hole: THHole) {
+        self._tags = State(initialValue: hole.tags.map(\.name))
+        self._info = State(initialValue: THHoleInfo(hole))
     }
     
     var body: some View {
         FormPrimitive(title: "Edit Post Info",
-                      allowSubmit: !info.tags.isEmpty,
+                      allowSubmit: !tags.isEmpty,
                       errorTitle: "Edit Post Info Failed") {
             Section {
                 Picker(selection: $info.divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
@@ -21,7 +23,7 @@ struct THHoleEditSheet: View {
                 }
             }
             
-            THTagField(tags: $info.tags, max: 5)
+            THTagField(tags: $tags, max: 5)
             
             Section {
                 Toggle(isOn: $info.unhidden) {
@@ -33,6 +35,7 @@ struct THHoleEditSheet: View {
                 }
             }
         } action: {
+            info.setTags(tags)
             try await model.modifyHole(info)
         }
     }

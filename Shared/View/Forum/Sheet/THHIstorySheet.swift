@@ -50,8 +50,10 @@ struct THHistorySheetItem: View {
         }
         .alert("Restore History", isPresented: $showAlert) {
             TextField("Restore reason", text: $restoreReason)
-            AsyncButton("Submit") {
+            AsyncButton {
                 try await model.restore(history.id, reason: restoreReason)
+            } label: {
+                Text("Submit")
             }
             Button("Cancel", role: .cancel) { }
         }

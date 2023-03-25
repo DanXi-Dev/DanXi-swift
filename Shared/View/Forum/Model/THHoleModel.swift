@@ -50,7 +50,7 @@ class THHoleModel: ObservableObject {
     private func insertFloors(_ floors: [THFloor]) {
         let currentIds = self.floors.map(\.id)
         var insertFloors = floors.filter { !currentIds.contains($0.id) }
-        var storey = (floors.first?.storey ?? 0) + 1
+        var storey = (self.floors.last?.storey ?? 0) + 1
         for i in 0..<insertFloors.count {
             insertFloors[i].storey = storey
             storey += 1

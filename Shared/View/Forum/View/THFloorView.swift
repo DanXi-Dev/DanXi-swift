@@ -211,10 +211,12 @@ struct THFloorActions: View {
                 Label("Show This Person", systemImage: "message")
             }
             
-            Button {
-                holeModel.filterOption = .conversation(starting: model.floor.id)
-            } label: {
-                Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
+            if model.floor.firstMention() != nil {
+                Button {
+                    holeModel.filterOption = .conversation(starting: model.floor.id)
+                } label: {
+                    Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
+                }
             }
             
             if model.floor.isMe {

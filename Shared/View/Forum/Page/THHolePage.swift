@@ -51,6 +51,7 @@ struct THHolePage: View {
                         withAnimation {
                             proxy.scrollTo(target, anchor: .top)
                         }
+                        model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
                     }
                 }
             }
@@ -125,10 +126,12 @@ struct THHoleToolbar: View {
             if DXModel.shared.isAdmin {
                 Divider()
                 
-                AsyncButton {
-                    try await model.deleteHole()
-                } label: {
-                    Label("Hide Hole", systemImage: "eye.slash.fill")
+                if !model.hole.hidden {
+                    Button {
+                        showDeleteAlert = true
+                    } label: {
+                        Label("Hide Hole", systemImage: "eye.slash.fill")
+                    }
                 }
                 
                 Button {
@@ -141,7 +144,7 @@ struct THHoleToolbar: View {
             Image(systemName: "ellipsis.circle")
         }
         .sheet(isPresented: $showEditSheet) {
-            THHoleEditSheet(model.hole.info)
+            THHoleEditSheet(model.hole)
         }
         .alert("Confirm Delete Post", isPresented: $showDeleteAlert) {
             Button("Confirm", role: .destructive) {
