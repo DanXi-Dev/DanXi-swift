@@ -15,6 +15,8 @@ struct THHomePage: View {
                         THBrowseWrapper()
                     case .favorite:
                         THFavoritesPage()
+                    case .report:
+                        THReportPage()
                     default:
                         Text("TODO")
                     }

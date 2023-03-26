@@ -8,6 +8,7 @@ struct THSimpleFloor: View {
         VStack(alignment: .leading, spacing: 5.0) {
             THPosterView(name: floor.posterName, isPoster: false)
             MarkdownView(floor.content)
+                .foregroundColor(floor.deleted ? .secondary : .primary)
             bottom
         }
     }

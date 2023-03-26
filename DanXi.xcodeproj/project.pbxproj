@@ -14,6 +14,7 @@
 		27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */; };
 		27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BD129D022B7004A5D2F /* THBrowsePage.swift */; };
 		27013BD629D02A67004A5D2F /* THSearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BD529D02A67004A5D2F /* THSearchPage.swift */; };
+		27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BD729D062FA004A5D2F /* THReportModel.swift */; };
 		2706602C292F513700F4C321 /* AboutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602B292F513700F4C321 /* AboutPage.swift */; };
 		2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602D292F51BC00F4C321 /* CreditPage.swift */; };
 		27066030292F522B00F4C321 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602F292F522B00F4C321 /* LinkView.swift */; };
@@ -179,6 +180,7 @@
 		27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseWrapper.swift; sourceTree = "<group>"; };
 		27013BD129D022B7004A5D2F /* THBrowsePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowsePage.swift; sourceTree = "<group>"; };
 		27013BD529D02A67004A5D2F /* THSearchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchPage.swift; sourceTree = "<group>"; };
+		27013BD729D062FA004A5D2F /* THReportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportModel.swift; sourceTree = "<group>"; };
 		2706602B292F513700F4C321 /* AboutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPage.swift; sourceTree = "<group>"; };
 		2706602D292F51BC00F4C321 /* CreditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditPage.swift; sourceTree = "<group>"; };
 		2706602F292F522B00F4C321 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
@@ -691,9 +693,10 @@
 				27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */,
 				27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */,
 				27013BCB29D01E7D004A5D2F /* THSearchModel.swift */,
-				27DAFA6829CB43FA00F32093 /* THHoleLoader.swift */,
 				27DAFA6629CB375D00F32093 /* THHoleModel.swift */,
 				27DAFA7029CB5B4500F32093 /* THFloorModel.swift */,
+				27013BD729D062FA004A5D2F /* THReportModel.swift */,
+				27DAFA6829CB43FA00F32093 /* THHoleLoader.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -933,6 +936,7 @@
 				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
 				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */,
+				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,
@@ -1148,6 +1152,7 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1182,6 +1187,7 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

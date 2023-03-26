@@ -174,7 +174,7 @@ struct MarkdownView: View {
                 Divider()
                     .background(Color.secondary.opacity(0.5))
                 ForEach(table.body.items()) { rowItem in
-                    tableRowRenderer(rowItem.markup as! TableCellContainer)
+                    tableRowRenderer(rowItem.markup as! any TableCellContainer)
                 }
                 Divider()
                     .frame(minHeight: 2)
