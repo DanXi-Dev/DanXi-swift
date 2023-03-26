@@ -267,7 +267,7 @@ struct THFloorActions: View {
 }
 
 struct THFloorContent: View {
-    @EnvironmentObject var holeModel: THHoleModel
+    @OptionalEnvironmentObject var holeModel: THHoleModel?
     @OptionalEnvironmentObject var floorModel: THFloorModel?
     
     let content: String
@@ -289,7 +289,7 @@ struct THFloorContent: View {
     }
     
     func parse() -> [ReferenceType] {
-        let floors = holeModel.floors
+        let floors = holeModel?.floors ?? []
         let mentions = floorModel?.floor.mention ?? []
         
         var partialContent = self.content

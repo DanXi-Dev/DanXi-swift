@@ -82,6 +82,9 @@
 "formula_tag" = "[公式]";
 "Last Created" = "最近创建";
 "Last Updated" = "最近回复";
+"My Post" = "我的帖子";
+"Notifications" = "通知";
+"Messages" = "站内信";
 "Loading" = "加载中";
 "Sort By" = "排序方式";
 "%@ replied %@:" = "%@于%@回复：";
@@ -165,8 +168,8 @@
 // Search Page
 "Search Result" = "搜索结果";
 "Search Text" = "搜索文字";
-"Search History" = "搜索历史";
-"Clear History" = "清除搜索记录";
+"Recent Search" = "最近搜索";
+"Clear History" = "清除";
 "Jump to Hole" = "跳转到树洞";
 "Jump to Floor" = "跳转到楼层";
 "Tags" = "标签";

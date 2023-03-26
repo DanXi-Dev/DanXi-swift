@@ -50,9 +50,3 @@ struct THSearchTagPage: View {
         .navigationTitle(tagname)
     }
 }
-
-struct THSearchTagPage_Previews: PreviewProvider {
-    static var previews: some View {
-        THSearchTagPage(tagname: "test")
-    }
-}

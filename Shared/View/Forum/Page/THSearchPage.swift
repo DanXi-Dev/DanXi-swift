@@ -1,112 +1,115 @@
 import SwiftUI
-import SwiftUIX
 
 struct THSearchPage: View {
-    @EnvironmentObject var router: NavigationRouter
-    @Binding var searchText: String
-    @Binding var searchSubmitted: Bool
-    @AppStorage("treehole-search-history") var searchHistory: [String] = []
+    @EnvironmentObject var model: THSearchModel
     
-    private var filteredTags: [THTag] {
-        return DXModel.shared.tags.filter { $0.name.contains(searchText) }
+    var body: some View {
+        List {
+            if !model.history.isEmpty && model.searchText.isEmpty {
+                searchHistory
+            }
+            
+            if let matchFloor = model.matchFloor {
+                NavigationLink(value: THHoleLoader(floorId: matchFloor)) {
+                    Label("##\(String(matchFloor))", systemImage: "arrow.right.square")
+                }
+            }
+            
+            if let matchHole = model.matchHole {
+                NavigationLink(value: THHoleLoader(holeId: matchHole)) {
+                    Label("##\(String(matchHole))", systemImage: "arrow.right.square")
+                }
+            }
+            
+            ForEach(model.matchTags) { tag in
+                NavigationLink(value: tag) {
+                    Label(tag.name, systemImage: "tag")
+                }
+            }
+        }
+        .listStyle(.inset)
     }
     
-    func appendHistory(_ content: String) {
-        if searchHistory.contains(content) {
-            return
+    @ViewBuilder
+    private var searchHistory: some View {
+        HStack {
+            Text("Recent Search")
+            Spacer()
+            Button {
+                model.clearHistory()
+            } label: {
+                Text("Clear History")
+            }
+            .buttonStyle(.borderless)
+            .foregroundColor(.accentColor)
         }
+        .font(.callout)
+        .bold()
+        .listRowSeparator(.hidden)
+        
+        ForEach(model.history, id: \.self) { history in
+            Button {
+                model.searchText = history
+            } label: {
+                Label {
+                    Text(history)
+                        .foregroundColor(.primary)
+                } icon: {
+                    Image(systemName: "clock")
+                }
+            }
+        }
+    }
+}
 
-        searchHistory.insert(content, at: 0)
+
+struct THSearchResultPage: View {
+    @EnvironmentObject var navigationModel: THNavigationModel
+    @EnvironmentObject var model: THSearchModel
+    
+    @State var floors: [THFloor] = []
+    
+    @State var endReached = false
+    @State var loading = false
+    @State var loadingError: Error?
+    
+    func loadMoreFloors() async {
+        do {
+            loading = true
+            defer { loading = false }
+            let newFloors = try await THRequests.searchKeyword(keyword: model.searchText, startFloor: floors.count)
+            endReached = newFloors.isEmpty
+            let ids = floors.map(\.id)
+            floors.append(contentsOf: newFloors.filter { !ids.contains($0.id) })
+        } catch {
+            loadingError = error
+        }
     }
     
     var body: some View {
         List {
-            if !searchText.isEmpty { // search tag
-                Section("Search Text") {
-                    Button {
-                        router.path.append(TreeholeStaticPages.searchText(keyword: searchText))
-                        appendHistory(searchText)
-                    } label: {
-                        Label {
-                            Text(searchText)
-                                .foregroundColor(.primary)
-                        } icon: {
-                            Image(systemName: "magnifyingglass")
-                        }
-                    }
+            ForEach(floors) { floor in
+                NavigationPlainLink(value: THHoleLoader(floor)) {
+                    THSimpleFloor(floor: floor)
                 }
-            } else if !searchHistory.isEmpty { // search history
-                Section {
-                    ForEach(searchHistory, id: \.self) { history in
-                        Button {
-                            searchText = history
-                        } label: {
-                            Label {
-                                Text(history)
-                                    .foregroundColor(.primary)
-                            } icon: {
-                                Image(systemName: "clock")
-                            }
-                        }
-                    }
-                } header: {
-                    HStack {
-                        Text("Search History")
-                        Spacer()
-                        Button(LocalizedStringKey("Clear History")) {
-                            searchHistory = []
-                        }
+                .task {
+                    if floor == floors.last {
+                        await loadMoreFloors()
                     }
                 }
             }
             
-            // TODO
-            /*
-            // navigate to hole by ID
-            if searchText ~= #"^#[0-9]+$"#, let holeId = Int(searchText.dropFirst(1)) {
-                Section("Jump to Hole") {
-                    NavigationLink {
-                        THDetailPage(holeId: holeId)
-                            .onAppear { appendHistory(searchText) }
-                            .environmentObject(router)
-                    } label: {
-                        Label(searchText, systemImage: "arrow.right.square")
-                    }
-                }
-            }
-            
-            // navigate to floor by ID, don't assume floor id length
-            if searchText ~= #"^##[0-9]+$"#, let floorId = Int(searchText.dropFirst(2)) {
-                Section("Jump to Floor") {
-                    NavigationLink {
-                        THDetailPage(floorId: floorId)
-                            .onAppear { appendHistory(searchText) }
-                            .environmentObject(router)
-                    } label: {
-                        Label(searchText, systemImage: "arrow.right.square")
-                    }
-                }
-            }
-             */
-            
-            // search tag
-            if !filteredTags.isEmpty {
-                Section("Tags") {
-                    ForEach(filteredTags) { tag in
-                        NavigationLink {
-                            THSearchTagPage(tagname: tag.name)
-                                .onAppear { appendHistory(searchText) }
-                        } label: {
-                            Label(tag.name, systemImage: "tag")
-                        }
-                    }
+            if !endReached {
+                LoadingFooter(loading: $loading,
+                              errorDescription: loadingError?.localizedDescription ?? "") {
+                    await loadMoreFloors()
                 }
             }
         }
-        .onChange(of: searchSubmitted) { submit in
-            if submit {
-                appendHistory(searchText)
-                router.path.append(TreeholeStaticPages.searchText(keyword: searchText))
+        .listStyle(.inset)
+        .task {
+            if floors.isEmpty {
+                await loadMoreFloors()
             }
         }
     }

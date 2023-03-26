@@ -1,28 +1,16 @@
 import SwiftUI
-import SwiftUIX
 
-
-/// Main page section, displaying hole contents and division switch bar
 struct THBrowsePage: View {
-    @ObservedObject var preference = Preference.shared
-    @OptionalEnvironmentObject var router: NavigationRouter?
-    @EnvironmentObject var viewModel: THBrowseModel
-    
-    @State var showDatePicker = false
-    @State var showEditPage = false
-    @State var showTagPage = false
-    @State var showFavoritesPage = false
-    @State var showReportPage = false
+    @EnvironmentObject var model: THBrowseModel
     
     var body: some View {
         List {
-            switchBar
-                .listRowSeparator(.hidden)
+            THDivisionPicker()
             
-            // MARK: Pinned Section
-            if !viewModel.currentDivision.pinned.isEmpty {
+            // Pinned Holes
+            if !model.division.pinned.isEmpty {
                 Section {
-                    ForEach(viewModel.currentDivision.pinned) { hole in
+                    ForEach(model.division.pinned) { hole in
                         THHoleView(hole: hole)
                     }
                 } header: {
@@ -30,112 +18,118 @@ struct THBrowsePage: View {
                 }
             }
             
-            // MARK: Main Section
+            // Main Section
             Section {
-                ForEach(viewModel.filteredHoles) { hole in
+                ForEach(model.filteredHoles) { hole in
                     THHoleView(hole: hole)
                         .task {
-                            if hole == viewModel.filteredHoles.last {
-                                await viewModel.loadMoreHoles()
+                            if hole == model.filteredHoles.last {
+                                await model.loadMoreHoles()
                             }
                         }
                 }
-                
-                if !viewModel.endReached {
-                    LoadingFooter(loading: $viewModel.loading,
-                                  errorDescription: viewModel.errorInfo,
-                                  action: viewModel.loadMoreHoles)
-                    .listRowSeparator(.hidden)
-                }
             } header: {
-                HStack {
-                    Label("Main Section", systemImage: "text.bubble.fill")
-                    Spacer()
-                    if let baseDate = viewModel.baseDate {
-                        Text(baseDate.formatted(date: .abbreviated, time: .omitted))
-                    }
+                Label("Main Section", systemImage: "text.bubble.fill")
+            } footer: {
+                LoadingFooter(loading: $model.loading,
+                              errorDescription: model.loadingError?.localizedDescription ?? "") {
+                    await model.loadMoreHoles()
                 }
+            }
+            .task {
+                await model.loadMoreHoles()
             }
         }
         .listStyle(.inset)
-        .navigationTitle(viewModel.currentDivision.name)
+        .navigationTitle(model.division.name)
         .refreshable {
-            await viewModel.refresh()
-        }
-        .task {
-            await viewModel.loadMoreHoles()
-        }
-        .sheet(isPresented: $showDatePicker) {
-            datePicker
+            await model.refresh()
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                menu
-                
-                Button(action: { showEditPage = true }) {
-                    Image(systemName: "square.and.pencil")
-                }
-                .sheet(isPresented: $showEditPage) {
-                    THPostSheet(divisionId: viewModel.currentDivision.id)
-                }
+                THBrowseToolbar()
             }
         }
     }
+}
+
+struct THDivisionPicker: View {
+    @EnvironmentObject var model: THBrowseModel
     
-    private var switchBar: some View {
-        Picker("division_selector", selection: $viewModel.currentDivision) {
+    var body: some View {
+        Picker("Division Selector", selection: $model.division) {
             ForEach(DXModel.shared.divisions) { division in
                 Text(division.name)
                     .tag(division)
             }
         }
         .pickerStyle(.segmented)
-        .onChange(of: viewModel.currentDivision) { newValue in
-            Task {
-                await viewModel.refresh()
-            }
-        }
+        .listRowSeparator(.hidden)
     }
+}
+
+struct THDatePicker: View {
+    @EnvironmentObject var model: THBrowseModel
+    @Environment(\.dismiss) var dismiss
     
-    
-    private var datePicker: some View {
-        NavigationView {
+    var body: some View {
+        NavigationStack {
             Form {
-                DatePicker("Start Date",
-                           selection: Binding<Date>(
-                            get: { viewModel.baseDate ?? Date() },
-                            set: { viewModel.baseDate = $0 }
-                           ),
-                           in: ...Date.now,
-                           displayedComponents: [.date])
-                .datePickerStyle(.graphical)
-                .onChange(of: viewModel.baseDate) { newValue in
-                    Task {
-                        showDatePicker = false
-                        await viewModel.refresh()
-                    }
-                }
+                let dateBinding = Binding<Date>(
+                    get: { model.baseDate ?? Date() },
+                    set: { model.baseDate = $0 }
+                )
                 
-                if viewModel.baseDate != nil {
+                DatePicker("Start Date", selection: dateBinding, in: ...Date.now, displayedComponents: [.date])
+                    .datePickerStyle(.graphical)
+                
+                if model.baseDate != nil {
                     Button("Clear Date", role: .destructive) {
-                        showDatePicker = false
-                        Task {
-                            await viewModel.refresh()
-                        }
+                        model.baseDate = nil
+                        dismiss()
                     }
                 }
             }
-            .navigationTitle("Select Date")
-            .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationTitle("Select Date")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct THBrowseToolbar: View {
+    @EnvironmentObject var model: THBrowseModel
+    
+    @State var showPostSheet = false
+    @State var showDatePicker = false
+    
+    var body: some View {
+        Group {
+            postButton
+            filterMenu
+        }
+        .sheet(isPresented: $showPostSheet) {
+            THPostSheet(divisionId: model.division.id)
+        }
+        .sheet(isPresented: $showDatePicker) {
+            THDatePicker()
         }
     }
     
-    private var menu: some View {
+    private var postButton: some View {
+        Button {
+            showPostSheet = true
+        } label: {
+            Image(systemName: "square.and.pencil")
+        }
+    }
+    
+    private var filterMenu: some View {
         Menu {
-            Button {
-                router?.path.append(TreeholeStaticPages.favorites)
-            } label: {
-                Label("Favorites", systemImage: "star")
+            Picker("Sort Options", selection: $model.sortOption) {
+                Text("Last Updated")
+                    .tag(THBrowseModel.SortOption.replyTime)
+                Text("Last Created")
+                    .tag(THBrowseModel.SortOption.createTime)
             }
             
             Button {
@@ -143,40 +137,8 @@ struct THBrowsePage: View {
             } label: {
                 Label("Select Date", systemImage: "clock.arrow.circlepath")
             }
-            
-            Picker("Sort Options", selection: $viewModel.sortOption) {
-                Text("Last Updated")
-                    .tag(THBrowseModel.SortOptions.byReplyTime)
-                
-                Text("Last Created")
-                    .tag(THBrowseModel.SortOptions.byCreateTime)
-            }
-            
-            if DXModel.shared.isAdmin {
-                Divider()
-                
-                Button {
-                    router?.path.append(TreeholeStaticPages.reports)
-                } label: {
-                    Label("Reports Management", systemImage: "exclamationmark.triangle")
-                }
-            }
-            
         } label: {
             Image(systemName: "ellipsis.circle")
-        }
-    }
-}
-
-struct THBrowseRow: View {
-    @ObservedObject var preference = Preference.shared
-    let hole: THHole
-    
-    var body: some View {
-        ListSeparatorWrapper {
-            THHoleView(hole: hole,
-                       fold: (hole.nsfw && preference.nsfwSetting == .fold))
-                .padding(.top)
         }
     }
 }

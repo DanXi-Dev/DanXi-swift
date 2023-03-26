@@ -1,7 +1,7 @@
 import Foundation
 
 /// Load `THHole` from a varienty of load options.
-struct THHoleLoader {
+struct THHoleLoader: Hashable {
     var floorId: Int?
     var holeId: Int?
     var hole: THHole?

@@ -2,77 +2,103 @@ import Foundation
 
 @MainActor
 class THBrowseModel: ObservableObject {
-    enum SortOptions {
-        case byReplyTime
-        case byCreateTime
-    }
     
-    var preference = Preference.shared
+    // MARK: - Hole Loading
     
-    @Published var currentDivision: THDivision
-    @Published var holes: [THHole]
-    @Published var sortOption: SortOptions = .byReplyTime
-    @Published var baseDate: Date?
-    @Published var endReached = false
-    
+    @Published var holes: [THHole] = []
     @Published var loading = false
-    @Published var errorInfo = ""
+    @Published var loadingError: Error?
     
-    
-    var filteredHoles: [THHole] {
-        holes.filter { hole in
-            // filter for blocked tags
-            for tagName in hole.tags.map({ $0.name }) {
-                if !preference.blockedTags.filter({ $0 == tagName }).isEmpty {
-                    return false
-                }
-            }
-            
-            // filter pinned hole
-            if currentDivision.pinned.map(\.id).contains(hole.id) {
-                return false
-            }
-            
-            // filter for NSFW tags
-            return !(preference.nsfwSetting == .hide && hole.nsfw)
-        }
-    }
-    
-    init(holes: [THHole] = []) {
-        self.holes = holes
-        self.currentDivision = DXModel.shared.divisions.first!
+    private func insertHoles(_ holes: [THHole]) {
+        let currentIds = self.holes.map(\.id)
+        let insertedHoles = holes.filter { !currentIds.contains($0.id) }
+        self.holes.append(contentsOf: insertedHoles)
     }
     
     func loadMoreHoles() async {
+        loading = true
+        defer { loading = false }
+        
+        // set start time
+        var startTime: String? = nil
+        if !holes.isEmpty {
+            startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
+        } else if let baseDate = baseDate {
+            startTime = baseDate.ISO8601Format()
+        }
+        
+        // fetch holes
         do {
-            loading = true
-            defer { loading = false }
-            
-            // set start time
-            var startTime: String? = nil
-            if !holes.isEmpty {
-                startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
-            } else if let baseDate = baseDate {
-                startTime = baseDate.ISO8601Format()
-            }
-            
-            // fetch holes
-            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: currentDivision.id)
-            endReached = newHoles.isEmpty
-            
-            // filter duplicate holes & incorrect division
-            let currentIds = holes.map(\.id)
-            holes.append(contentsOf: newHoles.filter {
-                !currentIds.contains($0.id) && $0.divisionId == currentDivision.id
-            })
+            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
+            insertHoles(newHoles)
         } catch {
-            errorInfo = error.localizedDescription
+            loadingError = error
         }
     }
     
     func refresh() async {
-        holes = []
-        endReached = false
-        await loadMoreHoles()
+        do {
+            let divisions = try await THRequests.loadDivisions()
+            DXModel.shared.divisions = divisions
+            if let currentDivision = divisions.filter({ $0.id == self.division.id }).first {
+                self.division = currentDivision
+            }
+            self.holes = []
+            await loadMoreHoles()
+        } catch {
+            loadingError = error
+        }
+    }
+    
+    // MARK: - Division
+    
+    @Published var division: THDivision = DXModel.shared.divisions.first! {
+        didSet {
+            self.holes = []
+            Task {
+                await loadMoreHoles()
+            }
+        }
+    }
+    
+    // MARK: - Hole Sort & Filter
+    
+    enum SortOption {
+        case replyTime
+        case createTime
+    }
+    
+    @Published var sortOption = SortOption.createTime {
+        didSet {
+            self.holes = []
+            Task {
+                await loadMoreHoles()
+            }
+        }
+    }
+    @Published var baseDate: Date? {
+        didSet {
+            self.holes = []
+            Task {
+                await loadMoreHoles()
+            }
+        }
+    }
+    
+    var filteredHoles: [THHole] {
+        holes.filter { hole in
+            // TODO: filter for blocked tags
+            
+            // filter pinned hole
+            if division.pinned.map(\.id).contains(hole.id) {
+                return false
+            }
+            
+            // TODO: filter NSFW tag
+            
+            // TODO: filter locally blocked holes
+            
+            return true
+        }
     }
 }

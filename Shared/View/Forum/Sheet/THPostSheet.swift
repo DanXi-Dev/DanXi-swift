@@ -31,9 +31,7 @@ struct THPostSheet: View {
             
             if !content.isEmpty {
                 Section {
-                    // TODO
-//                    THContentView(content)
-//                        .padding(.vertical, 5)
+                    THFloorContent(content, interactable: false)
                 } header: {
                     Text("Preview")
                 }

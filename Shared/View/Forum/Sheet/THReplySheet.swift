@@ -20,7 +20,7 @@ struct THReplySheet: View {
 
             if !content.isEmpty {
                 Section {
-                    THFloorContent(content)
+                    THFloorContent(content, interactable: false)
                 } header: {
                     Text("Preview")
                 }
