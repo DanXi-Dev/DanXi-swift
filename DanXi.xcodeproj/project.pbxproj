@@ -131,6 +131,8 @@
 		27DDBABF29A501D2008849D1 /* bus.json in Resources */ = {isa = PBXBuildFile; fileRef = 27DDBABE29A501D2008849D1 /* bus.json */; };
 		27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
 		27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */; };
+		27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52C29D09CF700B333BA /* AppModel.swift */; };
+		27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */; };
 		27E4686328BCABC100CDE8CE /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingPage.swift */; };
 		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82628BA0AA00074D295 /* divisions.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82528BA0AA00074D295 /* divisions.json */; };
@@ -291,6 +293,8 @@
 		27DDBABE29A501D2008849D1 /* bus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bus.json; sourceTree = "<group>"; };
 		27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDPlaygroundAPI.swift; sourceTree = "<group>"; };
 		27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundPage.swift; sourceTree = "<group>"; };
+		27E1C52C29D09CF700B333BA /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
 		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82528BA0AA00074D295 /* divisions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = divisions.json; sourceTree = "<group>"; };
@@ -528,8 +532,8 @@
 			children = (
 				27DAFA6529CB375300F32093 /* Model */,
 				27CBA07D295221BA00F422DB /* Page */,
-				27CBA07E295221BE00F422DB /* Sheet */,
 				27CBA07F295221C200F422DB /* View */,
+				27CBA07E295221BE00F422DB /* Sheet */,
 			);
 			path = Forum;
 			sourceTree = "<group>";
@@ -722,7 +726,9 @@
 		8AA9F876269D97BE0085D93D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
+				27E1C52C29D09CF700B333BA /* AppModel.swift */,
 				27CBA0782952213A00F422DB /* View */,
 				27BBBD082912C2E6007C2905 /* DanXi Kit */,
 				27BBBD092912C2EC007C2905 /* Fudan Kit */,
@@ -753,7 +759,7 @@
 		8AC7A5CF26872C3E00C9CD98 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
+				27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */,
 				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
 				271D596928C24F9300F72C3B /* Context Preview */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
@@ -938,6 +944,7 @@
 				2732C8B3296F3BF600A5248D /* Conflict+Table.swift in Sources */,
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
+				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,
 				27DAFA6929CB43FA00F32093 /* THHoleLoader.swift in Sources */,
@@ -977,6 +984,7 @@
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
 				275C096428E1D33A00B4815F /* BackgroundLink.swift in Sources */,
 				27066030292F522B00F4C321 /* LinkView.swift in Sources */,
+				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				27BBBD212912C33D007C2905 /* DXConstants.swift in Sources */,

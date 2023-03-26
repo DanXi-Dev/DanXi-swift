@@ -1,28 +1,33 @@
 import SwiftUI
+import UserNotifications
+import WatchConnectivity
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @State var section: AppSection? = AppSection.campus
+    @StateObject var model = AppModel()
     
     var body: some View {
-        if horizontalSizeClass == .compact {
-            TabHomePage(section: $section)
-        } else {
-            SplitHomePage(section: $section)
+        Group {
+            if horizontalSizeClass == .compact {
+                TabHomePage()
+            } else {
+                SplitHomePage()
+            }
+        }
+        .environmentObject(model)
+        .onOpenURL { url in
+            model.openURL(url)
         }
     }
 }
 
-enum AppSection {
-    case campus, forum, curriculum, settings
-}
+
 
 struct TabHomePage: View {
-    @Binding var section: AppSection?
+    @EnvironmentObject var model: AppModel
     
     var body: some View {
-        // SwiftUI bug: using `Tabview(selection: $section)` will cause selection to change when sheet pops up
-        TabView {
+        TabView(selection: $model.section) {
             FDHomePage()
                 .tag(AppSection.campus)
                 .tabItem {
@@ -53,11 +58,11 @@ struct TabHomePage: View {
 }
 
 struct SplitHomePage: View {
-    @Binding var section: AppSection?
+    @EnvironmentObject var model: AppModel
     
     var body: some View {
         NavigationSplitView {
-            List(selection: $section) {
+            List(selection: $model.listSection) {
                 Label("Campus Services", systemImage: "square.stack")
                     .tag(AppSection.campus)
                 Label("Tree Hole", systemImage: "text.bubble")
@@ -69,7 +74,7 @@ struct SplitHomePage: View {
             }
             .navigationTitle("DanXi")
         } detail: {
-            if let section = section {
+            if let section = model.listSection {
                 switch section {
                 case .campus:
                     FDHomePage()
@@ -82,13 +87,5 @@ struct SplitHomePage: View {
                 }
             }
         }
-
-    }
-}
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

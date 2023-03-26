@@ -344,7 +344,11 @@ struct THFloorContent: View {
                         THMentionView(floor: floor)
                     }
                 case .remote(let mention):
-                    THMentionView(mention: mention)
+                    if interactable {
+                        THRemoteMentionView(mention: mention)
+                    } else {
+                        THMentionView(mention: mention)
+                    }
                 }
             }
         }

@@ -105,16 +105,19 @@ struct THLocalMentionView: View {
 
 /// View that represents a remote mention, navigate to target when tapped.
 struct THRemoteMentionView: View {
+    @EnvironmentObject var model: THNavigationModel
     let mention: THMention
-    @EnvironmentObject var router: NavigationRouter
     
     var body: some View {
         Button {
-            router.path.append(mention)
+            var loader = THHoleLoader()
+            loader.holeId = mention.holeId
+            loader.floorId = mention.floorId
+            model.path.append(loader)
         } label: {
             THMentionView(mention: mention)
         }
-        .buttonStyle(.borderless) // prevent multiple tapping
+        .buttonStyle(.borderless)
     }
 }
 

@@ -22,19 +22,17 @@ struct THBrowsePage: View {
             Section {
                 ForEach(model.filteredHoles) { hole in
                     THHoleView(hole: hole)
-                        .task {
-                            if hole == model.filteredHoles.last {
-                                await model.loadMoreHoles()
-                            }
-                        }
                 }
-            } header: {
-                Label("Main Section", systemImage: "text.bubble.fill")
-            } footer: {
+                
                 LoadingFooter(loading: $model.loading,
                               errorDescription: model.loadingError?.localizedDescription ?? "") {
                     await model.loadMoreHoles()
                 }
+                .task {
+                    await model.loadMoreHoles()
+                }
+            } header: {
+                Label("Main Section", systemImage: "text.bubble.fill")
             }
             .task {
                 await model.loadMoreHoles()

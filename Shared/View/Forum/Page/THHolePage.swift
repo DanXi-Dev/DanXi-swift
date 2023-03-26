@@ -17,23 +17,22 @@ struct THHolePage: View {
                 Section {
                     ForEach(model.filteredFloors) { floor in
                         THComplexFloor(floor, context: model)
-                            .task {
-                                if floor == model.floors.last {
-                                    await model.loadMoreFloors()
-                                }
-                            }
+
+                    }
+                    
+                    if !model.endReached {
+                        LoadingFooter(loading: $model.loading,
+                                      errorDescription: (model.loadingError?.localizedDescription ?? ""),
+                                      action: model.loadAllFloors)
+                        .task {
+                            await model.loadMoreFloors()
+                        }
                     }
                 } header: {
                     HStack {
                         ForEach(model.hole.tags) { tag in
                             THTagView(tag)
                         }
-                    }
-                } footer: {
-                    if !model.endReached {
-                        LoadingFooter(loading: $model.loading,
-                                      errorDescription: (model.loadingError?.localizedDescription ?? ""),
-                                      action: model.loadAllFloors)
                     }
                 }
                 .task {

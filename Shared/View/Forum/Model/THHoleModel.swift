@@ -116,6 +116,7 @@ class THHoleModel: ObservableObject {
     
     func reply(_ content: String) async throws {
         _ = try await THRequests.createFloor(content: content, holeId: hole.id)
+        self.endReached = false
         Task {
             await self.loadAllFloors()
         }

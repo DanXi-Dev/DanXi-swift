@@ -37,6 +37,10 @@ struct THHomePage: View {
                 }
             }
         }
+        .environmentObject(model)
+        .onOpenURL { url in
+            model.openURL(url)
+        }
     }
     
     private var menu: some View {
