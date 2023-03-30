@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct THBrowsePage: View {
+    @ObservedObject var settings = THSettings.shared
     @EnvironmentObject var model: THBrowseModel
     
     var body: some View {
@@ -10,29 +11,41 @@ struct THBrowsePage: View {
             // Pinned Holes
             if !model.division.pinned.isEmpty {
                 Section {
+                    Label("Pinned", systemImage: "pin.fill")
+                        .bold()
+                        .foregroundColor(.secondary)
+                        .listRowSeparator(.hidden)
+                        
+                    
                     ForEach(model.division.pinned) { hole in
                         THHoleView(hole: hole)
                     }
-                } header: {
-                    Label("Pinned", systemImage: "pin.fill")
                 }
             }
             
             // Main Section
             Section {
+                if !model.division.pinned.isEmpty { // only show lable when there is pinned section
+                    Label("Main Section", systemImage: "text.bubble.fill")
+                        .bold()
+                        .foregroundColor(.secondary)
+                        .listRowSeparator(.hidden)
+                }
+                
                 ForEach(model.filteredHoles) { hole in
-                    THHoleView(hole: hole)
+                    let fold = settings.sensitiveContent == .fold && hole.nsfw
+                    THHoleView(hole: hole, fold: fold)
+                        .task {
+                            if hole == model.filteredHoles.last {
+                                await model.loadMoreHoles()
+                            }
+                        }
                 }
                 
                 LoadingFooter(loading: $model.loading,
                               errorDescription: model.loadingError?.localizedDescription ?? "") {
                     await model.loadMoreHoles()
                 }
-                .task {
-                    await model.loadMoreHoles()
-                }
-            } header: {
-                Label("Main Section", systemImage: "text.bubble.fill")
             }
             .task {
                 await model.loadMoreHoles()
@@ -51,7 +64,7 @@ struct THBrowsePage: View {
     }
 }
 
-struct THDivisionPicker: View {
+fileprivate struct THDivisionPicker: View {
     @EnvironmentObject var model: THBrowseModel
     
     var body: some View {
@@ -66,7 +79,7 @@ struct THDivisionPicker: View {
     }
 }
 
-struct THDatePicker: View {
+fileprivate struct THDatePicker: View {
     @EnvironmentObject var model: THBrowseModel
     @Environment(\.dismiss) var dismiss
     
@@ -94,7 +107,7 @@ struct THDatePicker: View {
     }
 }
 
-struct THBrowseToolbar: View {
+fileprivate struct THBrowseToolbar: View {
     @EnvironmentObject var model: THBrowseModel
     
     @State var showPostSheet = false

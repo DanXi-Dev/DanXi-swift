@@ -17,16 +17,18 @@ struct THHolePage: View {
                 Section {
                     ForEach(model.filteredFloors) { floor in
                         THComplexFloor(floor, context: model)
-
+                            .task {
+                                if floor == model.filteredFloors.last {
+                                    await model.loadMoreFloors()
+                                }
+                            }
                     }
                     
                     if !model.endReached {
                         LoadingFooter(loading: $model.loading,
                                       errorDescription: (model.loadingError?.localizedDescription ?? ""),
                                       action: model.loadAllFloors)
-                        .task {
-                            await model.loadMoreFloors()
-                        }
+
                     }
                 } header: {
                     HStack {

@@ -2,10 +2,9 @@ import SwiftUI
 
 struct THHoleView: View {
     @Environment(\.colorScheme) var colorScheme
-
+    @State var expand = false
     let hole: THHole
     let fold: Bool
-    @ObservedObject var preference = Preference.shared
     
     init(hole: THHole, fold: Bool = false) {
         self.hole = hole
@@ -13,36 +12,31 @@ struct THHoleView: View {
     }
     
     var body: some View {
-        if fold {
-            DisclosureGroup {
-                NavigationPlainLink(value: hole) {
-                    VStack(alignment: .leading) {
-                        holeContent
+        Group {
+            if !fold || expand {
+                fullContent
+            } else {
+                tags
+                .onTapGesture {
+                    withAnimation {
+                        expand.toggle()
                     }
                 }
-            } label: {
-                tags
             }
-        } else {
-            NavigationPlainLink(value: hole) {
-                VStack(alignment: .leading) {
-                    tags
-                    holeContent
-                }
+        }
+    }
+    
+    private var fullContent: some View {
+        NavigationPlainLink(value: hole) {
+            VStack(alignment: .leading) {
+                tags
+                holeContent
             }
         }
     }
     
     private var holeContent: some View {
         Group {
-            if (preference.nlModelDebuggingMode) {
-                // A preview for CoreML Model
-                Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 0) ?? "MaxEntropy NLModel init failed")
-                    .foregroundColor(.green)
-                Text(TagPredictor.shared?.debugPredictTagForText(hole.firstFloor.content, modelId: 1) ?? "TransferLearning NLModel init failed")
-                    .foregroundColor(.red)
-            }
-            
             if !hole.firstFloor.spetialTag.isEmpty {
                 HStack {
                     Spacer()
@@ -66,7 +60,7 @@ struct THHoleView: View {
     }
     
     private var tags: some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(hole.tags) { tag in
                     THTagView(tag)

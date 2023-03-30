@@ -56,6 +56,14 @@ struct THComplexFloor: View {
         .environmentObject(model)
     }
     
+    private var full: some View {
+        VStack(alignment: .leading) {
+            headLine
+            content
+            bottomLine
+        }
+    }
+    
     private var headLine: some View {
         HStack {
             THPosterView(name: floor.posterName,
@@ -109,7 +117,7 @@ struct THComplexFloor: View {
     }
 }
 
-struct THFloorActions: View {
+fileprivate struct THFloorActions: View {
     @EnvironmentObject var holeModel: THHoleModel
     @EnvironmentObject var model: THFloorModel
     

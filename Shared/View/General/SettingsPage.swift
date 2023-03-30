@@ -3,7 +3,6 @@ import SwiftUI
 struct SettingsPage: View {
     @ObservedObject var forumModel = DXModel.shared
     @ObservedObject var campusModel = FDModel.shared
-    @ObservedObject var preference = Preference.shared
     
     @State var showTreeHoleLogin = false
     @State var showTreeHoleActions = false
@@ -22,7 +21,7 @@ struct SettingsPage: View {
                 }
                 
                 if forumModel.isLogged {
-                    treeholeSettings
+                    THSettingsView()
                 }
                 
                 Section {
@@ -126,38 +125,6 @@ struct SettingsPage: View {
             Text(description)
                 .font(.footnote)
                 .foregroundColor(.secondary)
-        }
-    }
-    
-    // MARK: Treehole Settings
-    
-    private var treeholeSettings: some View {
-        Section("Tree Hole") {
-            NavigationLink {
-                DXUserInfoPage()
-            } label: {
-                Label("Account Info", systemImage: "info.circle")
-            }
-            
-            Picker(selection: $preference.nsfwSetting, label: Label("NSFW Content", systemImage: "eye.slash")) {
-                Text("Show").tag(NSFWPreference.show)
-                Text("Fold").tag(NSFWPreference.fold)
-                Text("Hide").tag(NSFWPreference.hide)
-            }
-            
-            Toggle(isOn: $preference.nlModelDebuggingMode) {
-                Label("NL Model Debugging Mode", systemImage: "dice")
-            }
-            
-            NavigationLink {
-                Form {
-                    THTagField(tags: $preference.blockedTags)
-                }
-                .navigationTitle("Blocked Tags")
-                .navigationBarTitleDisplayMode(.inline)
-            } label: {
-                Label("Blocked Tags", systemImage: "tag.slash")
-            }
         }
     }
 }

@@ -87,16 +87,29 @@ class THBrowseModel: ObservableObject {
     
     var filteredHoles: [THHole] {
         holes.filter { hole in
-            // TODO: filter for blocked tags
+            let settings = THSettings.shared
+            
+            // filter for blocked tags
+            let tagsSet = Set(hole.tags.map(\.name))
+            let blockedSet = Set(settings.blockedTags)
+            if !blockedSet.intersection(tagsSet).isEmpty {
+                return false
+            }
             
             // filter pinned hole
             if division.pinned.map(\.id).contains(hole.id) {
                 return false
             }
             
-            // TODO: filter NSFW tag
+            // filter NSFW tag
+            if hole.nsfw && settings.sensitiveContent == .hide {
+                return false
+            }
             
-            // TODO: filter locally blocked holes
+            // filter locally blocked holes
+            if settings.blockedHoles.contains(hole.id) {
+                return false
+            }
             
             return true
         }
