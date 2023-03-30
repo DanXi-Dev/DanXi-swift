@@ -15,6 +15,8 @@ struct THHomePage: View {
                         THBrowseWrapper()
                     case .favorite:
                         THFavoritesPage()
+                    case .mypost:
+                        THMyPostPage()
                     case .report:
                         THReportPage()
                     default:

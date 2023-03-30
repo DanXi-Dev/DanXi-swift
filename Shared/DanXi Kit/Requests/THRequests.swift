@@ -76,6 +76,20 @@ struct THRequests {
     }
     
     
+    /// List hole posted by user.
+    /// - Parameter startTime: Updated time offset, default is now.
+    /// - Returns: A list of holes.
+    static func loadMyHoles(startTime: Date? = nil) async throws -> [THHole] {
+        
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/users/me/holes")!
+        if let time = startTime {
+            components.queryItems = [URLQueryItem(name: "offset", value: time.ISO8601Format())]
+            components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        }
+        return try await DXResponse(components.url!)
+    }
+    
+    
     /// Modify hole.
     static func modifyHole(_ info: THHoleInfo) async throws -> THHole {
         let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(info.holeId)")!
