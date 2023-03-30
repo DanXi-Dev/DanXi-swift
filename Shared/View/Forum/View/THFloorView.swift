@@ -29,8 +29,8 @@ struct THComplexFloor: View {
     @EnvironmentObject var holeModel: THHoleModel
     @StateObject var model: THFloorModel
     
-    init(_ floor: THFloor, context: THHoleModel) {
-        let model = THFloorModel(floor: floor, context: context)
+    init(_ floor: THFloor) {
+        let model = THFloorModel(floor: floor)
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -66,8 +66,9 @@ struct THComplexFloor: View {
     
     private var headLine: some View {
         HStack {
+            let isPoster = model.floor.posterName == holeModel.floors.first?.posterName
             THPosterView(name: floor.posterName,
-                         isPoster: model.isPoster)
+                         isPoster: isPoster)
             if !model.floor.spetialTag.isEmpty {
                 THSpecialTagView(content: floor.spetialTag)
             }

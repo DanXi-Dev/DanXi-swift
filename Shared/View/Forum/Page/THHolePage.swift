@@ -16,7 +16,7 @@ struct THHolePage: View {
             List {
                 Section {
                     ForEach(model.filteredFloors) { floor in
-                        THComplexFloor(floor, context: model)
+                        THComplexFloor(floor)
                             .task {
                                 if floor == model.filteredFloors.last {
                                     await model.loadMoreFloors()
@@ -74,7 +74,7 @@ struct THHolePage: View {
     }
 }
 
-struct THHoleToolbar: View {
+fileprivate struct THHoleToolbar: View {
     @EnvironmentObject var model: THHoleModel
     @Environment(\.editMode) var editMode
     
@@ -161,7 +161,7 @@ struct THHoleToolbar: View {
     }
 }
 
-struct THHoleBottomBar: View {
+fileprivate struct THHoleBottomBar: View {
     @EnvironmentObject var model: THHoleModel
     
     var body: some View {

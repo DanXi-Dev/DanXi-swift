@@ -2,16 +2,11 @@ import Foundation
 
 @MainActor
 class THFloorModel: ObservableObject {
-    init(floor: THFloor, context: THHoleModel) {
+    init(floor: THFloor) {
         self.floor = floor
-        self.context = context
     }
     
     @Published var floor: THFloor
-    var context: THHoleModel
-    var isPoster: Bool {
-        floor.posterName == context.floors.first?.posterName
-    }
     
     private func updateFloor(_ floor: THFloor) {
         let storey = self.floor.storey

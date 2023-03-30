@@ -2,6 +2,8 @@ import SwiftUI
 
 struct THHoleView: View {
     @Environment(\.colorScheme) var colorScheme
+    @ObservedObject var appModel = DXModel.shared
+    @ObservedObject var setting = THSettings.shared
     @State var expand = false
     let hole: THHole
     let fold: Bool
@@ -32,6 +34,21 @@ struct THHoleView: View {
                 tags
                 holeContent
             }
+        }
+        .contextMenu {
+            AsyncButton {
+                try await appModel.toggleFavorite(hole.id)
+            } label: {
+                Group {
+                    if !appModel.isFavorite(hole.id) {
+                        Label("Add to Favorites", systemImage: "star")
+                    } else {
+                        Label("Remove from Favorites", systemImage: "star.slash")
+                    }
+                }
+            }
+        } preview: {
+            THHolePreview(hole, hole.floors)
         }
     }
     
@@ -122,6 +139,26 @@ struct THHoleView: View {
         .padding(10)
         .background(Color.secondary.opacity(colorScheme == .dark ? 0.15 : 0.1))
         .cornerRadius(7)
+    }
+}
+
+struct THHolePreview: View {
+    @StateObject var model: THHoleModel
+    
+    init(_ hole: THHole, _ floors: [THFloor]) {
+        let model = THHoleModel(hole: hole, floors: floors)
+        model.endReached = true
+        self._model = StateObject(wrappedValue: model)
+    }
+    
+    var body: some View {
+        List {
+            ForEach(model.floors) { floor in
+                THComplexFloor(floor)
+            }
+        }
+        .listStyle(.inset)
+        .environmentObject(model)
     }
 }
 
