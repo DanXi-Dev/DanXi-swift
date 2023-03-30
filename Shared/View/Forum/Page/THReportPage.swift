@@ -89,13 +89,14 @@ struct THReportCell: View {
         }
         .swipeActions {
             if !report.dealt {
-                Button {
+                Button(role: .destructive) {
                     Task {
                         await model.markAsDealt(report)
                     }
                 } label: {
                     Image(systemName: "checkmark")
                 }
+                .tint(.accentColor)
             }
         }
     }

@@ -1,35 +1,27 @@
 import SwiftUI
 
 struct THFavoritesPage: View {
+    @ObservedObject var appModel = DXModel.shared
     @State var favorites: [THHole] = []
 
     @State var initError = ""
     @State var showAlert = false
     @State var deleteError = ""
 
-    init() { }
-
-    init(favorites: [THHole]) { // preview purpose
-        self._favorites = State(initialValue: favorites)
-    }
-
     func fetchFavorites() async throws {
         self.favorites = try await THRequests.loadFavorites()
     }
-
-    func removeFavorites(at offsets: IndexSet) {
-        let previousList = favorites
-        favorites.remove(atOffsets: offsets) // UI change
-
+    
+    func removeFavorite(_ hole: THHole) {
         Task { @MainActor in
-            let removeIds = offsets.map { previousList[$0].id }
-            let newIds = DXModel.shared.favoriteIds.filter { !removeIds.contains($0) }
             do {
-                DXModel.shared.favoriteIds = try await THRequests.modifyFavorites(holeIds: newIds)
+                try await appModel.toggleFavorite(hole.id)
+                if let idx = favorites.firstIndex(of: hole) {
+                    favorites.remove(at: idx)
+                }
             } catch {
                 showAlert = true
                 deleteError = error.localizedDescription
-                favorites = previousList // restore UI change
             }
         }
     }
@@ -46,13 +38,16 @@ struct THFavoritesPage: View {
                 List {
                     ForEach(favorites) { hole in
                         THHoleView(hole: hole)
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    removeFavorite(hole)
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                            }
                     }
-                    .onDelete(perform: removeFavorites)
                 }
                 .listStyle(.plain)
-                .toolbar {
-                    EditButton()
-                }
                 .alert("Toggle Favorite Failed", isPresented: $showAlert) {
                     Button("OK") { }
                 } message: {
@@ -60,15 +55,6 @@ struct THFavoritesPage: View {
                 }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Favorites")
-    }
-}
-
-struct THFavoritesPage_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            THFavoritesPage(favorites: Bundle.main.decodeData("hole-list"))
-        }
     }
 }
