@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-               BuildableName = "DanXi.app"
-               BlueprintName = "DanXi"
+               BlueprintIdentifier = "274C196F29D1BF9B000DE221"
+               BuildableName = "DanXi Watch.app"
+               BlueprintName = "DanXi Watch"
                ReferencedContainer = "container:DanXi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,21 +34,19 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = "zh-Hans"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      enableGPUValidationMode = "1"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
-            BlueprintName = "DanXi"
+            BlueprintIdentifier = "274C196F29D1BF9B000DE221"
+            BuildableName = "DanXi Watch.app"
+            BlueprintName = "DanXi Watch"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
-            BlueprintName = "DanXi"
+            BlueprintIdentifier = "274C196F29D1BF9B000DE221"
+            BuildableName = "DanXi Watch.app"
+            BlueprintName = "DanXi Watch"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
