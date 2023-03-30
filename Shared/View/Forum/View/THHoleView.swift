@@ -2,8 +2,7 @@ import SwiftUI
 
 struct THHoleView: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var appModel = DXModel.shared
-    @ObservedObject var setting = THSettings.shared
+
     @State var expand = false
     let hole: THHole
     let fold: Bool
@@ -36,17 +35,7 @@ struct THHoleView: View {
             }
         }
         .contextMenu {
-            AsyncButton {
-                try await appModel.toggleFavorite(hole.id)
-            } label: {
-                Group {
-                    if !appModel.isFavorite(hole.id) {
-                        Label("Add to Favorites", systemImage: "star")
-                    } else {
-                        Label("Remove from Favorites", systemImage: "star.slash")
-                    }
-                }
-            }
+            THHolePreviewActions(hole: hole)
         } preview: {
             THHolePreview(hole, hole.floors)
         }
@@ -142,7 +131,7 @@ struct THHoleView: View {
     }
 }
 
-struct THHolePreview: View {
+fileprivate struct THHolePreview: View {
     @StateObject var model: THHoleModel
     
     init(_ hole: THHole, _ floors: [THFloor]) {
@@ -160,6 +149,40 @@ struct THHolePreview: View {
         .listStyle(.inset)
         .environmentObject(model)
     }
+}
+
+fileprivate struct THHolePreviewActions: View {
+    @ObservedObject var appModel = DXModel.shared
+    @ObservedObject var settings = THSettings.shared
+    
+    let hole: THHole
+    
+    var body: some View {
+        Group {
+            AsyncButton {
+                try await appModel.toggleFavorite(hole.id)
+            } label: {
+                Group {
+                    if !appModel.isFavorite(hole.id) {
+                        Label("Add to Favorites", systemImage: "star")
+                    } else {
+                        Label("Remove from Favorites", systemImage: "star.slash")
+                    }
+                }
+            }
+            
+            Button {
+                if !settings.blockedHoles.contains(hole.id) {
+                    withAnimation {
+                        settings.blockedHoles.append(hole.id)
+                    }
+                }
+            } label: {
+                Label("Don't Show This Hole", systemImage: "eye.slash")
+            }
+        }
+    }
+    
 }
 
 struct THHoleView_Previews: PreviewProvider {
