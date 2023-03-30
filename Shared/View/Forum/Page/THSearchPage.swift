@@ -107,6 +107,7 @@ struct THSearchResultPage: View {
             }
         }
         .listStyle(.inset)
+        .animation(.default, value: floors)
         .task {
             if floors.isEmpty {
                 await loadMoreFloors()

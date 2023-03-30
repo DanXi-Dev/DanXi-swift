@@ -14,7 +14,7 @@ struct THReportPage: View {
                             }
                         }
                 }
-            } footer: {
+                
                 if !model.endReached {
                     LoadingFooter(loading: $model.loading,
                                   errorDescription: model.loadingError?.localizedDescription ?? "",

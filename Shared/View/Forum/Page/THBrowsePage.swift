@@ -51,6 +51,7 @@ struct THBrowsePage: View {
                 await model.loadMoreHoles()
             }
         }
+        .animation(.default, value: model.division)
         .listStyle(.inset)
         .navigationTitle(model.division.name)
         .refreshable {

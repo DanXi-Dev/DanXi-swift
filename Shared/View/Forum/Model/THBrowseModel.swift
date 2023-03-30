@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 @MainActor
 class THBrowseModel: ObservableObject {
@@ -12,7 +12,9 @@ class THBrowseModel: ObservableObject {
     private func insertHoles(_ holes: [THHole]) {
         let currentIds = self.holes.map(\.id)
         let insertedHoles = holes.filter { !currentIds.contains($0.id) }
-        self.holes.append(contentsOf: insertedHoles)
+        withAnimation {
+            self.holes.append(contentsOf: insertedHoles)
+        }
     }
     
     func loadMoreHoles() async {

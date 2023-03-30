@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 
 @MainActor
@@ -55,8 +54,9 @@ class THHoleModel: ObservableObject {
             insertFloors[i].storey = storey
             storey += 1
         }
-        
-        self.floors.append(contentsOf: insertFloors)
+        withAnimation {
+            self.floors.append(contentsOf: insertFloors)
+        }
     }
     
     // MARK: - Floor Filtering
