@@ -42,25 +42,27 @@ struct THTagField: View {
                 Text("No tags")
                     .foregroundColor(.primary.opacity(0.25))
             } else {
-                WrappingHStack(tags, id: \.self, lineSpacing: 10.0) { tag in
-                    Text(tag)
-                        .tagStyle(color: randomColor(tag), font: .system(size: 16))
-                        .overlay(alignment: .topTrailing) {
-                            // remove this tag
-                            Button {
-                                tags.removeAll { $0 == tag }
-                            } label: {
-                                Image(systemName: "minus")
-                                    .font(.system(size: 11))
-                                    .frame(width: 17, height: 17)
-                                    .foregroundColor(.secondary)
-                                    .background(.regularMaterial)
-                                    .clipShape(Circle())
-                                    .offset(x: 8, y: -8)
+                WrappingHStack(alignment: .leading) {
+                    ForEach(tags, id: \.self) { tag in
+                        Text(tag)
+                            .tagStyle(color: randomColor(tag), font: .system(size: 16))
+                            .overlay(alignment: .topTrailing) {
+                                // remove this tag
+                                Button {
+                                    tags.removeAll { $0 == tag }
+                                } label: {
+                                    Image(systemName: "minus")
+                                        .font(.system(size: 11))
+                                        .frame(width: 17, height: 17)
+                                        .foregroundColor(.secondary)
+                                        .background(.regularMaterial)
+                                        .clipShape(Circle())
+                                        .offset(x: 8, y: -8)
+                                }
+                                .buttonStyle(.borderless)
+                                .transition(.opacity)
                             }
-                            .buttonStyle(.borderless)
-                            .transition(.opacity)
-                        }
+                    }
                 }
                 .padding(.vertical, 5)
             }

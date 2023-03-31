@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "advanced-scrollview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dmytro-anokhin/advanced-scrollview",
+      "state" : {
+        "revision" : "87d83354cde746751029312efdb844e0f57dc820",
+        "version" : "0.0.6"
+      }
+    },
+    {
       "identity" : "disk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/saoudrizwan/Disk",
@@ -84,10 +93,10 @@
     {
       "identity" : "wrappinghstack",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dkk/WrappingHStack",
+      "location" : "https://github.com/ksemianov/WrappingHStack",
       "state" : {
-        "branch" : "main",
-        "revision" : "dbd65bd3442ffa14459470778b70c4604eac2c02"
+        "revision" : "7b48e1f19d337cf934d725bff54cac9519e285d8",
+        "version" : "0.1.2"
       }
     }
   ],

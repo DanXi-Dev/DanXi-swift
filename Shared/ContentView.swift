@@ -1,6 +1,4 @@
 import SwiftUI
-import UserNotifications
-import WatchConnectivity
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass

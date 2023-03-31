@@ -1,4 +1,5 @@
 import SwiftUI
+import WrappingHStack
 
 struct THHolePage: View {
     @StateObject var model: THHoleModel
@@ -15,6 +16,13 @@ struct THHolePage: View {
         ScrollViewReader { proxy in
             List {
                 Section {
+                    WrappingHStack(alignment: .leading) {
+                        ForEach(model.hole.tags) { tag in
+                            THTagView(tag)
+                        }
+                    }
+                    .listRowSeparator(.hidden, edges: .top)
+                    
                     ForEach(model.filteredFloors) { floor in
                         THComplexFloor(floor)
                             .task {
@@ -29,12 +37,6 @@ struct THHolePage: View {
                                       errorDescription: (model.loadingError?.localizedDescription ?? ""),
                                       action: model.loadAllFloors)
 
-                    }
-                } header: {
-                    HStack {
-                        ForEach(model.hole.tags) { tag in
-                            THTagView(tag)
-                        }
                     }
                 }
                 .task {

@@ -1,4 +1,5 @@
 import SwiftUI
+import WrappingHStack
 
 struct THHoleView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -66,11 +67,9 @@ struct THHoleView: View {
     }
     
     private var tags: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(hole.tags) { tag in
-                    THTagView(tag)
-                }
+        WrappingHStack(alignment: .leading) {
+            ForEach(hole.tags) { tag in
+                THTagView(tag)
             }
         }
     }

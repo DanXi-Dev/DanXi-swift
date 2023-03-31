@@ -53,7 +53,6 @@
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
 		27544B4628C5286300600605 /* report-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27544B4528C5286300600605 /* report-list.json */; };
-		27550429293539AC00D28AA9 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27550428293539AC00D28AA9 /* WrappingHStack */; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719A9F28A3C52E00C661BD /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719A9E28A3C52E00C661BD /* Regex.swift */; };
@@ -82,6 +81,8 @@
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A44E9D29AF253500CE6661 /* FDRankPage.swift */; };
+		27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1A29D6D4DD0042D28D /* WrappingHStack */; };
+		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
@@ -332,10 +333,11 @@
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */,
+				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
-				27550429293539AC00D28AA9 /* WrappingHStack in Frameworks */,
+				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
 				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -815,11 +817,12 @@
 				27BBBD01291193A9007C2905 /* SwiftSoup */,
 				27BBBD04291193D2007C2905 /* CachedAsyncImage */,
 				273D65B8292E07FF0064DCB1 /* Introspect */,
-				27550428293539AC00D28AA9 /* WrappingHStack */,
 				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
 				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
+				27A5DA1A29D6D4DD0042D28D /* WrappingHStack */,
+				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -858,11 +861,12 @@
 				27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -1354,14 +1358,6 @@
 				kind = branch;
 			};
 		};
-		27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dkk/WrappingHStack";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/saoudrizwan/Disk";
@@ -1376,6 +1372,22 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
+			};
+		};
+		27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ksemianov/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
+		27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/advanced-scrollview";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.6;
 			};
 		};
 		27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
@@ -1426,11 +1438,6 @@
 			package = 273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
-		27550428293539AC00D28AA9 /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27550427293539AC00D28AA9 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
-		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
@@ -1440,6 +1447,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		27A5DA1A29D6D4DD0042D28D /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
+		};
+		27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */;
+			productName = AdvancedScrollView;
 		};
 		27BBBCFE29119368007C2905 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;

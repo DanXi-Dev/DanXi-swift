@@ -1,43 +1,6 @@
 import SwiftUI
 import WrappingHStack
 
-/// View that present a list of tags.
-struct THTagListView: View {
-    let tags: [THTag]
-    let navigation: Bool
-    
-    /// Create a Tag List.
-    /// - Parameters:
-    ///   - tags: tags to display.
-    ///   - navigation: whether this view will respond to user tap action and perform navigation.
-    init(_ tags: [THTag], navigation: Bool = false) {
-        self.tags = tags
-        self.navigation = navigation
-    }
-    
-    var body: some View {
-        WrappingHStack(tags, lineSpacing: 5.0) { tag in
-            tagItem(tag)
-        }
-    }
-    
-    @ViewBuilder
-    private func tagItem(_ tag: THTag) -> some View {
-        if navigation {
-            NavigationLink(value: tag) {
-                Text(tag.name)
-                    .textCase(nil) // prevent capitalization in list header
-                    .tagStyle(color: randomColor(tag.name))
-            }
-            .buttonStyle(.borderless)
-        } else {
-            Text(tag.name)
-                .textCase(nil) // prevent capitalization in list header
-                .tagStyle(color: randomColor(tag.name))
-        }
-    }
-}
-
 struct THTagView: View {
     let name: String
     
@@ -81,14 +44,5 @@ extension View {
     /// - Returns: A view that applies tag style
     func tagStyle(color: Color, font: Font = .footnote) -> some View {
         modifier(TagStyle(color: color, font: font))
-    }
-}
-
-struct THTagList_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            THTagListView(Bundle.main.decodeData("tags"))
-                .previewLayout(.sizeThatFits)
-        }
     }
 }
