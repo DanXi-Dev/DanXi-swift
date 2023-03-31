@@ -161,6 +161,7 @@ fileprivate struct THHolePreviewActions: View {
         Group {
             AsyncButton {
                 try await appModel.toggleFavorite(hole.id)
+                haptic()
             } label: {
                 Group {
                     if !appModel.isFavorite(hole.id) {

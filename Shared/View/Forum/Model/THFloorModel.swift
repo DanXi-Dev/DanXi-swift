@@ -30,6 +30,12 @@ class THFloorModel: ObservableObject {
         updateFloor(likedFloor)
     }
     
+    func dislike() async throws {
+        let dislike = floor.disliked ? 0 : -1
+        let dislikedFloor = try await THRequests.like(floorId: floor.id, like: dislike)
+        updateFloor(dislikedFloor)
+    }
+    
     func loadHistory() async throws -> [THHistory] {
         return try await THRequests.loadFloorHistory(floorId: floor.id)
     }

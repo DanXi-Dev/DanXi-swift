@@ -175,16 +175,35 @@ fileprivate struct THFloorActions: View {
             let floor = model.floor
             AsyncButton {
                 try await model.like()
+                haptic()
             } label: {
                 HStack(alignment: .center, spacing: 3) {
-                    Image(systemName: floor.liked ? "heart.fill" : "heart")
-                    Text(String(floor.like))
+                    Image(systemName: "hand.thumbsup")
+                        .symbolVariant(floor.liked ? .fill : .none)
+                    if floor.like > 0 {
+                        Text(String(floor.like))
+                    }
                 }
                 .foregroundColor(floor.liked ? .pink : .secondary)
             }
-            .buttonStyle(.borderless)
-            .font(.caption)
+
+            
+            AsyncButton {
+                try await model.dislike()
+                haptic()
+            } label: {
+                HStack(alignment: .center, spacing: 3) {
+                    Image(systemName: "hand.thumbsdown")
+                        .symbolVariant(floor.disliked ? .fill : .none)
+                    if floor.dislike > 0 {
+                        Text(String(floor.dislike))
+                    }
+                }
+                .foregroundColor(floor.disliked ? .green : .secondary)
+            }
         }
+        .buttonStyle(.borderless)
+        .font(.caption)
     }
     
     private var replyButton: some View {

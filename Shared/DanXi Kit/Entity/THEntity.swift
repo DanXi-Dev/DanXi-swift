@@ -81,8 +81,8 @@ struct THHoleInfo: Hashable, Codable {
 struct THFloor: Hashable, Codable, Identifiable {
     let id, holeId: Int
     let updateTime, createTime: Date
-    let like: Int
-    let liked: Bool
+    let like, dislike: Int
+    let liked, disliked: Bool
     let isMe: Bool
     let deleted: Bool
     let modified: Int
@@ -118,8 +118,7 @@ extension THFloor {
         case id = "floor_id"
         case updateTime = "time_updated"
         case createTime = "time_created"
-        case like
-        case liked
+        case like, liked, dislike, disliked
         case isMe = "is_me"
         case deleted
         case holeId = "hole_id"
@@ -133,6 +132,8 @@ extension THFloor {
         id = try values.decode(Int.self, forKey: .id)
         like = try values.decode(Int.self, forKey: .like)
         liked = try values.decodeIfPresent(Bool.self, forKey: .liked) ?? false
+        dislike = try values.decode(Int.self, forKey: .dislike)
+        disliked = try values.decodeIfPresent(Bool.self, forKey: .disliked) ?? false
         isMe = try values.decodeIfPresent(Bool.self, forKey: .isMe) ?? false
         deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
         holeId = try values.decode(Int.self, forKey: .holeId)

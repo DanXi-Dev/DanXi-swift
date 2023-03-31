@@ -104,6 +104,7 @@ fileprivate struct THHoleToolbar: View {
     private var favoriteButton: some View {
         AsyncButton {
             try await model.toggleFavorite()
+            haptic()
         } label: {
             Image(systemName: model.isFavorite ? "star.fill" : "star")
         }

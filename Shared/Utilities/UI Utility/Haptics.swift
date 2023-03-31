@@ -1,8 +1,7 @@
 import UIKit
 
-func haptic() {
-    #if os(iOS)
-    let impactMed = UIImpactFeedbackGenerator(style: .heavy)
-    impactMed.impactOccurred()
-    #endif
+func haptic(_ notificationType: UINotificationFeedbackGenerator.FeedbackType = .success) {
+    let notificationHaptic = UINotificationFeedbackGenerator()
+    notificationHaptic.prepare()
+    notificationHaptic.notificationOccurred(notificationType)
 }
