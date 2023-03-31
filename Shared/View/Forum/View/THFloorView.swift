@@ -29,8 +29,8 @@ struct THComplexFloor: View {
     @EnvironmentObject var holeModel: THHoleModel
     @StateObject var model: THFloorModel
     
-    init(_ floor: THFloor) {
-        let model = THFloorModel(floor: floor)
+    init(_ floor: THFloor, highlighted: Bool = false) {
+        let model = THFloorModel(floor: floor, highlighted: highlighted)
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -54,6 +54,17 @@ struct THComplexFloor: View {
             bottomLine
         }
         .environmentObject(model)
+        // highlight control
+        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
+        .onChange(of: holeModel.scrollTarget) { target in
+            if target != model.floor.id { return }
+            model.highlight()
+        }
+        .onAppear {
+            if model.highlighted {
+                model.highlight()
+            }
+        }
     }
     
     private var full: some View {
@@ -66,7 +77,7 @@ struct THComplexFloor: View {
     
     private var headLine: some View {
         HStack {
-            let isPoster = model.floor.posterName == holeModel.floors.first?.posterName
+            let isPoster = floor.posterName == holeModel.floors.first?.posterName
             THPosterView(name: floor.posterName,
                          isPoster: isPoster)
             if !model.floor.spetialTag.isEmpty {
@@ -89,8 +100,6 @@ struct THComplexFloor: View {
     
     private var bottomLine: some View {
         HStack {
-            let floor = model.floor
-            
             Text("\(String(floor.storey))F")
                 .font(.subheadline)
                 .fontWeight(.bold)

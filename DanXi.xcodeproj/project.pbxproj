@@ -729,8 +729,8 @@
 			isa = PBXGroup;
 			children = (
 				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
-				2778D6112891D22D009F4DB1 /* ContentView.swift */,
 				27E1C52C29D09CF700B333BA /* AppModel.swift */,
+				2778D6112891D22D009F4DB1 /* ContentView.swift */,
 				27CBA0782952213A00F422DB /* View */,
 				27BBBD082912C2E6007C2905 /* DanXi Kit */,
 				27BBBD092912C2EC007C2905 /* Fudan Kit */,

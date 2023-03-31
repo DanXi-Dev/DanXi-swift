@@ -15,6 +15,7 @@ class THHoleModel: ObservableObject {
         self.endReached = true
         self.isFavorite = DXModel.shared.isFavorite(hole.id)
         self.scrollTarget = scrollTo ?? -1
+        self.initialScroll = scrollTo
         
         insertFloors(floors)
     }
@@ -124,6 +125,7 @@ class THHoleModel: ObservableObject {
     
     // MARK: - Page Scrolling
     
+    @Published var initialScroll: Int?
     @Published var scrollTarget: Int
     @Published var loadingAll = false
     

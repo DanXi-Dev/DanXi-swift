@@ -20,7 +20,7 @@ struct THHolePage: View {
                         .listRowSeparator(.hidden, edges: .top)
                     
                     ForEach(model.filteredFloors) { floor in
-                        THComplexFloor(floor)
+                        THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
                             .task {
                                 if floor == model.filteredFloors.last {
                                     await model.loadMoreFloors()
@@ -43,7 +43,7 @@ struct THHolePage: View {
                 .onAppear {
                     if model.scrollTarget != -1 {
                         proxy.scrollTo(model.scrollTarget, anchor: .top)
-                        model.scrollTarget = -1
+                        model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
                     }
                 }
                 .onChange(of: model.scrollTarget) { target in

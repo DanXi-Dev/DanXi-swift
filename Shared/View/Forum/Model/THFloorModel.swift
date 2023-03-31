@@ -2,11 +2,21 @@ import Foundation
 
 @MainActor
 class THFloorModel: ObservableObject {
-    init(floor: THFloor) {
+    init(floor: THFloor, highlighted: Bool) {
         self.floor = floor
+        self.highlighted = highlighted
     }
     
     @Published var floor: THFloor
+    @Published var highlighted: Bool
+    
+    func highlight() {
+        highlighted = true
+        Task {
+            try await Task.sleep(nanoseconds: 1_000_000_000)
+            highlighted = false
+        }
+    }
     
     private func updateFloor(_ floor: THFloor) {
         let storey = self.floor.storey
