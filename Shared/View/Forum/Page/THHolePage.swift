@@ -16,12 +16,8 @@ struct THHolePage: View {
         ScrollViewReader { proxy in
             List {
                 Section {
-                    WrappingHStack(alignment: .leading) {
-                        ForEach(model.hole.tags) { tag in
-                            THTagView(tag)
-                        }
-                    }
-                    .listRowSeparator(.hidden, edges: .top)
+                    THHoleTags(tags: model.hole.tags)
+                        .listRowSeparator(.hidden, edges: .top)
                     
                     ForEach(model.filteredFloors) { floor in
                         THComplexFloor(floor)
@@ -47,6 +43,7 @@ struct THHolePage: View {
                 .onAppear {
                     if model.scrollTarget != -1 {
                         proxy.scrollTo(model.scrollTarget, anchor: .top)
+                        model.scrollTarget = -1
                     }
                 }
                 .onChange(of: model.scrollTarget) { target in
@@ -160,6 +157,24 @@ fileprivate struct THHoleToolbar: View {
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("This will affect all replies of this post")
+        }
+    }
+}
+
+struct THHoleTags: View {
+    @EnvironmentObject var navigationModel: THNavigationModel
+    let tags: [THTag]
+    
+    var body: some View {
+        WrappingHStack(alignment: .leading) {
+            ForEach(tags) { tag in
+                Button {
+                    navigationModel.path.append(tag)
+                } label: {
+                    THTagView(tag)
+                }
+                .buttonStyle(.borderless)
+            }
         }
     }
 }

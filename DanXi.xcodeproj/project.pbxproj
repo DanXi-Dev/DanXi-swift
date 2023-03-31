@@ -83,6 +83,7 @@
 		27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A44E9D29AF253500CE6661 /* FDRankPage.swift */; };
 		27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1A29D6D4DD0042D28D /* WrappingHStack */; };
 		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
+		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
@@ -248,6 +249,7 @@
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27A44E9D29AF253500CE6661 /* FDRankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDRankPage.swift; sourceTree = "<group>"; };
+		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
 		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27B19FC428F59C2C0001587F /* FDPayPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPayPage.swift; sourceTree = "<group>"; };
@@ -567,12 +569,13 @@
 			children = (
 				27013BC929CF7B74004A5D2F /* THHomePage.swift */,
 				27013BD129D022B7004A5D2F /* THBrowsePage.swift */,
+				27DAFA6E29CB589000F32093 /* THHolePage.swift */,
 				27013BD529D02A67004A5D2F /* THSearchPage.swift */,
 				272AC8D92896BE2500092B0C /* THFavoritesPage.swift */,
 				27834AF829D6261E008DC0C2 /* THMyPostPage.swift */,
+				27A5DA1F29D6EF010042D28D /* THTagsPage.swift */,
 				27FA5F48289955C3000391A3 /* THSearchTagPage.swift */,
 				275B71CC28C5249800475BA3 /* THReportPage.swift */,
-				27DAFA6E29CB589000F32093 /* THHolePage.swift */,
 				27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */,
 				27DAFA6C29CB529D00F32093 /* THLoaderPage.swift */,
 			);
@@ -937,6 +940,7 @@
 				27719A9F28A3C52E00C661BD /* Regex.swift in Sources */,
 				27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
+				27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */,
 				27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */,
 				2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */,
 				2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */,

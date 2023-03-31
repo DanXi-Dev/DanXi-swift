@@ -19,6 +19,8 @@ class THNavigationModel: ObservableObject {
                 page = .favorite
             case "my-post":
                 page = .mypost
+            case "tags":
+                page = .tags
             case "notifications":
                 page = .notifications
             case "messages":
@@ -49,6 +51,7 @@ enum THPage {
     case browse
     case favorite
     case mypost
+    case tags
     case notifications
     case messages
     case report

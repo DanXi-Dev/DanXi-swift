@@ -17,6 +17,8 @@ struct THHomePage: View {
                         THFavoritesPage()
                     case .mypost:
                         THMyPostPage()
+                    case .tags:
+                        THTagsPage()
                     case .report:
                         THReportPage()
                     default:
@@ -54,6 +56,8 @@ struct THHomePage: View {
                     .tag(THPage.favorite)
                 Label("My Post", systemImage: "person")
                     .tag(THPage.mypost)
+                Label("All Tags", systemImage: "tag")
+                    .tag(THPage.tags)
                 Label("Notifications", systemImage: "bell")
                     .tag(THPage.notifications)
                 Label("Messages", systemImage: "message")

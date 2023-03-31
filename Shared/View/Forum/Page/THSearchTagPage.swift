@@ -32,7 +32,7 @@ struct THSearchTagPage: View {
                             }
                         }
                 }
-            } footer: {
+                
                 if !endReached {
                     LoadingFooter(loading: $loading,
                                     errorDescription: errorInfo,
@@ -40,6 +40,7 @@ struct THSearchTagPage: View {
                 }
             }
         }
+        .animation(.default, value: holes)
         .listStyle(.inset)
         .task {
             if holes.isEmpty {

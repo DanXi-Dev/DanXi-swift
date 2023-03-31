@@ -175,6 +175,8 @@
 "Jump to Hole" = "跳转到树洞";
 "Jump to Floor" = "跳转到楼层";
 "Tags" = "标签";
+"All Tags" = "所有标签";
+"Search in Tags" = "在标签中搜索";
 
 // Error
 "Error" = "错误";
