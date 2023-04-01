@@ -329,6 +329,14 @@
 "Reserved" = "已约满";
 "Cannot Reserve" = "无法预约";
 
+// Fudan Calandar
+"Calendar" = "日程";
+"Course Name" = "课程名称";
+"Course Detail" = "课程详情";
+"Instructor" = "教师";
+"Course ID" = "课程代码";
+"Location" = "上课地点";
+
 // About
 "Website" = "网站";
 "Version %@" = "版本%@";

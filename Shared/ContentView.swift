@@ -20,7 +20,6 @@ struct ContentView: View {
 }
 
 
-
 struct TabHomePage: View {
     @EnvironmentObject var model: AppModel
     
@@ -45,6 +44,12 @@ struct TabHomePage: View {
                     Label("Curriculum", systemImage: "books.vertical")
                 }
                 .toolbarBackground(.visible, for: .tabBar)
+            
+            FDCalendarPage()
+                .tag(AppSection.calendar)
+                .tabItem {
+                    Label("Calendar", systemImage: "calendar")
+                }
             
             SettingsPage()
                 .tag(AppSection.settings)
@@ -80,6 +85,8 @@ struct SplitHomePage: View {
                     THHomePage()
                 case .curriculum:
                     DKHomePage()
+                case .calendar:
+                    FDCalendarPage()
                 case .settings:
                     SettingsPage()
                 }

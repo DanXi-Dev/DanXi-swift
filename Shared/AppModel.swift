@@ -18,6 +18,8 @@ class AppModel: ObservableObject {
             section = .campus
         case "forum":
             section = .forum
+        case "calendar":
+            section = .calendar
         case "curriculum":
             section = .curriculum
         default: break
@@ -26,5 +28,5 @@ class AppModel: ObservableObject {
 }
 
 enum AppSection {
-    case campus, forum, curriculum, settings
+    case campus, forum, curriculum, calendar, settings
 }

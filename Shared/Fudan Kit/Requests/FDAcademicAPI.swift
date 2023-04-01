@@ -202,7 +202,7 @@ struct FDRank: Identifiable {
     }
 }
 
-struct FDCourse {
+struct FDCourse: Identifiable, Codable {
     let id: Int
     let instructor: String
     let code: String
@@ -212,3 +212,29 @@ struct FDCourse {
     var startTime = 0
     var endTime = 0
 }
+
+struct FDCourseTable: Codable {
+    let week: Int
+    let courses: [FDCourse]
+}
+
+struct FDTimeSlot: Identifiable {
+    let id: Int
+    let startTime: String
+    let endTime: String
+    
+    static let list = [FDTimeSlot(id: 1, startTime: "08:00", endTime: "08:45"),
+                       FDTimeSlot(id: 2, startTime: "08:55", endTime: "09:40"),
+                       FDTimeSlot(id: 3, startTime: "09:55", endTime: "10:40"),
+                       FDTimeSlot(id: 4, startTime: "10:50", endTime: "11:35"),
+                       FDTimeSlot(id: 5, startTime: "11:45", endTime: "12:30"),
+                       FDTimeSlot(id: 6, startTime: "13:30", endTime: "14:15"),
+                       FDTimeSlot(id: 7, startTime: "14:25", endTime: "15:10"),
+                       FDTimeSlot(id: 8, startTime: "15:25", endTime: "16:10"),
+                       FDTimeSlot(id: 9, startTime: "16:20", endTime: "17:05"),
+                       FDTimeSlot(id: 10, startTime: "17:15", endTime: "18:00"),
+                       FDTimeSlot(id: 11, startTime: "18:30", endTime: "19:15"),
+                       FDTimeSlot(id: 12, startTime: "19:25", endTime: "20:10")]
+}
+
+

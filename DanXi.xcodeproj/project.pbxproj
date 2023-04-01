@@ -84,6 +84,8 @@
 		27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1A29D6D4DD0042D28D /* WrappingHStack */; };
 		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
+		27A5DA2829D74A630042D28D /* FDCalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2729D74A630042D28D /* FDCalendarPage.swift */; };
+		27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */; };
 		27AFBD3128E4688000ED8A3D /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 27AFBD3028E4688000ED8A3D /* user.json */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
@@ -250,6 +252,8 @@
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27A44E9D29AF253500CE6661 /* FDRankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDRankPage.swift; sourceTree = "<group>"; };
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
+		27A5DA2729D74A630042D28D /* FDCalendarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarPage.swift; sourceTree = "<group>"; };
+		27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarModel.swift; sourceTree = "<group>"; };
 		27AFBD3028E4688000ED8A3D /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27B19FC428F59C2C0001587F /* FDPayPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPayPage.swift; sourceTree = "<group>"; };
@@ -459,6 +463,14 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
+		27A5DA2929D77E340042D28D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		27BBBD082912C2E6007C2905 /* DanXi Kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,7 +552,9 @@
 		27CBA07B2952219D00F422DB /* Campus */ = {
 			isa = PBXGroup;
 			children = (
+				27A5DA2929D77E340042D28D /* Model */,
 				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
+				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
 				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
 				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
 				27DDBABC29A501A7008849D1 /* FDBusPage.swift */,
@@ -1018,6 +1032,7 @@
 				27227FD528A512B300B3C99D /* Defaults.swift in Sources */,
 				27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
+				27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */,
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,
 				272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */,
 				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,
@@ -1029,6 +1044,7 @@
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				27BBBD212912C33D007C2905 /* DXConstants.swift in Sources */,
+				27A5DA2829D74A630042D28D /* FDCalendarPage.swift in Sources */,
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
