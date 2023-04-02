@@ -65,20 +65,26 @@ struct SplitHomePage: View {
     
     var body: some View {
         NavigationSplitView {
-            List(selection: $model.listSection) {
+            let sectionBinding = Binding<AppSection?>(
+                get: { model.section },
+                set: { if let section = $0 { model.section = section } }
+            )
+            
+            List(selection: sectionBinding) {
                 Label("Campus Services", systemImage: "square.stack")
                     .tag(AppSection.campus)
                 Label("Tree Hole", systemImage: "text.bubble")
                     .tag(AppSection.forum)
                 Label("Curriculum", systemImage: "books.vertical")
                     .tag(AppSection.curriculum)
+                Label("Calendar", systemImage: "calendar")
+                    .tag(AppSection.calendar)
                 Label("Settings", systemImage: "gearshape")
                     .tag(AppSection.settings)
             }
             .navigationTitle("DanXi")
         } detail: {
-            if let section = model.listSection {
-                switch section {
+                switch model.section {
                 case .campus:
                     FDHomePage()
                 case .forum:
@@ -91,6 +97,5 @@ struct SplitHomePage: View {
                     SettingsPage()
                 }
             }
-        }
     }
 }

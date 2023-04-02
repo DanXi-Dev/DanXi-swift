@@ -32,12 +32,14 @@ struct THHomePage: View {
                 }
                 .navigationDestination(for: THHole.self) { hole in
                     THHolePage(hole)
+                        .environmentObject(model) // prevent crash on NavigationSplitView, reason unknown
                 }
                 .navigationDestination(for: THHoleLoader.self) { loader in
                     THLoaderPage(loader)
                 }
                 .navigationDestination(for: THTag.self) { tag in
                     THSearchTagPage(tagname: tag.name)
+                        .environmentObject(model) // prevent crash on NavigationSplitView, reason unknown
                 }
             }
         }

@@ -18,8 +18,8 @@ struct FDCalendarPage: View {
                     }
                 }
                 .navigationTitle("Calendar")
+                .environmentObject(model)
             }
-            .environmentObject(model)
         }
     }
 }

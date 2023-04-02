@@ -3,6 +3,7 @@ import SwiftUI
 struct THBrowsePage: View {
     @ObservedObject var settings = THSettings.shared
     @EnvironmentObject var model: THBrowseModel
+    @EnvironmentObject var nav: THNavigationModel
     
     var body: some View {
         List {
