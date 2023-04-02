@@ -39,7 +39,7 @@ struct MarkdownView: View {
                 case let quote as BlockQuote:
                     quoteRenderer(quote)
                     
-                case let table as TableElement:
+                case let table as Markdown.Table:
                     tableRenderer(table)
                     
                 default:
@@ -69,7 +69,7 @@ struct MarkdownView: View {
             font = .callout
         }
         
-        return TextView(heading.plainText)
+        return SwiftUI.Text(heading.plainText)
             .font(font)
             .fontWeight(.bold)
             .fixedSize(horizontal: false, vertical: true)
@@ -77,7 +77,7 @@ struct MarkdownView: View {
     
     private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
         return ScrollView(.horizontal, showsIndicators: false) {
-            TextView(codeBlock.code)
+            SwiftUI.Text(codeBlock.code)
                 .font(.callout.monospaced())
         }
     }
@@ -86,7 +86,7 @@ struct MarkdownView: View {
         return VStack(alignment: .leading) {
             ForEach(Array(orderedList.items().enumerated()), id: \.offset) { index, item in
                 HStack(alignment: .top, spacing: 2.0) {
-                    TextView("\(index + Int(orderedList.startIndex)).")
+                    SwiftUI.Text("\(index + Int(orderedList.startIndex)).")
                         .frame(width: 20)
                     MarkdownView(item.markup)
                 }
@@ -113,7 +113,7 @@ struct MarkdownView: View {
                     .frame(width: 30)
                     .padding(.top, 4)
             } else {
-                TextView("·")
+                SwiftUI.Text("·")
                     .bold()
                     .frame(width: 20)
             }
@@ -161,7 +161,7 @@ struct MarkdownView: View {
     }
     
     @ViewBuilder
-    private func tableRenderer(_ table: TableElement) -> some View {
+    private func tableRenderer(_ table: Markdown.Table) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             Grid {
                 Divider()
@@ -187,14 +187,14 @@ struct MarkdownView: View {
     private func tableRowRenderer(_ row: any TableCellContainer) -> some View {
         GridRow {
             ForEach(row.items()) { item in
-                tableCellRenderer(item.markup as! TableElement.Cell)
+                tableCellRenderer(item.markup as! Markdown.Table.Cell)
             }
         }
     }
     
     @ViewBuilder
-    private func tableCellRenderer(_ cell: TableElement.Cell) -> some View {
-        TextView(cell.plainText)
+    private func tableCellRenderer(_ cell: Markdown.Table.Cell) -> some View {
+        SwiftUI.Text(cell.plainText)
     }
     
     private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
@@ -232,7 +232,7 @@ struct MarkdownView: View {
             ForEach(elements) { element in
                 switch(element) {
                 case .paragraph(let text):
-                    TextView(text)
+                    SwiftUI.Text(text)
                         .font(.callout)
                         .fixedSize(horizontal: false, vertical: true)
                 case .image(let url):
@@ -240,9 +240,7 @@ struct MarkdownView: View {
                         Spacer()
                         AsyncImage(url: url) { phase in
                             if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
+                                ImageWithPopover(image: image)
                             } else if phase.error != nil {
                                 Color.gray.opacity(0.1)
                                     .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
@@ -284,7 +282,7 @@ extension TableCellContainer {
     }
 }
 
-extension TableElement.Body {
+extension Markdown.Table.Body {
     fileprivate func items() -> [MarkupNode] {
         return self.rows.map { row in
             MarkupNode(row)

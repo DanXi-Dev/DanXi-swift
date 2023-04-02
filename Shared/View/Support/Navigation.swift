@@ -21,7 +21,3 @@ struct NavigationPlainLink<P: Hashable, Label: View>: View {
         }
     }
 }
-
-class NavigationRouter: ObservableObject {
-    @Published var path = NavigationPath()
-}
