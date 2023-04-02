@@ -42,6 +42,8 @@ struct THComplexFloor: View {
         switch holeModel.filterOption {
         case .conversation(_):
             return floor.removeFirstMention()
+        case .reply(_):
+            return floor.removeFirstMention()
         default:
             return floor.content
         }
@@ -247,6 +249,12 @@ fileprivate struct THFloorActions: View {
                 holeModel.filterOption = .user(name: model.floor.posterName)
             } label: {
                 Label("Show This Person", systemImage: "message")
+            }
+            
+            Button {
+                holeModel.filterOption = .reply(floorId: model.floor.id)
+            } label: {
+                Label("All Replies", systemImage: "arrowshape.turn.up.left.2")
             }
             
             if model.floor.firstMention() != nil {

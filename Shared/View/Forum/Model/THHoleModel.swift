@@ -21,7 +21,11 @@ class THHoleModel: ObservableObject {
     }
     
     @Published var hole: THHole
-    @Published var floors: [THFloor]
+    @Published var floors: [THFloor] {
+        didSet {
+            cacheUpdated = false
+        }
+    }
     
     // MARK: - Floor Loading
     
@@ -67,39 +71,81 @@ class THHoleModel: ObservableObject {
         case posterOnly
         case user(name: String)
         case conversation(starting: Int)
+        case reply(floorId: Int)
     }
     
-    @Published var filterOption = FilterOptions.all
-    var filteredFloors: [THFloor] {
-        switch filterOption {
-        case .all:
-            return self.floors
-        case .posterOnly:
-            let posterName = floors.first?.posterName ?? ""
-            return self.floors.filter { floor in
-                floor.posterName == posterName
-            }
-        case .user(let name):
-            return self.floors.filter { $0.posterName == name }
-        case .conversation(let starting):
-            return traceConversation(starting)
+    @Published var filterOption = FilterOptions.all {
+        didSet {
+            cacheUpdated = false
         }
     }
     
+    private var cacheUpdated = false
+    private var cachedFloors: [THFloor] = [] // cache calculated filtered floors result to improve performance
+    
+    var filteredFloors: [THFloor] {
+        if cacheUpdated { return cachedFloors }
+        
+        switch filterOption {
+        case .all:
+            cachedFloors = self.floors
+        case .posterOnly:
+            let posterName = floors.first?.posterName ?? ""
+            cachedFloors = self.floors.filter { floor in
+                floor.posterName == posterName
+            }
+        case .user(let name):
+            cachedFloors = self.floors.filter { $0.posterName == name }
+        case .conversation(let starting):
+            cachedFloors = traceConversation(starting)
+        case .reply(let floorId):
+            cachedFloors = findReply(floorId)
+        }
+        
+        cacheUpdated = true
+        return cachedFloors
+    }
+    
+    
     private func traceConversation(_ startId: Int) -> [THFloor] {
-        var id: Int? = startId
+        var forwardId: Int? = startId
+        var backwardId: Int? = startId
         var conversation: [THFloor] = []
         
-        while let floorId = id {
+        // trace forward
+        while let floorId = forwardId {
             if let floor = floors.first(where: { $0.id == floorId }) {
                 conversation.append(floor)
-                id = floor.firstMention()
+                forwardId = floor.firstMention()
             } else { // no matching floor is found, end searching
                 break
             }
         }
         
-        return conversation.reversed()
+        conversation = conversation.reversed()
+        
+        // trace backward
+        while true {
+            if let floor = floors.first(where: { $0.firstMention() == backwardId }) {
+                conversation.append(floor)
+                backwardId = floor.id
+            } else { // no match found, end searching
+                break
+            }
+        }
+        
+        return conversation
+    }
+    
+    private func findReply(_ floorId: Int) -> [THFloor] {
+        print("finding reply")
+        var replies = floors.filter { floor in
+            floor.firstMention() == floorId
+        }
+        if let baseFloor = floors.filter({ $0.id == floorId }).first {
+            replies.insert(baseFloor, at: 0)
+        }
+        return replies
     }
     
     var showBottomBar: Bool {
@@ -107,6 +153,8 @@ class THHoleModel: ObservableObject {
         case .user(_):
             return true
         case .conversation(_):
+            return true
+        case .reply(_):
             return true
         default:
             return false
