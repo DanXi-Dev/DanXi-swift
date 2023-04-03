@@ -207,6 +207,61 @@ class THHoleModel: ObservableObject {
         self.isFavorite = DXModel.shared.isFavorite(hole.id)
     }
     
+    // MARK: - Floor Batch Delete (Admin)
+    
+    @Published var selectedFloor: Set<THFloor> = []
+    @Published var deleteReason = ""
+    
+    func batchDelete() async {
+        let floors = Array(selectedFloor)
+        let previousFloors = self.floors
+        
+        // send delete request to server
+        let deletedFloors = await withTaskGroup(of: THFloor.self,
+                                                returning: [THFloor].self,
+                                                body: { taskGroup in
+            for floor in floors {
+                taskGroup.addTask {
+                    do {
+                        return try await THRequests.deleteFloor(floorId: floor.id, reason: self.deleteReason)
+                    } catch {
+                        return floor
+                    }
+                }
+            }
+            
+            var deletedFloors: [THFloor] = []
+            for await floor in taskGroup {
+                deletedFloors.append(floor)
+            }
+            return deletedFloors
+        })
+        
+        // replace deleted floors with server-returned results
+        var newFloors: [THFloor] = []
+        for floor in previousFloors {
+            var newFloor: THFloor? = nil
+            for deletedFloor in deletedFloors {
+                if deletedFloor.id == floor.id {
+                    newFloor = deletedFloor
+                    newFloor?.storey = floor.storey
+                    break
+                }
+            }
+            
+            if let newFloor = newFloor { // find matched deleted floor
+                newFloors.append(newFloor)
+            } else { // nothing matched, use original
+                newFloors.append(floor)
+            }
+        }
+        
+        // submit UI change
+        Task { @MainActor in
+            self.floors = newFloors
+        }
+    }
+    
     // MARK: - Hole Info Edit
     
     func modifyHole(_ info: THHoleInfo) async throws {

@@ -17,7 +17,7 @@ struct THSearchPage: View {
             
             if let matchHole = model.matchHole {
                 NavigationLink(value: THHoleLoader(holeId: matchHole)) {
-                    Label("##\(String(matchHole))", systemImage: "arrow.right.square")
+                    Label("#\(String(matchHole))", systemImage: "arrow.right.square")
                 }
             }
             

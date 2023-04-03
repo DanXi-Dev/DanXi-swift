@@ -14,13 +14,16 @@ struct THHolePage: View {
     
     var body: some View {
         ScrollViewReader { proxy in
-            List {
+            List(selection: $model.selectedFloor) {
                 Section {
                     THHoleTags(tags: model.hole.tags)
                         .listRowSeparator(.hidden, edges: .top)
                     
-                    ForEach(model.filteredFloors) { floor in
+                    // use listId so that floor may have different ID and receive UI update in batch delete operation
+                    ForEach(model.filteredFloors, id: \.listId) { floor in
                         THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
+                            .tag(floor)
+                            .id(floor.id) // for scroll target
                             .task {
                                 if floor == model.filteredFloors.last {
                                     await model.loadMoreFloors()
@@ -128,6 +131,14 @@ fileprivate struct THHoleToolbar: View {
             if DXModel.shared.isAdmin {
                 Divider()
                 
+                Button {
+                    withAnimation {
+                        editMode?.wrappedValue = .active
+                    }
+                } label: {
+                    Label("Batch Delete", systemImage: "trash")
+                }
+                
                 if !model.hole.hidden {
                     Button {
                         showDeleteAlert = true
@@ -181,14 +192,51 @@ struct THHoleTags: View {
 
 fileprivate struct THHoleBottomBar: View {
     @EnvironmentObject var model: THHoleModel
+    @Environment(\.editMode) var editMode
+    @State var showAlert = false
     
     var body: some View {
-        if model.showBottomBar {
-            Button {
-                model.filterOption = .all
+        Group {
+            if model.showBottomBar {
+                Button {
+                    model.filterOption = .all
+                } label: {
+                    Label("Show All Floors", systemImage: "bubble.left.and.bubble.right")
+                        .labelStyle(.titleAndIcon)
+                }
+            }
+            
+            if editMode?.wrappedValue.isEditing == true {
+                if model.selectedFloor.isEmpty {
+                    Button {
+                        withAnimation {
+                            editMode?.wrappedValue = .inactive
+                        }
+                    } label: {
+                        Text("Cancel")
+                    }
+                } else {
+                    Button(role: .destructive) {
+                        showAlert = true
+                    } label: {
+                        Label("Delete Selected", systemImage: "trash")
+                            .labelStyle(.titleAndIcon)
+                    }
+                }
+            }
+        }
+        .alert("Delete Selected", isPresented: $showAlert) {
+            TextField("Enter Delete Reason", text: $model.deleteReason)
+            Button(role: .destructive) {
+                Task {
+                    await model.batchDelete()
+                }
+                
+                withAnimation {
+                    editMode?.wrappedValue = .inactive
+                }
             } label: {
-                Label("Show All Floors", systemImage: "bubble.left.and.bubble.right")
-                    .labelStyle(.titleAndIcon)
+                Text("Submit")
             }
         }
     }
