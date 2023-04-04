@@ -281,26 +281,28 @@ fileprivate struct THFloorActions: View {
                 }
             }
             
-            Menu {
-                Button {
-                    showEditSheet = true
+            if DXModel.shared.isAdmin {
+                Menu {
+                    Button {
+                        showEditSheet = true
+                    } label: {
+                        Label("Modify Floor", systemImage: "pencil")
+                    }
+                    
+                    Button(role: .destructive) {
+                        showRemoveSheet = true
+                    } label: {
+                        Label("Remove Floor", systemImage: "xmark.square")
+                    }
+                    
+                    Button {
+                        showHistorySheet = true
+                    } label: {
+                        Label("Show Edit History", systemImage: "clock.arrow.circlepath")
+                    }
                 } label: {
-                    Label("Modify Floor", systemImage: "pencil")
+                    Label("Admin Actions", systemImage: "person.badge.key")
                 }
-                
-                Button(role: .destructive) {
-                    showRemoveSheet = true
-                } label: {
-                    Label("Remove Floor", systemImage: "xmark.square")
-                }
-                
-                Button {
-                    showHistorySheet = true
-                } label: {
-                    Label("Show Edit History", systemImage: "clock.arrow.circlepath")
-                }
-            } label: {
-                Label("Admin Actions", systemImage: "person.badge.key")
             }
         } label: {
             Image(systemName: "ellipsis.circle.fill")
