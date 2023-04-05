@@ -50,6 +50,12 @@
 		274C197529D1BF9B000DE221 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197429D1BF9B000DE221 /* ContentView.swift */; };
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
+		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
+		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
+		27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */; };
+		27536EC429DC9A8100894A98 /* DanXi_Wigdet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC329DC9A8100894A98 /* DanXi_Wigdet.swift */; };
+		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
+		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27544B4628C5286300600605 /* report-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27544B4528C5286300600605 /* report-list.json */; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
@@ -151,6 +157,16 @@
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		27536EC829DC9A8300894A98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
+			remoteInfo = DanXi_WigdetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -164,10 +180,11 @@
 		};
 		F165C51828D1882E0000DB6F /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,6 +235,12 @@
 		274C197429D1BF9B000DE221 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		274C197629D1BF9C000DE221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
+		27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Wigdet.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWigdetBundle.swift; sourceTree = "<group>"; };
+		27536EC329DC9A8100894A98 /* DanXi_Wigdet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_Wigdet.swift; sourceTree = "<group>"; };
+		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WigdetExtension.entitlements; sourceTree = "<group>"; };
 		27544B4528C5286300600605 /* report-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "report-list.json"; sourceTree = "<group>"; };
 		275B71CC28C5249800475BA3 /* THReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportPage.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
@@ -325,6 +348,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		27536EBA29DC9A8100894A98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */,
+				27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AC7A5CA26872C3E00C9CD98 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +410,18 @@
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
 			);
 			path = watchOS;
+			sourceTree = "<group>";
+		};
+		27536EC029DC9A8100894A98 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */,
+				27536EC329DC9A8100894A98 /* DanXi_Wigdet.swift */,
+				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
+				27536EC529DC9A8300894A98 /* Assets.xcassets */,
+				27536EC729DC9A8300894A98 /* Info.plist */,
+			);
+			path = Widget;
 			sourceTree = "<group>";
 		};
 		27544B4428C5284100600605 /* report */ = {
@@ -727,6 +771,7 @@
 				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* iOS */,
 				274C197129D1BF9B000DE221 /* watchOS */,
+				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
 			);
@@ -737,6 +782,7 @@
 			children = (
 				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
 				274C197029D1BF9B000DE221 /* DanXi Watch.app */,
+				27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -781,6 +827,23 @@
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		27536EBC29DC9A8100894A98 /* DanXi Wigdet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Wigdet" */;
+			buildPhases = (
+				27536EB929DC9A8100894A98 /* Sources */,
+				27536EBA29DC9A8100894A98 /* Frameworks */,
+				27536EBB29DC9A8100894A98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DanXi Wigdet";
+			productName = DanXi_WigdetExtension;
+			productReference = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */;
@@ -794,6 +857,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				27536EC929DC9A8300894A98 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -819,11 +883,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					274C196F29D1BF9B000DE221 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					27536EBC29DC9A8100894A98 = {
+						CreatedOnToolsVersion = 14.3;
 					};
 					8AC7A5CC26872C3E00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -858,6 +925,7 @@
 			targets = (
 				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
 				274C196F29D1BF9B000DE221 /* DanXi Watch */,
+				27536EBC29DC9A8100894A98 /* DanXi Wigdet */,
 			);
 		};
 /* End PBXProject section */
@@ -868,6 +936,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27536EBB29DC9A8100894A98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,6 +983,15 @@
 			files = (
 				274C197529D1BF9B000DE221 /* ContentView.swift in Sources */,
 				274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27536EB929DC9A8100894A98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27536EC429DC9A8100894A98 /* DanXi_Wigdet.swift in Sources */,
+				27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,6 +1113,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		27536EC929DC9A8300894A98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
+			targetProxy = 27536EC829DC9A8300894A98 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		27A28A0F288B0C3D00D6DD77 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -1068,7 +1161,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1098,7 +1191,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1108,6 +1201,75 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
+		27536ECC29DC9A8300894A98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Widget/WigdetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 452;
+				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fduhole.danxi.DanXi-Wigdet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		27536ECD29DC9A8300894A98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = Widget/WigdetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 452;
+				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fduhole.danxi.DanXi-Wigdet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1248,7 +1410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.11;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1285,7 +1447,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.11;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1309,6 +1471,15 @@
 			buildConfigurations = (
 				274C197B29D1BF9C000DE221 /* Debug */,
 				274C197C29D1BF9C000DE221 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Wigdet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27536ECC29DC9A8300894A98 /* Debug */,
+				27536ECD29DC9A8300894A98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
