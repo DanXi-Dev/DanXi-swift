@@ -15,7 +15,7 @@ struct FDECardAPI {
         return qrcodeStr
     }
     
-    static func getEcardBalance() async throws -> String {
+    static func getBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
         let responseData = try await FDAuthAPI.auth(url: url)
         let cashElement = try processHTMLData(responseData, selector: ".payway-box-bottom-item > p")
@@ -29,7 +29,7 @@ struct FDECardAPI {
         csrf = try csrfElement.attr("content")
     }
     
-    static func getTradeRecord(page: Int) async throws -> [FDTradeRecord] {
+    static func getTransactions(page: Int = 1) async throws -> [FDTransaction] {
         guard let csrf = csrf else {
             return []
         }
@@ -44,9 +44,9 @@ struct FDECardAPI {
         
         let tableBody = try processHTMLData(responseData, selector: "#all tbody")
         
-        var tradeRecords: [FDTradeRecord] = []
+        var tradeRecords: [FDTransaction] = []
         for row in tableBody.children() {
-            let record = FDTradeRecord(createTime: "\(try row.child(0).child(0).html()) \(try row.child(0).child(1).html())",
+            let record = FDTransaction(createTime: "\(try row.child(0).child(0).html()) \(try row.child(0).child(1).html())",
                                        location: try row.child(2).html().replacingOccurrences(of: "&nbsp;", with: ""),
                                        amount: try row.child(3).html().replacingOccurrences(of: "&nbsp;", with: ""),
                                        balance: try row.child(5).child(0).html())
@@ -57,7 +57,7 @@ struct FDECardAPI {
     }
 }
 
-struct FDTradeRecord: Identifiable, Equatable {
+struct FDTransaction: Identifiable, Equatable {
     let id = UUID()
     let createTime: String
     let location: String

@@ -53,7 +53,6 @@
 		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
 		27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */; };
-		27536EC429DC9A8100894A98 /* DanXi_Wigdet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC329DC9A8100894A98 /* DanXi_Wigdet.swift */; };
 		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
 		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27544B4628C5286300600605 /* report-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27544B4528C5286300600605 /* report-list.json */; };
@@ -93,6 +92,29 @@
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
 		27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5D70E28C74E9400924264 /* TextEditView.swift */; };
+		27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */; };
+		27B7ABF929DEB24700DAE0C5 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
+		27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
+		27B7AC0529DEB27100DAE0C5 /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
+		27B7AC0629DEB27100DAE0C5 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
+		27B7AC0729DEB27100DAE0C5 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
+		27B7AC0829DEB27100DAE0C5 /* FDCanteenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */; };
+		27B7AC0929DEB27100DAE0C5 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
+		27B7AC0A29DEB27100DAE0C5 /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
+		27B7AC0B29DEB27100DAE0C5 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
+		27B7AC0C29DEB27100DAE0C5 /* FDECardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604D29312D8200F4C321 /* FDECardAPI.swift */; };
+		27B7AC0D29DEB27100DAE0C5 /* FDElectricityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604F29312D8200F4C321 /* FDElectricityAPI.swift */; };
+		27B7AC0E29DEB27100DAE0C5 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
+		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
+		27B7AC1029DEB28900DAE0C5 /* DecodeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274215D128EE1C4700A2A20B /* DecodeDate.swift */; };
+		27B7AC1129DEB28C00DAE0C5 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
+		27B7AC1229DEB28F00DAE0C5 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5DC2939F91700ADE348 /* LocalStorage.swift */; };
+		27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */; };
+		27B7AC1629DEB2C900DAE0C5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */; };
+		27B7AC1829DEB2C900DAE0C5 /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1729DEB2C900DAE0C5 /* Disk */; };
+		27B7AC1A29DEB2C900DAE0C5 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */; };
+		27B7AC1B29DEB53000DAE0C5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
+		27B7AC1C29DEB53100DAE0C5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27B9B3A928B29953007CA1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27B9B3AB28B29953007CA1E0 /* InfoPlist.strings */; };
 		27BBBCFF29119368007C2905 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBCFE29119368007C2905 /* Markdown */; };
 		27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD01291193A9007C2905 /* SwiftSoup */; };
@@ -106,7 +128,7 @@
 		27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD132912C33C007C2905 /* DKRequests.swift */; };
 		27BBBD232912C33D007C2905 /* DXUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD142912C33C007C2905 /* DXUtils.swift */; };
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
-		27BDF9E629AD287600EE8131 /* FDEcardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDEcardPage.swift */; };
+		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
 		27C7E8AE28BA038200DCC2B2 /* deleted-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AA28BA038200DCC2B2 /* deleted-floor.json */; };
 		27C7E8AF28BA038200DCC2B2 /* floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AB28BA038200DCC2B2 /* floor.json */; };
 		27C7E8B028BA038200DCC2B2 /* styled-floor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27C7E8AC28BA038200DCC2B2 /* styled-floor.json */; };
@@ -237,7 +259,6 @@
 		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
 		27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Wigdet.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWigdetBundle.swift; sourceTree = "<group>"; };
-		27536EC329DC9A8100894A98 /* DanXi_Wigdet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXi_Wigdet.swift; sourceTree = "<group>"; };
 		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WigdetExtension.entitlements; sourceTree = "<group>"; };
@@ -275,6 +296,7 @@
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27B19FC428F59C2C0001587F /* FDPayPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPayPage.swift; sourceTree = "<group>"; };
 		27B5D70E28C74E9400924264 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
+		27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardWidget.swift; sourceTree = "<group>"; };
 		27B9B3AA28B29953007CA1E0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27B9B3AC28B29957007CA1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27BBBD0A2912C330007C2905 /* DXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXError.swift; sourceTree = "<group>"; };
@@ -286,7 +308,7 @@
 		27BBBD132912C33C007C2905 /* DKRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKRequests.swift; sourceTree = "<group>"; };
 		27BBBD142912C33C007C2905 /* DXUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXUtils.swift; sourceTree = "<group>"; };
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
-		27BDF9E529AD287600EE8131 /* FDEcardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDEcardPage.swift; sourceTree = "<group>"; };
+		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
 		27C7E8AA28BA038200DCC2B2 /* deleted-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "deleted-floor.json"; sourceTree = "<group>"; };
 		27C7E8AB28BA038200DCC2B2 /* floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = floor.json; sourceTree = "<group>"; };
 		27C7E8AC28BA038200DCC2B2 /* styled-floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "styled-floor.json"; sourceTree = "<group>"; };
@@ -354,6 +376,10 @@
 			files = (
 				27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */,
 				27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */,
+				27B7AC1A29DEB2C900DAE0C5 /* KeychainAccess in Frameworks */,
+				27B7AC1829DEB2C900DAE0C5 /* Disk in Frameworks */,
+				27B7AC1629DEB2C900DAE0C5 /* SwiftyJSON in Frameworks */,
+				27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,7 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */,
-				27536EC329DC9A8100894A98 /* DanXi_Wigdet.swift */,
+				27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */,
 				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
 				27536EC729DC9A8300894A98 /* Info.plist */,
@@ -564,7 +590,7 @@
 				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
 				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
 				27DDBABC29A501A7008849D1 /* FDBusPage.swift */,
-				27BDF9E529AD287600EE8131 /* FDEcardPage.swift */,
+				27BDF9E529AD287600EE8131 /* FDECardPage.swift */,
 				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
 				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
 				27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */,
@@ -840,6 +866,12 @@
 			dependencies = (
 			);
 			name = "DanXi Wigdet";
+			packageProductDependencies = (
+				27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */,
+				27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */,
+				27B7AC1729DEB2C900DAE0C5 /* Disk */,
+				27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */,
+			);
 			productName = DanXi_WigdetExtension;
 			productReference = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -936,6 +968,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */,
+				27B7AC1C29DEB53100DAE0C5 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +977,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */,
+				27B7AC1B29DEB53000DAE0C5 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -990,8 +1024,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27536EC429DC9A8100894A98 /* DanXi_Wigdet.swift in Sources */,
+				27B7AC0E29DEB27100DAE0C5 /* FDAcademicAPI.swift in Sources */,
+				27B7AC0729DEB27100DAE0C5 /* FDAuthAPI.swift in Sources */,
+				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
+				27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */,
+				27B7AC0D29DEB27100DAE0C5 /* FDElectricityAPI.swift in Sources */,
+				27B7AC0B29DEB27100DAE0C5 /* FDBusAPI.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */,
+				27B7AC1029DEB28900DAE0C5 /* DecodeDate.swift in Sources */,
+				27B7AC1129DEB28C00DAE0C5 /* Defaults.swift in Sources */,
+				27B7ABF929DEB24700DAE0C5 /* FDModel.swift in Sources */,
+				27B7AC0929DEB27100DAE0C5 /* FDSportAPI.swift in Sources */,
+				27B7AC0829DEB27100DAE0C5 /* FDCanteenAPI.swift in Sources */,
+				27B7AC0C29DEB27100DAE0C5 /* FDECardAPI.swift in Sources */,
+				27B7AC0A29DEB27100DAE0C5 /* FDClassroomAPI.swift in Sources */,
+				27B7AC0629DEB27100DAE0C5 /* FDPlaygroundAPI.swift in Sources */,
+				27B7AC0529DEB27100DAE0C5 /* FDLibraryAPI.swift in Sources */,
+				27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */,
+				27B7AC1229DEB28F00DAE0C5 /* LocalStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,7 +1061,7 @@
 				2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */,
 				2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */,
 				27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */,
-				27BDF9E629AD287600EE8131 /* FDEcardPage.swift in Sources */,
+				27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* THMentionView.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */,
@@ -1418,7 +1468,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1455,7 +1505,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1612,6 +1662,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */;
 			productName = AdvancedScrollView;
+		};
+		27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		27B7AC1729DEB2C900DAE0C5 /* Disk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
+			productName = Disk;
+		};
+		27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		27BBBCFE29119368007C2905 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;

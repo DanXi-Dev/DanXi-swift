@@ -23,7 +23,7 @@ struct FDHomePage: View {
                 }
                 
                 NavigationLink {
-                    FDEcardPage()
+                    FDECardPage()
                 } label: {
                     Label("ECard Information", systemImage: "creditcard")
                 }

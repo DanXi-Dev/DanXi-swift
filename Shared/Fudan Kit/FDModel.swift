@@ -17,7 +17,7 @@ class FDModel: ObservableObject {
     
     // MARK: - Authentication
     
-    let keychain = Keychain(server: "https://uis.fudan.edu.cn", protocolType: .https)
+    let keychain = Keychain(service: "com.fduhole.fdutools", accessGroup: "group.com.fduhole")
     @Published var isLogged: Bool = false
     var username: String? {
         didSet { keychain["username"] = username }
