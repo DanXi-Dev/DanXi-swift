@@ -75,9 +75,9 @@ struct FDScorePage: View {
                     
                     Spacer()
                     
-                    Menu(String(localized: semester.formatted())) {
+                    Menu(semester.formatted()) {
                         ForEach(semesters) { semester in
-                            Button(String(localized: semester.formatted())) {
+                            Button(semester.formatted()) {
                                 self.semester = semester
                             }
                         }

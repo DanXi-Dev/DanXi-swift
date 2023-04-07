@@ -21,7 +21,6 @@ struct FDAcademicAPI {
         guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
             throw NetworkError.invalidResponse
         }
-        
         jsonString.replace(/(?<key>\w+):/) { match in
             return "\"\(match.key)\":"
         }
@@ -31,12 +30,33 @@ struct FDAcademicAPI {
         var semesters: [FDSemester] = []
         
         let json = try JSON(data: jsonString.data(using: String.Encoding.utf8)!)["semesters"]
-        for (_, subJson) : (String, JSON) in json {
-            semesters.append(contentsOf: try JSONDecoder().decode([FDSemester].self,
-                                                                  from: try subJson.rawData()))
+        for (_, arrayJSON) : (String, JSON) in json {
+            for (_, semesterJSON) : (String, JSON) in arrayJSON {
+                // parse data from JSON
+                guard let id = semesterJSON["id"].int else { continue }
+                guard let schoolYear = semesterJSON["schoolYear"].string else { continue }
+                guard let name = semesterJSON["name"].string else { continue }
+                
+                // transform data to proper format
+                guard let yearName = schoolYear.firstMatch(of: /(\d+)-(\d+)/)?.1 else { continue }
+                var kind = FDSemester.Kind.first
+                if name.contains("1") {
+                    kind = .first
+                } else if name.contains("2") {
+                    kind = .second
+                } else if name.contains("暑") {
+                    kind = .summer
+                } else if name.contains("寒") {
+                    kind = .winter
+                }
+                
+                // append array
+                let semester = FDSemester(id: id, year: Int(yearName)!, kind: kind)
+                semesters.append(semester)
+            }
         }
         
-        return semesters.sorted { $0.id < $1.id } // sort by ID
+        return semesters.sorted()
     }
     
     static func getScore(semester: Int) async throws -> [FDScore] {
@@ -89,8 +109,8 @@ struct FDAcademicAPI {
         return rankList
     }
     
-    static func getCourseList(semester: Int? = nil, startWeek: Int = 1) async throws -> [FDCourse] {
-        // get ids param
+    static func getCourseList(semester: Int? = nil, startWeek: Int = 1) async throws -> (Int, [FDCourse]) {
+        // get `ids` and `semesterId` parameter for POST request
         let metaURL = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd.action")!
         let (data, _) = try await sendRequest(URLRequest(url: metaURL))
         let html = String(data: data, encoding: String.Encoding.utf8)!
@@ -99,13 +119,11 @@ struct FDAcademicAPI {
         guard let ids = html.firstMatch(of: idsPattern)?.ids else {
             throw NetworkError.invalidResponse
         }
-        
-        // get semesterId param
-        var semesterId: String?
+        var semesterId: Int?
         if let semester = semester {
-            semesterId = String(semester)
+            semesterId = semester
         } else if let result = html.firstMatch(of: semesterIdPattern) {
-            semesterId = String(result.semester)
+            semesterId = Int(result.semester)!
         } else {
             throw NetworkError.invalidResponse
         }
@@ -113,7 +131,7 @@ struct FDAcademicAPI {
         // get course table
         let courseURL = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd!courseTable.action")!
         let form = [URLQueryItem(name: "ignoreHead", value: "1"),
-                    URLQueryItem(name: "semester.id", value: semesterId!), // semesterId can't be nil here
+                    URLQueryItem(name: "semester.id", value: String(semesterId!)), // semesterId can't be nil here
                     URLQueryItem(name: "startWeek", value: String(startWeek)),
                     URLQueryItem(name: "setting.kind", value: "std"),
                     URLQueryItem(name: "ids", value: String(ids))]
@@ -125,57 +143,40 @@ struct FDAcademicAPI {
         var courseList: [FDCourse] = []
         
         // Regex for matching JS info
-        let newCoursePattern = /new TaskActivity\("(?<id>.*)","(?<instructor>.*)","\d+\((?<code>.*)\)","(?<name>.*)\(.*\)","(.*?)","(?<location>.*)","(.*?)"\);/
+        let newCoursePattern = /new TaskActivity\(".*","(?<instructor>.*)","(?<id>\d+)\((?<code>.*)\)","(?<name>.*)\(.*\)","(.*?)","(?<location>.*)","(?<weeks>[01]+)"\);/
         let courseTimePattern = /index\s*=\s*(?<weekday>\d+)\s*\*unitCount\s*\+\s*(?<time>\d+)/
         
         // Parse JS info into an array of course `courseList`
         for line in lines {
             if let result = line.firstMatch(of: newCoursePattern) {
                 // JS: `new Activity(<course info>)`, parse and create a new course
-                let course = FDCourse(id: Int(result.id) ?? 0,
-                                  instructor: String(result.instructor),
-                                  code: String(result.code),
-                                  name: String(result.name),
-                                  location: String(result.location))
+                
+                let weeksString = String(result.weeks)
+                var weeks: [Int] = []
+                for (index, character) in weeksString.enumerated() {
+                    if character == "1" {
+                        weeks.append(index)
+                    }
+                }
+                
+                let course = FDCourse(name: String(result.name),
+                                      code: String(result.code),
+                                      instructor: String(result.instructor),
+                                      location: String(result.location),
+                                      weeks: weeks)
                 courseList.append(course)
             } else if let result = line.firstMatch(of: courseTimePattern) {
                 // JS: `index =5*unitCount+10;`, parse and edit course info
-                let last = courseList.count - 1
-                // weekday, time pattern is \d+, so this should be Int, using force unwrap
-                courseList[last].weekday = Int(result.weekday)!
-                let time = Int(result.time)!
-                if courseList[last].startTime == 0 {
-                    courseList[last].startTime = time
-                } else {
-                    courseList[last].endTime = max(courseList[last].endTime, time)
-                }
+                courseList[courseList.count - 1].update(weekday: Int(result.weekday)!,
+                                                        time: Int(result.time)!)
             }
         }
         
-        return courseList
+        return (semesterId!, courseList)
     }
 }
 
-struct FDSemester: Codable, Identifiable, Equatable, Hashable {
-    let id: Int
-    let schoolYear: String
-    let name: String
-    
-    func formatted() -> LocalizedStringResource {
-        switch name {
-        case "1":
-            return LocalizedStringResource("\(String(schoolYear)) Fall Semester")
-        case "2":
-            return LocalizedStringResource("\(String(schoolYear)) Spring Semester")
-        case "寒假":
-            return LocalizedStringResource("\(String(schoolYear)) Winter Vacation")
-        case "暑期":
-            return LocalizedStringResource("\(String(schoolYear)) Summer Vacation")
-        default:
-            return "\(schoolYear) \(name)"
-        }
-    }
-}
+// MARK: - Entities
 
 struct FDScore: Identifiable {
     let id = UUID()
@@ -186,6 +187,7 @@ struct FDScore: Identifiable {
     let grade: String
     let gradePoint: String
 }
+
 
 struct FDRank: Identifiable {
     let id = UUID()
@@ -202,39 +204,100 @@ struct FDRank: Identifiable {
     }
 }
 
-struct FDCourse: Identifiable, Codable {
+
+struct FDSemester: Identifiable, Comparable, Codable, Hashable {
     let id: Int
-    let instructor: String
-    let code: String
-    let name: String
-    let location: String
-    var weekday = 0
-    var startTime = 0
-    var endTime = 0
+    let year: Int
+    let kind: Kind
+    
+    enum Kind: Int, Codable {
+        case first = 1, winter, second, summer
+    }
+    
+    func formatted() -> String {
+        var name = ""
+        switch kind {
+        case .first: name = "第1学期"
+        case .second: name = "第2学期"
+        case .winter: name = "寒假学期"
+        case .summer: name = "暑期学期"
+        }
+        
+        return "\(year)-\(year + 1)\(name)"
+    }
+    
+    static func < (lhs: FDSemester, rhs: FDSemester) -> Bool {
+        if lhs.year != rhs.year {
+            return lhs.year < rhs.year
+        }
+        
+        return lhs.kind.rawValue < rhs.kind.rawValue
+    }
 }
 
-struct FDCourseTable: Codable {
-    let week: Int
-    let courses: [FDCourse]
+struct FDCourse: Identifiable, Codable {
+    var id = UUID()
+    let name, code: String
+    let instructor: String
+    let location: String
+    let weeks: [Int]
+    
+    func openOn(_ week: Int) -> Bool {
+        weeks.contains(week)
+    }
+    
+    var weekday: Int = 0
+    var start: Int = -1
+    var end: Int = -1
+    mutating func update(weekday: Int, time: Int) {
+        self.weekday = weekday
+        if end == -1 { // not initialized yet
+            start = time
+            end = time
+        } else {
+            end = max(end, time)
+        }
+    }
 }
 
 struct FDTimeSlot: Identifiable {
     let id: Int
-    let startTime: String
-    let endTime: String
+    let start, end: String
+    let startTime: DateComponents
+    let endTime: DateComponents
     
-    static let list = [FDTimeSlot(id: 1, startTime: "08:00", endTime: "08:45"),
-                       FDTimeSlot(id: 2, startTime: "08:55", endTime: "09:40"),
-                       FDTimeSlot(id: 3, startTime: "09:55", endTime: "10:40"),
-                       FDTimeSlot(id: 4, startTime: "10:50", endTime: "11:35"),
-                       FDTimeSlot(id: 5, startTime: "11:45", endTime: "12:30"),
-                       FDTimeSlot(id: 6, startTime: "13:30", endTime: "14:15"),
-                       FDTimeSlot(id: 7, startTime: "14:25", endTime: "15:10"),
-                       FDTimeSlot(id: 8, startTime: "15:25", endTime: "16:10"),
-                       FDTimeSlot(id: 9, startTime: "16:20", endTime: "17:05"),
-                       FDTimeSlot(id: 10, startTime: "17:15", endTime: "18:00"),
-                       FDTimeSlot(id: 11, startTime: "18:30", endTime: "19:15"),
-                       FDTimeSlot(id: 12, startTime: "19:25", endTime: "20:10")]
+    init(_ id: Int, _ start: String, _ end: String) {
+        self.id = id
+        
+        self.start = start
+        self.end = end
+        
+        let timeRegex = /(?<hour>\d+):(?<minute>\d+)/
+        
+        let startMatch = start.wholeMatch(of: timeRegex)!
+        var startTime = DateComponents()
+        startTime.hour = Int(startMatch.hour)!
+        startTime.minute = Int(startMatch.minute)!
+        self.startTime = startTime
+        
+        let endMatch = end.wholeMatch(of: timeRegex)!
+        var endTime = DateComponents()
+        endTime.hour = Int(endMatch.hour)!
+        endTime.minute = Int(endMatch.minute)!
+        self.endTime = endTime
+    }
+    
+    static let list = [FDTimeSlot(1, "08:00", "08:45"),
+                       FDTimeSlot(2, "08:55", "09:40"),
+                       FDTimeSlot(3, "09:55", "10:40"),
+                       FDTimeSlot(4, "10:50", "11:35"),
+                       FDTimeSlot(5, "11:45", "12:30"),
+                       FDTimeSlot(6, "13:30", "14:15"),
+                       FDTimeSlot(7, "14:25", "15:10"),
+                       FDTimeSlot(8, "15:25", "16:10"),
+                       FDTimeSlot(9, "16:20", "17:05"),
+                       FDTimeSlot(10, "17:15", "18:00"),
+                       FDTimeSlot(11, "18:30", "19:15"),
+                       FDTimeSlot(12, "19:25", "20:10"),
+                       FDTimeSlot(13, "20:20", "21:05")]
 }
-
-

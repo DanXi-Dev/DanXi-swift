@@ -45,7 +45,7 @@ struct TabHomePage: View {
                 }
                 .toolbarBackground(.visible, for: .tabBar)
             
-            FDCalendarPage()
+            FDCalendarPageLoader()
                 .tag(AppSection.calendar)
                 .tabItem {
                     Label("Calendar", systemImage: "calendar")
@@ -92,7 +92,7 @@ struct SplitHomePage: View {
                 case .curriculum:
                     DKHomePage()
                 case .calendar:
-                    FDCalendarPage()
+                    FDCalendarPageLoader()
                 case .settings:
                     SettingsPage()
                 }

@@ -170,6 +170,7 @@
 		27E5E82F28BA699C0074D295 /* review.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82E28BA699C0074D295 /* review.json */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
+		27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF021229DF519E0094F7D5 /* AsyncContentView.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FBAA4B28BE4E7E00B27F30 /* floor-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAA4A28BE4E7E00B27F30 /* floor-list.json */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
@@ -348,6 +349,7 @@
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
 		27E5E82E28BA699C0074D295 /* review.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = review.json; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
+		27EF021229DF519E0094F7D5 /* AsyncContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncContentView.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
 		27FBAA4A28BE4E7E00B27F30 /* floor-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "floor-list.json"; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseModel.swift; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				27DAFA7829CC50E100F32093 /* AsnyncButton.swift */,
+				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
 				27D7110C28CA38DC001E9464 /* FormPrimitive.swift */,
 				27E4686228BCABC100CDE8CE /* LoadingPage.swift */,
 				27B5D70E28C74E9400924264 /* TextEditView.swift */,
@@ -1138,6 +1141,7 @@
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
+				27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */,
 				27066030292F522B00F4C321 /* LinkView.swift in Sources */,
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,

@@ -1,32 +1,120 @@
 import SwiftUI
 
+struct FDCalendarPageLoader: View {
+    var body: some View {
+        AsyncContentView {
+            try await FDCalendarModel.load()
+        } content: { model in
+            FDCalendarPage(model)
+        }
+    }
+}
+
 struct FDCalendarPage: View {
-    @StateObject var model = FDCalendarModel()
+    @StateObject var model: FDCalendarModel
+    @State var showSettingSheet = false
+    @State var showExportSheet = false
+    
+    init(_ model: FDCalendarModel) {
+        self._model = StateObject(wrappedValue: model)
+    }
     
     var body: some View {
-        LoadingPage(action: model.load) {
-            NavigationStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    HStack {
-                        FDCalendarSidebar()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            VStack {
-                                FDCalendarDateHeader()
-                                FDCalendarContent()
-                            }
+        NavigationStack {
+            List {
+                Section {
+                    if model.expired {
+                        Button {
+                            showSettingSheet = true
+                        } label: {
+                            Label("Current semester expired, reset semester", systemImage: "calendar.badge.exclamationmark")
+                        }
+                        .foregroundColor(.red)
+                    }
+                    
+                    if model.semesterStart == nil {
+                        Button {
+                            showSettingSheet = true
+                        } label: {
+                            Label("Select Semester Start Date", systemImage: "calendar.badge.exclamationmark")
+                        }
+                        .foregroundColor(.red)
+                    } else if !model.courses.isEmpty {
+                        Stepper(value: $model.week, in: model.weekRange) {
+                            Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
                         }
                     }
                 }
-                .navigationTitle("Calendar")
-                .environmentObject(model)
+                
+                HStack {
+                    FDCalendarSidebar()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        VStack {
+                            FDCalendarDateHeader()
+                            FDCalendarContent()
+                        }
+                    }
+                }
             }
+            .listStyle(.inset)
+            .navigationTitle("Calendar")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showSettingSheet = true
+                    } label: {
+                        Image(systemName: "calendar")
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showExportSheet = true
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .disabled(model.semesterStart == nil)
+                }
+            }
+            .sheet(isPresented: $showSettingSheet) {
+                FDCalendarSetting(semester: model.semester)
+            }
+            .environmentObject(model)
         }
     }
 }
 
 // MARK: - Controls
 
-// TODO
+fileprivate struct FDCalendarSetting: View {
+    @EnvironmentObject var model: FDCalendarModel
+    @State var semester: FDSemester
+    
+    var body: some View {
+        AsyncContentView {
+            try await model.reloadSemesters()
+        } content: { _ in
+            FormPrimitive(title: "Calendar Settings", allowSubmit: model.semesterStart != nil) {
+                Picker(selection: $semester, label: Text("Select Semester")) {
+                    ForEach(model.semesters) { semester in
+                        Text(semester.formatted()).tag(semester)
+                    }
+                }
+                
+                let binding = Binding<Date>(
+                    get: { model.semesterStart ?? Date() },
+                    set: { model.semesterStart = $0 }
+                )
+                
+                DatePicker(selection: binding, in: ...Date.now, displayedComponents: [.date]) {
+                    Label("Semester Start Date", systemImage: "calendar")
+                }
+            } action: {
+                try await model.refresh(semester)
+            }
+        }
+    }
+}
 
 
 // MARK: - Course UI
@@ -39,10 +127,10 @@ fileprivate struct FDCalendarContent: View {
         ZStack {
             FDCalendarGrid()
             
-            ForEach(model.courses) { course in
-                let length = CGFloat(course.endTime + 1 - course.startTime) * dy
+            ForEach(model.weekCourses) { course in
+                let length = CGFloat(course.end + 1 - course.start) * dy
                 let point = CGPoint(x: CGFloat(course.weekday) * dx + dx / 2,
-                                    y: CGFloat(course.startTime) * dy + length / 2)
+                                    y: CGFloat(course.start) * dy + length / 2)
                 let color = randomColor(course.name)
                 VStack(alignment: .leading) {
                     Text(course.name)
@@ -69,7 +157,7 @@ fileprivate struct FDCalendarContent: View {
                 }
             }
         }
-        .frame(width: 7 * dx, height: 12 * dy)
+        .frame(width: 7 * dx, height: CGFloat(h) * dy)
         .sheet(item: $selectedCourse) { course in
             FDCourseSheet(course: course)
                 .presentationDetents([.medium])
@@ -103,8 +191,8 @@ fileprivate struct FDCourseSheet: View {
                 } label: {
                     Label("Location", systemImage: "mappin.and.ellipse")
                 }
-                
             }
+            .listStyle(.insetGrouped)
             .navigationTitle("Course Detail")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -119,14 +207,17 @@ fileprivate struct FDCalendarDateHeader: View {
     
     var body: some View {
         ZStack {
+            let weekStart = model.weekStart ?? FDCalendarModel.getWeekStart()
             ForEach(0..<7) { i in
                 let point = CGPoint(x: dx / 2 + CGFloat(i) * dx, y: y/2)
-                let date = calendar.date(byAdding: .day, value: i, to: model.weekStart)!
+                let date = calendar.date(byAdding: .day, value: i, to: weekStart)!
                 let isToday = calendar.isDateInToday(date)
                 VStack(alignment: .center, spacing: 10) {
-                    Text(date.formatted(.dateTime.month(.defaultDigits).day()))
-                        .foregroundColor(isToday ? .accentColor : .primary)
-                        .font(.system(size: 15))
+                    if model.weekStart != nil {
+                        Text(date.formatted(.dateTime.month(.defaultDigits).day()))
+                            .foregroundColor(isToday ? .accentColor : .primary)
+                            .font(.system(size: 15))
+                    }
                     Text(date.formatted(.dateTime.weekday(.abbreviated)))
                         .font(.system(size: 10))
                 }
@@ -144,7 +235,7 @@ fileprivate struct FDCalendarGrid: View {
             let separatorColor = Color.secondary.opacity(0.5)
             
             // draw horizontal lines
-            for i in 0...12 {
+            for i in 0...h {
                 let start = CGPoint(x: 0, y: CGFloat(i) * dy)
                 let end = CGPoint(x: 7 * dx, y: CGFloat(i) * dy)
                 let path = Path { path in
@@ -157,7 +248,7 @@ fileprivate struct FDCalendarGrid: View {
             // draw vertical lines
             for i in 0...7 {
                 let start = CGPoint(x: CGFloat(i) * dx, y: 0)
-                let end = CGPoint(x: CGFloat(i) * dx, y: 12 * dy)
+                let end = CGPoint(x: CGFloat(i) * dx, y: CGFloat(h) * dy)
                 let path = Path { path in
                     path.move(to: start)
                     path.addLine(to: end)
@@ -165,7 +256,7 @@ fileprivate struct FDCalendarGrid: View {
                 context.stroke(path, with: .color(separatorColor))
             }
         }
-        .frame(width: 7 * dx, height: 12 * dy)
+        .frame(width: 7 * dx, height: CGFloat(h) * dy)
     }
 }
 
@@ -178,8 +269,8 @@ fileprivate struct FDTimeSlotView: View {
                 .font(.system(size: 14))
                 .bold()
             Group {
-                Text(timeSlot.startTime)
-                Text(timeSlot.endTime)
+                Text(timeSlot.start)
+                Text(timeSlot.end)
             }
             .font(.system(size: 9))
         }
@@ -197,29 +288,14 @@ fileprivate struct FDCalendarSidebar: View {
                     .position(point)
             }
         }
-        .frame(width: x, height: y + 12 * dy)
+        .frame(width: x, height: y + CGFloat(h) * dy)
     }
 }
-
-
 
 // MARK: - Length Constants
 
 fileprivate let x: CGFloat = 40
 fileprivate let y: CGFloat = 40
 fileprivate let dx: CGFloat = 60
-fileprivate let dy: CGFloat = 70
-
-
-// MARK: - Test Data
-
-let courses = [FDCourse(id: 12, instructor: "张三", code: "PEDU1244334.3", name: "羽毛球", location: "H正大体育馆", startTime: 3, endTime: 5)]
-
-
-struct FDCalendarPage_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            FDCalendarPage()
-        }
-    }
-}
+fileprivate let dy: CGFloat = 50
+fileprivate let h = FDTimeSlot.list.count

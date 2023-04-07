@@ -342,6 +342,13 @@
 "Instructor" = "教师";
 "Course ID" = "课程代码";
 "Location" = "上课地点";
+"Semester Start Date" = "学期开始时间";
+"Select Semester Start Date" = "选择学期开始时间";
+"Week %@" = "第%@周";
+"Calendar Settings" = "日历设置";
+"Export to System Calendar" = "导出到系统日历";
+"Select Semester" = "选择学期";
+"Current semester expired, reset semester" = "当前学期已结束，设置新学期";
 
 // About
 "Website" = "网站";
