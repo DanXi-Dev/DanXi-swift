@@ -6,9 +6,17 @@ struct THPostSheet: View {
     @State var tags: [String] = []
     
     var body: some View {
-        FormPrimitive(title: "New Post",
-                      allowSubmit: !tags.isEmpty && !content.isEmpty,
-                      errorTitle: "Send Post Failed") {
+        Sheet("New Post") {
+            try await THRequests.createHole(
+                content: content,
+                divisionId: divisionId,
+                tags: tags)
+            content = ""
+            
+            Task { // reload favorites since new post will automatically be favorited
+                try await DXModel.shared.loadFavoriteIds()
+            }
+        } content: {
             Section {
                 Picker(selection: $divisionId,
                        label: Label("Select Division", systemImage: "rectangle.3.group")) {
@@ -36,17 +44,8 @@ struct THPostSheet: View {
                     Text("Preview")
                 }
             }
-        } action: {
-            try await THRequests.createHole(
-                content: content,
-                divisionId: divisionId,
-                tags: tags)
-            content = ""
-            
-            Task { // reload favorites since new post will automatically be favorited
-                try await DXModel.shared.loadFavoriteIds()
-            }
         }
+        .completed(!tags.isEmpty && !content.isEmpty)
     }
 }
 

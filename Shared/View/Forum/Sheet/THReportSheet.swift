@@ -5,10 +5,9 @@ struct THReportSheet: View {
     @State var reason = ""
     
     var body: some View {
-        FormPrimitive(title: "Report",
-                      allowSubmit: !reason.isEmpty,
-                      errorTitle: "Report Failed",
-                      needConfirmation: true) {
+        Sheet("Report") {
+            try await THRequests.report(floorId: model.floor.id, reason: reason)
+        } content: {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
                     THFloorContent(model.floor.content)
@@ -21,9 +20,7 @@ struct THReportSheet: View {
             Section {
                 TextField("Enter report reason", text: $reason)
             }
-        } action: {
-            try await THRequests.report(floorId: model.floor.id,
-                                        reason: reason)
         }
+        .completed(!reason.isEmpty)
     }
 }

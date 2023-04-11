@@ -143,8 +143,6 @@
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D6F4582892C96E0059228F /* hole.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D6F4572892C96E0059228F /* hole.json */; };
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
-		27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110A28CA3167001E9464 /* LoadingOverlay.swift */; };
-		27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110C28CA38DC001E9464 /* FormPrimitive.swift */; };
 		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
 		27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
 		27DAFA6729CB375D00F32093 /* THHoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6629CB375D00F32093 /* THHoleModel.swift */; };
@@ -157,6 +155,7 @@
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
 		27DDBABF29A501D2008849D1 /* bus.json in Resources */ = {isa = PBXBuildFile; fileRef = 27DDBABE29A501D2008849D1 /* bus.json */; };
+		27DE299829E5A83600B5B28A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE299729E5A83600B5B28A /* Sheet.swift */; };
 		27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
 		27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */; };
 		27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52C29D09CF700B333BA /* AppModel.swift */; };
@@ -324,8 +323,6 @@
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D6F4572892C96E0059228F /* hole.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hole.json; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* THReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportSheet.swift; sourceTree = "<group>"; };
-		27D7110A28CA3167001E9464 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
-		27D7110C28CA38DC001E9464 /* FormPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPrimitive.swift; sourceTree = "<group>"; };
 		27DAFA6329CB270E00F32093 /* FDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDModel.swift; sourceTree = "<group>"; };
 		27DAFA6629CB375D00F32093 /* THHoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleModel.swift; sourceTree = "<group>"; };
 		27DAFA6829CB43FA00F32093 /* THHoleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleLoader.swift; sourceTree = "<group>"; };
@@ -337,6 +334,7 @@
 		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
 		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
 		27DDBABE29A501D2008849D1 /* bus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bus.json; sourceTree = "<group>"; };
+		27DE299729E5A83600B5B28A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDPlaygroundAPI.swift; sourceTree = "<group>"; };
 		27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundPage.swift; sourceTree = "<group>"; };
 		27E1C52C29D09CF700B333BA /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
@@ -694,10 +692,8 @@
 			children = (
 				27DAFA7829CC50E100F32093 /* AsnyncButton.swift */,
 				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
-				27D7110C28CA38DC001E9464 /* FormPrimitive.swift */,
 				27E4686228BCABC100CDE8CE /* LoadingPage.swift */,
 				27B5D70E28C74E9400924264 /* TextEditView.swift */,
-				27D7110A28CA3167001E9464 /* LoadingOverlay.swift */,
 				27E4686428BCD22500CDE8CE /* LoadingFooter.swift */,
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
@@ -707,6 +703,7 @@
 				27A5DA2C29D98A300042D28D /* ImageBrowser.swift */,
 				273D65BC292E08C10064DCB1 /* TextSelectionView.swift */,
 				2706602F292F522B00F4C321 /* LinkView.swift */,
+				27DE299729E5A83600B5B28A /* Sheet.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -1097,12 +1094,12 @@
 				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
-				27D7110D28CA38DC001E9464 /* FormPrimitive.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
 				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
+				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
@@ -1132,7 +1129,6 @@
 				2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */,
 				27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */,
 				27227FD528A512B300B3C99D /* Defaults.swift in Sources */,
-				27D7110B28CA3167001E9464 /* LoadingOverlay.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
 				27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */,
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,
@@ -1268,7 +1264,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 452;
+				CURRENT_PROJECT_VERSION = 453;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -1302,7 +1298,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 452;
+				CURRENT_PROJECT_VERSION = 453;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -1452,7 +1448,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 452;
+				CURRENT_PROJECT_VERSION = 453;
 				DEVELOPMENT_ASSET_PATHS = Shared/Resources/Preview;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1489,7 +1485,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 452;
+				CURRENT_PROJECT_VERSION = 453;
 				DEVELOPMENT_ASSET_PATHS = Shared/Resources/Preview;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;

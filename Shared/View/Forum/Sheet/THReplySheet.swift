@@ -9,7 +9,9 @@ struct THReplySheet: View {
     }
     
     var body: some View {
-        FormPrimitive(title: "Reply", allowSubmit: !content.isEmpty) {
+        Sheet("Reply") {
+            try await model.reply(content)
+        } content: {
             Section {
                 TextEditView($content,
                              placeholder: "Enter reply content")
@@ -25,8 +27,7 @@ struct THReplySheet: View {
                     Text("Preview")
                 }
             }
-        } action: {
-            try await model.reply(content)
         }
+        .completed(!content.isEmpty)
     }
 }

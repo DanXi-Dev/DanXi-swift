@@ -11,9 +11,10 @@ struct THHoleEditSheet: View {
     }
     
     var body: some View {
-        FormPrimitive(title: "Edit Post Info",
-                      allowSubmit: !tags.isEmpty,
-                      errorTitle: "Edit Post Info Failed") {
+        Sheet("Edit Post Info") {
+            info.setTags(tags)
+            try await model.modifyHole(info)
+        } content: {
             Section {
                 Picker(selection: $info.divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
                     ForEach(DXModel.shared.divisions) { division in
@@ -34,9 +35,7 @@ struct THHoleEditSheet: View {
                     Label("Lock Post", systemImage: "lock.fill")
                 }
             }
-        } action: {
-            info.setTags(tags)
-            try await model.modifyHole(info)
         }
+        .completed(!tags.isEmpty)
     }
 }

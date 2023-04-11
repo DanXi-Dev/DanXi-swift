@@ -94,7 +94,9 @@ fileprivate struct FDCalendarSetting: View {
         AsyncContentView {
             try await model.reloadSemesters()
         } content: { _ in
-            FormPrimitive(title: "Calendar Settings", allowSubmit: model.semesterStart != nil) {
+            Sheet("Calendar Settings") {
+                try await model.refresh(semester)
+            } content: {
                 Picker(selection: $semester, label: Text("Select Semester")) {
                     ForEach(model.semesters) { semester in
                         Text(semester.formatted()).tag(semester)
@@ -109,9 +111,8 @@ fileprivate struct FDCalendarSetting: View {
                 DatePicker(selection: binding, in: ...Date.now, displayedComponents: [.date]) {
                     Label("Semester Start Date", systemImage: "calendar")
                 }
-            } action: {
-                try await model.refresh(semester)
             }
+            .completed(model.semesterStart != nil)
         }
     }
 }

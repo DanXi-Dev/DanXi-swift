@@ -10,9 +10,9 @@ struct THFloorEditSheet: View {
     }
     
     var body: some View {
-        FormPrimitive(title: "Edit Reply",
-                      allowSubmit: !content.isEmpty,
-                      errorTitle: "Edit Reply Failed") {
+        Sheet("Edit Reply") {
+            try await model.edit(content, specialTag: specialTag)
+        } content: {
             Section {
                 if DXModel.shared.isAdmin {
                     TextField("Special Tag", text: $specialTag)
@@ -32,8 +32,7 @@ struct THFloorEditSheet: View {
                     Text("Preview")
                 }
             }
-        } action: {
-            try await model.edit(content, specialTag: specialTag)
         }
+        .completed(!content.isEmpty)
     }
 }

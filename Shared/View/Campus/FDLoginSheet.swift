@@ -5,16 +5,15 @@ struct FDLoginSheet: View {
     @State var password = ""
     
     var body: some View {
-        FormPrimitive(title: "Fudan UIS Login",
-                      submitText: "Login",
-                      allowSubmit: !username.isEmpty && !password.isEmpty,
-                      errorTitle: "Login Failed") {
+        Sheet("Fudan UIS Login") {
+            try await FDModel.shared.login(username, password)
+        } content: {
             TextField("Fudan UIS Account", text: $username)
                 .keyboardType(.decimalPad)
             SecureField("Password", text: $password)
-        } action: {
-            try await FDModel.shared.login(username, password)
         }
+        .completed(!username.isEmpty && !password.isEmpty)
+        .submitText("Login")
     }
 }
 

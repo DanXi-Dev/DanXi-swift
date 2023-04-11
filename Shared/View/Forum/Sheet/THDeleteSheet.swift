@@ -8,9 +8,9 @@ struct THDeleteSheet: View {
     @State var days = 1
     
     var body: some View {
-        FormPrimitive(title: "Delete Post",
-                      allowSubmit: true,
-                      needConfirmation: true) {
+        Sheet("Delete Post") {
+            try await model.punish(reason, days: ban ? days : 0)
+        } content: {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
                     THFloorContent(model.floor.content)
@@ -41,12 +41,8 @@ struct THDeleteSheet: View {
                     }
                 }
             }
-        } action: {
-            try await model.punish(reason, days: ban ? days : 0)
         }
     }
-    
-
 }
 
 struct THPunishmentHistorySheet: View {

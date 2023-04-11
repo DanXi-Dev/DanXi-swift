@@ -20,9 +20,16 @@ struct DKPostSheet: View {
     }
     
     var body: some View {
-        FormPrimitive(title: "New Review",
-                      allowSubmit: allowSubmit,
-                      errorTitle: "Send Review Failed") {
+        Sheet("New Review") {
+            let rank = DKRank(overall: Double(overallRating),
+                              content: Double(contentRating),
+                              workload: Double(workloadRating),
+                              assessment: Double(assessmentRating))
+            _ = try await DKRequests.postReview(courseId: courseId,
+                                                content: content,
+                                                title: title,
+                                                rank: rank)
+        } content: {
             Section {
                 Picker("Select Course", selection: $courseId) {
                     Text("Not Selected")
@@ -65,16 +72,8 @@ struct DKPostSheet: View {
             } header: {
                 Text("Course Evaluation")
             }
-        } action: {
-            let rank = DKRank(overall: Double(overallRating),
-                              content: Double(contentRating),
-                              workload: Double(workloadRating),
-                              assessment: Double(assessmentRating))
-            _ = try await DKRequests.postReview(courseId: courseId,
-                                                content: content,
-                                                title: title,
-                                                rank: rank)
         }
+        .completed(allowSubmit)
     }
 }
 
