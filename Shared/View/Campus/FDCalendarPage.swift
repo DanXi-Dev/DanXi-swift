@@ -124,6 +124,15 @@ fileprivate struct FDCalendarContent: View {
     @EnvironmentObject var model: FDCalendarModel
     @State private var selectedCourse: FDCourse?
     
+    @ScaledMetric var x = FDCalendarConfig.x
+    @ScaledMetric var y = FDCalendarConfig.y
+    @ScaledMetric var dx = FDCalendarConfig.dx
+    @ScaledMetric var dy = FDCalendarConfig.dy
+    let h = FDCalendarConfig.h
+    
+    @ScaledMetric var courseTitle = 15
+    @ScaledMetric var courseLocation = 10
+    
     var body: some View {
         ZStack {
             FDCalendarGrid()
@@ -138,10 +147,10 @@ fileprivate struct FDCalendarContent: View {
                         .bold()
                         .padding(.top, 5)
                         .foregroundColor(color)
-                        .font(.system(size: 15))
+                        .font(.system(size: courseTitle))
                     Text(course.location)
                         .foregroundColor(color.opacity(0.5))
-                        .font(.system(size: 10))
+                        .font(.system(size: courseLocation))
                     Spacer()
                 }
                 .padding(.horizontal, 2)
@@ -206,6 +215,15 @@ fileprivate struct FDCalendarDateHeader: View {
     @Environment(\.calendar) var calendar
     @EnvironmentObject var model: FDCalendarModel
     
+    @ScaledMetric var x = FDCalendarConfig.x
+    @ScaledMetric var y = FDCalendarConfig.y
+    @ScaledMetric var dx = FDCalendarConfig.dx
+    @ScaledMetric var dy = FDCalendarConfig.dy
+    let h = FDCalendarConfig.h
+    
+    @ScaledMetric var dateFont = 15
+    @ScaledMetric var weekFont = 10
+    
     var body: some View {
         ZStack {
             let weekStart = model.weekStart ?? FDCalendarModel.getWeekStart()
@@ -217,10 +235,10 @@ fileprivate struct FDCalendarDateHeader: View {
                     if model.weekStart != nil {
                         Text(date.formatted(.dateTime.month(.defaultDigits).day()))
                             .foregroundColor(isToday ? .accentColor : .primary)
-                            .font(.system(size: 15))
+                            .font(.system(size: dateFont))
                     }
                     Text(date.formatted(.dateTime.weekday(.abbreviated)))
-                        .font(.system(size: 10))
+                        .font(.system(size: weekFont))
                 }
                 .fontWeight(isToday ? .bold : .regular)
                 .position(point)
@@ -231,6 +249,12 @@ fileprivate struct FDCalendarDateHeader: View {
 }
 
 fileprivate struct FDCalendarGrid: View {
+    @ScaledMetric var x = FDCalendarConfig.x
+    @ScaledMetric var y = FDCalendarConfig.y
+    @ScaledMetric var dx = FDCalendarConfig.dx
+    @ScaledMetric var dy = FDCalendarConfig.dy
+    let h = FDCalendarConfig.h
+    
     var body: some View {
         Canvas { context, size in
             let separatorColor = Color.secondary.opacity(0.5)
@@ -264,22 +288,31 @@ fileprivate struct FDCalendarGrid: View {
 fileprivate struct FDTimeSlotView: View {
     let timeSlot: FDTimeSlot
     
+    @ScaledMetric var courseSize = 14
+    @ScaledMetric var timeSize = 9
+    
     var body: some View {
         VStack {
             Text(String(timeSlot.id))
-                .font(.system(size: 14))
+                .font(.system(size: courseSize))
                 .bold()
             Group {
                 Text(timeSlot.start)
                 Text(timeSlot.end)
             }
-            .font(.system(size: 9))
+            .font(.system(size: timeSize))
         }
         .foregroundColor(.secondary)
     }
 }
 
 fileprivate struct FDCalendarSidebar: View {
+    @ScaledMetric var x = FDCalendarConfig.x
+    @ScaledMetric var y = FDCalendarConfig.y
+    @ScaledMetric var dx = FDCalendarConfig.dx
+    @ScaledMetric var dy = FDCalendarConfig.dy
+    let h = FDCalendarConfig.h
+    
     var body: some View {
         ZStack {
             ForEach(FDTimeSlot.list) { timeSlot in
@@ -295,8 +328,10 @@ fileprivate struct FDCalendarSidebar: View {
 
 // MARK: - Length Constants
 
-fileprivate let x: CGFloat = 40
-fileprivate let y: CGFloat = 40
-fileprivate let dx: CGFloat = 60
-fileprivate let dy: CGFloat = 50
-fileprivate let h = FDTimeSlot.list.count
+fileprivate struct FDCalendarConfig {
+    static let x: CGFloat = 40
+    static let y: CGFloat = 40
+    static let dx: CGFloat = 60
+    static let dy: CGFloat = 50
+    static let h = FDTimeSlot.list.count
+}

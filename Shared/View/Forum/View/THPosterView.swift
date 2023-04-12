@@ -3,7 +3,11 @@ import SwiftUI
 struct THPosterView: View {
     let name: String
     let isPoster: Bool
-    @Environment(\.displayScale) var displayScale
+    
+    @ScaledMetric var barWidth = 3.0
+    @ScaledMetric var corner = 3.0
+    @ScaledMetric var posterPadding = 6.0
+    @ScaledMetric var barPadding = 10.0
     
     var body: some View {
         HStack {
@@ -13,9 +17,9 @@ struct THPosterView: View {
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    .padding(.horizontal, 6.0)
+                    .padding(.horizontal, posterPadding)
                     .background(randomColor(name))
-                    .cornerRadius(3.0)
+                    .cornerRadius(corner)
             }
             
             Text(name)
@@ -23,10 +27,10 @@ struct THPosterView: View {
                 .fontWeight(.bold)
         }
         .foregroundColor(randomColor(name))
-        .padding(.leading, 10)
+        .padding(.leading, barPadding)
         .overlay(
             Rectangle()
-                .frame(width: 3, height: nil, alignment: .leading)
+                .frame(width: barWidth, height: nil, alignment: .leading)
                 .foregroundColor(randomColor(name))
                 .padding(.vertical, 1), alignment: .leading)
     }
