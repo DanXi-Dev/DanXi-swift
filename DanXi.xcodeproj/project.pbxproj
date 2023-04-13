@@ -38,7 +38,6 @@
 		272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* THPostSheet.swift */; };
 		272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* THReplySheet.swift */; };
 		272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */; };
-		2736FDCE29C4F8C900D096D3 /* FDReservePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
 		273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 273D65B8292E07FF0064DCB1 /* Introspect */; };
 		273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D65BC292E08C10064DCB1 /* TextSelectionView.swift */; };
@@ -168,6 +167,7 @@
 		27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* DKReviewView.swift */; };
 		27E5E82F28BA699C0074D295 /* review.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82E28BA699C0074D295 /* review.json */; };
 		27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */; };
+		27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF021229DF519E0094F7D5 /* AsyncContentView.swift */; };
@@ -246,7 +246,6 @@
 		272AC8E02896F27300092B0C /* THPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostSheet.swift; sourceTree = "<group>"; };
 		272AC8E22896F29800092B0C /* THReplySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReplySheet.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorEditSheet.swift; sourceTree = "<group>"; };
-		2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDReservePage.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
 		273D65BC292E08C10064DCB1 /* TextSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSelectionView.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
@@ -348,6 +347,7 @@
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
 		27E5E82E28BA699C0074D295 /* review.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = review.json; sourceTree = "<group>"; };
 		27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigationModel.swift; sourceTree = "<group>"; };
+		27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundModel.swift; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
 		27EF021229DF519E0094F7D5 /* AsyncContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncContentView.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
@@ -502,6 +502,7 @@
 			children = (
 				27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */,
 				27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */,
+				27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -597,7 +598,6 @@
 				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
 				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
 				27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */,
-				2736FDCD29C4F8C900D096D3 /* FDReservePage.swift */,
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
 			);
 			path = Campus;
@@ -1131,6 +1131,7 @@
 				2706605529312D8300F4C321 /* FDAuthAPI.swift in Sources */,
 				2706605729312D8300F4C321 /* FDError.swift in Sources */,
 				2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */,
+				27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */,
 				27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */,
 				27227FD528A512B300B3C99D /* Defaults.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
@@ -1151,7 +1152,6 @@
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
-				2736FDCE29C4F8C900D096D3 /* FDReservePage.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,

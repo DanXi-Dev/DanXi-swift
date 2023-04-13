@@ -1,91 +1,108 @@
 import SwiftUI
 
 struct FDPlaygroundPage: View {
-    @State var playgrounds: [FDPlayground] = []
-    var types: [String] {
-        return Array(Set(playgrounds.map(\.type)))
-    }
-    var campusList: [String] {
-        return Array(Set(playgrounds.map(\.campus)))
-    }
-    
-    @State var campusSelection = ""
-    @State var typeSelection = ""
-    var filteredPlaygrounds: [FDPlayground] {
-        var result = playgrounds
-        if !campusSelection.isEmpty {
-            result = result.filter { $0.campus.contains(campusSelection) }
-        }
-        if !typeSelection.isEmpty {
-            result = result.filter { $0.type.contains(typeSelection) }
-        }
-        return result
-    }
-    
-    func initialLoad() async throws {
-        try await FDPlaygroundAPI.login()
-        let categories = try await FDPlaygroundAPI.getCategories()
-        playgrounds.append(contentsOf: try await FDPlaygroundAPI.getPlaygroundList(category: categories[0]))
-        playgrounds.append(contentsOf: try await FDPlaygroundAPI.getPlaygroundList(category: categories[2]))
-    }
-    
-    func categoryIcon(_ category: String) -> String {
-        let iconMap = ["钢琴": "pianokeys",
-                       "琴房": "pianokeys",
-                       "桌球": "circle.fill",
-                       "活动中心": "person.3.sequence.fill",
-                       "篮球": "basketball.fill",
-                       "羽毛球": "figure.badminton",
-                       "足球": "soccerball",
-                       "排球": "volleyball.fill",
-                       "网球": "tennis.racket",
-                       "舞蹈房": "figure.dance",
-                       "体能房": "dumbbell.fill"]
-        for (name, icon) in iconMap {
-            if category.contains(name) {
-                return icon
-            }
-        }
-        return "circle.fill"
-    }
-    
     var body: some View {
-        LoadingPage(action: initialLoad) {
-            List {
-                Section {
-                    Picker(selection: $campusSelection, label: Text("Campus")) {
-                        ForEach(campusList, id: \.self) { campus in
-                            Text(campus).tag(campus)
-                        }
-                        Text("All").tag("")
-                    }
-                    Picker(selection: $typeSelection, label: Text("Playground Type")) {
-                        ForEach(types, id: \.self) { type in
-                            Text(type).tag(type)
-                        }
-                        Text("All").tag("")
-                    }
-                }
-                
-                Section("Playground List") {
-                    ForEach(filteredPlaygrounds) { playground in
-                        NavigationLink {
-                            FDReservePage(playground: playground)
-                        } label: {
-                            Label(playground.name, systemImage: categoryIcon(playground.type))
-                        }
-                    }
-                }
-            }
-            .navigationTitle("Playground Reservation")
+        AsyncContentView {
+            return try await FDPlaygroundModel.load()
+        } content: { model in
+            FDPlaygroundContent(model)
         }
     }
 }
 
-struct FDPlaygroundPage_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            FDPlaygroundPage()
+fileprivate struct FDPlaygroundContent: View {
+    @StateObject var model: FDPlaygroundModel
+    
+    init(_ model: FDPlaygroundModel) {
+        self._model = StateObject(wrappedValue: model)
+    }
+    
+    var body: some View {
+        List {
+            Section {
+                Picker(selection: $model.campus, label: Text("Campus")) {
+                    ForEach(model.campusList, id: \.self) { campus in
+                        Text(campus).tag(campus)
+                    }
+                    Text("All").tag("")
+                }
+                Picker(selection: $model.type, label: Text("Playground Type")) {
+                    ForEach(model.typesList, id: \.self) { type in
+                        Text(type).tag(type)
+                    }
+                    Text("All").tag("")
+                }
+            }
+            
+            Section("Playground List") {
+                ForEach(model.filteredPlaygrounds) { playground in
+                    NavigationLink(value: playground) {
+                        Label(playground.name, systemImage: model.categoryIcon(playground.type))
+                    }
+                }
+            }
+        }
+        .navigationTitle("Playground Reservation")
+        .navigationDestination(for: FDPlayground.self) { playground in
+            FDPlaygroundReservePage(playground)
+        }
+    }
+}
+
+fileprivate struct FDPlaygroundReservePage: View {
+    @StateObject var model: FDReservationModel
+    
+    init(_ playground: FDPlayground) {
+        self._model = StateObject(wrappedValue: FDReservationModel(playground))
+    }
+    
+    var body: some View {
+        List {
+            Section {
+                DatePicker("Select Reservation Date", selection: $model.date, displayedComponents: [.date])
+                Toggle("Available Time Slots Only", isOn: $model.showAvailable)
+            }
+            
+            Section {
+                ForEach(model.filteredTimeSlots) { timeSlot in
+                    FDReservationTimeSlotView(timeSlot: timeSlot)
+                }
+            } header: {
+                Text("Reservation Time Slots")
+            } footer: {
+                if model.timeSlots.isEmpty {
+                    LoadingFooter(loading: $model.loading,
+                                  errorDescription: model.loadingError?.localizedDescription ?? "",
+                                  action: model.loadTimeSlots)
+                }
+            }
+            .task {
+                await model.loadTimeSlots()
+            }
+        }
+        .navigationTitle(model.playground.name)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+fileprivate struct FDReservationTimeSlotView: View {
+    let timeSlot: FDPlaygroundTimeSlot
+    
+    var body: some View {
+        HStack {
+            Text("\(timeSlot.beginTime) - \(timeSlot.endTime)")
+            Spacer()
+            Text("\(timeSlot.reserved) / \(timeSlot.total)")
+            Spacer()
+            if let url = timeSlot.registerURL {
+                Link("Reserve", destination: url)
+            } else if timeSlot.reserved == timeSlot.total {
+                Text("Reserved")
+                    .foregroundColor(.secondary)
+            } else {
+                Text("Cannot Reserve")
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }
