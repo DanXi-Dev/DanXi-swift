@@ -1,52 +1,70 @@
 import SwiftUI
 
 struct FDHomePage: View {
+    @StateObject var model = FDHomeModel()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $model.path) {
             List {
-                NavigationLink {
-                    FDPayPage()
-                } label: {
-                    Label("Fudan QR Code", systemImage: "qrcode")
+                ForEach(model.unpinned, id: \.self) { section in
+                    FDHomeSimpleLink(section: section)
                 }
-                
-                NavigationLink {
-                    FDSportPage()
-                } label: {
-                    Label("PE Curriculum", systemImage: "figure.disc.sports")
-                }
-
-                NavigationLink {
-                    FDBusPage()
-                } label: {
-                    Label("Bus Schedule", systemImage: "bus.fill")
-                }
-                
-                NavigationLink {
-                    FDECardPage()
-                } label: {
-                    Label("ECard Information", systemImage: "creditcard")
-                }
-                
-                NavigationLink {
-                    FDScorePage()
-                } label: {
-                    Label("Exams & Score", systemImage: "graduationcap")
-                }
-                
-                NavigationLink {
-                    FDRankPage()
-                } label: {
-                    Label("GPA Rank", systemImage: "chart.bar.xaxis")
-                }
-                
-                NavigationLink {
-                    FDPlaygroundPage()
-                } label: {
-                    Label("Playground Reservation", systemImage: "sportscourt")
+                .onMove { from, to in
+                    model.unpinned.move(fromOffsets: from, toOffset: to)
                 }
             }
             .navigationTitle("Campus Services")
+            .navigationDestination(for: FDSection.self) { section in
+                FDHomeDestination(section: section)
+            }
+        }
+    }
+}
+
+fileprivate struct FDHomeSimpleLink: View {
+    let section: FDSection
+    
+    var body: some View {
+        NavigationLink(value: section) {
+            switch section {
+            case .sport:
+                Label("PE Curriculum", systemImage: "figure.disc.sports")
+            case .pay:
+                Label("Fudan QR Code", systemImage: "qrcode")
+            case .bus:
+                Label("Bus Schedule", systemImage: "bus.fill")
+            case .ecard:
+                Label("ECard Information", systemImage: "creditcard")
+            case .score:
+                Label("Exams & Score", systemImage: "graduationcap")
+            case .rank:
+                Label("GPA Rank", systemImage: "chart.bar.xaxis")
+            case .playground:
+                Label("Playground Reservation", systemImage: "sportscourt")
+            }
+        }
+    }
+}
+
+fileprivate struct FDHomeDestination: View {
+    let section: FDSection
+    
+    var body: some View {
+        switch section {
+        case .sport:
+            FDSportPage()
+        case .pay:
+            FDPayPage()
+        case .bus:
+            FDBusPage()
+        case .ecard:
+            FDECardPage()
+        case .score:
+            FDScorePage()
+        case .rank:
+            FDRankPage()
+        case .playground:
+            FDPlaygroundPage()
         }
     }
 }

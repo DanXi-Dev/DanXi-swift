@@ -167,6 +167,7 @@
 		27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* DKStarsView.swift */; };
 		27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* DKReviewView.swift */; };
 		27E5E82F28BA699C0074D295 /* review.json in Resources */ = {isa = PBXBuildFile; fileRef = 27E5E82E28BA699C0074D295 /* review.json */; };
+		27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF021229DF519E0094F7D5 /* AsyncContentView.swift */; };
@@ -346,6 +347,7 @@
 		27E5E82A28BA62130074D295 /* DKStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarsView.swift; sourceTree = "<group>"; };
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
 		27E5E82E28BA699C0074D295 /* review.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = review.json; sourceTree = "<group>"; };
+		27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigationModel.swift; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
 		27EF021229DF519E0094F7D5 /* AsyncContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncContentView.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 			isa = PBXGroup;
 			children = (
 				27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */,
+				27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1108,6 +1111,7 @@
 				27DAFA6929CB43FA00F32093 /* THHoleLoader.swift in Sources */,
 				2772231128F05B3300458EAC /* THHIstorySheet.swift in Sources */,
 				27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */,
+				27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */,
 				27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */,
 				27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */,
 				27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */,
