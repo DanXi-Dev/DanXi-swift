@@ -41,6 +41,8 @@ fileprivate struct FDHomeSimpleLink: View {
                 Label("GPA Rank", systemImage: "chart.bar.xaxis")
             case .playground:
                 Label("Playground Reservation", systemImage: "sportscourt")
+            case .courses:
+                Label("Online Course Table", systemImage: "calendar")
             }
         }
     }
@@ -65,6 +67,8 @@ fileprivate struct FDHomeDestination: View {
             FDRankPage()
         case .playground:
             FDPlaygroundPage()
+        case .courses:
+            FDCoursePage()
         }
     }
 }
