@@ -65,6 +65,8 @@ class FDReservationModel: ObservableObject {
     
     @Published var timeSlots: [FDPlaygroundTimeSlot] = []
     
+    @Published var selectedTimeSlot: FDPlaygroundTimeSlot?
+    
     @Published var date = Date.now
     @Published var showAvailable = true
     var filteredTimeSlots: [FDPlaygroundTimeSlot] {

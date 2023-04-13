@@ -67,6 +67,7 @@ fileprivate struct FDPlaygroundReservePage: View {
                 ForEach(model.filteredTimeSlots) { timeSlot in
                     FDReservationTimeSlotView(timeSlot: timeSlot)
                 }
+                .environmentObject(model)
             } header: {
                 Text("Reservation Time Slots")
             } footer: {
@@ -82,10 +83,14 @@ fileprivate struct FDPlaygroundReservePage: View {
         }
         .navigationTitle(model.playground.name)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $model.selectedTimeSlot) { timeSlot in
+            FDReservationSheet(timeSlot)
+        }
     }
 }
 
 fileprivate struct FDReservationTimeSlotView: View {
+    @EnvironmentObject var model: FDReservationModel
     let timeSlot: FDPlaygroundTimeSlot
     
     var body: some View {
@@ -94,8 +99,12 @@ fileprivate struct FDReservationTimeSlotView: View {
             Spacer()
             Text("\(timeSlot.reserved) / \(timeSlot.total)")
             Spacer()
-            if let url = timeSlot.registerURL {
-                Link("Reserve", destination: url)
+            if timeSlot.reserveId != nil {
+                Button {
+                    model.selectedTimeSlot = timeSlot
+                } label: {
+                    Text("Reserve")
+                }
             } else if timeSlot.reserved == timeSlot.total {
                 Text("Reserved")
                     .foregroundColor(.secondary)
@@ -103,6 +112,36 @@ fileprivate struct FDReservationTimeSlotView: View {
                 Text("Cannot Reserve")
                     .foregroundColor(.secondary)
             }
+        }
+    }
+}
+
+fileprivate struct FDReservationSheet: View {
+    let timeSlot: FDPlaygroundTimeSlot
+    let request: URLRequest?
+    
+    init(_ timeSlot: FDPlaygroundTimeSlot) {
+        self.timeSlot = timeSlot
+        if let url = timeSlot.registerURL {
+            self.request = URLRequest(url: url)
+        } else {
+            self.request = nil
+        }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            Group {
+                if let request = request {
+                    WebViewWrapper(request)
+                } else {
+                    Text("Cannot Reserve")
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .navigationTitle("Reserve Page")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

@@ -334,6 +334,7 @@
 "Reserve" = "预约";
 "Reserved" = "已约满";
 "Cannot Reserve" = "无法预约";
+"Reserve Page" = "预约页面";
 
 // Fudan Calandar
 "Calendar" = "日程";
