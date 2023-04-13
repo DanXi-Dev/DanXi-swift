@@ -349,6 +349,7 @@
 "Export to System Calendar" = "导出到系统日历";
 "Select Semester" = "选择学期";
 "Current semester expired, reset semester" = "当前学期已结束，设置新学期";
+"Calendar Access not Granted" = "没有权限访问系统日历，请在设置中授权";
 
 // About
 "Website" = "网站";

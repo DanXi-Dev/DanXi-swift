@@ -16,6 +16,7 @@ struct FDCalendarPage: View {
     @StateObject var model: FDCalendarModel
     @State var showSettingSheet = false
     @State var showExportSheet = false
+    @State var showPermissionDeniedAlert = false
     
     init(_ model: FDCalendarModel) {
         self._model = StateObject(wrappedValue: model)
@@ -26,8 +27,9 @@ struct FDCalendarPage: View {
         eventStore.requestAccess(to: .event) { (granted, error) in
             if granted {
                 showExportSheet = true
+            } else {
+                showPermissionDeniedAlert = true
             }
-            // TODO: show error alert
         }
     }
     
@@ -95,6 +97,7 @@ struct FDCalendarPage: View {
                 FDCalendarExportSheet()
                     .ignoresSafeArea()
             }
+            .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
             .environmentObject(model)
         }
     }
