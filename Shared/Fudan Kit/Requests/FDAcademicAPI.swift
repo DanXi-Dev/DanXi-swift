@@ -137,7 +137,9 @@ struct FDAcademicAPI {
                     URLQueryItem(name: "ids", value: String(ids))]
         let request = prepareFormRequest(courseURL, form: form)
         let (courseData, _) = try await sendRequest(request)
-        let element = try processHTMLData(courseData, selector: "body > script:nth-of-type(3)")
+        guard let element = try processHTMLDataList(courseData, selector: "body > script").filter({ try $0.html().contains("new TaskActivity") }).first else {
+            throw NetworkError.invalidResponse
+        }
         let script = try element.html()
         let lines = script.split(separator: "\n")
         var courseList: [FDCourse] = []
@@ -300,4 +302,8 @@ struct FDTimeSlot: Identifiable {
                        FDTimeSlot(11, "18:30", "19:15"),
                        FDTimeSlot(12, "19:25", "20:10"),
                        FDTimeSlot(13, "20:20", "21:05")]
+    
+    static func getItem(_ id: Int) -> FDTimeSlot {
+        return list.filter { $0.id == id }.first!
+    }
 }

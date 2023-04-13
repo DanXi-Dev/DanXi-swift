@@ -1,4 +1,5 @@
 import Foundation
+import EventKit
 import Disk
 
 @MainActor
@@ -156,5 +157,97 @@ class FDCalendarModel: ObservableObject {
         (_, self.courses) = try await FDAcademicAPI.getCourseList(semester: semester.id)
         self.semester = semester
         try save()
+    }
+    
+    
+    func exportToCalendar(_ calendar: EKCalendar) {
+        guard let base = semesterStart else { return }
+        
+        let eventStore = EKEventStore()
+        eventStore.requestAccess(to: .event) { granted, error in
+            guard granted, error == nil else {
+                return
+            }
+            
+            for course in self.courses {
+                do {
+                    if course.weeks.isEmpty { continue }
+                    
+                    if let recurrentWeek = course.recurrentWeek {
+                        let event = EKEvent(eventStore: eventStore)
+                        event.title = course.name
+                        event.location = course.location
+                        (event.startDate, event.endDate) = course.calcTime(base: base, week: course.weeks.first!)
+                        let recurrenceRule = EKRecurrenceRule(
+                            recurrenceWith: .weekly,
+                            interval: recurrentWeek,
+                            end: EKRecurrenceEnd(occurrenceCount: (course.weeks.last! - course.weeks.first!) / recurrentWeek + 1)
+                        )
+                        event.addRecurrenceRule(recurrenceRule)
+                        event.calendar = calendar
+                        try eventStore.save(event, span: .thisEvent, commit: false)
+                    } else {
+                        for week in course.weeks {
+                            let event = EKEvent(eventStore: eventStore)
+                            event.title = course.name
+                            event.location = course.location
+                            (event.startDate, event.endDate) = course.calcTime(base: base, week: week)
+                            event.calendar = calendar
+                            try eventStore.save(event, span: .thisEvent, commit: false)
+                        }
+                    }
+                } catch {
+                    continue
+                }
+            }
+            
+            do {
+                try eventStore.commit()
+            } catch {
+                
+            }
+        }
+    }
+}
+
+extension FDCourse {
+    var weekly: Bool {
+        guard let max = weeks.max(), let min = weeks.min() else {
+            return false
+        }
+        return (max - min) == (weeks.count - 1)
+    }
+    
+    var doubleWeekly: Bool {
+        guard weeks.count > 1 else { return false }
+        for i in 1..<weeks.count {
+            if weeks[i] - weeks[i - 1] != 2 { return false }
+        }
+        return true
+    }
+    
+    var recurrentWeek: Int? {
+        if weekly { return 1 }
+        if doubleWeekly { return 2 }
+        return nil
+    }
+    
+    func calcTime(base: Date, week: Int) -> (Date, Date) {
+        let calendar = Calendar.current
+        let days = week * 7 + weekday
+        let day = calendar.date(byAdding: DateComponents(day: days), to: base)!
+        var components = calendar.dateComponents([.year, .month, .day], from: day)
+        
+        let startComponent = FDTimeSlot.getItem(start + 1)
+        components.hour = startComponent.startTime.hour
+        components.minute = startComponent.startTime.minute
+        let startDate = calendar.date(from: components)!
+        
+        let endComponent = FDTimeSlot.getItem(end + 1)
+        components.hour = endComponent.endTime.hour
+        components.minute = endComponent.endTime.minute
+        let endDate = calendar.date(from: components)!
+        
+        return (startDate, endDate)
     }
 }

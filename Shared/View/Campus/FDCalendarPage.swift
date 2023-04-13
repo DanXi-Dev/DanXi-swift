@@ -1,4 +1,6 @@
 import SwiftUI
+import EventKitUI
+import EventKit
 
 struct FDCalendarPageLoader: View {
     var body: some View {
@@ -17,6 +19,16 @@ struct FDCalendarPage: View {
     
     init(_ model: FDCalendarModel) {
         self._model = StateObject(wrappedValue: model)
+    }
+    
+    func presentExportSheet() {
+        let eventStore = EKEventStore()
+        eventStore.requestAccess(to: .event) { (granted, error) in
+            if granted {
+                showExportSheet = true
+            }
+            // TODO: show error alert
+        }
     }
     
     var body: some View {
@@ -69,7 +81,7 @@ struct FDCalendarPage: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showExportSheet = true
+                        presentExportSheet()
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
@@ -78,6 +90,10 @@ struct FDCalendarPage: View {
             }
             .sheet(isPresented: $showSettingSheet) {
                 FDCalendarSetting(semester: model.semester)
+            }
+            .sheet(isPresented: $showExportSheet) {
+                FDCalendarExportSheet()
+                    .ignoresSafeArea()
             }
             .environmentObject(model)
         }
@@ -113,6 +129,47 @@ fileprivate struct FDCalendarSetting: View {
                 }
             }
             .completed(model.semesterStart != nil)
+        }
+    }
+}
+
+fileprivate struct FDCalendarExportSheet: UIViewControllerRepresentable {
+    @EnvironmentObject var model: FDCalendarModel
+    @Environment(\.dismiss) var dismiss
+    let eventStore = EKEventStore()
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<FDCalendarExportSheet>) -> UINavigationController {
+        let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
+        chooser.selectedCalendars = []
+        chooser.delegate = context.coordinator
+        chooser.showsDoneButton = true
+        return UINavigationController(rootViewController: chooser)
+    }
+
+    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<FDCalendarExportSheet>) {
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
+        let parent: FDCalendarExportSheet
+
+        init(_ parent: FDCalendarExportSheet) {
+            self.parent = parent
+        }
+
+        func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {
+            if let calendar = calendarChooser.selectedCalendars.first {
+                parent.model.exportToCalendar(calendar)
+            }
+            parent.dismiss()
+        }
+
+        func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
+            parent.dismiss()
         }
     }
 }
