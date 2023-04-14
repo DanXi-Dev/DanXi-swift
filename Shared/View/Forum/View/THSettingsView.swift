@@ -31,7 +31,7 @@ fileprivate struct THBlockedTagsEdit: View {
     
     var body: some View {
         Form {
-            THTagField(tags: $settings.blockedTags)
+            THTagEditor($settings.blockedTags)
         }
         .navigationTitle("Blocked Tags")
         .navigationBarTitleDisplayMode(.inline)

@@ -27,7 +27,7 @@ struct THPostSheet: View {
                 }
             }
             
-            THTagField(tags: $tags, max: 5)
+            THTagEditor($tags, maxSize: 5)
             
             Section {
                 TextEditView($content,

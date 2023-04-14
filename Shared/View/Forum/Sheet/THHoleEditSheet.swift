@@ -24,7 +24,7 @@ struct THHoleEditSheet: View {
                 }
             }
             
-            THTagField(tags: $tags, max: 5)
+            THTagEditor($tags, maxSize: 5)
             
             Section {
                 Toggle(isOn: $info.unhidden) {
