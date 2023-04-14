@@ -60,6 +60,12 @@ fileprivate struct FDPlaygroundReservePage: View {
         List {
             Section {
                 DatePicker("Select Reservation Date", selection: $model.date, displayedComponents: [.date])
+                    .onChange(of: model.date) { date in
+                        model.timeSlots = []
+                        Task {
+                            await model.loadTimeSlots()
+                        }
+                    }
                 Toggle("Available Time Slots Only", isOn: $model.showAvailable)
             }
             
@@ -71,6 +77,7 @@ fileprivate struct FDPlaygroundReservePage: View {
             } header: {
                 Text("Reservation Time Slots")
             } footer: {
+                // FIXME: may display error view when timeslot is empty
                 if model.timeSlots.isEmpty {
                     LoadingFooter(loading: $model.loading,
                                   errorDescription: model.loadingError?.localizedDescription ?? "",
