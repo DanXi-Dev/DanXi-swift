@@ -17,6 +17,9 @@ struct FDHomePage: View {
             .navigationDestination(for: FDSection.self) { section in
                 FDHomeDestination(section: section)
             }
+            .onOpenURL { url in
+                model.openURL(url)
+            }
         }
     }
 }

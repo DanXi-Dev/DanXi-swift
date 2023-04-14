@@ -73,27 +73,30 @@ struct FDECardView: View {
     var entry: FDECardEntry
 
     var body: some View {
-        if entry.loadFailed {
-            Text("Load Failed")
-                .foregroundColor(.secondary)
-        } else {
-            VStack(alignment: .leading, spacing: 5) {
-                HStack {
-                    Label("ECard", systemImage: "creditcard.fill")
-                        .bold()
-                        .font(.callout)
-                        .foregroundColor(.blue)
-                    Spacer()
+        Group {
+            if entry.loadFailed {
+                Text("Load Failed")
+                    .foregroundColor(.secondary)
+            } else {
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack {
+                        Label("ECard", systemImage: "creditcard.fill")
+                            .bold()
+                            .font(.callout)
+                            .foregroundColor(.blue)
+                        Spacer()
+                    }
+                    
+                    if entry.placeholder {
+                        content.redacted(reason: .placeholder)
+                    } else {
+                        content
+                    }
                 }
-                
-                if entry.placeholder {
-                    content.redacted(reason: .placeholder)
-                } else {
-                    content
-                }
+                .padding()
             }
-            .padding()
         }
+        .widgetURL(URL(string: "fduhole://campus/ecard"))
     }
     
     @ViewBuilder
