@@ -44,8 +44,17 @@ struct DKPostSheet: View {
             
             Section {
                 TextField("Review Title", text: $title)
-                TextEditView($content,
-                             placeholder: "Enter review content")
+                ZStack(alignment: .topLeading) {
+                    if content.isEmpty {
+                        Text("Enter review content")
+                            .foregroundColor(.primary.opacity(0.25))
+                            .padding(.top, 7)
+                            .padding(.leading, 4)
+                    }
+                    
+                    TextEditor(text: $content)
+                        .frame(height: 250)
+                }
             }
             
             if !content.isEmpty {
@@ -74,6 +83,7 @@ struct DKPostSheet: View {
             }
         }
         .completed(allowSubmit)
+        .scrollDismissesKeyboard(.immediately)
     }
 }
 

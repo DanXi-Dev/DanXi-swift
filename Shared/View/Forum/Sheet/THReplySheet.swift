@@ -12,22 +12,9 @@ struct THReplySheet: View {
         Sheet("Reply") {
             try await model.reply(content)
         } content: {
-            Section {
-                TextEditView($content,
-                             placeholder: "Enter reply content")
-            } header: {
-                Text("TH Edit Alert")
-            }
-            .textCase(nil)
-
-            if !content.isEmpty {
-                Section {
-                    THFloorContent(content, interactable: false)
-                } header: {
-                    Text("Preview")
-                }
-            }
+            THContentEditor(content: $content)
         }
         .completed(!content.isEmpty)
+        .scrollDismissesKeyboard(.immediately)
     }
 }

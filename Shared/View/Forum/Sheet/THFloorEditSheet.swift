@@ -13,26 +13,13 @@ struct THFloorEditSheet: View {
         Sheet("Edit Reply") {
             try await model.edit(content, specialTag: specialTag)
         } content: {
-            Section {
-                if DXModel.shared.isAdmin {
-                    TextField("Special Tag", text: $specialTag)
-                }
-                TextEditView($content,
-                             placeholder: "Enter reply content")
-            } header: {
-                Text("TH Edit Alert")
+            if DXModel.shared.isAdmin {
+                TextField("Special Tag", text: $specialTag)
             }
-            .textCase(nil)
             
-            
-            if !content.isEmpty {
-                Section {
-                    THFloorContent(content, interactable: false)
-                } header: {
-                    Text("Preview")
-                }
-            }
+            THContentEditor(content: $content)
         }
         .completed(!content.isEmpty)
+        .scrollDismissesKeyboard(.immediately)
     }
 }

@@ -38,6 +38,7 @@
 		272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* THReplySheet.swift */; };
 		272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */; };
 		272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */; };
+		272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
 		273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 273D65B8292E07FF0064DCB1 /* Introspect */; };
 		273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D65BC292E08C10064DCB1 /* TextSelectionView.swift */; };
@@ -85,7 +86,6 @@
 		27A5DA2D29D98A300042D28D /* ImageBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2C29D98A300042D28D /* ImageBrowser.swift */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
-		27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5D70E28C74E9400924264 /* TextEditView.swift */; };
 		27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */; };
 		27B7ABF929DEB24700DAE0C5 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
 		27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
@@ -234,6 +234,7 @@
 		272AC8E22896F29800092B0C /* THReplySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReplySheet.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorEditSheet.swift; sourceTree = "<group>"; };
 		272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagEditor.swift; sourceTree = "<group>"; };
+		272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentEditor.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
 		273D65BC292E08C10064DCB1 /* TextSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSelectionView.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
@@ -278,7 +279,6 @@
 		27A5DA2C29D98A300042D28D /* ImageBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowser.swift; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27B19FC428F59C2C0001587F /* FDPayPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPayPage.swift; sourceTree = "<group>"; };
-		27B5D70E28C74E9400924264 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
 		27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardWidget.swift; sourceTree = "<group>"; };
 		27B9B3AA28B29953007CA1E0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27B9B3AC28B29957007CA1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -595,6 +595,7 @@
 				2729071428B0B45F0087ACC0 /* THMentionView.swift */,
 				27834AF429D600E1008DC0C2 /* THSettingsView.swift */,
 				272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */,
+				272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -635,7 +636,6 @@
 				27DAFA7829CC50E100F32093 /* AsnyncButton.swift */,
 				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
 				27E4686228BCABC100CDE8CE /* LoadingPage.swift */,
-				27B5D70E28C74E9400924264 /* TextEditView.swift */,
 				27E4686428BCD22500CDE8CE /* LoadingFooter.swift */,
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
@@ -1013,6 +1013,7 @@
 				27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */,
 				27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */,
 				273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */,
+				272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */,
 				27DAFA6729CB375D00F32093 /* THHoleModel.swift in Sources */,
 				2706602C292F513700F4C321 /* AboutPage.swift in Sources */,
 				27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */,
@@ -1032,7 +1033,6 @@
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,
 				27E82FED29E8977400F34B3B /* FDCoursePage.swift in Sources */,
 				272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */,
-				27B5D70F28C74E9400924264 /* TextEditView.swift in Sources */,
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
