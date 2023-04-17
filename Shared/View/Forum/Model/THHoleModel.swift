@@ -212,6 +212,16 @@ class THHoleModel: ObservableObject {
     @Published var selectedFloor: Set<THFloor> = []
     @Published var deleteReason = ""
     
+    @Published var batchDeleteError: [Error] = []
+    var batchDeleteErrorDescription: String {
+        var description = ""
+        for error in batchDeleteError {
+            description.append("\(error.localizedDescription)\n")
+        }
+        return description
+    }
+    @Published var showBatchDeleteError = false
+    
     func batchDelete() async {
         let floors = Array(selectedFloor)
         let previousFloors = self.floors
@@ -225,6 +235,9 @@ class THHoleModel: ObservableObject {
                     do {
                         return try await THRequests.deleteFloor(floorId: floor.id, reason: self.deleteReason)
                     } catch {
+                        Task { @MainActor in
+                            self.batchDeleteError.append(error)
+                        }
                         return floor
                     }
                 }
@@ -259,6 +272,9 @@ class THHoleModel: ObservableObject {
         // submit UI change
         Task { @MainActor in
             self.floors = newFloors
+            if !batchDeleteError.isEmpty {
+                showBatchDeleteError = true
+            }
         }
     }
     

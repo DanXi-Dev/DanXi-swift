@@ -80,6 +80,7 @@
 "Empty Favorites List" = "收藏列表为空";
 "Delete" = "删除";
 "Batch Delete" = "批量删除";
+"Batch Delete Failed" = "批量删除失败";
 "Delete Selected" = "删除选中的回复";
 "Enter Delete Reason" = "输入删帖理由";
 "image_tag" = "[图片]";

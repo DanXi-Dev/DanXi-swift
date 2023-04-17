@@ -239,5 +239,10 @@ fileprivate struct THHoleBottomBar: View {
                 Text("Submit")
             }
         }
+        .alert("Batch Delete Failed", isPresented: $model.showBatchDeleteError) {
+            Button("OK") { }
+        } message: {
+            Text(model.batchDeleteErrorDescription)
+        }
     }
 }
