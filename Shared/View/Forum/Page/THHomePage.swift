@@ -36,6 +36,7 @@ struct THHomePage: View {
                 }
                 .navigationDestination(for: THHoleLoader.self) { loader in
                     THLoaderPage(loader)
+                        .environmentObject(model) // prevent crash on NavigationSplitView, reason unknown
                 }
                 .navigationDestination(for: THTag.self) { tag in
                     THSearchTagPage(tagname: tag.name)

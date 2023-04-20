@@ -1,10 +1,8 @@
 import SwiftUI
-import SwiftUIX
 import Foundation
 
 // MARK: - Basic Mention View
 
-/// View that represents a mention to a floor, UI only, not interactable.
 struct THMentionView: View {
     @Environment(\.colorScheme) var colorScheme
     let mention: Mention
@@ -83,7 +81,6 @@ struct THMentionView: View {
 
 // MARK: - Wrapper View
 
-/// View that presents a local mention, scroll to target when tapped.
 struct THLocalMentionView: View {
     @EnvironmentObject var model: THHoleModel
     
@@ -103,7 +100,6 @@ struct THLocalMentionView: View {
     }
 }
 
-/// View that represents a remote mention, navigate to target when tapped.
 struct THRemoteMentionView: View {
     @EnvironmentObject var model: THNavigationModel
     let mention: THMention
@@ -118,93 +114,5 @@ struct THRemoteMentionView: View {
             THMentionView(mention: mention)
         }
         .buttonStyle(.borderless)
-    }
-}
-
-/// Mention view that is not initialized, tap to load detailed info.
-struct THLoadingMentionView: View {
-    let floorId: Int
-    @State var loading = false
-    @State var floor: THFloor? = nil
-    
-    var body: some View {
-        if let floor = floor {
-            THMentionView(floor: floor)
-        } else {
-            Button {
-                // FIXME: might not be reloaded in edit preview section
-                Task { @MainActor in
-                    do {
-                        loading = true
-                        floor = try await THRequests.loadFloorById(floorId: floorId)
-                    } catch {
-                        loading = false
-                    }
-                }
-            } label: {
-                previewPrompt
-            }
-            .buttonStyle(.borderless)
-        }
-    }
-    
-    var previewPrompt: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Spacer()
-                Image(systemName: "quote.closing")
-            }
-            .foregroundColor(.secondary)
-            
-            HStack {
-                Spacer()
-                if loading {
-                    ProgressView()
-                }
-                Text(loading ? "Loading" : "Tap to view detail")
-                    .font(.callout)
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
-            .padding()
-            
-            Text("##\(String(floorId))")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .padding(.top, 1.0)
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 7.0)
-        .background(Color.secondary.opacity(0.1))
-        .cornerRadius(7.0)
-    }
-}
-
-// MARK: - Environment Settings
-
-struct THMentionProxy: EnvironmentKey {
-    static let defaultValue: ScrollViewProxy? = nil
-}
-
-extension EnvironmentValues {
-    var mentionProxy: ScrollViewProxy? {
-        get { self[THMentionProxy.self] }
-        set { self[THMentionProxy.self] = newValue }
-    }
-}
-
-extension View {
-    func mentionProxy(_ proxy: ScrollViewProxy) -> some View {
-        environment(\.mentionProxy, proxy)
-    }
-}
-
-// MARK: - Preview
-
-struct THMentionView_Previews: PreviewProvider {
-    static var previews: some View {
-        THMentionView(floor: Bundle.main.decodeData("floor"))
-            .padding()
-            .previewLayout(.sizeThatFits)
     }
 }
