@@ -426,4 +426,10 @@ struct THRequests {
     static func loadPunishmenthistory(_ floorId: Int) async throws -> [String] {
         return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/punishment")!)
     }
+    
+    // MARK: Messages
+    
+    static func loadMessages() async throws -> [THMessage] {
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/messages")!)
+    }
 }

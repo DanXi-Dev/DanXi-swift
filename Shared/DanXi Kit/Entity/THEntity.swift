@@ -116,3 +116,18 @@ struct THReport: Hashable, Codable, Identifiable {
     let dealt: Bool
     let dealtBy: Int?
 }
+
+struct THMessage: Hashable, Decodable, Identifiable {
+    let id: Int
+    let description: String
+    let createTime, updateTime: Date
+    let code: THMessageType
+    
+    let floor: THFloor?
+    let report: THReport?
+}
+
+enum THMessageType: String {
+    case favorite, reply, mention, modify, permission, report, reportDealt = "report_dealt", mail
+    case message // reserved for match failure
+}

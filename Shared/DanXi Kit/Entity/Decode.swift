@@ -188,6 +188,35 @@ extension THReport {
     }
 }
 
+extension THMessage {
+    enum CodingKeys: String, CodingKey {
+        case id, data, description, code
+        case createTime = "time_created"
+        case updateTime = "time_updated"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try values.decode(Int.self, forKey: .id)
+        self.description = try values.decode(String.self, forKey: .description)
+        self.createTime = try decodeDate(values, key: .createTime)
+        self.updateTime = try decodeDate(values, key: .updateTime)
+        let code = THMessageType(rawValue: try values.decode(String.self, forKey: .code)) ?? .message
+        self.code = code
+        switch code {
+        case .favorite, .reply, .mention, .modify, .permission:
+            self.floor = try values.decode(THFloor.self, forKey: .data)
+            self.report = nil
+        case .report, .reportDealt:
+            self.floor = nil
+            self.report = try values.decode(THReport.self, forKey: .data)
+        default:
+            self.floor = nil
+            self.report = nil
+        }
+    }
+}
+
 // MARK: Curriculum
 
 extension DKCourseGroup {
