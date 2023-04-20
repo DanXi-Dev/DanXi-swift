@@ -50,10 +50,23 @@ struct THComplexFloor: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            headLine
-            content
-            bottomLine
+        Group {
+            if model.collapse {
+                Button {
+                    withAnimation {
+                        model.collapse = false
+                    }
+                } label: {
+                    Text(model.collapsedContent)
+                        .foregroundColor(.secondary)
+                }
+            } else {
+                VStack(alignment: .leading) {
+                    headLine
+                    content
+                    bottomLine
+                }
+            }
         }
         .environmentObject(model)
         // highlight control
@@ -148,10 +161,7 @@ fileprivate struct THFloorActions: View {
                 likeButton
                 replyButton
             }
-            
-            if !model.floor.deleted || DXModel.shared.isAdmin {
-                menu
-            }
+            menu
         }
         .sheet(isPresented: $showReportSheet) {
             THReportSheet()

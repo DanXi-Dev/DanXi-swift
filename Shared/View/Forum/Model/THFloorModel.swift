@@ -5,10 +5,14 @@ class THFloorModel: ObservableObject {
     init(floor: THFloor, highlighted: Bool) {
         self.floor = floor
         self.highlighted = highlighted
+        self.collapse = floor.deleted || !floor.fold.isEmpty
+        self.collapsedContent = floor.fold.isEmpty ? floor.content : floor.fold
     }
     
     @Published var floor: THFloor
     @Published var highlighted: Bool
+    @Published var collapse: Bool
+    @Published var collapsedContent: String
     
     func highlight() {
         highlighted = true
@@ -22,6 +26,8 @@ class THFloorModel: ObservableObject {
         let storey = self.floor.storey
         self.floor = floor
         self.floor.storey = storey
+        self.collapse = floor.deleted || !floor.fold.isEmpty
+        self.collapsedContent = floor.fold.isEmpty ? floor.content : floor.fold
     }
     
     func delete() async throws {
@@ -29,8 +35,8 @@ class THFloorModel: ObservableObject {
         updateFloor(deletedFloor)
     }
     
-    func edit(_ content: String, specialTag: String = "") async throws {
-        let editedFloor = try await THRequests.modifyFloor(content: content, floorId: floor.id, specialTag: specialTag)
+    func edit(_ content: String, specialTag: String = "", fold: String = "") async throws {
+        let editedFloor = try await THRequests.modifyFloor(content: content, floorId: floor.id, specialTag: specialTag, fold: fold)
         updateFloor(editedFloor)
     }
     

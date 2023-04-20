@@ -182,13 +182,4 @@ fileprivate struct THHolePreviewActions: View {
             }
         }
     }
-    
-}
-
-struct THHoleView_Previews: PreviewProvider {
-    static var previews: some View {
-        THHoleView(hole: Bundle.main.decodeData("hole")!)
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
 }

@@ -149,16 +149,18 @@ struct THRequests {
     ///   - specialTag: Optional, special tag, admin only.
     /// - Returns: Modified floor.
     static func modifyFloor(content: String,
-                     floorId: Int,
-                     specialTag: String = "") async throws -> THFloor {
+                            floorId: Int,
+                            specialTag: String = "",
+                            fold: String = "") async throws -> THFloor {
         struct EditConfig: Codable {
             let content: String
             let specialTag: String
-            // TODO: fold
+            let foldV2: String
         }
         
+        let payload = EditConfig(content: content, specialTag: specialTag, foldV2: fold)
         return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
-                                    payload: EditConfig(content: content, specialTag: specialTag),
+                                    payload: payload,
                                     method: "PUT")
     }
     

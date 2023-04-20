@@ -85,6 +85,7 @@ struct THFloor: Hashable, Codable, Identifiable {
     let liked, disliked: Bool
     let isMe: Bool
     let deleted: Bool
+    let fold: String
     let modified: Int
     var storey: Int
     var content: String
@@ -121,6 +122,7 @@ extension THFloor {
         case like, liked, dislike, disliked
         case isMe = "is_me"
         case deleted
+        case fold = "fold_v2"
         case holeId = "hole_id"
         case modified, storey, content, spetialTag = "special_tag"
         case posterName = "anonyname"
@@ -136,6 +138,7 @@ extension THFloor {
         disliked = try values.decodeIfPresent(Bool.self, forKey: .disliked) ?? false
         isMe = try values.decodeIfPresent(Bool.self, forKey: .isMe) ?? false
         deleted = try values.decodeIfPresent(Bool.self, forKey: .deleted) ?? false
+        fold = try values.decode(String.self, forKey: .fold)
         holeId = try values.decode(Int.self, forKey: .holeId)
         modified = try values.decode(Int.self, forKey: .modified)
         storey = try values.decodeIfPresent(Int.self, forKey: .storey) ?? 0

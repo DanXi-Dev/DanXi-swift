@@ -13,6 +13,8 @@
 "Cancel" = "取消";
 "Login" = "登录";
 "DanXi Login" = "登录旦夕账户";
+"DanXi Account" = "旦夕账户";
+"DanXi account is used to access community services such as Treehole and DanKe." = "旦夕账户用于访问树洞、蛋壳等社区服务";
 "Login Failed" = "登录失败";
 "Incorrect Information" = "信息不正确";
 "Enter username and password" = "请输入用户名和密码";
@@ -118,6 +120,8 @@
 "Show This Person" = "只看此人";
 "View Conversation" = "查看对话";
 "All Replies" = "全部回复";
+"Special Tag" = "特殊标签";
+"Fold Reason" = "折叠理由";
 
 
 "Edit Reply" = "编辑";
