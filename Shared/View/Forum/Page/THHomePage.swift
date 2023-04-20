@@ -21,8 +21,8 @@ struct THHomePage: View {
                         THTagsPage()
                     case .report:
                         THReportPage()
-                    default:
-                        Text("TODO")
+                    case .notifications:
+                        THNotificationPage()
                     }
                 }
                 .toolbar {
@@ -63,8 +63,6 @@ struct THHomePage: View {
                     .tag(THPage.tags)
                 Label("Notifications", systemImage: "bell")
                     .tag(THPage.notifications)
-                Label("Messages", systemImage: "message")
-                    .tag(THPage.messages)
                 if DXModel.shared.isAdmin {
                     Label("Report", systemImage: "exclamationmark.triangle")
                         .tag(THPage.report)

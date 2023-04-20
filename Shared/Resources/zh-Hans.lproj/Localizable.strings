@@ -75,6 +75,16 @@
 "DK Feature 3" = "功能点";
 "DK Detail 3" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
+// Notifications
+"New reply in favorites" = "收藏的帖子有新回复";
+"New reply" = "新回复";
+"Mentioned" = "被提及";
+"Violation notice" = "违规处理通知";
+"Ban notice" = "封禁通知";
+"New Report" = "举报";
+"Report feedback" = "举报结果";
+"System mail" = "站内信";
+
 // Treehole Page
 "Pinned" = "置顶贴";
 "Main Section" = "主题贴";

@@ -23,8 +23,6 @@ class THNavigationModel: ObservableObject {
                 page = .tags
             case "notifications":
                 page = .notifications
-            case "messages":
-                page = .messages
             case "report":
                 page = .report
             default: break
@@ -53,6 +51,5 @@ enum THPage {
     case mypost
     case tags
     case notifications
-    case messages
     case report
 }
