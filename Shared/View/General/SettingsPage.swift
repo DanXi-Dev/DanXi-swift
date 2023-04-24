@@ -102,7 +102,7 @@ struct SettingsPage: View {
                 }
             }
             .sheet(isPresented: $showTreeHoleLogin) {
-                DXLoginSheet()
+                DXAuthSheet()
             }
         }
     }

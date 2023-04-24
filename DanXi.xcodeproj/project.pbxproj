@@ -63,7 +63,6 @@
 		27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA528A3EAB100C661BD /* DKHomePage.swift */; };
 		2772231128F05B3300458EAC /* THHIstorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2772231028F05B3300458EAC /* THHIstorySheet.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
-		2778D6252891D22D009F4DB1 /* DXLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6092891D22D009F4DB1 /* DXLoginSheet.swift */; };
 		2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D60B2891D22D009F4DB1 /* SettingsPage.swift */; };
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
 		2778D62C2891D22D009F4DB1 /* THTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6142891D22D009F4DB1 /* THTagView.swift */; };
@@ -80,6 +79,7 @@
 		2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* DKCoursePage.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
+		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
 		27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A44E9D29AF253500CE6661 /* FDRankPage.swift */; };
 		27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1A29D6D4DD0042D28D /* WrappingHStack */; };
 		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
@@ -128,7 +128,6 @@
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
-		27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */; };
 		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
 		27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
 		27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */; };
@@ -262,7 +261,6 @@
 		27719AA528A3EAB100C661BD /* DKHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKHomePage.swift; sourceTree = "<group>"; };
 		2772231028F05B3300458EAC /* THHIstorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHIstorySheet.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2778D6092891D22D009F4DB1 /* DXLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXLoginSheet.swift; sourceTree = "<group>"; };
 		2778D60B2891D22D009F4DB1 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		2778D6112891D22D009F4DB1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2778D6142891D22D009F4DB1 /* THTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THTagView.swift; sourceTree = "<group>"; };
@@ -278,6 +276,7 @@
 		2795EB1428AE6CB400518597 /* DKCoursePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCoursePage.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		27A424F029EE6B2300339E82 /* DXAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXAuthSheet.swift; sourceTree = "<group>"; };
 		27A44E9D29AF253500CE6661 /* FDRankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDRankPage.swift; sourceTree = "<group>"; };
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
 		27A5DA2729D74A630042D28D /* FDCalendarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarPage.swift; sourceTree = "<group>"; };
@@ -300,7 +299,6 @@
 		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
-		27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXRegisterSheet.swift; sourceTree = "<group>"; };
 		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
 		27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryAPI.swift; sourceTree = "<group>"; };
 		27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCanteenAPI.swift; sourceTree = "<group>"; };
@@ -663,11 +661,10 @@
 		27CBA08829522E3100F422DB /* General */ = {
 			isa = PBXGroup;
 			children = (
-				27D5E0EE28E5A91700E0BE0F /* DXRegisterSheet.swift */,
-				2778D6092891D22D009F4DB1 /* DXLoginSheet.swift */,
 				2706602D292F51BC00F4C321 /* CreditPage.swift */,
 				2706602B292F513700F4C321 /* AboutPage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
+				27A424F029EE6B2300339E82 /* DXAuthSheet.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -958,7 +955,6 @@
 				27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */,
 				27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */,
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
-				2778D6252891D22D009F4DB1 /* DXLoginSheet.swift in Sources */,
 				27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */,
 				271D1D5329F19D1500DDEEC9 /* THMessagesPage.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
@@ -966,6 +962,7 @@
 				27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */,
 				2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */,
 				2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */,
+				27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */,
 				27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */,
 				27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* THMentionView.swift in Sources */,
@@ -1028,7 +1025,6 @@
 				27DAFA6729CB375D00F32093 /* THHoleModel.swift in Sources */,
 				2706602C292F513700F4C321 /* AboutPage.swift in Sources */,
 				27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */,
-				27D5E0EF28E5A91700E0BE0F /* DXRegisterSheet.swift in Sources */,
 				273FAFB628C13C6100FC3950 /* THSpecialTagView.swift in Sources */,
 				2713B5EB293A7BCF00ADE348 /* FDSportPage.swift in Sources */,
 				2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */,
