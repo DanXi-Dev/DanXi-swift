@@ -18,11 +18,12 @@ struct THHoleView: View {
             if !fold || expand {
                 fullContent
             } else {
-                tags
-                .onTapGesture {
+                Button {
                     withAnimation {
                         expand.toggle()
                     }
+                } label: {
+                    tags
                 }
             }
         }
