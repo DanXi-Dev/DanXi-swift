@@ -8,10 +8,12 @@ struct DKReviewPage: View {
         ScrollView {
             VStack(alignment: .leading) {
                 HStack {
-                    Text(course.teachers)
-                        .tagStyle(color: .accentColor)
-                    Text(course.formattedSemester)
-                        .tagStyle(color: .accentColor)
+                    DKTagView {
+                        Text(course.teachers)
+                    }
+                    DKTagView {
+                        Text(course.formattedSemester)
+                    }
                     Spacer()
                     Label("\(String(review.vote))", systemImage: "arrow.up")
                         .font(.callout)
@@ -50,16 +52,6 @@ struct DKReviewPage: View {
                     Image(systemName: "arrowtriangle.down")
                 }
             }
-        }
-    }
-}
-
-struct ReviewPage_Previews: PreviewProvider {
-    static let courseGroup: DKCourseGroup = Bundle.main.decodeData("course")
-    
-    static var previews: some View {
-        NavigationView {
-            DKReviewPage(course: courseGroup.courses.first!, review: Bundle.main.decodeData("review")!)
         }
     }
 }

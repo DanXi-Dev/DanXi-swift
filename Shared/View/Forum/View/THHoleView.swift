@@ -30,14 +30,14 @@ struct THHoleView: View {
     }
     
     private var fullContent: some View {
-        NavigationPlainLink(value: hole) {
+        NavigationListRow(value: hole) {
             VStack(alignment: .leading) {
                 tags
                 holeContent
             }
         }
         .contextMenu {
-            THHolePreviewActions(hole: hole)
+            PreviewActions(hole: hole)
         } preview: {
             THHolePreview(hole, hole.floors)
         }
@@ -151,7 +151,7 @@ fileprivate struct THHolePreview: View {
     }
 }
 
-fileprivate struct THHolePreviewActions: View {
+fileprivate struct PreviewActions: View {
     @ObservedObject var appModel = DXModel.shared
     @ObservedObject var settings = THSettings.shared
     

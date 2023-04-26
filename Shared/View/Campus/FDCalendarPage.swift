@@ -61,11 +61,11 @@ struct FDCalendarPage: View {
                 }
                 
                 HStack {
-                    FDCalendarSidebar()
+                    TimeslotsSidebar()
                     ScrollView(.horizontal, showsIndicators: false) {
                         VStack {
-                            FDCalendarDateHeader()
-                            FDCalendarContent()
+                            DateHeader()
+                            CalendarEvents()
                         }
                     }
                 }
@@ -94,7 +94,7 @@ struct FDCalendarPage: View {
                 FDCalendarSetting(semester: model.semester)
             }
             .sheet(isPresented: $showExportSheet) {
-                FDCalendarExportSheet()
+                ExportSheet()
                     .ignoresSafeArea()
             }
             .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
@@ -136,12 +136,12 @@ fileprivate struct FDCalendarSetting: View {
     }
 }
 
-fileprivate struct FDCalendarExportSheet: UIViewControllerRepresentable {
+fileprivate struct ExportSheet: UIViewControllerRepresentable {
     @EnvironmentObject var model: FDCalendarModel
     @Environment(\.dismiss) var dismiss
     let eventStore = EKEventStore()
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<FDCalendarExportSheet>) -> UINavigationController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ExportSheet>) -> UINavigationController {
         let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
         chooser.selectedCalendars = []
         chooser.delegate = context.coordinator
@@ -149,7 +149,7 @@ fileprivate struct FDCalendarExportSheet: UIViewControllerRepresentable {
         return UINavigationController(rootViewController: chooser)
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<FDCalendarExportSheet>) {
+    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<ExportSheet>) {
         
     }
     
@@ -158,9 +158,9 @@ fileprivate struct FDCalendarExportSheet: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
-        let parent: FDCalendarExportSheet
+        let parent: ExportSheet
 
-        init(_ parent: FDCalendarExportSheet) {
+        init(_ parent: ExportSheet) {
             self.parent = parent
         }
 
@@ -180,7 +180,7 @@ fileprivate struct FDCalendarExportSheet: UIViewControllerRepresentable {
 
 // MARK: - Course UI
 
-fileprivate struct FDCalendarContent: View {
+fileprivate struct CalendarEvents: View {
     @EnvironmentObject var model: FDCalendarModel
     @State private var selectedCourse: FDCourse?
     
@@ -195,7 +195,7 @@ fileprivate struct FDCalendarContent: View {
     
     var body: some View {
         ZStack {
-            FDCalendarGrid()
+            GridBackground()
             
             ForEach(model.weekCourses) { course in
                 let length = CGFloat(course.end + 1 - course.start) * dy
@@ -229,13 +229,13 @@ fileprivate struct FDCalendarContent: View {
         }
         .frame(width: 7 * dx, height: CGFloat(h) * dy)
         .sheet(item: $selectedCourse) { course in
-            FDCourseSheet(course: course)
+            CourseDetailSheet(course: course)
                 .presentationDetents([.medium])
         }
     }
 }
 
-fileprivate struct FDCourseSheet: View {
+fileprivate struct CourseDetailSheet: View {
     let course: FDCourse
     
     var body: some View {
@@ -271,7 +271,7 @@ fileprivate struct FDCourseSheet: View {
 
 // MARK: - Frameworks
 
-fileprivate struct FDCalendarDateHeader: View {
+fileprivate struct DateHeader: View {
     @Environment(\.calendar) var calendar
     @EnvironmentObject var model: FDCalendarModel
     
@@ -308,7 +308,7 @@ fileprivate struct FDCalendarDateHeader: View {
     }
 }
 
-fileprivate struct FDCalendarGrid: View {
+fileprivate struct GridBackground: View {
     @ScaledMetric var x = FDCalendarConfig.x
     @ScaledMetric var y = FDCalendarConfig.y
     @ScaledMetric var dx = FDCalendarConfig.dx
@@ -366,7 +366,7 @@ fileprivate struct FDTimeSlotView: View {
     }
 }
 
-fileprivate struct FDCalendarSidebar: View {
+fileprivate struct TimeslotsSidebar: View {
     @ScaledMetric var x = FDCalendarConfig.x
     @ScaledMetric var y = FDCalendarConfig.y
     @ScaledMetric var dx = FDCalendarConfig.dx

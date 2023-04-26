@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NavigationPlainLink<P: Hashable, Label: View>: View {
+struct NavigationListRow<P: Hashable, Label: View>: View {
     let value: P
     let label: Label
     

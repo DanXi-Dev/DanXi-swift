@@ -16,11 +16,3 @@ struct THSpecialTagView: View {
             .shadow(radius: 1)
     }
 }
-
-struct THSpecialTagView_Previews: PreviewProvider {
-    static var previews: some View {
-        THSpecialTagView(content: "Special Tag")
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
-}

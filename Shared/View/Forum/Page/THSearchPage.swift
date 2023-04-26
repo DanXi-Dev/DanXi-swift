@@ -89,7 +89,7 @@ struct THSearchResultPage: View {
     var body: some View {
         List {
             ForEach(floors) { floor in
-                NavigationPlainLink(value: THHoleLoader(floor)) {
+                NavigationListRow(value: THHoleLoader(floor)) {
                     THSimpleFloor(floor: floor)
                 }
                 .task {

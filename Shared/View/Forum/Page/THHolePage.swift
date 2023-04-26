@@ -45,7 +45,10 @@ struct THHolePage: View {
                 }
                 .onAppear {
                     if model.scrollTarget != -1 {
-                        proxy.scrollTo(model.scrollTarget, anchor: .top)
+                        // animation is necessary, otherwise the app (with small probability) might hang during scrolling
+                        withAnimation {
+                            proxy.scrollTo(model.scrollTarget, anchor: .top)
+                        }
                         model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
                     }
                 }

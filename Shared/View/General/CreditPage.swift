@@ -47,6 +47,28 @@ struct CreditPage: View {
     }
 }
 
+fileprivate struct LinkView: View {
+    let url: String
+    let text: LocalizedStringKey
+    let icon: String
+    
+    var body: some View {
+        Link(destination: URL(string: url)!) {
+            HStack {
+                Label {
+                    Text(text)
+                        .foregroundColor(.primary)
+                } icon: {
+                    Image(systemName: icon)
+                }
+                Spacer()
+                Image(systemName: "link")
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
 struct Contributor: Codable {
     let name: String
     let image: String

@@ -12,13 +12,13 @@ struct THSettingsView: View {
             }
             
             NavigationLink {
-                THBlockedTagsEdit()
+                BlockedTags()
             } label: {
                 Label("Blocked Tags", systemImage: "tag.slash")
             }
             
             NavigationLink {
-                THBlockedHolesEdit()
+                BlockedHoles()
             } label: {
                 Label("Blocked Holes", systemImage: "eye.slash")
             }
@@ -26,7 +26,7 @@ struct THSettingsView: View {
     }
 }
 
-fileprivate struct THBlockedTagsEdit: View {
+fileprivate struct BlockedTags: View {
     @ObservedObject var settings = THSettings.shared
     
     var body: some View {
@@ -38,7 +38,7 @@ fileprivate struct THBlockedTagsEdit: View {
     }
 }
 
-fileprivate struct THBlockedHolesEdit: View {
+fileprivate struct BlockedHoles: View {
     @ObservedObject var settings = THSettings.shared
     
     var body: some View {

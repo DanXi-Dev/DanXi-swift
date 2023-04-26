@@ -5,23 +5,23 @@ struct THNotificationPage: View {
         AsyncContentView { () -> [THMessage] in
             return try await THRequests.loadMessages()
         } content: { messages in
-            THNotificationPageContent(messages: messages)
+            NotificationContent(messages: messages)
         }
     }
 }
 
-fileprivate struct THNotificationPageContent: View {
+fileprivate struct NotificationContent: View {
     let messages: [THMessage]
     
     var body: some View {
         List {
             ForEach(messages) { message in
                 if let floor = message.floor {
-                    NavigationPlainLink(value: THHoleLoader(floorId: floor.id)) {
+                    NavigationListRow(value: THHoleLoader(floorId: floor.id)) {
                         THNotificationView(message: message)
                     }
                 } else if let report = message.report {
-                    NavigationPlainLink(value: THHoleLoader(floorId: report.floor.id)) {
+                    NavigationListRow(value: THHoleLoader(floorId: report.floor.id)) {
                         THNotificationView(message: message)
                     }
                 } else {

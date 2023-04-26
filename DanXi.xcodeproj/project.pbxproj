@@ -17,7 +17,6 @@
 		27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BD729D062FA004A5D2F /* THReportModel.swift */; };
 		2706602C292F513700F4C321 /* AboutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602B292F513700F4C321 /* AboutPage.swift */; };
 		2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602D292F51BC00F4C321 /* CreditPage.swift */; };
-		27066030292F522B00F4C321 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602F292F522B00F4C321 /* LinkView.swift */; };
 		27066032292F56AF00F4C321 /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066031292F56AF00F4C321 /* license.json */; };
 		27066038292FA34200F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066037292FA34200F4C321 /* contributor.json */; };
 		2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604D29312D8200F4C321 /* FDECardAPI.swift */; };
@@ -34,6 +33,7 @@
 		271D1D5329F19D1500DDEEC9 /* THMessagesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */; };
 		271D1D5529F1A31700DDEEC9 /* THNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D1D5429F1A31700DDEEC9 /* THNotificationView.swift */; };
 		27227FD528A512B300B3C99D /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
+		2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2725605829F8EAF300C8B27A /* DKTagView.swift */; };
 		2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
 		2729071528B0B45F0087ACC0 /* THMentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* THMentionView.swift */; };
 		272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* THFavoritesPage.swift */; };
@@ -43,8 +43,6 @@
 		272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */; };
 		272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
-		273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 273D65B8292E07FF0064DCB1 /* Introspect */; };
-		273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D65BC292E08C10064DCB1 /* TextSelectionView.swift */; };
 		273FAFB628C13C6100FC3950 /* THSpecialTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */; };
 		274215D228EE1C4700A2A20B /* DecodeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274215D128EE1C4700A2A20B /* DecodeDate.swift */; };
 		2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749B144298E5DC00011C78C /* DKPostSheet.swift */; };
@@ -215,7 +213,6 @@
 		27013BD729D062FA004A5D2F /* THReportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportModel.swift; sourceTree = "<group>"; };
 		2706602B292F513700F4C321 /* AboutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPage.swift; sourceTree = "<group>"; };
 		2706602D292F51BC00F4C321 /* CreditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditPage.swift; sourceTree = "<group>"; };
-		2706602F292F522B00F4C321 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		27066031292F56AF00F4C321 /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
 		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
 		2706604D29312D8200F4C321 /* FDECardAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDECardAPI.swift; sourceTree = "<group>"; };
@@ -232,6 +229,7 @@
 		271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessagesPage.swift; sourceTree = "<group>"; };
 		271D1D5429F1A31700DDEEC9 /* THNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNotificationView.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		2725605829F8EAF300C8B27A /* DKTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKTagView.swift; sourceTree = "<group>"; };
 		2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextProcess.swift; sourceTree = "<group>"; };
 		2729071428B0B45F0087ACC0 /* THMentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMentionView.swift; sourceTree = "<group>"; };
 		272AC8D92896BE2500092B0C /* THFavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THFavoritesPage.swift; sourceTree = "<group>"; };
@@ -241,7 +239,6 @@
 		272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagEditor.swift; sourceTree = "<group>"; };
 		272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentEditor.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
-		273D65BC292E08C10064DCB1 /* TextSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSelectionView.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
 		274215D128EE1C4700A2A20B /* DecodeDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeDate.swift; sourceTree = "<group>"; };
 		2749B144298E5DC00011C78C /* DKPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKPostSheet.swift; sourceTree = "<group>"; };
@@ -372,7 +369,6 @@
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
-				273D65B9292E07FF0064DCB1 /* Introspect in Frameworks */,
 				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
@@ -625,6 +621,7 @@
 				278E406928BA963A008D6514 /* DKRatingView.swift */,
 				27E5E82A28BA62130074D295 /* DKStarsView.swift */,
 				27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */,
+				2725605829F8EAF300C8B27A /* DKTagView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -650,8 +647,6 @@
 				278B291B2939D2D9008C29ED /* Navigation.swift */,
 				27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */,
 				27A5DA2C29D98A300042D28D /* ImageBrowser.swift */,
-				273D65BC292E08C10064DCB1 /* TextSelectionView.swift */,
-				2706602F292F522B00F4C321 /* LinkView.swift */,
 				27DE299729E5A83600B5B28A /* Sheet.swift */,
 				27E82FE829E88AB000F34B3B /* WebView.swift */,
 			);
@@ -813,7 +808,6 @@
 				27BBBCFE29119368007C2905 /* Markdown */,
 				27BBBD01291193A9007C2905 /* SwiftSoup */,
 				27BBBD04291193D2007C2905 /* CachedAsyncImage */,
-				273D65B8292E07FF0064DCB1 /* Introspect */,
 				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
@@ -860,7 +854,6 @@
 				27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */,
 				27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
-				273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
@@ -1044,7 +1037,6 @@
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
 				27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */,
-				27066030292F522B00F4C321 /* LinkView.swift in Sources */,
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
@@ -1059,9 +1051,9 @@
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
+				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
-				273D65BD292E08C10064DCB1 /* TextSelectionView.swift in Sources */,
 				2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */,
 				27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */,
 				27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */,
@@ -1463,14 +1455,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/saoudrizwan/Disk";
@@ -1546,11 +1530,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		273D65B8292E07FF0064DCB1 /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 273D65B7292E07FF0064DCB1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
-		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;

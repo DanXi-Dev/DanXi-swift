@@ -3,19 +3,22 @@ import WrappingHStack
 
 struct THTagView: View {
     let name: String
+    let color: Color
     
     init(_ tag: THTag) {
         self.name = tag.name
+        self.color = randomColor(tag.name)
     }
     
-    init(_ name: String) {
+    init(_ name: String, color: Color? = nil) {
         self.name = name
+        self.color = color ?? randomColor(name)
     }
     
     var body: some View {
         Text(name)
             .textCase(nil)
-            .tagStyle(color: randomColor(name))
+            .tagStyle(color: color)
     }
 }
 

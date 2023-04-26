@@ -7,7 +7,7 @@ struct THReportPage: View {
         List {
             Section {
                 ForEach(model.reports) { report in
-                    THReportCell(report: report)
+                    ReportView(report: report)
                         .task {
                             if report == model.reports.last {
                                 await model.loadMoreReports()
@@ -49,13 +49,13 @@ struct THReportPage: View {
     }
 }
 
-struct THReportCell: View {
+fileprivate struct ReportView: View {
     @EnvironmentObject var model: THReportModel
     
     let report: THReport
     
     var body: some View {
-        NavigationPlainLink(value: THHoleLoader(report.floor)) {
+        NavigationListRow(value: THHoleLoader(report.floor)) {
             VStack(alignment: .leading, spacing: 7) {
                 HStack {
                     Text("Incident ID: \(String(report.id))")

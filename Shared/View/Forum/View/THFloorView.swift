@@ -99,7 +99,7 @@ struct THComplexFloor: View {
                 THSpecialTagView(content: floor.spetialTag)
             }
             Spacer()
-            THFloorActions()
+            Actions()
         }
     }
     
@@ -142,7 +142,104 @@ struct THComplexFloor: View {
     }
 }
 
-fileprivate struct THFloorActions: View {
+struct THFloorContent: View {
+    @OptionalEnvironmentObject var holeModel: THHoleModel?
+    @OptionalEnvironmentObject var floorModel: THFloorModel?
+    
+    let content: String
+    let interactable: Bool
+    
+    init(_ content: String, interactable: Bool = true) {
+        self.content = content
+        self.interactable = interactable
+    }
+    
+    struct ReferenceItem: Identifiable {
+        let type: ReferenceType
+        let id: Int
+    }
+    
+    enum ReferenceType {
+        case text(content: String)
+        case local(floor: THFloor)
+        case remote(mention: THMention)
+    }
+    
+    func parse() -> [ReferenceItem] {
+        let floors = holeModel?.floors ?? []
+        let mentions = floorModel?.floor.mention ?? []
+        
+        var partialContent = self.content
+        var parsedElements: [ReferenceItem] = []
+        var count = 0
+        
+        while let match = partialContent.firstMatch(of: /(?<prefix>#{1,2})(?<id>\d+)/) {
+            // first part of text
+            let previous = String(partialContent[partialContent.startIndex..<match.range.lowerBound])
+            if !previous.isEmpty {
+                count += 1
+                parsedElements.append(ReferenceItem(type: .text(content: previous), id: count))
+            }
+            
+            // match
+            if match.prefix == "##" { // floor match
+                let floorId = Int(match.id)
+                if let floor = floors.filter({ $0.id == floorId }).first {
+                    count += 1
+                    parsedElements.append(ReferenceItem(type: .local(floor: floor), id: count))
+                } else if let mention = mentions.filter({ $0.floorId == floorId }).first {
+                    count += 1
+                    parsedElements.append(ReferenceItem(type: .remote(mention: mention), id: count))
+                }
+            } else {
+                let holeId = Int(match.id)
+                if let mention = mentions.filter({ $0.holeId == holeId }).first {
+                    count += 1
+                    parsedElements.append(ReferenceItem(type: .remote(mention: mention), id: count))
+                }
+            }
+            
+            // cut
+            partialContent = String(partialContent[match.range.upperBound..<partialContent.endIndex])
+        }
+        
+        if !partialContent.isEmpty {
+            count += 1
+            parsedElements.append(ReferenceItem(type: .text(content: partialContent), id: count))
+        }
+        
+        return parsedElements
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            let items = parse()
+            
+            ForEach(items) { item in
+                switch item.type {
+                case .text(let content):
+                    MarkdownView(content)
+                case .local(let floor):
+                    if interactable {
+                        THLocalMentionView(floor)
+                    } else {
+                        THMentionView(floor: floor)
+                    }
+                case .remote(let mention):
+                    if interactable {
+                        THRemoteMentionView(mention: mention)
+                    } else {
+                        THMentionView(mention: mention)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Components
+
+fileprivate struct Actions: View {
     @EnvironmentObject var holeModel: THHoleModel
     @EnvironmentObject var model: THFloorModel
     
@@ -167,7 +264,7 @@ fileprivate struct THFloorActions: View {
             THReportSheet()
         }
         .sheet(isPresented: $showSelectionSheet) {
-            TextSelectionView(text: model.floor.content)
+            TextSelectionSheet(text: model.floor.content)
         }
         .sheet(isPresented: $showHistorySheet) {
             THHistorySheet()
@@ -324,90 +421,49 @@ fileprivate struct THFloorActions: View {
     }
 }
 
-struct THFloorContent: View {
-    @OptionalEnvironmentObject var holeModel: THHoleModel?
-    @OptionalEnvironmentObject var floorModel: THFloorModel?
-    
-    let content: String
-    let interactable: Bool
-    
-    init(_ content: String, interactable: Bool = true) {
-        self.content = content
-        self.interactable = interactable
-    }
-    
-    enum ReferenceType: Identifiable {
-        case text(content: String)
-        case local(floor: THFloor)
-        case remote(mention: THMention)
-        
-        var id: UUID {
-            UUID()
-        }
-    }
-    
-    func parse() -> [ReferenceType] {
-        let floors = holeModel?.floors ?? []
-        let mentions = floorModel?.floor.mention ?? []
-        
-        var partialContent = self.content
-        var parsedElements: [ReferenceType] = []
-        
-        while let match = partialContent.firstMatch(of: /(?<prefix>#{1,2})(?<id>\d+)/) {
-            // first part of text
-            let previous = String(partialContent[partialContent.startIndex..<match.range.lowerBound])
-            if !previous.isEmpty {
-                parsedElements.append(.text(content: previous))
-            }
-            
-            // match
-            if match.prefix == "##" { // floor match
-                let floorId = Int(match.id)
-                if let floor = floors.filter({ $0.id == floorId }).first {
-                    parsedElements.append(.local(floor: floor))
-                } else if let mention = mentions.filter({ $0.floorId == floorId }).first {
-                    parsedElements.append(.remote(mention: mention))
-                }
-            } else {
-                let holeId = Int(match.id)
-                if let mention = mentions.filter({ $0.holeId == holeId }).first {
-                    parsedElements.append(.remote(mention: mention))
-                }
-            }
-            
-            // cut
-            partialContent = String(partialContent[match.range.upperBound..<partialContent.endIndex])
-        }
-        
-        if !partialContent.isEmpty {
-            parsedElements.append(.text(content: partialContent))
-        }
-        
-        return parsedElements
-    }
+fileprivate struct TextSelectionSheet: View {
+    @Environment(\.dismiss) var dismiss
+    let text: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 7) {
-            let elements = parse()
-            
-            ForEach(elements) { element in
-                switch element {
-                case .text(let content):
-                    MarkdownView(content)
-                case .local(let floor):
-                    if interactable {
-                        THLocalMentionView(floor)
-                    } else {
-                        THMentionView(floor: floor)
-                    }
-                case .remote(let mention):
-                    if interactable {
-                        THRemoteMentionView(mention: mention)
-                    } else {
-                        THMentionView(mention: mention)
+        NavigationStack {
+            SelectableText(text: text)
+                .padding(.horizontal)
+                .navigationTitle("Select Text")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .status) {
+                        Button {
+                            UIPasteboard.general.string = text
+                            dismiss()
+                        } label: {
+                            Label {
+                                Text("Copy Full Text")
+                                    .bold()
+                            } icon: {
+                                Image(systemName: "doc.on.doc")
+                            }
+                            .labelStyle(.titleAndIcon)
+                        }
                     }
                 }
-            }
         }
+    }
+}
+
+fileprivate struct SelectableText: UIViewRepresentable {
+    let text: String
+    
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.text = text
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.font = .preferredFont(forTextStyle: .body)
+        return textView
+    }
+    
+    func updateUIView(_ view: UITextView, context: Context) {
+        view.text = text
     }
 }
