@@ -47,7 +47,7 @@ struct CreditPage: View {
     }
 }
 
-fileprivate struct LinkView: View {
+struct LinkView: View {
     let url: String
     let text: LocalizedStringKey
     let icon: String

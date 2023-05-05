@@ -58,8 +58,6 @@ struct THFloor: Hashable, Codable, Identifiable {
     let posterName, spetialTag: String
     let mention: [THMention]
     
-    let listId = UUID()
-    
     func firstMention() -> Int? {
         let pattern = #/
             \#\#

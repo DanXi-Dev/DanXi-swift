@@ -67,51 +67,16 @@ struct THSearchResultPage: View {
     @EnvironmentObject var navigationModel: THNavigationModel
     @EnvironmentObject var model: THSearchModel
     
-    @State var floors: [THFloor] = []
-    
-    @State var endReached = false
-    @State var loading = false
-    @State var loadingError: Error?
-    
-    func loadMoreFloors() async {
-        do {
-            loading = true
-            defer { loading = false }
-            let newFloors = try await THRequests.searchKeyword(keyword: model.searchText, startFloor: floors.count)
-            endReached = newFloors.isEmpty
-            let ids = floors.map(\.id)
-            floors.append(contentsOf: newFloors.filter { !ids.contains($0.id) })
-        } catch {
-            loadingError = error
-        }
-    }
-    
     var body: some View {
         List {
-            ForEach(floors) { floor in
+            AsyncCollection { floors in
+                try await THRequests.searchKeyword(keyword: model.searchText, startFloor: floors.count)
+            } content: { floor in
                 NavigationListRow(value: THHoleLoader(floor)) {
                     THSimpleFloor(floor: floor)
-                }
-                .task {
-                    if floor == floors.last {
-                        await loadMoreFloors()
-                    }
-                }
-            }
-            
-            if !endReached {
-                LoadingFooter(loading: $loading,
-                              errorDescription: loadingError?.localizedDescription ?? "") {
-                    await loadMoreFloors()
                 }
             }
         }
         .listStyle(.inset)
-        .animation(.default, value: floors)
-        .task {
-            if floors.isEmpty {
-                await loadMoreFloors()
-            }
-        }
     }
 }

@@ -80,6 +80,14 @@ struct THComplexFloor: View {
                 model.highlight()
             }
         }
+        // update floor when batch delete
+        .onReceive(holeModel.deleteBroadcast) { ids in
+            if ids.contains(floor.id) {
+                if let newFloor = holeModel.floors.filter({ $0.id == floor.id }).first {
+                    model.floor = newFloor
+                }
+            }
+        }
     }
     
     private var full: some View {

@@ -7,7 +7,6 @@ class THBrowseModel: ObservableObject {
     
     @Published var holes: [THHole] = []
     @Published var loading = false
-    @Published var loadingError: Error?
     
     private func insertHoles(_ holes: [THHole]) {
         let currentIds = self.holes.map(\.id)
@@ -17,7 +16,7 @@ class THBrowseModel: ObservableObject {
         }
     }
     
-    func loadMoreHoles() async {
+    func loadMoreHoles() async throws {
         loading = true
         defer { loading = false }
         
@@ -30,12 +29,8 @@ class THBrowseModel: ObservableObject {
         }
         
         // fetch holes
-        do {
-            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
-            insertHoles(newHoles)
-        } catch {
-            loadingError = error
-        }
+        let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
+        insertHoles(newHoles)
     }
     
     func refresh() async {
@@ -46,9 +41,8 @@ class THBrowseModel: ObservableObject {
                 self.division = currentDivision
             }
             self.holes = []
-            await loadMoreHoles()
         } catch {
-            loadingError = error
+            
         }
     }
     
@@ -57,9 +51,6 @@ class THBrowseModel: ObservableObject {
     @Published var division: THDivision = DXModel.shared.divisions.first! {
         didSet {
             self.holes = []
-            Task {
-                await loadMoreHoles()
-            }
         }
     }
     
@@ -73,17 +64,11 @@ class THBrowseModel: ObservableObject {
     @Published var sortOption = SortOption.createTime {
         didSet {
             self.holes = []
-            Task {
-                await loadMoreHoles()
-            }
         }
     }
     @Published var baseDate: Date? {
         didSet {
             self.holes = []
-            Task {
-                await loadMoreHoles()
-            }
         }
     }
     

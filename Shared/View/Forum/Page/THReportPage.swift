@@ -6,25 +6,12 @@ struct THReportPage: View {
     var body: some View {
         List {
             Section {
-                ForEach(model.reports) { report in
+                AsyncCollection(model.reports, endReached: model.endReached,
+                                action: model.loadMoreReports) { report in
                     ReportView(report: report)
-                        .task {
-                            if report == model.reports.last {
-                                await model.loadMoreReports()
-                            }
-                        }
-                }
-                
-                if !model.endReached {
-                    LoadingFooter(loading: $model.loading,
-                                  errorDescription: model.loadingError?.localizedDescription ?? "",
-                                  action: model.loadMoreReports)
                 }
             }
             .environmentObject(model)
-        }
-        .task {
-            await model.loadMoreReports()
         }
         .listStyle(.inset)
         .navigationTitle("Reports Management")

@@ -33,23 +33,11 @@ struct THBrowsePage: View {
                         .listRowSeparator(.hidden)
                 }
                 
-                ForEach(model.filteredHoles) { hole in
+                AsyncCollection(model.filteredHoles, endReached: false,
+                                action: model.loadMoreHoles) { hole in
                     let fold = settings.sensitiveContent == .fold && hole.nsfw
                     THHoleView(hole: hole, fold: fold)
-                        .task {
-                            if hole == model.filteredHoles.last {
-                                await model.loadMoreHoles()
-                            }
-                        }
                 }
-                
-                LoadingFooter(loading: $model.loading,
-                              errorDescription: model.loadingError?.localizedDescription ?? "") {
-                    await model.loadMoreHoles()
-                }
-            }
-            .task {
-                await model.loadMoreHoles()
             }
         }
         .animation(.default, value: model.division)

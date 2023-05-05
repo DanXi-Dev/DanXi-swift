@@ -15,33 +15,12 @@ struct THHolePage: View {
     var body: some View {
         ScrollViewReader { proxy in
             List(selection: $model.selectedFloor) {
-                Section {
-                    THHoleTags(tags: model.hole.tags)
-                        .listRowSeparator(.hidden, edges: .top)
-                    
-                    // use listId so that floor may have different ID and receive UI update in batch delete operation
-                    ForEach(model.filteredFloors, id: \.listId) { floor in
-                        THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
-                            .tag(floor)
-                            .id(floor.id) // for scroll target
-                            .task {
-                                if floor == model.filteredFloors.last {
-                                    await model.loadMoreFloors()
-                                }
-                            }
-                    }
-                    
-                    if !model.endReached {
-                        LoadingFooter(loading: $model.loading,
-                                      errorDescription: (model.loadingError?.localizedDescription ?? ""),
-                                      action: model.loadAllFloors)
-
-                    }
-                }
-                .task {
-                    if model.floors.isEmpty {
-                        await model.loadMoreFloors()
-                    }
+                THHoleTags(tags: model.hole.tags)
+                    .listRowSeparator(.hidden, edges: .top)
+                
+                AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
+                    THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
+                        .tag(floor)
                 }
                 .onAppear {
                     if model.scrollTarget != -1 {
@@ -196,7 +175,8 @@ struct THHoleTags: View {
 fileprivate struct THHoleBottomBar: View {
     @EnvironmentObject var model: THHoleModel
     @Environment(\.editMode) var editMode
-    @State var showAlert = false
+    @State private var showAlert = false
+    @State private var deleteReason = ""
     
     var body: some View {
         Group {
@@ -229,10 +209,11 @@ fileprivate struct THHoleBottomBar: View {
             }
         }
         .alert("Delete Selected", isPresented: $showAlert) {
-            TextField("Enter Delete Reason", text: $model.deleteReason)
+            TextField("Enter Delete Reason", text: $deleteReason)
             Button(role: .destructive) {
+                let floors = Array(model.selectedFloor)
                 Task {
-                    await model.batchDelete()
+                    await model.batchDelete(floors, reason: deleteReason)
                 }
                 
                 withAnimation {
@@ -241,11 +222,6 @@ fileprivate struct THHoleBottomBar: View {
             } label: {
                 Text("Submit")
             }
-        }
-        .alert("Batch Delete Failed", isPresented: $model.showBatchDeleteError) {
-            Button("OK") { }
-        } message: {
-            Text(model.batchDeleteErrorDescription)
         }
     }
 }

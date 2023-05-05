@@ -3,22 +3,13 @@ import SwiftUI
 @MainActor
 class THReportModel: ObservableObject {
     @Published var reports: [THReport] = []
-    @Published var loading = false
     @Published var endReached = false
-    @Published var loadingError: Error?
     
-    func loadMoreReports() async {
-        do {
-            loading = true
-            defer { loading = false }
-            let newReports = try await THRequests.loadReports(offset: reports.count, range: filterOption.rawValue)
-            endReached = newReports.isEmpty
-            let ids = reports.map(\.id)
-            let filteredReports = newReports.filter { !ids.contains($0.id) }
-            reports.append(contentsOf: filteredReports)
-        } catch {
-            loadingError = error
-        }
+    func loadMoreReports() async throws {
+        let newReports = try await THRequests.loadReports(offset: reports.count, range: filterOption.rawValue)
+        endReached = newReports.isEmpty
+        let ids = reports.map(\.id)
+        reports += newReports.filter { !ids.contains($0.id) }
     }
     
     enum FilterOption: Int {
@@ -29,10 +20,7 @@ class THReportModel: ObservableObject {
     
     @Published var filterOption = FilterOption.notDealt {
         didSet {
-            Task {
-                self.reports = []
-                await loadMoreReports()
-            }
+            self.reports = []
         }
     }
     

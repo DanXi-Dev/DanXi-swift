@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 @MainActor
 class THHoleModel: ObservableObject {
@@ -23,31 +24,22 @@ class THHoleModel: ObservableObject {
     @Published var hole: THHole
     @Published var floors: [THFloor] {
         didSet {
-            cacheUpdated = false
+            filterFloors()
         }
     }
     
     // MARK: - Floor Loading
     
     @Published var loading = false
-    @Published var loadingError: Error?
     @Published var endReached = false
     
-    func loadMoreFloors() async {
+    func loadMoreFloors() async throws {
         guard !endReached else { return }
-        
-        loading = true
-        defer { loading = false }
-        
-        do {
-            let previousCount = filteredFloors.count
-            while filteredFloors.count == previousCount && !endReached {
-                let newFloors = try await THRequests.loadFloors(holeId: hole.id, startFloor: floors.count)
-                insertFloors(newFloors)
-                endReached = newFloors.isEmpty
-            }
-        } catch {
-            loadingError = error
+        let previousCount = filteredFloors.count
+        while filteredFloors.count == previousCount && !endReached {
+            let newFloors = try await THRequests.loadFloors(holeId: hole.id, startFloor: floors.count)
+            insertFloors(newFloors)
+            endReached = newFloors.isEmpty
         }
     }
     
@@ -59,9 +51,7 @@ class THHoleModel: ObservableObject {
             insertFloors[i].storey = storey
             storey += 1
         }
-        withAnimation {
-            self.floors.append(contentsOf: insertFloors)
-        }
+        self.floors += insertFloors
     }
     
     // MARK: - Floor Filtering
@@ -76,34 +66,28 @@ class THHoleModel: ObservableObject {
     
     @Published var filterOption = FilterOptions.all {
         didSet {
-            cacheUpdated = false
+            filterFloors()
         }
     }
     
-    private var cacheUpdated = false
-    private var cachedFloors: [THFloor] = [] // cache calculated filtered floors result to improve performance
+    @Published var filteredFloors: [THFloor] = []
     
-    var filteredFloors: [THFloor] {
-        if cacheUpdated { return cachedFloors }
-        
+    private func filterFloors() {
         switch filterOption {
         case .all:
-            cachedFloors = self.floors
+            filteredFloors = self.floors
         case .posterOnly:
             let posterName = floors.first?.posterName ?? ""
-            cachedFloors = self.floors.filter { floor in
+            filteredFloors = self.floors.filter { floor in
                 floor.posterName == posterName
             }
         case .user(let name):
-            cachedFloors = self.floors.filter { $0.posterName == name }
+            filteredFloors = self.floors.filter { $0.posterName == name }
         case .conversation(let starting):
-            cachedFloors = traceConversation(starting)
+            filteredFloors = traceConversation(starting)
         case .reply(let floorId):
-            cachedFloors = findReply(floorId)
+            filteredFloors = findReply(floorId)
         }
-        
-        cacheUpdated = true
-        return cachedFloors
     }
     
     
@@ -138,7 +122,6 @@ class THHoleModel: ObservableObject {
     }
     
     private func findReply(_ floorId: Int) -> [THFloor] {
-        print("finding reply")
         var replies = floors.filter { floor in
             floor.firstMention() == floorId
         }
@@ -193,7 +176,7 @@ class THHoleModel: ObservableObject {
             endReached = true
             scrollTarget = hole.lastFloor.id
         } catch {
-            loadingError = error
+            
         }
     }
     
@@ -210,20 +193,8 @@ class THHoleModel: ObservableObject {
     // MARK: - Floor Batch Delete (Admin)
     
     @Published var selectedFloor: Set<THFloor> = []
-    @Published var deleteReason = ""
-    
-    @Published var batchDeleteError: [Error] = []
-    var batchDeleteErrorDescription: String {
-        var description = ""
-        for error in batchDeleteError {
-            description.append("\(error.localizedDescription)\n")
-        }
-        return description
-    }
-    @Published var showBatchDeleteError = false
-    
-    func batchDelete() async {
-        let floors = Array(selectedFloor)
+    let deleteBroadcast = PassthroughSubject<[Int], Never>()
+    func batchDelete(_ floors: [THFloor], reason: String) async {
         let previousFloors = self.floors
         
         // send delete request to server
@@ -233,11 +204,8 @@ class THHoleModel: ObservableObject {
             for floor in floors {
                 taskGroup.addTask {
                     do {
-                        return try await THRequests.deleteFloor(floorId: floor.id, reason: self.deleteReason)
+                        return try await THRequests.deleteFloor(floorId: floor.id, reason: reason)
                     } catch {
-                        Task { @MainActor in
-                            self.batchDeleteError.append(error)
-                        }
                         return floor
                     }
                 }
@@ -270,12 +238,9 @@ class THHoleModel: ObservableObject {
         }
         
         // submit UI change
-        Task { @MainActor in
-            self.floors = newFloors
-            if !batchDeleteError.isEmpty {
-                showBatchDeleteError = true
-            }
-        }
+        self.floors = newFloors
+        // notify subviews
+        deleteBroadcast.send(deletedFloors.map(\.id))
     }
     
     // MARK: - Hole Info Edit
@@ -290,10 +255,6 @@ class THHoleModel: ObservableObject {
     }
     
     func lockHole() async throws {
-        // TODO
-    }
-    
-    func deleteSelection() async throws {
         // TODO
     }
 }
