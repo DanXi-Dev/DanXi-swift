@@ -2,7 +2,11 @@ import SwiftUI
 import WrappingHStack
 
 struct THHolePage: View {
-    @StateObject var model: THHoleModel
+    @ObservedObject private var settings = THSettings.shared
+    @StateObject private var model: THHoleModel
+    private var hasBackground: Bool {
+        settings.backgroundImage != nil
+    }
     
     init(_ hole: THHole) {
         self._model = StateObject(wrappedValue: THHoleModel(hole: hole))
@@ -16,12 +20,14 @@ struct THHolePage: View {
         ScrollViewReader { proxy in
             List(selection: $model.selectedFloor) {
                 THHoleTags(tags: model.hole.tags)
+                    .listRowBackground(Color.clear.opacity(0))
                     .listRowSeparator(.hidden, edges: .top)
                 
                 AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
                     THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
                         .tag(floor)
                 }
+                .listRowBackground(Color.clear.opacity(0))
                 .onAppear {
                     if model.scrollTarget != -1 {
                         // animation is necessary, otherwise the app (with small probability) might hang during scrolling
@@ -42,6 +48,12 @@ struct THHolePage: View {
                 }
             }
             .listStyle(.inset)
+            .scrollContentBackground(hasBackground ? .hidden : .visible)
+            .background {
+                if let image = settings.backgroundImage {
+                    image.opacity(0.3)
+                }
+            }
             .navigationTitle("#\(String(model.hole.id))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

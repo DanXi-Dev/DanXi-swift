@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct THSearchPage: View {
-    @EnvironmentObject var model: THSearchModel
+    @EnvironmentObject private var model: THSearchModel
     
     var body: some View {
-        List {
+        THBackgroundList {
             if !model.history.isEmpty && model.searchText.isEmpty {
                 searchHistory
             }
@@ -27,7 +27,6 @@ struct THSearchPage: View {
                 }
             }
         }
-        .listStyle(.inset)
     }
     
     @ViewBuilder

@@ -59,6 +59,7 @@ struct Sheet<Content: View>: View {
                 content
                     .disabled(loading) // disable edit during submit process
             }
+            .scrollContentBackground(.visible)
             .navigationTitle(titleText)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

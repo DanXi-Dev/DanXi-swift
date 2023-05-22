@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct THReportPage: View {
-    @StateObject var model = THReportModel()
+    @StateObject private var model = THReportModel()
     
     var body: some View {
-        List {
+        THBackgroundList {
             Section {
                 AsyncCollection(model.reports, endReached: model.endReached,
                                 action: model.loadMoreReports) { report in
@@ -37,7 +37,7 @@ struct THReportPage: View {
 }
 
 fileprivate struct ReportView: View {
-    @EnvironmentObject var model: THReportModel
+    @EnvironmentObject private var model: THReportModel
     
     let report: THReport
     

@@ -6,7 +6,7 @@ struct THBrowsePage: View {
     @EnvironmentObject var nav: THNavigationModel
     
     var body: some View {
-        List {
+        THBackgroundList {
             THDivisionPicker()
             
             // Pinned Holes
@@ -41,7 +41,6 @@ struct THBrowsePage: View {
             }
         }
         .animation(.default, value: model.division)
-        .listStyle(.inset)
         .navigationTitle(model.division.name)
         .refreshable {
             await model.refresh()

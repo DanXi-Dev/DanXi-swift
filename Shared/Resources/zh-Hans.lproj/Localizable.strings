@@ -63,6 +63,8 @@
 "Join Date" = "注册日期";
 "Admin Privilege" = "管理员权限";
 "Enabled" = "已启用";
+"Pick a Background Photo" = "选择一张背景图片";
+"Remove Background Photo" = "清除背景图片";
 
 // Treehole Welcome Page
 "TH Feature 1" = "时刻保持最新";

@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct THFavoritesPage: View {
-    @ObservedObject var appModel = DXModel.shared
-    @State var favorites: [THHole] = []
+    @ObservedObject private var appModel = DXModel.shared
+    @State private var favorites: [THHole] = []
 
-    @State var initError = ""
-    @State var showAlert = false
-    @State var deleteError = ""
+    @State private var initError = ""
+    @State private var showAlert = false
+    @State private var deleteError = ""
 
     func fetchFavorites() async throws {
         self.favorites = try await THRequests.loadFavorites()
@@ -35,7 +35,7 @@ struct THFavoritesPage: View {
                 Text("Empty Favorites List")
                     .foregroundColor(.secondary)
             } else {
-                List {
+                THBackgroundList {
                     ForEach(favorites) { hole in
                         THHoleView(hole: hole)
                             .swipeActions {
@@ -47,7 +47,6 @@ struct THFavoritesPage: View {
                             }
                     }
                 }
-                .listStyle(.plain)
                 .alert("Toggle Favorite Failed", isPresented: $showAlert) {
                     Button("OK") { }
                 } message: {

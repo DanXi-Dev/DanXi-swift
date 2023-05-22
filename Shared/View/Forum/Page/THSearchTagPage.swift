@@ -4,7 +4,7 @@ struct THSearchTagPage: View {
     let tagname: String
     
     var body: some View {
-        List {
+        THBackgroundList {
             AsyncCollection { holes in
                 try await THRequests.listHoleByTag(tagName: tagname, startTime: holes.last?.updateTime.ISO8601Format())
             } content: { hole in

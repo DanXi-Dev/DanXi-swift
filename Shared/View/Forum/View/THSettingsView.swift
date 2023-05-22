@@ -1,7 +1,8 @@
 import SwiftUI
+import PhotosUI
 
 struct THSettingsView: View {
-    @ObservedObject var settings = THSettings.shared
+    @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
         Section("Tree Hole") {
@@ -22,12 +23,14 @@ struct THSettingsView: View {
             } label: {
                 Label("Blocked Holes", systemImage: "eye.slash")
             }
+            
+            ImagePicker()
         }
     }
 }
 
 fileprivate struct BlockedTags: View {
-    @ObservedObject var settings = THSettings.shared
+    @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
         Form {
@@ -39,7 +42,7 @@ fileprivate struct BlockedTags: View {
 }
 
 fileprivate struct BlockedHoles: View {
-    @ObservedObject var settings = THSettings.shared
+    @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
         List {
@@ -61,5 +64,30 @@ fileprivate struct BlockedHoles: View {
         }
         .navigationTitle("Blocked Holes")
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+fileprivate struct ImagePicker: View {
+    @ObservedObject private var settings = THSettings.shared
+    @State private var photoItem: PhotosPickerItem? = nil
+    
+    var body: some View {
+        Group {
+            PhotosPicker(selection: $photoItem, matching: .images) {
+                Label("Pick a Background Photo", systemImage: "photo")
+            }
+            
+            if settings.backgroundImage != nil {
+                Button {
+                    settings.setBackgroundImage(nil)
+                } label: {
+                    Label("Remove Background Photo", systemImage: "trash")
+                        .foregroundColor(.red)
+                }
+            }
+        }
+        .onChange(of: photoItem) { item in
+            settings.setBackgroundImage(item)
+        }
     }
 }

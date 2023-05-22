@@ -14,7 +14,7 @@ fileprivate struct NotificationContent: View {
     let messages: [THMessage]
     
     var body: some View {
-        List {
+        THBackgroundList {
             ForEach(messages) { message in
                 if let floor = message.floor {
                     NavigationListRow(value: THHoleLoader(floorId: floor.id)) {

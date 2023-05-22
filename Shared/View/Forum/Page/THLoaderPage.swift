@@ -9,7 +9,6 @@ struct THLoaderPage: View {
 
     var body: some View {
         AsyncContentView {
-            
             return try await loader.load()
         } content: { model in
             THHolePage(model)

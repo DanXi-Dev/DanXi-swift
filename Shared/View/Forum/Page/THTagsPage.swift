@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct THTagsPage: View {
-    @State var query = ""
+    @State private var query = ""
     
     var body: some View {
-        List {
+        THBackgroundList {
             let tags = DXModel.shared.tags.filter { tag in
                 if query.isEmpty {
                     return tag.temperature >= 10 
