@@ -6,9 +6,9 @@ struct THHistorySheet: View {
     
     var body: some View {
         NavigationView {
-            LoadingPage {
-                self.histories = try await model.loadHistory()
-            } content: {
+            AsyncContentView {
+                return try await model.loadHistory()
+            } content: { histories in
                 List {
                     ForEach(histories) { history in
                         THHistorySheetItem(history: history)

@@ -46,25 +46,16 @@ struct THDeleteSheet: View {
 }
 
 struct THPunishmentHistorySheet: View {
-    struct PunishmentHistory: Identifiable {
-        let id = UUID()
-        let reason: String
-    }
-    
-    @EnvironmentObject var model: THFloorModel
-    @State var punishmentHistory: [PunishmentHistory] = []
+    @EnvironmentObject private var model: THFloorModel
     
     var body: some View {
-        LoadingPage {
-            self.punishmentHistory = try await THRequests.loadPunishmenthistory(model.floor.id)
-                .map { PunishmentHistory(reason: $0) }
-        } content: {
-            List(punishmentHistory) { history in
-                Text(history.reason)
+        AsyncContentView {
+            return try await THRequests.loadPunishmenthistory(model.floor.id)
+        } content: { histories in
+            List(Array(histories.enumerated()), id: \.offset) { _, history in
+                Text(history)
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Punishment History")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
