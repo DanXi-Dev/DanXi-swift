@@ -151,7 +151,6 @@
 		27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52C29D09CF700B333BA /* AppModel.swift */; };
 		27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */; };
 		27E4686328BCABC100CDE8CE /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686228BCABC100CDE8CE /* LoadingPage.swift */; };
-		27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4686428BCD22500CDE8CE /* LoadingFooter.swift */; };
 		27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* DKStarsView.swift */; };
 		27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* DKReviewView.swift */; };
 		27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */; };
@@ -322,7 +321,6 @@
 		27E1C52C29D09CF700B333BA /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27E4686228BCABC100CDE8CE /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
-		27E4686428BCD22500CDE8CE /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
 		27E5E82A28BA62130074D295 /* DKStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarsView.swift; sourceTree = "<group>"; };
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
 		27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigationModel.swift; sourceTree = "<group>"; };
@@ -646,7 +644,6 @@
 				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
 				27063AB929FB094C0060AC8B /* AsyncCollection.swift */,
 				27E4686228BCABC100CDE8CE /* LoadingPage.swift */,
-				27E4686428BCD22500CDE8CE /* LoadingFooter.swift */,
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
@@ -962,7 +959,6 @@
 				2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */,
 				2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */,
 				27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */,
-				27E4686528BCD22500CDE8CE /* LoadingFooter.swift in Sources */,
 				27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* THMentionView.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */,

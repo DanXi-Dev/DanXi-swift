@@ -2,12 +2,19 @@ import SwiftUI
 
 // MARK: - View
 
+enum AsyncContentStyle {
+    case page, widget
+}
+
 struct AsyncContentView<Output, Content: View>: View {
+    let style: AsyncContentStyle
     @StateObject var loader: AsyncLoader<Output>
     var content: (Output) -> Content
     
-    init(action: @escaping () async throws -> Output,
+    init(style: AsyncContentStyle = .page,
+         action: @escaping () async throws -> Output,
          @ViewBuilder content: @escaping (Output) -> Content) {
+        self.style = style
         self._loader = StateObject(wrappedValue: AsyncLoader(action: action))
         self.content = content
     }
@@ -15,12 +22,12 @@ struct AsyncContentView<Output, Content: View>: View {
     var body: some View {
         switch loader.state {
         case .loading:
-            LoadingView()
+            LoadingView(style: self.style)
                 .task {
                     await loader.load()
                 }
         case .failed(let error):
-            ErrorView(error: error) {
+            ErrorView(style: self.style, error: error) {
                 loader.state = .loading
             }
         case .loaded(let output):
@@ -30,51 +37,86 @@ struct AsyncContentView<Output, Content: View>: View {
 }
 
 fileprivate struct LoadingView: View {
+    let style: AsyncContentStyle
+    
     var body: some View {
-        VStack {
-            ProgressView()
-            Text("Loading")
-                .font(.caption)
-                .foregroundColor(.secondary)
+        if style == .page {
+            VStack {
+                ProgressView()
+                Text("Loading")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        } else {
+            HStack {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+            .listRowBackground(Color.clear)
         }
     }
 }
 
 fileprivate struct ErrorView: View {
+    let style: AsyncContentStyle
     let error: Error
     let retryHandler: () -> Void
     
-    init(error: Error, retryHandler: @escaping () -> Void) {
+    init(style: AsyncContentStyle, error: Error, retryHandler: @escaping () -> Void) {
+        self.style = style
         self.error = error
         self.retryHandler = retryHandler
     }
     
     var body: some View {
-        VStack {
-            Text("Loading Failed")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            if let errorDescription = (error as? LocalizedError)?.errorDescription {
-                Text(errorDescription)
-                    .font(.callout)
-                    .padding(.bottom)
-                    .multilineTextAlignment(.center)
+        if style == .page {
+            VStack {
+                Text("Loading Failed")
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                if let errorDescription = (error as? LocalizedError)?.errorDescription {
+                    Text(errorDescription)
+                        .font(.callout)
+                        .padding(.bottom)
+                        .multilineTextAlignment(.center)
+                }
+                
+                Button {
+                    retryHandler()
+                } label: {
+                    Text("Retry")
+                }
+                .frame(width: 120, height: 25)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 3)
+                        .stroke(Color.secondary, lineWidth: 1)
+                )
             }
-            
-            Button {
-                retryHandler()
-            } label: {
-                Text("Retry")
+            .padding()
+            .foregroundColor(.secondary)
+        } else {
+            HStack {
+                Spacer()
+                VStack {
+                    if let errorDescription = (error as? LocalizedError)?.errorDescription {
+                        Text(errorDescription)
+                    } else {
+                        Text("Loading Failed")
+                    }
+                    
+                    Button {
+                        retryHandler()
+                    } label: {
+                        Text("Retry")
+                    }
+                }
+                .font(.caption)
+                .multilineTextAlignment(.center)
+                Spacer()
             }
-            .frame(width: 120, height: 25)
-            .overlay(
-                RoundedRectangle(cornerRadius: 3)
-                    .stroke(Color.secondary, lineWidth: 1)
-            )
         }
-        .padding()
-        .foregroundColor(.secondary)
     }
 }
 

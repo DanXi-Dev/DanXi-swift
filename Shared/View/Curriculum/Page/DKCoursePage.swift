@@ -1,120 +1,53 @@
 import SwiftUI
 
+// MARK: - View
+
 struct DKCoursePage: View {
-    @State var courseGroup: DKCourseGroup
-    @State var showCourseInfo = true
-    @State var showPostSheet = false
-    
-    @State var teacherSelected: String = ""
-    @State var semesterSelected: DKSemester = DKSemester.empty
-    
-    @State var initialized = false
-    @State var loading = true
-    @State var errorInfo = ""
-    
-    var filteredReviews: [DKReview] {
-        var reviewList: [DKReview] = []
-        for course in courseGroup.courses {
-            let teacherMatched = teacherSelected.isEmpty || teacherSelected == course.teachers
-            let semesterMatched = semesterSelected == DKSemester.empty || course.matchSemester(semesterSelected)
-            
-            if teacherMatched && semesterMatched {
-                reviewList.append(contentsOf: course.reviews)
-            }
-        }
-        
-        return reviewList
-    }
-    
-    var filteredRank: DKRank {
-        var content = 0.0, overall = 0.0, workload = 0.0, assessment = 0.0
-        for review in filteredReviews {
-            let rank = review.rank
-            overall += rank.overall
-            content += rank.content
-            workload += rank.workload
-            assessment += rank.assessment
-        }
-        let count = Double(filteredReviews.count)
-        return DKRank(overall: overall / count,
-                      content: content / count,
-                      workload: workload / count,
-                      assessment: assessment / count)
-    }
-    
-    init(courseGroup: DKCourseGroup) {
-        self._courseGroup = State(initialValue: courseGroup)
-    }
-    
-    init(courseGroup: DKCourseGroup, initialized: Bool) { // preview purpose
-        self._courseGroup = State(initialValue: courseGroup)
-        self._initialized = State(initialValue: initialized)
-    }
-    
-    func loadReviews() async {
-        do {
-            loading = true
-            defer { loading = false }
-            self.courseGroup = try await DKRequests.loadCourseGroup(id: courseGroup.id)
-            initialized = true
-        } catch {
-            errorInfo = error.localizedDescription
-        }
-    }
+    let courseGroup: DKCourseGroup
+    @State private var showPostSheet = false
     
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
                 Text(courseGroup.code)
                     .foregroundColor(.secondary)
-                Divider()
-                courseInfo
                 
                 Divider()
-                Text("Course Review")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
                 
-                    .pickerStyle(.segmented)
-                if initialized {
-                    courseReview
-                } else {
-                    LoadingFooter(loading: $loading,
-                                    errorDescription: errorInfo,
-                                    action: loadReviews)
-                    .padding()
+                CourseInfo(courseGroup: courseGroup)
+                
+                Divider()
+                
+                AsyncContentView(style: .widget) {
+                    return try await DKRequests.loadCourseGroup(id: courseGroup.id)
+                } content: { courseGroup in
+                    ReviewSection(courseGroup)
                 }
             }
-            .padding(.horizontal)
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity,
-                alignment: .topLeading
-            )
+            .padding()
         }
         .navigationTitle(courseGroup.name)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing, content: {
+            ToolbarItem {
                 Button {
                     showPostSheet = true
                 } label: {
                     Image(systemName: "square.and.pencil")
                 }
-            })
+            }
         }
-        .sheet(isPresented: $showPostSheet, content: {
+        .sheet(isPresented: $showPostSheet) {
             DKPostSheet(courseGroup: courseGroup)
-        })
-        .task {
-            await loadReviews()
         }
     }
+}
+
+fileprivate struct CourseInfo: View {
+    let courseGroup: DKCourseGroup
+    @State private var expand = true
     
-    private var courseInfo: some View {
-        DisclosureGroup(isExpanded: $showCourseInfo) {
+    var body: some View {
+        DisclosureGroup(isExpanded: $expand) {
             VStack(alignment: .leading) {
                 Label("Professors", systemImage: "person.fill")
                 Text(courseGroup.teachers.formatted())
@@ -156,47 +89,96 @@ struct DKCoursePage: View {
                 .foregroundColor(.primary)
         }
     }
+}
+
+fileprivate struct ReviewSection: View {
+    @StateObject private var model: DKCourseModel
     
-    private var courseReview: some View {
+    init(_ courseGroup: DKCourseGroup) {
+        let model = DKCourseModel(courseGroup)
+        self._model = StateObject(wrappedValue: model)
+    }
+    
+    var body: some View {
         Group {
-            courseReviewFilter
+            Text("Course Review")
+                .font(.title3)
+                .fontWeight(.bold)
             
-            if !filteredReviews.isEmpty {
-                courseReviewSummary
-            }
+            ReviewFilter()
             
-            ForEach(courseGroup.courses) { course in
-                ForEach(course.reviews) { review in
-                    let teacherMatched = teacherSelected.isEmpty || teacherSelected == course.teachers
-                    let semesterMatched = semesterSelected == DKSemester.empty || course.matchSemester(semesterSelected)
-                    
-                    if teacherMatched && semesterMatched {
-                        NavigationLink(destination: DKReviewPage(course: course, review: review)) {
-                            DKReviewView(review: review, course: course)
+            if !model.filteredReviews.isEmpty {
+                ReviewSummary()
+                
+                ForEach(model.courseGroup.courses) { course in
+                    ForEach(course.reviews) { review in
+                        let teacherMatched = model.teacher.isEmpty || model.teacher == course.teachers
+                        let semesterMatched = model.semester == DKSemester.empty || course.matchSemester(model.semester)
+                        
+                        if teacherMatched && semesterMatched {
+                            NavigationLink(destination: DKReviewPage(course: course, review: review)) {
+                                DKReviewView(review: review, course: course)
+                            }
                         }
                     }
                 }
+            } else {
+                Spacer()
+                Text("No Review")
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                Spacer()
             }
-            
-            if filteredReviews.isEmpty {
-                HStack {
-                    Spacer()
-                    Text("No Review")
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                    Spacer()
+        }
+        .environmentObject(model)
+    }
+}
+
+fileprivate struct ReviewFilter: View {
+    @EnvironmentObject private var model: DKCourseModel
+    
+    var body: some View {
+        Group {
+            LabeledContent {
+                Picker(selection: $model.teacher, label: Text("Filter Teacher")) {
+                    Text("All Professors")
+                        .tag("")
+                    
+                    ForEach(model.courseGroup.teachers, id: \.self) { teacher in
+                        Text(teacher)
+                            .tag(teacher)
+                    }
                 }
-                .padding(.top)
+            } label: {
+                Label("Professors", systemImage: "line.3.horizontal.decrease.circle")
+                    .foregroundColor(.secondary)
             }
             
-            
+            LabeledContent {
+                Picker(selection: $model.semester, label: Text("Filter Semester")) {
+                    Text("All Semesters")
+                        .tag(DKSemester.empty)
+                    
+                    ForEach(model.courseGroup.semesters) { semester in
+                        Text(semester.formatted())
+                            .tag(semester)
+                    }
+                }
+            } label: {
+                Label("Semester", systemImage: "line.3.horizontal.decrease.circle")
+                    .foregroundColor(.secondary)
+            }
         }
     }
+}
+
+fileprivate struct ReviewSummary: View {
+    @EnvironmentObject private var model: DKCourseModel
     
-    private var courseReviewSummary: some View {
+    var body: some View {
         HStack(alignment: .top) {
             VStack {
-                Text(String(format: "%.1f", filteredRank.overall))
+                Text(String(format: "%.1f", model.filteredRank.overall))
                     .font(.system(size: 46.0, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(.primary.opacity(0.7))
@@ -210,10 +192,10 @@ struct DKCoursePage: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                DKRatingView(rank: filteredRank)
+                DKRatingView(rank: model.filteredRank)
                     .frame(width: 200)
                 
-                Text("\(filteredReviews.count) Reviews")
+                Text("\(model.filteredReviews.count) Reviews")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fontWeight(.bold)
@@ -221,44 +203,48 @@ struct DKCoursePage: View {
             }
         }
     }
+}
+
+
+// MARK: - Model
+
+class DKCourseModel: ObservableObject {
+    let courseGroup: DKCourseGroup
+    @Published var teacher = ""
+    @Published var semester = DKSemester.empty
     
-    private var courseReviewFilter: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Label("Professors", systemImage: "line.3.horizontal.decrease.circle")
-                Picker(selection: $teacherSelected, label: Text("Filter Teacher")) {
-                    Text("All Professors")
-                        .tag("")
-                    
-                    ForEach(courseGroup.teachers, id: \.self) { teacher in
-                        Text(teacher)
-                            .tag(teacher)
-                    }
-                }
-            }
-            HStack {
-                Label("Semester", systemImage: "line.3.horizontal.decrease.circle")
-                Picker(selection: $semesterSelected, label: Text("Filter Semester")) {
-                    
-                    Text("All Semesters")
-                        .tag(DKSemester.empty)
-                    
-                    ForEach(courseGroup.semesters) { semester in
-                        Text(semester.formatted())
-                            .tag(semester)
-                    }
-                }
+    init(_ courseGroup: DKCourseGroup) {
+        self.courseGroup = courseGroup
+    }
+    
+    var filteredReviews: [DKReview] {
+        var reviewList: [DKReview] = []
+        for course in courseGroup.courses {
+            let teacherMatched = teacher.isEmpty || teacher == course.teachers
+            let semesterMatched = semester == DKSemester.empty || course.matchSemester(semester)
+            
+            if teacherMatched && semesterMatched {
+                reviewList += course.reviews
             }
         }
-        .font(.callout)
-        .foregroundColor(.secondary)
+        
+        return reviewList
+    }
+    
+    var filteredRank: DKRank {
+        var content = 0.0, overall = 0.0, workload = 0.0, assessment = 0.0
+        for review in filteredReviews {
+            let rank = review.rank
+            overall += rank.overall
+            content += rank.content
+            workload += rank.workload
+            assessment += rank.assessment
+        }
+        let count = Double(filteredReviews.count)
+        return DKRank(overall: overall / count,
+                      content: content / count,
+                      workload: workload / count,
+                      assessment: assessment / count)
     }
 }
 
-struct DKCoursePage_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            DKCoursePage(courseGroup: Bundle.main.decodeData("course")!, initialized: true)
-        }
-    }
-}

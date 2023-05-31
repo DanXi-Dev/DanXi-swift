@@ -54,35 +54,3 @@ class FDPlaygroundModel: ObservableObject {
         return "circle.fill"
     }
 }
-
-@MainActor
-class FDReservationModel: ObservableObject {
-    let playground: FDPlayground
-    
-    init(_ playground: FDPlayground) {
-        self.playground = playground
-    }
-    
-    @Published var timeSlots: [FDPlaygroundTimeSlot] = []
-    
-    @Published var selectedTimeSlot: FDPlaygroundTimeSlot?
-    
-    @Published var date = Date.now
-    @Published var showAvailable = true
-    var filteredTimeSlots: [FDPlaygroundTimeSlot] {
-        timeSlots.filter { $0.reserveId != nil || !showAvailable }
-    }
-    
-    @Published var loading = false
-    @Published var loadingError: Error?
-    func loadTimeSlots() async {
-        do {
-            loading = true
-            defer { loading = false }
-            let timeSlots = try await FDPlaygroundAPI.getTimeSlotList(playground: playground, date: date)
-            self.timeSlots = timeSlots
-        } catch {
-            loadingError = error
-        }
-    }
-}

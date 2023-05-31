@@ -11,7 +11,7 @@ struct FDPlaygroundPage: View {
 }
 
 fileprivate struct FDPlaygroundContent: View {
-    @StateObject var model: FDPlaygroundModel
+    @StateObject private var model: FDPlaygroundModel
     
     init(_ model: FDPlaygroundModel) {
         self._model = StateObject(wrappedValue: model)
@@ -50,55 +50,39 @@ fileprivate struct FDPlaygroundContent: View {
 }
 
 fileprivate struct FDPlaygroundReservePage: View {
-    @StateObject var model: FDReservationModel
+    private let playground: FDPlayground
+    @State private var showAvailable = true
+    @State private var date = Date.now
     
     init(_ playground: FDPlayground) {
-        self._model = StateObject(wrappedValue: FDReservationModel(playground))
+        self.playground = playground
     }
     
     var body: some View {
         List {
             Section {
-                DatePicker("Select Reservation Date", selection: $model.date, displayedComponents: [.date])
-                    .onChange(of: model.date) { date in
-                        model.timeSlots = []
-                        Task {
-                            await model.loadTimeSlots()
-                        }
-                    }
-                Toggle("Available Time Slots Only", isOn: $model.showAvailable)
+                DatePicker("Select Reservation Date", selection: $date, displayedComponents: [.date])
+                Toggle("Available Time Slots Only", isOn: $showAvailable)
             }
             
-            Section {
-                ForEach(model.filteredTimeSlots) { timeSlot in
-                    FDReservationTimeSlotView(timeSlot: timeSlot)
-                }
-                .environmentObject(model)
-            } header: {
-                Text("Reservation Time Slots")
-            } footer: {
-                // FIXME: may display error view when timeslot is empty
-                if model.timeSlots.isEmpty {
-                    LoadingFooter(loading: $model.loading,
-                                  errorDescription: model.loadingError?.localizedDescription ?? "",
-                                  action: model.loadTimeSlots)
+            AsyncContentView(style: .widget) {
+                return try await FDPlaygroundAPI.getTimeSlotList(playground: self.playground, date: self.date)
+            } content: { timeSlots in
+                let filteredTimeSlots = timeSlots.filter { $0.reserveId != nil || !showAvailable }
+                ForEach(filteredTimeSlots) { timeSlot in
+                    TimeSlotView(timeSlot: timeSlot)
                 }
             }
-            .task {
-                await model.loadTimeSlots()
-            }
+            .id(date)
         }
-        .navigationTitle(model.playground.name)
+        .navigationTitle(playground.name)
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $model.selectedTimeSlot) { timeSlot in
-            FDReservationSheet(timeSlot)
-        }
     }
 }
 
-fileprivate struct FDReservationTimeSlotView: View {
-    @EnvironmentObject var model: FDReservationModel
+fileprivate struct TimeSlotView: View {
     let timeSlot: FDPlaygroundTimeSlot
+    @State private var showSheet = false
     
     var body: some View {
         HStack {
@@ -108,7 +92,7 @@ fileprivate struct FDReservationTimeSlotView: View {
             Spacer()
             if timeSlot.reserveId != nil {
                 Button {
-                    model.selectedTimeSlot = timeSlot
+                    showSheet = true
                 } label: {
                     Text("Reserve")
                 }
@@ -120,10 +104,13 @@ fileprivate struct FDReservationTimeSlotView: View {
                     .foregroundColor(.secondary)
             }
         }
+        .sheet(isPresented: $showSheet) {
+            ReservationSheet(timeSlot)
+        }
     }
 }
 
-fileprivate struct FDReservationSheet: View {
+fileprivate struct ReservationSheet: View {
     let timeSlot: FDPlaygroundTimeSlot
     let request: URLRequest?
     
