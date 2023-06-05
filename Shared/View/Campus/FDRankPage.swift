@@ -6,7 +6,7 @@ struct FDRankPage: View {
             try await FDAcademicAPI.login()
             return try await FDAcademicAPI.getGPA()
         } content: { ranks in
-            if let myRank = ranks.filter { $0.isMe }.first {
+            if let myRank = ranks.filter({ $0.isMe }).first {
                 Section {
                     HStack {
                         Text("Total credit \(String(format: "%.1f", myRank.credit)), rank \(String(myRank.rank))")

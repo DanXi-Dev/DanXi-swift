@@ -52,7 +52,9 @@ struct THHoleView: View {
                 }
             }
             
-            Text(hole.firstFloor.content.inlineAttributed())
+            let firstFloorContent = hole.firstFloor.fold.isEmpty ? hole.firstFloor.content : hole.firstFloor.fold
+            
+            Text(firstFloorContent.inlineAttributed())
                 .font(.callout)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
@@ -116,7 +118,9 @@ struct THHoleView: View {
                     .font(.custom("", size: 12))
                     .fixedSize(horizontal: false, vertical: true)
                 
-                Text(hole.lastFloor.content.inlineAttributed())
+                let lastFloorContent = hole.lastFloor.fold.isEmpty ? hole.lastFloor.content : hole.lastFloor.fold
+                
+                Text(lastFloorContent.inlineAttributed())
                     .lineLimit(1)
                     .font(.custom("", size: 14))
                     .fixedSize(horizontal: false, vertical: true)
