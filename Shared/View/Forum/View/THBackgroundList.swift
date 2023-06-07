@@ -1,25 +1,35 @@
 import SwiftUI
 
-struct THBackgroundList<Content: View>: View {
+struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
     @ObservedObject private var settings = THSettings.shared
+    @Binding private var selection: Set<SelectionValue>
     private var hasBackground: Bool {
         settings.backgroundImage != nil
     }
     
     private let content: Content
     
-    init(@ViewBuilder content: () -> Content) {
+    init(@ViewBuilder content: () -> Content) where SelectionValue == Never {
         self.content = content()
+        // selection is not needed
+        self._selection = Binding(
+            get: { Set<Never>()},
+            set: { _, _ in })
+    }
+    
+    init(selection: Binding<Set<SelectionValue>>, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self._selection = selection
     }
     
     var body: some View {
-        List {
+        List(selection: $selection) {
             content
                 .listRowBackground(Color.clear.opacity(0))
         }
         .listStyle(.inset)
         .scrollContentBackground(hasBackground ? .hidden : .visible)
-        .background(alignment: .leading) { // leading alignment is used so that the image won't move when the size of List changes during scroll (navigation title may change its size)
+        .background(alignment: .bottomLeading) { // leading alignment is used so that the image won't move when the size of List changes during scroll (navigation title may change its size)
             if let image = settings.backgroundImage {
                 image
                     .resizable()

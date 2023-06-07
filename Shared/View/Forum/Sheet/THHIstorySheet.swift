@@ -18,6 +18,7 @@ struct THHistorySheet: View {
             }
             .navigationTitle("Edit History")
             .navigationBarTitleDisplayMode(.inline)
+            .scrollContentBackground(.visible)
         }
     }
 }
