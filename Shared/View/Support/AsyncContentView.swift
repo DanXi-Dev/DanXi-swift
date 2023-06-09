@@ -7,9 +7,70 @@ enum AsyncContentStyle {
 }
 
 struct AsyncContentView<Output, Content: View>: View {
-    let style: AsyncContentStyle
-    @StateObject var loader: AsyncLoader<Output>
-    var content: (Output) -> Content
+    private let nestedView: AnyView
+    
+    init(finished: Bool = false,
+         style: AsyncContentStyle = .page,
+         action: @escaping () async throws -> Void,
+         @ViewBuilder content: () -> Content) where Output == Void {
+        nestedView = AnyView(AsyncTaskView(finished: finished,
+                                           style: style,
+                                           action: action,
+                                           content: content))
+    }
+    
+    init(style: AsyncContentStyle = .page,
+         action: @escaping () async throws -> Output,
+         @ViewBuilder content: @escaping (Output) -> Content) {
+        nestedView = AnyView(AsyncMappingView(style: style,
+                                              action: action,
+                                              content: content))
+    }
+    
+    var body: some View {
+        nestedView
+    }
+}
+
+struct AsyncTaskView<Content: View>: View {
+    private let style: AsyncContentStyle
+    @StateObject private var loader: AsyncLoader<Void>
+    private let content: Content
+    
+    init(finished: Bool = false,
+         style: AsyncContentStyle = .page,
+         action: @escaping () async throws -> Void,
+         @ViewBuilder content: () -> Content) {
+        let loader = AsyncLoader(action: action)
+        if finished {
+            loader.state = .loaded(()) // this is a hack: Void is an empty tuple, this is for code reuse
+        }
+        self._loader = StateObject(wrappedValue: loader)
+        self.style = style
+        self.content = content()
+    }
+    
+    var body: some View {
+        switch loader.state {
+        case .loading:
+            LoadingView(style: self.style)
+                .task {
+                    await loader.load()
+                }
+        case .failed(let error):
+            ErrorView(style: self.style, error: error) {
+                loader.state = .loading
+            }
+        case .loaded(_):
+            content
+        }
+    }
+}
+
+struct AsyncMappingView<Output, Content: View>: View {
+    private let style: AsyncContentStyle
+    @StateObject private var loader: AsyncLoader<Output>
+    private var content: (Output) -> Content
     
     init(style: AsyncContentStyle = .page,
          action: @escaping () async throws -> Output,

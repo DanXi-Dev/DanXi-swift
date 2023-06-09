@@ -1,17 +1,24 @@
 import SwiftUI
 
 struct FDBusPage: View {
+    var body: some View {
+        AsyncContentView {
+            return try await FDBusAPI.fetchBusRoutes()
+        } content: { routes in
+            BusPageContent(routes: routes)
+        }
+    }
+}
+
+fileprivate struct BusPageContent: View {
+    let routes: [FDBusRoute]
     
-    @State var routes: [FDBusRoute] = []
+    private let campusList = ["邯郸", "江湾", "枫林", "张江"]
+    @State private var start = "邯郸"
+    @State private var end = "江湾"
+    @State private var holiday = false
     
-    let campusList = ["邯郸", "江湾", "枫林", "张江"]
-    
-    @State var start = "邯郸"
-    @State var end = "江湾"
-    @State var holiday = false
-    
-    
-    var filteredSchedules: [FDBusSchedule] {
+    private var filteredSchedules: [FDBusSchedule] {
         let route = routes.filter { route in
             route.match(start: start, end: end)
         }.first
@@ -25,40 +32,34 @@ struct FDBusPage: View {
         }
     }
     
-    func loadRoutes() async throws {
-        self.routes = try await FDBusAPI.fetchBusRoutes()
-    }
-    
     var body: some View {
-        LoadingPage(action: loadRoutes) {
-            List {
-                Section {
-                    Picker(selection: $start, label: Text("From")) {
-                        ForEach(campusList, id: \.self) { campus in
-                            Text(campus + "校区").tag(campus)
-                        }
-                    }
-                    
-                    Picker(selection: $end, label: Text("To")) {
-                        ForEach(campusList, id: \.self) { campus in
-                            Text(campus + "校区").tag(campus)
-                        }
+        List {
+            Section {
+                Picker(selection: $start, label: Text("From")) {
+                    ForEach(campusList, id: \.self) { campus in
+                        Text(campus + "校区").tag(campus)
                     }
                 }
                 
-                Section {
-                    ForEach(filteredSchedules) { schedule in
-                        FDScheduleView(schedule: schedule)
+                Picker(selection: $end, label: Text("To")) {
+                    ForEach(campusList, id: \.self) { campus in
+                        Text(campus + "校区").tag(campus)
                     }
                 }
             }
-            .navigationTitle("Bus Schedule")
+            
+            Section {
+                ForEach(filteredSchedules) { schedule in
+                    BusRow(schedule: schedule)
+                }
+            }
         }
+        .navigationTitle("Bus Schedule")
     }
 }
 
 
-struct FDScheduleView: View {
+fileprivate struct BusRow: View {
     let schedule: FDBusSchedule
     
     var body: some View {
@@ -88,11 +89,5 @@ struct FDScheduleView: View {
                 Text(schedule.endTime?.formatted(date: .omitted, time: .shortened) ?? " ")
             }
         }
-    }
-}
-
-struct FDBusPage_Previews: PreviewProvider {
-    static var previews: some View {
-        FDBusPage()
     }
 }

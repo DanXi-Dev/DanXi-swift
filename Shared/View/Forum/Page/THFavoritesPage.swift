@@ -1,18 +1,26 @@
 import SwiftUI
 
 struct THFavoritesPage: View {
-    @ObservedObject private var appModel = DXModel.shared
-    @State private var favorites: [THHole] = []
+    var body: some View {
+        AsyncContentView {
+            return try await THRequests.loadFavorites()
+        } content: { favorites in
+            FavoritePageContent(favorites)
+        }
+    }
+}
 
-    @State private var initError = ""
+fileprivate struct FavoritePageContent: View {
+    @ObservedObject private var appModel = DXModel.shared
+    @State private var favorites: [THHole]
     @State private var showAlert = false
     @State private var deleteError = ""
-
-    func fetchFavorites() async throws {
-        self.favorites = try await THRequests.loadFavorites()
+    
+    init(_ favorites: [THHole]) {
+        self._favorites = State(initialValue: favorites)
     }
     
-    func removeFavorite(_ hole: THHole) {
+    private func removeFavorite(_ hole: THHole) {
         Task { @MainActor in
             do {
                 try await appModel.toggleFavorite(hole.id)
@@ -20,17 +28,14 @@ struct THFavoritesPage: View {
                     favorites.remove(at: idx)
                 }
             } catch {
-                showAlert = true
                 deleteError = error.localizedDescription
+                showAlert = true
             }
         }
     }
-
     
     var body: some View {
-        LoadingPage {
-            self.favorites = try await THRequests.loadFavorites()
-        } content: {
+        Group {
             if favorites.isEmpty {
                 Text("Empty Favorites List")
                     .foregroundColor(.secondary)

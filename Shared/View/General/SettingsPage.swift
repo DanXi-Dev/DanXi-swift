@@ -1,16 +1,14 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @ObservedObject var forumModel = DXModel.shared
-    @ObservedObject var campusModel = FDModel.shared
+    @ObservedObject private var forumModel = DXModel.shared
+    @ObservedObject private var campusModel = FDModel.shared
     
-    @State var showTreeHoleLogin = false
-    @State var showTreeHoleActions = false
+    @State private var showTreeHoleLogin = false
+    @State private var showTreeHoleActions = false
     
-    @State var showFudanLogin = false
-    @State var showFudanActions = false
-    
-    init() { }
+    @State private var showFudanLogin = false
+    @State private var showFudanActions = false
     
     var body: some View {
         NavigationStack {
@@ -129,6 +127,7 @@ struct SettingsPage: View {
     }
 }
 
+/*
 struct DXUserInfoPage: View {
     @State var user: DXUser? = DXModel.shared.user
     
@@ -169,12 +168,6 @@ struct DXUserInfoPage: View {
                 }
             }
         }
-
     }
 }
-
-struct SettingsPage_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsPage()
-    }
-}
+ */

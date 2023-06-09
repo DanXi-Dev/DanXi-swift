@@ -6,7 +6,7 @@ struct THHomePage: View {
     
     var body: some View {
         NavigationStack(path: $model.path) {
-            LoadingPage(finished: appModel.forumLoaded) {
+            AsyncContentView(finished: appModel.forumLoaded) {
                 try await appModel.loadForum()
             } content: {
                 Group {

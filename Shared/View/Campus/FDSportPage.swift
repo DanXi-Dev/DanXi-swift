@@ -1,105 +1,104 @@
 import SwiftUI
 
-struct FDSportPage: View {
-    @State var exerciseInfo: FDExercise? = nil
-    @State var examInfo: FDSportExam? = nil
-    
-    @State var showExerciseSheet = false
-    @State var showExamSheet = false
-    
-    func loadAll() async throws {
-        try await FDSportAPI.login()
-        self.examInfo = try await FDSportAPI.fetchExamData()
-        self.exerciseInfo = try await FDSportAPI.fetchExerciseData()
-    }
-    
-    
+struct FDSportPage: View {    
     var body: some View {
-        LoadingPage(action: loadAll) {
+        AsyncContentView { () -> (FDExercise, FDSportExam) in
+            let exam = try await FDSportAPI.fetchExamData()
+            let exercise = try await FDSportAPI.fetchExerciseData()
+            return (exercise, exam)
+        } content: { (exercise, exam) in
             List {
-                if let exerciseInfo = exerciseInfo {
-                    Section {
-                        ForEach(exerciseInfo.exerciseItems) { item in
-                            LabeledContent(item.name) {
-                                Text("\(item.count)")
-                            }
-                        }
-                    } header: {
-                        HStack {
-                            Text("Extracurricular Activities")
-                                .font(.headline)
-                            Spacer()
-                            Button {
-                                showExerciseSheet = true
-                            } label: {
-                                Image(systemName: "info.circle")
-                            }
-                        }
-                    }
-                    .sheet(isPresented: $showExerciseSheet) {
-                        NavigationStack {
-                            List {
-                                ForEach(exerciseInfo.exerciseLogs) { log in
-                                    LabeledContent(log.name) {
-                                        Text("\(log.date) \(log.status)")
-                                            .font(.callout)
-                                    }
-                                }
-                            }
-                            .navigationTitle("Exercise Logs")
-                            .navigationBarTitleDisplayMode(.inline)
-                        }
-                    }
-                }
-                
-                if let examInfo = examInfo {
-                    Section {
-                        LabeledContent("Total Score") {
-                            Text("\(Int(examInfo.total)) (\(examInfo.evaluation))")
-                        }
-                        
-                        ForEach(examInfo.items) { item in
-                            LabeledContent(item.name) {
-                                Text(item.result)
-                            }
-                        }
-                    } header: {
-                        HStack {
-                            Text("PE Exam")
-                                .font(.headline)
-                            Spacer()
-                            Button {
-                                showExamSheet = true
-                            } label: {
-                                Image(systemName: "info.circle")
-                            }
-                        }
-                    }
-                    .sheet(isPresented: $showExamSheet) {
-                        NavigationStack {
-                            List {
-                                ForEach(examInfo.logs) { log in
-                                    LabeledContent(log.name) {
-                                        Text(log.date)
-                                            .font(.callout)
-                                    }
-                                    
-                                }
-                            }
-                            .navigationTitle("PE Exam Logs")
-                            .navigationBarTitleDisplayMode(.inline)
-                        }
-                    }
-                }
+                ExerciseSection(exercise: exercise)
+                ExamSection(exam: exam)
             }
             .navigationTitle("PE Curriculum")
-
         }
     }
 }
 
-struct SportPage_Previews: PreviewProvider {
-    static var previews: some View {
-        FDSportPage()
+
+fileprivate struct ExerciseSection: View {
+    let exercise: FDExercise
+    @State private var showSheet = false
+    
+    var body: some View {
+        Section {
+            ForEach(exercise.exerciseItems) { item in
+                LabeledContent(item.name) {
+                    Text("\(item.count)")
+                }
+            }
+        } header: {
+            HStack {
+                Text("Extracurricular Activities")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    showSheet = true
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            NavigationStack {
+                List {
+                    ForEach(exercise.exerciseLogs) { log in
+                        LabeledContent(log.name) {
+                            Text("\(log.date) \(log.status)")
+                                .font(.callout)
+                        }
+                    }
+                }
+                .navigationTitle("Exercise Logs")
+                .navigationBarTitleDisplayMode(.inline)
+            }
+        }
+    }
+}
+
+
+fileprivate struct ExamSection: View {
+    let exam: FDSportExam
+    @State private var showSheet = false
+    
+    
+    var body: some View {
+        Section {
+            LabeledContent("Total Score") {
+                Text("\(Int(exam.total)) (\(exam.evaluation))")
+            }
+            
+            ForEach(exam.items) { item in
+                LabeledContent(item.name) {
+                    Text(item.result)
+                }
+            }
+        } header: {
+            HStack {
+                Text("PE Exam")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    showSheet = true
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            NavigationStack {
+                List {
+                    ForEach(exam.logs) { log in
+                        LabeledContent(log.name) {
+                            Text(log.date)
+                                .font(.callout)
+                        }
+                    }
+                }
+                .navigationTitle("PE Exam Logs")
+                .navigationBarTitleDisplayMode(.inline)
+            }
+        }
     }
 }
