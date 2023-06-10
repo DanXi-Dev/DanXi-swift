@@ -127,6 +127,7 @@
 		27BBBD232912C33D007C2905 /* DXUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD142912C33C007C2905 /* DXUtils.swift */; };
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
+		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
 		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
@@ -297,6 +298,7 @@
 		27BBBD142912C33C007C2905 /* DXUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXUtils.swift; sourceTree = "<group>"; };
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
 		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
+		27CAD2312A32AD94008F3D19 /* FoldedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldedView.swift; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
 		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				27DAFA7829CC50E100F32093 /* AsnyncButton.swift */,
 				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
 				27063AB929FB094C0060AC8B /* AsyncCollection.swift */,
+				27CAD2312A32AD94008F3D19 /* FoldedView.swift */,
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
@@ -1033,6 +1036,7 @@
 				27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */,
 				27227FD528A512B300B3C99D /* Defaults.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
+				27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */,
 				27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */,
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,
 				27E82FED29E8977400F34B3B /* FDCoursePage.swift in Sources */,

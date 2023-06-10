@@ -14,18 +14,10 @@ struct THHoleView: View {
     }
     
     var body: some View {
-        Group {
-            if !fold || expand {
-                fullContent
-            } else {
-                Button {
-                    withAnimation {
-                        expand.toggle()
-                    }
-                } label: {
-                    tags
-                }
-            }
+        FoldedView(expand: !fold) {
+            tags
+        } content: {
+            fullContent
         }
     }
     

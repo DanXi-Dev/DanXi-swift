@@ -19,33 +19,34 @@ struct THHolePage: View {
     var body: some View {
         ScrollViewReader { proxy in
             THBackgroundList(selection: $model.selectedFloor) {
-                THHoleTags(tags: model.hole.tags)
-                    .listRowSeparator(.hidden, edges: .top)
-                
-                AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                    THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
-                        .tag(floor)
-                }
-                .onAppear {
-                    if model.scrollTarget != -1 {
-                        // animation is necessary, otherwise the app (with small probability) might hang during scrolling
-                        withAnimation {
-                            proxy.scrollTo(model.scrollTarget, anchor: .top)
-                        }
-                        model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
+                Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
+                    THHoleTags(tags: model.hole.tags)
+                        .listRowSeparator(.hidden, edges: .top)
+                    
+                    AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
+                        THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
+                            .tag(floor)
                     }
-                }
-                .onChange(of: model.scrollTarget) { target in
-                    if target > 0 {
-                        withAnimation {
-                            // SwiftUI bug: App may crash, ref: https://useyourloaf.com/blog/swiftui-scrollviewproxy-crash/
-                            proxy.scrollTo(target, anchor: .top)
+                    .onAppear {
+                        if model.scrollTarget != -1 {
+                            // animation is necessary, otherwise the app (with small probability) might hang during scrolling
+                            withAnimation {
+                                proxy.scrollTo(model.scrollTarget, anchor: .top)
+                            }
+                            model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
                         }
-                        model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
+                    }
+                    .onChange(of: model.scrollTarget) { target in
+                        if target > 0 {
+                            withAnimation {
+                                // SwiftUI bug: App may crash, ref: https://useyourloaf.com/blog/swiftui-scrollviewproxy-crash/
+                                proxy.scrollTo(target, anchor: .top)
+                            }
+                            model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
+                        }
                     }
                 }
             }
-            .listStyle(.inset)
             .navigationTitle("#\(String(model.hole.id))")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

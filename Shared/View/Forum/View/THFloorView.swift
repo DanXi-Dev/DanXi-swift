@@ -50,22 +50,14 @@ struct THComplexFloor: View {
     }
     
     var body: some View {
-        Group {
-            if model.collapse {
-                Button {
-                    withAnimation {
-                        model.collapse = false
-                    }
-                } label: {
-                    Text(model.collapsedContent)
-                        .foregroundColor(.secondary)
-                }
-            } else {
-                VStack(alignment: .leading) {
-                    headLine
-                    content
-                    bottomLine
-                }
+        FoldedView(expand: !model.collapse) {
+            Text(model.collapsedContent)
+                .foregroundColor(.secondary)
+        } content: {
+            VStack(alignment: .leading) {
+                headLine
+                content
+                bottomLine
             }
         }
         .environmentObject(model)
