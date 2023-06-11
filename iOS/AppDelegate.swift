@@ -16,10 +16,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         // Request notification permission
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound],
-            completionHandler: {_, _ in })
-        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound, .provisional]) { granted, error in
+            if granted || error == nil {
+                Task { @MainActor in
+                    application.registerForRemoteNotifications()
+                }
+            }
+        }
         
         // Activate internet connection
         let cellular = CTCellularData()
@@ -32,7 +35,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                 }
             }
         }
-
         
         return true
     }
@@ -40,19 +42,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     // MARK: - Notification
     
     func application(_ application: UIApplication,
-                              didRegisterForRemoteNotificationsWithDeviceToken
-                              deviceToken: Data) {
-        // let token: String = deviceToken.map { String(format: "%.2hhx", $0) }.joined()
-        // let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? "" //TODO: How to handle nil UUID?
-        
-        // TODO: Send token to server.
-    }
-    
-    
-    func application(_ application: UIApplication,
-                              didFailToRegisterForRemoteNotificationsWithError
-                              error: Error) {
-        //TODO: Retry?
+                     didRegisterForRemoteNotificationsWithDeviceToken
+                     deviceToken: Data) {
+        if let deviceId = UIDevice.current.identifierForVendor {
+            DXModel.shared.receiveToken(deviceToken, deviceId)
+        }
     }
     
     
@@ -66,6 +60,20 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // TODO: process notification data and perform navigation
+        
+        /*
+         let userInfo = response.notification.request.content.userInfo
+         let dict: [AnyHashable: Any] = userInfo["items"][0] //not sure if you would need explicit type casting here, cant debug as I dont have actual object
+         do {
+             let jsonData = try JSONSerialization.data(withJSONObject: dict)
+             let item = try JSONDecoder().decode(Item.self, from: jsonData)
+             //now access item
+         }
+         catch {
+             print(error)
+         }
+         */
         completionHandler()
     }
     

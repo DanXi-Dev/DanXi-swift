@@ -1,5 +1,7 @@
 import Foundation
 import KeychainAccess
+import UserNotifications
+import UIKit
 
 class DXModel: ObservableObject {
     // MARK: - General
@@ -93,15 +95,45 @@ class DXModel: ObservableObject {
     
     func logout() {
         Task {
-            do { try await DXRequests.logout() }
+            do {
+                guard let deviceId = await UIDevice.current.identifierForVendor?.uuidString else { return }
+                try await DXRequests.deleteNotificationToken(deviceId: deviceId)
+                try await DXRequests.logout()
+                isLogged = false
+                token = nil
+                clearAll()
+            } catch {
+                
+            }
         }
-        isLogged = false
-        token = nil
-        clearAll()
     }
     
     func refreshToken() async throws {
         token = try await DXRequests.refreshToken()
+    }
+    
+    // MARK: - Notifications
+    
+    private let defaults = UserDefaults.standard
+    
+    private func tokenDidChange(_ token: String) -> Bool {
+        guard let oldToken = defaults.string(forKey: "notification-token") else {
+            return true
+        }
+        return token != oldToken
+    }
+
+    func receiveToken(_ tokenData: Data, _ deviceId: UUID) {
+        guard isLogged else { return }
+        let token: String = tokenData.map { String(format: "%.2hhx", $0) }.joined()
+        guard tokenDidChange(token) else {
+            return
+        }
+        
+        Task {
+            try await DXRequests.uploadNotificationToken(deviceId: deviceId.uuidString, token: token)
+            defaults.set(token, forKey: "notification-token")
+        }
     }
     
     // MARK: - Disk Cache

@@ -3,7 +3,6 @@ import Disk
 
 @MainActor
 class THSearchModel: ObservableObject {
-    private let defaults = UserDefaults.standard
     @Published var searchText = "" {
         didSet {
             if self.submitted {

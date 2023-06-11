@@ -1,8 +1,7 @@
 import Foundation
 
 struct DXRequests {
-    
-    // MARK: Account
+    // MARK: - Account
     
     /// Request email verification code.
     /// - Parameter email: Email, must end with fudan domain name suffix.
@@ -42,7 +41,7 @@ struct DXRequests {
         }
     }
     
-    // MARK: User
+    // MARK: - User
     
     /// Get current user info.
     static func loadUserInfo() async throws -> DXUser {
@@ -108,5 +107,26 @@ struct DXRequests {
         }
     }
     
-    // TODO: Permission
+    // MARK: - Notification
+    
+    static func uploadNotificationToken(deviceId: String, token: String) async throws {
+        struct UploadConfig: Codable {
+            let service: String
+            let deviceId: String
+            let token: String
+        }
+        
+        let config = UploadConfig(service: "apns", deviceId: deviceId, token: token)
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/push-tokens")!, payload: config)
+    }
+    
+    static func deleteNotificationToken(deviceId: String) async throws {
+        struct DeleteConfig: Codable {
+            let deviceId: String
+        }
+        
+        let config = DeleteConfig(deviceId: deviceId)
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/push-tokens")!,
+                            payload: config, method: "DELETE")
+    }
 }
