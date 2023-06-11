@@ -56,6 +56,8 @@ struct THPunishmentHistorySheet: View {
                 Text(history)
             }
             .listStyle(.insetGrouped)
+            .navigationTitle("Punishment History")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
