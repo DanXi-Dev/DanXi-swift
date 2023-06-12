@@ -199,7 +199,7 @@ struct FDRank: Identifiable {
     let department: String
     let gpa: Double
     let credit: Double
-    let rank: Int
+    var rank: Int
     
     var isMe: Bool {
         !name.contains("*")

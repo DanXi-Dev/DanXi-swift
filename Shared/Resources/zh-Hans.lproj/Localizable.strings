@@ -346,7 +346,12 @@
 
 // Fudan Rank
 "GPA Rank" = "绩点排名";
-"Total credit %@, rank %@" = "总学分数%@，绩点排名%@";
+"GPA: %@" = "绩点：%@";
+"Credit: %@" = "学分：%@";
+"My Credit" = "我的学分";
+"My GPA" = "我的绩点";
+"My Rank" = "我的排名";
+"Show all GPA rank" = "显示全部排名";
 
 // Fudan Playground
 "Playground Reservation" = "场馆预约";
