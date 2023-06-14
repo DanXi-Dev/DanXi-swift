@@ -17,7 +17,7 @@ struct FDAuthAPI {
                                                  username: username, password: password)
         let (_, response) = try await sendRequest(authRequest)
         if response.url?.absoluteString != "https://uis.fudan.edu.cn/authserver/index.do" {
-            throw HTTPError.unauthorized
+            throw FDError.loginFailed
         }
     }
     
@@ -40,7 +40,7 @@ struct FDAuthAPI {
                                                  username: username, password: password)
         let (newData, newResponse) = try await sendRequest(authRequest)
         guard newResponse.url?.host != "uis.fudan.edu.cn" else {
-            throw HTTPError.unauthorized
+            throw FDError.loginFailed
         }
         return newData
     }
@@ -61,7 +61,7 @@ struct FDAuthAPI {
                 }
             }
         } catch {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidHTML
         }
         
         return prepareFormRequest(authURL, form: loginForm)
@@ -73,7 +73,7 @@ struct FDAuthAPI {
         let request = prepareRequest(component.url!)
         let (data, _) = try await URLSession.shared.data(for: request)
         guard let result = String(data: data, encoding: String.Encoding.ascii) else {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidEncoding
         }
         return result.trimmingCharacters(in: .whitespacesAndNewlines) != "false"
     }

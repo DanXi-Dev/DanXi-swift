@@ -1,3 +1,6 @@
+/* Bundle display name */
 "CFBundleDisplayName" = "旦夕";
+
+/* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "旦夕需要访问系统日历以存储课程信息";
 

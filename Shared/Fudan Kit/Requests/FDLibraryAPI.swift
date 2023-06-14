@@ -19,7 +19,7 @@ struct FDLibraryAPI {
             }
             
             return libraryPeopleList
-        } catch NetworkError.networkError {
+        } catch _ as URLError {
             throw FDError.campusOnly
         }
     }

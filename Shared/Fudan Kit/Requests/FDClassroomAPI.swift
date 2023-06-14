@@ -47,11 +47,11 @@ struct FDClassroomInfo {
                 classroomList = try JSONDecoder().decode([FDClassroom].self, from: subJSON.rawData())
                 return
             } catch {
-                throw NetworkError.invalidResponse
+                throw ParseError.invalidJSON
             }
         }
         
-        throw NetworkError.invalidResponse
+        throw ParseError.invalidResponse
     }
 }
 

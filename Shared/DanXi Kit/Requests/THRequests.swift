@@ -71,8 +71,12 @@ struct THRequests {
         do {
             let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
             return try await DXResponse(url)
-        } catch HTTPError.notFound {
-            throw DanXiError.holeNotExist(holeId: holeId)
+        } catch let error as HTTPError {
+            if error.code == 404 {
+                throw DXError.holeNotExist(holeId: holeId)
+            } else {
+                throw error
+            }
         }
     }
     
@@ -137,8 +141,12 @@ struct THRequests {
     static func loadFloorById(floorId: Int) async throws -> THFloor {
         do {
             return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
-        } catch HTTPError.notFound {
-            throw DanXiError.floorNotExist(floorId: floorId)
+        } catch let error as HTTPError {
+            if error.code == 404 {
+                throw DXError.floorNotExist(floorId: floorId)
+            } else {
+                throw error
+            }
         }
     }
     
@@ -471,7 +479,7 @@ struct THRequests {
         guard let responseObject = try? JSON(data: responseData),
               let urlString = responseObject["image", "url"].string,
               let url = URL(string: urlString) else {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidResponse
         }
         return url
     }

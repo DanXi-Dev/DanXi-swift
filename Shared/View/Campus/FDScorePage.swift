@@ -1,12 +1,21 @@
 import SwiftUI
 
 struct FDScorePage: View {
+    struct SemesterInfo {
+        let semesters: [FDSemester]
+        let currentSemester: FDSemester?
+    }
+    
     var body: some View {
-        AsyncContentView { () -> [FDSemester] in
+        AsyncContentView { () -> SemesterInfo in
             try await FDAcademicAPI.login()
-            return try await FDAcademicAPI.getSemesters()
-        } content: { semesters in
-            ScorePageContent(semesters)
+            let semesters = try await FDAcademicAPI.getSemesters()
+            let currentId = try await FDAcademicAPI.getCurrentSemesterId()
+            let currentSemester = semesters.filter { $0.id == currentId }.first
+            let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
+            return info
+        } content: { info in
+            ScorePageContent(info.semesters, current: info.currentSemester)
         }
     }
 }
@@ -15,9 +24,9 @@ fileprivate struct ScorePageContent: View {
     private let semesters: [FDSemester]
     @State private var semester: FDSemester
     
-    init(_ semesters: [FDSemester]) {
+    init(_ semesters: [FDSemester], current: FDSemester?) {
         self.semesters = semesters
-        self._semester = State(initialValue: semesters.last!)
+        self._semester = State(initialValue: current ?? semesters.last!)
     }
     
     var body: some View {

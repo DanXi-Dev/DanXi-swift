@@ -15,17 +15,17 @@ struct FDPayPage: View {
                 
                 // generate QR code data
                 guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
-                    throw NetworkError.invalidResponse
+                    throw ParseError.invalidResponse
                 }
                 let data = qrcodeStr.data(using: .ascii, allowLossyConversion: false)
                 filter.setValue(data, forKey: "inputMessage")
                 guard let ciimage = filter.outputImage else {
-                    throw NetworkError.invalidResponse
+                    throw ParseError.invalidResponse
                 }
                 let transform = CGAffineTransform(scaleX: 10, y: 10)
                 let scaledCIImage = ciimage.transformed(by: transform)
-                let uiimage = UIImage(ciImage: scaledCIImage)
-                qrCodeData = uiimage.pngData()!
+                let uiImage = UIImage(ciImage: scaledCIImage)
+                qrCodeData = uiImage.pngData()!
             } catch {
                 errorInfo = error.localizedDescription
             }
@@ -44,7 +44,7 @@ struct FDPayPage: View {
                     Text("Error")
                 }
             }
-                .frame(width: 300, height: 300)
+            .frame(width: 300, height: 300)
                 
             
             Button {

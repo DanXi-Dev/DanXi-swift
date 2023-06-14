@@ -35,7 +35,6 @@ struct FDECardAPI {
         }
         
         let queryForm = [
-            // URLQueryItem(name: "aaxmlrequest", value: "true"),
             URLQueryItem(name: "pageNo", value: String(page)),
             URLQueryItem(name: "_csrf", value: csrf)
         ]

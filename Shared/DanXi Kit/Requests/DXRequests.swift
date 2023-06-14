@@ -28,17 +28,13 @@ struct DXRequests {
             let verification: String
         }
         
-        do {
-            let payload = ChangePasswordConfig(password: password,
-                                               email: email,
-                                               verification: verification)
-            let method = create ? "POST" : "PUT"
-            let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: method)
-            let (data, _) = try await sendRequest(request)
-            return try processJSONData(data)
-        } catch HTTPError.badRequest(let message) {
-            throw DanXiError.registerFailed(message: message)
-        }
+        let payload = ChangePasswordConfig(password: password,
+                                           email: email,
+                                           verification: verification)
+        let method = create ? "POST" : "PUT"
+        let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: method)
+        let (data, _) = try await sendRequest(request)
+        return try processJSONData(data)
     }
     
     // MARK: - User
@@ -80,8 +76,12 @@ struct DXRequests {
             let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/login")!, payload: payload)
             let (data, _) = try await sendRequest(request)
             return try processJSONData(data)
-        } catch HTTPError.unauthorized {
-            throw DanXiError.loginFailed
+        } catch let error as HTTPError {
+            if error.code == 401 {
+                throw DXError.loginFailed
+            } else {
+                throw error
+            }
         }
     }
     
@@ -94,7 +94,7 @@ struct DXRequests {
     /// - Returns: New token.
     static func refreshToken() async throws -> Token {
         guard let token = DXModel.shared.token else {
-            throw DanXiError.tokenNotFound
+            throw DXError.tokenNotFound
         }
         
         do {
@@ -103,7 +103,7 @@ struct DXRequests {
             let (data, _) = try await sendRequest(request)
             return try processJSONData(data)
         } catch {
-            throw DanXiError.tokenExpired
+            throw DXError.tokenExpired
         }
     }
     

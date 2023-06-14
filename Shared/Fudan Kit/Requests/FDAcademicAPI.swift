@@ -7,8 +7,17 @@ struct FDAcademicAPI {
         _ = try await FDAuthAPI.auth(url: loginURL)
     }
     
+    static func getCurrentSemesterId() async throws -> Int? {
+        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/teach/grade/course/person.action")!
+        let request = URLRequest(url: url)
+        let (data, _) = try await sendRequest(request)
+        let element = try processHTMLData(data, selector: "input[name=\"semesterId\"]")
+        let semesterId = Int(try element.attr("value"))
+        return semesterId
+    }
+    
     static func getSemesters() async throws -> [FDSemester] {
-        // set semester cookies from server
+        // set semester cookies from server, otherwise the data will not be returned
         let preRequest = URLRequest(url: URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!)
         _ = try await sendRequest(preRequest)
         
@@ -19,7 +28,7 @@ struct FDAcademicAPI {
         
         // the data sent from server is not real JSON, need to add quotes
         guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidEncoding
         }
         jsonString.replace(/(?<key>\w+):/) { match in
             return "\"\(match.key)\":"
@@ -117,7 +126,7 @@ struct FDAcademicAPI {
         let idsPattern = /bg\.form\.addInput\(form,\s*"ids",\s*"(?<ids>\d+)"\);/
         let semesterIdPattern = /empty:\s*"false",\s*onChange:\s*"",\s*value:\s*"(?<semester>\d+)"/
         guard let ids = html.firstMatch(of: idsPattern)?.ids else {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidHTML
         }
         var semesterId: Int?
         if let semester = semester {
@@ -125,7 +134,7 @@ struct FDAcademicAPI {
         } else if let result = html.firstMatch(of: semesterIdPattern) {
             semesterId = Int(result.semester)!
         } else {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidHTML
         }
         
         // get course table
@@ -138,7 +147,7 @@ struct FDAcademicAPI {
         let request = prepareFormRequest(courseURL, form: form)
         let (courseData, _) = try await sendRequest(request)
         guard let element = try processHTMLDataList(courseData, selector: "body > script").filter({ try $0.html().contains("new TaskActivity") }).first else {
-            throw NetworkError.invalidResponse
+            throw ParseError.invalidHTML
         }
         let script = try element.html()
         let lines = script.split(separator: "\n")
