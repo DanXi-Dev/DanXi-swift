@@ -3,6 +3,7 @@ import SwiftUI
 struct FDSportPage: View {    
     var body: some View {
         AsyncContentView { () -> (FDExercise, FDSportExam) in
+            try await FDSportAPI.login()
             let exam = try await FDSportAPI.fetchExamData()
             let exercise = try await FDSportAPI.fetchExerciseData()
             return (exercise, exam)

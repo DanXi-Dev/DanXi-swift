@@ -50,6 +50,12 @@ func prepareFormRequest(_ url: URL, method: String = "POST", form: [URLQueryItem
 
 // MARK: - Request
 
+func sendRequest(_ urlString: String) async throws -> (Data, URLResponse) {
+    let url = URL(string: urlString)!
+    let request = URLRequest(url: url)
+    return try await sendRequest(request)
+}
+
 func sendRequest(_ request: URLRequest) async throws -> (Data, URLResponse) {
     let (data, response) = try await URLSession.shared.data(for: request)
     guard let httpResponse = response as? HTTPURLResponse else {

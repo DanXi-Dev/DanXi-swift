@@ -4,8 +4,21 @@ import SwiftSoup
 // MARK: - Request
 
 struct FDSportAPI {
-    
     static func login() async throws {
+        // The commented code block is meant to mimic the behavior of a browser, which turns out to be unnecessary. This might be useful in future.
+        
+        /*
+        let (loginPageData, _) = try await sendRequest("https://fdtyjw.fudan.edu.cn/sportScore/")
+        var loginForm = [URLQueryItem(name: "dlljs", value: "st")]
+        let inputList = try processHTMLDataList(loginPageData, selector: "input")
+        for element in inputList {
+            loginForm.append(URLQueryItem(name: try element.attr("name"),
+                                          value: try element.attr("value")))
+        }
+        let loginRequest = prepareFormRequest(URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/default.aspx")!, form: loginForm)
+        _ = try await sendRequest(loginRequest)
+        */
+        
         let loginURL = URL(string: "http://tac.fudan.edu.cn/thirds/tjb.act?redir=sportScore")!
         _ = try await FDAuthAPI.auth(url: loginURL)
     }
