@@ -54,11 +54,12 @@ struct THBrowsePage: View {
 }
 
 fileprivate struct THDivisionPicker: View {
+    @ObservedObject var appModel = THModel.shared
     @EnvironmentObject var model: THBrowseModel
     
     var body: some View {
         Picker("Division Selector", selection: $model.division) {
-            ForEach(DXModel.shared.divisions) { division in
+            ForEach(appModel.divisions) { division in
                 Text(division.name)
                     .tag(division)
             }

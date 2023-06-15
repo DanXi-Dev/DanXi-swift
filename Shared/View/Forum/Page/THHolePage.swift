@@ -61,6 +61,13 @@ struct THHolePage: View {
                     THHoleBottomBar()
                 }
             }
+            .task {
+                do {
+                    try await THRequests.updateViews(holeId: model.hole.id)
+                } catch {
+                    
+                }
+            }
             .onReceive(screenshotPublisher) { _ in
                 if settings.screenshotAlert {
                     showScreenshotAlert = true

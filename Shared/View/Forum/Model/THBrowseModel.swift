@@ -35,9 +35,9 @@ class THBrowseModel: ObservableObject {
     
     func refresh() async {
         do {
-            let divisions = try await THRequests.loadDivisions()
-            DXModel.shared.divisions = divisions
-            if let currentDivision = divisions.filter({ $0.id == self.division.id }).first {
+            try await THModel.shared.refreshDivisions()
+            
+            if let currentDivision = THModel.shared.divisions.filter({ $0.id == self.division.id }).first {
                 self.division = currentDivision
             }
             self.holes = []
@@ -48,7 +48,7 @@ class THBrowseModel: ObservableObject {
     
     // MARK: - Division
     
-    @Published var division: THDivision = DXModel.shared.divisions.first! {
+    @Published var division: THDivision = THModel.shared.divisions.first! {
         didSet {
             self.holes = []
         }

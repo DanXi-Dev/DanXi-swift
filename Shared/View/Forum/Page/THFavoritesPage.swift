@@ -11,7 +11,7 @@ struct THFavoritesPage: View {
 }
 
 fileprivate struct FavoritePageContent: View {
-    @ObservedObject private var appModel = DXModel.shared
+    @ObservedObject private var appModel = THModel.shared
     @State private var favorites: [THHole]
     @State private var showAlert = false
     @State private var deleteError = ""

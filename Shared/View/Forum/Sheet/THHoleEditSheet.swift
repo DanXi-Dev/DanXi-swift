@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct THHoleEditSheet: View {
-    @EnvironmentObject var model: THHoleModel
-    @State var info: THHoleInfo
-    @State var tags: [String]
+    @ObservedObject private var appModel = THModel.shared
+    @EnvironmentObject private var model: THHoleModel
+    @State private var info: THHoleInfo
+    @State private var tags: [String]
     
     init(_ hole: THHole) {
         self._tags = State(initialValue: hole.tags.map(\.name))
@@ -17,7 +18,7 @@ struct THHoleEditSheet: View {
         } content: {
             Section {
                 Picker(selection: $info.divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(DXModel.shared.divisions) { division in
+                    ForEach(appModel.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }

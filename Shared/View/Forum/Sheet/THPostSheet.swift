@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct THPostSheet: View {
+    @ObservedObject private var appModel = THModel.shared
     @State var divisionId: Int
-    @AppStorage("post-content") var content = ""
-    @AppStorage("post-tag") var tags: [String] = []
+    @AppStorage("post-content") private var content = ""
+    @AppStorage("post-tag") private var tags: [String] = []
     
     var body: some View {
         Sheet("New Post") {
@@ -17,13 +18,13 @@ struct THPostSheet: View {
             tags = []
             
             Task { // reload favorites since new post will automatically be favorited
-                try await DXModel.shared.loadFavoriteIds()
+                try await appModel.loadFavoriteIds()
             }
         } content: {
             Section {
                 Picker(selection: $divisionId,
                        label: Label("Select Division", systemImage: "rectangle.3.group")) {
-                    ForEach(DXModel.shared.divisions) { division in
+                    ForEach(appModel.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
                     }

@@ -1,19 +1,22 @@
 import SwiftUI
 
 struct THTagsPage: View {
+    @ObservedObject private var appModel = THModel.shared
     @State private var query = ""
+    
+    private var filteredTags: [THTag] {
+        appModel.tags.filter { tag in
+            if query.isEmpty {
+                return tag.temperature >= 10
+            }
+            
+            return tag.name.contains(query)
+        }
+    }
     
     var body: some View {
         THBackgroundList {
-            let tags = DXModel.shared.tags.filter { tag in
-                if query.isEmpty {
-                    return tag.temperature >= 10 
-                }
-                
-                return tag.name.contains(query)
-            }
-            
-            ForEach(tags) { tag in
+            ForEach(filteredTags) { tag in
                 NavigationLink(value: tag) {
                     HStack {
                         Label(tag.name, systemImage: "tag")

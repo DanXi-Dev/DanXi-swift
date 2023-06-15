@@ -33,7 +33,7 @@ class THSearchModel: ObservableObject {
     }
     
     var matchTags: [THTag] {
-        DXModel.shared.tags.filter { $0.name.contains(searchText) }
+        THModel.shared.tags.filter { $0.name.contains(searchText) }
     }
     
     func appendHistory(_ history: String) {

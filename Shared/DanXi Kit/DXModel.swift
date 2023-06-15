@@ -2,10 +2,15 @@ import Foundation
 import KeychainAccess
 import UserNotifications
 import UIKit
+import Disk
+
+// MARK: Models
 
 @MainActor
 class DXModel: ObservableObject {
+    
     // MARK: - General
+    
     static var shared = DXModel()
     
     init() {
@@ -18,58 +23,8 @@ class DXModel: ObservableObject {
     
     func clearAll() {
         self.user = nil
-        self.cachedTags = nil
-        self.coursesCache = nil
-        self.courses = []
-        self.divisions = []
-        self.favoriteIds = []
-    }
-    
-    // MARK: - Util
-    
-    var forumLoaded = false
-    
-    func loadForum() async throws {
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            group.addTask {
-                if await self.cachedTags == nil {
-                    try await self.loadTags()
-                }
-            }
-            group.addTask {
-                if await self.user == nil {
-                    try await self.loadUser()
-                }
-            }
-            group.addTask {
-                if await self.divisions.isEmpty {
-                    try await self.loadDivisions()
-                }
-            }
-            group.addTask {
-                if await self.favoriteIds.isEmpty {
-                    try await self.loadFavoriteIds()
-                }
-            }
-            try await group.waitForAll()
-            forumLoaded = true
-        }
-    }
-    
-    func loadCurriculum() async throws {
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            group.addTask {
-                if await self.courses.isEmpty {
-                    try await self.loadCourses()
-                }
-            }
-            group.addTask {
-                if await self.user == nil {
-                    try await self.loadUser()
-                }
-            }
-            try await group.waitForAll()
-        }
+        THModel.shared.clearAll()
+        DKModel.shared.clearAll()
     }
     
     // MARK: - Authentication
@@ -100,13 +55,9 @@ class DXModel: ObservableObject {
         token = nil
         clearAll()
         Task {
-            do {
-                guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else { return }
-                try await DXRequests.deleteNotificationToken(deviceId: deviceId)
-                try await DXRequests.logout()
-            } catch {
-                
-            }
+            guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else { return }
+            try await DXRequests.deleteNotificationToken(deviceId: deviceId)
+            try await DXRequests.logout()
         }
     }
     
@@ -138,11 +89,10 @@ class DXModel: ObservableObject {
         }
     }
     
-    // MARK: - Disk Cache
-    
     // MARK: User
     
-    @DiskCache("fduhole/user.json") var user: DXUser?
+    @Published var user: DXUser?
+    
     var isAdmin: Bool {
         user?.isAdmin ?? false
     }
@@ -150,63 +100,139 @@ class DXModel: ObservableObject {
     func loadUser() async throws {
         self.user = try await DXRequests.loadUserInfo()
     }
+}
+
+@MainActor
+class THModel: ObservableObject {
+    static var shared = THModel()
     
-    // MARK: Tags
-    
-    @DiskCache("fduhole/tags.json") var cachedTags: [THTag]?
-    var tags: [THTag] {
-        return cachedTags ?? []
-    }
-    func loadTags() async throws {
-        cachedTags = try await THRequests.loadTags()
-    }
-    
-    // MARK: Courses
-    
-    struct DKCourseCache: Codable {
-        let hash: String
-        let courses: [DKCourseGroup]
-    }
-    
-    @DiskCache("fduhole/courses.json", expire: nil) var coursesCache: DKCourseCache?
-    @Published var courses: [DKCourseGroup] = []
-    
-    func loadCourses() async throws {
-        let hash = try await DKRequests.loadCourseHash()
-        if let coursesCache = coursesCache {
-            if coursesCache.hash == hash {
-                self.courses = coursesCache.courses
-                return
-            }
-        }
-        let courses = try await DKRequests.loadCourseGroups()
-        coursesCache = DKCourseCache(hash: hash, courses: courses)
-        self.courses = courses
-    }
-    
-    // MARK: - Memory Cache
-    
-    // MARK: Division
-    
+    @Published var favoriteIds: [Int] = []
     @Published var divisions: [THDivision] = []
+    @Published var tags: [THTag] = []
+    @Published var loaded = false
     
-    func loadDivisions() async throws {
+    func loadAll() async throws {
+        // use async-let to parallel load
+        async let favoriteIds = try await THRequests.loadFavoritesIds()
+        async let divisions = try await THRequests.loadDivisions()
+        async let tags = try await THRequests.loadTags()
+        self.favoriteIds = try await favoriteIds
+        self.divisions = try await divisions
+        self.tags = try await tags
+        
+        if self.divisions.isEmpty {
+            throw ParseError.invalidResponse
+        }
+        loaded = true
+    }
+    
+    func clearAll() {
+        favoriteIds = []
+        divisions = []
+        tags = []
+        loaded = false
+        
+        // remove stored tags on disk
+        Task {
+            try Disk.remove("fduhole/tags.json", from: .applicationSupport)
+        }
+    }
+    
+    func refreshDivisions() async throws {
         self.divisions = try await THRequests.loadDivisions()
     }
     
-    // MARK: Favorites
-    
-    @Published var favoriteIds: [Int] = []
+    func loadTags() async throws -> [THTag] {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        if let tagsData = try? Disk.retrieve("fduhole/tags.json", from: .applicationSupport, as: CachedData<[THTag]>.self, decoder: decoder),
+           let tags = tagsData.validValue {
+            return tags
+        }
+        return try await THRequests.loadTags()
+    }
     
     func isFavorite(_ id: Int) -> Bool {
-        return favoriteIds.contains(id)
+        favoriteIds.contains(id)
+    }
+    
+    func toggleFavorite(_ id: Int) async throws {
+        self.favoriteIds = try await THRequests.toggleFavorites(holeId: id, add: !isFavorite(id))
     }
     
     func loadFavoriteIds() async throws {
         self.favoriteIds = try await THRequests.loadFavoritesIds()
     }
+}
+
+@MainActor
+class DKModel: ObservableObject {
+    static var shared = DKModel()
     
-    func toggleFavorite(_ id: Int) async throws {
-        self.favoriteIds = try await THRequests.toggleFavorites(holeId: id, add: !isFavorite(id))
+    @Published var courses: [DKCourseGroup] = []
+    
+    fileprivate struct CourseCache: Codable {
+        let courses: [DKCourseGroup]
+        let hash: String
+    }
+    
+    func loadAll() async throws {
+        guard self.courses.isEmpty else { return }
+        
+        let hash = try await DKRequests.loadCourseHash()
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        if let cached = try? Disk.retrieve("fduhole/courses.json", from: .applicationSupport, as: CourseCache.self) {
+            if cached.hash == hash {
+                self.courses = cached.courses
+                return
+            }
+        }
+        
+        let courses = try await DKRequests.loadCourseGroups()
+        self.courses = courses
+        Task {
+            let cache = CourseCache(courses: courses, hash: hash)
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            try Disk.save(cache, to: .applicationSupport, as: "fduhole/courses.json", encoder: encoder)
+        }
+    }
+    
+    func clearAll() {
+        self.courses = []
+        Task {
+            try Disk.remove("fduhole/courses.json", from: .applicationSupport)
+        }
+    }
+}
+
+// MARK: Disk Cache
+
+fileprivate struct CachedData<V: Codable>: Codable {
+    let value: V
+    let expireAt: Date
+    
+    init(value: V, interval: TimeInterval = 60 * 60 * 24) {
+        self.value = value
+        self.expireAt = Date(timeIntervalSinceNow: interval)
+    }
+    
+    var expired: Bool {
+        return expireAt > Date.now
+    }
+    
+    var validValue: V? {
+        return expired ? nil : value
+    }
+    
+    func store(path: String) {
+        do {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            try Disk.save(value, to: .applicationSupport, as: path, encoder: encoder)
+        } catch {
+            
+        }
     }
 }

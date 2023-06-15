@@ -6,7 +6,7 @@ struct THTagEditor: View {
     @Binding private var tags: [String]
     @State private var text = ""
     @ScaledMetric private var width = 100
-    @ObservedObject private var appModel = DXModel.shared
+    @ObservedObject private var appModel = THModel.shared
     
     init(_ tags: Binding<[String]>, maxSize: Int? = nil) {
         self._tags = tags

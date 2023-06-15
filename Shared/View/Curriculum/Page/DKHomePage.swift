@@ -3,8 +3,8 @@ import SwiftUI
 struct DKHomePage: View {
     var body: some View {
         AsyncContentView { () -> [DKCourseGroup] in
-            try await DXModel.shared.loadCurriculum()
-            return DXModel.shared.courses
+            try await DKModel.shared.loadAll()
+            return DKModel.shared.courses
         } content: { courses in
             HomePageContent(courses: courses)
         }

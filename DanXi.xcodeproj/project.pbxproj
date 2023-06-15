@@ -26,7 +26,6 @@
 		2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604F29312D8200F4C321 /* FDElectricityAPI.swift */; };
 		2706605729312D8300F4C321 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
 		270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* DKReviewPage.swift */; };
-		2713B5DD2939F91700ADE348 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5DC2939F91700ADE348 /* LocalStorage.swift */; };
 		2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
 		2713B5EB293A7BCF00ADE348 /* FDSportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */; };
 		2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
@@ -104,7 +103,6 @@
 		27B7AC0E29DEB27100DAE0C5 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27B7AC1129DEB28C00DAE0C5 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
-		27B7AC1229DEB28F00DAE0C5 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5DC2939F91700ADE348 /* LocalStorage.swift */; };
 		27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */; };
 		27B7AC1629DEB2C900DAE0C5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */; };
 		27B7AC1829DEB2C900DAE0C5 /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1729DEB2C900DAE0C5 /* Disk */; };
@@ -221,7 +219,6 @@
 		2706604F29312D8200F4C321 /* FDElectricityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDElectricityAPI.swift; sourceTree = "<group>"; };
 		2706605029312D8200F4C321 /* FDError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDError.swift; sourceTree = "<group>"; };
 		270CA42928BD13A10024BDF2 /* DKReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewPage.swift; sourceTree = "<group>"; };
-		2713B5DC2939F91700ADE348 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportAPI.swift; sourceTree = "<group>"; };
 		2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportPage.swift; sourceTree = "<group>"; };
 		2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAcademicAPI.swift; sourceTree = "<group>"; };
@@ -456,7 +453,6 @@
 			children = (
 				27D6F4532892C5D70059228F /* BundleResource.swift */,
 				27227FD428A512B300B3C99D /* Defaults.swift */,
-				2713B5DC2939F91700ADE348 /* LocalStorage.swift */,
 				2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */,
 				27CBA0762951C01E00F422DB /* Network.swift */,
 				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
@@ -942,7 +938,6 @@
 				27B7AC0629DEB27100DAE0C5 /* FDPlaygroundAPI.swift in Sources */,
 				27B7AC0529DEB27100DAE0C5 /* FDLibraryAPI.swift in Sources */,
 				27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */,
-				27B7AC1229DEB28F00DAE0C5 /* LocalStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,7 +983,6 @@
 				2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */,
 				27063ABA29FB094C0060AC8B /* AsyncCollection.swift in Sources */,
 				272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */,
-				2713B5DD2939F91700ADE348 /* LocalStorage.swift in Sources */,
 				27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */,
 				27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */,
 				27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */,

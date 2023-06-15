@@ -277,9 +277,3 @@ fileprivate struct FormTitle: View {
         }
     }
 }
-
-struct DXAuthPreview: PreviewProvider {
-    static var previews: some View {
-        DXAuthSheet()
-    }
-}

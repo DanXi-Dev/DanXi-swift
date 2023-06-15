@@ -148,7 +148,7 @@ fileprivate struct THHolePreview: View {
 }
 
 fileprivate struct PreviewActions: View {
-    @ObservedObject var appModel = DXModel.shared
+    @ObservedObject var appModel = THModel.shared
     @ObservedObject var settings = THSettings.shared
     
     let hole: THHole

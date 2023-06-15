@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct THHomePage: View {
-    @ObservedObject private var appModel = DXModel.shared
+    @ObservedObject private var appModel = THModel.shared
     @StateObject private var model = THNavigationModel()
     
     var body: some View {
         NavigationStack(path: $model.path) {
-            AsyncContentView(finished: appModel.forumLoaded) {
-                try await appModel.loadForum()
+            AsyncContentView(finished: appModel.loaded) {
+                try await appModel.loadAll()
+                try await DXModel.shared.loadUser()
             } content: {
                 Group {
                     switch model.page {

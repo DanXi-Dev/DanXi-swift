@@ -6,7 +6,7 @@ class THHoleModel: ObservableObject {
     init(hole: THHole) {
         self.hole = hole
         self.floors = []
-        self.isFavorite = DXModel.shared.isFavorite(hole.id)
+        self.isFavorite = THModel.shared.isFavorite(hole.id)
         self.scrollTarget = -1
     }
     
@@ -14,7 +14,7 @@ class THHoleModel: ObservableObject {
         self.hole = hole
         self.floors = []
         self.endReached = true
-        self.isFavorite = DXModel.shared.isFavorite(hole.id)
+        self.isFavorite = THModel.shared.isFavorite(hole.id)
         self.scrollTarget = scrollTo ?? -1
         self.initialScroll = scrollTo
         
@@ -186,8 +186,8 @@ class THHoleModel: ObservableObject {
     
     func toggleFavorite() async throws {
         let favIds = try await THRequests.toggleFavorites(holeId: hole.id, add: !isFavorite)
-        DXModel.shared.favoriteIds = favIds
-        self.isFavorite = DXModel.shared.isFavorite(hole.id)
+        THModel.shared.favoriteIds = favIds
+        self.isFavorite = THModel.shared.isFavorite(hole.id)
     }
     
     // MARK: - Floor Batch Delete (Admin)
