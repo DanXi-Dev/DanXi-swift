@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2701318B2A3B46BE0013FA7E /* FDElectricityPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */; };
 		27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC529CE3022004A5D2F /* THFloorView.swift */; };
 		27013BC829CF7AC2004A5D2F /* THNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */; };
 		27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC929CF7B74004A5D2F /* THHomePage.swift */; };
@@ -201,6 +202,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityPage.swift; sourceTree = "<group>"; };
 		27013BC529CE3022004A5D2F /* THFloorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorView.swift; sourceTree = "<group>"; };
 		27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNavigationModel.swift; sourceTree = "<group>"; };
 		27013BC929CF7B74004A5D2F /* THHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHomePage.swift; sourceTree = "<group>"; };
@@ -378,6 +380,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		270131892A3B46A00013FA7E /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
+				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
+				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
+				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
+				27DDBABC29A501A7008849D1 /* FDBusPage.swift */,
+				27BDF9E529AD287600EE8131 /* FDECardPage.swift */,
+				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
+				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
+				27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */,
+				27E82FEC29E8977400F34B3B /* FDCoursePage.swift */,
+				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
+				2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
 		2706604C29312D8200F4C321 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,17 +544,7 @@
 			isa = PBXGroup;
 			children = (
 				27A5DA2929D77E340042D28D /* Model */,
-				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
-				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
-				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
-				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
-				27DDBABC29A501A7008849D1 /* FDBusPage.swift */,
-				27BDF9E529AD287600EE8131 /* FDECardPage.swift */,
-				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
-				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
-				27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */,
-				27E82FEC29E8977400F34B3B /* FDCoursePage.swift */,
-				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
+				270131892A3B46A00013FA7E /* Page */,
 			);
 			path = Campus;
 			sourceTree = "<group>";
@@ -1017,6 +1028,7 @@
 				2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */,
 				27BBBD232912C33D007C2905 /* DXNetwork.swift in Sources */,
 				2706605529312D8300F4C321 /* FDAuthAPI.swift in Sources */,
+				2701318B2A3B46BE0013FA7E /* FDElectricityPage.swift in Sources */,
 				2706605729312D8300F4C321 /* FDError.swift in Sources */,
 				2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */,
 				27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */,

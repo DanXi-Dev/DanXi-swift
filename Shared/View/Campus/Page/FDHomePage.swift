@@ -6,11 +6,11 @@ struct FDHomePage: View {
     var body: some View {
         NavigationStack(path: $model.path) {
             List {
-                ForEach(model.unpinned, id: \.self) { section in
+                ForEach(model.pages, id: \.self) { section in
                     FDHomeSimpleLink(section: section)
                 }
                 .onMove { from, to in
-                    model.unpinned.move(fromOffsets: from, toOffset: to)
+                    model.pages.move(fromOffsets: from, toOffset: to)
                 }
             }
             .navigationTitle("Campus Services")
@@ -46,6 +46,8 @@ fileprivate struct FDHomeSimpleLink: View {
                 Label("Playground Reservation", systemImage: "sportscourt")
             case .courses:
                 Label("Online Course Table", systemImage: "calendar")
+            case .electricity:
+                Label("Dorm Electricity", systemImage: "bolt.horizontal")
             }
         }
     }
@@ -72,12 +74,8 @@ fileprivate struct FDHomeDestination: View {
             FDPlaygroundPage()
         case .courses:
             FDCoursePage()
+        case .electricity:
+            FDElectricityPage()
         }
-    }
-}
-
-struct FDHomePage_Previews: PreviewProvider {
-    static var previews: some View {
-        FDHomePage()
     }
 }
