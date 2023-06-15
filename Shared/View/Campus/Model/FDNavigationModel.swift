@@ -23,5 +23,5 @@ class FDHomeModel: ObservableObject {
 }
 
 enum FDSection: String, Codable, CaseIterable {
-    case sport, pay, bus, ecard, score, rank, playground, courses, electricity
+    case sport, pay, bus, ecard, score, rank, playground, courses, electricity, notice
 }

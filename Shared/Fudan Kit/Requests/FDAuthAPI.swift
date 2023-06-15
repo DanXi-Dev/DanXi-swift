@@ -45,8 +45,31 @@ struct FDAuthAPI {
         return newData
     }
     
+    static func authURL(url: URL) async throws -> URL {
+        guard let username = FDModel.shared.username,
+              let password = FDModel.shared.password else {
+            throw FDError.credentialNotFound
+        }
+        
+        let session = URLSession(configuration: .ephemeral)
+        
+        var components = URLComponents(string: UIS_URL + "/authserver/login")!
+        components.queryItems = [URLQueryItem(name: "service", value: url.absoluteString)]
+        let request = prepareRequest(components.url!)
+        let (data, _) = try await session.data(for: request)
+        
+        let authRequest = try FDAuthAPI.prepareAuthRequest(authURL: components.url!, formData: data, username: username, password: password)
+        let (_, newResponse) = try await session.data(for: authRequest, delegate: RedirectDelegate())
+        guard let httpResponse = newResponse as? HTTPURLResponse,
+              let header = httpResponse.value(forHTTPHeaderField: "Location"),
+              let url = URL(string: header) else {
+            throw ParseError.invalidHTML
+        }
+        return url
+    }
+    
     static func prepareAuthRequest(authURL: URL, formData: Data,
-                                    username: String, password: String) throws -> URLRequest {
+                                   username: String, password: String) throws -> URLRequest {
         var loginForm = [
             URLQueryItem(name: "username", value: username),
             URLQueryItem(name: "password", value: password)
@@ -76,5 +99,17 @@ struct FDAuthAPI {
             throw ParseError.invalidEncoding
         }
         return result.trimmingCharacters(in: .whitespacesAndNewlines) != "false"
+    }
+}
+
+fileprivate class RedirectDelegate: NSObject, URLSessionTaskDelegate {
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping @Sendable (URLRequest?) -> Void
+    ) {
+        completionHandler(nil)
     }
 }

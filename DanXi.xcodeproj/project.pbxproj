@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2701318B2A3B46BE0013FA7E /* FDElectricityPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */; };
+		2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */; };
+		2701318F2A3B9A4F0013FA7E /* FDNoticePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */; };
 		27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC529CE3022004A5D2F /* THFloorView.swift */; };
 		27013BC829CF7AC2004A5D2F /* THNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */; };
 		27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC929CF7B74004A5D2F /* THHomePage.swift */; };
@@ -201,6 +203,8 @@
 
 /* Begin PBXFileReference section */
 		2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityPage.swift; sourceTree = "<group>"; };
+		2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticeAPI.swift; sourceTree = "<group>"; };
+		2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticePage.swift; sourceTree = "<group>"; };
 		27013BC529CE3022004A5D2F /* THFloorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorView.swift; sourceTree = "<group>"; };
 		27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNavigationModel.swift; sourceTree = "<group>"; };
 		27013BC929CF7B74004A5D2F /* THHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHomePage.swift; sourceTree = "<group>"; };
@@ -388,6 +392,7 @@
 				27BDF9E529AD287600EE8131 /* FDECardPage.swift */,
 				2715A86C29AE17BD00A533E1 /* FDScorePage.swift */,
 				27A44E9D29AF253500CE6661 /* FDRankPage.swift */,
+				2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */,
 				27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */,
 				27E82FEC29E8977400F34B3B /* FDCoursePage.swift */,
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
@@ -407,6 +412,7 @@
 				2706604D29312D8200F4C321 /* FDECardAPI.swift */,
 				27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */,
 				2706604F29312D8200F4C321 /* FDElectricityAPI.swift */,
+				2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */,
 				27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */,
 				2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */,
 				27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */,
@@ -987,6 +993,7 @@
 				27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */,
 				27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */,
 				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
+				2701318F2A3B9A4F0013FA7E /* FDNoticePage.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
@@ -997,6 +1004,7 @@
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
+				2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,

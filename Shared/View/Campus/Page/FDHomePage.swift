@@ -48,6 +48,8 @@ fileprivate struct FDHomeSimpleLink: View {
                 Label("Online Course Table", systemImage: "calendar")
             case .electricity:
                 Label("Dorm Electricity", systemImage: "bolt.horizontal")
+            case .notice:
+                Label("Academic Office Announcements", systemImage: "bell")
             }
         }
     }
@@ -76,6 +78,8 @@ fileprivate struct FDHomeDestination: View {
             FDCoursePage()
         case .electricity:
             FDElectricityPage()
+        case .notice:
+            FDNoticePage()
         }
     }
 }
