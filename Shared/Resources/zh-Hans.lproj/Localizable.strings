@@ -406,3 +406,7 @@
 
 "View Image" = "查看图片";
 "Done" = "完成";
+
+"Screenshot Detected" = "检测到截图";
+"Screenshot Alert Content" = "请勿在公共社区传播此截图，感谢您的配合。您可以在设置中关闭此提示。";
+"Screenshot Alert" = "截图提示";

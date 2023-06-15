@@ -1,12 +1,15 @@
 import SwiftUI
+import UIKit
 import WrappingHStack
 
 struct THHolePage: View {
     @ObservedObject private var settings = THSettings.shared
     @StateObject private var model: THHoleModel
+    @State private var showScreenshotAlert = false
     private var hasBackground: Bool {
         settings.backgroundImage != nil
     }
+    private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     init(_ hole: THHole) {
         self._model = StateObject(wrappedValue: THHoleModel(hole: hole))
@@ -57,6 +60,16 @@ struct THHolePage: View {
                 ToolbarItem(placement: .bottomBar) {
                     THHoleBottomBar()
                 }
+            }
+            .onReceive(screenshotPublisher) { _ in
+                if settings.screenshotAlert {
+                    showScreenshotAlert = true
+                }
+            }
+            .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {
+                
+            } message: {
+                Text("Screenshot Alert Content")
             }
             .environmentObject(model)
         }

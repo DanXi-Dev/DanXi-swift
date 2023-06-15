@@ -20,6 +20,7 @@ class THSettings: ObservableObject {
     @AppStorage("blocked-tags") var blockedTags: [String] = []
     @AppStorage("show-last-floor") var showLastFloor: Bool = false
     @AppStorage("blocked-holes") var blockedHoles: [Int] = []
+    @AppStorage("screenshot-alert") var screenshotAlert = true
     @Published var backgroundImage: Image? = nil
     
     func setBackgroundImage(_ item: PhotosPickerItem?) {

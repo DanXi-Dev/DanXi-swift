@@ -24,6 +24,10 @@ struct THSettingsView: View {
                 Label("Blocked Holes", systemImage: "eye.slash")
             }
             
+            Toggle(isOn: $settings.screenshotAlert) {
+                Label("Screenshot Alert", systemImage: "camera.viewfinder")
+            }
+            
             ImagePicker()
         }
     }
