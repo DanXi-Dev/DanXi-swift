@@ -66,7 +66,6 @@
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
 		2778D62C2891D22D009F4DB1 /* THTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6142891D22D009F4DB1 /* THTagView.swift */; };
 		2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6152891D22D009F4DB1 /* THHoleView.swift */; };
-		2781F6972A29FFCF00531097 /* Transmission in Frameworks */ = {isa = PBXBuildFile; productRef = 2781F6962A29FFCF00531097 /* Transmission */; };
 		27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF429D600E1008DC0C2 /* THSettingsView.swift */; };
 		27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF629D6012E008DC0C2 /* THSettingsModel.swift */; };
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
@@ -372,7 +371,6 @@
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
-				2781F6972A29FFCF00531097 /* Transmission in Frameworks */,
 				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -812,7 +810,6 @@
 				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
 				27A5DA1A29D6D4DD0042D28D /* WrappingHStack */,
 				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
-				2781F6962A29FFCF00531097 /* Transmission */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -859,7 +856,6 @@
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
-				2781F6952A29FFCF00531097 /* XCRemoteSwiftPackageReference "Transmission" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -1453,14 +1449,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2781F6952A29FFCF00531097 /* XCRemoteSwiftPackageReference "Transmission" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nathantannar4/Transmission";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.1.17;
-			};
-		};
 		2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/saoudrizwan/Disk";
@@ -1536,11 +1524,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2781F6962A29FFCF00531097 /* Transmission */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2781F6952A29FFCF00531097 /* XCRemoteSwiftPackageReference "Transmission" */;
-			productName = Transmission;
-		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;

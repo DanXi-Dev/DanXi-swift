@@ -2,10 +2,11 @@ import SwiftUI
 import WrappingHStack
 
 struct THTagEditor: View {
-    let maxSize: Int?
-    @Binding var tags: [String]
-    @State var text = ""
-    @ScaledMetric var width = 100
+    private let maxSize: Int?
+    @Binding private var tags: [String]
+    @State private var text = ""
+    @ScaledMetric private var width = 100
+    @ObservedObject private var appModel = DXModel.shared
     
     init(_ tags: Binding<[String]>, maxSize: Int? = nil) {
         self._tags = tags
@@ -32,7 +33,7 @@ struct THTagEditor: View {
     var suggestedTags: [THTag] {
         if text.isEmpty { return [] }
         
-        var tags = DXModel.shared.tags.filter { tag in
+        var tags = appModel.tags.filter { tag in
             !self.tags.contains(tag.name) && tag.name.contains(text)
         }
         if tags.count > 5 {

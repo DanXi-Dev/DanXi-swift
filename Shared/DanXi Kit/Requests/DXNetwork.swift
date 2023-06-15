@@ -14,7 +14,7 @@ func autoRefresh(_ urlRequest: URLRequest) async throws -> Data {
     
     while true {
         do {
-            guard let token = DXModel.shared.token else {
+            guard let token = await DXModel.shared.token else {
                 throw DXError.tokenNotFound
             }
             request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")

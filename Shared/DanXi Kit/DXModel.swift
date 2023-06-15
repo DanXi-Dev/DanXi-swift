@@ -3,10 +3,12 @@ import KeychainAccess
 import UserNotifications
 import UIKit
 
+@MainActor
 class DXModel: ObservableObject {
     // MARK: - General
     static var shared = DXModel()
-    private init() {
+    
+    init() {
         // initialize token from keychain
         guard let data = keychain[data: "token"] else { return }
         guard let token = try? JSONDecoder().decode(Token.self, from: data) else { return }
@@ -30,22 +32,22 @@ class DXModel: ObservableObject {
     func loadForum() async throws {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
-                if self.cachedTags == nil {
+                if await self.cachedTags == nil {
                     try await self.loadTags()
                 }
             }
             group.addTask {
-                if self.user == nil {
+                if await self.user == nil {
                     try await self.loadUser()
                 }
             }
             group.addTask {
-                if self.divisions.isEmpty {
+                if await self.divisions.isEmpty {
                     try await self.loadDivisions()
                 }
             }
             group.addTask {
-                if self.favoriteIds.isEmpty {
+                if await self.favoriteIds.isEmpty {
                     try await self.loadFavoriteIds()
                 }
             }
@@ -57,12 +59,12 @@ class DXModel: ObservableObject {
     func loadCurriculum() async throws {
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
-                if self.courses.isEmpty {
+                if await self.courses.isEmpty {
                     try await self.loadCourses()
                 }
             }
             group.addTask {
-                if self.user == nil {
+                if await self.user == nil {
                     try await self.loadUser()
                 }
             }
@@ -76,7 +78,7 @@ class DXModel: ObservableObject {
     @Published var isLogged: Bool = false
     var token: Token? {
         didSet {
-            Task { @MainActor in self.isLogged = token != nil }
+            self.isLogged = token != nil
             if let token = token {
                 keychain[data: "token"] = try! JSONEncoder().encode(token)
             } else {
@@ -94,14 +96,14 @@ class DXModel: ObservableObject {
     }
     
     func logout() {
+        isLogged = false
+        token = nil
+        clearAll()
         Task {
             do {
-                guard let deviceId = await UIDevice.current.identifierForVendor?.uuidString else { return }
+                guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else { return }
                 try await DXRequests.deleteNotificationToken(deviceId: deviceId)
                 try await DXRequests.logout()
-                isLogged = false
-                token = nil
-                clearAll()
             } catch {
                 
             }
@@ -173,13 +175,13 @@ class DXModel: ObservableObject {
         let hash = try await DKRequests.loadCourseHash()
         if let coursesCache = coursesCache {
             if coursesCache.hash == hash {
-                Task { @MainActor in self.courses = coursesCache.courses }
+                self.courses = coursesCache.courses
                 return
             }
         }
         let courses = try await DKRequests.loadCourseGroups()
         coursesCache = DKCourseCache(hash: hash, courses: courses)
-        Task { @MainActor in self.courses = courses }
+        self.courses = courses
     }
     
     // MARK: - Memory Cache
@@ -189,8 +191,7 @@ class DXModel: ObservableObject {
     @Published var divisions: [THDivision] = []
     
     func loadDivisions() async throws {
-        let divisions = try await THRequests.loadDivisions()
-        Task { @MainActor in self.divisions = divisions }
+        self.divisions = try await THRequests.loadDivisions()
     }
     
     // MARK: Favorites
@@ -202,12 +203,10 @@ class DXModel: ObservableObject {
     }
     
     func loadFavoriteIds() async throws {
-        let favoriteIds = try await THRequests.loadFavoritesIds()
-        Task { @MainActor in self.favoriteIds = favoriteIds }
+        self.favoriteIds = try await THRequests.loadFavoritesIds()
     }
     
     func toggleFavorite(_ id: Int) async throws {
-        let ids = try await THRequests.toggleFavorites(holeId: id, add: !isFavorite(id))
-        Task { @MainActor in self.favoriteIds = ids }
+        self.favoriteIds = try await THRequests.toggleFavorites(holeId: id, add: !isFavorite(id))
     }
 }

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct THHomePage: View {
-    @ObservedObject var appModel = DXModel.shared
-    @StateObject var model = THNavigationModel()
+    @ObservedObject private var appModel = DXModel.shared
+    @StateObject private var model = THNavigationModel()
     
     var body: some View {
         NavigationStack(path: $model.path) {

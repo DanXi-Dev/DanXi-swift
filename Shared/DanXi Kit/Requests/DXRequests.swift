@@ -93,7 +93,7 @@ struct DXRequests {
     /// Request a new token when current token is expired.
     /// - Returns: New token.
     static func refreshToken() async throws -> Token {
-        guard let token = DXModel.shared.token else {
+        guard let token = await DXModel.shared.token else {
             throw DXError.tokenNotFound
         }
         
