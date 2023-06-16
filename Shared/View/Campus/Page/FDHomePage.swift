@@ -50,6 +50,10 @@ fileprivate struct FDHomeSimpleLink: View {
                 Label("Dorm Electricity", systemImage: "bolt.horizontal")
             case .notice:
                 Label("Academic Office Announcements", systemImage: "bell")
+            case .library:
+                Label("Library Popularity", systemImage: "building.columns.fill")
+            case .canteen:
+                Label("Canteen Popularity", systemImage: "fork.knife")
             }
         }
     }
@@ -80,6 +84,10 @@ fileprivate struct FDHomeDestination: View {
             FDElectricityPage()
         case .notice:
             FDNoticePage()
+        case .library:
+            FDLibraryPage()
+        case .canteen:
+            FDCanteenPage()
         }
     }
 }

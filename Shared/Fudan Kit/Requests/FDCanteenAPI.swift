@@ -67,13 +67,15 @@ struct FDCanteenAPI {
 
 // MARK: - Model
 
-struct FDDiningRoom {
+struct FDDiningRoom: Identifiable {
+    let id = UUID()
     let name: String
     let current: Int
     let capacity: Int
 }
 
-struct FDCanteen {
+struct FDCanteen: Identifiable {
+    let id = UUID()
     let campus: String
     let diningRooms: [FDDiningRoom]
 }
