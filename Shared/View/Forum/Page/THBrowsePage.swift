@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct THBrowsePage: View {
-    @ObservedObject var settings = THSettings.shared
-    @EnvironmentObject var model: THBrowseModel
-    @EnvironmentObject var nav: THNavigationModel
+    @ObservedObject private var settings = THSettings.shared
+    @EnvironmentObject private var model: THBrowseModel
+    @EnvironmentObject private var nav: THNavigationModel
     
     var body: some View {
         THBackgroundList {
@@ -38,6 +38,7 @@ struct THBrowsePage: View {
                     let fold = settings.sensitiveContent == .fold && hole.nsfw
                     THHoleView(hole: hole, fold: fold)
                 }
+                .id(model.configId) // stop old loading task when config change
             }
         }
         .animation(.default, value: model.division)

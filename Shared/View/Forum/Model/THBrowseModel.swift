@@ -6,7 +6,7 @@ class THBrowseModel: ObservableObject {
     // MARK: - Hole Loading
     
     @Published var holes: [THHole] = []
-    @Published var loading = false
+    @Published var configId = UUID() // represent current configuration, when it changes, old holes should not be inserted
     
     private func insertHoles(_ holes: [THHole]) {
         let currentIds = self.holes.map(\.id)
@@ -17,8 +17,7 @@ class THBrowseModel: ObservableObject {
     }
     
     func loadMoreHoles() async throws {
-        loading = true
-        defer { loading = false }
+        let configId = self.configId
         
         // set start time
         var startTime: String? = nil
@@ -29,8 +28,12 @@ class THBrowseModel: ObservableObject {
         }
         
         // fetch holes
-        let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
-        insertHoles(newHoles)
+        let prevCount = filteredHoles.count
+        repeat {
+            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
+            guard configId == self.configId else { return }
+            insertHoles(newHoles)
+        } while filteredHoles.count != prevCount
     }
     
     func refresh() async {
@@ -51,6 +54,7 @@ class THBrowseModel: ObservableObject {
     @Published var division: THDivision = THModel.shared.divisions.first! {
         didSet {
             self.holes = []
+            self.configId = UUID()
         }
     }
     
@@ -64,11 +68,13 @@ class THBrowseModel: ObservableObject {
     @Published var sortOption = SortOption.createTime {
         didSet {
             self.holes = []
+            self.configId = UUID()
         }
     }
     @Published var baseDate: Date? {
         didSet {
             self.holes = []
+            self.configId = UUID()
         }
     }
     
