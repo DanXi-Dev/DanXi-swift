@@ -10,8 +10,21 @@ class THSearchModel: ObservableObject {
             }
         }
     }
-    @Published var submitted = false
+    @Published var submitted = false {
+        didSet {
+            if submitted {
+                if let matchFloor = matchFloor {
+                    navLoader = THHoleLoader(floorId: matchFloor)
+                    submitted = false // prevent showing search page after navigation
+                } else if let matchHole = matchHole {
+                    navLoader = THHoleLoader(holeId: matchHole)
+                    submitted = false // prevent showing search page after navigation
+                }
+            }
+        }
+    }
     @Published var history: [String] = []
+    @Published var navLoader: THHoleLoader? = nil // used to automatically jump to hole page when search text is an ID
     
     init() {
         let cachedHistory = try? Disk.retrieve("fduhole/search-history.json", from: .applicationSupport, as: [String].self)
@@ -42,6 +55,13 @@ class THSearchModel: ObservableObject {
         }
         
         self.history.insert(history, at: 0)
+        persistHistory()
+    }
+    
+    func removeHistory(_ history: String) {
+        if let index = self.history.firstIndex(of: history) {
+            self.history.remove(at: index)
+        }
         persistHistory()
     }
     

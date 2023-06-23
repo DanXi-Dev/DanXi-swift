@@ -2,6 +2,7 @@ import SwiftUI
 
 struct THSearchPage: View {
     @EnvironmentObject private var model: THSearchModel
+    @EnvironmentObject private var navModel: THNavigationModel
     
     var body: some View {
         THBackgroundList {
@@ -10,13 +11,19 @@ struct THSearchPage: View {
             }
             
             if let matchFloor = model.matchFloor {
-                NavigationLink(value: THHoleLoader(floorId: matchFloor)) {
+                Button {
+                    model.appendHistory(model.searchText)
+                    navModel.path.append(THHoleLoader(floorId: matchFloor))
+                } label: {
                     Label("##\(String(matchFloor))", systemImage: "arrow.right.square")
                 }
             }
             
             if let matchHole = model.matchHole {
-                NavigationLink(value: THHoleLoader(holeId: matchHole)) {
+                Button {
+                    model.appendHistory(model.searchText)
+                    navModel.path.append(THHoleLoader(holeId: matchHole))
+                } label: {
                     Label("#\(String(matchHole))", systemImage: "arrow.right.square")
                 }
             }
@@ -25,6 +32,12 @@ struct THSearchPage: View {
                 NavigationLink(value: tag) {
                     Label(tag.name, systemImage: "tag")
                 }
+            }
+        }
+        .onChange(of: model.navLoader) { loader in
+            if let loader = loader {
+                navModel.path.append(loader)
+                model.navLoader = nil // reset loader, prevent not be able to jump to the same destination the next time
             }
         }
     }
@@ -55,6 +68,13 @@ struct THSearchPage: View {
                         .foregroundColor(.primary)
                 } icon: {
                     Image(systemName: "clock")
+                }
+            }
+            .swipeActions {
+                Button(role: .destructive) {
+                    model.removeHistory(history)
+                } label: {
+                    Image(systemName: "trash")
                 }
             }
         }
