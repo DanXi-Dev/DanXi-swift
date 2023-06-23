@@ -5,11 +5,11 @@ struct THHomePage: View {
     @StateObject private var model = THNavigationModel()
     
     var body: some View {
-        NavigationStack(path: $model.path) {
-            AsyncContentView(finished: appModel.loaded) {
-                try await appModel.loadAll()
-                try await DXModel.shared.loadUser()
-            } content: {
+        AsyncContentView(finished: appModel.loaded) {
+            try await appModel.loadAll()
+            try await DXModel.shared.loadUser()
+        } content: {
+            NavigationStack(path: $model.path) {
                 Group {
                     switch model.page {
                     case .browse:

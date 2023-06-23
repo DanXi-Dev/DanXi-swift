@@ -42,13 +42,15 @@ class THFloorModel: ObservableObject {
     
     func like() async throws {
         let like = floor.liked ? 0 : 1
-        let likedFloor = try await THRequests.like(floorId: floor.id, like: like)
+        var likedFloor = try await THRequests.like(floorId: floor.id, like: like)
+        likedFloor.mention = floor.mention // the server response will not include mention for performance reason
         updateFloor(likedFloor)
     }
     
     func dislike() async throws {
         let dislike = floor.disliked ? 0 : -1
-        let dislikedFloor = try await THRequests.like(floorId: floor.id, like: dislike)
+        var dislikedFloor = try await THRequests.like(floorId: floor.id, like: dislike)
+        dislikedFloor.mention = floor.mention // the server response will not include mention for performance reason
         updateFloor(dislikedFloor)
     }
     
