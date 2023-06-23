@@ -28,7 +28,7 @@ struct TabHomePage: View {
             FDHomePage()
                 .tag(AppSection.campus)
                 .tabItem {
-                    Label("Campus Services", systemImage: "square.stack")
+                    Label("Campus.Tab", systemImage: "square.stack")
                 }
             
             THHomePage()
@@ -71,7 +71,7 @@ struct SplitHomePage: View {
             )
             
             List(selection: sectionBinding) {
-                Label("Campus Services", systemImage: "square.stack")
+                Label("Campus.Tab", systemImage: "square.stack")
                     .tag(AppSection.campus)
                 Label("Tree Hole", systemImage: "text.bubble")
                     .tag(AppSection.forum)
