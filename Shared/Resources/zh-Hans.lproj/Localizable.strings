@@ -116,6 +116,11 @@
 "%@ replied %@:" = "%@于%@回复：";
 "Select Date" = "选择起始日期";
 "Clear Date" = "清除日期";
+"Send Message" = "发送站内信";
+"Message Content" = "站内信内容";
+"Recipients" = "收件人";
+"User IDs, separated by ASCII comma." = "输入英文逗号分隔的数字";
+"Invalid Recipients Format" = "收件人格式无效";
 
 // Treehole floor
 "Report" = "举报";

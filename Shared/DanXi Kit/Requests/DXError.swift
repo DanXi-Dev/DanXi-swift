@@ -8,6 +8,7 @@ enum DXError: LocalizedError {
     case registerFailed(message: String)
     case holeNotExist(holeId: Int)
     case floorNotExist(floorId: Int)
+    case invalidRecipientsFormat
     
     public var errorDescription: String? {
         switch self {
@@ -25,6 +26,8 @@ enum DXError: LocalizedError {
             return String(format: NSLocalizedString("Treehole #%@ not exist", comment: ""), String(holeId))
         case .floorNotExist(let floorId):
             return String(format: NSLocalizedString("Floor ##%@ not exist", comment: ""), String(floorId))
+        case .invalidRecipientsFormat:
+            return NSLocalizedString("Invalid Recipients Format", comment: "")
         }
     }
 }

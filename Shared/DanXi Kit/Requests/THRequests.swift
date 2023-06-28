@@ -442,6 +442,16 @@ struct THRequests {
         return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/messages")!)
     }
     
+    static func sendMessage(message: String, recipients: [Int]) async throws {
+        struct SendConfig: Codable {
+            let description: String
+            let recipients: [Int]
+        }
+        
+        let payload = SendConfig(description: message, recipients: recipients)
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/messages")!, payload: payload)
+    }
+    
     // MARK: Images
     
     static func uploadImage(_ imageData: Data) async throws -> URL {

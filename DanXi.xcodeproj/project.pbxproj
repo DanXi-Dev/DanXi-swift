@@ -154,6 +154,7 @@
 		27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */; };
 		27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* DKStarsView.swift */; };
 		27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* DKReviewView.swift */; };
+		27E8194E2A4C12F1009C87C6 /* THMessageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */; };
 		27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */; };
 		27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */; };
 		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
@@ -327,6 +328,7 @@
 		27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27E5E82A28BA62130074D295 /* DKStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarsView.swift; sourceTree = "<group>"; };
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
+		27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessageSheet.swift; sourceTree = "<group>"; };
 		27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigationModel.swift; sourceTree = "<group>"; };
 		27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundModel.swift; sourceTree = "<group>"; };
 		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 				27D7110728CA29B7001E9464 /* THReportSheet.swift */,
 				27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */,
 				2772231028F05B3300458EAC /* THHistorySheet.swift */,
+				27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -1013,6 +1016,7 @@
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
+				27E8194E2A4C12F1009C87C6 /* THMessageSheet.swift in Sources */,
 				2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
@@ -1120,7 +1124,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 457;
+				CURRENT_PROJECT_VERSION = 458;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1150,7 +1154,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 457;
+				CURRENT_PROJECT_VERSION = 458;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1184,7 +1188,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 457;
+				CURRENT_PROJECT_VERSION = 458;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -1218,7 +1222,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 457;
+				CURRENT_PROJECT_VERSION = 458;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -1368,7 +1372,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 457;
+				CURRENT_PROJECT_VERSION = 458;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1405,7 +1409,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 457;
+				CURRENT_PROJECT_VERSION = 458;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
