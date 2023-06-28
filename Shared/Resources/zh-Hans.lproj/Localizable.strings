@@ -344,6 +344,8 @@
 "From" = "始发站";
 "To" = "终点站";
 "Holiday" = "节假日";
+"Show all schedule" = "显示全部班次";
+"No available schedule" = "没有符合条件的校车班次";
 
 // Fudan ECard
 "ECard" = "校园卡";

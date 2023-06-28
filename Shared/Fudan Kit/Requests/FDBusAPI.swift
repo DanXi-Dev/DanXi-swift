@@ -36,9 +36,22 @@ struct FDBusSchedule: Identifiable, Codable {
     let endTime: Date?
     let arrow: Int
     let holiday: Int
+    var missed = false
     
     func match(start: String, end: String) -> Bool {
         return (self.start == start && startTime != nil) || (self.end == start && endTime != nil)
+    }
+    
+    func startAt(from: String) -> Date? {
+        let reversed = from != start
+        
+        if !reversed {
+            guard arrow == 1 || arrow == 3 else { return nil }
+            return startTime
+        } else {
+            guard arrow == 1 || arrow == 2 else { return nil }
+            return endTime
+        }
     }
     
     enum CodingKeys: String, CodingKey {
