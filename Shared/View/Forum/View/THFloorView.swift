@@ -26,8 +26,8 @@ struct THSimpleFloor: View {
 
 
 struct THComplexFloor: View {
-    @EnvironmentObject var holeModel: THHoleModel
-    @StateObject var model: THFloorModel
+    @EnvironmentObject private var holeModel: THHoleModel
+    @StateObject private var model: THFloorModel
     
     init(_ floor: THFloor, highlighted: Bool = false) {
         let model = THFloorModel(floor: floor, highlighted: highlighted)
@@ -240,17 +240,18 @@ struct THFloorContent: View {
 // MARK: - Components
 
 fileprivate struct Actions: View {
-    @EnvironmentObject var holeModel: THHoleModel
-    @EnvironmentObject var model: THFloorModel
+    @ObservedObject private var appModel = DXModel.shared
+    @EnvironmentObject private var holeModel: THHoleModel
+    @EnvironmentObject private var model: THFloorModel
     
-    @State var showReplySheet = false
-    @State var showReportSheet = false
-    @State var showSelectionSheet = false
-    @State var showEditSheet = false
-    @State var showHistorySheet = false
-    @State var showDeleteAlert = false
-    @State var showDeleteSheet = false
-    @State var showRemoveSheet = false
+    @State private var showReplySheet = false
+    @State private var showReportSheet = false
+    @State private var showSelectionSheet = false
+    @State private var showEditSheet = false
+    @State private var showHistorySheet = false
+    @State private var showDeleteAlert = false
+    @State private var showDeleteSheet = false
+    @State private var showRemoveSheet = false
     
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
@@ -388,7 +389,7 @@ fileprivate struct Actions: View {
                 }
             }
             
-            if DXModel.shared.isAdmin {
+            if appModel.isAdmin {
                 Menu {
                     Button {
                         showEditSheet = true

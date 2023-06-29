@@ -84,12 +84,13 @@ struct THHolePage: View {
 }
 
 fileprivate struct THHoleToolbar: View {
-    @EnvironmentObject var model: THHoleModel
-    @Environment(\.editMode) var editMode
+    @ObservedObject private var appModel = DXModel.shared
+    @EnvironmentObject private var model: THHoleModel
+    @Environment(\.editMode) private var editMode
     
-    @State var showDeleteAlert = false
-    @State var showEditSheet = false
-    @State var showReplySheet = false
+    @State private var showDeleteAlert = false
+    @State private var showEditSheet = false
+    @State private var showReplySheet = false
     
     var body: some View {
         Group {
@@ -135,7 +136,7 @@ fileprivate struct THHoleToolbar: View {
                 Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
             }
             
-            if DXModel.shared.isAdmin {
+            if appModel.isAdmin {
                 Divider()
                 
                 Button {

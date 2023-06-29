@@ -1,10 +1,11 @@
 import SwiftUI
 
 struct THFloorEditSheet: View {
-    @EnvironmentObject var model: THFloorModel
-    @State var content: String
-    @State var specialTag = ""
-    @State var foldReason = ""
+    @ObservedObject private var appModel = DXModel.shared
+    @EnvironmentObject private var model: THFloorModel
+    @State private var content: String
+    @State private var specialTag = ""
+    @State private var foldReason = ""
     
     init(_ content: String) {
         self._content = State(initialValue: content)
@@ -14,7 +15,7 @@ struct THFloorEditSheet: View {
         Sheet("Edit Reply") {
             try await model.edit(content, specialTag: specialTag, fold: foldReason)
         } content: {
-            if DXModel.shared.isAdmin {
+            if appModel.isAdmin {
                 TextField("Special Tag", text: $specialTag)
                 TextField("Fold Reason", text: $foldReason)
             }

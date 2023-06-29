@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct THHomePage: View {
-    @ObservedObject private var appModel = THModel.shared
+    @ObservedObject private var appModel = DXModel.shared
+    @ObservedObject private var forumModel = THModel.shared
     @StateObject private var model = THNavigationModel()
     
     var body: some View {
-        AsyncContentView(finished: appModel.loaded) {
-            try await appModel.loadAll()
+        AsyncContentView(finished: forumModel.loaded) {
+            try await forumModel.loadAll()
             try await DXModel.shared.loadUser()
         } content: {
             NavigationStack(path: $model.path) {
@@ -64,7 +65,7 @@ struct THHomePage: View {
                     .tag(THPage.tags)
                 Label("Notifications", systemImage: "bell")
                     .tag(THPage.notifications)
-                if DXModel.shared.isAdmin {
+                if appModel.isAdmin {
                     Label("Report", systemImage: "exclamationmark.triangle")
                         .tag(THPage.report)
                 }
