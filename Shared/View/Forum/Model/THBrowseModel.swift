@@ -3,6 +3,10 @@ import SwiftUI
 @MainActor
 class THBrowseModel: ObservableObject {
     
+    init() {
+        self.bannedDivision = DXModel.shared.user?.banned ?? [:]
+    }
+    
     // MARK: - Hole Loading
     
     @Published var holes: [THHole] = []
@@ -56,6 +60,12 @@ class THBrowseModel: ObservableObject {
             self.holes = []
             self.configId = UUID()
         }
+    }
+    
+    let bannedDivision: Dictionary<Int, Date>
+    
+    var bannedDate: Date? {
+        bannedDivision[division.id]
     }
     
     // MARK: - Hole Sort & Filter

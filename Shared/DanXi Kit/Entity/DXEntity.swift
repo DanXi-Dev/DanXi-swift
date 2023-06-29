@@ -5,6 +5,7 @@ struct DXUser: Hashable, Codable, Identifiable {
     let nickname: String
     let joinTime: Date
     let isAdmin: Bool
+    var banned: Dictionary<Int, Date>
 }
 
 struct Token: Codable {

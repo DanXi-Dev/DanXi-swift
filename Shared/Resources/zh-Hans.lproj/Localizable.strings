@@ -328,6 +328,8 @@
 "Restore History" = "恢复历史记录";
 "Restore reason" = "恢复理由";
 "Restore Failed" = "恢复失败";
+"You are banned in this division until %@" = "您已被此板块封禁，解封日期为%@";
+"If you have any question, you may contact admin@fduhole.com" = "如果有任何疑问，可以联系 admin@fduhole.com";
 
 // Fudan Login
 "Fudan UIS Login" = "复旦大学统一认证登录";

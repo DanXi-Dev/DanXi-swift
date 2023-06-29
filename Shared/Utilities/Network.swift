@@ -74,15 +74,30 @@ func sendRequest(_ request: URLRequest) async throws -> (Data, URLResponse) {
 // MARK: - Process
 
 func processJSONData<T: Decodable>(_ data: Data) throws -> T {
-    do {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
+    do {        
         return try JSONDecoder().decode(T.self, from: data)
     } catch {
         throw ParseError.invalidJSON
     }
+}
+
+func decodeDate(_ date: String) throws -> Date {
+    let formatter = ISO8601DateFormatter()
+    
+    var iso8601TimeString = date
+    if !iso8601TimeString.contains("+") && !iso8601TimeString.contains("Z") {
+        iso8601TimeString.append("+00:00") // add timezone manually
+    }
+    
+    if iso8601TimeString.contains(".") {
+        formatter.formatOptions = [.withTimeZone, .withFractionalSeconds, .withInternetDateTime]
+    } else {
+        formatter.formatOptions = [.withTimeZone, .withInternetDateTime]
+    }
+    if let date = formatter.date(from: iso8601TimeString) {
+        return date
+    }
+    throw ParseError.invalidDateFormat
 }
 
 func decodeDate<K: CodingKey>(_ values: KeyedDecodingContainer<K>, key: KeyedDecodingContainer<K>.Key) throws -> Date {

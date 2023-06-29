@@ -16,6 +16,7 @@ extension DXUser {
         nickname = try values.decode(String.self, forKey: .nickname)
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
         self.joinTime = try decodeDate(values, key: .joinTime)
+        self.banned = [:]
     }
 }
 

@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyJSON
 
 struct DXRequests {
     // MARK: - Account
@@ -41,7 +42,22 @@ struct DXRequests {
     
     /// Get current user info.
     static func loadUserInfo() async throws -> DXUser {
-        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/me")!)
+        let request = prepareRequest(URL(string: FDUHOLE_BASE_URL + "/users/me")!)
+        let data = try await autoRefresh(request)
+        do {
+            var user = try JSONDecoder().decode(DXUser.self, from: data)
+            let json = try JSON(data: data)
+            for (division, date) in json["permission", "silent"] {
+                guard let divisionId = Int(division),
+                      let date = try? decodeDate(date.stringValue) else {
+                    continue
+                }
+                user.banned[divisionId] = date
+            }
+            return user
+        } catch {
+            throw ParseError.invalidJSON
+        }
     }
     
     /// Modify user's nickname.
