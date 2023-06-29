@@ -346,8 +346,9 @@
 
 // Fudan Bus Schedule
 "Bus Schedule" = "校车时刻表";
-"From" = "始发站";
-"To" = "终点站";
+"From" = "始发";
+"To" = "终点";
+"Workday" = "工作日";
 "Holiday" = "节假日";
 "Show all schedule" = "显示全部班次";
 "No available schedule" = "没有符合条件的校车班次";

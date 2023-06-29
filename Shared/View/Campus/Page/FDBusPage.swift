@@ -2,10 +2,12 @@ import SwiftUI
 
 struct FDBusPage: View {
     var body: some View {
-        AsyncContentView {
-            return try await FDBusAPI.fetchBusRoutes()
-        } content: { routes in
-            BusPageContent(routes: routes)
+        AsyncContentView { () -> FDBusModel in
+            let workdayRoutes = try await FDBusAPI.fetchBusRoutes()
+            let holidayRoutes = try await FDBusAPI.fetchHolidayRoutes()
+            return FDBusModel(workdayRoutes, holidayRoutes)
+        } content: { model in
+            BusPageContent(model)
         }
     }
 }
@@ -13,8 +15,8 @@ struct FDBusPage: View {
 fileprivate struct BusPageContent: View {
     @StateObject private var model: FDBusModel
     
-    init(routes: [FDBusRoute]) {
-        self._model = StateObject(wrappedValue: FDBusModel(routes))
+    init(_ model: FDBusModel) {
+        self._model = StateObject(wrappedValue: model)
     }
     
     var body: some View {
@@ -34,6 +36,7 @@ fileprivate struct BusPageContent: View {
                     } label: {
                         Image(systemName: "arrow.left.arrow.right")
                     }
+                    .padding(.horizontal, 20)
                     
                     Spacer()
                     
@@ -44,10 +47,16 @@ fileprivate struct BusPageContent: View {
                     }
                 }
                 .buttonStyle(.borderless)
+                
                 Toggle(isOn: $model.showMissed) {
                     Text("Show all schedule")
                 }
                 
+                Picker(selection: $model.type, label: Text("Type")) {
+                    Text("Workday").tag(FDBusType.workday)
+                    Text("Holiday").tag(FDBusType.holiday)
+                }
+                .pickerStyle(.segmented)
             }
             
             Section {
@@ -104,19 +113,27 @@ fileprivate struct BusRow: View {
 
 // MARK: - Model
 
+fileprivate enum FDBusType {
+    case workday, holiday
+}
+
 fileprivate class FDBusModel: ObservableObject {
-    let routes: [FDBusRoute]
+    let workdayRoutes: [FDBusRoute]
+    let holidayRoutes: [FDBusRoute]
     let campusList = ["邯郸", "江湾", "枫林", "张江"]
     @Published var start = "邯郸"
     @Published var end = "江湾"
     @Published var showMissed = false
-    @Published var holiday = false
+    @Published var type = FDBusType.workday
     
-    init(_ routes: [FDBusRoute]) {
-        self.routes = routes
+    init(_ workdayRoutes: [FDBusRoute], _ holidayRoutes: [FDBusRoute]) {
+        self.workdayRoutes = workdayRoutes
+        self.holidayRoutes = holidayRoutes
     }
     
     var filteredSchedules: [FDBusSchedule] {
+        let routes = type == .holiday ? holidayRoutes : workdayRoutes
+        
         let route = routes.filter { route in
             route.match(start: start, end: end)
         }.first
@@ -149,8 +166,6 @@ fileprivate class FDBusModel: ObservableObject {
                 !schedule.missed
             }
         }
-        
-        // TODO: holiday
         
         return matchedSchedule
     }

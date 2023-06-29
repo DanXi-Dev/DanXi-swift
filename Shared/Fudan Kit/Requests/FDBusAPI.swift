@@ -10,6 +10,14 @@ struct FDBusAPI {
         let routeData = try JSON(data: responseData)["d"]["data"].rawData()
         return try processJSONData(routeData)
     }
+    
+    static func fetchHolidayRoutes() async throws -> [FDBusRoute] {
+        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanbus/wap/default/lists")!
+        let request = prepareFormRequest(url, form: [URLQueryItem(name: "holiday", value: "1")])
+        let (data, _) = try await sendRequest(request)
+        let routeData = try JSON(data: data)["d"]["data"].rawData()
+        return try processJSONData(routeData)
+    }
 }
 
 // MARK: - Model
