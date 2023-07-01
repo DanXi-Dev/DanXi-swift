@@ -24,3 +24,8 @@ struct DXBanner: Codable {
     let actionName: String
     let action: String
 }
+
+struct Timetable: Codable {
+    let semester: Int
+    let startDate: Date
+}

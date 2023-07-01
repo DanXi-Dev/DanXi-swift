@@ -109,12 +109,20 @@ class DXModel: ObservableObject {
             let info = try await DXRequests.getInfo()
             guard let extra = info.filter({ $0.type == -5 }).first,
                   let data = extra.content.data(using: String.Encoding.utf8),
-                  let json = try? JSON(data: data),
-                  let bannerData = try? json["banners"].rawData(),
-                  let banners = try? JSONDecoder().decode([DXBanner].self, from: bannerData) else {
+                  let json = try? JSON(data: data) else {
                 return
             }
-            THModel.shared.banners = banners
+            
+            if let bannerData = try? json["banners"].rawData(),
+               let banners = try? JSONDecoder().decode([DXBanner].self, from: bannerData) {
+                THModel.shared.banners = banners
+            }
+            
+            if let timetableData = try? json["timetable", "fdu_ug"].rawData(),
+               let timetable = try? JSONDecoder().decode([Timetable].self, from: timetableData) {
+                FDCalendarModel.timetables = timetable
+                FDCalendarModel.timetablePublisher.send(timetable)
+            }
         } catch {
             
         }

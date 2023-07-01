@@ -28,6 +28,30 @@ extension DXInfo {
     }
 }
 
+extension Timetable {
+    enum CodingKeys: String, CodingKey {
+        case semester = "id"
+        case startDate
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let semesterString = try values.decode(String.self, forKey: .semester)
+        guard let semester = Int(semesterString) else {
+            throw ParseError.invalidJSON
+        }
+        self.semester = semester
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        guard let startDate = dateFormatter.date(from: try values.decode(String.self, forKey: .startDate)) else {
+            throw ParseError.invalidDateFormat
+        }
+        self.startDate = startDate
+    }
+}
+
 // MARK: Forum
 
 extension THHole {

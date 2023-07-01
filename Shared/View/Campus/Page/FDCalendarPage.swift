@@ -91,7 +91,7 @@ struct FDCalendarPage: View {
                 }
             }
             .sheet(isPresented: $showSettingSheet) {
-                FDCalendarSetting(semester: model.semester)
+                FDCalendarSetting(semester: model.semester, startDate: model.semesterStart)
             }
             .sheet(isPresented: $showExportSheet) {
                 ExportSheet()
@@ -99,6 +99,12 @@ struct FDCalendarPage: View {
             }
             .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
             .environmentObject(model)
+            .onReceive(FDCalendarModel.timetablePublisher) { timetable in
+                model.matchTimetable()
+                Task {
+                    try model.save()
+                }
+            }
         }
     }
 }
@@ -106,15 +112,21 @@ struct FDCalendarPage: View {
 // MARK: - Controls
 
 fileprivate struct FDCalendarSetting: View {
-    @EnvironmentObject var model: FDCalendarModel
-    @State var semester: FDSemester
+    @EnvironmentObject private var model: FDCalendarModel
+    @State private var semester: FDSemester
+    @State private var startDate: Date
+    
+    init(semester: FDSemester, startDate: Date?) {
+        self._semester = State(initialValue: semester)
+        self._startDate = State(initialValue: startDate ?? Date.now)
+    }
     
     var body: some View {
         AsyncContentView {
             try await model.reloadSemesters()
         } content: { _ in
             Sheet("Calendar Settings") {
-                try await model.refresh(semester)
+                try await model.refresh(semester, startDate)
             } content: {
                 Picker(selection: $semester, label: Text("Select Semester")) {
                     ForEach(model.semesters) { semester in
@@ -122,16 +134,16 @@ fileprivate struct FDCalendarSetting: View {
                     }
                 }
                 
-                let binding = Binding<Date>(
-                    get: { model.semesterStart ?? Date() },
-                    set: { model.semesterStart = $0 }
-                )
-                
-                DatePicker(selection: binding, in: ...Date.now, displayedComponents: [.date]) {
+                DatePicker(selection: $startDate, in: ...Date.now, displayedComponents: [.date]) {
                     Label("Semester Start Date", systemImage: "calendar")
                 }
             }
             .completed(model.semesterStart != nil)
+            .onChange(of: semester) { semester in
+                if let startDate = FDCalendarModel.getStartDateFromTimetable(semester) {
+                    self.startDate = startDate
+                }
+            }
         }
     }
 }

@@ -147,7 +147,7 @@ struct FDAcademicAPI {
         let request = prepareFormRequest(courseURL, form: form)
         let (courseData, _) = try await sendRequest(request)
         guard let element = try processHTMLDataList(courseData, selector: "body > script").filter({ try $0.html().contains("new TaskActivity") }).first else {
-            throw ParseError.invalidHTML
+            return (semesterId!, []) // the semester has no course
         }
         let script = try element.html()
         let lines = script.split(separator: "\n")

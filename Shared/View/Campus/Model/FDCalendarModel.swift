@@ -1,17 +1,17 @@
-import Foundation
+import SwiftUI
 import EventKit
+import Combine
 import Disk
 
 @MainActor
 class FDCalendarModel: ObservableObject {
+    static let timetablePublisher = PassthroughSubject<[Timetable], Never>()
+    static var timetables: [Timetable] = []
+    
     @Published var semester: FDSemester
     @Published var semesters: [FDSemester]
     var semesterUpdated = false
-    @Published var semesterStart: Date? {
-        didSet {
-            reloadWeek()
-        }
-    }
+    @Published var semesterStart: Date?
     @Published var courses: [FDCourse]
     @Published var week: Int {
         didSet {
@@ -68,8 +68,9 @@ class FDCalendarModel: ObservableObject {
         self.semesters = semesters
         self.semester = semesters.filter { $0.id == semesterId }.first!
         self.courses = courses
-        
         self.week = 1
+        
+        matchTimetable()
     }
     
     // MARK: - Load from Disk
@@ -87,9 +88,8 @@ class FDCalendarModel: ObservableObject {
         self.semesterStart = bundle.semesterStart
         self.courses = bundle.courses
         self.week = 1
-
-        reloadWeek()
-        reloadWeekStart()
+        
+        matchTimetable()
     }
     
     func save() throws {
@@ -137,6 +137,21 @@ class FDCalendarModel: ObservableObject {
         }
     }
     
+    static func getStartDateFromTimetable(_ semester: FDSemester) -> Date? {
+        if let timetable = Self.timetables.filter({ $0.semester == semester.id }).first {
+            return timetable.startDate
+        }
+        return nil
+    }
+    
+    func matchTimetable() {
+        if let timetable = Self.timetables.filter({ $0.semester == semester.id }).first {
+            self.semesterStart = timetable.startDate
+        }
+        reloadWeek()
+        reloadWeekStart()
+    }
+    
     // MARK: - Utility
     
     func reloadSemesters() async throws {
@@ -146,8 +161,11 @@ class FDCalendarModel: ObservableObject {
         semesterUpdated = true
     }
     
-    func refresh(_ semester: FDSemester) async throws {
+    func refresh(_ semester: FDSemester, _ startDate: Date) async throws {
+        semesterStart = startDate
+        
         if semester.id == self.semester.id { // only set date, no need to request from server
+            matchTimetable()
             try save()
             return
         }
@@ -156,6 +174,7 @@ class FDCalendarModel: ObservableObject {
         try await FDAcademicAPI.login()
         (_, self.courses) = try await FDAcademicAPI.getCourseList(semester: semester.id)
         self.semester = semester
+        matchTimetable()
         try save()
     }
     
