@@ -2,12 +2,17 @@ import SwiftUI
 
 struct THBrowsePage: View {
     @ObservedObject private var settings = THSettings.shared
+    @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var nav: THNavigationModel
     
     var body: some View {
         THBackgroundList {
             THDivisionPicker()
+            
+            if !appModel.banners.isEmpty && settings.showBanners {
+                BannerView(appModel.banners)
+            }
             
             // Banned Notice
             if let bannedDate = model.bannedDate {
@@ -183,6 +188,80 @@ fileprivate struct BannedNotice: View {
                 .cornerRadius(7)
                 .listRowSeparator(.hidden)
             }
+        }
+    }
+}
+
+fileprivate struct BannerView: View {
+    let banners: [DXBanner]
+    @State private var currentBanner: Int = 0
+    
+    @Environment(\.openURL) private var openURL
+    @EnvironmentObject private var navigator: THNavigationModel
+    private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
+    @ScaledMetric private var height: CGFloat = 40
+    @ScaledMetric private var containerHeight: CGFloat = 70
+    
+    @ScaledMetric private var fontSize: CGFloat = 15
+    
+    init(_ banners: [DXBanner]) {
+        self.banners = banners
+    }
+    
+    private func updateBanner() {
+        withAnimation {
+            if currentBanner == banners.count {
+                currentBanner = 0
+            } else {
+                currentBanner += 1
+            }
+        }
+    }
+    
+    private func actionButton(_ action: String) {
+        if let holeMatch = action.wholeMatch(of: /#(?<id>\d+)/),
+           let holeId = Int(holeMatch.id) {
+            let loader = THHoleLoader(holeId: holeId)
+            navigator.path.append(loader)
+        } else if let floorMatch = action.wholeMatch(of: /##(?<id>\d+)/),
+                  let floorId = Int(floorMatch.id) {
+            let loader = THHoleLoader(floorId: floorId)
+            navigator.path.append(loader)
+        } else if let url = URL(string: action) {
+            openURL(url)
+        }
+    }
+    
+    var body: some View {
+        TabView(selection: $currentBanner) {
+            ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
+                HStack {
+                    Image(systemName: "bell.fill")
+                        .foregroundColor(.accentColor)
+                    Text(banner.title)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(3)
+                    Spacer()
+                    Button(banner.actionName) {
+                        actionButton(banner.action)
+                    }
+                }
+                .font(.system(size: fontSize))
+                .frame(height: height)
+                .padding()
+                .background(.gray.opacity(0.1))
+                .cornerRadius(15)
+                .padding(.horizontal)
+                .tag(index)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .frame(height: containerHeight)
+        .listRowSeparator(.hidden)
+        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .lineLimit(nil)
+        .onReceive(timer) { _ in
+            updateBanner()
         }
     }
 }

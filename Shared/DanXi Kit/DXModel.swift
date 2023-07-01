@@ -1,6 +1,7 @@
 import Foundation
 import KeychainAccess
 import UserNotifications
+import SwiftyJSON
 import UIKit
 import Disk
 
@@ -100,6 +101,25 @@ class DXModel: ObservableObject {
     func loadUser() async throws {
         self.user = try await DXRequests.loadUserInfo()
     }
+    
+    // MARK: Remote Extra
+    
+    func loadExtra() async {
+        do {
+            let info = try await DXRequests.getInfo()
+            guard let extra = info.filter({ $0.type == -5 }).first,
+                  let data = extra.content.data(using: String.Encoding.utf8),
+                  let json = try? JSON(data: data),
+                  let bannerData = try? json["banners"].rawData(),
+                  let banners = try? JSONDecoder().decode([DXBanner].self, from: bannerData) else {
+                return
+            }
+            THModel.shared.banners = banners
+        } catch {
+            
+        }
+        
+    }
 }
 
 @MainActor
@@ -110,6 +130,7 @@ class THModel: ObservableObject {
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var loaded = false
+    @Published var banners: [DXBanner] = []
     
     func loadAll() async throws {
         // use async-let to parallel load

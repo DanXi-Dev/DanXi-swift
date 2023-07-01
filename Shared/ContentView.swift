@@ -16,6 +16,9 @@ struct ContentView: View {
         .onOpenURL { url in
             model.openURL(url)
         }
+        .task {
+            await DXModel.shared.loadExtra()
+        }
     }
 }
 

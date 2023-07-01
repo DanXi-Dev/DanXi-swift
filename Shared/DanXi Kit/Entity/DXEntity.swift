@@ -12,3 +12,15 @@ struct Token: Codable {
     let access: String
     let refresh: String
 }
+
+struct DXInfo: Codable {
+    let id: String
+    let content: String
+    let type: Int
+}
+
+struct DXBanner: Codable {
+    let title: String
+    let actionName: String
+    let action: String
+}

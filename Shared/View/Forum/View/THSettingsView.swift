@@ -28,6 +28,10 @@ struct THSettingsView: View {
                 Label("Screenshot Alert", systemImage: "camera.viewfinder")
             }
             
+            Toggle(isOn: $settings.showBanners) {
+                Label("Show Activity Announcements", systemImage: "bell")
+            }
+            
             ImagePicker()
         }
     }

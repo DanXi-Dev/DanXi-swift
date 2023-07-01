@@ -1,6 +1,6 @@
 import Foundation
 
-// MARK: User
+// MARK: General
 
 extension DXUser {
     enum CodingKeys: String, CodingKey {
@@ -17,6 +17,14 @@ extension DXUser {
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
         self.joinTime = try decodeDate(values, key: .joinTime)
         self.banned = [:]
+    }
+}
+
+extension DXInfo {
+    enum CodingKeys: String, CodingKey {
+        case id = "objectId"
+        case content
+        case type = "maxVersion"
     }
 }
 
