@@ -304,6 +304,7 @@ fileprivate struct Actions: View {
                     }
                 }
                 .foregroundColor(floor.liked ? .pink : .secondary)
+                .fixedSize() // prevent numbers to disappear when special tag present
             }
 
             
@@ -319,6 +320,7 @@ fileprivate struct Actions: View {
                     }
                 }
                 .foregroundColor(floor.disliked ? .green : .secondary)
+                .fixedSize() // prevent numbers to disappear when special tag present
             }
         }
         .buttonStyle(.borderless)

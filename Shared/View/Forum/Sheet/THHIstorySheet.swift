@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct THHistorySheet: View {
-    @EnvironmentObject var model: THFloorModel
-    @State var histories: [THHistory] = []
+    @EnvironmentObject private var model: THFloorModel
+    @State private var histories: [THHistory] = []
     
     var body: some View {
         NavigationView {
@@ -24,11 +24,11 @@ struct THHistorySheet: View {
 }
 
 struct THHistorySheetItem: View {
-    @EnvironmentObject var model: THFloorModel
+    @EnvironmentObject private var model: THFloorModel
     let history: THHistory
     
-    @State var showAlert = false
-    @State var restoreReason = ""
+    @State private var showAlert = false
+    @State private var restoreReason = ""
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -64,6 +64,13 @@ struct THHistorySheetItem: View {
             } label: {
                 Label("Restore", systemImage: "arrow.uturn.backward")
             }
+            
+            Button {
+                UIPasteboard.general.string = history.content
+            } label: {
+                Label("Copy Full Text", systemImage: "doc.on.doc")
+            }
+            .tint(.yellow)
         }
     }
 }
