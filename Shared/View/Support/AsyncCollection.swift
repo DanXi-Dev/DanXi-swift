@@ -125,9 +125,11 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
         Group {
             ForEach(items) { item in
                 content(item)
-                    .task {
-                        if item.id == items.last?.id {
-                            await loadMore()
+                    .onAppear {
+                        Task {
+                            if item.id == items.last?.id {
+                                await loadMore()
+                            }
                         }
                     }
             }
@@ -153,7 +155,7 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
                     ErrorView(loadingError) {
                         await loadMore()
                     }
-                } else if loading {
+                } else {
                     ProgressView()
                 }
                 Spacer()

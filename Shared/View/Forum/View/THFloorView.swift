@@ -17,7 +17,7 @@ struct THSimpleFloor: View {
         HStack {
             Text("##\(String(floor.id))")
             Spacer()
-            Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+            Text(floor.createTime.autoFormatted())
         }
         .font(.caption)
         .foregroundColor(.separator)
@@ -133,7 +133,7 @@ struct THComplexFloor: View {
             
             Spacer()
             
-            Text(floor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+            Text(floor.createTime.autoFormatted())
         }
         .font(.caption)
         .foregroundColor(Color.secondary.opacity(0.7))

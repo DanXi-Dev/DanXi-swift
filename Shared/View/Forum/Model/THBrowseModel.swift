@@ -15,25 +15,24 @@ class THBrowseModel: ObservableObject {
     private func insertHoles(_ holes: [THHole]) {
         let currentIds = self.holes.map(\.id)
         let insertedHoles = holes.filter { !currentIds.contains($0.id) }
-        withAnimation {
-            self.holes.append(contentsOf: insertedHoles)
-        }
+        self.holes.append(contentsOf: insertedHoles)
     }
     
     func loadMoreHoles() async throws {
         let configId = self.configId
         
-        // set start time
-        var startTime: String? = nil
-        if !holes.isEmpty {
-            startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
-        } else if let baseDate = baseDate {
-            startTime = baseDate.ISO8601Format()
-        }
-        
         // fetch holes
         let prevCount = filteredHoles.count
         repeat {
+            // set start time
+            var startTime: String? = nil
+            if !holes.isEmpty {
+                startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
+            } else if let baseDate = baseDate {
+                startTime = baseDate.ISO8601Format()
+            }
+            
+            // request, receive and insert
             let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
             guard configId == self.configId else { return }
             insertHoles(newHoles)

@@ -144,7 +144,7 @@ class THModel: ObservableObject {
         // use async-let to parallel load
         async let favoriteIds = try await THRequests.loadFavoritesIds()
         async let divisions = try await THRequests.loadDivisions()
-        async let tags = try await THRequests.loadTags()
+        async let tags = try await loadTags()
         self.favoriteIds = try await favoriteIds
         self.divisions = try await divisions
         self.tags = try await tags
@@ -172,13 +172,18 @@ class THModel: ObservableObject {
     }
     
     func loadTags() async throws -> [THTag] {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        if let tagsData = try? Disk.retrieve("fduhole/tags.json", from: .applicationSupport, as: CachedData<[THTag]>.self, decoder: decoder),
+        if let tagsData = try? Disk.retrieve("fduhole/tags.json", from: .applicationSupport, as: CachedData<[THTag]>.self),
            let tags = tagsData.validValue {
             return tags
         }
-        return try await THRequests.loadTags()
+        
+        let tags = try await THRequests.loadTags()
+        Task {
+            let cache = CachedData(value: tags)
+            cache.store(path: "fduhole/tags.json")
+        }
+        
+        return tags
     }
     
     func isFavorite(_ id: Int) -> Bool {
@@ -248,7 +253,7 @@ fileprivate struct CachedData<V: Codable>: Codable {
     }
     
     var expired: Bool {
-        return expireAt > Date.now
+        return expireAt < Date.now
     }
     
     var validValue: V? {
@@ -257,9 +262,7 @@ fileprivate struct CachedData<V: Codable>: Codable {
     
     func store(path: String) {
         do {
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .iso8601
-            try Disk.save(value, to: .applicationSupport, as: path, encoder: encoder)
+            try Disk.save(self, to: .applicationSupport, as: path)
         } catch {
             
         }
