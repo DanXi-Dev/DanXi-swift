@@ -148,19 +148,59 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
     
     @ViewBuilder
     private var footer: some View {
-        if !endReached {
+        Group {
             HStack {
                 Spacer()
                 if let loadingError = self.loadingError {
                     ErrorView(loadingError) {
                         await loadMore()
                     }
-                } else {
-                    ProgressView()
+                } else if !endReached {
+                    // use UIKit wrapped view to make custom control of animation starting and ending.
+                    // In SwiftUI there is a bug that ProgressView may not appearing.
+                    // I guess this may be related to the `hidesWhenStopped` property.
+                    LoadingView()
                 }
                 Spacer()
             }
         }
+        .frame(height: 50)
+    }
+}
+
+fileprivate struct LoadingView: View {
+    @State private var isAnimating = false
+    
+    var body: some View {
+        ActivityIndicatorView(isAnimating: isAnimating)
+            .onAppear {
+                isAnimating = true
+            }
+            .onDisappear {
+                isAnimating = false
+            }
+    }
+}
+
+fileprivate struct ActivityIndicatorView: UIViewRepresentable {
+    let isAnimating: Bool
+    
+    func makeUIView(context: Context) -> UIActivityIndicatorView {
+        let view = UIActivityIndicatorView()
+        view.hidesWhenStopped = false
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
+        if isAnimating {
+            uiView.startAnimating()
+        } else {
+            uiView.stopAnimating()
+        }
+    }
+    
+    static func dismantleUIView(_ uiView: UIActivityIndicatorView, coordinator: ()) {
+        uiView.stopAnimating()
     }
 }
 
