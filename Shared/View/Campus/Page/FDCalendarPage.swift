@@ -138,7 +138,6 @@ fileprivate struct FDCalendarSetting: View {
                     Label("Semester Start Date", systemImage: "calendar")
                 }
             }
-            .completed(model.semesterStart != nil)
             .onChange(of: semester) { semester in
                 if let startDate = FDCalendarModel.getStartDateFromTimetable(semester) {
                     self.startDate = startDate
