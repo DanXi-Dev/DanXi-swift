@@ -412,7 +412,7 @@
 
 // About
 "Website" = "网站";
-"Version %@" = "版本%@";
+"Version %@ (%@)" = "版本%@ (%@)";
 "Terms and Conditions" = "使用条款";
 "Acknowledgements" = "致谢";
 "Contributors" = "贡献者";

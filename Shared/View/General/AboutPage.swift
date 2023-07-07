@@ -1,6 +1,14 @@
 import SwiftUI
 
 struct AboutPage: View {
+    private var version: String {
+        Bundle.main.releaseVersionNumber ?? ""
+    }
+    
+    private var build: String {
+        Bundle.main.buildVersionNumber ?? ""
+    }
+    
     var body: some View {
         List {
             Section {
@@ -31,7 +39,7 @@ struct AboutPage: View {
                 Text("DanXi")
                     .font(.title)
                     .bold()
-                Text("Version \(Bundle.main.releaseVersionNumber!)")
+                Text("Version \(version) (\(build))")
                     .font(.callout)
             }
             .padding(.bottom)
