@@ -46,7 +46,7 @@
 "Accounts Management" = "账户管理";
 "About" = "关于";
 "Legal" = "法律信息";
-"Fudan UIS Account" = "复旦UIS账户";
+
 "FDU Hole Account" = "旦夕账户";
 "Logged in" = "已登录";
 "Not Logged in" = "未登录";
@@ -333,7 +333,10 @@
 "If you have any question, you may contact admin@fduhole.com" = "如果有任何疑问，可以联系 admin@fduhole.com";
 
 // Fudan Login
-"Fudan UIS Login" = "复旦大学统一认证登录";
+"Fudan Campus Account" = "复旦校园账户";
+"Fudan Campus Login" = "复旦校园服务";
+"Login with Fudan campus account (UIS) to access various campus services" = "使用复旦大学校园账户（UIS）来访问各种校园服务";
+"Fudan.ID" = "学/工号";
 
 // Fudan QR Code
 "Fudan QR Code" = "复旦生活码";

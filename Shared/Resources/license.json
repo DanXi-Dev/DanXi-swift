@@ -10,13 +10,38 @@
         "license": "MIT license"
     },
     {
-        "name": "Introspect for SwiftUI",
-        "link": "https://github.com/siteline/SwiftUI-Introspect",
+        "name": "SwiftUI CachedAsyncImage",
+        "link": "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
         "license": "MIT license"
     },
     {
-        "name": "SwiftUI CachedAsyncImage",
-        "link": "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
+        "name": "Disk",
+        "link": "https://github.com/saoudrizwan/Disk",
+        "license": "MIT license"
+    },
+    {
+        "name": "KeychainAccess",
+        "link": "https://github.com/kishikawakatsumi/KeychainAccess",
+        "license": "MIT license"
+    },
+    {
+        "name": "SwiftUIX",
+        "link": "https://github.com/SwiftUIX/SwiftUIX",
+        "license": "MIT license"
+    },
+    {
+        "name": "SwiftyJSON",
+        "link": "https://github.com/SwiftyJSON/SwiftyJSON",
+        "license": "MIT license"
+    },
+    {
+        "name": "WrappingHStack",
+        "link": "https://github.com/dkk/WrappingHStack",
+        "license": "MIT license"
+    },
+    {
+        "name": "Advanced ScrollView",
+        "link": "https://github.com/dmytro-anokhin/advanced-scrollview",
         "license": "MIT license"
     }
 ]

@@ -98,8 +98,10 @@ class DXModel: ObservableObject {
         user?.isAdmin ?? false
     }
     
-    func loadUser() async throws {
-        self.user = try await DXRequests.loadUserInfo()
+    func loadUser() async throws -> DXUser {
+        let user = try await DXRequests.loadUserInfo()
+        self.user = user
+        return user
     }
     
     // MARK: Remote Extra

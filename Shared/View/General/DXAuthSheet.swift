@@ -219,7 +219,7 @@ fileprivate class RegisterModel: ObservableObject {
 
 // MARK: - Components
 
-fileprivate struct LabeledEntry<Content: View>: View {
+struct LabeledEntry<Content: View>: View {
     let label: LocalizedStringKey
     var showAlert = false
     let content: Content
@@ -257,7 +257,7 @@ fileprivate struct LabeledEntry<Content: View>: View {
     }
 }
 
-fileprivate struct FormTitle: View {
+struct FormTitle: View {
     let title: LocalizedStringKey
     let description: LocalizedStringKey
     

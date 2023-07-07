@@ -8,7 +8,7 @@ struct THHomePage: View {
     var body: some View {
         AsyncContentView(finished: forumModel.loaded) {
             try await forumModel.loadAll()
-            try await appModel.loadUser()
+            _ = try await appModel.loadUser()
         } content: {
             NavigationStack(path: $model.path) {
                 Group {

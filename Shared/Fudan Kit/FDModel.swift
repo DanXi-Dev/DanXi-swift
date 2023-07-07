@@ -12,7 +12,8 @@ class FDModel: ObservableObject {
     }
     
     func clearAll() {
-        
+        username = nil
+        password = nil
     }
     
     // MARK: - Authentication

@@ -5,7 +5,7 @@ struct AboutPage: View {
         List {
             Section {
                 LinkView(url: "https://danxi.fduhole.com", text: "Website", icon: "safari")
-                LinkView(url: "https://www.fduhole.com/#/license", text: "Terms and Conditions", icon: "info.circle")
+                LinkView(url: "https://danxi.fduhole.com/doc/app-terms-and-condition", text: "Terms and Conditions", icon: "info.circle")
 
                 NavigationLink {
                     CreditPage()
@@ -37,11 +37,5 @@ struct AboutPage: View {
             .padding(.bottom)
             Spacer()
         }
-    }
-}
-
-struct AboutPage_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutPage()
     }
 }
