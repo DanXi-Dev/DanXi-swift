@@ -4,13 +4,13 @@ import AdvancedScrollView
 struct ImageWithPopover: View {
     let image: Image
     
-    @State var showBrowser = false
+    @State private var showBrowser = false
     
     var body: some View {
         image
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .fullScreenCover(isPresented: $showBrowser) {
+            .sheet(isPresented: $showBrowser) {
                 ImageBrowser(image)
             }
             .onTapGesture {
@@ -21,7 +21,6 @@ struct ImageWithPopover: View {
 
 struct ImageBrowser: View {
     let image: Image
-    @State var hideToolbar = false
     @Environment(\.dismiss) var dismiss
     
     init(_ image: Image) {
@@ -33,21 +32,10 @@ struct ImageBrowser: View {
             AdvancedScrollView { proxy in
                 image
             }
-            .ignoresSafeArea()
             .navigationTitle("View Image")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(hideToolbar ? .hidden : .visible, for: .navigationBar)
-            .onTapGesture {
-                withAnimation {
-                    hideToolbar.toggle()
-                }
-            }
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    ShareLink(item: image, preview: SharePreview("", image: image)) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         dismiss()
                     } label: {
@@ -55,7 +43,20 @@ struct ImageBrowser: View {
                             .bold()
                     }
                 }
+                
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Spacer()
+                    ShareLink(item: image, preview: SharePreview("", image: image)) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                }
             }
         }
+    }
+}
+
+struct Image_Preview: PreviewProvider {
+    static var previews: some View {
+        ImageBrowser(Image("fsy2001"))
     }
 }

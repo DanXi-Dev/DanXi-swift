@@ -1,5 +1,6 @@
 import SwiftUI
 import Markdown
+import CachedAsyncImage
 
 /// A view that renders Markdown content.
 struct MarkdownView: View {
@@ -238,7 +239,7 @@ struct MarkdownView: View {
                 case .image(let url):
                     HStack {
                         Spacer()
-                        AsyncImage(url: url) { phase in
+                        CachedAsyncImage(url: url) { phase in
                             if let image = phase.image {
                                 ImageWithPopover(image: image)
                             } else if phase.error != nil {
