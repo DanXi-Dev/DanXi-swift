@@ -111,6 +111,8 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
     }
     
     private func loadMore() async {
+        guard !loading else { return } // prevent parallel loading task
+        
         do {
             loadingError = nil
             loading = true
@@ -125,11 +127,9 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
         Group {
             ForEach(items) { item in
                 content(item)
-                    .onAppear {
-                        Task {
-                            if item.id == items.last?.id {
-                                await loadMore()
-                            }
+                    .task {
+                        if item.id == items.last?.id {
+                            await loadMore()
                         }
                     }
             }
@@ -151,7 +151,7 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
         Group {
             HStack {
                 Spacer()
-                if let loadingError = self.loadingError {
+                if let loadingError = loadingError {
                     ErrorView(loadingError) {
                         await loadMore()
                     }

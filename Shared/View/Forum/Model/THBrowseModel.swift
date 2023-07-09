@@ -2,13 +2,13 @@ import SwiftUI
 
 @MainActor
 class THBrowseModel: ObservableObject {
-    
     init() {
         self.bannedDivision = DXModel.shared.user?.banned ?? [:]
     }
     
     // MARK: - Hole Loading
     
+//    @Published var endReached = false
     @Published var holes: [THHole] = []
     @Published var configId = UUID() // represent current configuration, when it changes, old holes should not be inserted
     
