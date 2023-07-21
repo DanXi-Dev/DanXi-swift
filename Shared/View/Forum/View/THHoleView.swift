@@ -76,7 +76,7 @@ struct THHoleView: View {
                 Image(systemName: "eye.slash")
             }
             Spacer()
-            Text(hole.createTime.autoFormatted())
+            Text(hole.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
             Spacer()
             actions
         }

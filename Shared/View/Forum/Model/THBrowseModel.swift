@@ -8,14 +8,13 @@ class THBrowseModel: ObservableObject {
     
     // MARK: - Hole Loading
     
-//    @Published var endReached = false
     @Published var holes: [THHole] = []
     @Published var configId = UUID() // represent current configuration, when it changes, old holes should not be inserted
     
     private func insertHoles(_ holes: [THHole]) {
         let currentIds = self.holes.map(\.id)
         let insertedHoles = holes.filter { !currentIds.contains($0.id) }
-        self.holes.append(contentsOf: insertedHoles)
+        self.holes += insertedHoles
     }
     
     func loadMoreHoles() async throws {
