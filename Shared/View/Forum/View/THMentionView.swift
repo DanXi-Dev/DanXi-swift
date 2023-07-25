@@ -101,7 +101,7 @@ struct THLocalMentionView: View {
 }
 
 struct THRemoteMentionView: View {
-    @EnvironmentObject var model: THNavigationModel
+    @EnvironmentObject private var model: THNavigator
     let mention: THMention
     
     var body: some View {

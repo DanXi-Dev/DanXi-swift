@@ -141,6 +141,7 @@ class THModel: ObservableObject {
     @Published var tags: [THTag] = []
     @Published var loaded = false
     @Published var banners: [DXBanner] = []
+    @Published var browseHistory: [THBrowseHistory] = []
     
     func loadAll() async throws {
         // use async-let to parallel load
@@ -150,6 +151,10 @@ class THModel: ObservableObject {
         self.favoriteIds = try await favoriteIds
         self.divisions = try await divisions
         self.tags = try await tags
+        
+        if let browseHistory = try? Disk.retrieve("fduhole/history.json", from: .applicationSupport, as: [THBrowseHistory].self) {
+            self.browseHistory = browseHistory
+        }
         
         if self.divisions.isEmpty {
             throw ParseError.invalidResponse
@@ -166,6 +171,7 @@ class THModel: ObservableObject {
         // remove stored tags on disk
         Task {
             try Disk.remove("fduhole/tags.json", from: .applicationSupport)
+            try Disk.remove("fduhole/history.json", from: .applicationSupport)
         }
     }
     
@@ -198,6 +204,27 @@ class THModel: ObservableObject {
     
     func loadFavoriteIds() async throws {
         self.favoriteIds = try await THRequests.loadFavoritesIds()
+    }
+    
+    func appendHistory(hole: THHole) {
+        let history = THBrowseHistory(hole)
+        browseHistory.removeAll { $0.id == history.id }
+        browseHistory.insert(history, at: 0)
+        if browseHistory.count > 200 {
+            browseHistory.removeSubrange(200...) // only keep recent 200 records
+        }
+
+        Task {
+            // save to disk, perform on background task
+            try Disk.save(browseHistory, to: .applicationSupport, as: "fduhole/history.json")
+        }
+    }
+    
+    func clearHistory() {
+        browseHistory = []
+        Task {
+            try Disk.save(browseHistory, to: .applicationSupport, as: "fduhole/history.json")
+        }
     }
 }
 

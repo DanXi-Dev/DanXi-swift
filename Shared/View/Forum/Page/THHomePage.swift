@@ -3,7 +3,7 @@ import SwiftUI
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
     @ObservedObject private var forumModel = THModel.shared
-    @StateObject private var model = THNavigationModel()
+    @StateObject private var model = THNavigator()
     
     var body: some View {
         AsyncContentView(finished: forumModel.loaded) {
@@ -21,6 +21,8 @@ struct THHomePage: View {
                         THMyPostPage()
                     case .tags:
                         THTagsPage()
+                    case .history:
+                        THBrowseHistoryPage()
                     case .report:
                         THReportPage()
                     case .notifications:
@@ -61,6 +63,8 @@ struct THHomePage: View {
                     .tag(THPage.favorite)
                 Label("My Post", systemImage: "person")
                     .tag(THPage.mypost)
+                Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
+                    .tag(THPage.history)
                 Label("All Tags", systemImage: "tag")
                     .tag(THPage.tags)
                 Label("Notifications", systemImage: "bell")

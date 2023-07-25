@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-class THNavigationModel: ObservableObject {
+class THNavigator: ObservableObject {
     @Published var path = NavigationPath()
     @Published var page = THPage.browse
     
@@ -52,4 +52,5 @@ enum THPage {
     case tags
     case notifications
     case report
+    case history
 }

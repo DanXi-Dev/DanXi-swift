@@ -64,6 +64,7 @@ struct THHolePage: View {
             .task {
                 do {
                     try await THRequests.updateViews(holeId: model.hole.id)
+                    THModel.shared.appendHistory(hole: model.hole)
                 } catch {
                     
                 }
@@ -181,7 +182,7 @@ fileprivate struct THHoleToolbar: View {
 }
 
 struct THHoleTags: View {
-    @EnvironmentObject var navigationModel: THNavigationModel
+    @EnvironmentObject var navigationModel: THNavigator
     let tags: [THTag]
     
     var body: some View {

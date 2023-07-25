@@ -2,7 +2,7 @@ import SwiftUI
 
 struct THSearchPage: View {
     @EnvironmentObject private var model: THSearchModel
-    @EnvironmentObject private var navModel: THNavigationModel
+    @EnvironmentObject private var navModel: THNavigator
     
     var body: some View {
         THBackgroundList {
@@ -83,7 +83,7 @@ struct THSearchPage: View {
 
 
 struct THSearchResultPage: View {
-    @EnvironmentObject var navigationModel: THNavigationModel
+    @EnvironmentObject var navigationModel: THNavigator
     @EnvironmentObject var model: THSearchModel
     
     var body: some View {

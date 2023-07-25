@@ -14,7 +14,7 @@
 		270131912A3C27F20013FA7E /* FDLibraryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270131902A3C27F20013FA7E /* FDLibraryPage.swift */; };
 		270131932A3C28FB0013FA7E /* FDCanteenPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270131922A3C28FB0013FA7E /* FDCanteenPage.swift */; };
 		27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC529CE3022004A5D2F /* THFloorView.swift */; };
-		27013BC829CF7AC2004A5D2F /* THNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */; };
+		27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC729CF7AC2004A5D2F /* THNavigator.swift */; };
 		27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC929CF7B74004A5D2F /* THHomePage.swift */; };
 		27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCB29D01E7D004A5D2F /* THSearchModel.swift */; };
 		27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */; };
@@ -47,6 +47,7 @@
 		272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E02896F27300092B0C /* THPostSheet.swift */; };
 		272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* THReplySheet.swift */; };
 		272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */; };
+		272B08462A6EE6F40078CFF6 /* THBrowseHistoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */; };
 		272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */; };
 		272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
@@ -214,7 +215,7 @@
 		270131902A3C27F20013FA7E /* FDLibraryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryPage.swift; sourceTree = "<group>"; };
 		270131922A3C28FB0013FA7E /* FDCanteenPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCanteenPage.swift; sourceTree = "<group>"; };
 		27013BC529CE3022004A5D2F /* THFloorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorView.swift; sourceTree = "<group>"; };
-		27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNavigationModel.swift; sourceTree = "<group>"; };
+		27013BC729CF7AC2004A5D2F /* THNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNavigator.swift; sourceTree = "<group>"; };
 		27013BC929CF7B74004A5D2F /* THHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHomePage.swift; sourceTree = "<group>"; };
 		27013BCB29D01E7D004A5D2F /* THSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchModel.swift; sourceTree = "<group>"; };
 		27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseWrapper.swift; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		272AC8E02896F27300092B0C /* THPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPostSheet.swift; sourceTree = "<group>"; };
 		272AC8E22896F29800092B0C /* THReplySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReplySheet.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorEditSheet.swift; sourceTree = "<group>"; };
+		272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseHistoryPage.swift; sourceTree = "<group>"; };
 		272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagEditor.swift; sourceTree = "<group>"; };
 		272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentEditor.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
@@ -582,6 +584,7 @@
 				27DAFA6E29CB589000F32093 /* THHolePage.swift */,
 				27013BD529D02A67004A5D2F /* THSearchPage.swift */,
 				272AC8D92896BE2500092B0C /* THFavoritesPage.swift */,
+				272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */,
 				27834AF829D6261E008DC0C2 /* THMyPostPage.swift */,
 				27A5DA1F29D6EF010042D28D /* THTagsPage.swift */,
 				271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */,
@@ -691,7 +694,7 @@
 		27DAFA6529CB375300F32093 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				27013BC729CF7AC2004A5D2F /* THNavigationModel.swift */,
+				27013BC729CF7AC2004A5D2F /* THNavigator.swift */,
 				27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */,
 				27013BCB29D01E7D004A5D2F /* THSearchModel.swift */,
 				27DAFA6629CB375D00F32093 /* THHoleModel.swift */,
@@ -972,6 +975,7 @@
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
 				27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */,
 				271D1D5329F19D1500DDEEC9 /* THMessagesPage.swift in Sources */,
+				272B08462A6EE6F40078CFF6 /* THBrowseHistoryPage.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */,
 				27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */,
@@ -988,7 +992,7 @@
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
-				27013BC829CF7AC2004A5D2F /* THNavigationModel.swift in Sources */,
+				27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */,
 				27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */,

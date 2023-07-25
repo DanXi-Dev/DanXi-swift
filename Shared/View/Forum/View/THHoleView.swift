@@ -51,7 +51,6 @@ struct THHoleView: View {
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
-                .transition(.slide)
             
             if hole.firstFloor.id != hole.lastFloor.id {
                 lastFloor

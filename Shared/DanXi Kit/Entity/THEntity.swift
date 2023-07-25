@@ -44,6 +44,23 @@ struct THHoleInfo: Hashable, Codable {
     }
 }
 
+struct THBrowseHistory: Identifiable, Hashable, Codable {
+    let id: Int
+    let view, reply: Int
+    let tags: [THTag]
+    let content: String
+    let browseTime: Date
+    
+    init(_ hole: THHole) {
+        self.id = hole.id
+        self.view = hole.view
+        self.reply = hole.reply
+        self.tags = hole.tags
+        self.content = hole.firstFloor.content
+        self.browseTime = Date.now
+    }
+}
+
 struct THFloor: Hashable, Codable, Identifiable {
     let id, holeId: Int
     let updateTime, createTime: Date

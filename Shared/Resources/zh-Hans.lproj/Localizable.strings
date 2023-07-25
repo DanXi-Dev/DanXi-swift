@@ -110,6 +110,12 @@
 "Last Updated" = "最近回复";
 "My Post" = "我的帖子";
 "Notifications" = "通知";
+"Recent Browsed" = "最近浏览";
+"Clear Browse History" = "清空浏览记录";
+"Delete Browse History" = "删除浏览记录";
+"Today" = "今天";
+"Yesterday" = "昨天";
+"Earlier" = "更早";
 "Messages" = "站内信";
 "Loading" = "加载中";
 "Sort By" = "排序方式";
@@ -299,15 +305,15 @@
 "%@ Winter Vacation" = "%@寒假";
 
 // Management
-"Reports Management" = "举办处理";
+"Reports Management" = "举报处理";
 "Incident ID: %@" = "案例编号：%@";
 "Report reason: " = "举报理由：";
 "Mark as Dealt" = "标记为已处理";
 "Dealt by %@" = "处理者：%@";
 "Dealt" = "已处理";
 "Not Dealt" = "未处理";
-"All Reports" = "全部举办";
-"Filter Reports" = "筛选举办";
+"All Reports" = "全部举报";
+"Filter Reports" = "筛选举报";
 "Modify Floor" = "修改本层";
 "Delete Floor" = "删除本层";
 "Delete selected floors" = "删除选中的楼层";

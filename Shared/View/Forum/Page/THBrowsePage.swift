@@ -4,7 +4,7 @@ struct THBrowsePage: View {
     @ObservedObject private var settings = THSettings.shared
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
-    @EnvironmentObject private var nav: THNavigationModel
+    @EnvironmentObject private var nav: THNavigator
     
     var body: some View {
         THBackgroundList {
@@ -197,7 +197,7 @@ fileprivate struct BannerView: View {
     @State private var currentBanner: Int = 0
     
     @Environment(\.openURL) private var openURL
-    @EnvironmentObject private var navigator: THNavigationModel
+    @EnvironmentObject private var navigator: THNavigator
     private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
     @ScaledMetric private var height: CGFloat = 40
     @ScaledMetric private var containerHeight: CGFloat = 70
