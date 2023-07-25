@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct THDeleteSheet: View {
-    @EnvironmentObject var model: THFloorModel
+    @EnvironmentObject private var model: THFloorModel
     
-    @State var reason = ""
-    @State var ban = false
-    @State var days = 1
+    @State private var reason = ""
+    @State private var ban = false
+    @State private var days = 1
     
     var body: some View {
         Sheet("Delete Post") {
@@ -40,6 +40,48 @@ struct THDeleteSheet: View {
                         Label("Punishment History", systemImage: "person.badge.clock")
                     }
                 }
+            }
+            
+            if ban {
+                PunishmentNotice()
+            }
+        }
+    }
+}
+
+fileprivate struct PunishmentNotice: View {
+    @EnvironmentObject private var model: THFloorModel
+    @State private var loaded = false
+    @State private var multipleOffence = false
+    @State private var permanentBan = false
+    
+    var body: some View {
+        Section {
+            if permanentBan {
+                Label("This user has been warned with permenant ban notice", systemImage: "exclamationmark.circle.fill")
+                    .foregroundColor(.red)
+                
+            } else if multipleOffence {
+                Label("This user has multiple offence record", systemImage: "exclamationmark.circle.fill")
+                    .foregroundColor(.yellow)
+            } else {
+                // This is equivalent as EmptyView, but to trigger `task` modifier. Othewise it won't be executed.
+                Text("").listRowBackground(Color.clear)
+            }
+        }
+        .task {
+            guard !loaded else {
+                return
+            }
+            
+            do {
+                let history = try await THRequests.loadPunishmenthistory(model.floor.id)
+                withAnimation {
+                    multipleOffence = history.count >= 7
+                    permanentBan = !history.filter({ $0.contains("永久封禁") }).isEmpty
+                }
+            } catch {
+                
             }
         }
     }

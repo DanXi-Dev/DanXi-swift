@@ -163,6 +163,8 @@
 "Banned Division" = "封禁分区";
 "Penalty Duration: %lld" = "封禁时长：%lld";
 "Punishment History" = "违规记录";
+"This user has been warned with permenant ban notice" = "该用户已被永久封禁警告";
+"This user has multiple offence record" = "该用户有较多违规记录";
 
 // Treehole Edit Page
 "New Post" = "新建主题贴";
