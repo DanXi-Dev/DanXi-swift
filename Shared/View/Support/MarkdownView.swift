@@ -16,33 +16,33 @@ struct MarkdownView: View {
         self.markup = markup
     }
     
+    func customParagraph(renderer: @escaping (AttributedString) -> some View) -> some View {
+        return self.environment(\.customParagraph) { text in
+            AnyView(renderer(text))
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(markup.childNodes()) { node in
                 switch node.markup {
                     
                 case let heading as Heading:
-                    headingRenderer(heading)
+                    HeadingView(heading)
                 case let codeBlock as CodeBlock:
-                    codeBlockRenderer(codeBlock)
+                    CodeBlockView(codeBlock: codeBlock)
                 case _ as ThematicBreak:
                     Divider()
-                    
                 case let paragraph as Paragraph:
-                    paragraphRenderer(paragraph)
-                    
+                    ParagraphView(paragraph)
                 case let orderedList as OrderedList:
-                    orderedListRenderer(orderedList)
-                    
+                    OrderedListView(orderedList: orderedList)
                 case let unorderedList as UnorderedList:
-                    unorderedListRenderer(unorderedList)
-                    
+                    UnorderedListView(unorderedList: unorderedList)
                 case let quote as BlockQuote:
-                    quoteRenderer(quote)
-                    
+                    QuoteView(quote: quote)
                 case let table as Markdown.Table:
-                    tableRenderer(table)
-                    
+                    TableView(table: table)
                 default:
                     Label("Not Supported: \(String(describing: type(of: node.markup)))", systemImage: "exclamationmark.triangle.fill")
                         .foregroundColor(.red)
@@ -50,11 +50,16 @@ struct MarkdownView: View {
             }
         }
     }
+}
+
+// MARK: Subview
+
+fileprivate struct HeadingView: View {
+    private let content: String
+    private let font: Font
     
-    // MARK: Renderer
-    
-    private func headingRenderer(_ heading: Heading) -> some View {
-        let font: Font
+    init(_ heading: Heading) {
+        content = heading.plainText
         switch heading.level {
         case 1:
             font = .largeTitle
@@ -69,22 +74,32 @@ struct MarkdownView: View {
         default:
             font = .callout
         }
-        
-        return SwiftUI.Text(heading.plainText)
+    }
+    
+    var body: some View {
+        SwiftUI.Text(content)
             .font(font)
             .fontWeight(.bold)
             .fixedSize(horizontal: false, vertical: true)
     }
+}
+
+fileprivate struct CodeBlockView: View {
+    let codeBlock: CodeBlock
     
-    private func codeBlockRenderer(_ codeBlock: CodeBlock) -> some View {
-        return ScrollView(.horizontal, showsIndicators: false) {
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
             SwiftUI.Text(codeBlock.code)
                 .font(.callout.monospaced())
         }
     }
+}
+
+fileprivate struct OrderedListView: View {
+    let orderedList: OrderedList
     
-    private func orderedListRenderer(_ orderedList: OrderedList) -> some View {
-        return VStack(alignment: .leading) {
+    var body: some View {
+        VStack(alignment: .leading) {
             ForEach(Array(orderedList.items().enumerated()), id: \.offset) { index, item in
                 HStack(alignment: .top, spacing: 2.0) {
                     SwiftUI.Text("\(index + Int(orderedList.startIndex)).")
@@ -95,59 +110,57 @@ struct MarkdownView: View {
         }
         .font(.callout)
     }
+}
+
+fileprivate struct UnorderedListView: View {
+    let unorderedList: UnorderedList
     
-    private func unorderedListRenderer(_ unorderedList: UnorderedList) -> some View {
-        return VStack(alignment: .leading) {
+    var body: some View {
+        VStack(alignment: .leading) {
             ForEach(Array(unorderedList.items().enumerated()), id: \.offset) { index, item in
-                listItemRenderer(item.markup as! ListItem)
+                let listItem = item.markup as! ListItem
+                HStack(alignment: .top, spacing: 2.0) {
+                    if let checkbox = listItem.checkbox {
+                        Image(systemName: checkbox == .checked ? "checkmark.circle.fill" : "circle")
+                            .font(.caption)
+                            .foregroundColor(.accentColor)
+                            .frame(width: 30)
+                            .padding(.top, 4)
+                    } else {
+                        SwiftUI.Text("·")
+                            .bold()
+                            .frame(width: 20)
+                    }
+                    MarkdownView(listItem)
+                }
             }
         }
     }
+}
+
+fileprivate struct QuoteView: View {
+    let quote: BlockQuote
     
-    @ViewBuilder
-    private func listItemRenderer(_ item: ListItem) -> some View {
-        HStack(alignment: .top, spacing: 2.0) {
-            if let checkbox = item.checkbox {
-                Image(systemName: checkbox == .checked ? "checkmark.circle.fill" : "circle")
-                    .font(.caption)
-                    .foregroundColor(.accentColor)
-                    .frame(width: 30)
-                    .padding(.top, 4)
-            } else {
-                SwiftUI.Text("·")
-                    .bold()
-                    .frame(width: 20)
-            }
-            MarkdownView(item)
-        }
-    }
-    
-    
-    private func quoteRenderer(_ quote: BlockQuote) -> some View {
-        return VStack(alignment: .leading, spacing: 10) {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
             ForEach(quote.childNodes()) { node in
                 switch node.markup {
                 case let heading as Heading:
-                    headingRenderer(heading)
-                    
+                    HeadingView(heading)
                 case let codeBlock as CodeBlock:
-                    codeBlockRenderer(codeBlock)
-                    
+                    CodeBlockView(codeBlock: codeBlock)
                 case _ as ThematicBreak:
                     Divider()
-                    
                 case let paragraph as Paragraph:
-                    paragraphRenderer(paragraph)
-                    
+                    ParagraphView(paragraph)
                 case let orderedList as OrderedList:
-                    orderedListRenderer(orderedList)
-                    
+                    OrderedListView(orderedList: orderedList)
                 case let unorderedList as UnorderedList:
-                    unorderedListRenderer(unorderedList)
-                    
+                    UnorderedListView(unorderedList: unorderedList)
                 case let quote as BlockQuote:
-                    AnyView(quoteRenderer(quote)) // type erase, prevent type recursion
-                    
+                    AnyView(QuoteView(quote: quote))
+                case let table as Markdown.Table:
+                    TableView(table: table)
                 default:
                     MarkdownView(node.markup)
                 }
@@ -160,54 +173,19 @@ struct MarkdownView: View {
                  alignment: .leading)
         .foregroundColor(.secondary)
     }
+}
+
+fileprivate struct ParagraphView: View {
+    @Environment(\.customParagraph) private var customParagraph
     
-    @ViewBuilder
-    private func tableRenderer(_ table: Markdown.Table) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            Grid {
-                Divider()
-                    .frame(minHeight: 2)
-                    .background(Color.secondary.opacity(0.5))
-                GridRow {
-                    tableRowRenderer(table.head)
-                        .fontWeight(.bold)
-                }
-                Divider()
-                    .background(Color.secondary.opacity(0.5))
-                ForEach(table.body.items()) { rowItem in
-                    tableRowRenderer(rowItem.markup as! any TableCellContainer)
-                }
-                Divider()
-                    .frame(minHeight: 2)
-                    .background(Color.secondary.opacity(0.5))
-            }
-        }
+    enum ParagraphElement {
+        case paragraph(content: AttributedString)
+        case image(url: URL)
     }
     
-    @ViewBuilder
-    private func tableRowRenderer(_ row: any TableCellContainer) -> some View {
-        GridRow {
-            ForEach(row.items()) { item in
-                tableCellRenderer(item.markup as! Markdown.Table.Cell)
-            }
-        }
-    }
+    let elements: Array<ParagraphElement>
     
-    @ViewBuilder
-    private func tableCellRenderer(_ cell: Markdown.Table.Cell) -> some View {
-        SwiftUI.Text(cell.plainText)
-    }
-    
-    private func paragraphRenderer(_ paragraph: Paragraph) -> some View {
-        enum ParagraphElement: Identifiable {
-            case paragraph(content: AttributedString)
-            case image(url: URL)
-            
-            var id: UUID {
-                UUID()
-            }
-        }
-        
+    init(_ paragraph: Paragraph) {
         let content = paragraph.detachedFromParent.format()
         var elements: [ParagraphElement] = []
         
@@ -229,13 +207,22 @@ struct MarkdownView: View {
             elements.append(.paragraph(content: AttributedString(content)))
         }
         
-        return VStack(alignment: .leading, spacing: 5) {
-            ForEach(elements) { element in
+        self.elements = elements
+    }
+    
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            ForEach(Array(elements.enumerated()), id: \.offset) { index, element in
                 switch(element) {
                 case .paragraph(let text):
-                    SwiftUI.Text(text)
-                        .font(.callout)
-                        .fixedSize(horizontal: false, vertical: true)
+                    if let customParagraph = customParagraph {
+                        customParagraph(text)
+                    } else {
+                        SwiftUI.Text(text)
+                            .font(.callout)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 case .image(let url):
                     HStack {
                         Spacer()
@@ -258,6 +245,59 @@ struct MarkdownView: View {
         }
     }
 }
+
+fileprivate struct TableView: View {
+    let table: Markdown.Table
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            Grid {
+                Divider()
+                    .frame(minHeight: 2)
+                    .background(Color.secondary.opacity(0.5))
+                GridRow {
+                    TableRowView(row: table.head)
+                        .fontWeight(.bold)
+                }
+                Divider()
+                    .background(Color.secondary.opacity(0.5))
+                ForEach(table.body.items()) { rowItem in
+                    TableRowView(row: rowItem.markup as! any TableCellContainer)
+                }
+                Divider()
+                    .frame(minHeight: 2)
+                    .background(Color.secondary.opacity(0.5))
+            }
+        }
+    }
+}
+
+fileprivate struct TableRowView: View {
+    let row: any TableCellContainer
+    
+    var body: some View {
+        GridRow {
+            ForEach(row.items()) { item in
+                SwiftUI.Text((item.markup as! Markdown.Table.Cell).plainText)
+            }
+        }
+    }
+}
+
+// MARK: Custom Paragraph
+
+fileprivate struct CustomParagraphKey: EnvironmentKey {
+    static let defaultValue: ((AttributedString) -> AnyView)? = nil
+}
+
+extension EnvironmentValues {
+    var customParagraph: ((AttributedString) -> AnyView)? {
+        get { self[CustomParagraphKey.self] }
+        set { self[CustomParagraphKey.self] = newValue }
+    }
+}
+
+// MARK: Extension
 
 extension Markup {
     fileprivate func childNodes() -> [MarkupNode] {
@@ -300,6 +340,8 @@ fileprivate struct MarkupNode: Identifiable {
         self.markup = markup
     }
 }
+
+// MARK: Preview
 
 struct MarkdownView_Previews: PreviewProvider {
     static let previewContent = """

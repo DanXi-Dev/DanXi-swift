@@ -219,6 +219,9 @@ struct THFloorContent: View {
                 switch item.type {
                 case .text(let content):
                     MarkdownView(content)
+                        .customParagraph { text in
+                            THFloorParagraph(text)
+                        }
                 case .local(let floor):
                     if interactable {
                         THLocalMentionView(floor)
@@ -235,6 +238,53 @@ struct THFloorContent: View {
             }
         }
     }
+}
+
+struct THFloorParagraph: View {
+    let text: Text
+    
+    init(_ paragraph: AttributedString) {
+        var attributedContent = paragraph
+        var content = String(paragraph.characters)
+        var text = Text("")
+        
+        while let match = content.firstMatch(of: /\^\[(?<id>[a-zA-Z0-9_]*)\]/) {
+            guard let lowerBound = AttributedString.Index(match.range.lowerBound, within: attributedContent),
+                  let upperBound = AttributedString.Index(match.range.upperBound, within: attributedContent) else {
+                text = text + Text(attributedContent)
+                break
+            }
+            // previous text
+            let previous = attributedContent[attributedContent.startIndex..<lowerBound]
+            text = text + Text(AttributedString(previous))
+            
+            // image
+            if let sticker = THSticker(rawValue: String(match.id)) {
+                text = text + Text(Image(sticker.rawValue))
+            } else {
+                let unmatched = attributedContent[lowerBound..<upperBound]
+                text = text + Text(AttributedString(unmatched))
+            }
+            
+            // truncate
+            attributedContent = AttributedString(attributedContent[upperBound..<attributedContent.endIndex])
+            content = String(content[match.range.upperBound..<content.endIndex])
+        }
+        
+        text = text + Text(attributedContent)
+        self.text = text
+    }
+    
+    var body: some View {
+        text
+            .font(.callout)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+}
+
+enum THSticker: String {
+    case mua
+    // TODO: wait for art team to add sticker pack
 }
 
 // MARK: - Components
