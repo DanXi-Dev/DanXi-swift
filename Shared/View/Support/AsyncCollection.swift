@@ -83,7 +83,7 @@ fileprivate struct SimpleAsyncCollection<Item: Identifiable, Content: View>: Vie
                         await loadMore()
                     }
                 } else {
-                    ProgressView()
+                    LoadingView()
                 }
                 Spacer()
             }

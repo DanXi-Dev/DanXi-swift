@@ -7,8 +7,11 @@ struct THSimpleFloor: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5.0) {
             THPosterView(name: floor.posterName, isPoster: false)
-            MarkdownView(floor.content)
+            Text(floor.content.inlineAttributed())
+                .font(.callout)
                 .foregroundColor(floor.deleted ? .secondary : .primary)
+                .multilineTextAlignment(.leading)
+                .lineLimit(6)
             bottom
         }
     }
