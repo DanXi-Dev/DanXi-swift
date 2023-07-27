@@ -73,11 +73,11 @@ fileprivate struct DXAccountButton: View {
             DXAuthSheet()
         }
         .sheet(isPresented: $showUserSheet) {
-            AsyncContentView { () -> DXUser in
+            AsyncContentView { () -> DXUser? in
                 if let user = model.user {
                     return user
                 }
-                return try await model.loadUser()
+                return try? await model.loadUser()
             } content: { user in
                 DXUserSheet(user: user)
             }
@@ -86,37 +86,39 @@ fileprivate struct DXAccountButton: View {
 }
 
 fileprivate struct DXUserSheet: View {
-    let user: DXUser
+    let user: DXUser?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
             List {
-                Section {
-                    LabeledContent {
-                        Text(String(user.id))
-                    } label: {
-                        Label("User ID", systemImage: "person.text.rectangle")
-                    }
-                    
-                    if user.isAdmin {
+                if let user = user {
+                    Section {
                         LabeledContent {
-                            Text("Enabled")
+                            Text(String(user.id))
                         } label: {
-                            Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                            Label("User ID", systemImage: "person.text.rectangle")
                         }
-                    }
-                    
-                    LabeledContent {
-                        Text(user.nickname)
-                    } label: {
-                        Label("Nickname", systemImage: "person.crop.circle")
-                    }
-                    
-                    LabeledContent {
-                        Text(user.joinTime.formatted(date: .long, time: .omitted))
-                    } label: {
-                        Label("Join Date", systemImage: "calendar.badge.clock")
+                        
+                        if user.isAdmin {
+                            LabeledContent {
+                                Text("Enabled")
+                            } label: {
+                                Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                            }
+                        }
+                        
+                        LabeledContent {
+                            Text(user.nickname)
+                        } label: {
+                            Label("Nickname", systemImage: "person.crop.circle")
+                        }
+                        
+                        LabeledContent {
+                            Text(user.joinTime.formatted(date: .long, time: .omitted))
+                        } label: {
+                            Label("Join Date", systemImage: "calendar.badge.clock")
+                        }
                     }
                 }
                 

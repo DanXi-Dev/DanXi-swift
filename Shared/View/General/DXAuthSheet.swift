@@ -152,6 +152,7 @@ fileprivate struct RegisterSheet: View {
                     } label: {
                         Text("Get Code")
                     }
+                    .buttonStyle(.borderless)
                     .disabled(!model.emailValid || model.email.isEmpty)
                 }
             } footer: {
