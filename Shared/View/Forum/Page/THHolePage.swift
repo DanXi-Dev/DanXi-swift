@@ -15,7 +15,7 @@ struct THHolePage: View {
         self._model = StateObject(wrappedValue: THHoleModel(hole: hole))
     }
     
-    init(_ model: THHoleModel) {
+    init(_ model: THHoleModel) { 
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -25,6 +25,13 @@ struct THHolePage: View {
                 Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
                     THHoleTags(tags: model.hole.tags)
                         .listRowSeparator(.hidden, edges: .top)
+                    
+                    if model.hole.locked {
+                        Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                            .listRowSeparator(.hidden)
+                    }
                     
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
                         THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
@@ -107,6 +114,7 @@ fileprivate struct THHoleToolbar: View {
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
         }
+        .disabled(model.hole.locked && !appModel.isAdmin)
         .sheet(isPresented: $showReplySheet) {
             THReplySheet()
         }

@@ -324,6 +324,7 @@
 "Hide Hole" = "隐藏此树洞";
 "Set Visibility" = "设置是否可见";
 "Lock Post" = "锁定帖子";
+"Post locked, reply is forbidden" = "帖子已被锁定，禁止回复";
 "Edit Post Info" = "修改主题帖信息";
 "Enter report reason" = "填写举报理由";
 "Content to Report" = "待举报的内容";

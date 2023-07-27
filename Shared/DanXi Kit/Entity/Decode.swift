@@ -61,6 +61,7 @@ extension THHole {
         case view
         case reply
         case hidden
+        case locked
         case updateTime = "time_updated"
         case createTime = "time_created"
         case tags
@@ -81,6 +82,7 @@ extension THHole {
         reply = try values.decode(Int.self, forKey: .reply)
         tags = try values.decode([THTag].self, forKey: .tags)
         hidden = try values.decode(Bool.self, forKey: .hidden)
+        locked = try values.decode(Bool.self, forKey: .locked)
         self.createTime = try decodeDate(values, key: .createTime)
         self.updateTime = try decodeDate(values, key: .updateTime)
         let floorStruct = try values.nestedContainer(keyedBy: CodingKeys.FloorsKeys.self, forKey: .floorStruct)

@@ -48,7 +48,7 @@ class DXModel: ObservableObject {
     }
     
     func resetPassword(email: String, password: String, verification: String, create: Bool) async throws {
-        token = try await DXRequests.register(email: email, password: password, verification: verification, create: false)
+        token = try await DXRequests.register(email: email, password: password, verification: verification, create: create)
     }
     
     func logout() {

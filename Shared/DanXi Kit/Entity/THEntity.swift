@@ -4,6 +4,7 @@ struct THHole: Hashable, Identifiable, Decodable {
     let id, divisionId: Int
     let view, reply: Int
     var hidden: Bool
+    var locked: Bool
     let updateTime, createTime: Date
     let tags: [THTag]
     let firstFloor, lastFloor: THFloor
@@ -25,7 +26,7 @@ struct THHoleInfo: Hashable, Codable {
     var divisionId: Int
     var tags: [Tag]
     var unhidden: Bool
-    var locked: Bool // TODO: update THHole
+    var lock: Bool
     
     struct Tag: Hashable, Codable {
         let name: String
@@ -36,7 +37,7 @@ struct THHoleInfo: Hashable, Codable {
         self.divisionId = hole.divisionId
         self.tags = []
         self.unhidden = !hole.hidden
-        self.locked = false // TODO: update THHole
+        self.lock = hole.locked
     }
     
     mutating func setTags(_ tags: [String]) {

@@ -32,7 +32,7 @@ struct THHoleEditSheet: View {
                     Label("Set Visibility", systemImage: "eye")
                 }
                 
-                Toggle(isOn: $info.locked) {
+                Toggle(isOn: $info.lock) {
                     Label("Lock Post", systemImage: "lock.fill")
                 }
             }

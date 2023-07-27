@@ -253,8 +253,4 @@ class THHoleModel: ObservableObject {
         try await THRequests.deleteHole(holeId: hole.id)
         self.hole.hidden = true
     }
-    
-    func lockHole() async throws {
-        // TODO
-    }
 }
