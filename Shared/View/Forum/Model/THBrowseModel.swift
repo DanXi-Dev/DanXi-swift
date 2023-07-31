@@ -35,7 +35,7 @@ class THBrowseModel: ObservableObject {
             let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
             guard configId == self.configId else { return }
             insertHoles(newHoles)
-        } while filteredHoles.count != prevCount
+        } while filteredHoles.count == prevCount
     }
     
     func refresh() async {
