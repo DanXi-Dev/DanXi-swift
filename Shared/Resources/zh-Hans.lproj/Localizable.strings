@@ -33,7 +33,7 @@
 "Repeat" = "确认密码";
 "Verify" = "验证码";
 "Get Code" = "获取验证码";
-"Register Prompt" = "注册即代表同意[相关协议](https://www.fduhole.com/#/license)";
+"Register Prompt" = "注册即代表同意[相关协议](https://danxi.fduhole.com/doc/community-user-agreement)";
 "Password Not Match" = "密码不匹配";
 "Password input not match, please check your input" = "两次密码输入不匹配，请检查输入";
 "Email Invalid" = "邮箱地址无效";
@@ -172,7 +172,7 @@
 "Select Division" = "选择分区";
 "Enter post content" = "输入发帖内容";
 "Enter reply content" = "输入回贴内容";
-"TH Edit Alert" = "发帖时应遵守[社区公约](https://www.fduhole.com/#/license)";
+"TH Edit Alert" = "发帖时应遵守[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)";
 "Select Tags" = "选择标签";
 "Suggest Tags" = "推荐标签";
 "Add Tag" = "添加标签";
