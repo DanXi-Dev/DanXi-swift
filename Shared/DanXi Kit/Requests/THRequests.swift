@@ -45,7 +45,7 @@ struct THRequests {
     ///   - divisionId: Division to post new hole.
     ///   - tags: Tags of the new hole.
     ///   - specialTag: First floor special tag, admin only.
-    static func createHole(content: String, divisionId: Int, tags: [String], specialTag: String = "") async throws {
+    static func createHole(content: String, divisionId: Int, tags: [String], specialTag: String = "") async throws -> THHole {
         struct Tag: Codable {
             let name: String
         }
@@ -59,7 +59,7 @@ struct THRequests {
         let payload = Post(content: content,
                            specialTag: specialTag,
                            tags: tags.map { Tag(name: $0) })
-        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!,
                                      payload: payload)
     }
     

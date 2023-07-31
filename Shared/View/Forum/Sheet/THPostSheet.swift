@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct THPostSheet: View {
+    @EnvironmentObject private var navigator: THNavigator
     @ObservedObject private var appModel = THModel.shared
     @State var divisionId: Int
     @AppStorage("post-content") private var content = ""
@@ -16,7 +17,7 @@ struct THPostSheet: View {
     
     var body: some View {
         Sheet("New Post") {
-            try await THRequests.createHole(
+            let hole = try await THRequests.createHole(
                 content: content,
                 divisionId: divisionId,
                 tags: tags)
@@ -24,6 +25,8 @@ struct THPostSheet: View {
             // reset stashed draft content after success post
             content = ""
             tags = []
+            
+            navigator.path.append(hole) // navigate to hole page
             
             Task { // reload favorites since new post will automatically be favorited
                 try await appModel.loadFavoriteIds()
