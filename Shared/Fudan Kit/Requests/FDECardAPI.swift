@@ -1,7 +1,5 @@
 import Foundation
 import SwiftSoup
-import UIKit
-
 
 struct FDECardAPI {
     static var csrf: String?
