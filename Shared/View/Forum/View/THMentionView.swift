@@ -4,7 +4,7 @@ import Foundation
 // MARK: - Basic Mention View
 
 struct THMentionView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     let mention: Mention
     
     init(floor: THFloor) {
@@ -82,7 +82,7 @@ struct THMentionView: View {
 // MARK: - Wrapper View
 
 struct THLocalMentionView: View {
-    @EnvironmentObject var model: THHoleModel
+    @EnvironmentObject private var model: THHoleModel
     
     let floor: THFloor
     
@@ -101,7 +101,7 @@ struct THLocalMentionView: View {
 }
 
 struct THRemoteMentionView: View {
-    @EnvironmentObject private var model: THNavigator
+    @EnvironmentObject private var navigator: THNavigator
     let mention: THMention
     
     var body: some View {
@@ -109,7 +109,7 @@ struct THRemoteMentionView: View {
             var loader = THHoleLoader()
             loader.holeId = mention.holeId
             loader.floorId = mention.floorId
-            model.path.append(loader)
+            navigator.path.append(loader)
         } label: {
             THMentionView(mention: mention)
         }

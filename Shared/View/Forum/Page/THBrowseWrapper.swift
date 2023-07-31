@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct THBrowseWrapper: View {
-    @StateObject var browseModel = THBrowseModel()
-    @StateObject var searchModel = THSearchModel()
+    @StateObject private var browseModel = THBrowseModel()
+    @StateObject private var searchModel = THSearchModel()
     
     var body: some View {
         THBrowseDispatch()
@@ -17,8 +17,8 @@ struct THBrowseWrapper: View {
 }
 
 struct THBrowseDispatch: View {
-    @EnvironmentObject var model: THSearchModel
-    @Environment(\.isSearching) var isSearching
+    @EnvironmentObject private var model: THSearchModel
+    @Environment(\.isSearching) private var isSearching
     
     var body: some View {
         Group {

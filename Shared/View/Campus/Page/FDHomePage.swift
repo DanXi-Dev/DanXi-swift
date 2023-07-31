@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct FDHomePage: View {
-    @StateObject var model = FDHomeModel()
+    @StateObject private var navigator = FDNavigator()
     
     var body: some View {
-        NavigationStack(path: $model.path) {
+        NavigationStack(path: $navigator.path) {
             List {
-                ForEach(model.pages, id: \.self) { section in
+                ForEach(navigator.pages, id: \.self) { section in
                     FDHomeSimpleLink(section: section)
                 }
                 .onMove { from, to in
-                    model.pages.move(fromOffsets: from, toOffset: to)
+                    navigator.pages.move(fromOffsets: from, toOffset: to)
                 }
             }
             .navigationTitle("Campus Services")
@@ -18,7 +18,7 @@ struct FDHomePage: View {
                 FDHomeDestination(section: section)
             }
             .onOpenURL { url in
-                model.openURL(url)
+                navigator.openURL(url)
             }
         }
     }

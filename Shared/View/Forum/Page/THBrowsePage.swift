@@ -4,7 +4,6 @@ struct THBrowsePage: View {
     @ObservedObject private var settings = THSettings.shared
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
-    @EnvironmentObject private var nav: THNavigator
     
     var body: some View {
         THBackgroundList {
@@ -65,8 +64,8 @@ struct THBrowsePage: View {
 }
 
 fileprivate struct THDivisionPicker: View {
-    @ObservedObject var appModel = THModel.shared
-    @EnvironmentObject var model: THBrowseModel
+    @ObservedObject private var appModel = THModel.shared
+    @EnvironmentObject private var model: THBrowseModel
     
     var body: some View {
         Picker("Division Selector", selection: $model.division) {
@@ -81,8 +80,8 @@ fileprivate struct THDivisionPicker: View {
 }
 
 fileprivate struct THDatePicker: View {
-    @EnvironmentObject var model: THBrowseModel
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject private var model: THBrowseModel
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
@@ -109,7 +108,7 @@ fileprivate struct THDatePicker: View {
 }
 
 fileprivate struct THBrowseToolbar: View {
-    @EnvironmentObject var model: THBrowseModel
+    @EnvironmentObject private var model: THBrowseModel
     
     @State private var showPostSheet = false
     @State private var showDatePicker = false

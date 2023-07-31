@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct THReportSheet: View {
-    @EnvironmentObject var model: THFloorModel
-    @State var reason = ""
+    @EnvironmentObject private var model: THFloorModel
+    @State private var reason = ""
     
     var body: some View {
         Sheet("Report") {

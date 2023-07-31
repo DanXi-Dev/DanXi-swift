@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct Sheet<Content: View>: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     
-    @State var loading = false
-    @State var showAlert = false
-    @State var alertMessage = ""
+    @State private var loading = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     let content: Content
     let action: () async throws -> Void

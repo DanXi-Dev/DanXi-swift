@@ -2,7 +2,7 @@ import SwiftUI
 
 struct THSearchPage: View {
     @EnvironmentObject private var model: THSearchModel
-    @EnvironmentObject private var navModel: THNavigator
+    @EnvironmentObject private var navigator: THNavigator
     
     var body: some View {
         THBackgroundList {
@@ -13,7 +13,7 @@ struct THSearchPage: View {
             if let matchFloor = model.matchFloor {
                 Button {
                     model.appendHistory(model.searchText)
-                    navModel.path.append(THHoleLoader(floorId: matchFloor))
+                    navigator.path.append(THHoleLoader(floorId: matchFloor))
                 } label: {
                     Label("##\(String(matchFloor))", systemImage: "arrow.right.square")
                 }
@@ -22,7 +22,7 @@ struct THSearchPage: View {
             if let matchHole = model.matchHole {
                 Button {
                     model.appendHistory(model.searchText)
-                    navModel.path.append(THHoleLoader(holeId: matchHole))
+                    navigator.path.append(THHoleLoader(holeId: matchHole))
                 } label: {
                     Label("#\(String(matchHole))", systemImage: "arrow.right.square")
                 }
@@ -36,7 +36,7 @@ struct THSearchPage: View {
         }
         .onChange(of: model.navLoader) { loader in
             if let loader = loader {
-                navModel.path.append(loader)
+                navigator.path.append(loader)
                 model.navLoader = nil // reset loader, prevent not be able to jump to the same destination the next time
             }
         }
@@ -83,8 +83,7 @@ struct THSearchPage: View {
 
 
 struct THSearchResultPage: View {
-    @EnvironmentObject var navigationModel: THNavigator
-    @EnvironmentObject var model: THSearchModel
+    @EnvironmentObject private var model: THSearchModel
     
     var body: some View {
         List {

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct THReplySheet: View {
-    @EnvironmentObject var model: THHoleModel
-    @State var content: String
+    @EnvironmentObject private var model: THHoleModel
+    @State private var content: String
     
     init(_ content: String = "") {
         self._content = State(initialValue: content)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-class FDHomeModel: ObservableObject {
+class FDNavigator: ObservableObject {
     @Published var path = NavigationPath()
     @AppStorage("campus-unpinned") var pages: [FDSection] = []
     

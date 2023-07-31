@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct DXAuthSheet: View {
-    @StateObject var model = DXAuthModel()
-    @Environment(\.dismiss) var dismiss
+    @StateObject private var model = DXAuthModel()
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
@@ -24,8 +24,8 @@ class DXAuthModel: ObservableObject {
 // MARK: - Login
 
 fileprivate struct LoginSheet: View {
-    @EnvironmentObject var authModel: DXAuthModel
-    @StateObject var model = LoginModel()
+    @EnvironmentObject private var authModel: DXAuthModel
+    @StateObject private var model = LoginModel()
     @FocusState private var usernameFocus: Bool
     
     var body: some View {

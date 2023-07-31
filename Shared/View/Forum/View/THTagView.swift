@@ -24,7 +24,7 @@ struct THTagView: View {
 
 /// Apply special tag style for a piece of text.
 struct TagStyle: ViewModifier {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     let color: Color
     let font: Font
     

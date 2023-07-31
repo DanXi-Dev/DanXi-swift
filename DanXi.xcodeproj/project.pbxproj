@@ -157,7 +157,7 @@
 		27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82A28BA62130074D295 /* DKStarsView.swift */; };
 		27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* DKReviewView.swift */; };
 		27E8194E2A4C12F1009C87C6 /* THMessageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */; };
-		27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */; };
+		27E82FE329E86CBA00F34B3B /* FDNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigator.swift */; };
 		27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */; };
 		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
 		27E82FEB29E896EA00F34B3B /* FDWebVPNAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */; };
@@ -333,7 +333,7 @@
 		27E5E82A28BA62130074D295 /* DKStarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarsView.swift; sourceTree = "<group>"; };
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
 		27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessageSheet.swift; sourceTree = "<group>"; };
-		27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigationModel.swift; sourceTree = "<group>"; };
+		27E82FE229E86CBA00F34B3B /* FDNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigator.swift; sourceTree = "<group>"; };
 		27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundModel.swift; sourceTree = "<group>"; };
 		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDWebVPNAPI.swift; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 		27A5DA2929D77E340042D28D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				27E82FE229E86CBA00F34B3B /* FDNavigationModel.swift */,
+				27E82FE229E86CBA00F34B3B /* FDNavigator.swift */,
 				27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */,
 				27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */,
 			);
@@ -1031,7 +1031,7 @@
 				27DAFA6929CB43FA00F32093 /* THHoleLoader.swift in Sources */,
 				2772231128F05B3300458EAC /* THHistorySheet.swift in Sources */,
 				27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */,
-				27E82FE329E86CBA00F34B3B /* FDNavigationModel.swift in Sources */,
+				27E82FE329E86CBA00F34B3B /* FDNavigator.swift in Sources */,
 				27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */,
 				27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */,
 				27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */,
@@ -1132,7 +1132,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 462;
+				CURRENT_PROJECT_VERSION = 463;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1162,7 +1162,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 462;
+				CURRENT_PROJECT_VERSION = 463;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1196,7 +1196,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 462;
+				CURRENT_PROJECT_VERSION = 463;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -1230,7 +1230,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 462;
+				CURRENT_PROJECT_VERSION = 463;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -1380,7 +1380,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 462;
+				CURRENT_PROJECT_VERSION = 463;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1417,7 +1417,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 462;
+				CURRENT_PROJECT_VERSION = 463;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;

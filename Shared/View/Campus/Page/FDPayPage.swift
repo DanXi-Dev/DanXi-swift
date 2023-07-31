@@ -2,9 +2,9 @@ import SwiftUI
 import UIKit
 
 struct FDPayPage: View {
-    @State var qrCodeData: Data? = nil
-    @State var loading = false
-    @State var errorInfo = ""
+    @State private var qrCodeData: Data? = nil
+    @State private var loading = false
+    @State private var errorInfo = ""
     
     func loadCodeData() {
         Task {

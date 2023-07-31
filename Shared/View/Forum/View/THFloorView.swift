@@ -478,7 +478,7 @@ fileprivate struct Actions: View {
 }
 
 fileprivate struct TextSelectionSheet: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     let text: String
     
     var body: some View {

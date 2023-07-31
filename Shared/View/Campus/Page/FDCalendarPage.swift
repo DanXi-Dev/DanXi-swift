@@ -13,10 +13,10 @@ struct FDCalendarPageLoader: View {
 }
 
 struct FDCalendarPage: View {
-    @StateObject var model: FDCalendarModel
-    @State var showSettingSheet = false
-    @State var showExportSheet = false
-    @State var showPermissionDeniedAlert = false
+    @StateObject private var model: FDCalendarModel
+    @State private var showSettingSheet = false
+    @State private var showExportSheet = false
+    @State private var showPermissionDeniedAlert = false
     
     init(_ model: FDCalendarModel) {
         self._model = StateObject(wrappedValue: model)
@@ -148,9 +148,9 @@ fileprivate struct FDCalendarSetting: View {
 }
 
 fileprivate struct ExportSheet: UIViewControllerRepresentable {
-    @EnvironmentObject var model: FDCalendarModel
-    @Environment(\.dismiss) var dismiss
-    let eventStore = EKEventStore()
+    @EnvironmentObject private var model: FDCalendarModel
+    @Environment(\.dismiss) private var dismiss
+    private let eventStore = EKEventStore()
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ExportSheet>) -> UINavigationController {
         let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
@@ -192,17 +192,17 @@ fileprivate struct ExportSheet: UIViewControllerRepresentable {
 // MARK: - Course UI
 
 fileprivate struct CalendarEvents: View {
-    @EnvironmentObject var model: FDCalendarModel
+    @EnvironmentObject private var model: FDCalendarModel
     @State private var selectedCourse: FDCourse?
     
-    @ScaledMetric var x = FDCalendarConfig.x
-    @ScaledMetric var y = FDCalendarConfig.y
-    @ScaledMetric var dx = FDCalendarConfig.dx
-    @ScaledMetric var dy = FDCalendarConfig.dy
+    @ScaledMetric private var x = FDCalendarConfig.x
+    @ScaledMetric private var y = FDCalendarConfig.y
+    @ScaledMetric private var dx = FDCalendarConfig.dx
+    @ScaledMetric private var dy = FDCalendarConfig.dy
     let h = FDCalendarConfig.h
     
-    @ScaledMetric var courseTitle = 15
-    @ScaledMetric var courseLocation = 10
+    @ScaledMetric private var courseTitle = 15
+    @ScaledMetric private var courseLocation = 10
     
     var body: some View {
         ZStack {
@@ -283,17 +283,17 @@ fileprivate struct CourseDetailSheet: View {
 // MARK: - Frameworks
 
 fileprivate struct DateHeader: View {
-    @Environment(\.calendar) var calendar
-    @EnvironmentObject var model: FDCalendarModel
+    @Environment(\.calendar) private var calendar
+    @EnvironmentObject private var model: FDCalendarModel
     
-    @ScaledMetric var x = FDCalendarConfig.x
-    @ScaledMetric var y = FDCalendarConfig.y
-    @ScaledMetric var dx = FDCalendarConfig.dx
-    @ScaledMetric var dy = FDCalendarConfig.dy
+    @ScaledMetric private var x = FDCalendarConfig.x
+    @ScaledMetric private var y = FDCalendarConfig.y
+    @ScaledMetric private var dx = FDCalendarConfig.dx
+    @ScaledMetric private var dy = FDCalendarConfig.dy
     let h = FDCalendarConfig.h
     
-    @ScaledMetric var dateFont = 15
-    @ScaledMetric var weekFont = 10
+    @ScaledMetric private var dateFont = 15
+    @ScaledMetric private var weekFont = 10
     
     var body: some View {
         ZStack {
@@ -320,10 +320,10 @@ fileprivate struct DateHeader: View {
 }
 
 fileprivate struct GridBackground: View {
-    @ScaledMetric var x = FDCalendarConfig.x
-    @ScaledMetric var y = FDCalendarConfig.y
-    @ScaledMetric var dx = FDCalendarConfig.dx
-    @ScaledMetric var dy = FDCalendarConfig.dy
+    @ScaledMetric private var x = FDCalendarConfig.x
+    @ScaledMetric private var y = FDCalendarConfig.y
+    @ScaledMetric private var dx = FDCalendarConfig.dx
+    @ScaledMetric private var dy = FDCalendarConfig.dy
     let h = FDCalendarConfig.h
     
     var body: some View {
@@ -359,8 +359,8 @@ fileprivate struct GridBackground: View {
 fileprivate struct FDTimeSlotView: View {
     let timeSlot: FDTimeSlot
     
-    @ScaledMetric var courseSize = 14
-    @ScaledMetric var timeSize = 9
+    @ScaledMetric private var courseSize = 14
+    @ScaledMetric private var timeSize = 9
     
     var body: some View {
         VStack {
@@ -378,10 +378,10 @@ fileprivate struct FDTimeSlotView: View {
 }
 
 fileprivate struct TimeslotsSidebar: View {
-    @ScaledMetric var x = FDCalendarConfig.x
-    @ScaledMetric var y = FDCalendarConfig.y
-    @ScaledMetric var dx = FDCalendarConfig.dx
-    @ScaledMetric var dy = FDCalendarConfig.dy
+    @ScaledMetric private var x = FDCalendarConfig.x
+    @ScaledMetric private var y = FDCalendarConfig.y
+    @ScaledMetric private var dx = FDCalendarConfig.dx
+    @ScaledMetric private var dy = FDCalendarConfig.dy
     let h = FDCalendarConfig.h
     
     var body: some View {

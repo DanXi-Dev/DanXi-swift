@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DKTagView<Content: View>: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     let content: Content
     
     init(@ViewBuilder content: () -> Content) {

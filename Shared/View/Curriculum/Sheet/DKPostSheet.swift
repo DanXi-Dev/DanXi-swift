@@ -3,17 +3,17 @@ import SwiftUI
 struct DKPostSheet: View {
     let courseGroup: DKCourseGroup
     
-    @State var courseId: Int = -1
+    @State private var courseId: Int = -1
     
-    @State var overallRating = 0
-    @State var contentRating = 0
-    @State var workloadRating = 0
-    @State var assessmentRating = 0
+    @State private var overallRating = 0
+    @State private var contentRating = 0
+    @State private var workloadRating = 0
+    @State private var assessmentRating = 0
     
-    @State var title = ""
-    @State var content = ""
+    @State private var title = ""
+    @State private var content = ""
 
-    var allowSubmit: Bool {
+    private var allowSubmit: Bool {
         courseId != -1 &&
         !title.isEmpty && !content.isEmpty &&
         overallRating != 0 && contentRating != 0 && workloadRating != 0 && assessmentRating != 0

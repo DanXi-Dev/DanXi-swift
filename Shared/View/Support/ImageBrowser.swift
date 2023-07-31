@@ -21,7 +21,7 @@ struct ImageWithPopover: View {
 
 struct ImageBrowser: View {
     let image: Image
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     
     init(_ image: Image) {
         self.image = image
@@ -52,6 +52,7 @@ struct ImageBrowser: View {
                 }
             }
         }
+        .foregroundColor(.accentColor)
     }
 }
 

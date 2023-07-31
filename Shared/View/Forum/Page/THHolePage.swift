@@ -190,14 +190,14 @@ fileprivate struct THHoleToolbar: View {
 }
 
 struct THHoleTags: View {
-    @EnvironmentObject var navigationModel: THNavigator
+    @EnvironmentObject private var navigator: THNavigator
     let tags: [THTag]
     
     var body: some View {
         WrappingHStack(alignment: .leading) {
             ForEach(tags) { tag in
                 Button {
-                    navigationModel.path.append(tag)
+                    navigator.path.append(tag)
                 } label: {
                     THTagView(tag)
                 }
@@ -208,8 +208,8 @@ struct THHoleTags: View {
 }
 
 fileprivate struct THHoleBottomBar: View {
-    @EnvironmentObject var model: THHoleModel
-    @Environment(\.editMode) var editMode
+    @EnvironmentObject private var model: THHoleModel
+    @Environment(\.editMode) private var editMode
     @State private var showAlert = false
     @State private var deleteReason = ""
     

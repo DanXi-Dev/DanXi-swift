@@ -2,9 +2,9 @@ import SwiftUI
 import WrappingHStack
 
 struct THHoleView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
 
-    @State var expand = false
+    @State private var expand = false
     let hole: THHole
     let fold: Bool
     
@@ -127,7 +127,7 @@ struct THHoleView: View {
 }
 
 fileprivate struct THHolePreview: View {
-    @StateObject var model: THHoleModel
+    @StateObject private var model: THHoleModel
     
     init(_ hole: THHole, _ floors: [THFloor]) {
         let model = THHoleModel(hole: hole, floors: floors)
@@ -147,8 +147,8 @@ fileprivate struct THHolePreview: View {
 }
 
 fileprivate struct PreviewActions: View {
-    @ObservedObject var appModel = THModel.shared
-    @ObservedObject var settings = THSettings.shared
+    @ObservedObject private var appModel = THModel.shared
+    @ObservedObject private var settings = THSettings.shared
     
     let hole: THHole
     
