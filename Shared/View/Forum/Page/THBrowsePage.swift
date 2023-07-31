@@ -111,8 +111,8 @@ fileprivate struct THDatePicker: View {
 fileprivate struct THBrowseToolbar: View {
     @EnvironmentObject var model: THBrowseModel
     
-    @State var showPostSheet = false
-    @State var showDatePicker = false
+    @State private var showPostSheet = false
+    @State private var showDatePicker = false
     
     var body: some View {
         Group {

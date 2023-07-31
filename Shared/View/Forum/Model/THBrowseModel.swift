@@ -26,13 +26,13 @@ class THBrowseModel: ObservableObject {
             // set start time
             var startTime: String? = nil
             if !holes.isEmpty {
-                startTime = holes.last?.updateTime.ISO8601Format() // TODO: apply sort options
+                startTime = sortOption == .replyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format() // TODO: apply sort options
             } else if let baseDate = baseDate {
                 startTime = baseDate.ISO8601Format()
             }
             
             // request, receive and insert
-            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id)
+            let newHoles = try await THRequests.loadHoles(startTime: startTime, divisionId: division.id, order: sortOption == .replyTime ? "time_updated" : "time_created")
             guard configId == self.configId else { return }
             insertHoles(newHoles)
         } while filteredHoles.count == prevCount
@@ -73,7 +73,7 @@ class THBrowseModel: ObservableObject {
         case createTime
     }
     
-    @Published var sortOption = SortOption.createTime {
+    @Published var sortOption = SortOption.replyTime {
         didSet {
             self.holes = []
             self.configId = UUID()
