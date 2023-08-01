@@ -130,9 +130,11 @@ struct DXRequests {
             let service: String
             let deviceId: String
             let token: String
+            let packageName: String
         }
         
-        let config = UploadConfig(service: "apns", deviceId: deviceId, token: token)
+        let packageName = Bundle.main.bundleIdentifier ?? "com.fduhole.danxi"
+        let config = UploadConfig(service: "apns", deviceId: deviceId, token: token, packageName: packageName)
         try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/push-tokens")!, payload: config)
     }
     

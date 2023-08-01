@@ -30,6 +30,9 @@ struct ContentView: View {
         .onOpenURL { url in
             model.openURL(url)
         }
+        .onReceive(AppModel.notificationPublisher) { content in
+            model.section = .forum
+        }
         .task {
             await DXModel.shared.loadExtra()
         }

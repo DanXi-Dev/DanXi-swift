@@ -3,16 +3,16 @@ import SwiftUI
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
     @ObservedObject private var forumModel = THModel.shared
-    @StateObject private var model = THNavigator()
+    @StateObject private var navigator = THNavigator()
     
     var body: some View {
         AsyncContentView(finished: forumModel.loaded) {
             try await forumModel.loadAll()
             _ = try await appModel.loadUser()
         } content: {
-            NavigationStack(path: $model.path) {
+            NavigationStack(path: $navigator.path) {
                 Group {
-                    switch model.page {
+                    switch navigator.page {
                     case .browse:
                         THBrowseWrapper()
                     case .favorite:
@@ -36,27 +36,31 @@ struct THHomePage: View {
                 }
                 .navigationDestination(for: THHole.self) { hole in
                     THHolePage(hole)
-                        .environmentObject(model) // prevent crash on NavigationSplitView, reason unknown
+                        .environmentObject(navigator) // prevent crash on NavigationSplitView, reason unknown
                 }
                 .navigationDestination(for: THHoleLoader.self) { loader in
                     THLoaderPage(loader)
-                        .environmentObject(model) // prevent crash on NavigationSplitView, reason unknown
+                        .environmentObject(navigator) // prevent crash on NavigationSplitView, reason unknown
                 }
                 .navigationDestination(for: THTag.self) { tag in
                     THSearchTagPage(tagname: tag.name)
-                        .environmentObject(model) // prevent crash on NavigationSplitView, reason unknown
+                        .environmentObject(navigator) // prevent crash on NavigationSplitView, reason unknown
                 }
             }
         }
-        .environmentObject(model)
+        .environmentObject(navigator)
         .onOpenURL { url in
-            model.openURL(url)
+            navigator.openURL(url)
+        }
+        .onReceive(AppModel.notificationPublisher) { content in
+            navigator.page = .notifications
+            navigator.path.removeLast(navigator.path.count)
         }
     }
     
     private var menu: some View {
         Menu {
-            Picker("Page Selection", selection: $model.page) {
+            Picker("Page Selection", selection: $navigator.page) {
                 Label("Tree Hole", systemImage: "doc.plaintext")
                     .tag(THPage.browse)
                 Label("Favorites", systemImage: "star")
