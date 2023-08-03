@@ -26,7 +26,7 @@ class THBrowseModel: ObservableObject {
             // set start time
             var startTime: String? = nil
             if !holes.isEmpty {
-                startTime = sortOption == .replyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format() // TODO: apply sort options
+                startTime = sortOption == .replyTime ? holes.last?.updateTime.ISO8601Format() : holes.last?.createTime.ISO8601Format()
             } else if let baseDate = baseDate {
                 startTime = baseDate.ISO8601Format()
             }

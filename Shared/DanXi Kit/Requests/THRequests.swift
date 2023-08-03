@@ -31,8 +31,9 @@ struct THRequests {
     /// - Returns: A list of holes.
     static func loadHoles(startTime: String? = nil, divisionId: Int, order: String = "time_updated") async throws -> [THHole] {
         var components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!
+        components.queryItems = [URLQueryItem(name: "order", value: order)]
         if let time = startTime {
-            components.queryItems = [URLQueryItem(name: "offset", value: time), URLQueryItem(name: "order", value: order)]
+            components.queryItems?.append(URLQueryItem(name: "offset", value: time))
             components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         }
         return try await DXResponse(components.url!)
