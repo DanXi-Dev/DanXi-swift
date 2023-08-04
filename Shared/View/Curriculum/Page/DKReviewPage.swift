@@ -7,6 +7,9 @@ struct DKReviewPage: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                Text(review.title)
+                    .font(.title)
+                    .bold()
                 HStack {
                     DKTagView {
                         Text(course.teachers)
@@ -37,7 +40,8 @@ struct DKReviewPage: View {
             }
         }
         .padding(.horizontal)
-        .navigationTitle(review.title)
+        .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
+        /*
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
@@ -53,5 +57,6 @@ struct DKReviewPage: View {
                 }
             }
         }
+         */
     }
 }
