@@ -59,7 +59,7 @@ struct TabHomePage: View {
                 THHomePage()
                     .tag(AppSection.forum)
                     .tabItem {
-                        Label("Tree Hole", systemImage: "text.bubble")
+                        Label("Forum", systemImage: "text.bubble")
                     }
                     .toolbarBackground(.visible, for: .tabBar)
                 
@@ -106,7 +106,7 @@ struct SplitHomePage: View {
                         .tag(AppSection.campus)
                 }
                 if forumModel.isLogged {
-                    Label("Tree Hole", systemImage: "text.bubble")
+                    Label("Forum", systemImage: "text.bubble")
                         .tag(AppSection.forum)
                     Label("Curriculum", systemImage: "books.vertical")
                         .tag(AppSection.curriculum)
