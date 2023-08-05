@@ -134,8 +134,11 @@ fileprivate struct FDCalendarSetting: View {
                     }
                 }
                 
-                DatePicker(selection: $startDate, in: ...Date.now, displayedComponents: [.date]) {
-                    Label("Semester Start Date", systemImage: "calendar")
+                if FDCalendarModel.getStartDateFromTimetable(semester) == nil {
+                    // provide the option for user to pick semester start date when match failed
+                    DatePicker(selection: $startDate, displayedComponents: [.date]) {
+                        Label("Semester Start Date", systemImage: "calendar")
+                    }
                 }
             }
             .onChange(of: semester) { semester in
