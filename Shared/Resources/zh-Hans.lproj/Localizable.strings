@@ -66,6 +66,12 @@
 "Enabled" = "已启用";
 "Pick a Background Photo" = "选择一张背景图片";
 "Remove Background Photo" = "清除背景图片";
+"Push Notification Settings" = "推送通知设置";
+"Notify when my post is mentioned" = "帖子被引用时通知";
+"Notify when favorited hole gets reply" = "收藏的树洞有新回复时通知";
+"Notify when my report is dealt" = "举报被处理时通知";
+"Update Notification Config Failed" = "更新推送通知设置失败";
+
 
 // Treehole Welcome Page
 "TH Feature 1" = "时刻保持最新";

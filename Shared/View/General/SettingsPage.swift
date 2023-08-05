@@ -77,6 +77,8 @@ fileprivate struct DXAccountButton: View {
                 if let user = model.user {
                     return user
                 }
+                // return nil when error
+                // this is to allow user to logout even when some error occurs and cannot connect to backend server
                 return try? await model.loadUser()
             } content: { user in
                 DXUserSheet(user: user)

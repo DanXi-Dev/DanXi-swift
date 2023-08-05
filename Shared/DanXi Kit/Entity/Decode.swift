@@ -8,6 +8,7 @@ extension DXUser {
         case nickname
         case joinTime = "joined_time"
         case isAdmin = "is_admin"
+        case config
     }
     
     init(from decoder: Decoder) throws {
@@ -17,6 +18,7 @@ extension DXUser {
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
         self.joinTime = try decodeDate(values, key: .joinTime)
         self.banned = [:]
+        self.config = try values.decode(Config.self, forKey: .config)
     }
 }
 

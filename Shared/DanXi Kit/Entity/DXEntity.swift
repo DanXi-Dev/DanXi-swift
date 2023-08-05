@@ -1,12 +1,19 @@
 import Foundation
 
 struct DXUser: Hashable, Codable, Identifiable {
+    struct Config: Hashable, Codable {
+        let notify: [String]
+    }
+    
     let id: Int
     let nickname: String
     let joinTime: Date
     let isAdmin: Bool
     var banned: Dictionary<Int, Date>
+    var config: Config
 }
+
+
 
 struct Token: Codable {
     let access: String

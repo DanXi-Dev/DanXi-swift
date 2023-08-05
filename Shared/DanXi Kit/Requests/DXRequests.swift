@@ -148,6 +148,23 @@ struct DXRequests {
                             payload: config, method: "DELETE")
     }
     
+    static func configNotification(userId: Int, config: [String]) async throws {
+        struct User: Codable {
+            struct Config: Codable {
+                let notify: [String]
+            }
+            
+            let config: Config
+            
+            init(_ notify: [String]) {
+                self.config = Config(notify: notify)
+            }
+        }
+        
+        let user = User(config)
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/\(userId)")!, payload: user, method: "PUT")
+    }
+    
     // MARK: Static Info
     
     static func getInfo() async throws -> [DXInfo] {
