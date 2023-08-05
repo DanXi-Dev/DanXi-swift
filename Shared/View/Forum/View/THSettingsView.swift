@@ -5,7 +5,7 @@ struct THSettingsView: View {
     @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
-        Section("Tree Hole") {
+        Section("Forum") {
             Picker(selection: $settings.sensitiveContent, label: Label("NSFW Content", systemImage: "eye.slash")) {
                 Text("Show").tag(THSettings.SensitiveContentSetting.show)
                 Text("Fold").tag(THSettings.SensitiveContentSetting.fold)

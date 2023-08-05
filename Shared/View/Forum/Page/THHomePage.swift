@@ -61,7 +61,7 @@ struct THHomePage: View {
     private var menu: some View {
         Menu {
             Picker("Page Selection", selection: $navigator.page) {
-                Label("Tree Hole", systemImage: "doc.plaintext")
+                Label("Forum", systemImage: "doc.plaintext")
                     .tag(THPage.browse)
                 Label("Favorites", systemImage: "star")
                     .tag(THPage.favorite)
