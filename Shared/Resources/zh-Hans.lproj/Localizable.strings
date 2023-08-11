@@ -356,6 +356,9 @@
 // Fudan QR Code
 "Fudan QR Code" = "复旦生活码";
 "Refresh QR Code" = "刷新二维码";
+"Terms not Agreed" = "需要接受条款";
+"To use QRCode, you must accept terms and conditions in webpage" = "需要在网页中接受条款与条件后方可使用复活码";
+"Go to Browser" = "打开浏览器";
 
 // Fudan Sport Page
 "Extracurricular Activities" = "课外活动考勤";

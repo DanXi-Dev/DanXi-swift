@@ -6,6 +6,7 @@ public enum FDError: Error {
     case loginFailed
     case campusOnly
     case notDiningTime
+    case termsNotAgreed
 }
 
 extension FDError: LocalizedError {
@@ -21,6 +22,8 @@ extension FDError: LocalizedError {
             return NSLocalizedString("Service unavailable, connect to campus WiFi or VPN to access", comment: "")
         case .notDiningTime:
             return NSLocalizedString("Not in dining time", comment: "")
+        case .termsNotAgreed:
+            return NSLocalizedString("Terms not Agreed", comment: "")
         }
     }
 }

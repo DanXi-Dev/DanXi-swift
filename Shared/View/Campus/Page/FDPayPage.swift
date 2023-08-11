@@ -2,9 +2,11 @@ import SwiftUI
 import UIKit
 
 struct FDPayPage: View {
+    @Environment(\.openURL) var openURL
+    
     @State private var qrCodeData: Data? = nil
     @State private var loading = false
-    @State private var errorInfo = ""
+    @State private var showTermsAlert = false
     
     func loadCodeData() {
         Task {
@@ -26,8 +28,10 @@ struct FDPayPage: View {
                 let scaledCIImage = ciimage.transformed(by: transform)
                 let uiImage = UIImage(ciImage: scaledCIImage)
                 qrCodeData = uiImage.pngData()!
+            } catch FDError.termsNotAgreed {
+                showTermsAlert = true
             } catch {
-                errorInfo = error.localizedDescription
+                
             }
         }
     }
@@ -52,6 +56,21 @@ struct FDPayPage: View {
             } label: {
                 Label("Refresh QR Code", systemImage: "arrow.clockwise")
             }
+        }
+        .alert("Terms not Agreed", isPresented: $showTermsAlert) {
+            Button {
+                openURL(URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!)
+            } label: {
+                Text("Go to Browser")
+            }
+            
+            Button {
+                
+            } label: {
+                Text("Cancel")
+            }
+        } message: {
+            Text("To use QRCode, you must accept terms and conditions in webpage")
         }
         .navigationTitle("Fudan QR Code")
         .task {

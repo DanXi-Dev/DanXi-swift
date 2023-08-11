@@ -8,9 +8,20 @@ struct FDECardAPI {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
         let responseData = try await FDAuthAPI.auth(url: url)
         
-        let qrcodeElement = try processHTMLData(responseData, selector: "#myText")
-        let qrcodeStr = try qrcodeElement.attr("value")
-        return qrcodeStr
+        do {
+            let qrcodeElement = try processHTMLData(responseData, selector: "#myText")
+            let qrcodeStr = try qrcodeElement.attr("value")
+            return qrcodeStr
+        } catch ParseError.invalidHTML {
+            // cannot get QR code when term is not agreed
+            // in this case we should lead user to browser to accept terms
+            let document = try processHTMLData(responseData)
+            if try document.select("#btn-agree-ok").first() != nil {
+                throw FDError.termsNotAgreed
+            } else {
+                throw ParseError.invalidHTML // rethrow
+            }
+        }
     }
     
     static func getBalance() async throws -> String {
