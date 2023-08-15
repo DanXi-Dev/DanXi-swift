@@ -20,6 +20,17 @@ struct THRequests {
         return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!)
     }
     
+    static func modifyDivision(id: Int, name: String, description: String, pinned: [Int]) async throws -> THDivision {
+        struct ModifyConfig: Codable {
+            let name: String
+            let description: String
+            let pinned: [Int]
+        }
+        
+        let payload = ModifyConfig(name: name, description: description, pinned: pinned)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!, payload: payload, method: "PUT")
+    }
+    
     
     // MARK: Hole
     

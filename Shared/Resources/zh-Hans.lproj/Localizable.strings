@@ -198,6 +198,13 @@
 "Upload Image" = "上传图片";
 "Upload Image Failed" = "上传图片失败";
 
+// Division Edit
+"Edit Division" = "编辑分区";
+"Division Name" = "版区名称";
+"Division Description" = "版区描述";
+"Enter Pinned Hole ID (Digits Only)" = "输入置顶帖编号（仅数字）";
+"Edit Division Info" = "编辑分区信息";
+
 // Treehole Detail Page
 "Add to Favorites" = "收藏";
 "Remove from Favorites" = "移除收藏";

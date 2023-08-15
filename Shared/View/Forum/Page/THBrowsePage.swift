@@ -108,21 +108,26 @@ fileprivate struct THDatePicker: View {
 }
 
 fileprivate struct THBrowseToolbar: View {
+    @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THBrowseModel
     
     @State private var showPostSheet = false
     @State private var showDatePicker = false
+    @State private var showDivisionSheet = false
     
     var body: some View {
         Group {
             postButton
-            filterMenu
+            moreOptions
         }
         .sheet(isPresented: $showPostSheet) {
             THPostSheet(divisionId: model.division.id)
         }
         .sheet(isPresented: $showDatePicker) {
             THDatePicker()
+        }
+        .sheet(isPresented: $showDivisionSheet) {
+            THDivisionSheet(divisionId: model.division.id)
         }
     }
     
@@ -134,7 +139,7 @@ fileprivate struct THBrowseToolbar: View {
         }
     }
     
-    private var filterMenu: some View {
+    private var moreOptions: some View {
         Menu {
             Picker("Sort Options", selection: $model.sortOption) {
                 Text("Last Updated")
@@ -148,6 +153,18 @@ fileprivate struct THBrowseToolbar: View {
             } label: {
                 Label("Select Date", systemImage: "clock.arrow.circlepath")
             }
+            
+            if appModel.isAdmin {
+                Divider()
+                
+                Button {
+                    showDivisionSheet = true
+                } label: {
+                    Label("Edit Division Info", systemImage: "rectangle.3.group")
+                }
+            }
+            
+            
         } label: {
             Image(systemName: "ellipsis.circle")
         }
