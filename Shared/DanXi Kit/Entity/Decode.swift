@@ -317,3 +317,23 @@ extension DKReview {
         self.updateTime = try decodeDate(values, key: .updateTime)
     }
 }
+
+extension DXQuestion {
+    enum CodingKeys: String, CodingKey {
+        case id, type, group, question, options
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        guard let type = QuestionType(rawValue: try values.decode(String.self, forKey: .type)),
+              let group = QuestionGroup(rawValue: try values.decode(String.self, forKey: .group))else {
+            throw ParseError.invalidJSON
+        }
+        
+        self.id = try values.decode(Int.self, forKey: .id)
+        self.type = type
+        self.group = group
+        self.question = try values.decode(String.self, forKey: .question)
+        self.option = try values.decode([String].self, forKey: .options)
+    }
+}

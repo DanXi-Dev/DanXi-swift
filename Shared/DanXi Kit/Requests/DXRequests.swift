@@ -38,6 +38,53 @@ struct DXRequests {
         return try processJSONData(data)
     }
     
+    // MARK: - Register Questions
+    
+    static func retrieveQuestions() async throws -> DXQuestions {
+        return try await DXResponse(URL(string: FDUHOLE_AUTH_URL + "/register/questions")!)
+    }
+    
+    static func submitQuestions(answers: [Int : [String]], version: Int) async throws -> (Bool, Token?, [Int]) {
+        struct Submit: Codable {
+            let version: Int
+            var answers: [SubmitItem]
+        }
+
+        struct SubmitItem: Codable {
+            let id: Int
+            let answer: [String]
+        }
+
+        // transform data structure
+        var submit = Submit(version: version, answers: [])
+        for (id, answer) in answers {
+            submit.answers.append(SubmitItem(id: id, answer: answer))
+        }
+        
+        let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/register/questions/_answer")!,
+                                             payload: submit)
+        let data = try await autoRefresh(request)
+        let json = try JSON(data: data)
+        guard let correct = json["correct"].bool else {
+            throw ParseError.invalidJSON
+        }
+        if correct {
+            guard let access = json["access"].string,
+                  let refresh = json["refresh"].string else {
+                throw ParseError.invalidJSON
+            }
+            let token = Token(access: access, refresh: refresh)
+            return (true, token, [])
+        } else {
+            guard let wrongQuestionsData = try? json["wrong_question_ids"].rawData(),
+                  let wrongQustions = try? JSONDecoder().decode([Int].self, from: wrongQuestionsData) else {
+                throw ParseError.invalidJSON
+            }
+            let placeHolder = Token(access: "", refresh: "")
+            return (false, placeHolder, wrongQustions)
+        }
+    }
+    
     // MARK: - User
     
     /// Get current user info.

@@ -128,6 +128,8 @@
 		27BBBD232912C33D007C2905 /* DXNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD142912C33C007C2905 /* DXNetwork.swift */; };
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
+		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
+		27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B412A8B90FE000A614B /* FormTitle.swift */; };
 		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
@@ -334,6 +336,8 @@
 		27BBBD142912C33C007C2905 /* DXNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXNetwork.swift; sourceTree = "<group>"; };
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
 		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
+		27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXQuestionSheet.swift; sourceTree = "<group>"; };
+		27C95B412A8B90FE000A614B /* FormTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTitle.swift; sourceTree = "<group>"; };
 		27CAD2312A32AD94008F3D19 /* FoldedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldedView.swift; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
@@ -704,6 +708,7 @@
 				27063AB929FB094C0060AC8B /* AsyncCollection.swift */,
 				2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */,
 				27CAD2312A32AD94008F3D19 /* FoldedView.swift */,
+				27C95B412A8B90FE000A614B /* FormTitle.swift */,
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
@@ -723,6 +728,7 @@
 				2706602B292F513700F4C321 /* AboutPage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
 				27A424F029EE6B2300339E82 /* DXAuthSheet.swift */,
+				27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1066,6 +1072,7 @@
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
+				27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */,
 				27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */,
@@ -1140,6 +1147,7 @@
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
 				27E82FE929E88AB000F34B3B /* WebView.swift in Sources */,
+				27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */,
 				27A5DA2829D74A630042D28D /* FDCalendarPage.swift in Sources */,
 				2700FB2B2A3CC7B5003A2B00 /* CircularProgressView.swift in Sources */,
 				27E82FEB29E896EA00F34B3B /* FDWebVPNAPI.swift in Sources */,

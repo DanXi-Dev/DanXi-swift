@@ -25,3 +25,7 @@
 "Screenshot Alert Content" = "Please do not spread this screenshot on public social media. Thank you for your cooperation. You may turn off this alert in settings.";
 "Campus.Tab" = "Campus";
 "Fudan.ID" = "ID";
+
+"Question.Required" = "Required";
+"Question.Optional" = "Optional";
+"DanXi Question Prompt" = "Users should pass qualification before accessing FDUHole. Please refer to [terms and conditions](https://danxi.fduhole.com/doc) when answering the following questions.";

@@ -452,3 +452,15 @@
 "Academic Office Announcements" = "教务处通知";
 "Library Popularity" = "图书馆人数";
 "Canteen Popularity" = "食堂排队人数";
+
+// Register Questions
+"True or False" = "判断题";
+"Single Selection" = "单选题";
+"Multiple Selection" = "多选题";
+"Question.Required" = "必做题";
+"Question.Optional" = "选做题";
+"DanXi Qualification" = "入站答题";
+"Unanswered Questions" = "未完成的题目";
+"Answer all questions before submit" = "需要完成所有题目后才能提交";
+"Answer incorrect, please review and re-submit" = "答案不正确，请检查后重新提交";
+"DanXi Question Prompt" = "用户在使用旦夕树洞前均需完成入站答题。答题时请参考 [常见问题和协议条款](https://danxi.fduhole.com/doc)。";
