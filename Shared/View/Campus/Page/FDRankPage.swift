@@ -174,7 +174,7 @@ fileprivate struct RankChart: View {
                         .background {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(.background)
+                                    .fill(Color.background)
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(.quaternary.opacity(0.7))
                             }

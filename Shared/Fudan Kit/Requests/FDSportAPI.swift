@@ -76,6 +76,7 @@ struct FDExercise {
                 do {
                     var exerciseName = try row.child(i).html()
                     exerciseName.removeLast(1) // remove "："
+                    if i + 1 >= count { return } // prevent overflow before accessing `child(i + 1)`
                     guard let exerciseCount = Int(try row.child(i + 1).html()) else {
                         continue
                     }
@@ -155,19 +156,25 @@ struct FDSportExam {
             return
         }
         
+        guard itemsTable.childNodeSize() > 5 else {
+            return
+        }
+        
         for i in 0...5 {
             do {
                 let row = itemsTable.child(i)
-                let name = try row.child(1).html()
-                let result = try row.child(2).html()
-                let scoreText = try row.child(3).html()
-                    .components(separatedBy: CharacterSet.decimalDigits.inverted).joined()  // filter non-digits
-                guard let score = Int(scoreText) else { continue }
-                let status = try row.child(4).html().replacingOccurrences(of: " &nbsp;", with: "")
-                items.append(TestItem(name: name,
-                                      result: result,
-                                      score: Int(score),
-                                      status: status))
+                if row.childNodeSize() > 4 {
+                    let name = try row.child(1).html()
+                    let result = try row.child(2).html()
+                    let scoreText = try row.child(3).html()
+                        .components(separatedBy: CharacterSet.decimalDigits.inverted).joined()  // filter non-digits
+                    guard let score = Int(scoreText) else { continue }
+                    let status = try row.child(4).html().replacingOccurrences(of: " &nbsp;", with: "")
+                    items.append(TestItem(name: name,
+                                          result: result,
+                                          score: Int(score),
+                                          status: status))
+                }
             } catch {
                 continue
             }

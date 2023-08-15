@@ -11,7 +11,7 @@ struct THSpecialTagView: View {
             .fontWeight(.black)
             .padding(.horizontal, 5)
             .padding(.vertical, 3)
-            .background(LinearGradient(gradient: Gradient(colors: [Color("pink-light"), Color("pink")]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [Color("danxi pink light"), Color("danxi pink")]), startPoint: .top, endPoint: .bottom))
             .cornerRadius(4)
             .shadow(radius: 1)
     }
