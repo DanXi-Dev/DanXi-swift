@@ -305,6 +305,7 @@ fileprivate struct Actions: View {
     @State private var showDeleteAlert = false
     @State private var showDeleteSheet = false
     @State private var showRemoveSheet = false
+    @State private var showQuestionSheet = false
     
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
@@ -328,6 +329,9 @@ fileprivate struct Actions: View {
         }
         .sheet(isPresented: $showEditSheet) {
             THFloorEditSheet(model.floor.content)
+        }
+        .sheet(isPresented: $showQuestionSheet) {
+            DXQuestionSheet()
         }
         .alert("Delete Floor", isPresented: $showDeleteAlert) {
             Button("Delete", role: .destructive) {
@@ -382,7 +386,11 @@ fileprivate struct Actions: View {
     
     private var replyButton: some View {
         Button {
-            showReplySheet = true
+            if appModel.answered {
+                showReplySheet = true
+            } else {
+                showQuestionSheet = true
+            }
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
         }

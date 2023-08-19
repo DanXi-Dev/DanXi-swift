@@ -114,6 +114,7 @@ fileprivate struct THBrowseToolbar: View {
     @State private var showPostSheet = false
     @State private var showDatePicker = false
     @State private var showDivisionSheet = false
+    @State private var showQuestionSheet = false
     
     var body: some View {
         Group {
@@ -129,11 +130,18 @@ fileprivate struct THBrowseToolbar: View {
         .sheet(isPresented: $showDivisionSheet) {
             THDivisionSheet(divisionId: model.division.id)
         }
+        .sheet(isPresented: $showQuestionSheet) {
+            DXQuestionSheet()
+        }
     }
     
     private var postButton: some View {
         Button {
-            showPostSheet = true
+            if appModel.answered {
+                showPostSheet = true
+            } else {
+                showQuestionSheet = true
+            }
         } label: {
             Image(systemName: "square.and.pencil")
         }

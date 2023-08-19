@@ -9,10 +9,10 @@ struct DXUser: Hashable, Codable, Identifiable {
     let nickname: String
     let joinTime: Date
     let isAdmin: Bool
+    var answered: Bool
     var banned: Dictionary<Int, Date>
     var config: Config
 }
-
 
 
 struct Token: Codable {

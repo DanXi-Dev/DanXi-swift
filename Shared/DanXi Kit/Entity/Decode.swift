@@ -8,6 +8,7 @@ extension DXUser {
         case nickname
         case joinTime = "joined_time"
         case isAdmin = "is_admin"
+        case answered = "has_answered_questions"
         case config
     }
     
@@ -16,6 +17,7 @@ extension DXUser {
         id = try values.decode(Int.self, forKey: .id)
         nickname = try values.decode(String.self, forKey: .nickname)
         isAdmin = try values.decode(Bool.self, forKey: .isAdmin)
+        answered = (try? values.decode(Bool.self, forKey: .answered)) ?? true
         self.joinTime = try decodeDate(values, key: .joinTime)
         self.banned = [:]
         self.config = try values.decode(Config.self, forKey: .config)

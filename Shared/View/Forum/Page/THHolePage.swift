@@ -99,6 +99,7 @@ fileprivate struct THHoleToolbar: View {
     @State private var showDeleteAlert = false
     @State private var showEditSheet = false
     @State private var showReplySheet = false
+    @State private var showQuestionSheet = false
     
     var body: some View {
         Group {
@@ -110,13 +111,20 @@ fileprivate struct THHoleToolbar: View {
     
     private var replyButton: some View {
         Button {
-            showReplySheet = true
+            if appModel.answered {
+                showReplySheet = true
+            } else {
+                showQuestionSheet = true
+            }
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
         }
         .disabled(model.hole.locked && !appModel.isAdmin)
         .sheet(isPresented: $showReplySheet) {
             THReplySheet()
+        }
+        .sheet(isPresented: $showQuestionSheet) {
+            DXQuestionSheet()
         }
     }
     

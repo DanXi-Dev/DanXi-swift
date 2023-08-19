@@ -23,27 +23,40 @@ fileprivate struct QuestionPage: View {
     }
     
     var body: some View {
-        List {
-            FormTitle(title: "DanXi Qualification",
-                      description: "DanXi Question Prompt")
-            
-            ForEach(model.questions) { question in
-                switch question.type {
-                case .singleSelection, .trueOrFalse:
-                    QuestionPicker(question: question)
-                case .multipleSelection:
-                    MultiQuestionSelectior(question: question)
+        NavigationStack {
+            List {
+                FormTitle(title: "DanXi Qualification",
+                          description: "DanXi Question Prompt")
+                
+                ForEach(model.questions) { question in
+                    switch question.type {
+                    case .singleSelection, .trueOrFalse:
+                        QuestionPicker(question: question)
+                    case .multipleSelection:
+                        MultiQuestionSelectior(question: question)
+                    }
+                }
+                
+                submitButton
+            }
+            .alert("Unanswered Questions", isPresented: $showSubmitAlert, actions: { }, message: {
+                Text("Answer all questions before submit")
+            })
+            .alert("Answer incorrect, please review and re-submit", isPresented: $showIncorrectAlert, actions: { })
+            .headerProminence(.increased)
+            .environmentObject(model)
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
                 }
             }
-            
-            submitButton
         }
-        .alert("Unanswered Questions", isPresented: $showSubmitAlert, actions: { }, message: {
-            Text("Answer all questions before submit")
-        })
-        .alert("Answer incorrect, please review and re-submit", isPresented: $showIncorrectAlert, actions: { })
-        .headerProminence(.increased)
-        .environmentObject(model)
     }
     
     private var submitButton: some View {
@@ -216,6 +229,11 @@ fileprivate class QuestionModel: ObservableObject {
     func submit() async throws -> Bool {
         let (correct, token, wrongIds) = try await DXRequests.submitQuestions(answers: answers, version: version)
         if correct {
+            do {
+                _ = try await DXModel.shared.loadUser()
+            } catch {
+                DXModel.shared.user?.answered = true // update user info when load fails, since questions can be only submitted once
+            }
             DXModel.shared.token = token // reset token
         } else {
             wrongQuestionPublisher.send(wrongIds)

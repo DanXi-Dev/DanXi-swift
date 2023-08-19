@@ -98,6 +98,10 @@ class DXModel: ObservableObject {
         user?.isAdmin ?? false
     }
     
+    var answered: Bool {
+        user?.answered ?? true
+    }
+    
     func loadUser() async throws -> DXUser {
         let user = try await DXRequests.loadUserInfo()
         self.user = user
