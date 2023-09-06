@@ -229,12 +229,13 @@ fileprivate class QuestionModel: ObservableObject {
     func submit() async throws -> Bool {
         let (correct, token, wrongIds) = try await DXRequests.submitQuestions(answers: answers, version: version)
         if correct {
+            DXModel.shared.token = token // reset token
             do {
+                // user info reload must be performed after the token update, since backend may retrieve this info from token, not DB
                 _ = try await DXModel.shared.loadUser()
             } catch {
                 DXModel.shared.user?.answered = true // update user info when load fails, since questions can be only submitted once
             }
-            DXModel.shared.token = token // reset token
         } else {
             wrongQuestionPublisher.send(wrongIds)
         }
