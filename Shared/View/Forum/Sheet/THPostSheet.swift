@@ -42,18 +42,17 @@ struct THPostSheet: View {
                 }
             }
             
-            Section {
-                THTagEditor($tags, maxSize: 5)
-                Button {
-                    suggestTags()
-                } label: {
-                    Label("Suggest Tags", systemImage: "wand.and.rays")
-                }
+            THTagEditor($tags, maxSize: 5)
+            Button {
+                suggestTags()
+            } label: {
+                Label("Suggest Tags", systemImage: "wand.and.rays")
             }
             
             THContentEditor(content: $content)
         }
         .completed(!tags.isEmpty && !content.isEmpty)
+        // FIXME: This modifier may cause hang during the first focus of tag editor, the reason is unknown
         .scrollDismissesKeyboard(.immediately)
     }
 }

@@ -49,35 +49,39 @@ struct THTagEditor: View {
     
     var body: some View {
         Group {
-            WrappingHStack(alignment: .leading) {
-                ForEach(tags, id: \.self) { tag in
-                    THTagView(tag)
-                        .transition(.scale)
-                        .onTapGesture {
-                            removeTag(tag)
-                        }
-                }
-                
-                if allowAppend {
-                    TextField("Add Tag", text: $text)
-                        .submitLabel(.done)
-                        .onSubmit {
-                            appendTag(text)
-                        }
-                        .frame(width: width)
+            Section {
+                WrappingHStack(alignment: .leading) {
+                    ForEach(tags, id: \.self) { tag in
+                        THTagView(tag)
+                            .transition(.scale)
+                            .onTapGesture {
+                                removeTag(tag)
+                            }
+                    }
+                    
+                    if allowAppend {
+                        TextField("Add Tag", text: $text)
+                            .submitLabel(.done)
+                            .onSubmit {
+                                appendTag(text)
+                            }
+                            .frame(width: width)
+                    }
                 }
             }
             
-            ForEach(suggestedTags) { tag in
-                Button {
-                    appendTag(tag.name)
-                } label: {
-                    HStack {
-                        Label(tag.name, systemImage: "tag")
-                            .foregroundColor(randomColor(tag.name))
-                        Label(String(tag.temperature), systemImage: "flame")
-                            .font(.footnote)
-                            .foregroundColor(.separator)
+            Section {
+                ForEach(suggestedTags) { tag in
+                    Button {
+                        appendTag(tag.name)
+                    } label: {
+                        HStack {
+                            Label(tag.name, systemImage: "tag")
+                                .foregroundColor(randomColor(tag.name))
+                            Label(String(tag.temperature), systemImage: "flame")
+                                .font(.footnote)
+                                .foregroundColor(.separator)
+                        }
                     }
                 }
             }
