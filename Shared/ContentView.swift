@@ -45,6 +45,12 @@ struct TabHomePage: View {
     @ObservedObject private var forumModel = DXModel.shared
     @ObservedObject private var campusModel = FDModel.shared
     
+    private var loginStatus: Int {
+        let forumStatus = forumModel.isLogged ? 2 : 0
+        let campusStatus = campusModel.isLogged ? 1 : 0
+        return forumStatus + campusStatus
+    }
+    
     var body: some View {
         TabView(selection: $model.section) {
             if campusModel.isLogged {
@@ -85,6 +91,9 @@ struct TabHomePage: View {
                     Label("Settings", systemImage: "gearshape")
                 }
         }
+        // this is a workaround for a bug in iOS 17 causing the setting page to blank when logout
+        // reset the id will redraw everything
+        .id(loginStatus)
     }
 }
 
