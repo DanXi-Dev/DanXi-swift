@@ -34,27 +34,21 @@ struct THHolePage: View {
                     }
                     
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                        THComplexFloor(floor, highlighted: model.initialScroll == floor.id)
+                        THComplexFloor(floor)
                             .tag(floor)
                     }
-                    .onAppear {
-                        if model.scrollTarget != -1 {
-                            // animation is necessary, otherwise the app (with small probability) might hang during scrolling
-                            withAnimation {
-                                proxy.scrollTo(model.scrollTarget, anchor: .top)
-                            }
-                            model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
-                        }
+                }
+                .onReceive(model.scrollControl) { id in
+                    withAnimation {
+                        proxy.scrollTo(id, anchor: .top)
                     }
-                    .onChange(of: model.scrollTarget) { target in
-                        if target > 0 {
-                            withAnimation {
-                                // SwiftUI bug: App may crash, ref: https://useyourloaf.com/blog/swiftui-scrollviewproxy-crash/
-                                proxy.scrollTo(target, anchor: .top)
-                            }
-                            model.scrollTarget = -1 // reset scroll target, so that may scroll to the same target for multiple times
-                        }
-                    }
+                }
+            }
+            // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
+            .onAppear {
+                if let initialScroll = model.initialScroll {
+                    print("initial scroll to \(initialScroll)")
+                    model.scrollControl.send(initialScroll)
                 }
             }
             .navigationTitle("#\(String(model.hole.id))")

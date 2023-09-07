@@ -7,7 +7,7 @@ class THHoleModel: ObservableObject {
         self.hole = hole
         self.floors = []
         self.isFavorite = THModel.shared.isFavorite(hole.id)
-        self.scrollTarget = -1
+        self.initialScroll = nil
     }
     
     init(hole: THHole, floors: [THFloor], scrollTo: Int? = nil) {
@@ -15,7 +15,6 @@ class THHoleModel: ObservableObject {
         self.floors = []
         self.endReached = true
         self.isFavorite = THModel.shared.isFavorite(hole.id)
-        self.scrollTarget = scrollTo ?? -1
         self.initialScroll = scrollTo
         
         insertFloors(floors)
@@ -156,14 +155,14 @@ class THHoleModel: ObservableObject {
     
     // MARK: - Page Scrolling
     
-    @Published var initialScroll: Int?
-    @Published var scrollTarget: Int
+    let initialScroll: Int?
     @Published var loadingAll = false
+    let scrollControl = PassthroughSubject<Int, Never>()
     
     func loadAllFloors() async {
         if endReached {
-            withAnimation {
-                scrollTarget = hole.lastFloor.id
+            if let lastFloorId = filteredFloors.last?.id {
+                scrollControl.send(lastFloorId)
             }
             return
         }
@@ -175,7 +174,7 @@ class THHoleModel: ObservableObject {
             insertFloors(floors)
             endReached = true
             if let lastFloorId = filteredFloors.last?.id {
-                scrollTarget = lastFloorId
+                scrollControl.send(lastFloorId)
             }
         } catch {
             

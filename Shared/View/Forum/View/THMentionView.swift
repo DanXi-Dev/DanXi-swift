@@ -92,7 +92,7 @@ struct THLocalMentionView: View {
     
     var body: some View {
         Button {
-            model.scrollTarget = floor.id
+            model.scrollControl.send(floor.id)
         } label: {
             THMentionView(floor: floor)
         }

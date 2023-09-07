@@ -32,8 +32,8 @@ struct THComplexFloor: View {
     @EnvironmentObject private var holeModel: THHoleModel
     @StateObject private var model: THFloorModel
     
-    init(_ floor: THFloor, highlighted: Bool = false) {
-        let model = THFloorModel(floor: floor, highlighted: highlighted)
+    init(_ floor: THFloor) {
+        let model = THFloorModel(floor: floor)
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -66,12 +66,8 @@ struct THComplexFloor: View {
         .environmentObject(model)
         // highlight control
         .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
-        .onChange(of: holeModel.scrollTarget) { target in
-            if target != model.floor.id { return }
-            model.highlight()
-        }
-        .onAppear {
-            if model.highlighted {
+        .onReceive(holeModel.scrollControl) { id in
+            if id == model.floor.id {
                 model.highlight()
             }
         }

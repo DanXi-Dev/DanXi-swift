@@ -2,13 +2,12 @@ import Foundation
 
 @MainActor
 class THFloorModel: ObservableObject {
-    init(floor: THFloor, highlighted: Bool) {
+    init(floor: THFloor) {
         self.floor = floor
-        self.highlighted = highlighted
     }
     
     @Published var floor: THFloor
-    @Published var highlighted: Bool
+    @Published var highlighted = false
     var collapse: Bool {
         floor.deleted || !floor.fold.isEmpty
     }
