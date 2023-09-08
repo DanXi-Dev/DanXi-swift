@@ -6,9 +6,7 @@ struct THHolePage: View {
     @ObservedObject private var settings = THSettings.shared
     @StateObject private var model: THHoleModel
     @State private var showScreenshotAlert = false
-    private var hasBackground: Bool {
-        settings.backgroundImage != nil
-    }
+    
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     init(_ hole: THHole) {
@@ -209,6 +207,8 @@ struct THHoleTags: View {
     }
 }
 
+
+
 fileprivate struct THHoleBottomBar: View {
     @EnvironmentObject private var model: THHoleModel
     @Environment(\.editMode) private var editMode
@@ -221,8 +221,7 @@ fileprivate struct THHoleBottomBar: View {
                 Button {
                     model.filterOption = .all
                 } label: {
-                    Label("Show All Floors", systemImage: "bubble.left.and.bubble.right")
-                        .labelStyle(.titleAndIcon)
+                    BottomBarLabel("Show All Floors", systemImage: "bubble.left.and.bubble.right")
                 }
             }
             
@@ -239,8 +238,7 @@ fileprivate struct THHoleBottomBar: View {
                     Button(role: .destructive) {
                         showAlert = true
                     } label: {
-                        Label("Delete Selected", systemImage: "trash")
-                            .labelStyle(.titleAndIcon)
+                        BottomBarLabel("Delete Selected", systemImage: "trash")
                     }
                 }
             }
@@ -259,6 +257,30 @@ fileprivate struct THHoleBottomBar: View {
             } label: {
                 Text("Submit")
             }
+        }
+    }
+}
+
+fileprivate struct BottomBarLabel: View {
+    let text: LocalizedStringKey
+    let systemImage: String
+    
+    init(_ text: LocalizedStringKey, systemImage: String) {
+        self.text = text
+        self.systemImage = systemImage
+    }
+    
+    var body: some View {
+        // This is for compatibility issue
+        // Label will only display icon in bottom bar on iOS 17
+        if #available(iOS 17.0, *) {
+            HStack {
+                Image(systemName: systemImage)
+                Text(text)
+            }
+        } else {
+            Label(text, systemImage: systemImage)
+                .labelStyle(.titleAndIcon)
         }
     }
 }

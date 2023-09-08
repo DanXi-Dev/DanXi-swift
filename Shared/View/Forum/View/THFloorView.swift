@@ -29,6 +29,8 @@ struct THSimpleFloor: View {
 
 
 struct THComplexFloor: View {
+    @Environment(\.editMode) private var editMode
+    
     @EnvironmentObject private var holeModel: THHoleModel
     @StateObject private var model: THFloorModel
     
@@ -64,6 +66,8 @@ struct THComplexFloor: View {
             }
         }
         .environmentObject(model)
+        // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
+        .disabled(editMode?.wrappedValue.isEditing ?? false)
         // highlight control
         .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
         .onReceive(holeModel.scrollControl) { id in
