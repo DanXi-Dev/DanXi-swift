@@ -24,10 +24,10 @@ fileprivate struct QuestionPage: View {
     
     var body: some View {
         NavigationStack {
-            List {
+            Form {
                 FormTitle(title: "DanXi Qualification",
                           description: "DanXi Question Prompt")
-                
+                                
                 ForEach(model.questions) { question in
                     switch question.type {
                     case .singleSelection, .trueOrFalse:
