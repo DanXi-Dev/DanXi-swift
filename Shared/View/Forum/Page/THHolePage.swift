@@ -18,67 +18,91 @@ struct THHolePage: View {
     }
     
     var body: some View {
-        ScrollViewReader { proxy in
-            THBackgroundList(selection: $model.selectedFloor) {
-                Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
-                    THHoleTags(tags: model.hole.tags)
-                        .listRowSeparator(.hidden, edges: .top)
-                    
-                    if model.hole.locked {
-                        Label("Post locked, reply is forbidden", systemImage: "lock.fill")
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                            .listRowSeparator(.hidden)
+        ZStack {
+            ScrollViewReader { proxy in
+                THBackgroundList(selection: $model.selectedFloor) {
+                    Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
+                        THHoleTags(tags: model.hole.tags)
+                            .listRowSeparator(.hidden, edges: .top)
+                        
+                        if model.hole.locked {
+                            Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                                .listRowSeparator(.hidden)
+                        }
+                        
+                        AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
+                            THComplexFloor(floor)
+                                .tag(floor)
+                        }
                     }
-                    
-                    AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                        THComplexFloor(floor)
-                            .tag(floor)
+                }
+                // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
+                .onAppear {
+                    if let initialScroll = model.initialScroll {
+                        print("initial scroll to \(initialScroll)")
+                        model.scrollControl.send(initialScroll)
                     }
                 }
                 .onReceive(model.scrollControl) { id in
                     withAnimation {
                         proxy.scrollTo(id, anchor: .top)
+                        print("receive scroll target: \(id)")
+                    }
+                }
+                .navigationTitle("#\(String(model.hole.id))")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        THHoleToolbar()
+                    }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        THHoleBottomBar()
+                    }
+                }
+                .task {
+                    do {
+                        try await THRequests.updateViews(holeId: model.hole.id)
+                        THModel.shared.appendHistory(hole: model.hole)
+                    } catch {
+                        
+                    }
+                }
+                .onReceive(screenshotPublisher) { _ in
+                    if settings.screenshotAlert {
+                        showScreenshotAlert = true
+                    }
+                }
+                .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {
+                    
+                } message: {
+                    Text("Screenshot Alert Content")
+                }
+                .environmentObject(model)
+            }
+            
+            if model.loadingAll {
+                HStack(spacing: 20) {
+                    ProgressView()
+                    Text("Loading")
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 45)
+                .padding(.vertical, 25)
+                .background(
+                    .regularMaterial,
+                    in: RoundedRectangle(cornerRadius: 15, style: .continuous)
+                )
+                .transition(.opacity)
+                // move the scroll control in view body to prevent calling scroll before new floor is inserted in view
+                .onDisappear {
+                    if let lastFloorId = model.filteredFloors.last?.id {
+                        model.scrollControl.send(lastFloorId)
                     }
                 }
             }
-            // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
-            .onAppear {
-                if let initialScroll = model.initialScroll {
-                    print("initial scroll to \(initialScroll)")
-                    model.scrollControl.send(initialScroll)
-                }
-            }
-            .navigationTitle("#\(String(model.hole.id))")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    THHoleToolbar()
-                }
-                
-                ToolbarItem(placement: .bottomBar) {
-                    THHoleBottomBar()
-                }
-            }
-            .task {
-                do {
-                    try await THRequests.updateViews(holeId: model.hole.id)
-                    THModel.shared.appendHistory(hole: model.hole)
-                } catch {
-                    
-                }
-            }
-            .onReceive(screenshotPublisher) { _ in
-                if settings.screenshotAlert {
-                    showScreenshotAlert = true
-                }
-            }
-            .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {
-                
-            } message: {
-                Text("Screenshot Alert Content")
-            }
-            .environmentObject(model)
         }
     }
 }

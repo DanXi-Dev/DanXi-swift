@@ -173,9 +173,7 @@ class THHoleModel: ObservableObject {
             let floors = try await THRequests.loadAllFloors(holeId: hole.id)
             insertFloors(floors)
             endReached = true
-            if let lastFloorId = filteredFloors.last?.id {
-                scrollControl.send(lastFloorId)
-            }
+            // sending value to publisher is moved to view
         } catch {
             
         }
