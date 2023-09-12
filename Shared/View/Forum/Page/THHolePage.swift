@@ -41,14 +41,12 @@ struct THHolePage: View {
                 // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
                 .onAppear {
                     if let initialScroll = model.initialScroll {
-                        print("initial scroll to \(initialScroll)")
                         model.scrollControl.send(initialScroll)
                     }
                 }
                 .onReceive(model.scrollControl) { id in
                     withAnimation {
                         proxy.scrollTo(id, anchor: .top)
-                        print("receive scroll target: \(id)")
                     }
                 }
                 .navigationTitle("#\(String(model.hole.id))")

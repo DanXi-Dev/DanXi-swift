@@ -35,7 +35,6 @@ struct THDivisionSheet: View {
                 }
             }
             .onChange(of: divisionId) { id in
-                print("change: \(divisionId)")
                 if let division = appModel.divisions.filter({ $0.id == id }).first {
                     divisionName = division.name
                     divisionDescription = division.description
