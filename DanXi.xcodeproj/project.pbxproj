@@ -130,6 +130,7 @@
 		27BBBD232912C33D007C2905 /* DXNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD142912C33C007C2905 /* DXNetwork.swift */; };
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
+		27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */; };
 		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
 		27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B412A8B90FE000A614B /* FormTitle.swift */; };
 		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
@@ -427,6 +428,7 @@
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
+				27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
@@ -898,6 +900,7 @@
 				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
 				27A5DA1A29D6D4DD0042D28D /* WrappingHStack */,
 				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
+				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -944,6 +947,7 @@
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
+				27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -1632,6 +1636,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/colinc86/LaTeXSwiftUI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
@@ -1705,6 +1717,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
+		};
+		27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */;
+			productName = LaTeXSwiftUI;
 		};
 		27D07BF32A78261900B94855 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;

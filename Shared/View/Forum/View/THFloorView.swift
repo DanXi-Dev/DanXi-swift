@@ -110,6 +110,7 @@ struct THComplexFloor: View {
     private var content: some View {
         if !floor.deleted {
             THFloorContent(text)
+                .equatable(by: text)
         } else {
             Text(floor.content)
                 .foregroundColor(.secondary)

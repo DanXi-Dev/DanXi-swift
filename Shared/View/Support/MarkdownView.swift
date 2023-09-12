@@ -1,6 +1,7 @@
 import SwiftUI
 import Markdown
 import CachedAsyncImage
+import LaTeXSwiftUI
 
 /// A view that renders Markdown content.
 struct MarkdownView: View {
@@ -180,12 +181,23 @@ fileprivate struct ParagraphView: View {
     
     enum ParagraphElement {
         case paragraph(content: AttributedString)
+        case mathParagraph(content: String)
         case image(url: URL)
     }
     
     let elements: Array<ParagraphElement>
     
     init(_ paragraph: Paragraph) {
+        func createParagraph(_ substring: AttributedSubstring) -> ParagraphElement {
+            let characters = String(substring.characters)
+            if characters.contains(/\$(.+)\$/) {
+                print("capture math: \(characters)")
+                return .mathParagraph(content: characters)
+            } else {
+                return .paragraph(content: AttributedString(substring))
+            }
+        }
+        
         let content = paragraph.detachedFromParent.format()
         var elements: [ParagraphElement] = []
         
@@ -194,14 +206,14 @@ fileprivate struct ParagraphView: View {
             for run in attributedContent.runs {
                 if let url = run.imageURL {
                     let leadingSegment = attributedContent[leadingBorder..<run.range.lowerBound]
-                    elements.append(.paragraph(content: AttributedString(leadingSegment)))
+                    elements.append(createParagraph(leadingSegment))
                     elements.append(.image(url: url))
                     leadingBorder = run.range.upperBound
                 }
             }
             if leadingBorder != attributedContent.endIndex {
                 let trailingSegment = attributedContent[leadingBorder..<attributedContent.endIndex]
-                elements.append(.paragraph(content: AttributedString(trailingSegment)))
+                elements.append(createParagraph(trailingSegment))
             }
         } else {
             elements.append(.paragraph(content: AttributedString(content)))
@@ -223,6 +235,10 @@ fileprivate struct ParagraphView: View {
                             .font(.callout)
                             .fixedSize(horizontal: false, vertical: true)
                     }
+                case .mathParagraph(let content):
+                    LaTeX(content)
+                        .errorMode(.rendered)
+                        .font(.callout)
                 case .image(let url):
                     HStack {
                         Spacer()
@@ -352,7 +368,7 @@ struct MarkdownView_Previews: PreviewProvider {
     ##### Title 5
     
     This is a paragraph. This is **bold** and _underline_, This is `inline_code`.
-    This is another sentence
+    This is another sentence $a^2+b^2=c^2$
     
     > Tip: This is a `tip` aside.
     > It may have a presentation similar to a block quote, but with a
