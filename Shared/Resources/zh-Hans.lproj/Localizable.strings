@@ -47,6 +47,11 @@
 "About" = "关于";
 "Legal" = "法律信息";
 
+"Name" = "姓名";
+"Gender" = "性别";
+"ID Number" = "证件号码";
+"Department" = "学院";
+"Major" = "专业";
 "FDU Hole Account" = "旦夕账户";
 "Logged in" = "已登录";
 "Not Logged in" = "未登录";

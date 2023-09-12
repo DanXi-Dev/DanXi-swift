@@ -31,12 +31,12 @@ struct SettingsPage: View {
 fileprivate struct FDAccountButton: View {
     @ObservedObject private var model = FDModel.shared
     @State private var showLoginSheet = false
-    @State private var showLogoutDialogue = false
+    @State private var showUserSheet = false
     
     var body: some View {
         Button {
             if model.isLogged {
-                showLogoutDialogue = true
+                showUserSheet = true
             } else {
                 showLoginSheet = true
             }
@@ -46,10 +46,48 @@ fileprivate struct FDAccountButton: View {
         .sheet(isPresented: $showLoginSheet) {
             FDLoginSheet()
         }
-        .confirmationDialog("Accounts", isPresented: $showLogoutDialogue) {
-            Button("Logout", role: .destructive) {
-                model.logout()
+        .sheet(isPresented: $showUserSheet) {
+            AsyncContentView { () -> FDIdentity? in
+                return try? await FDIdentityAPI.getIdentity()
+            } content: { identity in
+                FDUserSheet(identity: identity)
             }
+        }
+    }
+}
+
+fileprivate struct FDUserSheet: View {
+    let identity: FDIdentity?
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                if let identity = identity {
+                    Section {
+                        LabeledContent("Name", value: identity.name)
+                        LabeledContent("Fudan.ID", value: identity.studentId)
+                        LabeledContent("ID Number", value: identity.idNumber)
+                        LabeledContent("Department", value: identity.department)
+                        LabeledContent("Major", value: identity.major)
+                    }
+                }
+                
+                Section {
+                    Button(role: .destructive) {
+                        FDModel.shared.logout()
+                        dismiss()
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Logout")
+                            Spacer()
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Account Info")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
