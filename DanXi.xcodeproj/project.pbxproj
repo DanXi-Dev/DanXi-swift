@@ -56,6 +56,7 @@
 		274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197229D1BF9B000DE221 /* WatchApp.swift */; };
 		274C197529D1BF9B000DE221 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197429D1BF9B000DE221 /* ContentView.swift */; };
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
+		274E7C412AB223FF00E1B588 /* FDWebVPNAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */; };
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
 		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
@@ -1042,6 +1043,7 @@
 				27B7AC0829DEB27100DAE0C5 /* FDCanteenAPI.swift in Sources */,
 				27B7AC0C29DEB27100DAE0C5 /* FDECardAPI.swift in Sources */,
 				27B7AC0A29DEB27100DAE0C5 /* FDClassroomAPI.swift in Sources */,
+				274E7C412AB223FF00E1B588 /* FDWebVPNAPI.swift in Sources */,
 				27B7AC0629DEB27100DAE0C5 /* FDPlaygroundAPI.swift in Sources */,
 				27B7AC0529DEB27100DAE0C5 /* FDLibraryAPI.swift in Sources */,
 				27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */,
