@@ -2,13 +2,36 @@ import SwiftUI
 
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
+    @ObservedObject private var campusModel = FDModel.shared
+    
+    @State private var campusLoginSheet = false
+    @State private var campusUserSheet = false
+    @State private var forumLoginSheet = false
+    @State private var forumUserSheet = false
     
     var body: some View {
         NavigationStack {
             List {
                 Section("Accounts Management") {
-                    FDAccountButton()
-                    DXAccountButton()
+                    Button {
+                        if campusModel.isLogged {
+                            campusUserSheet = true
+                        } else {
+                            campusLoginSheet = true
+                        }
+                    } label: {
+                        AccountLabel(loggedIn: campusModel.isLogged, title: "Fudan Campus Account")
+                    }
+                    
+                    Button {
+                        if forumModel.isLogged {
+                            forumUserSheet = true
+                        } else {
+                            forumLoginSheet = true
+                        }
+                    } label: {
+                        AccountLabel(loggedIn: forumModel.isLogged, title: "FDU Hole Account")
+                    }
                 }
                 
                 if forumModel.isLogged {
@@ -25,32 +48,29 @@ struct SettingsPage: View {
             }
             .navigationTitle("Settings")
         }
-    }
-}
-
-fileprivate struct FDAccountButton: View {
-    @ObservedObject private var model = FDModel.shared
-    @State private var showLoginSheet = false
-    @State private var showUserSheet = false
-    
-    var body: some View {
-        Button {
-            if model.isLogged {
-                showUserSheet = true
-            } else {
-                showLoginSheet = true
-            }
-        } label: {
-            AccountLabel(loggedIn: model.isLogged, title: "Fudan Campus Account")
-        }
-        .sheet(isPresented: $showLoginSheet) {
+        .sheet(isPresented: $campusLoginSheet) {
             FDLoginSheet()
         }
-        .sheet(isPresented: $showUserSheet) {
+        .sheet(isPresented: $campusUserSheet) {
             AsyncContentView { () -> FDIdentity? in
                 return try? await FDIdentityAPI.getIdentity()
             } content: { identity in
                 FDUserSheet(identity: identity)
+            }
+        }
+        .sheet(isPresented: $forumLoginSheet) {
+            DXAuthSheet()
+        }
+        .sheet(isPresented: $forumUserSheet) {
+            AsyncContentView { () -> DXUser? in
+                if let user = forumModel.user {
+                    return user
+                }
+                // return nil when error
+                // this is to allow user to logout even when some error occurs and cannot connect to backend server
+                return try? await forumModel.loadUser()
+            } content: { user in
+                DXUserSheet(user: user)
             }
         }
     }
@@ -88,39 +108,6 @@ fileprivate struct FDUserSheet: View {
             }
             .navigationTitle("Account Info")
             .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-}
-
-fileprivate struct DXAccountButton: View {
-    @ObservedObject private var model = DXModel.shared
-    @State private var showLoginSheet = false
-    @State private var showUserSheet = false
-    
-    var body: some View {
-        Button {
-            if model.isLogged {
-                showUserSheet = true
-            } else {
-                showLoginSheet = true
-            }
-        } label: {
-            AccountLabel(loggedIn: model.isLogged, title: "FDU Hole Account")
-        }
-        .sheet(isPresented: $showLoginSheet) {
-            DXAuthSheet()
-        }
-        .sheet(isPresented: $showUserSheet) {
-            AsyncContentView { () -> DXUser? in
-                if let user = model.user {
-                    return user
-                }
-                // return nil when error
-                // this is to allow user to logout even when some error occurs and cannot connect to backend server
-                return try? await model.loadUser()
-            } content: { user in
-                DXUserSheet(user: user)
-            }
         }
     }
 }
