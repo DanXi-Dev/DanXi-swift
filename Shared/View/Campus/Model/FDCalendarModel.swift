@@ -253,7 +253,7 @@ extension FDCourse {
     
     func calcTime(base: Date, week: Int) -> (Date, Date) {
         let calendar = Calendar.current
-        let days = week * 7 + weekday
+        let days = (week - 1) * 7 + weekday // first week has index 1, thus it should be subtracted
         let day = calendar.date(byAdding: DateComponents(day: days), to: base)!
         var components = calendar.dateComponents([.year, .month, .day], from: day)
         
