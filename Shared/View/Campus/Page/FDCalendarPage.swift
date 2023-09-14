@@ -209,7 +209,7 @@ fileprivate struct CalendarEvents: View {
     
     var body: some View {
         ZStack {
-            GridBackground()
+            GridBackground(width: 7)
             
             ForEach(model.weekCourses) { course in
                 let length = CGFloat(course.end + 1 - course.start) * dy
@@ -322,7 +322,9 @@ fileprivate struct DateHeader: View {
     }
 }
 
-fileprivate struct GridBackground: View {
+struct GridBackground: View {
+    let width: Int
+    
     @ScaledMetric private var x = FDCalendarConfig.x
     @ScaledMetric private var y = FDCalendarConfig.y
     @ScaledMetric private var dx = FDCalendarConfig.dx
@@ -336,7 +338,7 @@ fileprivate struct GridBackground: View {
             // draw horizontal lines
             for i in 0...h {
                 let start = CGPoint(x: 0, y: CGFloat(i) * dy)
-                let end = CGPoint(x: 7 * dx, y: CGFloat(i) * dy)
+                let end = CGPoint(x: CGFloat(width) * dx, y: CGFloat(i) * dy)
                 let path = Path { path in
                     path.move(to: start)
                     path.addLine(to: end)
@@ -345,7 +347,7 @@ fileprivate struct GridBackground: View {
             }
             
             // draw vertical lines
-            for i in 0...7 {
+            for i in 0...width {
                 let start = CGPoint(x: CGFloat(i) * dx, y: 0)
                 let end = CGPoint(x: CGFloat(i) * dx, y: CGFloat(h) * dy)
                 let path = Path { path in
@@ -355,11 +357,10 @@ fileprivate struct GridBackground: View {
                 context.stroke(path, with: .color(separatorColor))
             }
         }
-        .frame(width: 7 * dx, height: CGFloat(h) * dy)
+        .frame(width: CGFloat(width) * dx, height: CGFloat(h) * dy)
     }
 }
-
-fileprivate struct FDTimeSlotView: View {
+struct FDTimeSlotView: View {
     let timeSlot: FDTimeSlot
     
     @ScaledMetric private var courseSize = 14
@@ -380,7 +381,7 @@ fileprivate struct FDTimeSlotView: View {
     }
 }
 
-fileprivate struct TimeslotsSidebar: View {
+struct TimeslotsSidebar: View {
     @ScaledMetric private var x = FDCalendarConfig.x
     @ScaledMetric private var y = FDCalendarConfig.y
     @ScaledMetric private var dx = FDCalendarConfig.dx
@@ -402,7 +403,7 @@ fileprivate struct TimeslotsSidebar: View {
 
 // MARK: - Length Constants
 
-fileprivate struct FDCalendarConfig {
+struct FDCalendarConfig {
     static let x: CGFloat = 40
     static let y: CGFloat = 40
     static let dx: CGFloat = 60

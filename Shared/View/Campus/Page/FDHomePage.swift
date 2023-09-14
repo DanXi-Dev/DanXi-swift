@@ -45,7 +45,7 @@ fileprivate struct FDHomeSimpleLink: View {
             case .playground:
                 Label("Playground Reservation", systemImage: "sportscourt")
             case .courses:
-                Label("Online Course Table", systemImage: "calendar")
+                Label("Empty Classrooms", systemImage: "building.2")
             case .electricity:
                 Label("Dorm Electricity", systemImage: "bolt.horizontal")
             case .notice:
@@ -79,7 +79,7 @@ fileprivate struct FDHomeDestination: View {
         case .playground:
             FDPlaygroundPage()
         case .courses:
-            FDCoursePage()
+            FDClassroomPage()
         case .electricity:
             FDElectricityPage()
         case .notice:
@@ -90,4 +90,8 @@ fileprivate struct FDHomeDestination: View {
             FDCanteenPage()
         }
     }
+}
+
+#Preview {
+    FDHomePage()
 }

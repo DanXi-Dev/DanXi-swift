@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSoup
 
-struct FDClassroomAPI {
+struct FDClassroomAPI {    
     static func getClassrooms(building: FDBuilding) async throws -> [FDClassroom] {
         var component = URLComponents(string: "https://webvpn.fudan.edu.cn/http/77726476706e69737468656265737421a1a70fca737e39032e46df/")!
         component.queryItems = [URLQueryItem(name: "b", value: building.rawValue)]
@@ -106,10 +106,15 @@ struct FDClassroomAPI {
         event.courseId = id
         
         // parse name
-        let courseInfo = texts[3]
-        if let match = courseInfo.firstMatch(of: /\[(?<name>[^\]]+)\]\((?<teacher>[^\)]+)\)(\{(?<count>[^\}]+)\})?/) {
+        var courseInfo = ""
+        for i in 3..<texts.count {
+            courseInfo += texts[i].trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        if let match = courseInfo.firstMatch(of: /\[(?<name>[^\]]+)\](\((?<teacher>[^\)]+)\))?(\{(?<count>[^\}]+)\})?/) {
             event.name = String(match.name)
-            event.teacher = String(match.teacher)
+            if let teacher = match.teacher {
+                event.teacher = String(teacher)
+            }
             if let count = match.count {
                 event.count = String(count)
             }
@@ -124,6 +129,7 @@ struct FDClassroomAPI {
 // MARK: - Model
 
 enum FDBuilding: String {
+    case empty = ""
     case h2 = "H2"
     case h3 = "H3"
     case h4 = "H4"
@@ -143,7 +149,8 @@ struct FDClassroom {
     var courses: [FDEvent] = []
 }
 
-struct FDEvent {
+struct FDEvent: Identifiable {
+    let id = UUID()
     var start = 0
     var end = 0
     var name: String = ""

@@ -85,6 +85,7 @@
 		2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791031529C82BC3003B9FD9 /* DXModel.swift */; };
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* DKCoursePage.swift */; };
+		2798F2CB2AB2917D00578744 /* FDClassroomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
@@ -320,6 +321,7 @@
 		2791031529C82BC3003B9FD9 /* DXModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXModel.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* DKCoursePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCoursePage.swift; sourceTree = "<group>"; };
+		2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomPage.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27A424F029EE6B2300339E82 /* DXAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXAuthSheet.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				27E82FEC29E8977400F34B3B /* FDCoursePage.swift */,
 				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
 				270131922A3C28FB0013FA7E /* FDCanteenPage.swift */,
+				2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */,
 				270131902A3C27F20013FA7E /* FDLibraryPage.swift */,
 				2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */,
 				27B19FC428F59C2C0001587F /* FDPayPage.swift */,
@@ -1158,6 +1161,7 @@
 				27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */,
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
+				2798F2CB2AB2917D00578744 /* FDClassroomPage.swift in Sources */,
 				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
 				27E82FE929E88AB000F34B3B /* WebView.swift in Sources */,

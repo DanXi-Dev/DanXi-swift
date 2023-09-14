@@ -431,6 +431,9 @@
 "Instructor" = "教师";
 "Course ID" = "课程代码";
 "Location" = "上课地点";
+"Course Capacity" = "课程人数";
+"Course Category" = "课程类别";
+"%@ seats" = "容量：%@";
 "Semester Start Date" = "学期开始时间";
 "Select Semester Start Date" = "选择学期开始时间";
 "Week %@" = "第%@周";
@@ -439,6 +442,11 @@
 "Select Semester" = "选择学期";
 "Current semester expired, reset semester" = "当前学期已结束，设置新学期";
 "Calendar Access not Granted" = "没有权限访问系统日历，请在设置中授权";
+
+// Empty Classrooms
+"Select Building" = "选择教学楼";
+"Empty Classrooms" = "空教室查询";
+"Building not selected" = "未选择教学楼";
 
 // About
 "Website" = "网站";
