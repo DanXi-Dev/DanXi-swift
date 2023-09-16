@@ -3,7 +3,6 @@ import SwiftUI
 @MainActor
 class THNavigator: ObservableObject {
     @Published var path = NavigationPath()
-    @Published var page = THPage.browse
     
     func openURL(_ url: URL) {
         guard url.host == "forum" && url.pathComponents.count >= 2 else {
@@ -13,18 +12,16 @@ class THNavigator: ObservableObject {
         
         if url.pathComponents.count == 2 {
             switch base {
-            case "browse":
-                page = .browse
             case "favorite":
-                page = .favorite
+                setSection(.favorite)
             case "my-post":
-                page = .mypost
+                setSection(.mypost)
             case "tags":
-                page = .tags
+                setSection(.tags)
             case "notifications":
-                page = .notifications
+                setSection(.notifications)
             case "report":
-                page = .report
+                setSection(.report)
             default: break
             }
         } else {
@@ -43,10 +40,14 @@ class THNavigator: ObservableObject {
             }
         }
     }
+    
+    func setSection(_ page: THPage) {
+        path.removeLast(path.count)
+        path.append(page)
+    }
 }
 
 enum THPage {
-    case browse
     case favorite
     case mypost
     case tags
