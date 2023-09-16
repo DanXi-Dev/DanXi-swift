@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "bettersafariview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stleamist/BetterSafariView",
+      "state" : {
+        "branch" : "main",
+        "revision" : "dffd42bc70287e761979bc81dd278db5c80f0deb"
+      }
+    },
+    {
       "identity" : "disk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/saoudrizwan/Disk",
