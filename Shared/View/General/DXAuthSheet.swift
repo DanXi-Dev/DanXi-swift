@@ -173,7 +173,7 @@ fileprivate struct RegisterSheet: View {
             }
         }
         .alert("Verification Email Sent", isPresented: $showVerificationAlert) {
-            Button("OK") { }
+            
         } message: {
             Text("Check email inbox for verification code, notice that it may be filtered by junk mail")
         }

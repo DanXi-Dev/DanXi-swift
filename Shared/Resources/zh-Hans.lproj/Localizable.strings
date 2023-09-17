@@ -463,6 +463,8 @@
 "Screenshot Detected" = "检测到截图";
 "Screenshot Alert Content" = "请勿在公共社区传播此截图，感谢您的配合。您可以在设置中关闭此提示。";
 "Screenshot Alert" = "截图提示";
+"Screenshot Policy" = "截图管理规则";
+"Screenshot Warning" = "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，用户不得外传树洞截图。因此造成恶劣影响者，管理团队有权永久停用其账户并追究责任。";
 "Show Activity Announcements" = "显示一些活动";
 
 "Dorm Electricity" = "寝室电量";

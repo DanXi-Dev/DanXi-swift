@@ -53,7 +53,7 @@ fileprivate struct FavoritePageContent: View {
                     }
                 }
                 .alert("Toggle Favorite Failed", isPresented: $showAlert) {
-                    Button("OK") { }
+                    
                 } message: {
                     Text(deleteError)
                 }

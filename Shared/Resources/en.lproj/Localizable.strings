@@ -20,7 +20,7 @@
 "Register Prompt" = "By registering you agree to [terms and conditions](https://danxi.fduhole.com/doc/community-user-agreement)";
 
 // Treehole floor
-"TH Edit Alert" = "Comply with [community rules](https://danxi.fduhole.com/doc/fduhole-community-convention) when posting";
+"TH Edit Alert" = "Comply with [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention) when posting";
 
 "Screenshot Alert Content" = "Please do not spread this screenshot on public social media. Thank you for your cooperation. You may turn off this alert in settings.";
 "Campus.Tab" = "Campus";
@@ -29,3 +29,5 @@
 "Question.Required" = "Required";
 "Question.Optional" = "Optional";
 "DanXi Question Prompt" = "Users should pass qualification before accessing FDUHole. Please refer to [terms and conditions](https://danxi.fduhole.com/doc) when answering the following questions.";
+
+"Screenshot Warning" = "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), users shall not share screenshots of content from FDUHole. Anyone who cause severe consequences by sharing screenshots may have their accounts permanently suspended, and may be held accountable.";
