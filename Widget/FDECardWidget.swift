@@ -1,4 +1,4 @@
-import WidgetKit
+ import WidgetKit
 import SwiftUI
 
 struct FDECardProvider: TimelineProvider {
@@ -73,32 +73,32 @@ struct FDECardView: View {
     var entry: FDECardEntry
 
     var body: some View {
-        Group {
-            if entry.loadFailed {
-                Text("Load Failed")
-                    .foregroundColor(.secondary)
-            } else {
-                VStack(alignment: .leading, spacing: 5) {
-                    HStack {
-                        Label("ECard", systemImage: "creditcard.fill")
-                            .bold()
-                            .font(.callout)
-                            .foregroundColor(.blue)
-                        Spacer()
-                    }
-                    
-                    if entry.placeholder {
-                        content.redacted(reason: .placeholder)
-                    } else {
-                        content
+        CompatibilityWidget {
+            CompatibilityPadding {
+                if entry.loadFailed {
+                    Text("Load Failed")
+                        .foregroundColor(.secondary)
+                } else {
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Label("ECard", systemImage: "creditcard.fill")
+                                .bold()
+                                .font(.callout)
+                                .foregroundColor(.blue)
+                            Spacer()
+                        }
+                        
+                        if entry.placeholder {
+                            content.redacted(reason: .placeholder)
+                        } else {
+                            content
+                        }
                     }
                 }
-                .padding()
             }
+            .widgetURL(URL(string: "fduhole://campus/ecard"))
         }
-        .widgetURL(URL(string: "fduhole://campus/ecard"))
     }
-    
     @ViewBuilder
     private var content: some View {
         Text("¥\(entry.balance)")
