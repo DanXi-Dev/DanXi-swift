@@ -5,13 +5,9 @@ struct FDIdentityAPI {
     static func getIdentity() async throws -> FDIdentity {
         let url = URL(string: "https://workflow1.fudan.edu.cn/site/fudan/student-information")!
         let data = try await FDAuthAPI.auth(url: url)
-        do {
-            let json = try JSON(data: data)
-            let content = try json["d", "info"].rawData()
-            return try JSONDecoder().decode(FDIdentity.self, from: content)
-        } catch {
-            throw ParseError.invalidJSON
-        }
+        let json = try unwrapJSON(data)
+        let content = try json["info"].rawData()
+        return try JSONDecoder().decode(FDIdentity.self, from: content)
     }
 }
 

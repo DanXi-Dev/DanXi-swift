@@ -7,6 +7,7 @@ public enum FDError: Error {
     case campusOnly
     case notDiningTime
     case termsNotAgreed
+    case customError(message: String)
 }
 
 extension FDError: LocalizedError {
@@ -24,6 +25,8 @@ extension FDError: LocalizedError {
             return NSLocalizedString("Not in dining time", comment: "")
         case .termsNotAgreed:
             return NSLocalizedString("Terms not Agreed", comment: "")
+        case .customError(let message):
+            return String(format: NSLocalizedString("Error: %@", comment: ""), message)
         }
     }
 }

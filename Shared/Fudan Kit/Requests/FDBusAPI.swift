@@ -7,7 +7,7 @@ struct FDBusAPI {
     static func fetchBusRoutes() async throws -> [FDBusRoute] {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanbus/wap/default/lists")!
         let responseData = try await FDAuthAPI.auth(url: url)
-        let routeData = try JSON(data: responseData)["d"]["data"].rawData()
+        let routeData = try unwrapJSON(responseData)["data"].rawData()
         return try processJSONData(routeData)
     }
     
@@ -15,7 +15,7 @@ struct FDBusAPI {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanbus/wap/default/lists")!
         let request = prepareFormRequest(url, form: [URLQueryItem(name: "holiday", value: "1")])
         let (data, _) = try await sendRequest(request)
-        let routeData = try JSON(data: data)["d"]["data"].rawData()
+        let routeData = try unwrapJSON(data)["data"].rawData()
         return try processJSONData(routeData)
     }
 }

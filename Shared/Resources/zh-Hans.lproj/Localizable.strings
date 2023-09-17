@@ -261,6 +261,7 @@
 "Not in dining time" = "不在用餐时间";
 "Unknown Error" = "未知错误";
 "Error description: %@" = "错误原因：%@";
+"Error: %@" = "错误：%@";
 "Invalid Response" = "无效响应";
 "Server response is invalid" = "服务器返回的格式无效";
 "Forbidden" = "禁止访问";
