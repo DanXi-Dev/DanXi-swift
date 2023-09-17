@@ -4,7 +4,7 @@ import Foundation
 
 struct FDCanteenAPI {
     static func getCanteenInfo() async throws -> [FDCanteen] {
-        let url = URL(string: "http://my.fudan.edu.cn/simple_list/stqk")!
+        let url = URL(string: "https://my.fudan.edu.cn/simple_list/stqk")!
         let data = try await FDAuthAPI.auth(url: url)
         let htmlStr = String(data: data, encoding: String.Encoding.utf8)!
         if htmlStr.contains("仅在用餐时段开放") {
@@ -21,7 +21,7 @@ struct FDCanteenAPI {
                 ['0',...],
                 ['49',...])
              ```                                         */
-        let canteenPattern = /initChart\('(?<campus>.*)'.*(?<name>\[.*\]).*\n.*(?<current>\[.*\]),.*\n.*(?<capacity>\[.*\])\)/
+        let canteenPattern = /initStqkChart\('(?<campus>.*)'.*(?<name>\[.*\]).*\n.*(?<current>\[.*\]),.*\n.*(?<capacity>\[.*\])\)/
         let matches = script.matches(of: canteenPattern)
         var canteenList: [FDCanteen] = []
         for match in matches {
