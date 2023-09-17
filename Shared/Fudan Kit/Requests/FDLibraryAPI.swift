@@ -1,22 +1,43 @@
 import Foundation
-import SwiftSoup
+import SwiftyJSON
 
 struct FDLibraryAPI {
-    static func getLibrarySeats() async throws -> [Int] {
-        // cannot access from outside campus
-        let url = URL(string: "https://webvpn.fudan.edu.cn/http/77726476706e69737468656265737421a1a70fc9727e39002f46dffe/book/show")!
-        let (data, _) = try await sendRequest(URLRequest(url: url))
-        let elementList = try processHTMLDataList(data, selector: "div.ceng.nowap > span:nth-child(1)")
-        var libraryPeopleList = [0, 0, 0, 0, 0] // 文图，理图，枫林，张江，江湾
-        var idx = 0
-        for library in elementList {
-            guard idx < libraryPeopleList.count else { break }
-            guard let content = try? library.html() else { continue }
-            guard let number = Int(content.trimmingPrefix("当前在馆人数：")) else { continue }
-            libraryPeopleList[idx] = number
-            idx += 1
+    static func getLibraries() async throws -> [FDLibrary] {
+        let url = URL(string: "https://mlibrary.fudan.edu.cn/api/common/h5/getspaceseat")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let (data, _) = try await sendRequest(request)
+        let libraryData = try JSON(data)["data"].rawData()
+        return try processJSONData(libraryData)
+    }
+}
+
+struct FDLibrary: Decodable, Identifiable {
+    let id: Int
+    let name: String
+    let current: Int
+    let capacity: Int
+    let openTime: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "campusId"
+        case name = "campusName"
+        case current = "inNum"
+        case remain = "canInNumb"
+        case openTime = "libraryOpenTime"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard let id = Int(try container.decode(String.self, forKey: .id)),
+              let current = Int(try container.decode(String.self, forKey: .current)),
+              let remain = Int(try container.decode(String.self, forKey: .remain)) else {
+            throw ParseError.invalidJSON
         }
-        
-        return libraryPeopleList
+        self.id = id
+        self.current = current
+        self.capacity = current + remain
+        self.name = try container.decode(String.self, forKey: .name)
+        self.openTime = try container.decode(String.self, forKey: .openTime)
     }
 }
