@@ -9,6 +9,10 @@ struct SettingsPage: View {
     @State private var forumLoginSheet = false
     @State private var forumUserSheet = false
     
+    var showToolbar: Bool {
+        campusModel.isLogged || forumModel.isLogged
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -73,6 +77,7 @@ struct SettingsPage: View {
                 DXUserSheet(user: user)
             }
         }
+        .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
     }
 }
 
