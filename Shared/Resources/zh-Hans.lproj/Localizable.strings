@@ -365,6 +365,10 @@
 "Fudan Campus Login" = "复旦校园服务";
 "Login with Fudan campus account (UIS) to access various campus services" = "使用复旦大学校园账户（UIS）来访问各种校园服务";
 "Fudan.ID" = "学/工号";
+"Student Type" = "学生类别";
+"Undergraduate" = "本科生";
+"Graduate" = "研究生";
+"Staff" = "教职工";
 
 // Fudan QR Code
 "Fudan QR Code" = "复旦生活码";

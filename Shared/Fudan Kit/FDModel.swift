@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 import KeychainAccess
 
 class FDModel: ObservableObject {
@@ -14,7 +14,10 @@ class FDModel: ObservableObject {
     func clearAll() {
         username = nil
         password = nil
+        studentType = .undergrad
     }
+    
+    @AppStorage("fd-student-type") var studentType = FDStudentType.undergrad
     
     // MARK: - Authentication
     
@@ -39,4 +42,10 @@ class FDModel: ObservableObject {
         isLogged = false
         clearAll()
     }
+}
+
+enum FDStudentType: Int {
+    case undergrad = 0
+    case grad
+    case staff
 }

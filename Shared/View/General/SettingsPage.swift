@@ -38,6 +38,18 @@ struct SettingsPage: View {
                     }
                 }
                 
+                if campusModel.isLogged {
+                    Section("Campus.Tab") {
+                        Picker(selection: $campusModel.studentType) {
+                            Text("Undergraduate").tag(FDStudentType.undergrad)
+                            Text("Graduate").tag(FDStudentType.grad)
+                            Text("Staff").tag(FDStudentType.staff)
+                        } label: {
+                            Label("Student Type", systemImage: "graduationcap")
+                        }
+                    }
+                }
+                
                 if forumModel.isLogged {
                     THSettingsView()
                 }

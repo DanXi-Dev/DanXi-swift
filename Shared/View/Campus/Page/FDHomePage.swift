@@ -1,13 +1,18 @@
 import SwiftUI
 
 struct FDHomePage: View {
+    @ObservedObject private var model = FDModel.shared
     @StateObject private var navigator = FDNavigator()
     
     var body: some View {
         NavigationStack(path: $navigator.path) {
             List {
                 ForEach(navigator.pages, id: \.self) { section in
-                    FDHomeSimpleLink(section: section)
+                    if (model.studentType == .undergrad) ||
+                       (model.studentType == .grad && !FDSection.gradHidden.contains(section)) ||
+                       (model.studentType == .staff && !FDSection.staffHidden.contains(section)) {
+                        FDHomeSimpleLink(section: section)
+                    }
                 }
                 .onMove { from, to in
                     navigator.pages.move(fromOffsets: from, toOffset: to)

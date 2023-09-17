@@ -129,18 +129,18 @@ struct SplitHomePage: View {
             }
             .navigationTitle("DanXi")
         } detail: {
-                switch model.section {
-                case .campus:
-                    FDHomePage()
-                case .forum:
-                    THHomePage()
-                case .curriculum:
-                    DKHomePage()
-                case .calendar:
-                    FDCalendarPageLoader()
-                case .settings:
-                    SettingsPage()
-                }
+            switch model.section {
+            case .campus:
+                FDHomePage()
+            case .forum:
+                THHomePage()
+            case .curriculum:
+                DKHomePage()
+            case .calendar:
+                FDCalendarPageLoader()
+            case .settings:
+                SettingsPage()
             }
+        }
     }
 }

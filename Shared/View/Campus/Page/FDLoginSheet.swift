@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FDLoginSheet: View {
+    @ObservedObject private var model = FDModel.shared
     @State private var username = ""
     @State private var password = ""
     
@@ -10,11 +11,20 @@ struct FDLoginSheet: View {
         } content: {
             FormTitle(title: "Fudan Campus Account", description: "Login with Fudan campus account (UIS) to access various campus services")
             
-            LabeledEntry("Fudan.ID") {
-                TextField("Required", text: $username)
-            }
-            LabeledEntry("Password") {
-                SecureField("Required", text: $password)
+            Section {
+                LabeledEntry("Student Type") {
+                    Picker("", selection: $model.studentType) {
+                        Text("Undergraduate").tag(FDStudentType.undergrad)
+                        Text("Graduate").tag(FDStudentType.grad)
+                        Text("Staff").tag(FDStudentType.staff)
+                    }
+                }
+                LabeledEntry("Fudan.ID") {
+                    TextField("Required", text: $username)
+                }
+                LabeledEntry("Password") {
+                    SecureField("Required", text: $password)
+                }
             }
         }
         .completed(!username.isEmpty && !password.isEmpty)
@@ -22,3 +32,6 @@ struct FDLoginSheet: View {
     }
 }
 
+#Preview {
+    FDLoginSheet()
+}

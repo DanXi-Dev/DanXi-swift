@@ -24,4 +24,6 @@ class FDNavigator: ObservableObject {
 
 enum FDSection: String, Codable, CaseIterable {
     case sport, pay, bus, ecard, score, rank, playground, courses, electricity, notice, library, canteen
+    static let gradHidden: Set<FDSection> = [.sport, .rank, .score]
+    static let staffHidden: Set<FDSection> = [.sport, .rank, .score, .electricity]
 }
