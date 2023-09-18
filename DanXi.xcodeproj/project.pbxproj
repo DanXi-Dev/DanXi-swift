@@ -69,6 +69,8 @@
 		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
+		276310272AB82B99005896AD /* FDCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276310262AB82B99005896AD /* FDCalendarView.swift */; };
+		2763102B2AB8380E005896AD /* FDGradCaledarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA028A3E4DF00C661BD /* DKCourseView.swift */; };
 		27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA528A3EAB100C661BD /* DKHomePage.swift */; };
@@ -310,6 +312,8 @@
 		27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WigdetExtension.entitlements; sourceTree = "<group>"; };
 		275B71CC28C5249800475BA3 /* THReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportPage.swift; sourceTree = "<group>"; };
 		275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDivisionSheet.swift; sourceTree = "<group>"; };
+		276310262AB82B99005896AD /* FDCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarView.swift; sourceTree = "<group>"; };
+		2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDGradCaledarPage.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
 		27719AA028A3E4DF00C661BD /* DKCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCourseView.swift; sourceTree = "<group>"; };
 		27719AA528A3EAB100C661BD /* DKHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKHomePage.swift; sourceTree = "<group>"; };
@@ -456,9 +460,9 @@
 			isa = PBXGroup;
 			children = (
 				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
-				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
 				27E82FEC29E8977400F34B3B /* FDCoursePage.swift */,
 				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
+				2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */,
 				270131922A3C28FB0013FA7E /* FDCanteenPage.swift */,
 				2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */,
 				270131902A3C27F20013FA7E /* FDLibraryPage.swift */,
@@ -517,6 +521,16 @@
 				27536EC729DC9A8300894A98 /* Info.plist */,
 			);
 			path = Widget;
+			sourceTree = "<group>";
+		};
+		276310252AB82B4B005896AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
+				276310262AB82B99005896AD /* FDCalendarView.swift */,
+				2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2778D6342891D316009F4DB1 /* Resources */ = {
@@ -624,6 +638,7 @@
 		27CBA07B2952219D00F422DB /* Campus */ = {
 			isa = PBXGroup;
 			children = (
+				276310252AB82B4B005896AD /* View */,
 				27A5DA2929D77E340042D28D /* Model */,
 				270131892A3B46A00013FA7E /* Page */,
 			);
@@ -731,7 +746,6 @@
 				27DAFA7829CC50E100F32093 /* AsnyncButton.swift */,
 				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
 				27063AB929FB094C0060AC8B /* AsyncCollection.swift */,
-				2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */,
 				27CAD2312A32AD94008F3D19 /* FoldedView.swift */,
 				27C95B412A8B90FE000A614B /* FormTitle.swift */,
 				2751E52928BFB33800104ACD /* MarkdownView.swift */,
@@ -1106,6 +1120,7 @@
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
+				276310272AB82B99005896AD /* FDCalendarView.swift in Sources */,
 				27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */,
 				27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
@@ -1203,6 +1218,7 @@
 				27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */,
 				27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */,
 				2733CA172AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
+				2763102B2AB8380E005896AD /* FDGradCaledarPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,7 +83,7 @@ struct FDGradCalendar {
     let all: [FDGradTerm]
 }
 
-struct FDGradTerm: Identifiable, Decodable {
+struct FDGradTerm: Identifiable, Decodable, Hashable {
     let id = UUID()
     let year: String
     let term: String

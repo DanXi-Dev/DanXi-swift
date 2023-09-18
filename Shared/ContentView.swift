@@ -78,11 +78,17 @@ struct TabHomePage: View {
             }
             
             if campusModel.isLogged {
-                FDCalendarPageLoader()
-                    .tag(AppSection.calendar)
-                    .tabItem {
-                        Label("Calendar", systemImage: "calendar")
+                Group {
+                    if campusModel.studentType == .undergrad {
+                        FDCalendarPageLoader()
+                    } else {
+                        FDGradCalendarPage()
                     }
+                }
+                .tag(AppSection.calendar)
+                .tabItem {
+                    Label("Calendar", systemImage: "calendar")
+                }
             }
             
             SettingsPage()
@@ -121,8 +127,13 @@ struct SplitHomePage: View {
                         .tag(AppSection.curriculum)
                 }
                 if campusModel.isLogged {
-                    Label("Calendar", systemImage: "calendar")
-                        .tag(AppSection.calendar)
+                    Group {
+                        if campusModel.studentType == .undergrad {
+                            FDCalendarPageLoader()
+                        } else {
+                            FDGradCalendarPage()
+                        }
+                    }
                 }
                 Label("Settings", systemImage: "gearshape")
                     .tag(AppSection.settings)
