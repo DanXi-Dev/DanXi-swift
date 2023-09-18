@@ -1,11 +1,15 @@
 import SwiftUI
+#if os(iOS)
 import SafariServices
 import BetterSafariView
+#endif
 
 struct FDNoticePage: View {
     @State private var authenticated = false
     @State private var page = 1
     @State private var presentLink: AuthenticatedLink?
+    
+    #if os(iOS)
     let configuration: SFSafariViewController.Configuration
     
     init() {
@@ -14,6 +18,7 @@ struct FDNoticePage: View {
         configuration.barCollapsingEnabled = false
         self.configuration = configuration
     }
+    #endif
     
     private func loadNotice() async throws -> [FDNotice] {
         let notices = try await FDNoticeAPI.getNoticeList(page)
@@ -41,6 +46,7 @@ struct FDNoticePage: View {
             AsyncCollection { _ in
                 return try await loadNotice()
             } content: { notice in
+                #if os(iOS)
                 Button {
                     Task {
                         await authenticateLink(notice: notice)
@@ -48,12 +54,21 @@ struct FDNoticePage: View {
                 } label: {
                     NoticeView(notice: notice)
                 }
+                #endif
+                
+                #if os(watchOS)
+                Link(destination: notice.link) {
+                    NoticeView(notice: notice)
+                }
+                #endif
             }
         }
         .navigationTitle("Academic Office Announcements")
+        #if os(iOS)
         .safariView(item: $presentLink) { link in
             SafariView(url: link.url, configuration: configuration)
         }
+        #endif
     }
 }
 

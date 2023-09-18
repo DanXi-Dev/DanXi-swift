@@ -63,7 +63,7 @@ struct Sheet<Content: View>: View {
             .navigationTitle(titleText)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     if loading {
                         ProgressView()
                     } else {

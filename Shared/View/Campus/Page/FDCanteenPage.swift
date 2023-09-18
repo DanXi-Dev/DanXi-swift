@@ -13,7 +13,9 @@ struct FDCanteenPage: View {
                 }
                 .headerProminence(.increased)
             }
+            #if os(iOS)
             .listStyle(.sidebar) // support fold section
+            #endif
             .navigationTitle("Canteen Popularity")
         }
     }

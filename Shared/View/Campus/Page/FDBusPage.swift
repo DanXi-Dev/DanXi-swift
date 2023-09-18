@@ -56,7 +56,9 @@ fileprivate struct BusPageContent: View {
                     Text("Workday").tag(FDBusType.workday)
                     Text("Holiday").tag(FDBusType.holiday)
                 }
+                #if os(iOS)
                 .pickerStyle(.segmented)
+                #endif
             }
             
             Section {

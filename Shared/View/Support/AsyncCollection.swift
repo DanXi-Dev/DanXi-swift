@@ -62,7 +62,9 @@ fileprivate struct SimpleAsyncCollection<Item: Identifiable, Content: View>: Vie
             }
             
             footer
+                #if os(iOS)
                 .listRowSeparator(.hidden, edges: .bottom)
+                #endif
         }
         .task {
             await loadMore()
@@ -83,7 +85,11 @@ fileprivate struct SimpleAsyncCollection<Item: Identifiable, Content: View>: Vie
                         await loadMore()
                     }
                 } else {
+                    #if os(iOS)
                     LoadingView()
+                    #else
+                    ProgressView()
+                    #endif
                 }
                 Spacer()
             }
@@ -134,7 +140,9 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
                     }
             }
             footer
+                #if os(iOS)
                 .listRowSeparator(.hidden, edges: .bottom)
+                #endif
         }
         .task {
             await loadMore()
@@ -156,10 +164,14 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
                         await loadMore()
                     }
                 } else if !endReached {
+                    #if os(iOS)
                     // use UIKit wrapped view to make custom control of animation starting and ending.
                     // In SwiftUI there is a bug that ProgressView may not appearing.
                     // I guess this may be related to the `hidesWhenStopped` property.
                     LoadingView()
+                    #else
+                    ProgressView()
+                    #endif
                 }
                 Spacer()
             }
@@ -168,6 +180,7 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
     }
 }
 
+#if os(iOS)
 fileprivate struct LoadingView: View {
     @State private var isAnimating = false
     
@@ -203,6 +216,7 @@ fileprivate struct ActivityIndicatorView: UIViewRepresentable {
         uiView.stopAnimating()
     }
 }
+#endif
 
 fileprivate struct ErrorView: View {
     private let action: () async -> Void

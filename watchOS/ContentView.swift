@@ -1,13 +1,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showLoginSheet = false
+    
     var body: some View {
-        Text("DanXi")
+        FDHomePage()
+            .onAppear {
+                if !FDModel.shared.isLogged {
+                    showLoginSheet = true
+                }
+            }
+            .sheet(isPresented: $showLoginSheet) {
+                FDLoginSheet()
+            }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView()
 }

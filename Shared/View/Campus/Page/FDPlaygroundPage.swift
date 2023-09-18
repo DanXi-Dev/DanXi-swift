@@ -104,12 +104,15 @@ fileprivate struct TimeSlotView: View {
                     .foregroundColor(.secondary)
             }
         }
+        #if os(iOS)
         .sheet(isPresented: $showSheet) {
             ReservationSheet(timeSlot)
         }
+        #endif
     }
 }
 
+#if os(iOS)
 fileprivate struct ReservationSheet: View {
     let timeSlot: FDPlaygroundTimeSlot
     let request: URLRequest?
@@ -139,3 +142,4 @@ fileprivate struct ReservationSheet: View {
         }
     }
 }
+#endif

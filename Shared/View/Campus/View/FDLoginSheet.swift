@@ -12,6 +12,7 @@ struct FDLoginSheet: View {
             FormTitle(title: "Fudan Campus Account", description: "Login with Fudan campus account (UIS) to access various campus services")
             
             Section {
+                #if os(iOS)
                 LabeledEntry("Student Type") {
                     Picker("", selection: $model.studentType) {
                         Text("Undergraduate").tag(FDStudentType.undergrad)
@@ -25,6 +26,15 @@ struct FDLoginSheet: View {
                 LabeledEntry("Password") {
                     SecureField("Required", text: $password)
                 }
+                #else
+                Picker("Student Type", selection: $model.studentType) {
+                    Text("Undergraduate").tag(FDStudentType.undergrad)
+                    Text("Graduate").tag(FDStudentType.grad)
+                    Text("Staff").tag(FDStudentType.staff)
+                }
+                TextField("Fudan.ID", text: $username)
+                SecureField("Password", text: $password)
+                #endif
             }
         }
         .completed(!username.isEmpty && !password.isEmpty)

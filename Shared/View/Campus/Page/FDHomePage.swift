@@ -69,22 +69,24 @@ fileprivate struct FDHomeDestination: View {
     
     var body: some View {
         switch section {
-        case .sport:
-            FDSportPage()
+        #if os(iOS)
         case .pay:
             FDPayPage()
+        case .courses:
+            FDClassroomPage()
+        case .score:
+            FDScorePage()
+        #endif
+        case .sport:
+            FDSportPage()
         case .bus:
             FDBusPage()
         case .ecard:
             FDECardPage()
-        case .score:
-            FDScorePage()
         case .rank:
             FDRankPage()
         case .playground:
             FDPlaygroundPage()
-        case .courses:
-            FDClassroomPage()
         case .electricity:
             FDElectricityPage()
         case .notice:
@@ -93,6 +95,10 @@ fileprivate struct FDHomeDestination: View {
             FDLibraryPage()
         case .canteen:
             FDCanteenPage()
+        #if os(watchOS)
+        default:
+            Text("Not Supported")
+        #endif
         }
     }
 }
