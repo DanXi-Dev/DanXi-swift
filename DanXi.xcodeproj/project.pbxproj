@@ -81,6 +81,7 @@
 		27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF429D600E1008DC0C2 /* THSettingsView.swift */; };
 		27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF629D6012E008DC0C2 /* THSettingsModel.swift */; };
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
+		278996FC2AB78464009A7529 /* FDGradAgendaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */; };
 		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
 		278F83C02AAFE9D2008ED56C /* FDIdentityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F83BF2AAFE9D2008ED56C /* FDIdentityAPI.swift */; };
@@ -321,6 +322,7 @@
 		27834AF429D600E1008DC0C2 /* THSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsView.swift; sourceTree = "<group>"; };
 		27834AF629D6012E008DC0C2 /* THSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsModel.swift; sourceTree = "<group>"; };
 		27834AF829D6261E008DC0C2 /* THMyPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMyPostPage.swift; sourceTree = "<group>"; };
+		278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDGradAgendaAPI.swift; sourceTree = "<group>"; };
 		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
 		278F83BF2AAFE9D2008ED56C /* FDIdentityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDIdentityAPI.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 			children = (
 				2706604E29312D8200F4C321 /* FDAuthAPI.swift */,
 				2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */,
+				278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */,
 				27DDBABA29A50190008849D1 /* FDBusAPI.swift */,
 				27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */,
 				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
@@ -1090,6 +1093,7 @@
 				270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */,
 				27013BD629D02A67004A5D2F /* THSearchPage.swift in Sources */,
+				278996FC2AB78464009A7529 /* FDGradAgendaAPI.swift in Sources */,
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
