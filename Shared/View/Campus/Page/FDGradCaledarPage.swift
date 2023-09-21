@@ -87,7 +87,7 @@ fileprivate struct CalendarContent: View {
                 TimeslotsSidebar()
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack {
-                        DateHeader()
+                        DateHeader(model.weekStart)
                         CourseTable(courses: model.currentCourses)
                     }
                 }
@@ -97,70 +97,35 @@ fileprivate struct CalendarContent: View {
     }
 }
 
-fileprivate struct DateHeader: View {
-    @EnvironmentObject private var model: CalendarModel
-    @Environment(\.calendar) private var calendar
-    
-    @ScaledMetric private var x = FDCalendarConfig.x
-    @ScaledMetric private var y = FDCalendarConfig.y
-    @ScaledMetric private var dx = FDCalendarConfig.dx
-    @ScaledMetric private var dy = FDCalendarConfig.dy
-    
-    @ScaledMetric private var dateFont = 15
-    @ScaledMetric private var weekFont = 10
-    
-    
-    var body: some View {
-        ZStack {
-            ForEach(0..<7) { i in
-                let point = CGPoint(x: dx / 2 + CGFloat(i) * dx, y: y/2)
-                let date = calendar.date(byAdding: .day, value: i, to: model.weekStart)!
-                let isToday = calendar.isDateInToday(date)
-                VStack(alignment: .center, spacing: 10) {
-                    Text(date.formatted(.dateTime.month(.defaultDigits).day()))
-                        .foregroundColor(isToday ? .accentColor : .primary)
-                        .font(.system(size: dateFont))
-                    Text(date.formatted(.dateTime.weekday(.abbreviated)))
-                        .font(.system(size: weekFont))
-                }
-                .fontWeight(isToday ? .bold : .regular)
-                .position(point)
-            }
-        }
-        .frame(width: 7 * dx, height: y)
-    }
-}
-
 fileprivate struct CourseTable: View {
     let courses: [FDGradCourse]
     
     @State private var selectedCourse: FDGradCourse?
     
-    @ScaledMetric private var x = FDCalendarConfig.x
-    @ScaledMetric private var y = FDCalendarConfig.y
-    @ScaledMetric private var dx = FDCalendarConfig.dx
-    @ScaledMetric private var dy = FDCalendarConfig.dy
-    let h = FDCalendarConfig.h
+    private let h = FDCalendarConfig.h
     
     var body: some View {
-        ZStack {
-            GridBackground(width: 7)
-            
-            ForEach(courses) { course in
-                let length = CGFloat(course.end + 1 - course.start) * dy
-                let point = CGPoint(x: CGFloat(course.weekday - 1) * dx + dx / 2,
-                                    y: CGFloat(course.start - 1) * dy + length / 2)
-                FDCourseView(title: course.name, subtitle: course.location, length: length)
+        CalDimensionReader { dim in
+            ZStack {
+                GridBackground(width: 7)
+                
+                ForEach(courses) { course in
+                    let length = CGFloat(course.end + 1 - course.start) * dim.dy
+                    let point = CGPoint(x: CGFloat(course.weekday - 1) * dim.dx + dim.dx / 2,
+                                        y: CGFloat(course.start - 1) * dim.dy + length / 2)
+                    FDCourseView(title: course.name, subtitle: course.location,
+                                 span: course.end + 1 - course.start)
                     .position(point)
                     .onTapGesture {
                         selectedCourse = course
                     }
+                }
             }
-        }
-        .frame(width: 7 * dx, height: CGFloat(h) * dy)
-        .sheet(item: $selectedCourse) { course in
-            CourseDetailSheet(course: course)
-                .presentationDetents([.medium])
+            .frame(width: 7 * dim.dx, height: CGFloat(h) * dim.dy)
+            .sheet(item: $selectedCourse) { course in
+                CourseDetailSheet(course: course)
+                    .presentationDetents([.medium])
+            }
         }
     }
 }

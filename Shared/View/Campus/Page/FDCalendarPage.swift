@@ -64,7 +64,7 @@ struct FDCalendarPage: View {
                     TimeslotsSidebar()
                     ScrollView(.horizontal, showsIndicators: false) {
                         VStack {
-                            DateHeader()
+                            DateHeader(model.weekStart)
                             CalendarEvents()
                         }
                     }
@@ -198,34 +198,31 @@ fileprivate struct CalendarEvents: View {
     @EnvironmentObject private var model: FDCalendarModel
     @State private var selectedCourse: FDCourse?
     
-    @ScaledMetric private var x = FDCalendarConfig.x
-    @ScaledMetric private var y = FDCalendarConfig.y
-    @ScaledMetric private var dx = FDCalendarConfig.dx
-    @ScaledMetric private var dy = FDCalendarConfig.dy
-    let h = FDCalendarConfig.h
-    
+    private let h = FDCalendarConfig.h
     @ScaledMetric private var courseTitle = 15
     @ScaledMetric private var courseLocation = 10
     
     var body: some View {
-        ZStack {
-            GridBackground(width: 7)
-            
-            ForEach(model.weekCourses) { course in
-                let length = CGFloat(course.end + 1 - course.start) * dy
-                let point = CGPoint(x: CGFloat(course.weekday) * dx + dx / 2,
-                                    y: CGFloat(course.start) * dy + length / 2)
-                FDCourseView(title: course.name, subtitle: course.location, length: length)
+        CalDimensionReader { dim in
+            ZStack {
+                GridBackground(width: 7)
+                ForEach(model.weekCourses) { course in
+                    let length = CGFloat(course.end + 1 - course.start) * dim.dy
+                    let point = CGPoint(x: CGFloat(course.weekday) * dim.dx + dim.dx / 2,
+                                        y: CGFloat(course.start) * dim.dy + length / 2)
+                    FDCourseView(title: course.name, subtitle: course.location,
+                                 span: course.end - course.start + 1)
                     .position(point)
                     .onTapGesture {
                         selectedCourse = course
                     }
+                }
             }
-        }
-        .frame(width: 7 * dx, height: CGFloat(h) * dy)
-        .sheet(item: $selectedCourse) { course in
-            CourseDetailSheet(course: course)
-                .presentationDetents([.medium])
+            .frame(width: 7 * dim.dx, height: CGFloat(h) * dim.dy)
+            .sheet(item: $selectedCourse) { course in
+                CourseDetailSheet(course: course)
+                    .presentationDetents([.medium])
+            }
         }
     }
 }
@@ -261,45 +258,6 @@ fileprivate struct CourseDetailSheet: View {
             .navigationTitle("Course Detail")
             .navigationBarTitleDisplayMode(.inline)
         }
-    }
-}
-
-// MARK: - Frameworks
-
-fileprivate struct DateHeader: View {
-    @Environment(\.calendar) private var calendar
-    @EnvironmentObject private var model: FDCalendarModel
-    
-    @ScaledMetric private var x = FDCalendarConfig.x
-    @ScaledMetric private var y = FDCalendarConfig.y
-    @ScaledMetric private var dx = FDCalendarConfig.dx
-    @ScaledMetric private var dy = FDCalendarConfig.dy
-    let h = FDCalendarConfig.h
-    
-    @ScaledMetric private var dateFont = 15
-    @ScaledMetric private var weekFont = 10
-    
-    var body: some View {
-        ZStack {
-            let weekStart = model.weekStart ?? FDCalendarModel.getWeekStart()
-            ForEach(0..<7) { i in
-                let point = CGPoint(x: dx / 2 + CGFloat(i) * dx, y: y/2)
-                let date = calendar.date(byAdding: .day, value: i, to: weekStart)!
-                let isToday = calendar.isDateInToday(date)
-                VStack(alignment: .center, spacing: 10) {
-                    if model.weekStart != nil {
-                        Text(date.formatted(.dateTime.month(.defaultDigits).day()))
-                            .foregroundColor(isToday ? .accentColor : .primary)
-                            .font(.system(size: dateFont))
-                    }
-                    Text(date.formatted(.dateTime.weekday(.abbreviated)))
-                        .font(.system(size: weekFont))
-                }
-                .fontWeight(isToday ? .bold : .regular)
-                .position(point)
-            }
-        }
-        .frame(width: 7 * dx, height: y)
     }
 }
 
