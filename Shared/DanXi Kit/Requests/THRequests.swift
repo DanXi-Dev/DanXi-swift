@@ -173,16 +173,26 @@ struct THRequests {
                             floorId: Int,
                             specialTag: String = "",
                             fold: String = "") async throws -> THFloor {
-        struct EditConfig: Codable {
+        struct AdminEditConfig: Codable {
             let content: String
             let specialTag: String
             let foldV2: String
         }
         
-        let payload = EditConfig(content: content, specialTag: specialTag, foldV2: fold)
-        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
-                                    payload: payload,
-                                    method: "PUT")
+        struct EditConfig: Codable {
+            let content: String
+        }
+        
+        let isAdmin = !fold.isEmpty || !specialTag.isEmpty
+        if isAdmin {
+            return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+                                        payload: AdminEditConfig(content: content, specialTag: specialTag, foldV2: fold),
+                                        method: "PUT")
+        } else {
+            return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
+                                        payload: EditConfig(content: content),
+                                        method: "PUT")
+        }
     }
     
     
