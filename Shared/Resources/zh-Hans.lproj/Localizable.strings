@@ -138,6 +138,7 @@
 "Recipients" = "收件人";
 "User IDs, separated by ASCII comma." = "输入英文逗号分隔的数字";
 "Invalid Recipients Format" = "收件人格式无效";
+"All Banners" = "所有横幅";
 
 // Treehole floor
 "Report" = "举报";

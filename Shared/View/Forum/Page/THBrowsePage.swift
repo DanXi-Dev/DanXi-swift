@@ -10,7 +10,7 @@ struct THBrowsePage: View {
             THDivisionPicker()
             
             if !appModel.banners.isEmpty && settings.showBanners {
-                BannerView(appModel.banners)
+                BannerCarousel(appModel.banners)
             }
             
             // Banned Notice
@@ -216,17 +216,12 @@ fileprivate struct BannedNotice: View {
     }
 }
 
-fileprivate struct BannerView: View {
+fileprivate struct BannerCarousel: View {
     let banners: [DXBanner]
+    @State private var showSheet = false
     @State private var currentBanner: Int = 0
-    
-    @Environment(\.openURL) private var openURL
-    @EnvironmentObject private var navigator: THNavigator
-    private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
-    @ScaledMetric private var height: CGFloat = 40
     @ScaledMetric private var containerHeight: CGFloat = 70
-    
-    @ScaledMetric private var fontSize: CGFloat = 15
+    private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
     
     init(_ banners: [DXBanner]) {
         self.banners = banners
@@ -242,41 +237,14 @@ fileprivate struct BannerView: View {
         }
     }
     
-    private func actionButton(_ action: String) {
-        if let holeMatch = action.wholeMatch(of: /#(?<id>\d+)/),
-           let holeId = Int(holeMatch.id) {
-            let loader = THHoleLoader(holeId: holeId)
-            navigator.path.append(loader)
-        } else if let floorMatch = action.wholeMatch(of: /##(?<id>\d+)/),
-                  let floorId = Int(floorMatch.id) {
-            let loader = THHoleLoader(floorId: floorId)
-            navigator.path.append(loader)
-        } else if let url = URL(string: action) {
-            openURL(url)
-        }
-    }
-    
     var body: some View {
         TabView(selection: $currentBanner) {
             ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
-                HStack {
-                    Image(systemName: "bell.fill")
-                        .foregroundColor(.accentColor)
-                    Text(banner.title)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-                    Spacer()
-                    Button(banner.actionName) {
-                        actionButton(banner.action)
+                BannerView(banner: banner)
+                    .tag(index)
+                    .onTapGesture {
+                        showSheet = true
                     }
-                }
-                .font(.system(size: fontSize))
-                .frame(height: height)
-                .padding()
-                .background(.gray.opacity(0.1))
-                .cornerRadius(15)
-                .padding(.horizontal)
-                .tag(index)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -287,5 +255,75 @@ fileprivate struct BannerView: View {
         .onReceive(timer) { _ in
             updateBanner()
         }
+        .sheet(isPresented: $showSheet) {
+            NavigationStack {
+                ScrollView {
+                    ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
+                        BannerView(banner: banner) {
+                            showSheet = false // dismiss sheet when navigate to a hole page
+                        }
+                    }
+                }
+                .navigationTitle("All Banners")
+                .navigationBarTitleDisplayMode(.inline)
+            }
+            .presentationDetents([.medium, .large])
+        }
+        
+    }
+}
+
+fileprivate struct BannerView: View {
+    let banner: DXBanner
+    let navigationTapCallback: () -> Void
+    @Environment(\.openURL) private var openURL
+    @EnvironmentObject private var navigator: THNavigator
+    @ScaledMetric private var height: CGFloat = 40
+    @ScaledMetric private var fontSize: CGFloat = 15
+    
+    init(banner: DXBanner, navigationTapCallback: (() -> Void)? = nil) {
+        self.banner = banner
+        if let callback = navigationTapCallback {
+            self.navigationTapCallback = callback
+        } else {
+            self.navigationTapCallback = { } // empty closure
+        }
+    }
+    
+    
+    private func actionButton(_ action: String) {
+        if let holeMatch = action.wholeMatch(of: /#(?<id>\d+)/),
+           let holeId = Int(holeMatch.id) {
+            let loader = THHoleLoader(holeId: holeId)
+            navigator.path.append(loader)
+            navigationTapCallback()
+        } else if let floorMatch = action.wholeMatch(of: /##(?<id>\d+)/),
+                  let floorId = Int(floorMatch.id) {
+            let loader = THHoleLoader(floorId: floorId)
+            navigator.path.append(loader)
+            navigationTapCallback()
+        } else if let url = URL(string: action) {
+            openURL(url)
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "bell.fill")
+                .foregroundColor(.accentColor)
+            Text(banner.title)
+                .multilineTextAlignment(.leading)
+                .lineLimit(3)
+            Spacer()
+            Button(banner.actionName) {
+                actionButton(banner.action)
+            }
+        }
+        .font(.system(size: fontSize))
+        .frame(height: height)
+        .padding()
+        .background(.gray.opacity(0.1))
+        .cornerRadius(15)
+        .padding(.horizontal)
     }
 }
