@@ -151,10 +151,13 @@ class THModel: ObservableObject {
         // use async-let to parallel load
         async let favoriteIds = try await THRequests.loadFavoritesIds()
         async let divisions = try await THRequests.loadDivisions()
-        async let tags = try await loadTags()
         self.favoriteIds = try await favoriteIds
         self.divisions = try await divisions
-        self.tags = try await tags
+        
+        // load tags takes a lot of time, load in the background
+        Task {
+            self.tags = try await loadTags()
+        }
         
         if let browseHistory = try? Disk.retrieve("fduhole/history.json", from: .applicationSupport, as: [THBrowseHistory].self) {
             self.browseHistory = browseHistory

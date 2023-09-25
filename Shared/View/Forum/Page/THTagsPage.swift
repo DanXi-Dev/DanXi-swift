@@ -15,21 +15,25 @@ struct THTagsPage: View {
     }
     
     var body: some View {
-        THBackgroundList {
-            ForEach(filteredTags) { tag in
-                NavigationLink(value: tag) {
-                    HStack {
-                        Label(tag.name, systemImage: "tag")
-                            .foregroundColor(randomColor(tag.name))
-                        Label(String(tag.temperature), systemImage: "flame")
-                            .font(.footnote)
-                            .foregroundColor(.separator)
+        AsyncContentView(finished: !appModel.tags.isEmpty) {
+            appModel.tags = try await appModel.loadTags()
+        } content: { 
+            THBackgroundList {
+                ForEach(filteredTags) { tag in
+                    NavigationLink(value: tag) {
+                        HStack {
+                            Label(tag.name, systemImage: "tag")
+                                .foregroundColor(randomColor(tag.name))
+                            Label(String(tag.temperature), systemImage: "flame")
+                                .font(.footnote)
+                                .foregroundColor(.separator)
+                        }
                     }
                 }
             }
+            .listStyle(.inset)
+            .navigationTitle("All Tags")
+            .searchable(text: $query, prompt: Text("Search in Tags"))
         }
-        .listStyle(.inset)
-        .navigationTitle("All Tags")
-        .searchable(text: $query, prompt: Text("Search in Tags"))
     }
 }

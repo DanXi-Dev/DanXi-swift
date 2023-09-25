@@ -7,8 +7,8 @@ struct THHomePage: View {
     
     var body: some View {
         AsyncContentView(finished: forumModel.loaded) {
+            _ = try await appModel.loadUser() // load user first to prevent concurrently refresh token
             try await forumModel.loadAll()
-            _ = try await appModel.loadUser()
         } content: {
             NavigationStack(path: $navigator.path) {
                 THBrowseWrapper()
