@@ -215,6 +215,12 @@
 "Add to Favorites" = "收藏";
 "Remove from Favorites" = "移除收藏";
 "Toggle Favorite Failed" = "切换收藏失败";
+"Subscribe" = "关注";
+"Unsubscribe" = "取消关注";
+"Subscription List" = "关注贴列表";
+"Empty Subscription List" = "无关注贴";
+"Remove Subscription Error" = "移除关注失败";
+
 "Don't Show This Hole" = "不显示此洞";
 "Show OP Only" = "只看洞主";
 "Show All" = "全部回贴";

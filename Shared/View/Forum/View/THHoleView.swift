@@ -167,6 +167,21 @@ fileprivate struct PreviewActions: View {
                 }
             }
             
+            AsyncButton {
+                if appModel.isSubscribed(hole.id) {
+                    try await appModel.deleteSubscription(hole.id)
+                } else {
+                    try await appModel.addSubscription(hole.id)
+                }
+                haptic()
+            } label: {
+                if appModel.isSubscribed(hole.id) {
+                    Label("Unsubscribe", systemImage: "bell.slash")
+                } else {
+                    Label("Subscribe", systemImage: "bell")
+                }
+            }
+            
             Button {
                 if !settings.blockedHoles.contains(hole.id) {
                     withAnimation {

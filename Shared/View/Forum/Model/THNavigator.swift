@@ -14,6 +14,8 @@ class THNavigator: ObservableObject {
             switch base {
             case "favorite":
                 setSection(.favorite)
+            case "subscription":
+                setSection(.subscription)
             case "my-post":
                 setSection(.mypost)
             case "tags":
@@ -49,6 +51,7 @@ class THNavigator: ObservableObject {
 
 enum THPage {
     case favorite
+    case subscription
     case mypost
     case tags
     case notifications

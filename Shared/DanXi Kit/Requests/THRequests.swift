@@ -366,6 +366,52 @@ struct THRequests {
         return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/tags")!)
     }
     
+    // MARK: Subscriptions
+    
+    static func loadSubscriptionIds() async throws -> [Int] {
+        struct Response: Codable {
+            let data: [Int]
+        }
+        var component = URLComponents(string: FDUHOLE_BASE_URL + "/users/subscriptions")!
+        component.queryItems = [URLQueryItem(name: "plain", value: "true")]
+        let response: Response = try await DXResponse(component.url!)
+        return response.data
+    }
+    
+    static func loadSubscriptions() async throws -> [THHole] {
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/subscriptions")!)
+    }
+    
+    static func addSubscription(_ holeId: Int) async throws -> [Int] {
+        struct AddConfig: Codable {
+            let holeId: Int
+        }
+        
+        struct Response: Codable {
+            let data: [Int]
+        }
+        
+        let payload = AddConfig(holeId: holeId)
+        let response: Response = try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/subscriptions")!,
+                                                      payload: payload)
+        return response.data
+    }
+    
+    static func deleteSubscription(_ holeId: Int) async throws -> [Int] {
+        struct DeleteConfig: Codable {
+            let holeId: Int
+        }
+        
+        struct Response: Codable {
+            let data: [Int]
+        }
+        
+        let payload = DeleteConfig(holeId: holeId)
+        let response: Response = try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/subscription")!,
+                                                      payload: payload, method: "DELETE")
+        return response.data
+    }
+    
     
     // MARK: Favorite
     

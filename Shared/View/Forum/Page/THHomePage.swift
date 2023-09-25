@@ -53,6 +53,12 @@ struct THHomePage: View {
             }
             
             Button {
+                navigator.path.append(THPage.subscription)
+            } label: {
+                Label("Subscription List", systemImage: "eye")
+            }
+            
+            Button {
                 navigator.path.append(THPage.mypost)
             } label: {
                 Label("My Post", systemImage: "person")
@@ -96,6 +102,8 @@ fileprivate struct THSection: View {
         switch page {
         case .favorite:
             THFavoritesPage()
+        case .subscription:
+            THSubscriptionPage()
         case .mypost:
             THMyPostPage()
         case .tags:

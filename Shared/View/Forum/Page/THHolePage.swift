@@ -162,6 +162,17 @@ fileprivate struct THHoleToolbar: View {
             }
             
             AsyncButton {
+                try await model.toggleSubscribe()
+                haptic()
+            } label: {
+                if model.subscribed {
+                    Label("Unsubscribe", systemImage: "bell.slash")
+                } else {
+                    Label("Subscribe", systemImage: "bell")
+                }
+            }
+            
+            AsyncButton {
                 await model.loadAllFloors()
             } label: {
                 Label("Navigate to Bottom", systemImage: "arrow.down.to.line")

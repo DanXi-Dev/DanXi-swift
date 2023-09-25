@@ -7,6 +7,7 @@ class THHoleModel: ObservableObject {
         self.hole = hole
         self.floors = []
         self.isFavorite = THModel.shared.isFavorite(hole.id)
+        self.subscribed = THModel.shared.isSubscribed(hole.id)
         self.initialScroll = nil
     }
     
@@ -14,6 +15,7 @@ class THHoleModel: ObservableObject {
         self.hole = hole
         self.floors = []
         self.endReached = true
+        self.subscribed = THModel.shared.isSubscribed(hole.id)
         self.isFavorite = THModel.shared.isFavorite(hole.id)
         self.initialScroll = scrollTo
         
@@ -177,6 +179,19 @@ class THHoleModel: ObservableObject {
         } catch {
             
         }
+    }
+    
+    // MARK: - Subscription
+    
+    @Published var subscribed: Bool
+    
+    func toggleSubscribe() async throws {
+        if subscribed {
+            try await THModel.shared.deleteSubscription(hole.id)
+        } else {
+            try await THModel.shared.addSubscription(hole.id)
+        }
+        subscribed.toggle() // update subscription status
     }
     
     // MARK: - Favorite

@@ -141,6 +141,7 @@ class THModel: ObservableObject {
     static var shared = THModel()
     
     @Published var favoriteIds: [Int] = []
+    @Published var subscriptionIds: [Int] = []
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var loaded = false
@@ -150,8 +151,10 @@ class THModel: ObservableObject {
     func loadAll() async throws {
         // use async-let to parallel load
         async let favoriteIds = try await THRequests.loadFavoritesIds()
+        async let subscriptionIds = try await THRequests.loadSubscriptionIds()
         async let divisions = try await THRequests.loadDivisions()
         self.favoriteIds = try await favoriteIds
+        self.subscriptionIds = try await subscriptionIds
         self.divisions = try await divisions
         
         // load tags takes a lot of time, load in the background
@@ -199,6 +202,18 @@ class THModel: ObservableObject {
         }
         
         return tags
+    }
+    
+    func isSubscribed(_ id: Int) -> Bool {
+        subscriptionIds.contains(id)
+    }
+    
+    func addSubscription(_ id: Int) async throws {
+        self.subscriptionIds = try await THRequests.addSubscription(id)
+    }
+    
+    func deleteSubscription(_ id: Int) async throws {
+        self.subscriptionIds = try await THRequests.deleteSubscription(id)
     }
     
     func isFavorite(_ id: Int) -> Bool {

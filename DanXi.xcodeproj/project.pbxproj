@@ -93,6 +93,7 @@
 		27939FE928C26E0600E8D199 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27939FE828C26E0600E8D199 /* Haptics.swift */; };
 		2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795EB1428AE6CB400518597 /* DKCoursePage.swift */; };
 		2798F2CB2AB2917D00578744 /* FDClassroomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */; };
+		2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279997992AC1734E00DE835A /* THSubscriptionPage.swift */; };
 		27A28A0C288B0C3D00D6DD77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27A28A0F288B0C3D00D6DD77 /* Localizable.strings */; };
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
@@ -335,6 +336,7 @@
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2795EB1428AE6CB400518597 /* DKCoursePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCoursePage.swift; sourceTree = "<group>"; };
 		2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomPage.swift; sourceTree = "<group>"; };
+		279997992AC1734E00DE835A /* THSubscriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSubscriptionPage.swift; sourceTree = "<group>"; };
 		27A28A0E288B0C3D00D6DD77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		27A28A10288B0C4000D6DD77 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		27A424F029EE6B2300339E82 /* DXAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXAuthSheet.swift; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 				27DAFA6E29CB589000F32093 /* THHolePage.swift */,
 				27013BD529D02A67004A5D2F /* THSearchPage.swift */,
 				272AC8D92896BE2500092B0C /* THFavoritesPage.swift */,
+				279997992AC1734E00DE835A /* THSubscriptionPage.swift */,
 				272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */,
 				27834AF829D6261E008DC0C2 /* THMyPostPage.swift */,
 				27A5DA1F29D6EF010042D28D /* THTagsPage.swift */,
@@ -1128,6 +1131,7 @@
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
 				27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */,
 				27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */,
+				2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */,
 				2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */,
 				27063ABA29FB094C0060AC8B /* AsyncCollection.swift in Sources */,
 				272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */,
