@@ -1342,7 +1342,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1376,7 +1376,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1533,7 +1533,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1570,7 +1570,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
