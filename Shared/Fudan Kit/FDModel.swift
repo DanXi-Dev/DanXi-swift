@@ -21,7 +21,7 @@ class FDModel: ObservableObject {
     
     // MARK: - Authentication
     
-    let keychain = Keychain(service: "com.fduhole.fdutools")
+    let keychain = Keychain(service: "com.fduhole.fdutools", accessGroup: "group.com.fduhole")
     @Published var isLogged: Bool = false
     var username: String? {
         didSet { keychain["username"] = username }
