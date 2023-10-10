@@ -183,7 +183,7 @@ class FDCalendarModel: ObservableObject {
         guard let base = semesterStart else { return }
         
         let eventStore = EKEventStore()
-        eventStore.requestAccess(to: .event) { granted, error in
+        eventStore.requestAccess { granted, error in
             guard granted, error == nil else {
                 return
             }

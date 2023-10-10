@@ -24,7 +24,7 @@ struct FDCalendarPage: View {
     
     func presentExportSheet() {
         let eventStore = EKEventStore()
-        eventStore.requestAccess(to: .event) { (granted, error) in
+        eventStore.requestAccess { (granted, error) in
             if granted {
                 showExportSheet = true
             } else {
