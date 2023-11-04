@@ -20,6 +20,12 @@ struct AboutPage: View {
                 } label: {
                     Label("Acknowledgements", systemImage: "heart")
                 }
+                
+                NavigationLink {
+                    DebugPage()
+                } label: {
+                    Label("Debug", systemImage: "ant.circle.fill")
+                }
             } header: {
                 appIcon
             }
