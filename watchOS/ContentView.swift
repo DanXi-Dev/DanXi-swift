@@ -6,9 +6,10 @@ struct ContentView: View {
     var body: some View {
         FDHomePage()
             .onAppear {
-                if !FDModel.shared.isLogged {
-                    showLoginSheet = true
-                }
+//                if !FDModel.shared.isLogged {
+//                    showLoginSheet = true
+//                }
+                test()
             }
             .sheet(isPresented: $showLoginSheet) {
                 FDLoginSheet()

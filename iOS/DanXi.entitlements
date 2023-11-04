@@ -12,7 +12,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.io.github.kavinzhao.fdutools</string>
+		<string>group.com.fduhole</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>

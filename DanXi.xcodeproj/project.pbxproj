@@ -78,6 +78,7 @@
 		2733CA192AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */; };
 		2733CA1B2AB6DBBE001AF2CD /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
+		273E81BF2AF674B000B12F56 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273E81BE2AF674B000B12F56 /* test.swift */; };
 		273FAFB628C13C6100FC3950 /* THSpecialTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */; };
 		2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749B144298E5DC00011C78C /* DKPostSheet.swift */; };
 		274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197229D1BF9B000DE221 /* WatchApp.swift */; };
@@ -321,6 +322,8 @@
 		2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDUnwrapJSON.swift; sourceTree = "<group>"; };
 		2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
+		273E81BD2AF6722700B12F56 /* DanXi Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DanXi Watch.entitlements"; sourceTree = "<group>"; };
+		273E81BE2AF674B000B12F56 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
 		2749B144298E5DC00011C78C /* DKPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKPostSheet.swift; sourceTree = "<group>"; };
 		274C197029D1BF9B000DE221 /* DanXi Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -528,7 +531,9 @@
 			children = (
 				274C197229D1BF9B000DE221 /* WatchApp.swift */,
 				274C197429D1BF9B000DE221 /* ContentView.swift */,
+				273E81BD2AF6722700B12F56 /* DanXi Watch.entitlements */,
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
+				273E81BE2AF674B000B12F56 /* test.swift */,
 			);
 			path = watchOS;
 			sourceTree = "<group>";
@@ -1070,6 +1075,7 @@
 				27D07BE92A7825D200B94855 /* FDLibraryAPI.swift in Sources */,
 				2733CA182AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
 				27D07BED2A7825D200B94855 /* FDNoticeAPI.swift in Sources */,
+				273E81BF2AF674B000B12F56 /* test.swift in Sources */,
 				27D07BE72A7825D200B94855 /* FDWebVPNAPI.swift in Sources */,
 				272559732AB895DA00165357 /* FDGradAgendaAPI.swift in Sources */,
 				272559782AB8960C00165357 /* FDCanteenPage.swift in Sources */,
@@ -1306,6 +1312,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "watchOS/DanXi Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 466;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
@@ -1313,13 +1320,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.fduhole.danxi;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1336,6 +1343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "watchOS/DanXi Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 466;
 				DEVELOPMENT_TEAM = QZ9KCS2T78;
@@ -1343,13 +1351,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.fduhole.danxi;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1577,7 +1585,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1614,7 +1622,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
