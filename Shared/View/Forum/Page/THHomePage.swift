@@ -65,6 +65,12 @@ struct THHomePage: View {
             }
             
             Button {
+                navigator.path.append(THPage.myreply)
+            } label: {
+                Label("My Reply", systemImage: "arrowshape.turn.up.left")
+            }
+            
+            Button {
                 navigator.path.append(THPage.history)
             } label: {
                 Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
@@ -106,6 +112,8 @@ fileprivate struct THSection: View {
             THSubscriptionPage()
         case .mypost:
             THMyPostPage()
+        case .myreply:
+            THMyReplyPage()
         case .tags:
             THTagsPage()
         case .history:

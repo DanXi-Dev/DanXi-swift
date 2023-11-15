@@ -42,6 +42,7 @@
 		271D1D5529F1A31700DDEEC9 /* THNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D1D5429F1A31700DDEEC9 /* THNotificationView.swift */; };
 		27227FD528A512B300B3C99D /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
 		2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2725605829F8EAF300C8B27A /* DKTagView.swift */; };
+		27262AFE2B04A002000C3962 /* THMyReplyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27262AFD2B04A002000C3962 /* THMyReplyPage.swift */; };
 		2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
 		2729071528B0B45F0087ACC0 /* THMentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071428B0B45F0087ACC0 /* THMentionView.swift */; };
 		272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8D92896BE2500092B0C /* THFavoritesPage.swift */; };
@@ -290,6 +291,7 @@
 		271D1D5429F1A31700DDEEC9 /* THNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNotificationView.swift; sourceTree = "<group>"; };
 		27227FD428A512B300B3C99D /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		2725605829F8EAF300C8B27A /* DKTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKTagView.swift; sourceTree = "<group>"; };
+		27262AFD2B04A002000C3962 /* THMyReplyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMyReplyPage.swift; sourceTree = "<group>"; };
 		2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextProcess.swift; sourceTree = "<group>"; };
 		2729071428B0B45F0087ACC0 /* THMentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMentionView.swift; sourceTree = "<group>"; };
 		272AC8D92896BE2500092B0C /* THFavoritesPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THFavoritesPage.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				279997992AC1734E00DE835A /* THSubscriptionPage.swift */,
 				272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */,
 				27834AF829D6261E008DC0C2 /* THMyPostPage.swift */,
+				27262AFD2B04A002000C3962 /* THMyReplyPage.swift */,
 				27A5DA1F29D6EF010042D28D /* THTagsPage.swift */,
 				271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */,
 				27FA5F48289955C3000391A3 /* THSearchTagPage.swift */,
@@ -1215,6 +1218,7 @@
 				2700FB2B2A3CC7B5003A2B00 /* CircularProgressView.swift in Sources */,
 				27E82FEB29E896EA00F34B3B /* FDWebVPNAPI.swift in Sources */,
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
+				27262AFE2B04A002000C3962 /* THMyReplyPage.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,

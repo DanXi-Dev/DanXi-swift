@@ -294,6 +294,13 @@ struct THRequests {
     }
     
     
+    static func loadMyFloor(offset: Int) async throws -> [THFloor] {
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/users/me/floors")!
+        components.queryItems = [URLQueryItem(name: "offset", value: String(offset))]
+        return try await DXResponse(components.url!)
+    }
+    
+    
     // MARK: Search
     
     // TODO: Implement new search API
