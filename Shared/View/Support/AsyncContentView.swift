@@ -142,6 +142,7 @@ fileprivate struct ErrorView: View {
                         .font(.callout)
                         .padding(.bottom)
                         .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
                 }
                 
                 Button {
@@ -149,22 +150,20 @@ fileprivate struct ErrorView: View {
                 } label: {
                     Text("Retry")
                 }
-                .frame(width: 120, height: 25)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 3)
-                        .stroke(Color.secondary, lineWidth: 1)
-                )
+                .foregroundStyle(Color.accentColor)
             }
             .padding()
-            .foregroundColor(.secondary)
+            
         } else {
             HStack {
                 Spacer()
                 VStack {
                     if let errorDescription = (error as? LocalizedError)?.errorDescription {
                         Text(errorDescription)
+                            .foregroundStyle(.secondary)
                     } else {
                         Text("Loading Failed")
+                            .foregroundStyle(.secondary)
                     }
                     
                     Button {
@@ -172,6 +171,7 @@ fileprivate struct ErrorView: View {
                     } label: {
                         Text("Retry")
                     }
+                    .foregroundStyle(Color.accentColor)
                 }
                 .font(.caption)
                 .multilineTextAlignment(.center)
