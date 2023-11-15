@@ -227,6 +227,27 @@ extension THReport {
     }
 }
 
+extension THSensitiveEntry {
+    enum CodingKeys: String, CodingKey {
+        case id, holeId = "hole_id", content, deleted, modified
+        case sensitive = "is_actual_sensitive"
+        case createTime = "time_created", updateTime = "time_updated"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        holeId = try values.decode(Int.self, forKey: .holeId)
+        content = try values.decode(String.self, forKey: .content)
+        deleted = try values.decode(Bool.self, forKey: .deleted)
+        modified = try values.decode(Int.self, forKey: .modified)
+        sensitive = try values.decodeIfPresent(Bool.self, forKey: .sensitive)
+        createTime = try decodeDate(values, key: .createTime)
+        updateTime = try decodeDate(values, key: .updateTime)
+    }
+}
+
+
 extension THMessage {
     enum CodingKeys: String, CodingKey {
         case id, data, description, code

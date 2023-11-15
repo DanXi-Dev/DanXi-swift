@@ -58,4 +58,5 @@ enum THPage {
     case notifications
     case report
     case history
+    case moderate
 }

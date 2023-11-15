@@ -365,6 +365,29 @@ struct THRequests {
     }
     
     
+    // MARK: Moderation
+    
+    static func listSensitive(startTime: String? = nil, open: Bool = true) async throws -> [THSensitiveEntry] {
+        let time = startTime ?? Date.now.ISO8601Format(.iso8601)
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/_sensitive")!
+        components.queryItems = [URLQueryItem(name: "offset", value: time),
+                                 URLQueryItem(name: "open", value: open ? "true" : "false")]
+        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        return try await DXResponse(components.url!)
+    }
+    
+    
+    static func setSensitive(id: Int, sensitive: Bool) async throws {
+        struct SensitiveConfig: Codable {
+            let isActualSensitive: Bool
+        }
+        
+        let url = URL(string: FDUHOLE_BASE_URL + "/floors/\(id)/_sensitive")!
+        let payload = SensitiveConfig(isActualSensitive: sensitive)
+        try await DXRequest(url, payload: payload, method: "PUT")
+    }
+    
+    
     // MARK: Tag
     
     

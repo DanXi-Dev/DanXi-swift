@@ -147,3 +147,13 @@ enum THMessageType: String {
     case favorite, reply, mention, modify, permission, report, reportDealt = "report_dealt", mail
     case message // reserved for match failure
 }
+
+struct THSensitiveEntry: Identifiable, Codable, Hashable {
+    let id: Int
+    let holeId: Int
+    let content: String
+    let deleted: Bool
+    let modified: Int
+    let sensitive: Bool?
+    let createTime, updateTime: Date
+}

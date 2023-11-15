@@ -141,6 +141,7 @@
 		27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD132912C33C007C2905 /* DKRequests.swift */; };
 		27BBBD232912C33D007C2905 /* DXNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD142912C33C007C2905 /* DXNetwork.swift */; };
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
+		27BD15DF2B04E6C0006A97A9 /* THModeratePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */; };
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
 		27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */; };
 		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
@@ -363,6 +364,7 @@
 		27BBBD132912C33C007C2905 /* DKRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKRequests.swift; sourceTree = "<group>"; };
 		27BBBD142912C33C007C2905 /* DXNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXNetwork.swift; sourceTree = "<group>"; };
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
+		27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THModeratePage.swift; sourceTree = "<group>"; };
 		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
 		27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXQuestionSheet.swift; sourceTree = "<group>"; };
 		27C95B412A8B90FE000A614B /* FormTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTitle.swift; sourceTree = "<group>"; };
@@ -679,6 +681,7 @@
 				271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */,
 				27FA5F48289955C3000391A3 /* THSearchTagPage.swift */,
 				275B71CC28C5249800475BA3 /* THReportPage.swift */,
+				27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */,
 				27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */,
 				27DAFA6C29CB529D00F32093 /* THLoaderPage.swift */,
 			);
@@ -1193,6 +1196,7 @@
 				2706605729312D8300F4C321 /* FDError.swift in Sources */,
 				2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */,
 				27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */,
+				27BD15DF2B04E6C0006A97A9 /* THModeratePage.swift in Sources */,
 				27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */,
 				27227FD528A512B300B3C99D /* Defaults.swift in Sources */,
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,

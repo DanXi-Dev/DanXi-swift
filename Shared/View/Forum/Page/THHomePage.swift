@@ -89,10 +89,18 @@ struct THHomePage: View {
             }
             
             if appModel.isAdmin {
+                Divider()
+                
                 Button {
                     navigator.path.append(THPage.report)
                 } label: {
                     Label("Report", systemImage: "exclamationmark.triangle")
+                }
+                
+                Button {
+                    navigator.path.append(THPage.moderate)
+                } label: {
+                    Label("Moderate", systemImage: "video")
                 }
             }
         } label: {
@@ -122,6 +130,8 @@ fileprivate struct THSection: View {
             THReportPage()
         case .notifications:
             THNotificationPage()
+        case .moderate:
+            THModeratePage()
         }
     }
 }
