@@ -40,6 +40,7 @@ fileprivate struct DebugURLForm: View {
                 }
             }
             .navigationTitle("Debug Base URL")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
@@ -93,7 +94,10 @@ fileprivate struct DebugHTTPForm: View {
         guard let url = URL(string: base + requestURL) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = requestMethod.isEmpty ? "GET" : requestMethod
-        request.httpBody = requestBody.data(using: String.Encoding.utf8)!
+        if !requestBody.isEmpty {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = requestBody.data(using: String.Encoding.utf8)!
+        }
         
         do {
             let data = try await autoRefresh(request)
@@ -144,6 +148,7 @@ fileprivate struct DebugHTTPForm: View {
                 }
             }
             .navigationTitle("Debug HTTP Request")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

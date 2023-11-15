@@ -137,13 +137,11 @@ fileprivate struct ErrorView: View {
                     .font(.title)
                     .fontWeight(.bold)
                 
-                if let errorDescription = (error as? LocalizedError)?.errorDescription {
-                    Text(errorDescription)
-                        .font(.callout)
-                        .padding(.bottom)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
-                }
+                Text(error.localizedDescription)
+                    .font(.callout)
+                    .padding(.bottom)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
                 
                 Button {
                     retryHandler()
