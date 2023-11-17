@@ -5,6 +5,7 @@ struct THContentEditor: View {
     @Binding var content: String
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
+    @State private var showStickers = false
     
     private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
@@ -35,6 +36,15 @@ struct THContentEditor: View {
                 }
                 .alert("Upload Image Failed", isPresented: $showUploadError) { }
                 
+                Button {
+                    showStickers = true
+                } label: {
+                    Label("Stickers", systemImage: "smiley")
+                }
+                .sheet(isPresented: $showStickers) {
+                    stickerPicker
+                }
+                
                 ZStack(alignment: .topLeading) {
                     if content.isEmpty {
                         Text("Enter post content")
@@ -58,5 +68,34 @@ struct THContentEditor: View {
                 }
             }
         }
+    }
+    
+    private var stickerPicker: some View {
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible()),
+                                    GridItem(.flexible()),
+                                    GridItem(.flexible()),
+                                    GridItem(.flexible())]) {
+                    ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
+                        Button {
+                            content += " ^[\(sticker.rawValue)]"
+                            showStickers = false
+                        } label: {
+                            sticker.image
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Stickers")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .presentationDetents([.medium])
+    }
+}
+
+#Preview {
+    List {
+        THContentEditor(content: .constant("Hello World ^[egg]"))
     }
 }
