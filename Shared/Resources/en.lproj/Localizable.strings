@@ -31,3 +31,6 @@
 "DanXi Question Prompt" = "Users should pass qualification before accessing FDUHole. Please refer to [terms and conditions](https://danxi.fduhole.com/doc) when answering the following questions.";
 
 "Screenshot Warning" = "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), users shall not share screenshots of content from FDUHole. Anyone who cause severe consequences by sharing screenshots may have their accounts permanently suspended, and may be held accountable.";
+
+"Sensitive.Open" = "Open";
+"Sensitive.Closed" = "Closed";

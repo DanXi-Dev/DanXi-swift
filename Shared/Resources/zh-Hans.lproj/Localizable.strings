@@ -124,6 +124,8 @@
 "Notifications" = "通知";
 "Recent Browsed" = "最近浏览";
 "Moderate" = "审核";
+"Sensitive.Open" = "未处理";
+"Sensitive.Closed" = "已处理";
 "Clear Browse History" = "清空浏览记录";
 "Delete Browse History" = "删除浏览记录";
 "Today" = "今天";
