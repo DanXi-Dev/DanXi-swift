@@ -257,12 +257,12 @@ extension FDCourse {
         let day = calendar.date(byAdding: DateComponents(day: days), to: base)!
         var components = calendar.dateComponents([.year, .month, .day], from: day)
         
-        let startComponent = FDTimeSlot.getItem(start + 1)
+        let startComponent = TimeSlot.getItem(start + 1)
         components.hour = startComponent.startTime.hour
         components.minute = startComponent.startTime.minute
         let startDate = calendar.date(from: components)!
         
-        let endComponent = FDTimeSlot.getItem(end + 1)
+        let endComponent = TimeSlot.getItem(end + 1)
         components.hour = endComponent.endTime.hour
         components.minute = endComponent.endTime.minute
         let endDate = calendar.date(from: components)!

@@ -271,7 +271,7 @@ struct FDCourse: Identifiable, Codable {
     }
 }
 
-struct FDTimeSlot: Identifiable {
+struct TimeSlot: Identifiable {
     let id: Int
     let start, end: String
     let startTime: DateComponents
@@ -298,21 +298,21 @@ struct FDTimeSlot: Identifiable {
         self.endTime = endTime
     }
     
-    static let list = [FDTimeSlot(1, "08:00", "08:45"),
-                       FDTimeSlot(2, "08:55", "09:40"),
-                       FDTimeSlot(3, "09:55", "10:40"),
-                       FDTimeSlot(4, "10:50", "11:35"),
-                       FDTimeSlot(5, "11:45", "12:30"),
-                       FDTimeSlot(6, "13:30", "14:15"),
-                       FDTimeSlot(7, "14:25", "15:10"),
-                       FDTimeSlot(8, "15:25", "16:10"),
-                       FDTimeSlot(9, "16:20", "17:05"),
-                       FDTimeSlot(10, "17:15", "18:00"),
-                       FDTimeSlot(11, "18:30", "19:15"),
-                       FDTimeSlot(12, "19:25", "20:10"),
-                       FDTimeSlot(13, "20:20", "21:05")]
+    static let list = [TimeSlot(1, "08:00", "08:45"),
+                       TimeSlot(2, "08:55", "09:40"),
+                       TimeSlot(3, "09:55", "10:40"),
+                       TimeSlot(4, "10:50", "11:35"),
+                       TimeSlot(5, "11:45", "12:30"),
+                       TimeSlot(6, "13:30", "14:15"),
+                       TimeSlot(7, "14:25", "15:10"),
+                       TimeSlot(8, "15:25", "16:10"),
+                       TimeSlot(9, "16:20", "17:05"),
+                       TimeSlot(10, "17:15", "18:00"),
+                       TimeSlot(11, "18:30", "19:15"),
+                       TimeSlot(12, "19:25", "20:10"),
+                       TimeSlot(13, "20:20", "21:05")]
     
-    static func getItem(_ id: Int) -> FDTimeSlot {
+    static func getItem(_ id: Int) -> TimeSlot {
         return list.filter { $0.id == id }.first!
     }
 }

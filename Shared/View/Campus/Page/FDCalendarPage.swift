@@ -269,5 +269,5 @@ struct FDCalendarConfig {
     static let y: CGFloat = 40
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
-    static let h = FDTimeSlot.list.count
+    static let h = TimeSlot.list.count
 }

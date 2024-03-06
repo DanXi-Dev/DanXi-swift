@@ -65,7 +65,7 @@ struct FDClassroomPage: View {
 
 fileprivate struct ClassroomHeader: View {
     let classrooms: [FDClassroom]
-    private let h = FDTimeSlot.list.count
+    private let h = TimeSlot.list.count
     @ScaledMetric private var classroomFont = 15
     
     var body: some View {
@@ -94,7 +94,7 @@ fileprivate struct ClassroomHeader: View {
 
 fileprivate struct ClanedarEvents: View {
     let classrooms: [FDClassroom]
-    private let h = FDTimeSlot.list.count
+    private let h = TimeSlot.list.count
     @State private var eventSelected: FDEvent?
     
     var body: some View {

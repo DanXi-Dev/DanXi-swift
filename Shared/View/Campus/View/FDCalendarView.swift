@@ -86,12 +86,12 @@ struct DateHeader: View {
 }
 
 struct TimeslotsSidebar: View {
-    private let h = FDTimeSlot.list.count
+    private let h = TimeSlot.list.count
     
     var body: some View {
         CalDimensionReader { dim in
             ZStack {
-                ForEach(FDTimeSlot.list) { timeSlot in
+                ForEach(TimeSlot.list) { timeSlot in
                     let point = CGPoint(x: dim.x / 2 + 5,
                                         y: dim.y - (dim.dy / 2) + CGFloat(timeSlot.id) * dim.dy)
                     TimeSlotView(timeSlot: timeSlot)
@@ -104,7 +104,7 @@ struct TimeslotsSidebar: View {
 }
 
 fileprivate struct TimeSlotView: View {
-    let timeSlot: FDTimeSlot
+    let timeSlot: TimeSlot
     
     @ScaledMetric private var courseSize = 14
     @ScaledMetric private var timeSize = 9
@@ -126,7 +126,7 @@ fileprivate struct TimeSlotView: View {
 
 struct GridBackground: View {
     let width: Int
-    private let h = FDTimeSlot.list.count
+    private let h = TimeSlot.list.count
     
     var body: some View {
         CalDimensionReader { dim in
