@@ -7,15 +7,38 @@ struct FDHomePage: View {
     var body: some View {
         NavigationStack(path: $navigator.path) {
             List {
-                ForEach(navigator.pages, id: \.self) { section in
-                    if (model.studentType == .undergrad) ||
-                       (model.studentType == .grad && !FDSection.gradHidden.contains(section)) ||
-                       (model.studentType == .staff && !FDSection.staffHidden.contains(section)) {
-                        FDHomeSimpleLink(section: section)
-                    }
+                ForEach(navigator.cards, id: \.self) { card in
+                    FDHomeCard(section: card)
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                navigator.unpin(section: card)
+                            } label: {
+                                Image(systemName: "pin.slash.fill")
+                            }
+                        }
                 }
-                .onMove { from, to in
-                    navigator.pages.move(fromOffsets: from, toOffset: to)
+                
+                Section {
+                    ForEach(navigator.pages, id: \.self) { section in
+                        if (model.studentType == .undergrad) ||
+                            (model.studentType == .grad && !FDSection.gradHidden.contains(section)) ||
+                            (model.studentType == .staff && !FDSection.staffHidden.contains(section)) {
+                            FDHomeSimpleLink(section: section)
+                                .swipeActions {
+                                    if FDSection.pinnable.contains(section) {
+                                        Button {
+                                            navigator.pin(section: section)
+                                        } label: {
+                                            Image(systemName: "pin.fill")
+                                        }
+                                        .tint(.orange)
+                                    }
+                                }
+                        }
+                    }
+                    .onMove { from, to in
+                        navigator.pages.move(fromOffsets: from, toOffset: to)
+                    }
                 }
             }
             .navigationTitle("Campus Services")
@@ -25,6 +48,7 @@ struct FDHomePage: View {
             .onOpenURL { url in
                 navigator.openURL(url)
             }
+            .environmentObject(navigator)
         }
     }
 }
@@ -61,6 +85,30 @@ fileprivate struct FDHomeSimpleLink: View {
                 Label("Canteen Popularity", systemImage: "fork.knife")
             }
         }
+    }
+}
+
+fileprivate struct FDHomeCard: View {
+    @EnvironmentObject private var navigator: FDNavigator
+    
+    let section: FDSection
+    
+    var body: some View {
+        Button {
+            navigator.path.append(section)
+        } label: {
+            switch section {
+            case .ecard:
+                FDECardCard()
+            case .electricity:
+                FDElectricityCard()
+            case .notice:
+                FDNoticeCard()
+            default:
+                EmptyView()
+            }
+        }
+        .buttonStyle(.plain)
     }
 }
 
