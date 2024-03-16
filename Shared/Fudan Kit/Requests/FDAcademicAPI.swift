@@ -310,7 +310,8 @@ struct FDTimeSlot: Identifiable {
                        FDTimeSlot(10, "17:15", "18:00"),
                        FDTimeSlot(11, "18:30", "19:15"),
                        FDTimeSlot(12, "19:25", "20:10"),
-                       FDTimeSlot(13, "20:20", "21:05")]
+                       FDTimeSlot(13, "20:20", "21:05"),
+                       FDTimeSlot(14, "21:15", "22:00")]
     
     static func getItem(_ id: Int) -> FDTimeSlot {
         return list.filter { $0.id == id }.first!
