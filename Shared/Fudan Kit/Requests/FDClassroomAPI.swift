@@ -39,20 +39,24 @@ struct FDClassroomAPI {
                 classroom.capacity = capacity
             } else {
                 // courses or empty cell
-                if !isBlankCell(element: cell) {
-                    var event = try parseCourse(element: cell)
-                    
-                    // merge duplicate courses
-                    if (classroom.courses.last?.courseId != nil) && // if this condition is met, it is guaranteed that classrooms has last element, and it's id is not nil, so it's safe to force unwrap
-                       (!classroom.courses.last!.courseId!.isEmpty) &&
-                       (classroom.courses.last!.courseId! == event.courseId) {
-                        let lastIdx = classroom.courses.count - 1
-                        classroom.courses[lastIdx].end = i - 2
-                    } else {
-                        event.start = i - 2
-                        event.end = i - 2
-                        classroom.courses.append(event)
+                do {
+                    if !isBlankCell(element: cell) {
+                        var event = try parseCourse(element: cell)
+                        
+                        // merge duplicate courses
+                        if (classroom.courses.last?.courseId != nil) && // if this condition is met, it is guaranteed that classrooms has last element, and it's id is not nil, so it's safe to force unwrap
+                            (!classroom.courses.last!.courseId!.isEmpty) &&
+                            (classroom.courses.last!.courseId! == event.courseId) {
+                            let lastIdx = classroom.courses.count - 1
+                            classroom.courses[lastIdx].end = i - 2
+                        } else {
+                            event.start = i - 2
+                            event.end = i - 2
+                            classroom.courses.append(event)
+                        }
                     }
+                } catch {
+
                 }
             }
         }

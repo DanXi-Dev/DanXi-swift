@@ -29,7 +29,11 @@ struct FDSportAPI {
         let (data, _) = try await sendRequest(request)
         var info = FDExercise()
         try info.parseExerciseItems(data)
-        try info.parseExerciseLogs(data)
+        do {
+            try info.parseExerciseLogs(data)
+        } catch {
+            // parse log failed
+        }
         return info
     }
     

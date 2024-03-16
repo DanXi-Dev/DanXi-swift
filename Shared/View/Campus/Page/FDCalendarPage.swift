@@ -24,7 +24,7 @@ struct FDCalendarPage: View {
     
     func presentExportSheet() {
         let eventStore = EKEventStore()
-        eventStore.requestAccess(to: .event) { (granted, error) in
+        eventStore.requestAccess { (granted, error) in
             if granted {
                 showExportSheet = true
             } else {
@@ -269,5 +269,5 @@ struct FDCalendarConfig {
     static let y: CGFloat = 40
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
-    static let h = FDTimeSlot.list.count
+    static let h = TimeSlot.list.count
 }

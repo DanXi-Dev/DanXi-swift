@@ -65,6 +65,12 @@ struct THHomePage: View {
             }
             
             Button {
+                navigator.path.append(THPage.myreply)
+            } label: {
+                Label("My Reply", systemImage: "arrowshape.turn.up.left")
+            }
+            
+            Button {
                 navigator.path.append(THPage.history)
             } label: {
                 Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
@@ -83,10 +89,18 @@ struct THHomePage: View {
             }
             
             if appModel.isAdmin {
+                Divider()
+                
                 Button {
                     navigator.path.append(THPage.report)
                 } label: {
                     Label("Report", systemImage: "exclamationmark.triangle")
+                }
+                
+                Button {
+                    navigator.path.append(THPage.moderate)
+                } label: {
+                    Label("Moderate", systemImage: "video")
                 }
             }
         } label: {
@@ -106,6 +120,8 @@ fileprivate struct THSection: View {
             THSubscriptionPage()
         case .mypost:
             THMyPostPage()
+        case .myreply:
+            THMyReplyPage()
         case .tags:
             THTagsPage()
         case .history:
@@ -114,6 +130,8 @@ fileprivate struct THSection: View {
             THReportPage()
         case .notifications:
             THNotificationPage()
+        case .moderate:
+            THModeratePage()
         }
     }
 }

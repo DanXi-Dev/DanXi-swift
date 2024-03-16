@@ -380,6 +380,9 @@
         }
       }
     },
+    "Auth" : {
+
+    },
     "Available Time Slots Only" : {
       "localizations" : {
         "zh-Hans" : {
@@ -431,6 +434,9 @@
           }
         }
       }
+    },
+    "Base URL" : {
+
     },
     "Batch Delete" : {
       "localizations" : {
@@ -670,6 +676,9 @@
           }
         }
       }
+    },
+    "Code" : {
+
     },
     "Confirm" : {
       "localizations" : {
@@ -936,6 +945,15 @@
         }
       }
     },
+    "Custom" : {
+
+    },
+    "danke" : {
+
+    },
+    "DanKe" : {
+
+    },
     "DanXi" : {
       "comment" : "Navigation",
       "localizations" : {
@@ -1034,6 +1052,15 @@
           }
         }
       }
+    },
+    "Debug" : {
+
+    },
+    "Debug Base URL" : {
+
+    },
+    "Debug HTTP Request" : {
+
     },
     "Delete" : {
       "localizations" : {
@@ -1707,6 +1734,12 @@
           }
         }
       }
+    },
+    "fduhole" : {
+
+    },
+    "FDUHole" : {
+
     },
     "Filter Options" : {
 
@@ -2462,6 +2495,12 @@
         }
       }
     },
+    "Method (Default GET)" : {
+
+    },
+    "Moderate" : {
+
+    },
     "Modify Floor" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2532,6 +2571,9 @@
           }
         }
       }
+    },
+    "My Reply" : {
+
     },
     "Name" : {
       "localizations" : {
@@ -2936,6 +2978,9 @@
         }
       }
     },
+    "Picker" : {
+
+    },
     "Pinned" : {
       "comment" : "Treehole Page",
       "localizations" : {
@@ -3274,6 +3319,9 @@
         }
       }
     },
+    "Request Body" : {
+
+    },
     "Request invalid, contact developer for help. message: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3357,6 +3405,9 @@
           }
         }
       }
+    },
+    "Response" : {
+
     },
     "Restore" : {
       "localizations" : {
@@ -3702,6 +3753,12 @@
         }
       }
     },
+    "Sensitive.Closed" : {
+
+    },
+    "Sensitive.Open" : {
+
+    },
     "Server Error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3926,6 +3983,9 @@
       }
     },
     "Start Date" : {
+
+    },
+    "Stickers" : {
 
     },
     "Student Type" : {
@@ -4399,6 +4459,9 @@
         }
       }
     },
+    "URL" : {
+
+    },
     "Use campus email to login" : {
       "localizations" : {
         "zh-Hans" : {
@@ -4627,4 +4690,3 @@
     }
   },
   "version" : "1.0"
-}

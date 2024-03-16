@@ -46,6 +46,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>DanXi needs access to your calendar to store courses information</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>DanXi needs access to your calendar to store courses information</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string></string>
 	<key>UIApplicationSceneManifest</key>

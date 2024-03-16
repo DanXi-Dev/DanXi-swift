@@ -53,8 +53,10 @@ enum THPage {
     case favorite
     case subscription
     case mypost
+    case myreply
     case tags
     case notifications
     case report
     case history
+    case moderate
 }
