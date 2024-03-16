@@ -186,6 +186,7 @@
 		27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6E29CB589000F32093 /* THHolePage.swift */; };
 		27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7029CB5B4500F32093 /* THFloorModel.swift */; };
 		27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7829CC50E100F32093 /* AsnyncButton.swift */; };
+		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
@@ -380,6 +381,7 @@
 		27DAFA6E29CB589000F32093 /* THHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHolePage.swift; sourceTree = "<group>"; };
 		27DAFA7029CB5B4500F32093 /* THFloorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorModel.swift; sourceTree = "<group>"; };
 		27DAFA7829CC50E100F32093 /* AsnyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsnyncButton.swift; sourceTree = "<group>"; };
+		27DD19B22BA5C16900B75643 /* Fudan Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Fudan Kit"; sourceTree = "<group>"; };
 		27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarRatingView.swift; sourceTree = "<group>"; };
 		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
 		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
+				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */,
 				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
@@ -832,6 +835,7 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
+				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 			);
 			sourceTree = "<group>";
 		};
@@ -946,6 +950,7 @@
 				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
 				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 				27D1D6472AB5F93D00E8D536 /* BetterSafariView */,
+				27DD19B32BA5CCA400B75643 /* FudanKit */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -1819,6 +1824,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		27DD19B32BA5CCA400B75643 /* FudanKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanKit;
 		};
 		27EDD624293B6DFD0028CCE4 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
