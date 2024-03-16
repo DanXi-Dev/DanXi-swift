@@ -66,7 +66,7 @@
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
 		27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */; };
 		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
-		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
 		276310272AB82B99005896AD /* FDCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276310262AB82B99005896AD /* FDCalendarView.swift */; };
@@ -1231,6 +1231,7 @@
 /* Begin PBXTargetDependency section */
 		27536EC929DC9A8300894A98 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
 			targetProxy = 27536EC829DC9A8300894A98 /* PBXContainerItemProxy */;
 		};
@@ -1266,7 +1267,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 463;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
@@ -1296,7 +1297,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 463;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
@@ -1330,7 +1331,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 466;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				DEVELOPMENT_TEAM = KF7M99CN68;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
@@ -1342,7 +1343,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1364,7 +1365,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 466;
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				DEVELOPMENT_TEAM = KF7M99CN68;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
@@ -1376,7 +1377,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1521,7 +1522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 466;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				DEVELOPMENT_TEAM = KF7M99CN68;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1533,14 +1534,14 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1558,7 +1559,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 466;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = QZ9KCS2T78;
+				DEVELOPMENT_TEAM = KF7M99CN68;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1570,14 +1571,14 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fduhole.danxi;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
