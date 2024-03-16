@@ -38,7 +38,20 @@ fileprivate struct BusPageContent: View {
                 HStack {
                     Text("From")
                     Spacer()
-                    Picker(selection: $model.start, label: Text("From")) {
+                    
+                    let startBinding = Binding<String>(
+                        get: { model.start },
+                        set: { newStart in
+                            if newStart == model.end {
+                                // User probably wants to swap start & end locations
+                                // We use bindings as an "elegant" way of triggering swap when this happens
+                                model.end = model.start
+                            }
+                            model.start = newStart
+                        }
+                    )
+                    
+                    Picker(selection: startBinding, label: Text("From")) {
                         ForEach(model.campusList, id: \.self) { campus in
                             Text(campus).tag(campus)
                         }
@@ -46,17 +59,23 @@ fileprivate struct BusPageContent: View {
                     .pickerStyle(.segmented)
                 }
                 
-//                Button {
-//                    model.swapLocation()
-//                } label: {
-//                    Image(systemName: "arrow.left.arrow.right")
-//                }
-//                .padding(.horizontal, 20)
-                
                 HStack {
                     Text("To")
                     Spacer()
-                    Picker(selection: $model.end, label: Text("To")) {
+                    
+                    let endBinding = Binding<String>(
+                        get: { model.end },
+                        set: { newEnd in
+                            if newEnd == model.start {
+                                // User probably wants to swap start & end locations
+                                // We use bindings as an "elegant" way of triggering swap when this happens
+                                model.start = model.end
+                            }
+                            model.end = newEnd
+                        }
+                    )
+                    
+                    Picker(selection: endBinding, label: Text("To")) {
                         ForEach(model.campusList, id: \.self) { campus in
                             Text(campus).tag(campus)
                         }
@@ -137,9 +156,16 @@ fileprivate class FDBusModel: ObservableObject {
     @Published var filterSchedule = true
     @Published var type = FDBusType.workday
     
+    static func isWeekend() -> Bool {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        return calendar.isDateInWeekend(currentDate)
+    }
+    
     init(_ workdayRoutes: [FDBusRoute], _ holidayRoutes: [FDBusRoute]) {
         self.workdayRoutes = workdayRoutes
         self.holidayRoutes = holidayRoutes
+        self.type = FDBusModel.isWeekend() ? .holiday : .workday
     }
     
     var filteredSchedules: [FDBusSchedule] {
