@@ -19,44 +19,54 @@ fileprivate struct BusPageContent: View {
         self._model = StateObject(wrappedValue: model)
     }
     
+    func getTime() -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let dateString = formatter.string(from: Date())
+        return dateString
+    }
+    
     var body: some View {
         List {
             Section {
-                HStack {
-                    Picker(selection: $model.start, label: Text("From")) {
-                        ForEach(model.campusList, id: \.self) { campus in
-                            Text(campus).tag(campus)
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        model.swapLocation()
-                    } label: {
-                        Image(systemName: "arrow.left.arrow.right")
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    Spacer()
-                    
-                    Picker(selection: $model.end, label: Text("To")) {
-                        ForEach(model.campusList, id: \.self) { campus in
-                            Text(campus).tag(campus)
-                        }
-                    }
-                }
-                .buttonStyle(.borderless)
-                
-                Toggle(isOn: $model.showMissed) {
-                    Text("Show all schedule")
-                }
-                
                 Picker(selection: $model.type, label: Text("Type")) {
                     Text("Workday").tag(FDBusType.workday)
                     Text("Holiday").tag(FDBusType.holiday)
                 }
                 .pickerStyle(.segmented)
+                
+                HStack {
+                    Text("From")
+                    Spacer()
+                    Picker(selection: $model.start, label: Text("From")) {
+                        ForEach(model.campusList, id: \.self) { campus in
+                            Text(campus).tag(campus)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
+//                Button {
+//                    model.swapLocation()
+//                } label: {
+//                    Image(systemName: "arrow.left.arrow.right")
+//                }
+//                .padding(.horizontal, 20)
+                
+                HStack {
+                    Text("To")
+                    Spacer()
+                    Picker(selection: $model.end, label: Text("To")) {
+                        ForEach(model.campusList, id: \.self) { campus in
+                            Text(campus).tag(campus)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
+                Toggle(isOn: $model.filterSchedule) {
+                    Text("Show schedule after \(getTime())")
+                }
             }
             
             Section {
@@ -71,6 +81,7 @@ fileprivate struct BusPageContent: View {
             .environmentObject(model)
         }
         .navigationTitle("Bus Schedule")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -123,7 +134,7 @@ fileprivate class FDBusModel: ObservableObject {
     let campusList = ["邯郸", "江湾", "枫林", "张江"]
     @Published var start = "邯郸"
     @Published var end = "江湾"
-    @Published var showMissed = false
+    @Published var filterSchedule = true
     @Published var type = FDBusType.workday
     
     init(_ workdayRoutes: [FDBusRoute], _ holidayRoutes: [FDBusRoute]) {
@@ -161,7 +172,7 @@ fileprivate class FDBusModel: ObservableObject {
             return schedule
         }
         
-        if !showMissed {
+        if filterSchedule {
             matchedSchedule = matchedSchedule.filter { schedule in
                 !schedule.missed
             }
