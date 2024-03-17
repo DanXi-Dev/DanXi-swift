@@ -29,6 +29,11 @@ public class CampusModel: ObservableObject {
     
     public func logout() {
         CredentialStore.shared.unset()
+        
+        // clear cache
+        Task {
+            try await ProfileStore.shared.clearCache()
+        }
     }
 }
 
