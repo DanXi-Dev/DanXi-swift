@@ -44,6 +44,31 @@ public enum WalletAPI {
     ///
     /// This API requires getting a CSRF string as parameter.
     /// The string will be cached in `CSRFStore`.
+    ///
+    /// The server response is as follows:
+    /// ```html
+    /// <table class="table table-striped table-hover">
+    ///     <tbody>
+    ///         <tr>
+    ///             <td>
+    ///                 <div>
+    ///                     2001.01.01
+    ///                 </div>
+    ///                 <div class="span_2">
+    ///                     12:00
+    ///                 </div>
+    ///             </td>
+    ///             <td>&nbsp;
+    ///                 <a href="/epay/consume/tradedetail?billno=..." class="span_1">水控消费</a>
+    ///             </td>
+    ///             <td>&nbsp;北区食堂</td>
+    ///             <td>&nbsp;10.00</td>
+    ///             <td>&nbsp;100.00</td>
+    ///             ...
+    ///         </tr>
+    ///     </tbody>
+    /// </table>
+    /// ```
     public static func getTransactions(page: Int) async throws -> [Transaction] {
         actor CSRFStore {
             static let shared = CSRFStore()
@@ -86,11 +111,13 @@ public enum WalletAPI {
                 continue
             }
             
-            guard let amount = try? element.child(3).html().replacingOccurrences(of: "&nbsp;", with: "") else {
+            guard let amountString = try? element.child(3).html().replacingOccurrences(of: "&nbsp;", with: ""),
+                  let amount = Double(amountString) else {
                 continue
             }
             
-            guard let balance = try? element.child(5).child(0).html() else {
+            guard let balanceString = try? element.child(4).html().replacingOccurrences(of: "&nbsp;", with: ""),
+                  let balance = Double(balanceString) else {
                 continue
             }
             
