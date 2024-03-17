@@ -21,7 +21,8 @@ public enum WalletAPI {
             return try element.attr("value")
         } catch {
             // handle case of user didn't agree to terms
-            if let element = try? decodeHTMLElement(data, selector: "#btn-agree-ok") {
+            let document = try decodeHTMLDocument(data)
+            if try document.select("#btn-agree-ok").first() != nil {
                 throw CampusError.termsNotAgreed
             }
             

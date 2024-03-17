@@ -2,7 +2,7 @@ import Foundation
 
 /// App-wide cache for announcement. Cache is invalidated between app launches.
 public actor AnnouncementStore {
-    var page = 0
+    var page = 1
     var finished = false
     var announcements: [Announcement] = []
     
@@ -10,8 +10,8 @@ public actor AnnouncementStore {
     public func getCachedAnnouncements() async throws -> [Announcement] {
         if finished { return self.announcements }
         
-        page += 1
         let announcementDelta = try await AnnouncementAPI.getAnnouncement(page: page)
+        page += 1
         self.announcements += announcementDelta
         finished = announcementDelta.isEmpty
         return self.announcements
