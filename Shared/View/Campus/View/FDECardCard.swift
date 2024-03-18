@@ -21,15 +21,18 @@ struct FDECardCard: View {
                         .bold()
                         .font(.subheadline)
                     
-                    Text("25.00")
-                        .bold()
-                        .font(.title2)
-                        .foregroundColor(.primary)
-                    + Text(" ¥")
-                        .bold()
-                        .font(.subheadline)
-                        .foregroundColor(.danxiGrey)
-                    
+                    AsyncContentView{
+                        return try await FDECardAPI.getBalance()
+                    } content: { (balance: String) in
+                        Text(balance)
+                            .bold()
+                            .font(.title2)
+                            .foregroundColor(.primary)
+                        + Text(" ¥")
+                            .bold()
+                            .font(.subheadline)
+                            .foregroundColor(.danxiGrey)
+                    }
                 }
                 
                 Spacer()
@@ -37,14 +40,20 @@ struct FDECardCard: View {
                 VStack(alignment: .leading) {
                     Spacer()
                     
-                    ForEach(1..<2) { _ in
-                        HStack(spacing: 3) {
-                            Image(systemName: "clock")
-                            Text("食堂 10.00")
+                    AsyncContentView {
+                        try await FDECardAPI.getCSRF()
+                        let transactions = try await FDECardAPI.getTransactions()
+                        return transactions
+                    } content: { (transactions: [FDTransaction]) in
+                        if !transactions.isEmpty {
+                            HStack(spacing: 3) {
+                                Image(systemName: "clock")
+                                Text("\(transactions[0].location) \(transactions[0].amount)")
+                            }
+                            .bold()
+                            .font(.footnote)
+                            .foregroundColor(.danxiDeepOrange)
                         }
-                        .bold()
-                        .font(.footnote)
-                        .foregroundColor(.danxiDeepOrange)
                     }
                 }
             }

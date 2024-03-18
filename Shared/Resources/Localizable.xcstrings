@@ -4,6 +4,9 @@
     "" : {
 
     },
+    " ¥" : {
+
+    },
     "·" : {
 
     },
@@ -392,6 +395,9 @@
           }
         }
       }
+    },
+    "Balance" : {
+
     },
     "Ban notice" : {
       "localizations" : {
@@ -2243,6 +2249,9 @@
           }
         }
       }
+    },
+    "kWh" : {
+
     },
     "Last Created" : {
       "localizations" : {
