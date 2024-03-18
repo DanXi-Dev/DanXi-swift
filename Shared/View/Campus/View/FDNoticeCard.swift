@@ -15,7 +15,7 @@ struct FDNoticeCard: View {
                 
                 Spacer()
                 
-                AsyncContentView(style: .widget) {
+                AsyncContentView {
                     let notifications = try await FDNoticeAPI.getNoticeList(1)
                     return Array(notifications.prefix(1))
                 } content: { (notices: [FDNotice]) in
@@ -24,6 +24,19 @@ struct FDNoticeCard: View {
                             .font(.callout)
                             .lineLimit(3)
                     }
+                } loadingView: {
+                    AnyView(ProgressView()
+                        .padding(.bottom, 15))
+                } failureView: { error, retryHandler in
+                    let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                    return AnyView(
+                        Button(action: retryHandler) {
+                            Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 15))
+                        }
+                            .padding(.bottom, 15)
+                    )
                 }
             }
             
