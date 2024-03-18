@@ -5,7 +5,7 @@ struct FDElectricityCard: View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 HStack {
-                    Image(systemName: "battery.100percent")
+                    Image(systemName: "powercord")
                     Text("Dorm Electricity")
                     Spacer()
                 }
@@ -15,24 +15,24 @@ struct FDElectricityCard: View {
                 
                 Spacer()
                 
-                HStack(alignment: .bottom) {
-                    Text("314.15")
-                        .bold()
-                        .font(.system(size: 25, design: .rounded))
-                    +
-                    Text("kWh")
-                        .foregroundColor(.secondary)
-                        .bold()
-                        .font(.callout)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "battery.75")
-                        .font(.title)
-                        .foregroundStyle(.yellow)
+                AsyncContentView(style: .widget) {
+                    return try await FDElectricityAPI.getDormInfo()
+                } content: { info in
+                    HStack(alignment: .bottom) {
+                        Text(String(info.availableElectricity))
+                            .bold()
+                            .font(.system(size: 25, design: .rounded))
+                        +
+                        Text("kWh")
+                            .foregroundColor(.secondary)
+                            .bold()
+                            .font(.callout)
+                        
+                        Spacer()
+                    }
                 }
+                
             }
-            
             Image(systemName: "chevron.right")
                 .foregroundStyle(.tertiary)
                 .bold()
