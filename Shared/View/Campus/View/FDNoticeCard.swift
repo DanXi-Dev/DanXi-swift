@@ -15,14 +15,14 @@ struct FDNoticeCard: View {
                 
                 Spacer()
                 
-                ForEach(1..<4) { _ in
-                    HStack {
-                        Image(systemName: "info.circle")
-                        Text("教务处通知内容")
+                AsyncContentView { 
+                    return try await FDNoticeAPI.getNoticeList(1)
+                } content: { (notices: [FDNotice]) in
+                    ForEach(1..<3) { i in
+                        Text(notices[i].title)
+                        .font(.callout)
+                        .lineLimit(2)
                     }
-                    .foregroundStyle(.secondary)
-                    .font(.callout)
-                    .lineLimit(1)
                 }
             }
             
