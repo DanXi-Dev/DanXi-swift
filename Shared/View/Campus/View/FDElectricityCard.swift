@@ -45,12 +45,12 @@ struct FDElectricityCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 85)
     }
 }
 
 #Preview {
     List {
         FDElectricityCard()
+            .frame(height: 85)
     }
 }

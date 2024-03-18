@@ -54,12 +54,12 @@ struct FDECardCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 85)
     }
 }
 
 #Preview {
     List {
         FDECardCard()
+            .frame(height: 85)
     }
 }

@@ -112,6 +112,7 @@ fileprivate struct FDHomeCard: View {
             }
         }
         .tint(.primary)
+        .frame(height: 85)
     }
 }
 

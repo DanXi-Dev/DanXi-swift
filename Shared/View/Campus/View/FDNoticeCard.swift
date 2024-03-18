@@ -32,12 +32,12 @@ struct FDNoticeCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 85)
     }
 }
 
 #Preview {
     List {
         FDNoticeCard()
+            .frame(height: 85)
     }
 }
