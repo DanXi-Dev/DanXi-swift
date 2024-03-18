@@ -9,28 +9,29 @@ struct FDElectricityPage: View {
                 LabeledContent {
                     Text(info.campus)
                 } label: {
-                    Label("Campus", systemImage: "building.fill")
+                    Text("Campus")
                 }
                 
                 LabeledContent {
                     Text(info.building + info.roomNo)
                 } label: {
-                    Label("Dorm", systemImage: "bed.double.fill")
+                    Text("Dorm")
                 }
                 
                 LabeledContent {
                     Text("\(String(info.availableElectricity)) kWh")
                 } label: {
-                    Label("Electricity Available", systemImage: "minus.plus.and.fluid.batteryblock")
+                    Text("Electricity Available")
                 }
                 
                 LabeledContent {
                     Text("\(String(info.usedElectricity)) kWh")
                 } label: {
-                    Label("Electricity Used", systemImage: "minus.plus.batteryblock.stack")
+                    Text("Electricity Used")
                 }
             }
             .navigationTitle("Dorm Electricity")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
