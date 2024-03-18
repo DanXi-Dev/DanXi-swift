@@ -4,7 +4,7 @@ struct FDECardCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: "creditcard.fill")
                         Text("ECard")
@@ -12,12 +12,24 @@ struct FDECardCard: View {
                     }
                     .bold()
                     .font(.callout)
-                    .foregroundColor(.orange)
+                    .foregroundColor(.danxiDeepOrange)
                     
-                    Text("¥25.00")
+                    Spacer()
+                    
+                    Text("Balance")
+                        .foregroundColor(.danxiGrey)
+                        .bold()
+                        .font(.subheadline)
+                    
+                    Text("25.00")
                         .bold()
                         .font(.title2)
-                        .foregroundColor(.primary.opacity(0.7))
+                        .foregroundColor(.primary)
+                    + Text(" ¥")
+                        .bold()
+                        .font(.subheadline)
+                        .foregroundColor(.danxiGrey)
+                    
                 }
                 
                 Spacer()
@@ -25,14 +37,14 @@ struct FDECardCard: View {
                 VStack(alignment: .leading) {
                     Spacer()
                     
-                    ForEach(1..<4) { _ in
+                    ForEach(1..<2) { _ in
                         HStack(spacing: 3) {
                             Image(systemName: "clock")
                             Text("食堂 10.00")
                         }
                         .bold()
                         .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.danxiDeepOrange)
                     }
                 }
             }
@@ -42,7 +54,7 @@ struct FDECardCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 75)
+        .frame(height: 85)
     }
 }
 
