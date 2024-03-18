@@ -108,7 +108,7 @@ fileprivate struct FDHomeCard: View {
                 EmptyView()
             }
         }
-        .buttonStyle(.plain)
+        .tint(.primary)
     }
 }
 
