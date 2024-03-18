@@ -101,14 +101,15 @@ fileprivate struct LoadingView: View {
     let style: AsyncContentStyle
     
     var body: some View {
-        if style == .page {
+        switch(style) {
+        case .page:
             VStack {
                 ProgressView()
                 Text("Loading")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-        } else {
+        case .widget:
             HStack {
                 Spacer()
                 ProgressView()
@@ -131,7 +132,8 @@ fileprivate struct ErrorView: View {
     }
     
     var body: some View {
-        if style == .page {
+        switch(style) {
+        case .page:
             VStack {
                 Text("Loading Failed")
                     .font(.title)
@@ -151,8 +153,7 @@ fileprivate struct ErrorView: View {
                 .foregroundStyle(Color.accentColor)
             }
             .padding()
-            
-        } else {
+        case .widget:
             HStack {
                 Spacer()
                 VStack {
