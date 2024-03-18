@@ -29,11 +29,10 @@ struct FDElectricityCard: View {
                             .font(.callout)
                         
                         Spacer()
-                        }
                     }
                 }
-                
             }
+            
             Image(systemName: "chevron.right")
                 .foregroundStyle(.tertiary)
                 .bold()
