@@ -17,7 +17,7 @@ struct FDNoticeCard: View {
                 
                 AsyncContentView {
                     let notifications = try await FDNoticeAPI.getNoticeList(1)
-                    return Array(notifications.prefix(3))
+                    return Array(notifications.prefix(1))
                 } content: { (notices: [FDNotice]) in
                     ForEach(notices) { notice in
                         Text(notice.title)
@@ -32,7 +32,7 @@ struct FDNoticeCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 75)
+        .frame(height: 85)
     }
 }
 

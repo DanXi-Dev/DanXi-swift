@@ -18,17 +18,24 @@ struct FDElectricityCard: View {
                 AsyncContentView(style: .widget) {
                     return try await FDElectricityAPI.getDormInfo()
                 } content: { info in
-                    HStack(alignment: .bottom) {
-                        Text(String(info.availableElectricity))
-                            .bold()
-                            .font(.system(size: 25, design: .rounded))
-                        +
-                        Text("kWh")
+                    VStack(alignment: .leading) {
+                        Text(info.campus + info.building + info.roomNo)
                             .foregroundColor(.secondary)
                             .bold()
-                            .font(.callout)
+                            .font(.caption)
                         
-                        Spacer()
+                        HStack(alignment: .bottom) {
+                            Text(String(info.availableElectricity))
+                                .bold()
+                                .font(.system(size: 25, design: .rounded))
+                            +
+                            Text("kWh")
+                                .foregroundColor(.secondary)
+                                .bold()
+                                .font(.callout)
+                            
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -38,7 +45,7 @@ struct FDElectricityCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 75)
+        .frame(height: 85)
     }
 }
 
