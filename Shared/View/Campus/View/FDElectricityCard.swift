@@ -29,6 +29,7 @@ struct FDElectricityCard: View {
                             .font(.callout)
                         
                         Spacer()
+                        }
                     }
                 }
                 
@@ -38,7 +39,7 @@ struct FDElectricityCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 100)
+        .frame(height: 75)
     }
 }
 

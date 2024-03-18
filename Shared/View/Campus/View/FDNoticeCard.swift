@@ -31,7 +31,7 @@ struct FDNoticeCard: View {
                 .bold()
                 .font(.footnote)
         }
-        .frame(height: 100)
+        .frame(height: 75)
     }
 }
 
