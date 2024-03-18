@@ -113,6 +113,16 @@ fileprivate struct FDHomeCard: View {
         }
         .tint(.primary)
         .frame(height: 85)
+        .padding(13)
+        .listRowBackground(EmptyView())
+        .listRowSeparator(.hidden)
+        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .background {
+            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                .foregroundStyle(.white)
+        }
+        .padding(.bottom, 8)
+        
     }
 }
 
