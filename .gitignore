@@ -8,7 +8,7 @@
 ## User settings
 xcuserdata/
 swiftpm/*
-!swiftpm/Package.resolved
+Package.resolved
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
