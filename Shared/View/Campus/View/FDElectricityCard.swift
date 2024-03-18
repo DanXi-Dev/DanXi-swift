@@ -38,8 +38,27 @@ struct FDElectricityCard: View {
                         }
                     }
                 } loadingView: {
-                    AnyView(ProgressView()
-                        .padding(.bottom, 15))
+                    AnyView(
+                        VStack(alignment: .leading) {
+                            Text("")
+                                .foregroundColor(.secondary)
+                                .bold()
+                                .font(.caption)
+                            
+                            HStack(alignment: .bottom) {
+                                Text("--.--")
+                                    .bold()
+                                    .font(.system(size: 25, design: .rounded))
+                                +
+                                Text("kWh")
+                                    .foregroundColor(.secondary)
+                                    .bold()
+                                    .font(.callout)
+                                
+                                Spacer()
+                            }
+                        }
+                    )
                 } failureView: { error, retryHandler in
                     let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
                     return AnyView(

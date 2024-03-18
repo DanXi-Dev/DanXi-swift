@@ -25,8 +25,17 @@ struct FDNoticeCard: View {
                             .lineLimit(3)
                     }
                 } loadingView: {
-                    AnyView(ProgressView()
-                        .padding(.bottom, 15))
+                    AnyView(                
+                        VStack(alignment: .leading) {
+                        Rectangle()
+                            .foregroundColor(.gray)
+                            .opacity(0.2)
+                            .frame(height: 18)
+                        Rectangle()
+                            .foregroundColor(.gray)
+                            .opacity(0.2)
+                            .frame(width: 70, height: 18)
+                    })
                 } failureView: { error, retryHandler in
                     let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
                     return AnyView(
