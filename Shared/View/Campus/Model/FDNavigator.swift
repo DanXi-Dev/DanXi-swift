@@ -7,9 +7,15 @@ class FDNavigator: ObservableObject {
     
     init() {
         // when the app update to include more sections, update storage
-        if self.pages.count != FDSection.allCases.count {
-            self.pages = FDSection.allCases
-                .filter({ !cards.contains($0) })
+        for feature in FDSection.allCases {
+            if !cards.contains(feature) && !pages.contains(feature) {
+                // A new feature has been added to the app
+                if FDSection.pinnable.contains(feature) {
+                    cards.append(feature)
+                } else {
+                    pages.append(feature)
+                }
+            }
         }
     }
     
@@ -44,7 +50,7 @@ class FDNavigator: ObservableObject {
 }
 
 enum FDSection: String, Codable, CaseIterable {
-    case sport, pay, bus, ecard, score, rank, playground, courses, electricity, notice, library, canteen
+    case ecard, electricity, notice, pay, bus, courses, library, canteen, sport, score, rank, playground
     static let gradHidden: Set<FDSection> = [.sport, .rank, .score]
     static let staffHidden: Set<FDSection> = [.sport, .rank, .score, .electricity]
     static let pinnable: Set<FDSection> = [.ecard, .electricity, .notice]
