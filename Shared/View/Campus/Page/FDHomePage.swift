@@ -17,6 +17,9 @@ struct FDHomePage: View {
                             }
                         }
                 }
+                .onMove { from, to in
+                    navigator.cards.move(fromOffsets: from, toOffset: to)
+                }
                 
                 Section {
                     ForEach(navigator.pages, id: \.self) { section in
