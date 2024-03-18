@@ -15,13 +15,14 @@ struct FDNoticeCard: View {
                 
                 Spacer()
                 
-                AsyncContentView { 
-                    return try await FDNoticeAPI.getNoticeList(1)
+                AsyncContentView {
+                    let notifications = try await FDNoticeAPI.getNoticeList(1)
+                    return Array(notifications.prefix(3))
                 } content: { (notices: [FDNotice]) in
-                    ForEach(1..<3) { i in
-                        Text(notices[i].title)
-                        .font(.callout)
-                        .lineLimit(2)
+                    ForEach(notices) { notice in
+                        Text(notice.title)
+                            .font(.callout)
+                            .lineLimit(2)
                     }
                 }
             }
