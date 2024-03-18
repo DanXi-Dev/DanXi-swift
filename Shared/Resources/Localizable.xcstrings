@@ -4,6 +4,22 @@
     "" : {
 
     },
+    " kWh" : {
+
+    },
+    " yuan" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元"
+          }
+        }
+      }
+    },
+    "--.--" : {
+
+    },
     "·" : {
 
     },
@@ -185,6 +201,9 @@
 
     },
     "¥%@" : {
+
+    },
+    "25.00" : {
 
     },
     "About" : {
@@ -389,6 +408,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "只显示可预约的时段"
+          }
+        }
+      }
+    },
+    "Balance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balance"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "余额"
           }
         }
       }
@@ -1975,6 +2010,9 @@
         }
       }
     },
+    "Goodnight stars, goodnight air, goodnight noises everywhere." : {
+
+    },
     "GPA" : {
 
     },
@@ -2038,6 +2076,9 @@
           }
         }
       }
+    },
+    "Howdy Boy!" : {
+
     },
     "ID Number" : {
       "localizations" : {
@@ -4664,6 +4705,9 @@
     "张江校区" : {
 
     },
+    "数学分析 GHX507" : {
+
+    },
     "新闻学院" : {
 
     },
@@ -4686,6 +4730,9 @@
 
     },
     "第四教学楼" : {
+
+    },
+    "食堂 10.00" : {
 
     }
   },

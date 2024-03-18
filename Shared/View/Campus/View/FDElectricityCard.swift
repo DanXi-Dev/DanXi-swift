@@ -29,7 +29,7 @@ struct FDElectricityCard: View {
                                 .bold()
                                 .font(.system(size: 25, design: .rounded))
                             +
-                            Text("kWh")
+                            Text(" kWh")
                                 .foregroundColor(.secondary)
                                 .bold()
                                 .font(.callout)
@@ -50,7 +50,7 @@ struct FDElectricityCard: View {
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
                                 +
-                                Text("kWh")
+                                Text(" kWh")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.callout)
