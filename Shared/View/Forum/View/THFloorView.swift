@@ -147,8 +147,8 @@ struct THComplexFloor: View {
 }
 
 struct THFloorContent: View {
-    @OptionalEnvironmentObject var holeModel: THHoleModel?
-    @OptionalEnvironmentObject var floorModel: THFloorModel?
+    @EnvironmentObject.Optional var holeModel: THHoleModel?
+    @EnvironmentObject.Optional var floorModel: THFloorModel?
     
     let content: String
     let interactable: Bool
