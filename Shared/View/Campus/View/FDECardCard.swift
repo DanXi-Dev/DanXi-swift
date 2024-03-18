@@ -21,7 +21,7 @@ struct FDECardCard: View {
                         .bold()
                         .font(.subheadline)
                     
-                    AsyncContentView{
+                    AsyncContentView {
                         return try await FDECardAPI.getBalance()
                     } content: { (balance: String) in
                         Text(balance)
