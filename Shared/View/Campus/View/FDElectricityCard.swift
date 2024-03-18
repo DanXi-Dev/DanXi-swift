@@ -5,7 +5,7 @@ struct FDElectricityCard: View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 HStack {
-                    Image(systemName: "powercord")
+                    Image(systemName: "powercord.fill")
                     Text("Dorm Electricity")
                     Spacer()
                 }
@@ -15,7 +15,7 @@ struct FDElectricityCard: View {
                 
                 Spacer()
                 
-                AsyncContentView(style: .widget) {
+                AsyncContentView {
                     return try await FDElectricityAPI.getDormInfo()
                 } content: { info in
                     VStack(alignment: .leading) {
@@ -37,6 +37,19 @@ struct FDElectricityCard: View {
                             Spacer()
                         }
                     }
+                } loadingView: {
+                    AnyView(ProgressView()
+                        .padding(.bottom, 15))
+                } failureView: { error, retryHandler in
+                    let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                    return AnyView(
+                        Button(action: retryHandler) {
+                            Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 15))
+                        }
+                            .padding(.bottom, 15)
+                    )
                 }
             }
             
