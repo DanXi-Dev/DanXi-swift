@@ -119,7 +119,7 @@ fileprivate struct FDHomeCard: View {
         .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
         .background {
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                .foregroundStyle(.white)
+                .foregroundStyle(Color("Background"))
         }
         .padding(.bottom, 8)
         
