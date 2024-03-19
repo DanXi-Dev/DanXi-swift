@@ -12,26 +12,56 @@ struct FDECardCard: View {
                     }
                     .bold()
                     .font(.callout)
-                    .foregroundColor(.danxiDeepOrange)
+                    .foregroundColor(.orange)
                     
                     Spacer()
                     
-                    Text("Balance")
-                        .foregroundColor(.danxiGrey)
-                        .bold()
-                        .font(.subheadline)
-                    
-                    AsyncContentView {
+                    AsyncContentView(animation: .default) {
                         return try await FDECardAPI.getBalance()
                     } content: { (balance: String) in
-                        Text(balance)
-                            .bold()
-                            .font(.title2)
-                            .foregroundColor(.primary)
-                        + Text(" yuan")
-                            .bold()
-                            .font(.subheadline)
-                            .foregroundColor(.danxiGrey)
+                        VStack(alignment: .leading) {
+                            Text("Balance")
+                                .foregroundColor(.gray)
+                                .bold()
+                                .font(.subheadline)
+                            
+                            Text(balance)
+                                .bold()
+                                .font(.title2)
+                                .foregroundColor(.primary)
+                            + Text(" yuan")
+                                .bold()
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    } loadingView: {
+                        AnyView(
+                            VStack(alignment: .leading) {
+                                Text("Balance")
+                                    .foregroundColor(.gray)
+                                    .bold()
+                                    .font(.subheadline)
+                                
+                                Text("--.--")
+                                    .bold()
+                                    .font(.title2)
+                                    .foregroundColor(.primary)
+                                + Text(" yuan")
+                                    .bold()
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                        )
+                    } failureView: { error, retryHandler in
+                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                        return AnyView(
+                            Button(action: retryHandler) {
+                                Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.secondary)
+                                    .font(.system(size: 15))
+                            }
+                                .padding(.bottom, 15)
+                        )
                     }
                 }
                 
@@ -40,20 +70,39 @@ struct FDECardCard: View {
                 VStack(alignment: .leading) {
                     Spacer()
                     
-                    AsyncContentView {
+                    AsyncContentView(animation: .default) {
                         try await FDECardAPI.getCSRF()
                         let transactions = try await FDECardAPI.getTransactions()
-                        return transactions
+                        return Array(transactions.prefix(1))
                     } content: { (transactions: [FDTransaction]) in
-                        if !transactions.isEmpty {
+                        ForEach(transactions) { transaction in
                             HStack(spacing: 3) {
                                 Image(systemName: "clock")
-                                Text("\(transactions[0].location) \(transactions[0].amount)")
+                                Text("\(transaction.location) \(transaction.amount)")
                             }
                             .bold()
                             .font(.footnote)
-                            .foregroundColor(.danxiDeepOrange)
+                            .foregroundColor(.orange)
                         }
+                    } loadingView: {
+                        AnyView(HStack(spacing: 3) {
+                            Image(systemName: "clock")
+                            Text("--")
+                        }
+                            .bold()
+                            .font(.footnote)
+                            .foregroundColor(.orange))
+                    } failureView: { error, retryHandler in AnyView(
+                        Button(action: retryHandler) {
+                            AnyView(HStack(spacing: 3) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                Text("--")
+                            }
+                                .bold()
+                                .font(.footnote)
+                                .foregroundColor(.orange))
+                        }
+                    )
                     }
                 }
             }
