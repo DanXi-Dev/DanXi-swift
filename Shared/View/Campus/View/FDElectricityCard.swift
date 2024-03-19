@@ -15,7 +15,7 @@ struct FDElectricityCard: View {
                 
                 Spacer()
                 
-                AsyncContentView {
+                AsyncContentView(animation: .default) {
                     return try await FDElectricityAPI.getDormInfo()
                 } content: { info in
                     VStack(alignment: .leading) {

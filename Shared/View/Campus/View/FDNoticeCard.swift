@@ -15,7 +15,7 @@ struct FDNoticeCard: View {
                 
                 Spacer()
                 
-                AsyncContentView {
+                AsyncContentView(animation: .default) {
                     let notifications = try await FDNoticeAPI.getNoticeList(1)
                     return Array(notifications.prefix(1))
                 } content: { (notices: [FDNotice]) in
