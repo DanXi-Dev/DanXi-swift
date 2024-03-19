@@ -31,6 +31,7 @@ struct AboutPage: View {
             }
         }
         .navigationTitle("About")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private var appIcon: some View {
