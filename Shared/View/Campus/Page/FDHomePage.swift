@@ -79,7 +79,7 @@ fileprivate struct FDHomeSimpleLink: View {
             case .courses:
                 Label("Empty Classrooms", systemImage: "building.2")
             case .electricity:
-                Label("Dorm Electricity", systemImage: "bolt.horizontal")
+                Label("Dorm Electricity", systemImage: "powercord.fill")
             case .notice:
                 Label("Academic Office Announcements", systemImage: "bell")
             case .library:
