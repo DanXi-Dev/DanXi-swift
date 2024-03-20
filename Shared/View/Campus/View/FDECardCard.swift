@@ -1,23 +1,24 @@
 import SwiftUI
+import FudanKit
 
 struct FDECardCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: "creditcard.fill")
-                        Text("ECard")
-                        Spacer()
-                    }
-                    .bold()
-                    .font(.callout)
-                    .foregroundColor(.orange)
-                    
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(systemName: "creditcard.fill")
+                    Text("ECard")
                     Spacer()
-                    
+                }
+                .bold()
+                .font(.callout)
+                .foregroundColor(.orange)
+                
+                Spacer()
+                
+                HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        return try await FDECardAPI.getBalance()
+                        return try await WalletStore.shared.getCachedUserInfo().balance
                     } content: { (balance: String) in
                         VStack(alignment: .leading) {
                             Text("Balance")
@@ -62,47 +63,20 @@ struct FDECardCard: View {
                             }
                                 .padding(.bottom, 15)
                         )
+                        
                     }
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .leading) {
+                    
                     Spacer()
                     
                     AsyncContentView(animation: .default) {
-                        try await FDECardAPI.getCSRF()
-                        let transactions = try await FDECardAPI.getTransactions()
-                        return Array(transactions.prefix(1))
-                    } content: { (transactions: [FDTransaction]) in
-                        ForEach(transactions) { transaction in
-                            HStack(spacing: 3) {
-                                Image(systemName: "clock")
-                                Text("\(transaction.location) \(transaction.amount)")
-                            }
-                            .bold()
-                            .font(.footnote)
+                        try await WalletStore.shared.getCachedDailyTransactionHistory().map({value in FDDateValueChartData(date: value.date, value: value.value)})
+                    } content: { (transactions: [FDDateValueChartData]) in
+                        FDDateValueChart(data: transactions)
+                            .frame(width: 80, height: 40)
                             .foregroundColor(.orange)
-                        }
                     } loadingView: {
-                        AnyView(HStack(spacing: 3) {
-                            Image(systemName: "clock")
-                            Text("--")
-                        }
-                            .bold()
-                            .font(.footnote)
-                            .foregroundColor(.orange))
-                    } failureView: { error, retryHandler in AnyView(
-                        Button(action: retryHandler) {
-                            AnyView(HStack(spacing: 3) {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                Text("--")
-                            }
-                                .bold()
-                                .font(.footnote)
-                                .foregroundColor(.orange))
-                        }
-                    )
+                        AnyView(ProgressView())
+                    } failureView: { error, retryHandler in AnyView(Text(error.localizedDescription))
                     }
                 }
             }

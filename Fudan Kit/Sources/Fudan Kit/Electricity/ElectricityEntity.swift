@@ -1,17 +1,15 @@
 import Foundation
 
-public struct ElectricityUsage {
+public struct ElectricityUsage: Codable {
     public let campus: String
     public let building: String
     public let room: String
     
     public let updateTime: String
-    public let electricityUsed: String
-    public let electricityAvailable: String
-    public let electricityAll: String
-}
-
-extension ElectricityUsage: Codable {
+    public let electricityUsed: Float
+    public let electricityAvailable: Float
+    public let electricityAll: Float
+    
     enum CodingKeys: String, CodingKey {
         case campus = "xq"
         case building = "ssmc"

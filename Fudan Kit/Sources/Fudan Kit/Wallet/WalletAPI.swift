@@ -1,7 +1,7 @@
 import Foundation
 
 /// API collection for eCard functionality.
-public enum WalletAPI {
+internal enum WalletAPI {
     
     /// Get the QR code for eCard spending.
     /// - Returns: A QR code string representation
@@ -30,12 +30,59 @@ public enum WalletAPI {
         }
     }
     
-    /// Get user's eCard balance.
-    public static func getBalance() async throws -> String {
-        let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let responseData = try await AuthenticationAPI.authenticateForData(url)
-        let cashElement = try decodeHTMLElement(responseData, selector: ".payway-box-bottom-item > p")
-        return try cashElement.html()
+    /// Get user's eCard balance and other info
+    /// The server response is as follows:
+    /// ```json
+    /// {
+    ///    "draw": 1,
+    ///    "recordsTotal": 1,
+    ///    "recordsFiltered": 1,
+    ///    "data": [
+    ///        [
+    ///            "2030120342",
+    ///            "李伟",
+    ///            "正常",
+    ///            "是(江湾;枫林;张江;邯郸)",
+    ///            "2026-07-15",
+    ///            "123.45"
+    ///        ]
+    ///    ]
+    /// }
+    /// ```
+    public static func getUserInfo() async throws -> UserInfo {
+        let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_xx.json")!
+        let _ = try await AuthenticationAPI.authenticateForData(url)
+        let request = constructRequest(url, method: "POST")
+        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+        let userData = (dictionary["data"] as! [[String]])[0]
+        return UserInfo(userId: userData[0], userName: userData[1], cardStatus: userData[2], entryPermission: userData[3], expirationDate: userData[4], balance: userData[5])
+    }
+    
+    /// Get how much money user has spent each day
+    /// The server response is as follows:
+    /// {
+    ///    "draw": 1,
+    ///    "recordsTotal": 123,
+    ///    "recordsFiltered": 123,
+    ///    "data": [
+    ///        [
+    ///            "2024-03-18",
+    ///            "33.44"
+    ///        ],
+    ///        [
+    ///            "2024-03-17",
+    ///            "12.68"
+    ///        ]
+    ///    ]
+    /// }
+    public static func getTransactionHistoryByDay() async throws -> [DateBoundValueData] {
+        let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_mrxf.json")!
+        let _ = try await AuthenticationAPI.authenticateForData(url)
+        let payload = "draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false"
+        let request = constructRequest(url, payload: payload.data(using: .utf8))
+        let (data, _) = try await URLSession.campusSession.data(for: request)
+        return try JSONDecoder().decode(FDMyAPIJsonResponse.self, from: data).dateValuePairs
     }
     
     /// Get user's eCard transaction records.
@@ -124,7 +171,7 @@ public enum WalletAPI {
             let transaction = Transaction(id: UUID(), date: date, location: location, amount: amount, remaining: balance)
             transactions.append(transaction)
         }
-
+        
         return transactions
     }
 }

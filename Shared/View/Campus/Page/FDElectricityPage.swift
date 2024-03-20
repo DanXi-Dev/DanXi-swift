@@ -1,9 +1,10 @@
 import SwiftUI
+import FudanKit
 
 struct FDElectricityPage: View {
     var body: some View {
         AsyncContentView {
-            return try await FDElectricityAPI.getDormInfo()
+            return try await ElectricityStore.shared.getCachedElectricityUsage()
         } content: { info in
             List {
                 LabeledContent {
@@ -13,19 +14,19 @@ struct FDElectricityPage: View {
                 }
                 
                 LabeledContent {
-                    Text(info.building + info.roomNo)
+                    Text(info.building + info.room)
                 } label: {
                     Text("Dorm")
                 }
                 
                 LabeledContent {
-                    Text("\(String(info.availableElectricity)) kWh")
+                    Text("\(String(info.electricityAvailable)) kWh")
                 } label: {
                     Text("Electricity Available")
                 }
                 
                 LabeledContent {
-                    Text("\(String(info.usedElectricity)) kWh")
+                    Text("\(String(info.electricityUsed)) kWh")
                 } label: {
                     Text("Electricity Used")
                 }

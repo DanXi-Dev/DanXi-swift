@@ -45,9 +45,9 @@ struct FDDateValueChart: View {
                 }
             }
         }
-        .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange, to: .now)! ... Calendar.current.date(byAdding: .day, value: +1, to: .now)!)
+        .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange, to: .now)! ... .now)
         .chartXAxis(.hidden)
-        .chartYAxis(.visible)
+        .chartYAxis(.hidden)
     }
 }
 
@@ -107,5 +107,5 @@ struct FDDateValueChart: View {
         FDDateValueChartData(date: dateFormatter.date(from: i[0])!, value: Float(i[1])!)
     }
     return FDDateValueChart(data: data)
-        .frame(width: 300, height: 150)
+        .frame(width: 100, height: 40)
 }
