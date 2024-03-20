@@ -45,7 +45,7 @@ struct SettingsPage: View {
                             Text("Graduate").tag(FDStudentType.grad)
                             Text("Staff").tag(FDStudentType.staff)
                         } label: {
-                            Label("Student Type", systemImage: "graduationcap")
+                            Text("Student Type")
                         }
                     }
                 }
@@ -58,7 +58,7 @@ struct SettingsPage: View {
                     NavigationLink {
                         AboutPage()
                     } label: {
-                        Label("About", systemImage: "info.circle")
+                        Text("About")
                     }
                 }
             }

@@ -10,21 +10,42 @@ struct AsyncContentView<Output, Content: View>: View {
     private let nestedView: AnyView
     
     init(finished: Bool = false,
+         animation: Animation? = .none,
          style: AsyncContentStyle = .page,
          action: @escaping () async throws -> Void,
          @ViewBuilder content: () -> Content) where Output == Void {
         nestedView = AnyView(AsyncTaskView(finished: finished,
                                            style: style,
+                                           animation: animation,
                                            action: action,
                                            content: content))
     }
     
     init(style: AsyncContentStyle = .page,
+         animation: Animation? = .none,
          action: @escaping () async throws -> Output,
          @ViewBuilder content: @escaping (Output) -> Content) {
         nestedView = AnyView(AsyncMappingView(style: style,
+                                              animation: animation,
                                               action: action,
                                               content: content))
+    }
+    
+    init(finished: Bool = false,
+         animation: Animation? = .none,
+         action: @escaping () async throws -> Void,
+         @ViewBuilder content: () -> Content,
+         loadingView: (() -> AnyView)?,
+         failureView: ((Error, @escaping () -> Void) -> AnyView)?) where Output == Void {
+        nestedView = AnyView(AsyncTaskView(finished: finished, animation: animation, action: action, content: content, loadingView: loadingView, failureView: failureView))
+    }
+    
+    init(animation: Animation? = .none,
+         action: @escaping () async throws -> Output,
+         @ViewBuilder content: @escaping (Output) -> Content,
+         loadingView: (() -> AnyView)?,
+         failureView: ((Error, @escaping () -> Void) -> AnyView)?) {
+        nestedView = AnyView(AsyncMappingView(animation:animation, action: action, content: content, loadingView: loadingView, failureView: failureView))
     }
     
     var body: some View {
@@ -36,30 +57,65 @@ struct AsyncTaskView<Content: View>: View {
     private let style: AsyncContentStyle
     @StateObject private var loader: AsyncLoader<Void>
     private let content: Content
+    @ViewBuilder private let loadingView: (() -> (AnyView))?
+    @ViewBuilder private let failureView: ((Error, @escaping () -> Void) -> (AnyView))?
     
     init(finished: Bool = false,
          style: AsyncContentStyle = .page,
+         animation: Animation?,
          action: @escaping () async throws -> Void,
          @ViewBuilder content: () -> Content) {
-        let loader = AsyncLoader(action: action)
+        let loader = AsyncLoader(action: action, animation: animation)
         if finished {
             loader.state = .loaded(()) // this is a hack: Void is an empty tuple, this is for code reuse
         }
         self._loader = StateObject(wrappedValue: loader)
         self.style = style
         self.content = content()
+        self.loadingView = nil
+        self.failureView = nil
+    }
+    
+    init(finished: Bool = false,
+         animation: Animation?,
+         action: @escaping () async throws -> Void,
+         @ViewBuilder content: () -> Content,
+         loadingView: (() -> AnyView)?,
+         failureView: ((Error, @escaping () -> Void) -> AnyView)?) {
+        let loader = AsyncLoader(action: action, animation: animation)
+        if finished {
+            loader.state = .loaded(()) // this is a hack: Void is an empty tuple, this is for code reuse
+        }
+        self._loader = StateObject(wrappedValue: loader)
+        self.style = .page
+        self.content = content()
+        self.loadingView = loadingView
+        self.failureView = failureView
     }
     
     var body: some View {
         switch loader.state {
         case .loading:
-            LoadingView(style: self.style)
-                .task {
-                    await loader.load()
-                }
+            if let loadingView = loadingView {
+                loadingView()
+                    .task {
+                        await loader.load()
+                    }
+            } else {
+                LoadingView(style: self.style)
+                    .task {
+                        await loader.load()
+                    }
+            }
         case .failed(let error):
-            ErrorView(style: self.style, error: error) {
-                loader.state = .loading
+            if let failureView = failureView {
+                failureView(error) {
+                    loader.state = .loading
+                }
+            } else {
+                ErrorView(style: self.style, error: error) {
+                    loader.state = .loading
+                }
             }
         case .loaded(_):
             content
@@ -71,25 +127,55 @@ struct AsyncMappingView<Output, Content: View>: View {
     private let style: AsyncContentStyle
     @StateObject private var loader: AsyncLoader<Output>
     private var content: (Output) -> Content
+    @ViewBuilder private let loadingView: (() -> (AnyView))?
+    @ViewBuilder private let failureView: ((Error, @escaping () -> Void) -> (AnyView))?
     
     init(style: AsyncContentStyle = .page,
+         animation: Animation?,
          action: @escaping () async throws -> Output,
          @ViewBuilder content: @escaping (Output) -> Content) {
         self.style = style
-        self._loader = StateObject(wrappedValue: AsyncLoader(action: action))
+        self._loader = StateObject(wrappedValue: AsyncLoader(action: action, animation: animation))
         self.content = content
+        self.loadingView = nil
+        self.failureView = nil
     }
-
+    
+    init(animation: Animation?,
+         action: @escaping () async throws -> Output,
+         @ViewBuilder content: @escaping (Output) -> Content,
+         loadingView: (() -> AnyView)?,
+         failureView: ((Error, @escaping () -> Void) -> AnyView)?) {
+        self.style = .page
+        self._loader = StateObject(wrappedValue: AsyncLoader(action: action, animation: animation))
+        self.content = content
+        self.loadingView = loadingView
+        self.failureView = failureView
+    }
+    
     var body: some View {
         switch loader.state {
         case .loading:
-            LoadingView(style: self.style)
-                .task {
-                    await loader.load()
-                }
+            if let loadingView = loadingView {
+                loadingView()
+                    .task {
+                        await loader.load()
+                    }
+            } else {
+                LoadingView(style: self.style)
+                    .task {
+                        await loader.load()
+                    }
+            }
         case .failed(let error):
-            ErrorView(style: self.style, error: error) {
-                loader.state = .loading
+            if let failureView = failureView {
+                failureView(error) {
+                    loader.state = .loading
+                }
+            } else {
+                ErrorView(style: self.style, error: error) {
+                    loader.state = .loading
+                }
             }
         case .loaded(let output):
             content(output)
@@ -101,14 +187,15 @@ fileprivate struct LoadingView: View {
     let style: AsyncContentStyle
     
     var body: some View {
-        if style == .page {
+        switch(style) {
+        case .page:
             VStack {
                 ProgressView()
                 Text("Loading")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-        } else {
+        case .widget:
             HStack {
                 Spacer()
                 ProgressView()
@@ -131,7 +218,8 @@ fileprivate struct ErrorView: View {
     }
     
     var body: some View {
-        if style == .page {
+        switch(style) {
+        case .page:
             VStack {
                 Text("Loading Failed")
                     .font(.title)
@@ -151,8 +239,7 @@ fileprivate struct ErrorView: View {
                 .foregroundStyle(Color.accentColor)
             }
             .padding()
-            
-        } else {
+        case .widget:
             HStack {
                 Spacer()
                 VStack {
@@ -190,17 +277,21 @@ enum LoadingState<Value> {
 @MainActor
 class AsyncLoader<Output>: ObservableObject {
     @Published var state: LoadingState<Output> = .loading
+    let animation: Animation?
     let action: () async throws -> Output
     
-    init(action: @escaping () async throws -> Output) {
+    init(action: @escaping () async throws -> Output, animation: Animation?) {
         self.action = action
+        self.animation = animation
     }
     
     func load() async {
         do {
             state = .loading
             let output = try await action()
-            self.state = .loaded(output)
+            withAnimation(animation) {
+                self.state = .loaded(output)
+            }
         } catch {
             state = .failed(error)
         }

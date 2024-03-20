@@ -187,6 +187,9 @@
 		27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7029CB5B4500F32093 /* THFloorModel.swift */; };
 		27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7829CC50E100F32093 /* AsnyncButton.swift */; };
 		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
+		27DD19B62BA5ED3400B75643 /* FDECardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19B52BA5ED3400B75643 /* FDECardCard.swift */; };
+		27DD19B82BA5F1AC00B75643 /* FDElectricityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */; };
+		27DD19BC2BA5F3D400B75643 /* FDNoticeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
 		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
@@ -218,6 +221,7 @@
 		F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
+		F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
@@ -382,6 +386,9 @@
 		27DAFA7029CB5B4500F32093 /* THFloorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorModel.swift; sourceTree = "<group>"; };
 		27DAFA7829CC50E100F32093 /* AsnyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsnyncButton.swift; sourceTree = "<group>"; };
 		27DD19B22BA5C16900B75643 /* Fudan Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Fudan Kit"; sourceTree = "<group>"; };
+		27DD19B52BA5ED3400B75643 /* FDECardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardCard.swift; sourceTree = "<group>"; };
+		27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityCard.swift; sourceTree = "<group>"; };
+		27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticeCard.swift; sourceTree = "<group>"; };
 		27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarRatingView.swift; sourceTree = "<group>"; };
 		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
 		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
@@ -412,6 +419,7 @@
 		F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDDateValueChart.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
 		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
@@ -540,6 +548,10 @@
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
 				276310262AB82B99005896AD /* FDCalendarView.swift */,
 				2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */,
+				27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */,
+				27DD19B52BA5ED3400B75643 /* FDECardCard.swift */,
+				F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */,
+				27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1160,6 +1172,7 @@
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
+				F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */,
 				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
@@ -1171,6 +1184,7 @@
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				278F83C02AAFE9D2008ED56C /* FDIdentityAPI.swift in Sources */,
 				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,
+				27DD19B82BA5F1AC00B75643 /* FDElectricityCard.swift in Sources */,
 				27DAFA6929CB43FA00F32093 /* THHoleLoader.swift in Sources */,
 				2772231128F05B3300458EAC /* THHistorySheet.swift in Sources */,
 				27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */,
@@ -1205,11 +1219,13 @@
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
 				270131912A3C27F20013FA7E /* FDLibraryPage.swift in Sources */,
 				27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */,
+				27DD19BC2BA5F3D400B75643 /* FDNoticeCard.swift in Sources */,
 				27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */,
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,
 				27E2DE7B2A55496D00D26D86 /* Date.swift in Sources */,
 				27E82FED29E8977400F34B3B /* FDCoursePage.swift in Sources */,
 				272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */,
+				27DD19B62BA5ED3400B75643 /* FDECardCard.swift in Sources */,
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,

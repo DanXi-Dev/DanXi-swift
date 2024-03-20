@@ -83,7 +83,7 @@ fileprivate struct BusPageContent: View {
                     .pickerStyle(.segmented)
                 }
                 
-                Toggle(isOn: $model.filterSchedule) {
+                Toggle(isOn: $model.filterSchedule.animation()) {
                     Text("Show schedule after \(getTime())")
                 }
             }
