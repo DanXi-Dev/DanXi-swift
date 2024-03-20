@@ -23,7 +23,7 @@ struct FDDateValueChart: View {
     init(data: [FDDateValueChartData], backtrackRange: Int = 7) {
         self.data = data
         self.backtrackRange = backtrackRange
-        self.filteredData = Array(data.filter({d in d.date >= Calendar.current.date(byAdding: .day, value: -backtrackRange, to: .now)!}).sorted(by: {a, b in a.date > b.date}))
+        self.filteredData = Array(data.filter({d in d.date >= Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)!}).sorted(by: {a, b in a.date > b.date}))
     }
     
     var body: some View {
@@ -45,7 +45,7 @@ struct FDDateValueChart: View {
                 }
             }
         }
-        .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange, to: .now)! ... .now)
+        .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)! ... .now)
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
     }
