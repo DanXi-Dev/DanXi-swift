@@ -18,8 +18,10 @@ struct FDECardCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        return try await WalletStore.shared.getCachedUserInfo().balance
-                    } content: { (balance: String) in
+                        try await (WalletStore.shared.getCachedUserInfo().balance,
+                                   WalletStore.shared.getCachedDailyTransactionHistory().map({value in 
+                                                                        FDDateValueChartData(date: value.date, value: value.value)}))
+                    } content: {(balance: String, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")
                                 .foregroundColor(.gray)
@@ -35,6 +37,11 @@ struct FDECardCard: View {
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
+                        
+                        Spacer()
+                                                    
+                        FDDateValueChart(data: transactions, color: .orange)
+                            .frame(width: 100, height: 40)
                     } loadingView: {
                         AnyView(
                             VStack(alignment: .leading) {
@@ -64,18 +71,6 @@ struct FDECardCard: View {
                                 .padding(.bottom, 15)
                         )
                         
-                    }
-                    
-                    Spacer()
-                    
-                    AsyncContentView(animation: .default) {
-                        try await WalletStore.shared.getCachedDailyTransactionHistory().map({value in FDDateValueChartData(date: value.date, value: value.value)})
-                    } content: { (transactions: [FDDateValueChartData]) in
-                        FDDateValueChart(data: transactions, color: .orange)
-                            .frame(width: 100, height: 40)
-                    } loadingView: {
-                        AnyView(ProgressView())
-                    } failureView: { error, retryHandler in AnyView(EmptyView())
                     }
                 }
             }

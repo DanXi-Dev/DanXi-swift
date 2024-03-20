@@ -18,8 +18,10 @@ struct FDElectricityCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        return try await ElectricityStore.shared.getCachedElectricityUsage()
-                    } content: { info in
+                        try await (ElectricityStore.shared.getCachedElectricityUsage(),
+                                          ElectricityStore.shared.getCachedDailyElectricityHistory().map({v in
+                                                                FDDateValueChartData(date: v.date, value: v.value)}))
+                    } content: {(info: ElectricityUsage, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text(info.campus + info.building + info.room)
                                 .foregroundColor(.secondary)
@@ -39,6 +41,11 @@ struct FDElectricityCard: View {
                                 Spacer()
                             }
                         }
+                        
+                        Spacer()
+    
+                        FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .green)
+                                                    .frame(width: 100, height: 40)
                     } loadingView: {
                         AnyView(
                             VStack(alignment: .leading) {
@@ -71,18 +78,6 @@ struct FDElectricityCard: View {
                             }
                                 .padding(.bottom, 15)
                         )
-                    }
-                    
-                    Spacer()
-                    
-                    AsyncContentView(animation: .default) {
-                        try await ElectricityStore.shared.getCachedDailyElectricityHistory().map({v in FDDateValueChartData(date: v.date, value: v.value)})
-                    } content: { (transactions: [FDDateValueChartData]) in
-                        FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .green)
-                            .frame(width: 100, height: 40)
-                    } loadingView: {
-                        AnyView(ProgressView())
-                    } failureView: { error, retryHandler in AnyView(EmptyView())
                     }
                 }
             }
