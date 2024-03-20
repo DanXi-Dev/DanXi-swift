@@ -220,6 +220,7 @@
 		F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
+		F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
@@ -416,6 +417,7 @@
 		F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDDateValueChart.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
 		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */,
 				27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */,
 				27DD19B52BA5ED3400B75643 /* FDECardCard.swift */,
+				F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */,
 				27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */,
 			);
 			path = View;
@@ -1164,6 +1167,7 @@
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
+				F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */,
 				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
