@@ -1,0 +1,245 @@
+import Foundation
+
+public enum GraduateCourseAPI {
+    
+    /// Get all semesters
+    ///
+    /// - Important:
+    ///     The `startday` property of the semester may be incorrect in previous semesters.
+    ///
+    /// ## API Detail
+    ///
+    /// The server respond with the following JSON data:
+    /// ```json
+    /// {
+    ///     "e": 0,
+    ///     "m": "操作成功",
+    ///     "d": {
+    ///         "params": {
+    ///             "year": "2023-2024",
+    ///             "term": "2",
+    ///             "startday": "2024-02-26",
+    ///             "countweek": 18,
+    ///             "week": 4
+    ///         },
+    ///         "termInfo": [
+    ///             {
+    ///                 "year": "2024-2025",
+    ///                 "term": "2",
+    ///                 "startday": "2025-03-01",
+    ///                 "countweek": 18
+    ///             },
+    ///             ...
+    ///         ],
+    ///         "weekday": "3",
+    ///         "weekdays": [
+    ///             "2024-03-18",
+    ///             "2024-03-19",
+    ///             "2024-03-20",
+    ///             "2024-03-21",
+    ///             "2024-03-22",
+    ///             "2024-03-23",
+    ///             "2024-03-24"
+    ///         ]
+    ///     }
+    /// }
+    /// ```
+    public static func getSemesters() async throws -> [Semester] {
+        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanyjskb/wap/default/get-index")!
+        let data = try await AuthenticationAPI.authenticateForData(url)
+        let json = try unwrapJSON(data)
+        let semesterData = try json["termInfo"].rawData()
+        
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        let semestersResponse = try decoder.decode([GraduateSemesterResponse].self, from: semesterData)
+        var semesters: [Semester] = []
+        for response in semestersResponse {
+            let yearPattern = /(?<startYear>\d+)-\d+/
+            guard let yearMatch = response.year.firstMatch(of: yearPattern),
+                  let year = Int(yearMatch.startYear) else {
+                continue
+            }
+            let type: Semester.SemesterType = (response.term == "1") ? .first : .second
+            
+            let semester = Semester(id: UUID(), year: year, type: type, semesterId: 0, startDate: response.startday, weekCount: response.countweek)
+            semesters.append(semester)
+        }
+        return semesters
+    }
+    
+    private struct GraduateSemesterResponse: Decodable {
+        let year: String
+        let term: String
+        let startday: Date
+        let countweek: Int
+    }
+    
+    /// Get courses on a given semester
+    public static func getCourses(semester: Semester) async throws -> [Course] {
+        let dictionary = try await withThrowingTaskGroup(of: (Int, [CourseBuilder]).self,
+                                                         returning: [Int: [CourseBuilder]].self) { taskGroup in
+            var dictionary: [Int: [CourseBuilder]] = [:]
+            
+            for week in 1...semester.weekCount {
+                taskGroup.addTask {
+                    let term = semester.type == .first ? 1 : 2
+                    let builders = try await getCoursesForWeek(year: semester.year, term: term, week: week)
+                    return (week, builders)
+                }
+            }
+            
+            for try await (week, builders) in taskGroup {
+                dictionary[week] = builders
+            }
+            
+            return dictionary
+        }
+        
+        var builders: [CourseBuilder] = []
+        for week in 1...semester.weekCount {
+            let currentWeekBuilders = dictionary[week]! // this key is not empty, as it is set in the taskGroup above
+            for newBuilder in currentWeekBuilders {
+                // if newBuilder is in builders, update builder
+                var matched = false
+                for (idx, builder) in builders.enumerated() {
+                    if builder.code == newBuilder.code && builder.weekday == newBuilder.weekday {
+                        builders[idx].onWeeks.append(week)
+                        matched = true
+                        break // TODO: which to break?
+                    }
+                }
+                
+                // otherwise it's a new builder, should be appended
+                if !matched {
+                    var appendedBuilder = newBuilder // override newBuilder constant
+                    appendedBuilder.onWeeks.append(week)
+                    builders.append(appendedBuilder)
+                }
+            }
+        }
+        
+        
+        return builders.map { $0.build() }
+    }
+    
+    /// Get courses on a given week
+    ///
+    /// ## API Detail
+    ///
+    /// The server response with a following message
+    ///
+    /// ```json
+    /// {
+    ///     "e": 0,
+    ///     "m": "操作成功",
+    ///     "d": {
+    ///         "classes": [
+    ///             {
+    ///                 "course_id": "PTSS732001",
+    ///                 "course_name": "新时代中国特色社会主义理论与实践",
+    ///                 "location": "JA205",
+    ///                 "weekday": 3,
+    ///                 "lessons": "06",
+    ///                 "week": "1-16",
+    ///                 "course_time": "13:30-14:15",
+    ///                 "course_type": "政治理论课",
+    ///                 "credit": 2,
+    ///                 "khfs": "考试",
+    ///                 "teacher": "张济琳",
+    ///                 "area": ""
+    ///             },
+    ///             ...,
+    ///             {
+    ///                 "course_id": "PTSS732001",
+    ///                 "course_name": "新时代中国特色社会主义理论与实践",
+    ///                 "location": "JA205",
+    ///                 "weekday": 3,
+    ///                 "lessons": "07",
+    ///                 "week": "1-16",
+    ///                 "course_time": "14:25-15:10",
+    ///                 "course_type": "政治理论课",
+    ///                 "credit": 2,
+    ///                 "khfs": "考试",
+    ///                 "teacher": "张济琳",
+    ///                 "area": ""
+    ///             }
+    ///         ],
+    ///         "weekdays": [
+    ///             "2024-04-08",
+    ///             "2024-04-09",
+    ///             "2024-04-10",
+    ///             "2024-04-11",
+    ///             "2024-04-12",
+    ///             "2024-04-13",
+    ///             "2024-04-14"
+    ///         ]
+    ///     }
+    /// }
+    /// ```
+    private static func getCoursesForWeek(year: Int, term: Int, week: Int) async throws -> [CourseBuilder] {
+        // get data from server
+        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanyjskb/wap/default/get-data")!
+        let form = ["year": "\(String(year))-\(String(year + 1))",
+                    "term": String(term),
+                    "week": String(week),
+                    "type": "1"]
+        let request = constructFormRequest(url, form: form)
+        let (data, _) = try await URLSession.campusSession.data(for: request)
+        
+        // decode data into GraduateCourseResponse
+        let json = try unwrapJSON(data)
+        let courseData = try json["classes"].rawData()
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        var responses = try decoder.decode([CourseResponse].self, from: courseData)
+        
+        // consecutive courses are separated in response
+        // we need to merge same course into a single course builder
+        var builders: [CourseBuilder] = []
+        
+        while !responses.isEmpty {
+            let response = responses.removeFirst()
+            var matchedResponses = responses.filter { $0.courseId == response.courseId && $0.weekday == response.weekday }
+            matchedResponses.append(response)
+            responses.removeAll { $0.courseId == response.courseId && $0.weekday == response.weekday }
+            
+            // get all \.lessons array. If parse to int fails, throw error.
+            let lessons = try matchedResponses.map { item in
+                guard let lesson = Int(item.lessons) else {
+                    throw URLError(.badServerResponse)
+                }
+                return lesson
+            }
+            guard let max = lessons.max(), let min = lessons.min() else { continue }
+            let builder = CourseBuilder(name: response.courseName, code: response.courseId, teacher: response.teacher, location: response.location, weekday: response.weekday, start: min, end: max)
+            builders.append(builder)
+        }
+        
+        return builders
+    }
+    
+    private struct CourseBuilder {
+        let name, code, teacher, location: String
+        let weekday: Int
+        var start, end: Int
+        var onWeeks: [Int] = []
+        
+        func build() -> Course {
+            return Course(id: UUID(), name: name, code: code, teacher: teacher, location: location, weekday: weekday, start: start, end: end, onWeeks: onWeeks)
+        }
+    }
+    
+    private struct CourseResponse: Decodable {
+        let courseName: String
+        let courseId: String
+        let location: String
+        let credit: Int
+        let teacher: String
+        let weekday: Int
+        let lessons: String
+    }
+}
