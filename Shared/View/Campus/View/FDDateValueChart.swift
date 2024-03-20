@@ -17,37 +17,42 @@ struct FDDateValueChartData: Identifiable, Equatable {
 struct FDDateValueChart: View {
     let data: [FDDateValueChartData]
     let backtrackRange: Int
+    let color: Color
+    
+    private var areaBackground: Gradient {
+        return Gradient(colors: [color.opacity(0.8), color.opacity(0.1)])
+    }
 
     let filteredData: [FDDateValueChartData]
     
-    init(data: [FDDateValueChartData], backtrackRange: Int = 7) {
+    init(data: [FDDateValueChartData], color:Color, backtrackRange: Int = 7) {
         self.data = data
         self.backtrackRange = backtrackRange
+        self.color = color
         self.filteredData = Array(data.filter({d in d.date >= Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)!}).sorted(by: {a, b in a.date > b.date}))
     }
     
     var body: some View {
         Chart {
             ForEach(filteredData) { d in
-                if d == filteredData.first {
-                    BarMark(
-                        x: .value("Date", d.date, unit: .day),
-                        y: .value("¥", d.value)
-                    )
-                    .mask { RectangleMark() }
-                } else {
-                    BarMark(
-                        x: .value("Date", d.date, unit: .day),
-                        y: .value("¥", d.value)
-                    )
-                    .foregroundStyle(.gray)
-                    .mask { RectangleMark() }
-                }
+                LineMark(
+                    x: .value("Date", d.date, unit: .day),
+                    y: .value("", d.value)
+                )
+                .interpolationMethod(.cardinal)
+                
+                AreaMark(
+                    x: .value("Date", d.date, unit: .day),
+                    y: .value("", d.value)
+                )
+                .foregroundStyle(areaBackground)
+                .interpolationMethod(.cardinal)
             }
         }
         .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)! ... .now)
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
+        .foregroundColor(color)
     }
 }
 
@@ -106,6 +111,6 @@ struct FDDateValueChart: View {
     let data = dictionary.map { i in
         FDDateValueChartData(date: dateFormatter.date(from: i[0])!, value: Float(i[1])!)
     }
-    return FDDateValueChart(data: data)
+    return FDDateValueChart(data: data, color: .orange)
         .frame(width: 100, height: 40)
 }

@@ -78,12 +78,11 @@ struct FDElectricityCard: View {
                     AsyncContentView(animation: .default) {
                         try await ElectricityStore.shared.getCachedDailyElectricityHistory().map({v in FDDateValueChartData(date: v.date, value: v.value)})
                     } content: { (transactions: [FDDateValueChartData]) in
-                        FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}))
-                            .frame(width: 80, height: 40)
-                            .foregroundColor(.green)
+                        FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .green)
+                            .frame(width: 100, height: 40)
                     } loadingView: {
                         AnyView(ProgressView())
-                    } failureView: { error, retryHandler in AnyView(Text(error.localizedDescription))
+                    } failureView: { error, retryHandler in AnyView(EmptyView())
                     }
                 }
             }

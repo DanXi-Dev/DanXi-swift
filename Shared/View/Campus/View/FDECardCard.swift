@@ -71,12 +71,11 @@ struct FDECardCard: View {
                     AsyncContentView(animation: .default) {
                         try await WalletStore.shared.getCachedDailyTransactionHistory().map({value in FDDateValueChartData(date: value.date, value: value.value)})
                     } content: { (transactions: [FDDateValueChartData]) in
-                        FDDateValueChart(data: transactions)
-                            .frame(width: 80, height: 40)
-                            .foregroundColor(.orange)
+                        FDDateValueChart(data: transactions, color: .orange)
+                            .frame(width: 100, height: 40)
                     } loadingView: {
                         AnyView(ProgressView())
-                    } failureView: { error, retryHandler in AnyView(Text(error.localizedDescription))
+                    } failureView: { error, retryHandler in AnyView(EmptyView())
                     }
                 }
             }
