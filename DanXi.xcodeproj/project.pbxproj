@@ -186,6 +186,7 @@
 		27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6E29CB589000F32093 /* THHolePage.swift */; };
 		27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7029CB5B4500F32093 /* THFloorModel.swift */; };
 		27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7829CC50E100F32093 /* AsnyncButton.swift */; };
+		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
 		27DD19B62BA5ED3400B75643 /* FDECardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19B52BA5ED3400B75643 /* FDECardCard.swift */; };
 		27DD19B82BA5F1AC00B75643 /* FDElectricityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */; };
 		27DD19BC2BA5F3D400B75643 /* FDNoticeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */; };
@@ -384,6 +385,7 @@
 		27DAFA6E29CB589000F32093 /* THHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHolePage.swift; sourceTree = "<group>"; };
 		27DAFA7029CB5B4500F32093 /* THFloorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorModel.swift; sourceTree = "<group>"; };
 		27DAFA7829CC50E100F32093 /* AsnyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsnyncButton.swift; sourceTree = "<group>"; };
+		27DD19B22BA5C16900B75643 /* Fudan Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Fudan Kit"; sourceTree = "<group>"; };
 		27DD19B52BA5ED3400B75643 /* FDECardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardCard.swift; sourceTree = "<group>"; };
 		27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityCard.swift; sourceTree = "<group>"; };
 		27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticeCard.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
+				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */,
 				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
@@ -844,6 +847,7 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
+				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 			);
 			sourceTree = "<group>";
 		};
@@ -958,6 +962,7 @@
 				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
 				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 				27D1D6472AB5F93D00E8D536 /* BetterSafariView */,
+				27DD19B32BA5CCA400B75643 /* FudanKit */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -1835,6 +1840,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		27DD19B32BA5CCA400B75643 /* FudanKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanKit;
 		};
 		27EDD624293B6DFD0028CCE4 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
