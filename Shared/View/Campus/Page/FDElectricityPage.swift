@@ -45,7 +45,7 @@ struct FDElectricityPage: View {
 }
 
 @available(iOS 17.0, *)
-struct FDElectricityPageChart: View {
+fileprivate struct FDElectricityPageChart: View {
     let data: [FDDateValueChartData]
     @State private var chartSelection: Date?
     
@@ -59,11 +59,11 @@ struct FDElectricityPageChart: View {
                 ForEach(data) { d in
                     LineMark(
                         x: .value("Date", d.date, unit: .day),
-                        y: .value("", d.value)
+                        y: .value("kWh", d.value)
                     )
                     
                     if let chartSelection {
-                        RuleMark(x: .value("Day", chartSelection, unit: .day))
+                        RuleMark(x: .value("Date", chartSelection, unit: .day))
                             .lineStyle(StrokeStyle(lineWidth: 1))
                             .foregroundStyle(.secondary)
                             .annotation(
