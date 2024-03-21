@@ -4,7 +4,7 @@ import FudanKit
 struct FDECardCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 HStack {
                     Image(systemName: "creditcard.fill")
                     Text("ECard")
@@ -44,20 +44,23 @@ struct FDECardCard: View {
                             .frame(width: 100, height: 40)
                     } loadingView: {
                         AnyView(
-                            VStack(alignment: .leading) {
-                                Text("Balance")
-                                    .foregroundColor(.gray)
-                                    .bold()
-                                    .font(.subheadline)
-                                
-                                Text("--.--")
-                                    .bold()
-                                    .font(.title2)
-                                    .foregroundColor(.primary)
-                                + Text(" yuan")
-                                    .bold()
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("Balance")
+                                        .foregroundColor(.gray)
+                                        .bold()
+                                        .font(.subheadline)
+                                    
+                                    Text("--.--")
+                                        .bold()
+                                        .font(.title2)
+                                        .foregroundColor(.primary)
+                                    + Text(" yuan")
+                                        .bold()
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
                             }
                         )
                     } failureView: { error, retryHandler in
