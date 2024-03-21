@@ -69,17 +69,18 @@ struct FDElectricityPageChart: View {
                             .annotation(
                                 position: .top, spacing: 0,
                                 overflowResolution: .init(
-                                    x: .disabled,
+                                    x: .fit,
                                     y: .disabled
                                 )
                             ) {
                                 let selectionValue = data.first(where: {element in Calendar.current.isDate(element.date, inSameDayAs: chartSelection)})?.value ?? 0
-                                let selectionDate = chartSelection.formatted(date: .abbreviated, time: .omitted)
+                                let selectionDate = chartSelection.formatted(Date.FormatStyle().day().month())
                                 
                                 Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) kWh")
                                     .foregroundStyle(.green)
                                     .font(.system(.body, design: .rounded))
                                     .padding(.bottom, 4)
+                                    .padding(.trailing, 12)
                             }
                     }
                     
@@ -95,10 +96,11 @@ struct FDElectricityPageChart: View {
                     AxisValueLabel(format: .dateTime.day(), centered: true)
                 }
             }
+            .chartYAxisLabel("kWh")
             .frame(height: 200)
             .chartXSelection(value: $chartSelection)
             .foregroundColor(.green)
         }
-        .padding(.top, 20) // Leave space for annotation
+        .padding(.top, 8) // Leave space for annotation
     }
 }
