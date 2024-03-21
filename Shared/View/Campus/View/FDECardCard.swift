@@ -18,9 +18,11 @@ struct FDECardCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        try await (WalletStore.shared.getCachedUserInfo().balance,
-                                   WalletStore.shared.getCachedDailyTransactionHistory().map({value in 
-                                                                        FDDateValueChartData(date: value.date, value: value.value)}))
+                        let userInfo = try await MyStore.shared.getCachedUserInfo()
+                        let balance = userInfo.balance
+                        let walletLogs = try await MyStore.shared.getCachedWalletLogs()
+                        let dateValues = walletLogs.map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
+                        return (balance, dateValues)
                     } content: {(balance: String, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")

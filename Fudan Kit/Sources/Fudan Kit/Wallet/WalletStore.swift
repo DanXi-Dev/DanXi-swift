@@ -4,41 +4,28 @@ import Foundation
 public actor WalletStore {
     public static let shared = WalletStore()
     
-    var userInfo: UserInfo? = nil
-    var dailyTransactionHistory: [DateBoundValueData]? = nil
+    var balance: String? = nil
     var page = 1
     var finished = false
     var transactions: [Transaction] = []
     
-    public func getCachedDailyTransactionHistory() async throws -> [DateBoundValueData] {
-        if let dailyTransactionHistory = dailyTransactionHistory {
-            return dailyTransactionHistory
+    func getCachedBalance() async throws -> String {
+        if let balance = balance {
+            return balance
         }
         
-        return try await getRefreshedDailyTransactionHistory()
+        let balance = try await WalletAPI.getBalance()
+        self.balance = balance
+        return balance
     }
     
-    public func getRefreshedDailyTransactionHistory() async throws -> [DateBoundValueData] {
-        let dailyTransactionHistory = try await WalletAPI.getTransactionHistoryByDay()
-        self.dailyTransactionHistory = dailyTransactionHistory
-        return dailyTransactionHistory
+    func getRefreshedBalance() async throws -> String {
+        let balance = try await WalletAPI.getBalance()
+        self.balance = balance
+        return balance
     }
     
-    public func getCachedUserInfo() async throws -> UserInfo {
-        if let userInfo = userInfo {
-            return userInfo
-        }
-        
-        return try await getRefreshedBalance()
-    }
-    
-    public func getRefreshedBalance() async throws -> UserInfo {
-        let userInfo = try await WalletAPI.getUserInfo()
-        self.userInfo = userInfo
-        return userInfo
-    }
-    
-    public func getCachedTransactions() async throws -> [Transaction] {
+    func getCachedTransactions() async throws -> [Transaction] {
         if finished {
             return self.transactions
         }
@@ -50,7 +37,7 @@ public actor WalletStore {
         return self.transactions
     }
     
-    public func getRefreshedTransactions() async throws -> [Transaction] {
+    func getRefreshedTransactions() async throws -> [Transaction] {
         page = 1
         finished = false
         self.transactions = []
