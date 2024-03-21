@@ -20,7 +20,7 @@ struct FDDateValueChart: View {
     let color: Color
     
     private var areaBackground: Gradient {
-        return Gradient(colors: [color.opacity(0.8), color.opacity(0.1)])
+        return Gradient(colors: [color.opacity(0.5), .clear])
     }
 
     let filteredData: [FDDateValueChartData]
@@ -39,14 +39,12 @@ struct FDDateValueChart: View {
                     x: .value("Date", d.date, unit: .day),
                     y: .value("", d.value)
                 )
-                .interpolationMethod(.cardinal)
                 
                 AreaMark(
                     x: .value("Date", d.date, unit: .day),
                     y: .value("", d.value)
                 )
                 .foregroundStyle(areaBackground)
-                .interpolationMethod(.cardinal)
             }
         }
         .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)! ... .now)
