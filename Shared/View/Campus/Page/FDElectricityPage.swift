@@ -74,7 +74,7 @@ fileprivate struct FDElectricityPageChart: View {
                                 )
                             ) {
                                 let selectionValue = data.first(where: {element in Calendar.current.isDate(element.date, inSameDayAs: chartSelection)})?.value ?? 0
-                                let selectionDate = chartSelection.formatted(Date.FormatStyle().day().month())
+                                let selectionDate = chartSelection.formatted(.dateTime.day().month())
                                 
                                 Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) kWh")
                                     .foregroundStyle(.green)

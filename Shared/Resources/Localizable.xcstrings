@@ -229,6 +229,9 @@
     "¥%@" : {
 
     },
+    "¥%lf" : {
+
+    },
     "About" : {
       "localizations" : {
         "zh-Hans" : {
@@ -4018,6 +4021,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "只看此人"
+          }
+        }
+      }
+    },
+    "Show transaction history" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示交易记录"
           }
         }
       }

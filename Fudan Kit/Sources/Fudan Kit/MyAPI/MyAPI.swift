@@ -12,7 +12,7 @@ import SwiftyJSON
 /// - Canteen
 /// - ECard balance & spending history
 /// - Electricity usage
-public enum MyAPI {
+enum MyAPI {
     
     public static func login() async throws {
         let url = URL(string: "https://my.fudan.edu.cn")!

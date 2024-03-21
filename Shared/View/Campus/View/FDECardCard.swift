@@ -64,7 +64,7 @@ struct FDECardCard: View {
                             }
                         )
                     } failureView: { error, retryHandler in
-                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
                         return AnyView(
                             Button(action: retryHandler) {
                                 Label(errorDescription, systemImage: "exclamationmark.triangle.fill")

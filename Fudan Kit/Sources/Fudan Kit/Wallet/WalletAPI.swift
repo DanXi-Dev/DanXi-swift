@@ -1,7 +1,7 @@
 import Foundation
 
 /// API collection for eCard functionality.
-public enum WalletAPI {
+enum WalletAPI {
     
     /// Get the QR code for eCard spending.
     /// - Returns: A QR code string representation

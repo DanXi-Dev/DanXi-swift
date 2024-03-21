@@ -9,7 +9,8 @@ public actor WalletStore {
     var finished = false
     var transactions: [Transaction] = []
     
-    func getCachedBalance() async throws -> String {
+    /// Warning: This API is slow, use MyAPI instead
+    public func getCachedBalance() async throws -> String {
         if let balance = balance {
             return balance
         }
@@ -19,13 +20,14 @@ public actor WalletStore {
         return balance
     }
     
-    func getRefreshedBalance() async throws -> String {
+    /// Warning: This API is slow, use MyAPI instead
+    public func getRefreshedBalance() async throws -> String {
         let balance = try await WalletAPI.getBalance()
         self.balance = balance
         return balance
     }
     
-    func getCachedTransactions() async throws -> [Transaction] {
+    public func getCachedTransactions() async throws -> [Transaction] {
         if finished {
             return self.transactions
         }
@@ -37,7 +39,7 @@ public actor WalletStore {
         return self.transactions
     }
     
-    func getRefreshedTransactions() async throws -> [Transaction] {
+    public func getRefreshedTransactions() async throws -> [Transaction] {
         page = 1
         finished = false
         self.transactions = []

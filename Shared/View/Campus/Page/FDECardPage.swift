@@ -18,7 +18,6 @@ fileprivate struct ECardPageContent: View {
     let balance: String
     let history: [FDDateValueChartData]
     
-    @State private var page = 1
     @State private var showDetailedTransactionHistory = false
     
     var body: some View {
@@ -33,17 +32,17 @@ fileprivate struct ECardPageContent: View {
             
             if showDetailedTransactionHistory {
                 AsyncCollection { _ in
-                    let transactions = try await FDECardAPI.getTransactions(page: page)
-                    page += 1
-                    return transactions
-                } content: { (transaction: FDTransaction) in
+                    try await WalletStore.shared.getCachedTransactions()
+                } content: { (transaction: FudanKit.Transaction) in
                     TransactionView(transaction: transaction)
                 }
             } else {
                 Section {
-                    Button("Show transaction history") {
+                    Button(action: {
                         showDetailedTransactionHistory = true
-                    }
+                    }, label: {
+                        Text("Show transaction history")
+                    })
                 }
             }
         }
@@ -53,18 +52,18 @@ fileprivate struct ECardPageContent: View {
 }
 
 fileprivate struct TransactionView: View {
-    let transaction: FDTransaction
+    let transaction: FudanKit.Transaction
     
     var body: some View {
         LabeledContent {
-            Text("¥\(transaction.amount)")
+            Text("¥\(String(format: "%.2f", transaction.amount))")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
         } label: {
             VStack(alignment: .leading) {
                 Text(transaction.location)
-                Text(transaction.createTime)
+                Text(transaction.date.formatted(.dateTime.day().month().year().hour().minute()))
                     .foregroundColor(.secondary)
                     .font(.callout)
             }
