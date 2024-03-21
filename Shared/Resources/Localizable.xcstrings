@@ -967,6 +967,7 @@
       }
     },
     "Credit: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1217,6 +1218,9 @@
           }
         }
       }
+    },
+    "Density" : {
+
     },
     "Department" : {
       "localizations" : {
@@ -2062,6 +2066,16 @@
     "GPA" : {
 
     },
+    "GPA Distribution" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绩点分布"
+          }
+        }
+      }
+    },
     "GPA Rank" : {
       "comment" : "Fudan Rank",
       "localizations" : {
@@ -2074,6 +2088,7 @@
       }
     },
     "GPA: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3201,9 +3216,6 @@
           }
         }
       }
-    },
-    "Rank" : {
-
     },
     "Recent Browsed" : {
       "localizations" : {
