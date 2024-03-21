@@ -14,19 +14,14 @@ public actor BusStore {
             return (workdayRoutes, holidayRoutes)
         }
         
-        let workdayRoutes = try await BusAPI.getRoutes(type: .workday)
-        let holidayRoutes = try await BusAPI.getRoutes(type: .holiday)
-        self.workdayRoutes = workdayRoutes
-        self.holidayRoutes = holidayRoutes
-        return (workdayRoutes, holidayRoutes)
+        return try await getRefreshedRoutes()
     }
     
     
     /// Invalidate cache and reload routes from server.
     /// - Returns: A tuple of `(workdayRoutes, holidayRoutes)`
     public func getRefreshedRoutes() async throws -> ([Route], [Route]) {
-        let workdayRoutes = try await BusAPI.getRoutes(type: .workday)
-        let holidayRoutes = try await BusAPI.getRoutes(type: .holiday)
+        let (workdayRoutes, holidayRoutes) = try await (BusAPI.getRoutes(type: .workday), BusAPI.getRoutes(type: .holiday))
         self.workdayRoutes = workdayRoutes
         self.holidayRoutes = holidayRoutes
         return (workdayRoutes, holidayRoutes)
