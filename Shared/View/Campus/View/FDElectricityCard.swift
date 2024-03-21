@@ -18,10 +18,9 @@ struct FDElectricityCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        let usage = try await ElectricityStore.shared.getCachedElectricityUsage()
-                        let logs = try await MyStore.shared.getCachedElectricityLogs()
-                        let dateValues = logs.map({ FDDateValueChartData(date: $0.date, value: $0.usage) })
-                        return (usage, dateValues)
+                        async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+                        async let dateValues = MyStore.shared.getCachedElectricityLogs().map({ FDDateValueChartData(date: $0.date, value: $0.usage) })
+                        return try await (usage, dateValues)
                     } content: {(info: ElectricityUsage, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text(info.campus + info.building + info.room)
@@ -44,9 +43,9 @@ struct FDElectricityCard: View {
                         }
                         
                         Spacer()
-    
+                        
                         FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .green)
-                                                    .frame(width: 100, height: 40)
+                            .frame(width: 100, height: 40)
                     } loadingView: {
                         AnyView(
                             VStack(alignment: .leading) {

@@ -18,11 +18,9 @@ struct FDECardCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        let userInfo = try await MyStore.shared.getCachedUserInfo()
-                        let balance = userInfo.balance
-                        let walletLogs = try await MyStore.shared.getCachedWalletLogs()
-                        let dateValues = walletLogs.map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
-                        return (balance, dateValues)
+                        async let balance = MyStore.shared.getCachedUserInfo().balance
+                        async let dateValues = MyStore.shared.getCachedWalletLogs().map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
+                        return try await (balance, dateValues)
                     } content: {(balance: String, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")
@@ -41,7 +39,7 @@ struct FDECardCard: View {
                         }
                         
                         Spacer()
-                                                    
+                        
                         FDDateValueChart(data: transactions, color: .orange)
                             .frame(width: 100, height: 40)
                     } loadingView: {
