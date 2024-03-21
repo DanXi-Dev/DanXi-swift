@@ -71,7 +71,7 @@ fileprivate struct FDHomeSimpleLink: View {
             case .ecard:
                 Label("ECard Information", systemImage: "creditcard")
             case .score:
-                Label("Exams & Score", systemImage: "graduationcap")
+                Label("Exams & Score", systemImage: "graduationcap.circle")
             case .rank:
                 Label("GPA Rank", systemImage: "chart.bar.xaxis")
             case .playground:

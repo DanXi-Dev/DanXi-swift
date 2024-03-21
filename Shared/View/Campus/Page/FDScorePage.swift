@@ -9,8 +9,7 @@ struct FDScorePage: View {
     var body: some View {
         AsyncContentView { () -> SemesterInfo in
             try await FDAcademicAPI.login()
-            let semesters = try await FDAcademicAPI.getSemesters()
-            let currentId = try await FDAcademicAPI.getCurrentSemesterId()
+            let (semesters, currentId) = try await (FDAcademicAPI.getSemesters(), FDAcademicAPI.getCurrentSemesterId())
             let currentSemester = semesters.filter { $0.id == currentId }.first
             let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
             return info
@@ -35,6 +34,7 @@ fileprivate struct ScorePageContent: View {
             ScoreList(semester: semester)
         }
         .navigationTitle("Exams & Score")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -76,9 +76,9 @@ fileprivate struct ScoreView: View {
                     .font(.headline)
             }
             Spacer()
-            Text(score.grade)
+            Text(score.grade.padding(toLength: max(2, score.grade.count), withPad: " ", startingAt: 0)) // Align monospaced grades
                 .fontWeight(.bold)
-                .font(.title3)
+                .font(.title3.monospaced())
         }
     }
 }
