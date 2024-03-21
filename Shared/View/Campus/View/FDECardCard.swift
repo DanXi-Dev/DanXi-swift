@@ -32,7 +32,7 @@ struct FDECardCard: View {
                                 .bold()
                                 .font(.title2)
                                 .foregroundColor(.primary)
-                            + Text(" yuan")
+                            + Text(" Yuan")
                                 .bold()
                                 .font(.subheadline)
                                 .foregroundColor(.gray)

@@ -17,6 +17,16 @@
         }
       }
     },
+    " Yuan" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元"
+          }
+        }
+      }
+    },
     "--.--" : {
 
     },
@@ -211,6 +221,9 @@
       }
     },
     "%lld." : {
+
+    },
+    "¥" : {
 
     },
     "¥%@" : {
@@ -993,6 +1006,16 @@
     "Custom" : {
 
     },
+    "Daily Spending" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日消费"
+          }
+        }
+      }
+    },
     "danke" : {
 
     },
@@ -1079,9 +1102,6 @@
       }
     },
     "Date" : {
-
-    },
-    "Day" : {
 
     },
     "Dealt" : {
@@ -2304,6 +2324,9 @@
           }
         }
       }
+    },
+    "kWh" : {
+
     },
     "Last Created" : {
       "localizations" : {
