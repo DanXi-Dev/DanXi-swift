@@ -24,15 +24,17 @@ struct AboutPage: View {
                 appIcon
             }
             
-            Section {
-                NavigationLink {
-                    DebugPage()
-                } label: {
-                    Label("Debug", systemImage: "ant.circle.fill")
+            if DXModel.shared.isAdmin {
+                Section {
+                    NavigationLink {
+                        DebugPage()
+                    } label: {
+                        Label("Debug", systemImage: "ant.circle.fill")
+                    }
                 }
             }
-            .labelStyle(.titleOnly)
         }
+        .labelStyle(.titleOnly)
         .navigationTitle("About")
         .navigationBarTitleDisplayMode(.inline)
     }
