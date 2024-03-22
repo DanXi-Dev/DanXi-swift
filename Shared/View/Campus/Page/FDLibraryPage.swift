@@ -1,9 +1,10 @@
 import SwiftUI
+import FudanKit
 
 struct FDLibraryPage: View {
     var body: some View {
         AsyncContentView {
-            return try await FDLibraryAPI.getLibraries()
+            return try await LibraryAPI.getLibrary()
         } content: { libraries in
             List {
                 ForEach(libraries) { library in
@@ -17,12 +18,13 @@ struct FDLibraryPage: View {
                         
                         Spacer()
                         
-                        VStack(alignment: .trailing) {
+                        VStack(alignment: .center) {
                             let progress = library.current > library.capacity ? 1.0 : (Double(library.current) / Double(library.capacity))
                             CircularProgressView(progress: progress)
                             Text("\(String(library.current)) / \(String(library.capacity))")
                                 .font(.footnote)
                         }
+                        .frame(minWidth: 80) // for alignment
                     }
                 }
             }
