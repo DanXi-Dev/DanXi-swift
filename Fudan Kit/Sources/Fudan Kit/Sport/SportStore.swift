@@ -2,7 +2,7 @@ import Foundation
 
 /// App-wide cache for sport-related data, including exercises and sport exams.
 public actor SportStore {
-    public let shared = SportStore()
+    public static let shared = SportStore()
     
     var logged = false
     

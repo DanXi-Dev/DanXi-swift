@@ -16,11 +16,10 @@ public struct ExerciseLog: Identifiable {
 }
 
 public struct SportExam {
-    let total: Double
-    let evaluation: String
-    
-    let items: [SportExamItem]
-    let logs: [SportExamLog]
+    public let total: Double
+    public let evaluation: String
+    public let items: [SportExamItem]
+    public let logs: [SportExamLog]
 }
 
 /// The result of a sport exam

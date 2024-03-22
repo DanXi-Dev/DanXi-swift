@@ -1,21 +1,21 @@
 import SwiftUI
+import FudanKit
 
 struct FDSportPage: View {
     @State private var showExerciseSheet = false
     @State private var showExamSheet = false
     
     var body: some View {
-        AsyncContentView { () -> (FDExercise, FDSportExam) in
-            try await FDSportAPI.login()
-            async let exam = FDSportAPI.fetchExamData()
-            async let exercise = FDSportAPI.fetchExerciseData()
-            return try await (exercise, exam)
-        } content: { (exercise, exam) in
+        AsyncContentView { () -> SportData in
+            let (exercises, logs) = try await SportStore.shared.getCachedExercises()
+            let exam = try? await SportStore.shared.getCachedExam() // when this fails, user can still view exercise data
+            return SportData(exercises: exercises, exerciseLogs: logs, exam: exam)
+        } content: { (sportData: SportData) in
             List {
                 Section {
-                    ForEach(exercise.exerciseItems) { item in
-                        LabeledContent(item.name) {
-                            Text("\(item.count)")
+                    ForEach(sportData.exercises) { exercise in
+                        LabeledContent(exercise.category) {
+                            Text("\(exercise.count)")
                         }
                     }
                 } header: {
@@ -31,25 +31,27 @@ struct FDSportPage: View {
                     }
                 }
                 
-                Section {
-                    LabeledContent("Total Score") {
-                        Text("\(Int(exam.total)) (\(exam.evaluation))")
-                    }
-                    
-                    ForEach(exam.items) { item in
-                        LabeledContent(item.name) {
-                            Text(item.result)
+                if let exam = sportData.exam {
+                    Section {
+                        LabeledContent("Total Score") {
+                            Text("\(Int(exam.total)) (\(exam.evaluation))")
                         }
-                    }
-                } header: {
-                    HStack {
-                        Text("PE Exam")
-                        Spacer()
-                        Button {
-                            showExamSheet = true
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .font(.footnote)
+                        
+                        ForEach(exam.items) { item in
+                            LabeledContent(item.name) {
+                                Text(item.result)
+                            }
+                        }
+                    } header: {
+                        HStack {
+                            Text("PE Exam")
+                            Spacer()
+                            Button {
+                                showExamSheet = true
+                            } label: {
+                                Image(systemName: "info.circle")
+                                    .font(.footnote)
+                            }
                         }
                     }
                 }
@@ -59,8 +61,8 @@ struct FDSportPage: View {
             .sheet(isPresented: $showExerciseSheet) {
                 NavigationStack {
                     List {
-                        ForEach(exercise.exerciseLogs) { log in
-                            LabeledContent(log.name) {
+                        ForEach(sportData.exerciseLogs) { log in
+                            LabeledContent(log.category) {
                                 Text("\(log.date) \(log.status)")
                                     .font(.callout)
                             }
@@ -71,19 +73,27 @@ struct FDSportPage: View {
                 }
             }
             .sheet(isPresented: $showExamSheet) {
-                NavigationStack {
-                    List {
-                        ForEach(exam.logs) { log in
-                            LabeledContent(log.name) {
-                                Text(log.date)
-                                    .font(.callout)
+                if let exam = sportData.exam {
+                    NavigationStack {
+                        List {
+                            ForEach(exam.logs) { log in
+                                LabeledContent(log.name) {
+                                    Text(log.date)
+                                        .font(.callout)
+                                }
                             }
                         }
+                        .navigationTitle("PE Exam Logs")
+                        .navigationBarTitleDisplayMode(.inline)
                     }
-                    .navigationTitle("PE Exam Logs")
-                    .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }
     }
+}
+
+fileprivate struct SportData {
+    let exercises: [Exercise]
+    let exerciseLogs: [ExerciseLog]
+    let exam: SportExam?
 }
