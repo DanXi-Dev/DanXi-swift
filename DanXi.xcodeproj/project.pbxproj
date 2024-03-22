@@ -29,6 +29,7 @@
 		2706605529312D8300F4C321 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
 		2706605729312D8300F4C321 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
 		270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* DKReviewPage.swift */; };
+		270CD1942BAD697600881ABA /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 270CD1932BAD697600881ABA /* ViewUtils */; };
 		2711C8972AD595CE00B58D80 /* EventStoreCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */; };
 		2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
 		2713B5EB293A7BCF00ADE348 /* FDSportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */; };
@@ -279,6 +280,7 @@
 		2706604E29312D8200F4C321 /* FDAuthAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDAuthAPI.swift; sourceTree = "<group>"; };
 		2706605029312D8200F4C321 /* FDError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDError.swift; sourceTree = "<group>"; };
 		270CA42928BD13A10024BDF2 /* DKReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewPage.swift; sourceTree = "<group>"; };
+		270CD1902BAD68C900881ABA /* View Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "View Utils"; sourceTree = "<group>"; };
 		2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreCompatible.swift; sourceTree = "<group>"; };
 		2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportAPI.swift; sourceTree = "<group>"; };
 		2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportPage.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
+				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */,
@@ -839,6 +842,7 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
+				270CD1902BAD68C900881ABA /* View Utils */,
 				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 			);
 			sourceTree = "<group>";
@@ -956,6 +960,7 @@
 				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 				27D1D6472AB5F93D00E8D536 /* BetterSafariView */,
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
+				270CD1932BAD697600881ABA /* ViewUtils */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -1723,6 +1728,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		270CD1932BAD697600881ABA /* ViewUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewUtils;
+		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
