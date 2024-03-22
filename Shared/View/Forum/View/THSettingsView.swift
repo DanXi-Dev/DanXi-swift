@@ -12,9 +12,9 @@ struct THSettingsView: View {
                 Text("Hide").tag(THSettings.SensitiveContentSetting.hide)
             }
             
-            Toggle(isOn: $settings.showBanners) {
-                Label("Show Activity Announcements", systemImage: "bell")
-            }
+//            Toggle(isOn: $settings.showBanners) {
+//                Label("Show Activity Announcements", systemImage: "bell")
+//            }
             
             NavigationLink {
                 NotificationSettingWrapper()
@@ -33,8 +33,9 @@ struct THSettingsView: View {
             } label: {
                 Label("Blocked Holes", systemImage: "eye.slash")
             }
+            
+//            ImagePicker() // FDUHole background image
         }
-//        .labelStyle(.titleOnly)
     }
 }
 
