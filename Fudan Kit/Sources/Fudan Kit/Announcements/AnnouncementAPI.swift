@@ -49,8 +49,9 @@ public enum AnnouncementAPI {
             do {
                 let firstChild = try element.select("a")
                 let title = try firstChild.html()
-                let path = try firstChild.attr("href")
-                let link = academicOfficeURL.appending(path: path)
+                var path = try firstChild.attr("href")
+                path = path.replacing(".htm", with: ".psp") // replace .htm with .psp to allow safari controller to directly login
+                guard let link = URL(string: path, relativeTo: academicOfficeURL) else { continue }
                 let secondChild = try element.select("td.ti")
                 guard let date = dateFormatter.date(from: try secondChild.html()) else { continue }
                 let announcement = Announcement(id: UUID(), title: title, date: date, link: link)
