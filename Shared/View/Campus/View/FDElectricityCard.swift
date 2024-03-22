@@ -32,20 +32,20 @@ struct FDElectricityCard: View {
                                 Text(String(info.electricityAvailable))
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
-                                +
-                                Text(" kWh")
+                                + Text(" ")
+                                + Text("kWh")
                                     .foregroundColor(.secondary)
                                     .bold()
-                                    .font(.callout)
+                                    .font(.caption2)
                                 
                                 Spacer()
                             }
                         }
-                        
-                        Spacer()
     
                         FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .green)
-                                                    .frame(width: 100, height: 40)
+                            .frame(width: 100, height: 40)
+                        
+                        Spacer(minLength: 10)
                     } loadingView: {
                         AnyView(
                             VStack(alignment: .leading) {
@@ -54,15 +54,15 @@ struct FDElectricityCard: View {
                                     .bold()
                                     .font(.caption)
                                 
-                                HStack(alignment: .bottom) {
+                                HStack {
                                     Text("--.--")
                                         .bold()
                                         .font(.system(size: 25, design: .rounded))
-                                    +
-                                    Text(" kWh")
+                                    + Text(" ")
+                                    + Text("kWh")
                                         .foregroundColor(.secondary)
                                         .bold()
-                                        .font(.callout)
+                                        .font(.caption2)
                                     
                                     Spacer()
                                 }

@@ -2,12 +2,31 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    " " : {
 
     },
     " kWh" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "千瓦时"
+          }
+        }
+      }
     },
     " yuan" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -18,7 +37,14 @@
       }
     },
     "--.--" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "--.--"
+          }
+        }
+      }
     },
     "·" : {
 
@@ -201,9 +227,6 @@
 
     },
     "¥%@" : {
-
-    },
-    "25.00" : {
 
     },
     "About" : {
@@ -1067,6 +1090,9 @@
           }
         }
       }
+    },
+    "Date" : {
+
     },
     "Dealt" : {
       "localizations" : {
@@ -2010,9 +2036,6 @@
         }
       }
     },
-    "Goodnight stars, goodnight air, goodnight noises everywhere." : {
-
-    },
     "GPA" : {
 
     },
@@ -2076,9 +2099,6 @@
           }
         }
       }
-    },
-    "Howdy Boy!" : {
-
     },
     "ID Number" : {
       "localizations" : {
@@ -2281,6 +2301,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跳转到树洞"
+          }
+        }
+      }
+    },
+    "kWh" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "千瓦时"
           }
         }
       }
@@ -4696,6 +4726,16 @@
         }
       }
     },
+    "yuan" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元"
+          }
+        }
+      }
+    },
     "光华楼东辅楼" : {
 
     },
@@ -4703,9 +4743,6 @@
 
     },
     "张江校区" : {
-
-    },
-    "数学分析 GHX507" : {
 
     },
     "新闻学院" : {
@@ -4730,9 +4767,6 @@
 
     },
     "第四教学楼" : {
-
-    },
-    "食堂 10.00" : {
 
     }
   },

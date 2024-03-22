@@ -4,7 +4,7 @@ import FudanKit
 struct FDECardCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading) {
+            VStack {
                 HStack {
                     Image(systemName: "creditcard.fill")
                     Text("ECard")
@@ -24,40 +24,52 @@ struct FDECardCard: View {
                     } content: {(balance: String, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                                 .bold()
-                                .font(.subheadline)
+                                .font(.caption)
                             
-                            Text(balance)
-                                .bold()
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                            + Text(" yuan")
-                                .bold()
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                            HStack(alignment: .bottom) {
+                                Text(balance)
+                                    .bold()
+                                    .font(.system(size: 25, design: .rounded))
+                                + Text(" ")
+                                + Text("yuan")
+                                    .foregroundColor(.secondary)
+                                    .bold()
+                                    .font(.caption2)
+                                
+                                
+                                Spacer()
+                            }
+                            
                         }
-                        
-                        Spacer()
                                                     
-                        FDDateValueChart(data: transactions, color: .orange)
+                        FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .orange)
                             .frame(width: 100, height: 40)
+                        
+                        Spacer(minLength: 10)
                     } loadingView: {
                         AnyView(
                             VStack(alignment: .leading) {
-                                Text("Balance")
-                                    .foregroundColor(.gray)
+                                Text("")
+                                    .foregroundColor(.secondary)
                                     .bold()
-                                    .font(.subheadline)
+                                    .font(.caption)
                                 
-                                Text("--.--")
-                                    .bold()
-                                    .font(.title2)
-                                    .foregroundColor(.primary)
-                                + Text(" yuan")
-                                    .bold()
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                                HStack {
+                                    Text("--.--")
+                                        .bold()
+                                        .font(.system(size: 25, design: .rounded))
+                                    + Text(" ")
+                                    + Text("yuan")
+                                        .foregroundColor(.secondary)
+                                        .bold()
+                                        .font(.caption2)
+                                    
+                                    Spacer()
+                                }
+                                
+
                             }
                         )
                     } failureView: { error, retryHandler in
