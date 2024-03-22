@@ -51,6 +51,7 @@ struct FDNoticePage: View {
             }
         }
         .navigationTitle("Academic Office Announcements")
+        .navigationBarTitleDisplayMode(.inline)
         .safariView(item: $presentLink) { link in
             SafariView(url: link.url, configuration: configuration)
         }
