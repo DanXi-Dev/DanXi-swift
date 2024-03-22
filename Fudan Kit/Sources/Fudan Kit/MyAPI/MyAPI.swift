@@ -13,7 +13,6 @@ import SwiftyJSON
 /// - ECard balance & spending history
 /// - Electricity usage
 enum MyAPI {
-    
     public static func login() async throws {
         let url = URL(string: "https://my.fudan.edu.cn")!
         _ = try await AuthenticationAPI.authenticateForData(url)
@@ -73,7 +72,6 @@ enum MyAPI {
     /// ```
     public static func getUserInfo() async throws -> UserInfo {
         let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_xx.json")!
-        let _ = try await AuthenticationAPI.authenticateForData(url)
         let request = constructRequest(url, method: "POST")
         let (data, _) = try await URLSession.campusSession.data(for: request)
         let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
