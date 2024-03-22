@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import FudanKit
 
 struct FDPayPage: View {
     @Environment(\.openURL) var openURL
@@ -13,7 +14,7 @@ struct FDPayPage: View {
             loading = true
             defer { loading = false }
             do {
-                let qrcodeStr = try await FDECardAPI.getQRCodeString()
+                let qrcodeStr = try await WalletAPI.getQRCode()
                 
                 // generate QR code data
                 guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
@@ -73,6 +74,7 @@ struct FDPayPage: View {
             Text("To use QRCode, you must accept terms and conditions in webpage")
         }
         .navigationTitle("Fudan QR Code")
+        .navigationBarTitleDisplayMode(.inline)
         .task {
             loadCodeData()
         }

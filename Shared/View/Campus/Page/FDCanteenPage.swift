@@ -15,6 +15,7 @@ struct FDCanteenPage: View {
             }
             .listStyle(.sidebar) // support fold section
             .navigationTitle("Canteen Popularity")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -23,17 +24,17 @@ fileprivate struct CanteenRow: View {
     let room: FDDiningRoom
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
+        VStack {
+            HStack() {
                 Text(room.name)
+                
+                Spacer()
+                
                 Text("\(room.current) / \(room.capacity)")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
+                    .font(.footnote)
             }
-            Spacer()
             
-            let progress = room.current > room.capacity ? 1.0 : (Double(room.current) / Double(room.capacity))
-            CircularProgressView(progress: progress)
+            ProgressView(value: Double(room.current), total: Double(room.capacity))
         }
     }
 }

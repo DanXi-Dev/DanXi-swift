@@ -1,5 +1,4 @@
 {
-  "originHash" : "ef9638ceef1e9c98194f815ecff66595dc663041a028ca00a7f16dbd2779e924",
   "pins" : [
     {
       "identity" : "advanced-scrollview",
@@ -110,6 +109,15 @@
       }
     },
     {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/swiftui-introspect",
+      "state" : {
+        "revision" : "121c146fe591b1320238d054ae35c81ffa45f45a",
+        "version" : "0.12.0"
+      }
+    },
+    {
       "identity" : "swiftuix",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftUIX/SwiftUIX",
@@ -137,5 +145,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

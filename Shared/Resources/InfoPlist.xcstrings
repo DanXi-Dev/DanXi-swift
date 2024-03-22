@@ -8,13 +8,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "DanXi"
+            "value" : "Assistant"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕"
+            "value" : "校园助手"
           }
         }
       }

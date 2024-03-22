@@ -4,7 +4,7 @@ import FudanKit
 struct FDECardCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack {
+            VStack(alignment: .center) {
                 HStack {
                     Image(systemName: "creditcard.fill")
                     Text("ECard")
@@ -18,9 +18,9 @@ struct FDECardCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        try await (WalletStore.shared.getCachedUserInfo().balance,
-                                   WalletStore.shared.getCachedDailyTransactionHistory().map({value in 
-                                                                        FDDateValueChartData(date: value.date, value: value.value)}))
+                        async let balance = MyStore.shared.getCachedUserInfo().balance
+                        async let dateValues = MyStore.shared.getCachedWalletLogs().map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
+                        return try await (balance, dateValues)
                     } content: {(balance: String, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")
@@ -50,30 +50,27 @@ struct FDECardCard: View {
                         Spacer(minLength: 10)
                     } loadingView: {
                         AnyView(
-                            VStack(alignment: .leading) {
-                                Text("")
-                                    .foregroundColor(.secondary)
-                                    .bold()
-                                    .font(.caption)
-                                
-                                HStack {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("")
+                                        .foregroundColor(.gray)
+                                        .bold()
+                                        .font(.caption)
+                                    
                                     Text("--.--")
                                         .bold()
                                         .font(.system(size: 25, design: .rounded))
-                                    + Text(" ")
-                                    + Text("yuan")
+
+                                    + Text("Yuan")
                                         .foregroundColor(.secondary)
                                         .bold()
                                         .font(.caption2)
-                                    
-                                    Spacer()
                                 }
-                                
-
+                                Spacer()
                             }
                         )
                     } failureView: { error, retryHandler in
-                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
                         return AnyView(
                             Button(action: retryHandler) {
                                 Label(errorDescription, systemImage: "exclamationmark.triangle.fill")

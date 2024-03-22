@@ -4,38 +4,27 @@ import Foundation
 public actor WalletStore {
     public static let shared = WalletStore()
     
-    var userInfo: UserInfo? = nil
-    var dailyTransactionHistory: [DateBoundValueData]? = nil
+    var balance: String? = nil
     var page = 1
     var finished = false
     var transactions: [Transaction] = []
     
-    public func getCachedDailyTransactionHistory() async throws -> [DateBoundValueData] {
-        if let dailyTransactionHistory = dailyTransactionHistory {
-            return dailyTransactionHistory
+    /// Warning: This API is slow, use MyAPI instead
+    public func getCachedBalance() async throws -> String {
+        if let balance = balance {
+            return balance
         }
         
-        return try await getRefreshedDailyTransactionHistory()
+        let balance = try await WalletAPI.getBalance()
+        self.balance = balance
+        return balance
     }
     
-    public func getRefreshedDailyTransactionHistory() async throws -> [DateBoundValueData] {
-        let dailyTransactionHistory = try await WalletAPI.getTransactionHistoryByDay()
-        self.dailyTransactionHistory = dailyTransactionHistory
-        return dailyTransactionHistory
-    }
-    
-    public func getCachedUserInfo() async throws -> UserInfo {
-        if let userInfo = userInfo {
-            return userInfo
-        }
-        
-        return try await getRefreshedBalance()
-    }
-    
-    public func getRefreshedBalance() async throws -> UserInfo {
-        let userInfo = try await WalletAPI.getUserInfo()
-        self.userInfo = userInfo
-        return userInfo
+    /// Warning: This API is slow, use MyAPI instead
+    public func getRefreshedBalance() async throws -> String {
+        let balance = try await WalletAPI.getBalance()
+        self.balance = balance
+        return balance
     }
     
     public func getCachedTransactions() async throws -> [Transaction] {

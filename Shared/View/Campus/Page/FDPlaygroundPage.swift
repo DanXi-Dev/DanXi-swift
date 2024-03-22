@@ -21,16 +21,16 @@ fileprivate struct FDPlaygroundContent: View {
         List {
             Section {
                 Picker(selection: $model.campus, label: Text("Campus")) {
+                    Text("All").tag("")
                     ForEach(model.campusList, id: \.self) { campus in
                         Text(campus).tag(campus)
                     }
-                    Text("All").tag("")
                 }
                 Picker(selection: $model.type, label: Text("Playground Type")) {
+                    Text("All").tag("")
                     ForEach(model.typesList, id: \.self) { type in
                         Text(type).tag(type)
                     }
-                    Text("All").tag("")
                 }
             }
             
@@ -43,6 +43,7 @@ fileprivate struct FDPlaygroundContent: View {
             }
         }
         .navigationTitle("Playground Reservation")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: FDPlayground.self) { playground in
             FDPlaygroundReservePage(playground)
         }
@@ -51,7 +52,7 @@ fileprivate struct FDPlaygroundContent: View {
 
 fileprivate struct FDPlaygroundReservePage: View {
     private let playground: FDPlayground
-    @State private var showAvailable = true
+    @State private var showAvailable = false
     @State private var date = Date.now
     
     init(_ playground: FDPlayground) {
@@ -61,7 +62,7 @@ fileprivate struct FDPlaygroundReservePage: View {
     var body: some View {
         List {
             Section {
-                DatePicker("Select Reservation Date", selection: $date, displayedComponents: [.date])
+                DatePicker("Date", selection: $date, displayedComponents: [.date])
                 Toggle("Available Time Slots Only", isOn: $showAvailable)
             }
             
@@ -69,8 +70,17 @@ fileprivate struct FDPlaygroundReservePage: View {
                 return try await FDPlaygroundAPI.getTimeSlotList(playground: self.playground, date: self.date)
             } content: { timeSlots in
                 let filteredTimeSlots = timeSlots.filter { $0.reserveId != nil || !showAvailable }
-                ForEach(filteredTimeSlots) { timeSlot in
-                    TimeSlotView(timeSlot: timeSlot)
+                if filteredTimeSlots.isEmpty {
+                    Text("No Time Slots Available")
+                } else {
+                    Grid(alignment: .leading) {
+                        ForEach(filteredTimeSlots) { timeSlot in
+                            TimeSlotView(timeSlot: timeSlot)
+                            if timeSlot.id != filteredTimeSlots.last?.id {
+                                Divider()
+                            }
+                        }
+                    }
                 }
             }
             .id(date)
@@ -85,7 +95,7 @@ fileprivate struct TimeSlotView: View {
     @State private var showSheet = false
     
     var body: some View {
-        HStack {
+        GridRow {
             Text("\(timeSlot.beginTime) - \(timeSlot.endTime)")
             Spacer()
             Text("\(timeSlot.reserved) / \(timeSlot.total)")
@@ -97,10 +107,10 @@ fileprivate struct TimeSlotView: View {
                     Text("Reserve")
                 }
             } else if timeSlot.reserved == timeSlot.total {
-                Text("Reserved")
+                Text("Full")
                     .foregroundColor(.secondary)
             } else {
-                Text("Cannot Reserve")
+                Text("Unavailable")
                     .foregroundColor(.secondary)
             }
         }

@@ -26,30 +26,3 @@ func unwrapJSON(_ data: Data) throws -> JSON {
     
     return json["d"]
 }
-
-internal struct FDMyAPIJsonResponse: Codable {
-    let data: [[String]]
-
-    enum CodingKeys: String, CodingKey {
-        case data
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        data = try container.decode([[String]].self, forKey: .data)
-    }
-
-    var dateValuePairs: [DateBoundValueData] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return data.compactMap { item in
-            let targetItems = item.suffix(2)
-            guard let dateString = targetItems.first, let valueString = targetItems.last,
-                  let date = dateFormatter.date(from: dateString),
-                  let value = Float(valueString) else {
-                return nil
-            }
-            return DateBoundValueData(date: date, value: value)
-        }
-    }
-}

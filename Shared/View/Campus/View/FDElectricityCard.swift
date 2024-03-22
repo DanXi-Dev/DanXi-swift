@@ -6,7 +6,7 @@ struct FDElectricityCard: View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 HStack {
-                    Image(systemName: "powercord.fill")
+                    Image(systemName: "bolt.fill")
                     Text("Dorm Electricity")
                     Spacer()
                 }
@@ -18,9 +18,9 @@ struct FDElectricityCard: View {
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        try await (ElectricityStore.shared.getCachedElectricityUsage(),
-                                          ElectricityStore.shared.getCachedDailyElectricityHistory().map({v in
-                                                                FDDateValueChartData(date: v.date, value: v.value)}))
+                        async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+                        async let dateValues = MyStore.shared.getCachedElectricityLogs().map({ FDDateValueChartData(date: $0.date, value: $0.usage) })
+                        return try await (usage, dateValues)
                     } content: {(info: ElectricityUsage, transactions: [FDDateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text(info.campus + info.building + info.room)
@@ -69,7 +69,7 @@ struct FDElectricityCard: View {
                             }
                         )
                     } failureView: { error, retryHandler in
-                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
                         return AnyView(
                             Button(action: retryHandler) {
                                 Label(errorDescription, systemImage: "exclamationmark.triangle.fill")

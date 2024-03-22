@@ -13,8 +13,8 @@ class FDPlaygroundModel: ObservableObject {
     
     init(_ playgrounds: [FDPlayground]) {
         self.playgrounds = playgrounds
-        self.typesList = Array(Set(playgrounds.map(\.type)))
-        self.campusList = Array(Set(playgrounds.map(\.campus)))
+        self.typesList = Array(Set(playgrounds.map(\.type))).sorted().reversed()
+        self.campusList = Array(Set(playgrounds.map(\.campus))).sorted().reversed()
     }
     
     let typesList: [String]
