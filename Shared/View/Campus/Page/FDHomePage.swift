@@ -77,7 +77,7 @@ fileprivate struct FDHomeSimpleLink: View {
             case .playground:
                 Label("Playground Reservation", systemImage: "sportscourt")
             case .courses:
-                Label("Empty Classrooms", systemImage: "building.2")
+                Label("Classroom Schedule", systemImage: "building.2")
             case .electricity:
                 Label("Dorm Electricity", systemImage: "bolt.fill")
             case .notice:
