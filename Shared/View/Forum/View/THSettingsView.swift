@@ -33,8 +33,6 @@ struct THSettingsView: View {
             Toggle(isOn: $settings.showBanners) {
                 Label("Show Activity Announcements", systemImage: "bell")
             }
-            
-            ImagePicker()
         }
     }
 }
