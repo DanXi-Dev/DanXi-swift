@@ -103,7 +103,7 @@ fileprivate struct FDEcardPageChart: View {
                                 let selectionValue = data.first(where: {element in Calendar.current.isDate(element.date, inSameDayAs: chartSelection)})?.value ?? 0
                                 let selectionDate = chartSelection.formatted(Date.FormatStyle().day().month())
                                 
-                                Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) " + "Yuan")
+                                Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) " + String(localized:"Yuan"))
                                     .foregroundStyle(.orange)
                                     .font(.system(.body, design: .rounded))
                                     .padding(.bottom, 4)
