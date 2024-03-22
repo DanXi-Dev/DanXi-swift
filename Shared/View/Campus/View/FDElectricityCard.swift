@@ -6,7 +6,7 @@ struct FDElectricityCard: View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 HStack {
-                    Image(systemName: "powercord.fill")
+                    Image(systemName: "bolt.fill")
                     Text("Dorm Electricity")
                     Spacer()
                 }
