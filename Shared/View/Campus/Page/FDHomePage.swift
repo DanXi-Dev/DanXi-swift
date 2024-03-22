@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct FDHomePage: View {
     @ObservedObject private var model = FDModel.shared
@@ -44,6 +45,7 @@ struct FDHomePage: View {
                     }
                 }
             }
+            .sectionSpacing(10)
             .navigationTitle("Campus Services")
             .navigationDestination(for: FDSection.self) { section in
                 FDHomeDestination(section: section)
@@ -97,32 +99,34 @@ fileprivate struct FDHomeCard: View {
     let section: FDSection
     
     var body: some View {
-        Button {
-            navigator.path.append(section)
-        } label: {
-            switch section {
-            case .ecard:
-                FDECardCard()
-            case .electricity:
-                FDElectricityCard()
-            case .notice:
-                FDNoticeCard()
-            default:
-                EmptyView()
+        Section {
+            Button {
+                navigator.path.append(section)
+            } label: {
+                switch section {
+                case .ecard:
+                    FDECardCard()
+                case .electricity:
+                    FDElectricityCard()
+                case .notice:
+                    FDNoticeCard()
+                default:
+                    EmptyView()
+                }
             }
         }
         .tint(.primary)
         .frame(height: 85)
-        .padding(13)
-        .listRowBackground(EmptyView())
-        .listRowSeparator(.hidden)
-        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-        .background {
-            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                .foregroundStyle(Color.secondarySystemGroupedBackground)
-        }
-        .padding(.bottom, 8)
-        
+//        .padding(13)
+//        .listRowBackground(EmptyView())
+//        .listRowSeparator(.hidden)
+//        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+//        .background {
+//            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+//                .foregroundStyle(Color.secondarySystemGroupedBackground)
+//        }
+//        .padding(.bottom, 8)
+//        
     }
 }
 
