@@ -2,6 +2,8 @@ import Foundation
 
 /// App-wide cache for announcement. Cache is invalidated between app launches.
 public actor AnnouncementStore {
+    public static let shared = AnnouncementStore()
+    
     var page = 1
     var finished = false
     var announcements: [Announcement] = []
