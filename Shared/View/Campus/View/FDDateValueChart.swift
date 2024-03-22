@@ -23,13 +23,34 @@ struct FDDateValueChart: View {
         return Gradient(colors: [color.opacity(0.8), color.opacity(0.1)])
     }
 
-    let filteredData: [FDDateValueChartData]
+    var filteredData: [FDDateValueChartData]
+    // set last date to now
+    var lastDate: Date
     
     init(data: [FDDateValueChartData], color:Color, backtrackRange: Int = 7) {
         self.data = data
         self.backtrackRange = backtrackRange
         self.color = color
-        self.filteredData = Array(data.filter({d in d.date >= Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)!}).sorted(by: {a, b in a.date > b.date}))
+        self.filteredData = Array(data.sorted(by: {a, b in a.date > b.date}))
+        self.lastDate = Date()
+        
+        let daysWithData = Set(self.filteredData.map { $0.date })
+        
+        // from the last date of data, go back in time to backtrackRange days, and fill in missing data with 0s
+        // if there is no data, fill in the last 7 days from today with 0s
+        if let lastDateOfData = daysWithData.max() {
+            for dayOffset in 0..<backtrackRange {
+                let dateToCheck = Calendar.current.date(byAdding: .day, value: -dayOffset, to: lastDateOfData)!
+                if !daysWithData.contains(dateToCheck) {
+                    self.filteredData.append(FDDateValueChartData(date: dateToCheck, value: 0))
+                }
+            }
+            self.filteredData = Array(self.filteredData.sorted(by: {a, b in a.date > b.date})[0..<7])
+            self.lastDate = lastDateOfData
+        } else {
+            self.filteredData = []
+            self.lastDate = Date()
+        }
     }
     
     var body: some View {
@@ -49,7 +70,7 @@ struct FDDateValueChart: View {
                 .interpolationMethod(.cardinal)
             }
         }
-        .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange-1, to: .now)! ... .now)
+        .chartXScale(domain: Calendar.current.date(byAdding: .day, value: -backtrackRange + 1, to: lastDate)! ... lastDate)
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
         .foregroundColor(color)
