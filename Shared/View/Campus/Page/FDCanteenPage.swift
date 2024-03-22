@@ -1,9 +1,10 @@
 import SwiftUI
+import FudanKit
 
 struct FDCanteenPage: View {
     var body: some View {
         AsyncContentView {
-            return try await FDCanteenAPI.getCanteenInfo()
+            return try await CanteenAPI.getCanteenQueuing()
         } content: { canteens in
             List(canteens) { canteen in
                 Section(canteen.campus) {
@@ -13,7 +14,7 @@ struct FDCanteenPage: View {
                 }
                 .headerProminence(.increased)
             }
-            .listStyle(.sidebar) // support fold section
+            .listStyle(SidebarListStyle()) // support fold section
             .navigationTitle("Canteen Popularity")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -21,7 +22,7 @@ struct FDCanteenPage: View {
 }
 
 fileprivate struct CanteenRow: View {
-    let room: FDDiningRoom
+    let room: DiningRoom
     
     var body: some View {
         VStack {
@@ -30,11 +31,13 @@ fileprivate struct CanteenRow: View {
                 
                 Spacer()
                 
-                Text("\(room.current) / \(room.capacity)")
-                    .font(.footnote)
+                VStack {
+                    CircularProgressView(progress: Double(room.current) / Double(room.capacity))
+                    Text("\(room.current) / \(room.capacity)")
+                        .font(.footnote)
+                }
+                .frame(minWidth: 50) // for alignment
             }
-            
-            ProgressView(value: Double(room.current), total: Double(room.capacity))
         }
     }
 }
