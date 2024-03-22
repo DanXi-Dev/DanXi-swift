@@ -3287,10 +3287,16 @@
     },
     "Push Notification Settings" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "推送通知设置"
+            "value" : "Push Notification"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "推送通知"
           }
         }
       }

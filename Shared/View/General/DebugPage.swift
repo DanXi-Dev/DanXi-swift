@@ -6,15 +6,19 @@ struct DebugPage: View {
     
     var body: some View {
         List {
-            Button("Debug Base URL") {
-                showURLSheet = true
+            Section {
+                Button("Debug Base URL") {
+                    showURLSheet = true
+                }
+                
+                Button("Test HTTP Request") {
+                    showHTTPSheet = true
+                }
             }
             
-            Button("Test HTTP Request") {
-                showHTTPSheet = true
+            Section {
+                ScreenshotAlert()
             }
-            
-            ScreenshotAlert()
         }
         .navigationTitle("Debug")
         .sheet(isPresented: $showURLSheet) {

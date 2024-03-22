@@ -14,26 +14,29 @@ struct AboutPage: View {
             Section {
                 LinkView(url: "https://danxi.fduhole.com", text: "Website", icon: "safari")
                 LinkView(url: "https://danxi.fduhole.com/doc/app-terms-and-condition", text: "Terms and Conditions", icon: "info.circle")
-
+                
                 NavigationLink {
                     CreditPage()
                 } label: {
                     Label("Acknowledgements", systemImage: "heart")
                 }
-                
+            } header: {
+                appIcon
+            }
+            
+            Section {
                 NavigationLink {
                     DebugPage()
                 } label: {
                     Label("Debug", systemImage: "ant.circle.fill")
                 }
-            } header: {
-                appIcon
             }
+            .labelStyle(.titleOnly)
         }
         .navigationTitle("About")
         .navigationBarTitleDisplayMode(.inline)
     }
-
+    
     private var appIcon: some View {
         HStack {
             Spacer()

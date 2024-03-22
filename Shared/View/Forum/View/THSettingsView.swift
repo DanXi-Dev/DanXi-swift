@@ -6,6 +6,12 @@ struct THSettingsView: View {
     
     var body: some View {
         Section("Forum") {
+            NavigationLink {
+                NotificationSettingWrapper()
+            } label: {
+                Label("Push Notification Settings", systemImage: "bell.badge")
+            }
+            
             Picker(selection: $settings.sensitiveContent, label: Label("NSFW Content", systemImage: "eye.slash")) {
                 Text("Show").tag(THSettings.SensitiveContentSetting.show)
                 Text("Fold").tag(THSettings.SensitiveContentSetting.fold)
@@ -24,16 +30,11 @@ struct THSettingsView: View {
                 Label("Blocked Holes", systemImage: "eye.slash")
             }
             
-            NavigationLink {
-                NotificationSettingWrapper()
-            } label: {
-                Label("Push Notification Settings", systemImage: "bell.badge")
-            }
-            
             Toggle(isOn: $settings.showBanners) {
                 Label("Show Activity Announcements", systemImage: "bell")
             }
         }
+//        .labelStyle(.titleOnly)
     }
 }
 
@@ -141,9 +142,8 @@ fileprivate struct NotificationSetting: View {
                 Task { await updateConfig() }
             }
         }
-        .alert("Update Notification Config Failed", isPresented: $showAlert) {
-            
-        }
+        .alert("Update Notification Config Failed", isPresented: $showAlert) {}
+        .labelStyle(.titleOnly)
         .navigationTitle("Push Notification Settings")
         .navigationBarTitleDisplayMode(.inline)
     }
