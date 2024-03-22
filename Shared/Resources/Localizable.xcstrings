@@ -548,6 +548,16 @@
         }
       }
     },
+    "Building" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教学楼"
+          }
+        }
+      }
+    },
     "Building not selected" : {
       "localizations" : {
         "zh-Hans" : {
@@ -712,6 +722,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请在邮箱内查收验证码，如未收到邮件，请检查垃圾箱或重试"
+          }
+        }
+      }
+    },
+    "Classroom Schedule" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教室日程查询"
           }
         }
       }
@@ -1629,6 +1649,7 @@
       }
     },
     "Empty Classrooms" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3717,17 +3738,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "搜索文字"
-          }
-        }
-      }
-    },
-    "Select Building" : {
-      "comment" : "Empty Classrooms",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择教学楼"
           }
         }
       }

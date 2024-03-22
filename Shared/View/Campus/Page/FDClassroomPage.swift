@@ -7,7 +7,7 @@ struct FDClassroomPage: View {
     
     var body: some View {
         List {
-            Picker("Select Building", selection: $building) {
+            Picker("Building", selection: $building) {
                 if building == .empty {
                     Text("Not Selected").tag(FDBuilding.empty)
                 }
@@ -59,7 +59,8 @@ struct FDClassroomPage: View {
             }
         }
         .listStyle(.inset)
-        .navigationTitle("Empty Classrooms")
+        .navigationTitle("Classroom Schedule")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
