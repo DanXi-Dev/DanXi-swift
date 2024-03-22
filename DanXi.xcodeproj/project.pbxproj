@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2700FB2B2A3CC7B5003A2B00 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */; };
 		2701318B2A3B46BE0013FA7E /* FDElectricityPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */; };
-		2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */; };
 		2701318F2A3B9A4F0013FA7E /* FDNoticePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */; };
 		270131912A3C27F20013FA7E /* FDLibraryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270131902A3C27F20013FA7E /* FDLibraryPage.swift */; };
 		270131932A3C28FB0013FA7E /* FDCanteenPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270131922A3C28FB0013FA7E /* FDCanteenPage.swift */; };
@@ -144,7 +143,6 @@
 		27D07BE82A7825D200B94855 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
 		27D07BEA2A7825D200B94855 /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
 		27D07BEC2A7825D200B94855 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
-		27D07BED2A7825D200B94855 /* FDNoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */; };
 		27D07BEE2A7825D200B94855 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
 		27D07BF22A7825D200B94855 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27D07BF42A78261900B94855 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF32A78261900B94855 /* Markdown */; };
@@ -251,7 +249,6 @@
 /* Begin PBXFileReference section */
 		2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityPage.swift; sourceTree = "<group>"; };
-		2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticeAPI.swift; sourceTree = "<group>"; };
 		2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticePage.swift; sourceTree = "<group>"; };
 		270131902A3C27F20013FA7E /* FDLibraryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryPage.swift; sourceTree = "<group>"; };
 		270131922A3C28FB0013FA7E /* FDCanteenPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCanteenPage.swift; sourceTree = "<group>"; };
@@ -493,7 +490,6 @@
 				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
 				278F83BF2AAFE9D2008ED56C /* FDIdentityAPI.swift */,
 				27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */,
-				2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */,
 				27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */,
 			);
 			path = Requests;
@@ -1052,7 +1048,6 @@
 				27D07BEA2A7825D200B94855 /* FDClassroomAPI.swift in Sources */,
 				27D07C072A7826B400B94855 /* Defaults.swift in Sources */,
 				2733CA182AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
-				27D07BED2A7825D200B94855 /* FDNoticeAPI.swift in Sources */,
 				27D07BE72A7825D200B94855 /* FDWebVPNAPI.swift in Sources */,
 				27D07BEE2A7825D200B94855 /* FDAuthAPI.swift in Sources */,
 				27D07BE82A7825D200B94855 /* FDAcademicAPI.swift in Sources */,
@@ -1149,7 +1144,6 @@
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
 				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
 				27E8194E2A4C12F1009C87C6 /* THMessageSheet.swift in Sources */,
-				2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
 				278F83C02AAFE9D2008ED56C /* FDIdentityAPI.swift in Sources */,

@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 
 struct FDNoticeCard: View {
     var body: some View {
@@ -16,11 +17,11 @@ struct FDNoticeCard: View {
                 Spacer()
                 
                 AsyncContentView(animation: .default) {
-                    let notifications = try await FDNoticeAPI.getNoticeList(1)
-                    return Array(notifications.prefix(1))
-                } content: { (notices: [FDNotice]) in
-                    ForEach(notices) { notice in
-                        Text(notice.title)
+                    let announcements = try await AnnouncementStore.shared.getCachedAnnouncements()
+                    return Array(announcements.prefix(1))
+                } content: { (annoucements: [Announcement]) in
+                    ForEach(annoucements) { announcement in
+                        Text(announcement.title)
                             .font(.callout)
                             .lineLimit(3)
                     }
