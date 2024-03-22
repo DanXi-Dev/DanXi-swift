@@ -41,7 +41,7 @@ fileprivate struct ECardPageContent: View {
                     Button(action: {
                         showDetailedTransactionHistory = true
                     }, label: {
-                        Text("Show transaction history")
+                        Text("Show Transaction History")
                     })
                 }
             }
