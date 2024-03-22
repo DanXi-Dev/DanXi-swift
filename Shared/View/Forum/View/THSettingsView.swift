@@ -30,8 +30,6 @@ struct THSettingsView: View {
                 Label("Push Notification Settings", systemImage: "bell.badge")
             }
             
-            ScreenshotAlert()
-            
             Toggle(isOn: $settings.showBanners) {
                 Label("Show Activity Announcements", systemImage: "bell")
             }
@@ -150,27 +148,6 @@ fileprivate struct NotificationSetting: View {
         }
         .navigationTitle("Push Notification Settings")
         .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-fileprivate struct ScreenshotAlert: View {
-    @ObservedObject private var settings = THSettings.shared
-    @State private var showWarning = false
-    
-    var body: some View {
-        Toggle(isOn: $settings.screenshotAlert) {
-            Label("Screenshot Alert", systemImage: "camera.viewfinder")
-        }
-        .alert("Screenshot Policy", isPresented: $showWarning) {
-            
-        } message: {
-            Text("Screenshot Warning")
-        }
-        .onChange(of: settings.screenshotAlert) { willShowAlert in
-            if !willShowAlert {
-                showWarning = true
-            }
-        }
     }
 }
 
