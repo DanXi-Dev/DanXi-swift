@@ -57,7 +57,7 @@ struct FDECardCard: View {
                                         .bold()
                                         .font(.caption)
                                     
-                                    Text("--.--")
+                                    Text("--.-- ")
                                         .bold()
                                         .font(.system(size: 25, design: .rounded))
 

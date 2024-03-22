@@ -6,16 +6,20 @@ struct THSettingsView: View {
     
     var body: some View {
         Section("Forum") {
-            NavigationLink {
-                NotificationSettingWrapper()
-            } label: {
-                Label("Push Notification Settings", systemImage: "bell.badge")
-            }
-            
             Picker(selection: $settings.sensitiveContent, label: Label("NSFW Content", systemImage: "eye.slash")) {
                 Text("Show").tag(THSettings.SensitiveContentSetting.show)
                 Text("Fold").tag(THSettings.SensitiveContentSetting.fold)
                 Text("Hide").tag(THSettings.SensitiveContentSetting.hide)
+            }
+            
+            Toggle(isOn: $settings.showBanners) {
+                Label("Show Activity Announcements", systemImage: "bell")
+            }
+            
+            NavigationLink {
+                NotificationSettingWrapper()
+            } label: {
+                Label("Push Notification Settings", systemImage: "bell.badge")
             }
             
             NavigationLink {
@@ -28,10 +32,6 @@ struct THSettingsView: View {
                 BlockedHoles()
             } label: {
                 Label("Blocked Holes", systemImage: "eye.slash")
-            }
-            
-            Toggle(isOn: $settings.showBanners) {
-                Label("Show Activity Announcements", systemImage: "bell")
             }
         }
 //        .labelStyle(.titleOnly)

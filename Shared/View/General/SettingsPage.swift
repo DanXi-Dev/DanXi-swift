@@ -141,14 +141,6 @@ fileprivate struct DXUserSheet: View {
                                 Label("User ID", systemImage: "person.text.rectangle")
                             }
                             
-                            if user.isAdmin {
-                                LabeledContent {
-                                    Text("Enabled")
-                                } label: {
-                                    Label("Admin Privilege", systemImage: "person.badge.key.fill")
-                                }
-                            }
-                            
                             LabeledContent {
                                 Text(user.nickname)
                             } label: {
@@ -159,6 +151,14 @@ fileprivate struct DXUserSheet: View {
                                 Text(user.joinTime.formatted(date: .long, time: .omitted))
                             } label: {
                                 Label("Join Date", systemImage: "calendar.badge.clock")
+                            }
+                            
+                            if user.isAdmin {
+                                LabeledContent {
+                                    Text("Enabled")
+                                } label: {
+                                    Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                                }
                             }
                         }
                     }
