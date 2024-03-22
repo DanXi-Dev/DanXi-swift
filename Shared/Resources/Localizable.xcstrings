@@ -7,16 +7,6 @@
     " kWh" : {
 
     },
-    " yuan" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "元"
-          }
-        }
-      }
-    },
     " Yuan" : {
       "localizations" : {
         "zh-Hans" : {
@@ -55,6 +45,12 @@
             "state" : "new",
             "value" : "%1$@ - %2$@"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
@@ -74,6 +70,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ / %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -206,6 +208,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld / %2$lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -1106,7 +1114,14 @@
       }
     },
     "Date" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期"
+          }
+        }
+      }
     },
     "Dealt" : {
       "localizations" : {
@@ -1220,7 +1235,14 @@
       }
     },
     "Density" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密度"
+          }
+        }
+      }
     },
     "Department" : {
       "localizations" : {
@@ -2021,6 +2043,16 @@
         }
       }
     },
+    "Full" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已满"
+          }
+        }
+      }
+    },
     "Gender" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2064,7 +2096,14 @@
       }
     },
     "GPA" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绩点"
+          }
+        }
+      }
     },
     "GPA Distribution" : {
       "localizations" : {
@@ -2399,7 +2438,14 @@
       }
     },
     "Load Failed" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加载失败"
+          }
+        }
+      }
     },
     "Load More" : {
       "extractionState" : "manual",
@@ -2817,6 +2863,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未选择标签"
+          }
+        }
+      }
+    },
+    "No Time Slots Available" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无可预约时段"
           }
         }
       }
@@ -3485,6 +3541,7 @@
       }
     },
     "Reserved" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3701,16 +3758,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择分区"
-          }
-        }
-      }
-    },
-    "Select Reservation Date" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择预约日期"
           }
         }
       }
@@ -4037,7 +4084,7 @@
         }
       }
     },
-    "Show transaction history" : {
+    "Show Transaction History" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4069,7 +4116,14 @@
       }
     },
     "Sort Options" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排序选项"
+          }
+        }
+      }
     },
     "Special Tag" : {
       "localizations" : {
@@ -4092,10 +4146,24 @@
       }
     },
     "Start Date" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始日期"
+          }
+        }
+      }
     },
     "Stickers" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "表情"
+          }
+        }
+      }
     },
     "Student Type" : {
       "localizations" : {
@@ -4484,7 +4552,14 @@
       }
     },
     "Type" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "类型"
+          }
+        }
+      }
     },
     "Unanswered Questions" : {
       "localizations" : {
@@ -4503,6 +4578,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登录过期"
+          }
+        }
+      }
+    },
+    "Unavailable" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不可用"
           }
         }
       }
@@ -4768,7 +4853,14 @@
 
     },
     "光华楼西辅楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "张江校区" : {
 
@@ -4777,25 +4869,67 @@
 
     },
     "枫林校区" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "江湾校区" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第三教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第二教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第五教学楼" : {
 
     },
     "第六教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第四教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
