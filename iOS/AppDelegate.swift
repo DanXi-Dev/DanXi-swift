@@ -24,6 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
             }
         }
         
+#if !targetEnvironment(macCatalyst)
         // Activate internet connection
         let cellular = CTCellularData()
         if cellular.restrictedState != .notRestricted {
@@ -35,6 +36,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                 }
             }
         }
+#endif
         
         return true
     }
