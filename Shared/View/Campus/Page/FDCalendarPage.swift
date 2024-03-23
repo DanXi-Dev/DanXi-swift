@@ -154,7 +154,7 @@ fileprivate struct ExportSheet: UIViewControllerRepresentable {
     @EnvironmentObject private var model: FDCalendarModel
     @Environment(\.dismiss) private var dismiss
     private let eventStore = EKEventStore()
-
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ExportSheet>) -> UINavigationController {
         let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
         chooser.selectedCalendars = []
@@ -162,7 +162,7 @@ fileprivate struct ExportSheet: UIViewControllerRepresentable {
         chooser.showsDoneButton = true
         return UINavigationController(rootViewController: chooser)
     }
-
+    
     func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<ExportSheet>) {
         
     }
@@ -170,21 +170,21 @@ fileprivate struct ExportSheet: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
     }
-
+    
     class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
         let parent: ExportSheet
-
+        
         init(_ parent: ExportSheet) {
             self.parent = parent
         }
-
+        
         func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {
             if let calendar = calendarChooser.selectedCalendars.first {
                 parent.model.exportToCalendar(calendar)
             }
             parent.dismiss()
         }
-
+        
         func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
             parent.dismiss()
         }
@@ -234,31 +234,29 @@ fileprivate struct CourseDetailSheet: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                List {
-                    LabeledContent {
-                        Text(course.name)
-                    } label: {
-                        Label("Course Name", systemImage: "magazine")
-                    }
-                    LabeledContent {
-                        Text(course.instructor)
-                    } label: {
-                        Label("Instructor", systemImage: "person")
-                    }
-                    LabeledContent {
-                        Text(course.code)
-                    } label: {
-                        Label("Course ID", systemImage: "number")
-                    }
-                    LabeledContent {
-                        Text(course.location)
-                    } label: {
-                        Label("Location", systemImage: "mappin.and.ellipse")
-                    }
+            List {
+                LabeledContent {
+                    Text(course.name)
+                } label: {
+                    Label("Course Name", systemImage: "magazine")
                 }
-                .listStyle(.insetGrouped)
+                LabeledContent {
+                    Text(course.instructor)
+                } label: {
+                    Label("Instructor", systemImage: "person")
+                }
+                LabeledContent {
+                    Text(course.code)
+                } label: {
+                    Label("Course ID", systemImage: "number")
+                }
+                LabeledContent {
+                    Text(course.location)
+                } label: {
+                    Label("Location", systemImage: "mappin.and.ellipse")
+                }
             }
+            .listStyle(.insetGrouped)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
