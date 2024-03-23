@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
@@ -87,16 +88,16 @@ fileprivate struct FDUserSheet: View {
         NavigationStack {
             Form {
                 List {
-                    AsyncContentView(style: .widget, animation: .default) { () -> FDIdentity? in
-                        return try? await FDIdentityAPI.getIdentity()
-                    } content: { identity in
-                        if let identity = identity {
+                    AsyncContentView(style: .widget, animation: .default) { () -> Profile? in
+                        return try? await ProfileStore.shared.getCachedProfile()
+                    } content: { profile in
+                        if let profile = profile {
                             Section {
-                                LabeledContent("Name", value: identity.name)
-                                LabeledContent("Fudan.ID", value: identity.studentId)
-                                LabeledContent("ID Number", value: identity.idNumber)
-                                LabeledContent("Department", value: identity.department)
-                                LabeledContent("Major", value: identity.major)
+                                LabeledContent("Name", value: profile.name)
+                                LabeledContent("Fudan.ID", value: profile.campusId)
+                                LabeledContent("ID Number", value: profile.idNumber)
+                                LabeledContent("Department", value: profile.department)
+                                LabeledContent("Major", value: profile.major)
                             }
                         }
                     }
