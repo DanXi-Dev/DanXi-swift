@@ -19,25 +19,18 @@ public enum AuthenticationAPI {
         let semaphore = Semaphore(count: 1)
         
         func authenticate(url: URL) async throws -> Data {
-            print("authenticate Queue \(url)")
             await semaphore.wait()
-            print("authenticate Start \(url)")
             do {
                 let result = try await _authenticate(url: url)
-                print("authenticate Success \(url)")
                 await semaphore.signal()
-                print("authenticate Signaled \(url)")
                 return result
             } catch {
-                print("authenticate Fail \(url)")
                 await semaphore.signal()
-                print("authenticate Signaled \(url)")
                 throw error
             }
         }
         
         func _authenticate(url: URL) async throws -> Data {
-            print("_authenticate Start \(url)")
             guard let username = CredentialStore.shared.username,
                   let password = CredentialStore.shared.password else {
                 throw CampusError.credentialNotFound
@@ -52,7 +45,6 @@ public enum AuthenticationAPI {
             // if local cookie is not expired, the response will be returned directly
             // otherwise, this will redirect to UIS page
             guard response.url?.host == authenticationURL.host else {
-                print("_authenticate end 1 \(url)")
                 return data
             }
             
@@ -61,7 +53,6 @@ public enum AuthenticationAPI {
             guard authResponse.url?.host != authenticationURL.host else {
                 throw CampusError.loginFailed
             }
-            print("_authenticate end 2 \(url)")
             return authData
         }
     }
