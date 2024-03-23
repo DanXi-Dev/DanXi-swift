@@ -121,6 +121,7 @@ fileprivate struct TimeSlotView: View {
 }
 
 fileprivate struct ReservationSheet: View {
+    @Environment(\.dismiss) private var dismiss
     let timeSlot: FDPlaygroundTimeSlot
     let request: URLRequest?
     
@@ -135,13 +136,24 @@ fileprivate struct ReservationSheet: View {
     
     var body: some View {
         NavigationStack {
-            Group {
-                if let request = request {
-                    WebViewWrapper(request)
-                } else {
-                    Text("Cannot Reserve")
-                        .font(.title3)
-                        .foregroundColor(.secondary)
+            Form {
+                Group {
+                    if let request = request {
+                        WebViewWrapper(request)
+                    } else {
+                        Text("Cannot Reserve")
+                            .font(.title3)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
                 }
             }
             .navigationTitle("Reserve Page")

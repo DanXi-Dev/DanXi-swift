@@ -15,7 +15,7 @@ struct THSimpleFloor: View {
             bottom
         }
     }
-
+    
     var bottom: some View {
         HStack {
             Text("##\(String(floor.id))")
@@ -397,7 +397,7 @@ fileprivate struct Actions: View {
                 .foregroundColor(floor.liked ? .pink : .secondary)
                 .fixedSize() // prevent numbers to disappear when special tag present
             }
-
+            
             
             AsyncButton {
                 try await model.dislike()
@@ -542,6 +542,13 @@ fileprivate struct TextSelectionSheet: View {
                                 Image(systemName: "doc.on.doc")
                             }
                             .labelStyle(.titleAndIcon)
+                        }
+                    }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
                         }
                     }
                 }

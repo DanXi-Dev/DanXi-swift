@@ -85,36 +85,47 @@ fileprivate struct FDUserSheet: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                AsyncContentView(style: .widget, animation: .default) { () -> FDIdentity? in
-                    return try? await FDIdentityAPI.getIdentity()
-                } content: { identity in
-                    if let identity = identity {
-                        Section {
-                            LabeledContent("Name", value: identity.name)
-                            LabeledContent("Fudan.ID", value: identity.studentId)
-                            LabeledContent("ID Number", value: identity.idNumber)
-                            LabeledContent("Department", value: identity.department)
-                            LabeledContent("Major", value: identity.major)
+            Form {
+                List {
+                    AsyncContentView(style: .widget, animation: .default) { () -> FDIdentity? in
+                        return try? await FDIdentityAPI.getIdentity()
+                    } content: { identity in
+                        if let identity = identity {
+                            Section {
+                                LabeledContent("Name", value: identity.name)
+                                LabeledContent("Fudan.ID", value: identity.studentId)
+                                LabeledContent("ID Number", value: identity.idNumber)
+                                LabeledContent("Department", value: identity.department)
+                                LabeledContent("Major", value: identity.major)
+                            }
+                        }
+                    }
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            FDModel.shared.logout()
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Logout")
+                                Spacer()
+                            }
                         }
                     }
                 }
-                
-                Section {
-                    Button(role: .destructive) {
-                        FDModel.shared.logout()
+                .navigationTitle("Account Info")
+                .navigationBarTitleDisplayMode(.inline)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
                         dismiss()
                     } label: {
-                        HStack {
-                            Spacer()
-                            Text("Logout")
-                            Spacer()
-                        }
+                        Text("Done")
                     }
                 }
             }
-            .navigationTitle("Account Info")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -124,56 +135,67 @@ fileprivate struct DXUserSheet: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                AsyncContentView(style: .widget, animation: .default) { () -> DXUser? in
-                    if let user = DXModel.shared.user {
-                        return user
-                    }
-                    // return nil when error
-                    // this is to allow user to logout even when some error occurs and cannot connect to backend server
-                    return try? await DXModel.shared.loadUser()
-                } content: { user in
-                    if let user = user {
-                        Section {
-                            LabeledContent {
-                                Text(String(user.id))
-                            } label: {
-                                Label("User ID", systemImage: "person.text.rectangle")
-                            }
-                            
-                            LabeledContent {
-                                Text(user.nickname)
-                            } label: {
-                                Label("Nickname", systemImage: "person.crop.circle")
-                            }
-                            
-                            LabeledContent {
-                                Text(user.joinTime.formatted(date: .long, time: .omitted))
-                            } label: {
-                                Label("Join Date", systemImage: "calendar.badge.clock")
-                            }
-                            
-                            if user.isAdmin {
+            Form {
+                List {
+                    AsyncContentView(style: .widget, animation: .default) { () -> DXUser? in
+                        if let user = DXModel.shared.user {
+                            return user
+                        }
+                        // return nil when error
+                        // this is to allow user to logout even when some error occurs and cannot connect to backend server
+                        return try? await DXModel.shared.loadUser()
+                    } content: { user in
+                        if let user = user {
+                            Section {
                                 LabeledContent {
-                                    Text("Enabled")
+                                    Text(String(user.id))
                                 } label: {
-                                    Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                                    Label("User ID", systemImage: "person.text.rectangle")
+                                }
+                                
+                                LabeledContent {
+                                    Text(user.nickname)
+                                } label: {
+                                    Label("Nickname", systemImage: "person.crop.circle")
+                                }
+                                
+                                LabeledContent {
+                                    Text(user.joinTime.formatted(date: .long, time: .omitted))
+                                } label: {
+                                    Label("Join Date", systemImage: "calendar.badge.clock")
+                                }
+                                
+                                if user.isAdmin {
+                                    LabeledContent {
+                                        Text("Enabled")
+                                    } label: {
+                                        Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                                    }
                                 }
                             }
                         }
                     }
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            DXModel.shared.logout()
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Logout")
+                                Spacer()
+                            }
+                        }
+                    }
                 }
-                
-                Section {
-                    Button(role: .destructive) {
-                        DXModel.shared.logout()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
                         dismiss()
                     } label: {
-                        HStack {
-                            Spacer()
-                            Text("Logout")
-                            Spacer()
-                        }
+                        Text("Done")
                     }
                 }
             }

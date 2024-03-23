@@ -72,18 +72,29 @@ struct THContentEditor: View {
     
     private var stickerPicker: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.flexible()),
-                                    GridItem(.flexible()),
-                                    GridItem(.flexible()),
-                                    GridItem(.flexible())]) {
-                    ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
-                        Button {
-                            content += " ^[\(sticker.rawValue)]"
-                            showStickers = false
-                        } label: {
-                            sticker.image
+            Form {
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.flexible()),
+                                        GridItem(.flexible()),
+                                        GridItem(.flexible()),
+                                        GridItem(.flexible())]) {
+                        ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
+                            Button {
+                                content += " ^[\(sticker.rawValue)]"
+                                showStickers = false
+                            } label: {
+                                sticker.image
+                            }
                         }
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        showStickers = false
+                    } label: {
+                        Text("Cancel")
                     }
                 }
             }

@@ -60,11 +60,22 @@ struct FDSportPage: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showExerciseSheet) {
                 NavigationStack {
-                    List {
-                        ForEach(sportData.exerciseLogs) { log in
-                            LabeledContent(log.category) {
-                                Text("\(log.date) \(log.status)")
-                                    .font(.callout)
+                    Form {
+                        List {
+                            ForEach(sportData.exerciseLogs) { log in
+                                LabeledContent(log.category) {
+                                    Text("\(log.date) \(log.status)")
+                                        .font(.callout)
+                                }
+                            }
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                showExerciseSheet = false
+                            } label: {
+                                Text("Done")
                             }
                         }
                     }
@@ -73,19 +84,32 @@ struct FDSportPage: View {
                 }
             }
             .sheet(isPresented: $showExamSheet) {
-                if let exam = sportData.exam {
-                    NavigationStack {
-                        List {
-                            ForEach(exam.logs) { log in
-                                LabeledContent(log.name) {
-                                    Text(log.date)
-                                        .font(.callout)
+                NavigationStack {
+                    Form {
+                        if let exam = sportData.exam {
+                            List {
+                                ForEach(exam.logs) { log in
+                                    LabeledContent(log.name) {
+                                        Text(log.date)
+                                            .font(.callout)
+                                    }
                                 }
                             }
+                        } else {
+                            Text("No Data")
                         }
-                        .navigationTitle("PE Exam Logs")
-                        .navigationBarTitleDisplayMode(.inline)
                     }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                showExamSheet = false
+                            } label: {
+                                Text("Done")
+                            }
+                        }
+                    }
+                    .navigationTitle("PE Exam Logs")
+                    .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }

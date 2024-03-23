@@ -101,6 +101,15 @@ fileprivate struct THDatePicker: View {
                     }
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
+                }
+            }
         }
         .navigationTitle("Select Date")
         .navigationBarTitleDisplayMode(.inline)
@@ -257,10 +266,21 @@ fileprivate struct BannerCarousel: View {
         }
         .sheet(isPresented: $showSheet) {
             NavigationStack {
-                ScrollView {
-                    ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
-                        BannerView(banner: banner) {
-                            showSheet = false // dismiss sheet when navigate to a hole page
+                Form {
+                    ScrollView {
+                        ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
+                            BannerView(banner: banner) {
+                                showSheet = false // dismiss sheet when navigate to a hole page
+                            }
+                        }
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            showSheet = false
+                        } label: {
+                            Text("Done")
                         }
                     }
                 }

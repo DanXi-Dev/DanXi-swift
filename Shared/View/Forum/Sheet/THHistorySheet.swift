@@ -1,20 +1,32 @@
 import SwiftUI
 
 struct THHistorySheet: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: THFloorModel
     @State private var histories: [THHistory] = []
     
     var body: some View {
         NavigationView {
-            AsyncContentView {
-                return try await model.loadHistory()
-            } content: { histories in
-                List {
-                    ForEach(histories) { history in
-                        THHistorySheetItem(history: history)
+            Form {
+                AsyncContentView {
+                    return try await model.loadHistory()
+                } content: { histories in
+                    List {
+                        ForEach(histories) { history in
+                            THHistorySheetItem(history: history)
+                        }
+                    }
+                    .listStyle(.insetGrouped)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
                     }
                 }
-                .listStyle(.insetGrouped)
             }
             .navigationTitle("Edit History")
             .navigationBarTitleDisplayMode(.inline)

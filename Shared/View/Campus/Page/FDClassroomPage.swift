@@ -124,50 +124,63 @@ fileprivate struct ClanedarEvents: View {
 }
 
 fileprivate struct EventDetailSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    
     let event: FDEvent
     
     var body: some View {
         NavigationStack {
-            List {
-                LabeledContent {
-                    Text(event.name)
-                } label: {
-                    Label("Course Name", systemImage: "magazine")
-                }
-                
-                if let teacher = event.teacher {
+            Form {
+                List {
                     LabeledContent {
-                        Text(teacher)
+                        Text(event.name)
                     } label: {
-                        Label("Instructor", systemImage: "person")
+                        Label("Course Name", systemImage: "magazine")
+                    }
+                    
+                    if let teacher = event.teacher {
+                        LabeledContent {
+                            Text(teacher)
+                        } label: {
+                            Label("Instructor", systemImage: "person")
+                        }
+                    }
+                    
+                    if let id = event.courseId {
+                        LabeledContent {
+                            Text(id)
+                        } label: {
+                            Label("Course ID", systemImage: "number")
+                        }
+                    }
+                    
+                    if let category = event.category {
+                        LabeledContent {
+                            Text(category)
+                        } label: {
+                            Label("Course Category", systemImage: "square.grid.3x3.middle.filled")
+                        }
+                    }
+                    
+                    if let count = event.count {
+                        LabeledContent {
+                            Text(count)
+                        } label: {
+                            Label("Course Capacity", systemImage: "person.3.fill")
+                        }
                     }
                 }
-                
-                if let id = event.courseId {
-                    LabeledContent {
-                        Text(id)
+                .listStyle(.insetGrouped)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
                     } label: {
-                        Label("Course ID", systemImage: "number")
-                    }
-                }
-                
-                if let category = event.category {
-                    LabeledContent {
-                        Text(category)
-                    } label: {
-                        Label("Course Category", systemImage: "square.grid.3x3.middle.filled")
-                    }
-                }
-                
-                if let count = event.count {
-                    LabeledContent {
-                        Text(count)
-                    } label: {
-                        Label("Course Capacity", systemImage: "person.3.fill")
+                        Text("Done")
                     }
                 }
             }
-            .listStyle(.insetGrouped)
             .navigationTitle("Course Detail")
             .navigationBarTitleDisplayMode(.inline)
         }

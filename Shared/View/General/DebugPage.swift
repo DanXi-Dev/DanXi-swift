@@ -62,12 +62,21 @@ fileprivate struct DebugURLForm: View {
                         Text("Submit")
                     }
                 }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
             }
         }
     }
 }
 
 fileprivate struct DebugHTTPForm: View {
+    @Environment(\.dismiss) private var dismiss
+    
     enum BaseURL {
         case fduhole, auth, danke, custom
     }
@@ -151,6 +160,15 @@ fileprivate struct DebugHTTPForm: View {
                     }
                     Text(response)
                         .font(.callout.monospaced())
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
                 }
             }
             .navigationTitle("Debug HTTP Request")

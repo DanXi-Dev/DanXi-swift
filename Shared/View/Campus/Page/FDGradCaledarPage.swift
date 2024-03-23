@@ -131,38 +131,51 @@ fileprivate struct CourseTable: View {
 }
 
 fileprivate struct CourseDetailSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    
     let course: FDGradCourse
     
     var body: some View {
         NavigationStack {
-            List {
-                LabeledContent {
-                    Text(course.name)
-                } label: {
-                    Label("Course Name", systemImage: "magazine")
+            Form {
+                List {
+                    LabeledContent {
+                        Text(course.name)
+                    } label: {
+                        Label("Course Name", systemImage: "magazine")
+                    }
+                    LabeledContent {
+                        Text(course.teacher)
+                    } label: {
+                        Label("Instructor", systemImage: "person")
+                    }
+                    LabeledContent {
+                        Text(course.code)
+                    } label: {
+                        Label("Course ID", systemImage: "number")
+                    }
+                    LabeledContent {
+                        Text(course.location)
+                    } label: {
+                        Label("Location", systemImage: "mappin.and.ellipse")
+                    }
+                    LabeledContent {
+                        Text(String(course.credit))
+                    } label: {
+                        Label("Credit", systemImage: "graduationcap")
+                    }
                 }
-                LabeledContent {
-                    Text(course.teacher)
-                } label: {
-                    Label("Instructor", systemImage: "person")
-                }
-                LabeledContent {
-                    Text(course.code)
-                } label: {
-                    Label("Course ID", systemImage: "number")
-                }
-                LabeledContent {
-                    Text(course.location)
-                } label: {
-                    Label("Location", systemImage: "mappin.and.ellipse")
-                }
-                LabeledContent {
-                    Text(String(course.credit))
-                } label: {
-                    Label("Credit", systemImage: "graduationcap")
+                .listStyle(.insetGrouped)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
                 }
             }
-            .listStyle(.insetGrouped)
             .navigationTitle("Course Detail")
             .navigationBarTitleDisplayMode(.inline)
         }

@@ -48,9 +48,20 @@ struct FDRankPage: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showSheet) {
                 NavigationStack {
-                    List {
-                        ForEach(ranks) { rank in
-                            RankView(rank: rank)
+                    Form {
+                        List {
+                            ForEach(ranks) { rank in
+                                RankView(rank: rank)
+                            }
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                showSheet = false
+                            } label: {
+                                Text("Done")
+                            }
                         }
                     }
                     .navigationTitle("GPA Rank")
