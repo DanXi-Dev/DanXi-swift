@@ -3,9 +3,12 @@ import Foundation
 public actor MyStore {
     public static let shared = MyStore()
     
+    let semaphore = Semaphore(count: 1)
     var logged = false
     
     private func checkLogin() async throws {
+        await semaphore.wait()
+        defer { Task { await semaphore.signal() } }
         if !logged {
             try await MyAPI.login()
             logged = true
