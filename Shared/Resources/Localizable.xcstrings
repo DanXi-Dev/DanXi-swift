@@ -14,30 +14,14 @@
     " " : {
 
     },
-    " kWh" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "kWh"
-          }
-        }
-      }
-    },
-    " Yuan" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "元"
-          }
-        }
-      }
-    },
     "--.--" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "--.--"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -45,9 +29,6 @@
           }
         }
       }
-    },
-    "--.-- " : {
-
     },
     "·" : {
 
@@ -126,6 +107,28 @@
             "state" : "new",
             "value" : "%1$@ %2$@ kWh"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ 千瓦时"
+          }
+        }
+      }
+    },
+    "%@ %@ Yuan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@ Yuan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ 元"
+          }
         }
       }
     },
@@ -150,7 +153,14 @@
       }
     },
     "%@ kWh" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@千瓦时"
+          }
+        }
+      }
     },
     "%@ replied %@:" : {
       "localizations" : {
@@ -216,7 +226,14 @@
       }
     },
     "%f kWh" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%f千瓦时"
+          }
+        }
+      }
     },
     "%lld" : {
 
@@ -4909,6 +4926,7 @@
       }
     },
     "yuan" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

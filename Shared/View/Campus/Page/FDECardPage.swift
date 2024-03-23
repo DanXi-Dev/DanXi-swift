@@ -6,8 +6,14 @@ struct FDECardPage: View {
     var body: some View {
         AsyncContentView {
             async let balance = MyStore.shared.getCachedUserInfo().balance
-            async let dateValues = MyStore.shared.getCachedWalletLogs().map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
-            return try await (balance, dateValues)
+            async let dateValues = MyStore.shared.getCachedWalletLogs()
+                .map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
+            
+            let (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
+            
+            let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
+            
+            return (balanceLoaded, filteredDateValues)
         } content: { (balance, history) in
             ECardPageContent(balance: balance, history: history)
         }
@@ -103,7 +109,7 @@ fileprivate struct FDEcardPageChart: View {
                                 let selectionValue = data.first(where: {element in Calendar.current.isDate(element.date, inSameDayAs: chartSelection)})?.value ?? 0
                                 let selectionDate = chartSelection.formatted(Date.FormatStyle().day().month())
                                 
-                                Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) " + String(localized:"Yuan"))
+                                Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) Yuan")
                                     .foregroundStyle(.orange)
                                     .font(.system(.body, design: .rounded))
                                     .padding(.bottom, 4)
@@ -123,7 +129,7 @@ fileprivate struct FDEcardPageChart: View {
                     AxisValueLabel(format: .dateTime.day(), centered: true)
                 }
             }
-            .chartYAxisLabel("Yuan")
+            .chartYAxisLabel(String(localized: "Yuan"))
             .frame(height: 200)
             .chartXSelection(value: $chartSelection)
             .foregroundColor(.orange)

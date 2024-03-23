@@ -7,7 +7,12 @@ struct FDElectricityPage: View {
         AsyncContentView(animation: .default) {
             async let usage = ElectricityStore.shared.getCachedElectricityUsage()
             async let dateValues = MyStore.shared.getCachedElectricityLogs().map({ FDDateValueChartData(date: $0.date, value: $0.usage) })
-            return try await (usage, dateValues)
+            
+            let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
+            
+            let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
+                        
+            return (usageLoaded, filteredDateValues)
         } content: {(info: ElectricityUsage, transactions: [FDDateValueChartData]) in
             List {
                 LabeledContent {
@@ -96,7 +101,7 @@ fileprivate struct FDElectricityPageChart: View {
                     AxisValueLabel(format: .dateTime.day(), centered: true)
                 }
             }
-            .chartYAxisLabel("kWh")
+            .chartYAxisLabel(String(localized: "kWh"))
             .frame(height: 200)
             .chartXSelection(value: $chartSelection)
             .foregroundColor(.green)

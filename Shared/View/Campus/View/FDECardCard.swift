@@ -33,7 +33,7 @@ struct FDECardCard: View {
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
                                 + Text(" ")
-                                + Text("yuan")
+                                + Text("Yuan")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption2)
@@ -57,9 +57,11 @@ struct FDECardCard: View {
                                         .bold()
                                         .font(.caption)
                                     
-                                    Text("--.-- ")
+                                    Text("--.--")
                                         .bold()
                                         .font(.system(size: 25, design: .rounded))
+                                    
+                                    + Text(" ")
 
                                     + Text("Yuan")
                                         .foregroundColor(.secondary)
