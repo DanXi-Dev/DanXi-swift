@@ -14,7 +14,7 @@ import SwiftyJSON
 /// - Electricity usage
 enum MyAPI {
     public static func login() async throws {
-        let url = URL(string: "https://my.fudan.edu.cn")!
+        let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_mrxf.json")! // The login URL must be one of the specific data requests, not a generic https://my.fudan.edu.cn URL
         _ = try await AuthenticationAPI.authenticateForData(url)
     }
     
