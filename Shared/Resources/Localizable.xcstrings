@@ -4046,6 +4046,7 @@
       }
     },
     "Show Activity Announcements" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
