@@ -63,7 +63,14 @@ struct Sheet<Content: View>: View {
             .navigationTitle(titleText)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     if loading {
                         ProgressView()
                     } else {
