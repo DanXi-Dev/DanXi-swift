@@ -126,7 +126,7 @@ fileprivate struct THBrowseToolbar: View {
     @State private var showQuestionSheet = false
     
     var body: some View {
-        Group {
+        HStack {
             postButton
             moreOptions
         }
