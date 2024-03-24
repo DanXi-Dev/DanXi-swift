@@ -80,22 +80,26 @@ fileprivate struct BlockedHoles: View {
 fileprivate struct NotificationSettingWrapper: View {
     var body: some View {
         AsyncContentView {
-            try await DXRequests.loadUserInfo()
-        } content: { user in
-            NotificationSetting(user)
+            async let userInfo = await DXRequests.loadUserInfo()
+            async let authorizationStatus = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+            return try await (userInfo, authorizationStatus)
+        } content: { (userInfo: DXUser, authorizationStatus: UNAuthorizationStatus) in
+            NotificationSetting(userInfo, authorizationStatus)
         }
     }
 }
 
 fileprivate struct NotificationSetting: View {
     private let userId: Int
+    private let authorizationStatus: UNAuthorizationStatus
     @State private var favorite: Bool
     @State private var mention: Bool
     @State private var report: Bool
     @State private var showAlert = false
     
-    init(_ user: DXUser) {
+    init(_ user: DXUser, _ authorizationStatus: UNAuthorizationStatus) {
         self.userId = user.id
+        self.authorizationStatus = authorizationStatus
         let notify = user.config.notify
         self._favorite = State(initialValue: notify.contains("favorite"))
         self._mention = State(initialValue: notify.contains("mention"))
@@ -120,27 +124,56 @@ fileprivate struct NotificationSetting: View {
         }
     }
     
+    func openNotificationSettings() {
+        if let appSettings = URL(string: UIApplication.openNotificationSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+            UIApplication.shared.open(appSettings)
+        }
+    }
+    
     var body: some View {
         List {
-            Toggle(isOn: $mention) {
-                Label("Notify when my post is mentioned", systemImage: "arrowshape.turn.up.left")
-            }
-            .onChange(of: mention) { _ in
-                Task { await updateConfig() }
-            }
-            
-            Toggle(isOn: $favorite) {
-                Label("Notify when favorited hole gets reply", systemImage: "star")
-            }
-            .onChange(of: favorite) { _ in
-                Task { await updateConfig() }
+            if authorizationStatus != .authorized {
+                Section {
+                    Button {
+                        openNotificationSettings()
+                    } label: {
+                        Label("Push Notification Not Authorized", systemImage: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.red)
+                            .labelStyle(.titleAndIcon)
+                    }
+                }
             }
             
-            Toggle(isOn: $report) {
-                Label("Notify when my report is dealt", systemImage: "exclamationmark.triangle")
+            Section {
+                Toggle(isOn: $mention) {
+                    Label("Notify when my post is mentioned", systemImage: "arrowshape.turn.up.left")
+                }
+                .onChange(of: mention) { _ in
+                    Task { await updateConfig() }
+                }
+                
+                Toggle(isOn: $favorite) {
+                    Label("Notify when favorited hole gets reply", systemImage: "star")
+                }
+                .onChange(of: favorite) { _ in
+                    Task { await updateConfig() }
+                }
+                
+                Toggle(isOn: $report) {
+                    Label("Notify when my report is dealt", systemImage: "exclamationmark.triangle")
+                }
+                .onChange(of: report) { _ in
+                    Task { await updateConfig() }
+                }
             }
-            .onChange(of: report) { _ in
-                Task { await updateConfig() }
+            .disabled(authorizationStatus != .authorized)
+            
+            Section {
+                Button {
+                    openNotificationSettings()
+                } label: {
+                    Text("Open Notification Settings")
+                }
             }
         }
         .alert("Update Notification Config Failed", isPresented: $showAlert) {}

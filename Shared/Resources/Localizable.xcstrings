@@ -3191,6 +3191,16 @@
         }
       }
     },
+    "Open Notification Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开通知设置"
+          }
+        }
+      }
+    },
     "Open Source Software" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3405,6 +3415,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "违规记录"
+          }
+        }
+      }
+    },
+    "Push Notification Not Authorized" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有推送通知权限"
           }
         }
       }
