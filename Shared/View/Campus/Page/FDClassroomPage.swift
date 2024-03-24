@@ -141,48 +141,46 @@ fileprivate struct EventDetailSheet: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                List {
+            List {
+                LabeledContent {
+                    Text(event.name)
+                } label: {
+                    Label("Course Name", systemImage: "magazine")
+                }
+                
+                if let teacher = event.teacher {
                     LabeledContent {
-                        Text(event.name)
+                        Text(teacher)
                     } label: {
-                        Label("Course Name", systemImage: "magazine")
-                    }
-                    
-                    if let teacher = event.teacher {
-                        LabeledContent {
-                            Text(teacher)
-                        } label: {
-                            Label("Instructor", systemImage: "person")
-                        }
-                    }
-                    
-                    if let id = event.courseId {
-                        LabeledContent {
-                            Text(id)
-                        } label: {
-                            Label("Course ID", systemImage: "number")
-                        }
-                    }
-                    
-                    if let category = event.category {
-                        LabeledContent {
-                            Text(category)
-                        } label: {
-                            Label("Course Category", systemImage: "square.grid.3x3.middle.filled")
-                        }
-                    }
-                    
-                    if let count = event.count {
-                        LabeledContent {
-                            Text(count)
-                        } label: {
-                            Label("Course Capacity", systemImage: "person.3.fill")
-                        }
+                        Label("Instructor", systemImage: "person")
                     }
                 }
-                .listStyle(.insetGrouped)
+                
+                if let id = event.courseId {
+                    LabeledContent {
+                        Text(id)
+                    } label: {
+                        Label("Course ID", systemImage: "number")
+                    }
+                }
+                
+                if let category = event.category {
+                    LabeledContent {
+                        Text(category)
+                    } label: {
+                        Label("Course Category", systemImage: "square.grid.3x3.middle.filled")
+                    }
+                }
+                
+                if let count = event.count {
+                    LabeledContent {
+                        Text(count)
+                    } label: {
+                        Label("Course Capacity", systemImage: "person.3.fill")
+                    }
+                }
             }
+            .listStyle(.insetGrouped)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

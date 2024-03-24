@@ -58,6 +58,7 @@ struct FDNoticePage: View {
                 }
             }
         }
+        .listStyle(.inset)
         .navigationTitle("Academic Office Announcements")
         .navigationBarTitleDisplayMode(.inline)
         .safariView(item: $presentLink) { link in
