@@ -25,7 +25,7 @@ public struct Classroom: Identifiable {
 }
 
 /// A schedule of a course, which takes place at a certain classroom at a given time
-public struct CourseSchedule: Codable {
+public struct CourseSchedule: Identifiable, Codable {
     public let id: UUID
     public let start: Int
     public let end: Int

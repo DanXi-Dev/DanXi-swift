@@ -1,8 +1,9 @@
 import SwiftUI
+import FudanKit
 
 struct FDClassroomPage: View {
     @ScaledMetric private var dy = FDCalendarConfig.dy
-    @AppStorage("building-selection") private var building: FDBuilding = .empty
+    @AppStorage("building-selection") private var building: Building = .empty
     var vpnLogged = false
     @State private var searchText: String = ""
     
@@ -10,19 +11,19 @@ struct FDClassroomPage: View {
         List {
             Picker("Building", selection: $building) {
                 if building == .empty {
-                    Text("Not Selected").tag(FDBuilding.empty)
+                    Text("Not Selected").tag(Building.empty)
                 }
-                Text("第二教学楼").tag(FDBuilding.h2)
-                Text("第三教学楼").tag(FDBuilding.h3)
-                Text("第四教学楼").tag(FDBuilding.h4)
-                Text("第五教学楼").tag(FDBuilding.h5)
-                Text("第六教学楼").tag(FDBuilding.h6)
-                Text("光华楼西辅楼").tag(FDBuilding.hgx)
-                Text("光华楼东辅楼").tag(FDBuilding.hgd)
-                Text("新闻学院").tag(FDBuilding.hq)
-                Text("江湾校区").tag(FDBuilding.j)
-                Text("张江校区").tag(FDBuilding.z)
-                Text("枫林校区").tag(FDBuilding.f)
+                Text("第二教学楼").tag(Building.h2)
+                Text("第三教学楼").tag(Building.h3)
+                Text("第四教学楼").tag(Building.h4)
+                Text("第五教学楼").tag(Building.h5)
+                Text("第六教学楼").tag(Building.h6)
+                Text("光华楼西辅楼").tag(Building.hgx)
+                Text("光华楼东辅楼").tag(Building.hgd)
+                Text("新闻学院").tag(Building.hq)
+                Text("江湾校区").tag(Building.j)
+                Text("张江校区").tag(Building.z)
+                Text("枫林校区").tag(Building.f)
             }
             
             if building == .empty {
@@ -36,14 +37,11 @@ struct FDClassroomPage: View {
                 .listRowSeparator(.hidden, edges: .bottom)
             } else {
                 AsyncContentView(style: .widget) {
-                    if !vpnLogged {
-                        try await FDWebVPNAPI.login()
-                    }
-                    return try await FDClassroomAPI.getClassrooms(building: building)
-                } content: { (classrooms: [FDClassroom]) in
+                    return try await ClassroomStore.shared.getCachedClassroom(building: building)
+                } content: { (classrooms: [Classroom]) in
                     let filteredClassrooms = searchText.isEmpty ? classrooms : classrooms.filter({
-                        $0.name.contains(searchText) || $0.courses.contains(where: {
-                            $0.courseId?.contains(searchText) ?? false || $0.name.contains(searchText)
+                        $0.name.contains(searchText) || $0.schedules.contains(where: {
+                            $0.courseId.contains(searchText) || $0.name.contains(searchText)
                         })
                     })
                     if filteredClassrooms.count > 0 {
@@ -54,7 +52,7 @@ struct FDClassroomPage: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     VStack(alignment: .leading) {
                                         ClassroomHeader(classrooms: filteredClassrooms)
-                                        ClanedarEvents(classrooms: filteredClassrooms)
+                                        CalendarEvents(classrooms: filteredClassrooms)
                                     }
                                 }
                             }
@@ -76,7 +74,7 @@ struct FDClassroomPage: View {
 }
 
 fileprivate struct ClassroomHeader: View {
-    let classrooms: [FDClassroom]
+    let classrooms: [Classroom]
     private let h = TimeSlot.list.count
     @ScaledMetric private var classroomFont = 15
     
@@ -104,67 +102,64 @@ fileprivate struct ClassroomHeader: View {
     }
 }
 
-fileprivate struct ClanedarEvents: View {
-    let classrooms: [FDClassroom]
+fileprivate struct CalendarEvents: View {
+    let classrooms: [Classroom]
     private let h = TimeSlot.list.count
-    @State private var eventSelected: FDEvent?
+    @State private var scheduleSelected: CourseSchedule? = nil
     
     var body: some View {
         CalDimensionReader { dim in
             ZStack {
                 GridBackground(width: classrooms.count)
                 ForEach(Array(classrooms.enumerated()), id: \.offset) { i, classroom in
-                    ForEach(Array(classroom.courses.enumerated()), id: \.offset) { _, course in
-                        FDCourseView(title: course.name, subtitle: course.teacher ?? "",
-                                     span: course.end + 1 - course.start)
+                    ForEach(classroom.schedules) { schedule in
+                        FDCourseView(title: schedule.name, subtitle: schedule.teacher ?? "",
+                                     span: schedule.end + 1 - schedule.start)
                         .position(x: (CGFloat(i) * dim.dx) + (dim.dx / 2),
-                                  y: CGFloat(course.start + course.end) * dim.dy / 2 + dim.dy / 2)
+                                  y: CGFloat(schedule.start + schedule.end) * dim.dy / 2 + dim.dy / 2)
                         .onTapGesture {
-                            eventSelected = course
+                            scheduleSelected = schedule
                         }
                     }
                 }
             }
             .frame(width: CGFloat(classrooms.count) * dim.dx, height: CGFloat(h) * dim.dy)
-            .sheet(item: $eventSelected) { event in
-                EventDetailSheet(event: event)
+            .sheet(item: $scheduleSelected) { schedule in
+                ScheduleDetailSheet(schedule: schedule)
                     .presentationDetents([.medium])
             }
         }
     }
 }
 
-fileprivate struct EventDetailSheet: View {
+fileprivate struct ScheduleDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
     
-    let event: FDEvent
+    let schedule: CourseSchedule
     
     var body: some View {
         NavigationStack {
             List {
                 LabeledContent {
-                    Text(event.name)
+                    Text(schedule.name)
                 } label: {
                     Label("Course Name", systemImage: "magazine")
                 }
                 
-                if let teacher = event.teacher {
+                if let teacher = schedule.teacher {
                     LabeledContent {
                         Text(teacher)
                     } label: {
                         Label("Instructor", systemImage: "person")
                     }
                 }
-                
-                if let id = event.courseId {
-                    LabeledContent {
-                        Text(id)
-                    } label: {
-                        Label("Course ID", systemImage: "number")
-                    }
+                LabeledContent {
+                    Text(schedule.courseId)
+                } label: {
+                    Label("Course ID", systemImage: "number")
                 }
                 
-                if let category = event.category {
+                if let category = schedule.category {
                     LabeledContent {
                         Text(category)
                     } label: {
@@ -172,7 +167,7 @@ fileprivate struct EventDetailSheet: View {
                     }
                 }
                 
-                if let count = event.count {
+                if let count = schedule.capacity {
                     LabeledContent {
                         Text(count)
                     } label: {
@@ -181,18 +176,18 @@ fileprivate struct EventDetailSheet: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Done")
-                    }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Done")
                 }
             }
-            .navigationTitle("Course Detail")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Course Detail")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
