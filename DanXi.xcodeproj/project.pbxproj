@@ -65,7 +65,6 @@
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
 		27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */; };
 		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
-		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
 		276310272AB82B99005896AD /* FDCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276310262AB82B99005896AD /* FDCalendarView.swift */; };
@@ -206,16 +205,6 @@
 		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		27536EC829DC9A8300894A98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
-			remoteInfo = DanXi_WigdetExtension;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -225,17 +214,6 @@
 			files = (
 			);
 			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F165C51828D1882E0000DB6F /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -910,12 +888,10 @@
 				8AC7A5CA26872C3E00C9CD98 /* Frameworks */,
 				8AC7A5CB26872C3E00C9CD98 /* Resources */,
 				8AC7A63326872C4100C9CD98 /* Embed Watch Content */,
-				F165C51828D1882E0000DB6F /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				27536EC929DC9A8300894A98 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -1209,15 +1185,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		27536EC929DC9A8300894A98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
-			targetProxy = 27536EC829DC9A8300894A98 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		274C197B29D1BF9C000DE221 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1475,7 +1442,6 @@
 		8AC7A63526872C4100C9CD98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/DanXi.entitlements;
@@ -1513,7 +1479,6 @@
 		8AC7A63626872C4100C9CD98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/DanXi.entitlements;
