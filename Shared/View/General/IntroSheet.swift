@@ -73,9 +73,21 @@ struct IntroLoginSheet: View {
             FormTitle(title: "Login", description: "danxi-app-account-system-description")
             
             Section {
-                NavigationLink("Fudan Campus Account", destination: FDLoginSheet(style: .subpage))
+                NavigationLink(destination: FDLoginSheet(style: .subpage), label: {
+                    LabeledContent("Fudan Campus Account") {
+                        if campusModel.loggedIn {
+                            Image(systemName: "checkmark.circle")
+                        }
+                    }
+                })
                     .disabled(campusModel.loggedIn)
-                NavigationLink("FDU Hole Account", destination: DXAuthSheet(style: .subpage))
+                NavigationLink(destination: DXAuthSheet(style: .subpage), label: {
+                    LabeledContent("FDU Hole Account") {
+                        if DXModel.shared.isLogged {
+                            Image(systemName: "checkmark.circle")
+                        }
+                    }
+                })
                     .disabled(DXModel.shared.isLogged)
             }
         }
