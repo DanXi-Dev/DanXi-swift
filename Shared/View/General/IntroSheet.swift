@@ -14,6 +14,7 @@ struct IntroSheet: View {
         NavigationStack {
             VStack(alignment: .center) {
                 Spacer()
+                Spacer()
                 Image("Icon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -31,6 +32,7 @@ struct IntroSheet: View {
                 Spacer()
                 Spacer()
                 Spacer()
+                Spacer()
                 Text("Use of this app is subject to our [Terms and Conditions](https://danxi.fduhole.com/doc/app-terms-and-condition) and [Privacy Policy](https://danxi.fduhole.com/doc/app-privacy)")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
@@ -39,13 +41,13 @@ struct IntroSheet: View {
                 NavigationLink(destination: IntroLoginSheet(), label: {
                     Text("Continue")
                         .font(.title3)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: 320)
                         .padding(8)
                 })
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .padding(.bottom)
                 .padding(.top, 8)
+                Spacer()
             }
             .interactiveDismissDisabled()
         }
