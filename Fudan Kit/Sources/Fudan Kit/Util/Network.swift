@@ -13,7 +13,9 @@ func constructRequest(_ url: URL, payload: Data? = nil, method: String? = nil) -
     var request = URLRequest(url: url)
     
     // set user agent
-    request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15",
+    let appVersion = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "0.0.0"
+    let ua = "DXSwift/\(appVersion)"
+    request.setValue(ua,
                      forHTTPHeaderField: "User-Agent")
     
     // set method and payload
