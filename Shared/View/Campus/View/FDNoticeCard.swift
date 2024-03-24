@@ -4,7 +4,7 @@ import FudanKit
 struct FDNoticeCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 HStack {
                     Image(systemName: "bell.fill")
                     Text("Academic Office Announcements")
@@ -21,9 +21,12 @@ struct FDNoticeCard: View {
                     return Array(announcements.prefix(1))
                 } content: { (annoucements: [Announcement]) in
                     ForEach(annoucements) { announcement in
-                        Text(announcement.title)
-                            .font(.callout)
-                            .lineLimit(3)
+                        HStack {
+                            Text(announcement.title)
+                                .font(.callout)
+                                .lineLimit(3)
+                            Spacer()
+                        }
                     }
                 } loadingView: {
                     AnyView(                
@@ -38,7 +41,7 @@ struct FDNoticeCard: View {
                             .frame(width: 70, height: 18)
                     })
                 } failureView: { error, retryHandler in
-                    let errorDescription = (error as? LocalizedError)?.errorDescription ?? "Loading Failed"
+                    let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
                     return AnyView(
                         Button(action: retryHandler) {
                             Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
