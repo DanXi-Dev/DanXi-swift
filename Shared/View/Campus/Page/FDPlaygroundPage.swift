@@ -136,15 +136,13 @@ fileprivate struct ReservationSheet: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Group {
-                    if let request = request {
-                        WebViewWrapper(request)
-                    } else {
-                        Text("Cannot Reserve")
-                            .font(.title3)
-                            .foregroundColor(.secondary)
-                    }
+            Group {
+                if let request = request {
+                    WebViewWrapper(request)
+                } else {
+                    Text("Cannot Reserve")
+                        .font(.title3)
+                        .foregroundColor(.secondary)
                 }
             }
             .toolbar {
