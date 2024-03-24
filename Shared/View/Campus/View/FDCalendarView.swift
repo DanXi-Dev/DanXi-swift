@@ -19,10 +19,11 @@ struct FDCourseView: View {
                 Text(title)
                     .bold()
                     .padding(.top, 5)
+                    .padding(.bottom, 1)
                     .foregroundColor(color)
                     .font(.system(size: titleSize))
                 Text(subtitle)
-                    .foregroundColor(color.opacity(0.5))
+                    .foregroundColor(color)
                     .font(.system(size: subtitleSize))
                 Spacer()
             }
@@ -33,7 +34,7 @@ struct FDCourseView: View {
             .overlay(Rectangle()
                 .frame(width: 3)
                 .foregroundColor(color), alignment: .leading)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: 6))
         }
     }
 }
@@ -131,7 +132,7 @@ struct GridBackground: View {
     var body: some View {
         CalDimensionReader { dim in
             Canvas { context, size in
-                let separatorColor = Color.secondary.opacity(0.5)
+                let separatorColor = Color.secondary.opacity(0.2)
                 
                 // draw horizontal lines
                 for i in 0...h {

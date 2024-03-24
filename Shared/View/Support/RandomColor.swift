@@ -8,22 +8,12 @@ func randomColor(_ name: String) -> Color {
         Color.red,
         Color.pink,
         Color.purple,
-        Color("danxi deep purple"),
-        Color("danxi indigo"),
         Color.blue,
-        Color("danxi light blue"),
         Color.cyan,
         Color.teal,
         Color.green,
-        Color("danxi light green"),
-        Color("danxi lime"),
-        Color("danxi yellow"),
-        Color("danxi amber"),
         Color.orange,
-        Color("danxi deep orange"),
         Color.brown,
-        Color("danxi blue grey"),
-        Color("danxi grey")
     ]
     
     if name.starts(with: "*") { // folding tags
