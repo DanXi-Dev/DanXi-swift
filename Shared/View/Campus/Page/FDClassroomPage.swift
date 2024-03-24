@@ -4,6 +4,7 @@ struct FDClassroomPage: View {
     @ScaledMetric private var dy = FDCalendarConfig.dy
     @AppStorage("building-selection") private var building: FDBuilding = .empty
     var vpnLogged = false
+    @State private var searchText: String = ""
     
     var body: some View {
         List {
@@ -39,25 +40,35 @@ struct FDClassroomPage: View {
                         try await FDWebVPNAPI.login()
                     }
                     return try await FDClassroomAPI.getClassrooms(building: building)
-                } content: { classrooms in
-                    CalDimensionReader { dim in
-                        HStack {
-                            TimeslotsSidebar()
-                                .offset(x: 0, y: dim.dy / 2)
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                VStack(alignment: .leading) {
-                                    ClassroomHeader(classrooms: classrooms)
-                                    ClanedarEvents(classrooms: classrooms)
+                } content: { (classrooms: [FDClassroom]) in
+                    let filteredClassrooms = searchText.isEmpty ? classrooms : classrooms.filter({
+                        $0.name.contains(searchText) || $0.courses.contains(where: {
+                            $0.courseId?.contains(searchText) ?? false || $0.name.contains(searchText)
+                        })
+                    })
+                    if filteredClassrooms.count > 0 {
+                        CalDimensionReader { dim in
+                            HStack {
+                                TimeslotsSidebar()
+                                    .offset(x: 0, y: dim.dy / 2)
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    VStack(alignment: .leading) {
+                                        ClassroomHeader(classrooms: filteredClassrooms)
+                                        ClanedarEvents(classrooms: filteredClassrooms)
+                                    }
                                 }
                             }
                         }
+                        .environment(\.calDimension, CalDimension(dx: 80))
+                    } else {
+                        Text("No Data")
                     }
-                    .environment(\.calDimension, CalDimension(dx: 80))
                 }
                 .id(building)
                 .listRowSeparator(.hidden, edges: .bottom)
             }
         }
+        .searchable(text: $searchText)
         .listStyle(.inset)
         .navigationTitle("Classroom Schedule")
         .navigationBarTitleDisplayMode(.inline)
