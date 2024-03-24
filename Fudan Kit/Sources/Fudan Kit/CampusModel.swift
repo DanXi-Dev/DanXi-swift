@@ -38,7 +38,9 @@ public class CampusModel: ObservableObject {
         CredentialStore.shared.unset()
         loggedIn = false
         
-        // TODO: clear cookies
+        // remove all cookies
+        // TODO: consider use a separate cookie storage for campus services. This is not a bug since fduhole doesn't use cookie-based authentication.
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         
         // clear cache
         Task {
