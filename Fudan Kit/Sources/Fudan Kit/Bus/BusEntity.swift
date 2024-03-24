@@ -8,9 +8,10 @@ public struct Route {
 }
 
 /// Campus bus schedule, e.g., 邯郸->江湾 13:00
-public struct Schedule {
+public struct Schedule: Identifiable {
     public let id: Int
     public let time: Date
     public let start, end: String
     public let holiday: Bool
+    public var missed = false
 }

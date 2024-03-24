@@ -25,9 +25,9 @@ import Foundation
 ///}
 /// ```
 /// The `arrow` property can be quite confusing. It has 3 possible value:
-/// - 1: The bus schedule is `start -> end`, start at `stime`, and `etime` will be empty.
+/// - 3: The bus schedule is `start -> end`, start at `stime`, and `etime` will be empty.
 /// - 2: The bus schedule is `start <- end`, start at `etime`, and `stime` will be empty.
-/// - 3: The bus schedule is `start <-> end`, both start at `stime`, `etime` will be empty.
+/// - 1: The bus schedule is `start <-> end`, both start at `stime`, `etime` will be empty.
 ///
 /// - Important
 /// In some cases, the separator between hour and minute can be `.`, example is shown as follows:
@@ -82,30 +82,29 @@ public enum BusAPI {
             for scheduleResponse in routeResponse.lists {
                 let startTimeString = scheduleResponse.stime.replacing(".", with: ":")
                 let endTimeString = scheduleResponse.etime.replacing(".", with: ":")
-                guard let id = Int(scheduleResponse.id),
-                      let startTime = dateDecoder.date(from: startTimeString),
-                      let endTime = dateDecoder.date(from: endTimeString) else {
+                guard let id = Int(scheduleResponse.id) else {
                     continue
                 }
                 let holiday = scheduleResponse.holiday == "0"
                 
                 switch scheduleResponse.arrow {
-                case "1":
-                    let time = startTime
+                case "3":
+                    guard let time = dateDecoder.date(from: startTimeString) else { continue }
                     let start = scheduleResponse.start
                     let end = scheduleResponse.end
                     let schedule = Schedule(id: id, time: time, start: start, end: end, holiday: holiday)
                     schedules.append(schedule)
                 case "2":
-                    let time = endTime
+                    guard let time = dateDecoder.date(from: endTimeString) else { continue }
                     let start = scheduleResponse.end
                     let end = scheduleResponse.start
                     let schedule = Schedule(id: id, time: time, start: start, end: end, holiday: holiday)
                     schedules.append(schedule)
-                case "3":
+                case "1":
                     // expand bidirectional bus schedule into 2 separate schedules
-                    let forward = Schedule(id: id, time: startTime, start: start, end: end, holiday: holiday)
-                    let backward = Schedule(id: id, time: startTime, start: end, end: start, holiday: holiday)
+                    guard let time = dateDecoder.date(from: startTimeString) else { continue }
+                    let forward = Schedule(id: id, time: time, start: start, end: end, holiday: holiday)
+                    let backward = Schedule(id: id, time: time, start: end, end: start, holiday: holiday)
                     schedules += [forward, backward]
                 default:
                     continue
