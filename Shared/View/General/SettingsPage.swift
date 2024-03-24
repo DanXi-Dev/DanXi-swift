@@ -3,7 +3,7 @@ import FudanKit
 
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
-    @ObservedObject private var campusModel = FDModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
     
     @State private var campusLoginSheet = false
     @State private var campusUserSheet = false
@@ -11,7 +11,7 @@ struct SettingsPage: View {
     @State private var forumUserSheet = false
     
     var showToolbar: Bool {
-        campusModel.isLogged || forumModel.isLogged
+        campusModel.loggedIn || forumModel.isLogged
     }
     
     var body: some View {
@@ -19,13 +19,13 @@ struct SettingsPage: View {
             List {
                 Section("Accounts Management") {
                     Button {
-                        if campusModel.isLogged {
+                        if campusModel.loggedIn {
                             campusUserSheet = true
                         } else {
                             campusLoginSheet = true
                         }
                     } label: {
-                        AccountLabel(loggedIn: campusModel.isLogged, title: "Fudan Campus Account")
+                        AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
                     }
                     
                     Button {
@@ -39,12 +39,12 @@ struct SettingsPage: View {
                     }
                 }
                 
-                if campusModel.isLogged {
+                if campusModel.loggedIn {
                     Section("Campus.Tab") {
                         Picker(selection: $campusModel.studentType) {
-                            Text("Undergraduate").tag(FDStudentType.undergrad)
-                            Text("Graduate").tag(FDStudentType.grad)
-                            Text("Staff").tag(FDStudentType.staff)
+                            Text("Undergraduate").tag(StudentType.undergrad)
+                            Text("Graduate").tag(StudentType.grad)
+                            Text("Staff").tag(StudentType.staff)
                         } label: {
                             Text("Student Type")
                         }
@@ -104,7 +104,7 @@ fileprivate struct FDUserSheet: View {
                     
                     Section {
                         Button(role: .destructive) {
-                            FDModel.shared.logout()
+                            CampusModel.shared.logout()
                             dismiss()
                         } label: {
                             HStack {

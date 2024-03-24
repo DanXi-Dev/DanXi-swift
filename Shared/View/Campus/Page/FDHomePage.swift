@@ -1,7 +1,8 @@
 import SwiftUI
+import FudanKit
 
 struct FDHomePage: View {
-    @ObservedObject private var model = FDModel.shared
+    @ObservedObject private var model = CampusModel.shared
     @StateObject private var navigator = FDNavigator()
     
     var body: some View {

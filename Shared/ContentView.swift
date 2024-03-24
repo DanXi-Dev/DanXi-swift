@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -7,7 +8,7 @@ struct ContentView: View {
     init() {
         let model = AppModel()
         
-        if FDModel.shared.isLogged {
+        if CampusModel.shared.loggedIn {
             model.section = .campus
         } else if DXModel.shared.isLogged {
             model.section = .forum
@@ -47,17 +48,17 @@ struct ContentView: View {
 struct TabHomePage: View {
     @EnvironmentObject private var model: AppModel
     @ObservedObject private var forumModel = DXModel.shared
-    @ObservedObject private var campusModel = FDModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
     
     private var loginStatus: Int {
         let forumStatus = forumModel.isLogged ? 2 : 0
-        let campusStatus = campusModel.isLogged ? 1 : 0
+        let campusStatus = campusModel.loggedIn ? 1 : 0
         return forumStatus + campusStatus
     }
     
     var body: some View {
         TabView(selection: $model.section) {
-            if campusModel.isLogged {
+            if campusModel.loggedIn {
                 FDHomePage()
                     .tag(AppSection.campus)
                     .tabItem {
@@ -81,7 +82,7 @@ struct TabHomePage: View {
                     .toolbarBackground(.visible, for: .tabBar)
             }
             
-            if campusModel.isLogged {
+            if campusModel.loggedIn {
                 Group {
                     if campusModel.studentType == .undergrad {
                         FDCalendarPageLoader()
@@ -110,7 +111,7 @@ struct TabHomePage: View {
 struct SplitHomePage: View {
     @EnvironmentObject private var model: AppModel
     @ObservedObject private var forumModel = DXModel.shared
-    @ObservedObject private var campusModel = FDModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
     
     var body: some View {
         NavigationSplitView {
@@ -120,7 +121,7 @@ struct SplitHomePage: View {
             )
             
             List(selection: sectionBinding) {
-                if campusModel.isLogged {
+                if campusModel.loggedIn {
                     Label("Campus.Tab", systemImage: "square.stack")
                         .tag(AppSection.campus)
                 }
@@ -130,7 +131,7 @@ struct SplitHomePage: View {
                     Label("Curriculum", systemImage: "books.vertical")
                         .tag(AppSection.curriculum)
                 }
-                if campusModel.isLogged {
+                if campusModel.loggedIn {
                     Label("Calendar", systemImage: "calendar")
                         .tag(AppSection.calendar)
                 }

@@ -1,8 +1,9 @@
 import SwiftUI
+import FudanKit
 
 struct FDLoginSheet: View {
     let style: SheetStyle
-    @ObservedObject private var model = FDModel.shared
+    @ObservedObject private var model = CampusModel.shared
     @State private var username = ""
     @State private var password = ""
     
@@ -12,16 +13,16 @@ struct FDLoginSheet: View {
     
     var body: some View {
         Sheet {
-            try await FDModel.shared.login(username, password)
+            try await model.login(username: username, password: password)
         } content: {
             FormTitle(title: "Fudan Campus Account", description: "Login with Fudan campus account (UIS) to access various campus services")
             
             Section {
                 LabeledEntry("Student Type") {
                     Picker("", selection: $model.studentType) {
-                        Text("Undergraduate").tag(FDStudentType.undergrad)
-                        Text("Graduate").tag(FDStudentType.grad)
-                        Text("Staff").tag(FDStudentType.staff)
+                        Text("Undergraduate").tag(StudentType.undergrad)
+                        Text("Graduate").tag(StudentType.grad)
+                        Text("Staff").tag(StudentType.staff)
                     }
                 }
                 LabeledEntry("Fudan.ID") {

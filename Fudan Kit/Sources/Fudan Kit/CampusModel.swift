@@ -2,13 +2,18 @@ import SwiftUI
 
 @MainActor
 public class CampusModel: ObservableObject {
+    
+    public static let shared = CampusModel()
+    
     @AppStorage("fd-student-type") public var studentType = StudentType.undergrad
-    public var loggedIn: Bool {
-        CredentialStore.shared.username != nil
-    }
+    @Published public var loggedIn: Bool // cannot use computed property from credential store because it won't trigger SwiftUI reload
     
     public init() {
-        
+        if CredentialStore.shared.username != nil {
+            loggedIn = true
+        } else {
+            loggedIn = false
+        }
     }
     
     public func login(username: String, password: String) async throws {
@@ -17,6 +22,7 @@ public class CampusModel: ObservableObject {
         }
         
         CredentialStore.shared.set(username: username, password: password)
+        loggedIn = true
     }
     
     /// Bypass correctness check, only store the credential.
@@ -25,10 +31,14 @@ public class CampusModel: ObservableObject {
     /// This may lead to following API calls to fail.
     public func forceLogin(username: String, password: String) {
         CredentialStore.shared.set(username: username, password: password)
+        loggedIn = true
     }
     
     public func logout() {
         CredentialStore.shared.unset()
+        loggedIn = false
+        
+        // TODO: clear cookies
         
         // clear cache
         Task {

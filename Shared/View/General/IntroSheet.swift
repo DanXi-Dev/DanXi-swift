@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FudanKit
 
 struct IntroSheet: View {
     @EnvironmentObject private var model: AppModel
@@ -54,20 +55,17 @@ struct IntroSheet: View {
     }
 }
 
-#Preview {
-    IntroSheet()
-}
-
 struct IntroLoginSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: AppModel
+    @ObservedObject private var campusModel = CampusModel.shared
     
     private var noAccountLogined: Bool {
-        get { !DXModel.shared.isLogged && !FDModel.shared.isLogged }
+        get { !DXModel.shared.isLogged && !campusModel.loggedIn }
     }
     
     private var allAccountLogined: Bool {
-        get { DXModel.shared.isLogged && FDModel.shared.isLogged }
+        get { DXModel.shared.isLogged && campusModel.loggedIn }
     }
     
     var body: some View {
@@ -76,7 +74,7 @@ struct IntroLoginSheet: View {
             
             Section {
                 NavigationLink("Fudan Campus Account", destination: FDLoginSheet(style: .subpage))
-                    .disabled(FDModel.shared.isLogged)
+                    .disabled(campusModel.loggedIn)
                 NavigationLink("FDU Hole Account", destination: DXAuthSheet(style: .subpage))
                     .disabled(DXModel.shared.isLogged)
             }
@@ -86,7 +84,7 @@ struct IntroLoginSheet: View {
                 Button {
                     if DXModel.shared.isLogged {
                         model.section = .forum
-                    } else if FDModel.shared.isLogged {
+                    } else if campusModel.loggedIn {
                         model.section = .campus
                     }
                     model.showIntro = false
@@ -104,4 +102,9 @@ struct IntroLoginSheet: View {
         }
         .interactiveDismissDisabled()
     }
+}
+
+
+#Preview {
+    IntroSheet()
 }
