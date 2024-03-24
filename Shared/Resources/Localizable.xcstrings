@@ -607,6 +607,16 @@
         }
       }
     },
+    "Blocked Content" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏蔽的内容"
+          }
+        }
+      }
+    },
     "Blocked Holes" : {
       "localizations" : {
         "zh-Hans" : {

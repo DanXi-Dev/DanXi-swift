@@ -46,7 +46,7 @@ struct SettingsPage: View {
                             Text("Graduate").tag(StudentType.grad)
                             Text("Staff").tag(StudentType.staff)
                         } label: {
-                            Text("Student Type")
+                            Label("Student Type", systemImage: "person.text.rectangle")
                         }
                     }
                 }
@@ -59,7 +59,7 @@ struct SettingsPage: View {
                     NavigationLink {
                         AboutPage()
                     } label: {
-                        Text("About")
+                        Label("About", systemImage: "info.circle")
                     }
                 }
             }
@@ -212,12 +212,13 @@ fileprivate struct AccountLabel: View {
     
     var body: some View {
         HStack {
-            Image(systemName: loggedIn ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.fill.badge.plus")
+            Image(systemName: loggedIn ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.fill")
                 .font(.system(size: 42))
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(loggedIn ? Color.accentColor : Color.secondary,
                                  loggedIn ? Color.accentColor.opacity(0.3) : Color.secondary.opacity(0.3))
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 8)
             VStack(alignment: .leading, spacing: 3.0) {
                 Text(title)
                     .foregroundColor(.primary)

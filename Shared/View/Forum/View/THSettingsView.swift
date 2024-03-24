@@ -6,15 +6,10 @@ struct THSettingsView: View {
     
     var body: some View {
         Section("Forum") {
-            Picker(selection: $settings.sensitiveContent, label: Label("NSFW Content", systemImage: "eye.slash")) {
-                Text("Show").tag(THSettings.SensitiveContentSetting.show)
-                Text("Fold").tag(THSettings.SensitiveContentSetting.fold)
-                Text("Hide").tag(THSettings.SensitiveContentSetting.hide)
-            }
             
-//            Toggle(isOn: $settings.showBanners) {
-//                Label("Show Activity Announcements", systemImage: "bell")
-//            }
+            //            Toggle(isOn: $settings.showBanners) {
+            //                Label("Show Activity Announcements", systemImage: "bell")
+            //            }
             
             NavigationLink {
                 NotificationSettingWrapper()
@@ -22,57 +17,51 @@ struct THSettingsView: View {
                 Label("Push Notification Settings", systemImage: "app.badge")
             }
             
-            NavigationLink {
-                BlockedTags()
-            } label: {
-                Label("Blocked Tags", systemImage: "tag.slash")
+            Picker(selection: $settings.sensitiveContent, label: Label("NSFW Content", systemImage: "eye.square")) {
+                Text("Show").tag(THSettings.SensitiveContentSetting.show)
+                Text("Fold").tag(THSettings.SensitiveContentSetting.fold)
+                Text("Hide").tag(THSettings.SensitiveContentSetting.hide)
             }
             
             NavigationLink {
-                BlockedHoles()
+                BlockedContent()
             } label: {
-                Label("Blocked Holes", systemImage: "eye.slash")
+                Label("Blocked Content", systemImage: "hand.raised.app")
             }
             
-//            ImagePicker() // FDUHole background image
+            //            ImagePicker() // FDUHole background image
         }
     }
 }
 
-fileprivate struct BlockedTags: View {
+fileprivate struct BlockedContent: View {
     @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
         Form {
-            THTagEditor($settings.blockedTags)
-        }
-        .navigationTitle("Blocked Tags")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-fileprivate struct BlockedHoles: View {
-    @ObservedObject private var settings = THSettings.shared
-    
-    var body: some View {
-        List {
-            ForEach(settings.blockedHoles, id: \.self) { holeId in
-                Text("#\(String(holeId))")
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            if let idx = settings.blockedHoles.firstIndex(of: holeId) {
-                                withAnimation {
-                                    _ = settings.blockedHoles.remove(at: idx)
+            Section("Blocked Tags") {
+                THTagEditor($settings.blockedTags)
+            }
+            
+            Section("Blocked Holes") {
+                ForEach(settings.blockedHoles, id: \.self) { holeId in
+                    Text("#\(String(holeId))")
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                if let idx = settings.blockedHoles.firstIndex(of: holeId) {
+                                    withAnimation {
+                                        _ = settings.blockedHoles.remove(at: idx)
+                                    }
                                 }
+                            } label: {
+                                Image(systemName: "trash")
                             }
-                        } label: {
-                            Image(systemName: "trash")
+                            
                         }
-
-                    }
+                }
             }
         }
-        .navigationTitle("Blocked Holes")
+        .navigationTitle("Blocked Content")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
