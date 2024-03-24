@@ -45,7 +45,9 @@ struct Sheet<Content: View>: View {
                 loading = true
                 defer { loading = false }
                 try await action()
-                dismiss()
+                await MainActor.run {
+                    dismiss() // SwiftUI view updates must be published on the main thread
+                }
             } catch {
                 alertMessage = error.localizedDescription
                 showAlert = true
@@ -84,11 +86,11 @@ struct Sheet<Content: View>: View {
                     }
                 }
             }
-            .alert("Error", isPresented: $showAlert) {
-                
-            } message: {
-                Text(alertMessage)
-            }
+        }
+        .alert("Error", isPresented: $showAlert) {
+            
+        } message: {
+            Text(alertMessage)
         }
     }
 }
