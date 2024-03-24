@@ -12,7 +12,9 @@ struct FormTitle: View {
                     Text(title)
                         .font(.title)
                         .bold()
+                        .multilineTextAlignment(.center)
                     Text(description)
+                        .multilineTextAlignment(.center)
                 }
                 Spacer()
             }

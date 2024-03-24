@@ -46,7 +46,14 @@
 
     },
     "%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%@ - %@" : {
       "localizations" : {
@@ -70,6 +77,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ - %2$lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -213,7 +226,14 @@
       }
     },
     "%@F" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%@年第%@学期" : {
       "localizations" : {
@@ -278,12 +298,22 @@
 
     },
     "¥" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "¥%@" : {
 
     },
     "¥%lf" : {
+
+    },
+    "2.0" : {
 
     },
     "About" : {
@@ -478,6 +508,9 @@
           }
         }
       }
+    },
+    "app-intro-description" : {
+
     },
     "Auth" : {
 
@@ -877,6 +910,16 @@
         }
       }
     },
+    "Continue" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
+    },
     "Contributors" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1179,6 +1222,9 @@
         }
       }
     },
+    "danxi-app-account-system-description" : {
+
+    },
     "Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1210,7 +1256,14 @@
       }
     },
     "Debug" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "调试"
+          }
+        }
+      }
     },
     "Debug Base URL" : {
 
@@ -1922,13 +1975,34 @@
 
     },
     "FDUHole" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "Filter Options" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选"
+          }
+        }
+      }
     },
     "Filter Report" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选举报"
+          }
+        }
+      }
     },
     "Filter Reports" : {
       "extractionState" : "manual",
@@ -1942,10 +2016,24 @@
       }
     },
     "Filter Semester" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选学期"
+          }
+        }
+      }
     },
     "Filter Teacher" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选教师"
+          }
+        }
+      }
     },
     "Floor ##%@ not exist" : {
       "localizations" : {
@@ -4190,6 +4278,16 @@
         }
       }
     },
+    "Skip" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳过"
+          }
+        }
+      }
+    },
     "Sort By" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4783,6 +4881,16 @@
         }
       }
     },
+    "Use of this app is subject to our [Terms and Conditions](https://danxi.fduhole.com/doc/app-terms-and-condition) and [Privacy Policy](https://danxi.fduhole.com/doc/app-privacy)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用本app即表示您已同意我们的[使用条款](https://danxi.fduhole.com/doc/app-terms-and-condition)和[隐私政策](https://danxi.fduhole.com/doc/app-privacy)"
+          }
+        }
+      }
+    },
     "User ID" : {
       "localizations" : {
         "zh-Hans" : {
@@ -4957,7 +5065,14 @@
       }
     },
     "光华楼东辅楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "光华楼西辅楼" : {
       "localizations" : {

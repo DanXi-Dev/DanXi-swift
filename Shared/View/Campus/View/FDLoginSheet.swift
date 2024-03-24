@@ -1,9 +1,14 @@
 import SwiftUI
 
 struct FDLoginSheet: View {
+    let style: SheetStyle
     @ObservedObject private var model = FDModel.shared
     @State private var username = ""
     @State private var password = ""
+    
+    init(style: SheetStyle = .independent) {
+        self.style = style
+    }
     
     var body: some View {
         Sheet {
@@ -29,6 +34,7 @@ struct FDLoginSheet: View {
         }
         .completed(!username.isEmpty && !password.isEmpty)
         .submitText("Login")
+        .sheetStyle(style)
     }
 }
 

@@ -36,6 +36,10 @@ struct ContentView: View {
         .task {
             await DXModel.shared.loadExtra()
         }
+        .sheet(isPresented: $model.showIntro, content: {
+            IntroSheet()
+                .environmentObject(model)
+        })
     }
 }
 

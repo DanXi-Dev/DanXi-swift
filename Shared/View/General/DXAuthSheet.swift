@@ -3,10 +3,15 @@ import SwiftUI
 struct DXAuthSheet: View {
     @StateObject private var model = DXAuthModel()
     @Environment(\.dismiss) private var dismiss
+    let style: SheetStyle
+    
+    init(style: SheetStyle = .independent) {
+        self.style = style
+    }
     
     var body: some View {
         NavigationStack {
-            LoginSheet()
+            LoginSheet(style: style)
         }
         .onChange(of: model.done) { done in
             if done {
@@ -24,9 +29,15 @@ class DXAuthModel: ObservableObject {
 // MARK: - Login
 
 fileprivate struct LoginSheet: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var authModel: DXAuthModel
     @StateObject private var model = LoginModel()
     @FocusState private var usernameFocus: Bool
+    let style: SheetStyle
+    
+    init(style: SheetStyle = .independent) {
+        self.style = style
+    }
     
     var body: some View {
         Form {
@@ -61,6 +72,15 @@ fileprivate struct LoginSheet: View {
             }
         }
         .toolbar {
+            if style == .independent {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
             ToolbarItem(placement: .confirmationAction) {
                 AsyncButton {
                     try await model.login()

@@ -1,5 +1,9 @@
 import SwiftUI
 
+enum SheetStyle {
+    case independent, subpage
+}
+
 struct Sheet<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -12,6 +16,7 @@ struct Sheet<Content: View>: View {
     var titleText: LocalizedStringKey = ""
     var submitText: LocalizedStringKey = "Submit"
     var completed: Bool = true
+    var style: SheetStyle = .independent
     
     init(_ titleText: LocalizedStringKey = "",
          action: @escaping () async throws -> Void,
@@ -36,6 +41,12 @@ struct Sheet<Content: View>: View {
     func completed(_ completed: Bool) -> Sheet {
         var sheet = self
         sheet.completed = completed
+        return sheet
+    }
+    
+    func sheetStyle(_ style: SheetStyle = .independent) -> Sheet {
+        var sheet = self
+        sheet.style = style
         return sheet
     }
     
@@ -65,11 +76,13 @@ struct Sheet<Content: View>: View {
             .navigationTitle(titleText)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
+                if style == .independent {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
+                        }
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {

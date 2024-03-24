@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DebugPage: View {
+    @EnvironmentObject private var model: AppModel
     @State private var showURLSheet = false
     @State private var showHTTPSheet = false
     
@@ -18,6 +19,12 @@ struct DebugPage: View {
             
             Section {
                 ScreenshotAlert()
+            }
+            
+            Section {
+                Button("Reset Intro") {
+                    model.showIntro.toggle()
+                }
             }
         }
         .navigationTitle("Debug")
