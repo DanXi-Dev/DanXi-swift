@@ -94,6 +94,7 @@ fileprivate struct FDEcardPageChart: View {
                         x: .value("Date", d.date, unit: .day),
                         y: .value("¥", d.value)
                     )
+                    .interpolationMethod(.cardinal)
                     
                     if let chartSelection {
                         RuleMark(x: .value("Date", chartSelection, unit: .day))
@@ -121,6 +122,7 @@ fileprivate struct FDEcardPageChart: View {
                         x: .value("Date", d.date, unit: .day),
                         y: .value("", d.value)
                     )
+                    .interpolationMethod(.cardinal)
                     .foregroundStyle(areaBackground)
                 }
             }

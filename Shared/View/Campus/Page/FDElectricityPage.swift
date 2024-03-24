@@ -66,6 +66,7 @@ fileprivate struct FDElectricityPageChart: View {
                         x: .value("Date", d.date, unit: .day),
                         y: .value("kWh", d.value)
                     )
+                    .interpolationMethod(.cardinal)
                     
                     if let chartSelection {
                         RuleMark(x: .value("Date", chartSelection, unit: .day))
@@ -93,6 +94,7 @@ fileprivate struct FDElectricityPageChart: View {
                         x: .value("Date", d.date, unit: .day),
                         y: .value("", d.value)
                     )
+                    .interpolationMethod(.cardinal)
                     .foregroundStyle(areaBackground)
                 }
             }
