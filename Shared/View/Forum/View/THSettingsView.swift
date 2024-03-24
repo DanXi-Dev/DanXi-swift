@@ -19,7 +19,7 @@ struct THSettingsView: View {
             NavigationLink {
                 NotificationSettingWrapper()
             } label: {
-                Label("Push Notification Settings", systemImage: "bell.badge")
+                Label("Push Notification Settings", systemImage: "app.badge")
             }
             
             NavigationLink {
@@ -92,6 +92,7 @@ fileprivate struct NotificationSettingWrapper: View {
 fileprivate struct NotificationSetting: View {
     private let userId: Int
     private let authorizationStatus: UNAuthorizationStatus
+    private let notificationSettingsURL: URL?
     @State private var favorite: Bool
     @State private var mention: Bool
     @State private var report: Bool
@@ -104,6 +105,12 @@ fileprivate struct NotificationSetting: View {
         self._favorite = State(initialValue: notify.contains("favorite"))
         self._mention = State(initialValue: notify.contains("mention"))
         self._report = State(initialValue: notify.contains("report"))
+        
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            notificationSettingsURL = url
+        } else {
+            notificationSettingsURL = nil
+        }
     }
     
     private func updateConfig() async {
@@ -124,18 +131,14 @@ fileprivate struct NotificationSetting: View {
         }
     }
     
-    func openNotificationSettings() {
-        if let appSettings = URL(string: UIApplication.openNotificationSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-            UIApplication.shared.open(appSettings)
-        }
-    }
-    
     var body: some View {
         List {
             if authorizationStatus != .authorized {
                 Section {
                     Button {
-                        openNotificationSettings()
+                        if let url = notificationSettingsURL {
+                            UIApplication.shared.open(url)
+                        }
                     } label: {
                         Label("Push Notification Not Authorized", systemImage: "exclamationmark.triangle.fill")
                             .foregroundStyle(.red)
@@ -168,11 +171,13 @@ fileprivate struct NotificationSetting: View {
             }
             .disabled(authorizationStatus != .authorized)
             
-            Section {
-                Button {
-                    openNotificationSettings()
-                } label: {
-                    Text("Open Notification Settings")
+            if let url = notificationSettingsURL {
+                Section {
+                    Button {
+                        UIApplication.shared.open(url)
+                    } label: {
+                        Text("Open Notification Settings")
+                    }
                 }
             }
         }
