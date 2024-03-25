@@ -256,6 +256,7 @@ fileprivate struct CourseDetailSheet: View {
                     Label("Location", systemImage: "mappin.and.ellipse")
                 }
             }
+            .labelStyle(.titleOnly)
             .listStyle(.insetGrouped)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

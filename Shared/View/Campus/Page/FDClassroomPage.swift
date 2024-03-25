@@ -176,18 +176,19 @@ fileprivate struct ScheduleDetailSheet: View {
                 }
             }
             .listStyle(.insetGrouped)
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Done")
+            .labelStyle(.titleOnly)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
                 }
             }
+            .navigationTitle("Course Detail")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Course Detail")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

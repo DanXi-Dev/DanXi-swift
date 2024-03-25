@@ -165,6 +165,7 @@ fileprivate struct CourseDetailSheet: View {
                         Label("Credit", systemImage: "graduationcap")
                     }
                 }
+                .labelStyle(.titleOnly)
                 .listStyle(.insetGrouped)
             }
             .toolbar {
