@@ -4,11 +4,12 @@ class FDNavigator: ObservableObject {
     @Published var path = NavigationPath()
     @AppStorage("campus-pinned") var cards: [FDSection] = []
     @AppStorage("campus-unpinned") var pages: [FDSection] = []
+    @AppStorage("campus-hidden") var hidden: [FDSection] = []
     
     init() {
         // when the app update to include more sections, update storage
         for feature in FDSection.allCases {
-            if !cards.contains(feature) && !pages.contains(feature) {
+            if !cards.contains(feature) && !pages.contains(feature) && !hidden.contains(feature) {
                 // A new feature has been added to the app
                 if FDSection.pinnable.contains(feature) {
                     cards.append(feature)
@@ -32,6 +33,24 @@ class FDNavigator: ObservableObject {
         if cards.contains(section) {
             withAnimation {
                 cards.removeAll { $0 == section }
+                pages.append(section)
+            }
+        }
+    }
+    
+    func remove(section: FDSection) {
+        if pages.contains(section) {
+            withAnimation {
+                pages.removeAll { $0 == section }
+                hidden.append(section)
+            }
+        }
+    }
+    
+    func unhide(section: FDSection) {
+        if hidden.contains(section) {
+            withAnimation {
+                hidden.removeAll { $0 == section }
                 pages.append(section)
             }
         }

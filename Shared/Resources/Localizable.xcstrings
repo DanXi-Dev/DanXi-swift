@@ -511,6 +511,17 @@
         }
       }
     },
+    "All Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部功能"
+          }
+        }
+      }
+    },
     "All Professors" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1725,6 +1736,17 @@
         }
       }
     },
+    "Edit Home Page Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑首页功能"
+          }
+        }
+      }
+    },
     "Edit Post Info" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2407,6 +2429,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "研究生"
+          }
+        }
+      }
+    },
+    "Hidden Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏功能"
           }
         }
       }
@@ -3445,6 +3478,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "置顶贴"
+          }
+        }
+      }
+    },
+    "Pinned Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶功能"
           }
         }
       }
