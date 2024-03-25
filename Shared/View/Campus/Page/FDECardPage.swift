@@ -128,7 +128,7 @@ private struct FDEcardPageChart: View {
                         x: .value("Date", selectedData.date, unit: .day),
                         y: .value("Yuan", selectedData.value)
                     )
-                    .symbolSize(30)
+                    .symbolSize(100)
                 }
             }
             .chartXAxis {

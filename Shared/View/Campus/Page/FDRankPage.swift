@@ -42,7 +42,7 @@ struct FDRankPage: View {
                         RankChart(ranks, myRank: myRank)
                     }
                 }
-
+                
             }
             .navigationTitle("GPA Rank")
             .navigationBarTitleDisplayMode(.inline)
@@ -76,52 +76,41 @@ fileprivate struct RankView: View {
     let rank: FDRank
     
     var body: some View {
-            HStack {
-                Text("#\(String(rank.rank))")
-                    .font(.system(.title2, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(.secondary)
-                if rank.isMe {
-                    Image(systemName: "person.fill")
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .trailing) {
-                    Text(String(rank.gpa))
-                        .font(.headline)
-                    Text("\(String(format: "%.1f", rank.credit)) Credit")
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                }
+        HStack {
+            Text("#\(String(rank.rank))")
+                .font(.system(.title2, design: .rounded))
+                .fontWeight(.bold)
+                .foregroundColor(.secondary)
+            if rank.isMe {
+                Image(systemName: "person.fill")
             }
-            .foregroundColor(rank.isMe ? .accentColor : .primary)
-    }
-}
-
-fileprivate struct GPABin: Identifiable {
-    public var id = UUID()
-    public var gpa: Double
-    public var gpaStart: Double
-    public var gpaEnd: Double
-    public var count: Int
-    
-    init(gpaStart: Double, gpaEnd: Double, count: Int) {
-        self.gpa = (gpaStart + gpaEnd) / 2
-        self.gpaStart = gpaStart
-        self.gpaEnd = gpaEnd
-        self.count = count
+            
+            Spacer()
+            
+            VStack(alignment: .trailing) {
+                Text(String(rank.gpa))
+                    .font(.headline)
+                Text("\(String(format: "%.1f", rank.credit)) Credit")
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .foregroundColor(rank.isMe ? .accentColor : .primary)
     }
 }
 
 @available(iOS 17, *)
-fileprivate struct RankChart: View {
-    private let bins: [GPABin]
+private struct RankChart: View {
+    private let ranks: [FDRank]
     private let myRank: FDRank?
     let color: Color = .accentColor
     
+    @State private var chartSelection: Int?
+    
     init(_ ranks: [FDRank], myRank: FDRank?) {
-        self.bins = RankChart.prepareDataForDensityChart(ranks: ranks, binWidth: 0.1)
+        self.ranks = ranks.sorted(by: { a, b in
+            a.gpa < b.gpa
+        })
         self.myRank = myRank
     }
     
@@ -129,59 +118,53 @@ fileprivate struct RankChart: View {
         return Gradient(colors: [color.opacity(0.5), .clear])
     }
     
-    static func prepareDataForDensityChart(ranks: [FDRank], binWidth: Double) -> [GPABin] {
-        // Determine the min and max GPA to set the range of bins
-        guard let minGPA = ranks.min(by: { $0.gpa < $1.gpa })?.gpa,
-              let maxGPA = ranks.max(by: { $0.gpa < $1.gpa })?.gpa else {
-            return []
-        }
-
-        // Calculate the number of bins needed based on the binWidth
-        let binsCount = Int(((maxGPA - minGPA) / binWidth).rounded(.up))
-        
-        // Initialize the bins
-        var bins = Array(repeating: 0, count: binsCount)
-        
-        // Assign ranks to bins
-        for rank in ranks {
-            let binIndex = Int((rank.gpa - minGPA) / binWidth)
-            bins[min(binIndex, binsCount - 1)] += 1
-        }
-        
-        // Convert bins
-        let binnedData = bins.enumerated().map { index, count in
-            let rangeStart = minGPA + binWidth * Double(index)
-            let rangeEnd = rangeStart + binWidth
-            return GPABin(gpaStart: rangeStart, gpaEnd: rangeEnd, count: count)
-        }
-        
-        return binnedData.filter({ i in i.count > 0})
-    }
-    
-    private func getBarMarkForegroundStyle(bin: GPABin) -> Color {
-        guard let myRank else {
-            return color
-        }
-        
-        if bin.gpaStart <= myRank.gpa && myRank.gpa <= bin.gpaEnd {
-            return color
-        }
-        return .secondary
-    }
-    
     var body: some View {
-        Chart(bins) { bin in
-            BarMark(
-                x: .value("GPA", bin.gpa),
-                y: .value("Density", bin.count)
+        Chart(Array(ranks.enumerated()), id: \.offset) { (index, rank) in
+            LineMark(
+                x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
+                y: .value("GPA", rank.gpa)
             )
-//            .foregroundStyle(getBarMarkForegroundStyle(bin: bin))
             .foregroundStyle(color)
+            .interpolationMethod(.cardinal)
+            
+            AreaMark(
+                x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
+                y: .value("GPA", rank.gpa)
+            )
+            .foregroundStyle(areaBackground)
+            .interpolationMethod(.cardinal)
+            
+            if let selected = chartSelection, selected > 0 && selected <= ranks.count {
+                let value = ranks[ranks.count - selected]
+                RuleMark(x: .value("Rank", selected))
+                    .lineStyle(StrokeStyle(lineWidth: 1))
+                    .foregroundStyle(.secondary)
+                    .annotation(
+                        position: .top, spacing: 0,
+                        overflowResolution: .init(
+                            x: .fit(to: .chart),
+                            y: .disabled
+                        )
+                    ) {
+                        VStack {
+                            Text("\(String(format: "%.2f", value.gpa))")
+                            Text("\(value.rank)")
+                        }
+                        .font(.system(.caption, design: .rounded))
+                        .padding(.bottom, 4)
+                        .padding(.trailing, 12)
+                    }
+                PointMark(
+                    x: .value("Rank", selected),
+                    y: .value("GPA", value.gpa)
+                )
+                .symbolSize(100)
+            }
         }
-        .chartXVisibleDomain(length: 3)
-        .chartScrollPosition(initialX: 1)
-        .chartScrollableAxes(.horizontal)
-        .chartXAxisLabel("GPA")
+        .chartXScale(domain: 0 ... ranks.count)
+        .chartXAxisLabel(String(localized:"Rank"))
+        .chartYAxisLabel(String(localized:"GPA"))
+        .chartXSelection(value: $chartSelection)
         .frame(height: 300)
         .padding(.top, 10)
     }

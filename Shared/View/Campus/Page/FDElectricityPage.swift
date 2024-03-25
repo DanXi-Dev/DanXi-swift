@@ -100,7 +100,7 @@ private struct FDElectricityPageChart: View {
                         x: .value("Date", selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)
                     )
-                    .symbolSize(30)
+                    .symbolSize(100)
                 }
             }
             .chartXAxis {

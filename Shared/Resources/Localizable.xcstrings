@@ -287,6 +287,9 @@
         }
       }
     },
+    "%lf" : {
+
+    },
     "%lld" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1458,6 +1461,7 @@
       }
     },
     "Density" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3656,6 +3660,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "必做题"
+          }
+        }
+      }
+    },
+    "Rank" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排名"
           }
         }
       }
