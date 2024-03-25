@@ -23,6 +23,7 @@ struct THFloorEditSheet: View {
             THContentEditor(content: $content)
         }
         .completed(!content.isEmpty)
+        .warnDiscard()
         .scrollDismissesKeyboard(.immediately)
     }
 }

@@ -10,6 +10,7 @@ struct Sheet<Content: View>: View {
     @State private var loading = false
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var showDiscardWarning = false
     
     let content: Content
     let action: () async throws -> Void
@@ -17,6 +18,7 @@ struct Sheet<Content: View>: View {
     var submitText: LocalizedStringKey = "Submit"
     var completed: Bool = true
     var style: SheetStyle = .independent
+    var discardWarningNeeded: Bool = false
     
     init(_ titleText: LocalizedStringKey = "",
          action: @escaping () async throws -> Void,
@@ -50,6 +52,12 @@ struct Sheet<Content: View>: View {
         return sheet
     }
     
+    func warnDiscard() -> Sheet {
+        var sheet = self
+        sheet.discardWarningNeeded = true
+        return sheet
+    }
+    
     func submit() {
         Task {
             do {
@@ -79,7 +87,11 @@ struct Sheet<Content: View>: View {
                 if style == .independent {
                     ToolbarItem(placement: .cancellationAction) {
                         Button {
-                            dismiss()
+                            if discardWarningNeeded {
+                                showDiscardWarning = true
+                            } else {
+                                dismiss()
+                            }
                         } label: {
                             Text("Cancel")
                         }
@@ -104,6 +116,19 @@ struct Sheet<Content: View>: View {
             
         } message: {
             Text(alertMessage)
+        }
+        .confirmationDialog("Unsaved Changes", isPresented: $showDiscardWarning, titleVisibility: .automatic, actions: {
+            Button("Cancel", role: .cancel) {
+                showDiscardWarning = false
+            }
+            Button("Discard", role: .destructive) {
+                dismiss()
+            }
+        }, message: {
+            Text("Are your sure you want to discard your contents? Your messages will be lost.")
+        })
+        .interactiveDismiss(canDismissSheet: !discardWarningNeeded) {
+            showDiscardWarning = true
         }
     }
 }

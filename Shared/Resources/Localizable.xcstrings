@@ -607,6 +607,9 @@
     "app-intro-description" : {
 
     },
+    "Are your sure you want to discard your contents? Your messages will be lost." : {
+
+    },
     "Auth" : {
 
     },
@@ -1477,6 +1480,9 @@
           }
         }
       }
+    },
+    "Discard" : {
+
     },
     "Division Description" : {
       "localizations" : {
@@ -4934,6 +4940,9 @@
           }
         }
       }
+    },
+    "Unsaved Changes" : {
+
     },
     "Unsubscribe" : {
       "localizations" : {

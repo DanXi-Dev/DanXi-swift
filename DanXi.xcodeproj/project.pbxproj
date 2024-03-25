@@ -199,6 +199,7 @@
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */; };
+		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
 		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
 		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
@@ -369,6 +370,7 @@
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDDateValueChart.swift; sourceTree = "<group>"; };
+		F1728E332BB1661C00483F09 /* SheetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetExtension.swift; sourceTree = "<group>"; };
 		F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
 		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
 		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 			children = (
 				27D6F4532892C5D70059228F /* BundleResource.swift */,
 				27227FD428A512B300B3C99D /* Defaults.swift */,
+				F1728E332BB1661C00483F09 /* SheetExtension.swift */,
 				27E2DE7A2A55496D00D26D86 /* Date.swift */,
 				2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */,
 				27CBA0762951C01E00F422DB /* Network.swift */,
@@ -1098,6 +1101,7 @@
 				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */,
+				F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */,
 				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,

@@ -83,6 +83,7 @@ struct DKPostSheet: View {
             }
         }
         .completed(allowSubmit)
+        .warnDiscard()
         .scrollDismissesKeyboard(.immediately)
     }
 }
