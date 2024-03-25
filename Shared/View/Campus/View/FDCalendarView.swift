@@ -15,19 +15,23 @@ struct FDCourseView: View {
         let color = randomColor(title)
         
         CalDimensionReader { dim in
-            VStack(alignment: .leading) {
-                Text(title)
-                    .bold()
-                    .padding(.top, 5)
-                    .padding(.bottom, 1)
-                    .foregroundColor(color)
-                    .font(.system(size: titleSize))
-                Text(subtitle)
-                    .foregroundColor(color)
-                    .font(.system(size: subtitleSize))
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .bold()
+                        .padding(.top, 5)
+                        .padding(.bottom, 1)
+                        .foregroundColor(color)
+                        .font(.system(size: titleSize))
+                    Text(subtitle)
+                        .foregroundColor(color)
+                        .font(.system(size: subtitleSize))
+                    Spacer()
+                }
                 Spacer()
             }
-            .padding(.horizontal, 2)
+            .padding(.leading, 8)
+            .padding(.trailing, 2)
             .frame(width: dim.dx,
                    height: CGFloat(span) * dim.dy)
             .background(color.opacity(0.2))
