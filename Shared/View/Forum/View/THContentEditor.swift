@@ -36,14 +36,14 @@ struct THContentEditor: View {
                 }
                 .alert("Upload Image Failed", isPresented: $showUploadError) { }
                 
-                Button {
-                    showStickers = true
-                } label: {
-                    Label("Stickers", systemImage: "smiley")
-                }
-                .sheet(isPresented: $showStickers) {
-                    stickerPicker
-                }
+//                Button {
+//                    showStickers = true
+//                } label: {
+//                    Label("Stickers", systemImage: "smiley")
+//                }
+//                .sheet(isPresented: $showStickers) {
+//                    stickerPicker
+//                }
                 
                 ZStack(alignment: .topLeading) {
                     if content.isEmpty {
