@@ -12,7 +12,14 @@
       }
     },
     " " : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "--.--" : {
       "localizations" : {
@@ -31,19 +38,54 @@
       }
     },
     "·" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "(##%@)" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "##%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "#%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "#%lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%@" : {
       "localizations" : {
@@ -109,6 +151,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -242,6 +290,12 @@
             "state" : "new",
             "value" : "%1$@年第%2$@学期"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
@@ -256,7 +310,14 @@
       }
     },
     "%lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%lld (%@)" : {
       "localizations" : {
@@ -264,6 +325,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld (%2$@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -295,7 +362,14 @@
       }
     },
     "%lld." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "¥" : {
       "localizations" : {
@@ -308,13 +382,34 @@
       }
     },
     "¥%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "¥%lf" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "2.0" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "About" : {
       "localizations" : {
@@ -850,7 +945,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "清除"
+            "value" : "清除历史"
           }
         }
       }
@@ -2899,7 +2994,14 @@
       }
     },
     "My Reply" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的回复"
+          }
+        }
+      }
     },
     "Name" : {
       "localizations" : {
@@ -3855,13 +3957,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please do not spread this screenshot on public social media. Thank you for your cooperation. You may turn off this alert in settings."
+            "value" : "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), please do not share screenshots with non-FDUHole users. Thank you for your cooperation."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请勿在公共社区传播此截图，感谢您的配合。您可以在设置中关闭此提示。"
+            "value" : "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，请勿将截图分享给非本树洞用户，感谢您的配合。"
           }
         }
       }
@@ -4381,10 +4483,16 @@
     },
     "Student Type" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Type"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "学生类别"
+            "value" : "用户类别"
           }
         }
       }
@@ -5115,10 +5223,24 @@
       }
     },
     "张江校区" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "新闻学院" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "枫林校区" : {
       "localizations" : {
@@ -5161,7 +5283,14 @@
       }
     },
     "第五教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第六教学楼" : {
       "localizations" : {
