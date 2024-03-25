@@ -13,5 +13,6 @@ public struct Schedule: Identifiable {
     public let time: Date
     public let start, end: String
     public let holiday: Bool
+    public let bidirectional: Bool
     public var missed = false
 }

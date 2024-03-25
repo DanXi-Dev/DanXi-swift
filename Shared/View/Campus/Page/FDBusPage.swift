@@ -122,7 +122,7 @@ fileprivate struct BusRow: View {
             
             HStack {
                 Text(schedule.start)
-                Image(systemName: "arrow.right")
+                Image(systemName: schedule.bidirectional ? "arrow.left.and.right" : "arrow.right")
                 Text(schedule.end)
             }
             .foregroundColor(.secondary)

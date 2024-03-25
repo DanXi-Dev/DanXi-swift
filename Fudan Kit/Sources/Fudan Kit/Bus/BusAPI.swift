@@ -92,19 +92,19 @@ public enum BusAPI {
                     guard let time = dateDecoder.date(from: startTimeString) else { continue }
                     let start = scheduleResponse.start
                     let end = scheduleResponse.end
-                    let schedule = Schedule(id: id, time: time, start: start, end: end, holiday: holiday)
+                    let schedule = Schedule(id: id, time: time, start: start, end: end, holiday: holiday, bidirectional: false)
                     schedules.append(schedule)
                 case "2":
                     guard let time = dateDecoder.date(from: endTimeString) else { continue }
                     let start = scheduleResponse.end
                     let end = scheduleResponse.start
-                    let schedule = Schedule(id: id, time: time, start: start, end: end, holiday: holiday)
+                    let schedule = Schedule(id: id, time: time, start: start, end: end, holiday: holiday, bidirectional: false)
                     schedules.append(schedule)
                 case "1":
                     // expand bidirectional bus schedule into 2 separate schedules
                     guard let time = dateDecoder.date(from: startTimeString) else { continue }
-                    let forward = Schedule(id: id, time: time, start: start, end: end, holiday: holiday)
-                    let backward = Schedule(id: id, time: time, start: end, end: start, holiday: holiday)
+                    let forward = Schedule(id: id, time: time, start: start, end: end, holiday: holiday, bidirectional: true)
+                    let backward = Schedule(id: id, time: time, start: end, end: start, holiday: holiday, bidirectional: true)
                     schedules += [forward, backward]
                 default:
                     continue
