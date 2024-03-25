@@ -1,7 +1,7 @@
 import Foundation
 
 /// A playground that can be reserved
-public struct Playground: Identifiable, Codable {
+public struct Playground: Identifiable, Codable, Hashable {
     public let id: String
     public let name: String
     public let campus: String
@@ -24,6 +24,10 @@ public struct Reservation: Identifiable, Codable {
 }
 
 extension Reservation {
+    public var available: Bool {
+        self.reserveId != nil
+    }
+    
     public var reserveURL: URL? {
         guard let reserveId = reserveId else { return nil }
         var component = URLComponents(string: "https://elife.fudan.edu.cn/public/front/loadOrderForm_ordinary.htm")!

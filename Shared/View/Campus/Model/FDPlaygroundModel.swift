@@ -1,35 +1,32 @@
 import Foundation
+import FudanKit
 
 @MainActor
-class FDPlaygroundModel: ObservableObject {
-    static func load() async throws -> FDPlaygroundModel {
-        try await FDPlaygroundAPI.login()
-        let categories = try await FDPlaygroundAPI.getCategories()
-        var playgrounds: [FDPlayground] = []
-        playgrounds += try await FDPlaygroundAPI.getPlaygroundList(category: categories[0])
-        playgrounds += try await FDPlaygroundAPI.getPlaygroundList(category: categories[2])
-        return FDPlaygroundModel(playgrounds)
-    }
-    
-    init(_ playgrounds: [FDPlayground]) {
+class FDPlaygroundModel: ObservableObject {    
+    init(_ playgrounds: [Playground]) {
         self.playgrounds = playgrounds
-        self.typesList = Array(Set(playgrounds.map(\.type))).sorted().reversed()
-        self.campusList = Array(Set(playgrounds.map(\.campus))).sorted().reversed()
+
+        let categoriesSet = Set(playgrounds.map(\.category))
+        self.categoriesList = Array(categoriesSet).sorted().reversed()
+
+        let campusSet = Set(playgrounds.map(\.campus))
+        self.campusList = Array(campusSet).sorted().reversed()
     }
     
-    let typesList: [String]
+    let categoriesList: [String]
     let campusList: [String]
-    let playgrounds: [FDPlayground]
+    let playgrounds: [Playground]
     
-    @Published var type = ""
+    @Published var category = ""
     @Published var campus = ""
-    var filteredPlaygrounds: [FDPlayground] {
+
+    var filteredPlaygrounds: [Playground] {
         var result = playgrounds
         if !campus.isEmpty {
             result = result.filter { $0.campus.contains(campus) }
         }
-        if !type.isEmpty {
-            result = result.filter { $0.type.contains(type) }
+        if !category.isEmpty {
+            result = result.filter { $0.category.contains(category) }
         }
         return result
     }

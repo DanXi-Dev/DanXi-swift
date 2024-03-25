@@ -1,9 +1,11 @@
 import SwiftUI
+import FudanKit
 
 struct FDPlaygroundPage: View {
     var body: some View {
         AsyncContentView {
-            return try await FDPlaygroundModel.load()
+            let playgrounds = try await ReservationStore.shared.getRefreshedPlayground()
+            return FDPlaygroundModel(playgrounds)
         } content: { model in
             FDPlaygroundContent(model)
         }
@@ -26,10 +28,10 @@ fileprivate struct FDPlaygroundContent: View {
                         Text(campus).tag(campus)
                     }
                 }
-                Picker(selection: $model.type, label: Text("Playground Type")) {
+                Picker(selection: $model.category, label: Text("Playground Type")) {
                     Text("All").tag("")
-                    ForEach(model.typesList, id: \.self) { type in
-                        Text(type).tag(type)
+                    ForEach(model.categoriesList, id: \.self) { category in
+                        Text(category).tag(category)
                     }
                 }
             }
@@ -37,25 +39,25 @@ fileprivate struct FDPlaygroundContent: View {
             Section("Playground List") {
                 ForEach(model.filteredPlaygrounds) { playground in
                     NavigationLink(value: playground) {
-                        Label(playground.name, systemImage: model.categoryIcon(playground.type))
+                        Label(playground.name, systemImage: model.categoryIcon(playground.category))
                     }
                 }
             }
         }
         .navigationTitle("Playground Reservation")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(for: FDPlayground.self) { playground in
+        .navigationDestination(for: Playground.self) { playground in
             FDPlaygroundReservePage(playground)
         }
     }
 }
 
 fileprivate struct FDPlaygroundReservePage: View {
-    private let playground: FDPlayground
+    private let playground: Playground
     @State private var showAvailable = false
     @State private var date = Date.now
     
-    init(_ playground: FDPlayground) {
+    init(_ playground: Playground) {
         self.playground = playground
     }
     
@@ -67,16 +69,17 @@ fileprivate struct FDPlaygroundReservePage: View {
             }
             
             AsyncContentView(style: .widget) {
-                return try await FDPlaygroundAPI.getTimeSlotList(playground: self.playground, date: self.date)
-            } content: { timeSlots in
-                let filteredTimeSlots = timeSlots.filter { $0.reserveId != nil || !showAvailable }
-                if filteredTimeSlots.isEmpty {
+                return try await ReservationStore.shared.getReservations(playground: playground, date: date)
+            } content: { reservations in
+                let filteredReservations = reservations.filter { $0.available || !showAvailable }
+                
+                if filteredReservations.isEmpty {
                     Text("No Time Slots Available")
                 } else {
                     Grid(alignment: .leading) {
-                        ForEach(filteredTimeSlots) { timeSlot in
-                            TimeSlotView(timeSlot: timeSlot)
-                            if timeSlot.id != filteredTimeSlots.last?.id {
+                        ForEach(filteredReservations) { reservation in
+                            ReservationView(reservation: reservation)
+                            if reservation.id != filteredReservations.last?.id {
                                 Divider()
                             }
                         }
@@ -90,23 +93,23 @@ fileprivate struct FDPlaygroundReservePage: View {
     }
 }
 
-fileprivate struct TimeSlotView: View {
-    let timeSlot: FDPlaygroundTimeSlot
+fileprivate struct ReservationView: View {
+    let reservation: Reservation
     @State private var showSheet = false
     
     var body: some View {
         GridRow {
-            Text("\(timeSlot.beginTime) - \(timeSlot.endTime)")
+            Text("\(reservation.begin.formatted(date: .omitted, time: .shortened)) - \(reservation.end.formatted(date: .omitted, time: .shortened))")
             Spacer()
-            Text("\(timeSlot.reserved) / \(timeSlot.total)")
+            Text("\(reservation.reserved) / \(reservation.total)")
             Spacer()
-            if timeSlot.reserveId != nil {
+            if reservation.available {
                 Button {
                     showSheet = true
                 } label: {
                     Text("Reserve")
                 }
-            } else if timeSlot.reserved == timeSlot.total {
+            } else if reservation.reserved == reservation.total {
                 Text("Full")
                     .foregroundColor(.secondary)
             } else {
@@ -115,19 +118,19 @@ fileprivate struct TimeSlotView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            ReservationSheet(timeSlot)
+            ReservationSheet(reservation)
         }
     }
 }
 
 fileprivate struct ReservationSheet: View {
     @Environment(\.dismiss) private var dismiss
-    let timeSlot: FDPlaygroundTimeSlot
+    let reservation: Reservation
     let request: URLRequest?
     
-    init(_ timeSlot: FDPlaygroundTimeSlot) {
-        self.timeSlot = timeSlot
-        if let url = timeSlot.registerURL {
+    init(_ reservation: Reservation) {
+        self.reservation = reservation
+        if let url = reservation.reserveURL {
             self.request = URLRequest(url: url)
         } else {
             self.request = nil
