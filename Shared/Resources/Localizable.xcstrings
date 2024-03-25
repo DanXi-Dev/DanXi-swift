@@ -161,38 +161,6 @@
         }
       }
     },
-    "%@ %@ kWh" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ %2$@ kWh"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@ 千瓦时"
-          }
-        }
-      }
-    },
-    "%@ %@ Yuan" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ %2$@ Yuan"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@ 元"
-          }
-        }
-      }
-    },
     "%@ Credit" : {
       "localizations" : {
         "zh-Hans" : {
@@ -218,7 +186,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@千瓦时"
+            "value" : "%@kWh"
           }
         }
       }
@@ -269,6 +237,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@寒假"
+          }
+        }
+      }
+    },
+    "%@ Yuan" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@元"
           }
         }
       }
@@ -5207,17 +5185,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "您已被此板块封禁，解封日期为%@"
-          }
-        }
-      }
-    },
-    "yuan" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "元"
           }
         }
       }

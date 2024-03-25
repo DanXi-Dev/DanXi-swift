@@ -1,26 +1,26 @@
-import SwiftUI
 import Charts
 import FudanKit
+import SwiftUI
 
 struct FDECardPage: View {
     var body: some View {
         AsyncContentView {
             async let balance = MyStore.shared.getCachedUserInfo().balance
             async let dateValues = MyStore.shared.getCachedWalletLogs()
-                .map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
+                .map { FDDateValueChartData(date: $0.date, value: $0.amount) }
             
             let (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
             
             let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
             
             return (balanceLoaded, filteredDateValues)
-        } content: { (balance, history) in
+        } content: { balance, history in
             ECardPageContent(balance: balance, history: history)
         }
     }
 }
 
-fileprivate struct ECardPageContent: View {
+private struct ECardPageContent: View {
     let balance: String
     let history: [FDDateValueChartData]
     
@@ -57,7 +57,7 @@ fileprivate struct ECardPageContent: View {
     }
 }
 
-fileprivate struct TransactionView: View {
+private struct TransactionView: View {
     let transaction: FudanKit.Transaction
     
     var body: some View {
@@ -78,7 +78,7 @@ fileprivate struct TransactionView: View {
 }
 
 @available(iOS 17.0, *)
-fileprivate struct FDEcardPageChart: View {
+private struct FDEcardPageChart: View {
     let data: [FDDateValueChartData]
     @State private var chartSelection: Date?
     
@@ -94,36 +94,41 @@ fileprivate struct FDEcardPageChart: View {
                         x: .value("Date", d.date, unit: .day),
                         y: .value("¥", d.value)
                     )
-                    .interpolationMethod(.cardinal)
-                    
-                    if let chartSelection {
-                        RuleMark(x: .value("Date", chartSelection, unit: .day))
-                            .lineStyle(StrokeStyle(lineWidth: 1))
-                            .foregroundStyle(.secondary)
-                            .annotation(
-                                position: .top, spacing: 0,
-                                overflowResolution: .init(
-                                    x: .fit,
-                                    y: .disabled
-                                )
-                            ) {
-                                let selectionValue = data.first(where: {element in Calendar.current.isDate(element.date, inSameDayAs: chartSelection)})?.value ?? 0
-                                let selectionDate = chartSelection.formatted(Date.FormatStyle().day().month())
-                                
-                                Text("\(selectionDate) \(String(format: "%.2f", selectionValue)) Yuan")
-                                    .foregroundStyle(.orange)
-                                    .font(.system(.body, design: .rounded))
-                                    .padding(.bottom, 4)
-                                    .padding(.trailing, 12)
-                            }
-                    }
                     
                     AreaMark(
                         x: .value("Date", d.date, unit: .day),
                         y: .value("", d.value)
                     )
-                    .interpolationMethod(.cardinal)
                     .foregroundStyle(areaBackground)
+                }
+                
+                if let selectedDate = chartSelection,
+                   let selectedData = data.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) })
+                {
+                    RuleMark(x: .value("Date", selectedDate, unit: .day))
+                        .lineStyle(StrokeStyle(lineWidth: 1))
+                        .foregroundStyle(.secondary)
+                        .annotation(
+                            position: .top, spacing: 0,
+                            overflowResolution: .init(
+                                x: .fit(to: .chart),
+                                y: .disabled
+                            )
+                        ) {
+                            VStack {
+                                Text("\(selectedData.date, format: .dateTime.day().month())")
+                                Text("\(String(format: "%.2f", selectedData.value)) Yuan")
+                            }
+                            .foregroundStyle(.orange)
+                            .font(.system(.caption, design: .rounded))
+                            .padding(.bottom, 4)
+                            .padding(.trailing, 12)
+                        }
+                    PointMark(
+                        x: .value("Date", selectedData.date, unit: .day),
+                        y: .value("Yuan", selectedData.value)
+                    )
+                    .symbolSize(30)
                 }
             }
             .chartXAxis {
