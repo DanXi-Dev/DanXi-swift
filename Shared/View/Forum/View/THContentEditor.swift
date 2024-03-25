@@ -1,11 +1,15 @@
 import SwiftUI
 import PhotosUI
+import Markdown
 
 struct THContentEditor: View {
     @Binding var content: String
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
     @State private var showStickers = false
+    
+    @State private var showExternalImageAlert = false
+    @FocusState private var isEditing: Bool
     
     private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
@@ -17,6 +21,26 @@ struct THContentEditor: View {
         content.append("![Uploading \(taskID)...]")
         let imageURL = try await THRequests.uploadImage(imageData)
         content.replace("![Uploading \(taskID)...]", with: "![](\(imageURL.absoluteString))")
+    }
+    
+    private func checkExternalImages() {
+        Task {
+            // do parsing in background to improve performance
+            guard let attributed = try? AttributedString(markdown: content) else {
+                return
+            }
+            
+            for run in attributed.runs {
+                if let url = run.imageURL {
+                    if url.host()?.contains("jingyijun.xyz") != true {
+                        await MainActor.run {
+                            showExternalImageAlert = true
+                        }
+                        return
+                    }
+                }
+            }
+        }
     }
     
     var body: some View {
@@ -54,8 +78,21 @@ struct THContentEditor: View {
                     }
                     
                     TextEditor(text: $content)
+                        .focused($isEditing)
                         .frame(height: 250)
+                        .onChange(of: isEditing) { isEditing in
+                            if !isEditing {
+                                checkExternalImages()
+                            }
+                        }
+                        .alert("External Image", isPresented: $showExternalImageAlert) {
+                            
+                        } message: {
+                            Text("external-image-alert")
+                        }
                 }
+
+
             } header: {
                 Text("TH Edit Alert")
             }

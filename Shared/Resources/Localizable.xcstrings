@@ -2059,6 +2059,34 @@
         }
       }
     },
+    "External Image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外部图片"
+          }
+        }
+      }
+    },
+    "external-image-alert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For security reason, image from external sources are not supported. Use the upload button to upload an image."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由于安全原因，本站不支持外链图片。请使用上传图片按钮来上传图片。"
+          }
+        }
+      }
+    },
     "Extracurricular Activities" : {
       "comment" : "Fudan Sport Page",
       "localizations" : {
