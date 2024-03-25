@@ -608,7 +608,14 @@
 
     },
     "Are your sure you want to discard your contents? Your messages will be lost." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定要关闭吗？已编辑的内容将会丢失。"
+          }
+        }
+      }
     },
     "Auth" : {
 
@@ -1482,7 +1489,14 @@
       }
     },
     "Discard" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "丢弃"
+          }
+        }
+      }
     },
     "Division Description" : {
       "localizations" : {
@@ -4942,7 +4956,14 @@
       }
     },
     "Unsaved Changes" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未保存的改动"
+          }
+        }
+      }
     },
     "Unsubscribe" : {
       "localizations" : {

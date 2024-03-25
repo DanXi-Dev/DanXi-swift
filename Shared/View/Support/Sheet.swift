@@ -117,7 +117,7 @@ struct Sheet<Content: View>: View {
         } message: {
             Text(alertMessage)
         }
-        .confirmationDialog("Unsaved Changes", isPresented: $showDiscardWarning, titleVisibility: .automatic, actions: {
+        .alert("Unsaved Changes", isPresented: $showDiscardWarning, actions: {
             Button("Cancel", role: .cancel) {
                 showDiscardWarning = false
             }
