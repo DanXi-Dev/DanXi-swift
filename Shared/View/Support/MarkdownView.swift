@@ -239,21 +239,27 @@ fileprivate struct ParagraphView: View {
                         .errorMode(.rendered)
                         .font(.callout)
                 case .image(let url):
-                    HStack {
-                        Spacer()
-                        CachedAsyncImage(url: url) { phase in
-                            if let image = phase.image {
-                                ImageWithPopover(image: image)
-                            } else if phase.error != nil {
-                                Color.gray.opacity(0.1)
-                                    .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
-                            } else {
-                                Color.gray.opacity(0.1)
-                                    .overlay { ProgressView() }
+                    // don't support external images. note that this is only a temporary solution, which may contain problem, and will eventually be rewritten
+                    if url.host()?.contains("jingyijun.xyz") == true {
+                        HStack {
+                            Spacer()
+                            CachedAsyncImage(url: url) { phase in
+                                if let image = phase.image {
+                                    ImageWithPopover(image: image)
+                                } else if phase.error != nil {
+                                    Color.gray.opacity(0.1)
+                                        .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
+                                } else {
+                                    Color.gray.opacity(0.1)
+                                        .overlay { ProgressView() }
+                                }
                             }
+                            .frame(width: 300, height: 300)
+                            Spacer()
                         }
-                        .frame(width: 300, height: 300)
-                        Spacer()
+                    } else {
+                        Color.gray.opacity(0.1)
+                            .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
                     }
                 }
             }
