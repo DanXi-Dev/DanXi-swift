@@ -19,4 +19,10 @@ public struct ElectricityUsage: Codable {
         case electricityAvailable = "fj_surplus"
         case electricityAll = "fj_all"
     }
+    
+    static public func convertEnergyToMeasuredString(_ value: Float) -> String {
+        let energy = Measurement<UnitEnergy>(value: Double(value), unit: .kilowattHours)
+        let style = Measurement<UnitEnergy>.FormatStyle(width: .abbreviated)
+        return style.format(energy)
+    }
 }

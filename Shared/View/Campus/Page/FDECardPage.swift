@@ -29,7 +29,7 @@ private struct ECardPageContent: View {
     var body: some View {
         List {
             Section {
-                LabeledContent("ECard Balance", value: "¥\(balance)")
+                LabeledContent("ECard Balance", value: "¥ \(balance)")
             }
             
             if #available(iOS 17, *) {
@@ -106,7 +106,7 @@ private struct FDEcardPageChart: View {
                    let selectedData = data.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) })
                 {
                     RuleMark(x: .value("Date", selectedDate, unit: .day))
-                        .lineStyle(StrokeStyle(lineWidth: 1))
+                        .lineStyle(StrokeStyle(lineWidth: 3))
                         .foregroundStyle(.secondary)
                         .annotation(
                             position: .top, spacing: 0,
@@ -117,7 +117,7 @@ private struct FDEcardPageChart: View {
                         ) {
                             VStack {
                                 Text("\(selectedData.date, format: .dateTime.day().month())")
-                                Text("\(String(format: "%.2f", selectedData.value)) Yuan")
+                                Text("¥ \(String(format: "%.2f", selectedData.value))")
                             }
                             .foregroundStyle(.orange)
                             .font(.system(.caption, design: .rounded))
@@ -126,9 +126,15 @@ private struct FDEcardPageChart: View {
                         }
                     PointMark(
                         x: .value("Date", selectedData.date, unit: .day),
+                        y: .value("kWh", selectedData.value)
+                    )
+                    .symbolSize(70)
+                    .foregroundStyle(Color.secondarySystemGroupedBackground)
+                    PointMark(
+                        x: .value("Date", selectedData.date, unit: .day),
                         y: .value("Yuan", selectedData.value)
                     )
-                    .symbolSize(100)
+                    .symbolSize(40)
                 }
             }
             .chartXAxis {

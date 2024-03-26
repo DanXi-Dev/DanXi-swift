@@ -28,13 +28,13 @@ struct FDElectricityPage: View {
                 }
                 
                 LabeledContent {
-                    Text("\(String(info.electricityAvailable)) kWh")
+                    Text(ElectricityUsage.convertEnergyToMeasuredString(info.electricityAvailable))
                 } label: {
                     Text("Electricity Available")
                 }
                 
                 LabeledContent {
-                    Text("\(String(info.electricityUsed)) kWh")
+                    Text(ElectricityUsage.convertEnergyToMeasuredString(info.electricityUsed))
                 } label: {
                     Text("Electricity Used")
                 }
@@ -78,7 +78,7 @@ private struct FDElectricityPageChart: View {
                    let selectedData = data.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) })
                 {
                     RuleMark(x: .value("Date", selectedDate, unit: .day))
-                        .lineStyle(StrokeStyle(lineWidth: 1))
+                        .lineStyle(StrokeStyle(lineWidth: 3))
                         .foregroundStyle(.secondary)
                         .annotation(
                             position: .top, spacing: 0,
@@ -89,7 +89,7 @@ private struct FDElectricityPageChart: View {
                         ) {
                             VStack {
                                 Text("\(selectedData.date, format: .dateTime.day().month())")
-                                Text("\(String(format: "%.2f", selectedData.value)) kWh")
+                                Text(ElectricityUsage.convertEnergyToMeasuredString(selectedData.value))
                             }
                             .foregroundStyle(.green)
                             .font(.system(.caption, design: .rounded))
@@ -100,7 +100,13 @@ private struct FDElectricityPageChart: View {
                         x: .value("Date", selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)
                     )
-                    .symbolSize(100)
+                    .symbolSize(70)
+                    .foregroundStyle(Color.secondarySystemGroupedBackground)
+                    PointMark(
+                        x: .value("Date", selectedData.date, unit: .day),
+                        y: .value("kWh", selectedData.value)
+                    )
+                    .symbolSize(40)
                 }
             }
             .chartXAxis {

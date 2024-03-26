@@ -161,6 +161,17 @@
         }
       }
     },
+    "%@ ¥" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ¥"
+          }
+        }
+      }
+    },
     "%@ Credit" : {
       "localizations" : {
         "zh-Hans" : {
@@ -182,6 +193,7 @@
       }
     },
     "%@ kWh" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -241,16 +253,6 @@
         }
       }
     },
-    "%@ Yuan" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@元"
-          }
-        }
-      }
-    },
     "%@F" : {
       "localizations" : {
         "zh-Hans" : {
@@ -278,6 +280,7 @@
       }
     },
     "%f kWh" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -361,6 +364,9 @@
           }
         }
       }
+    },
+    "¥ %@" : {
+
     },
     "¥%@" : {
       "localizations" : {
