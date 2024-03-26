@@ -27,6 +27,6 @@ struct THMessageSheet: View {
             }
         }
         .completed(!message.isEmpty)
-        .warnDiscard()
+        .warnDiscard(!message.isEmpty)
     }
 }

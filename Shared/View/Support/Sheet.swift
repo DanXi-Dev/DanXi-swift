@@ -52,9 +52,9 @@ struct Sheet<Content: View>: View {
         return sheet
     }
     
-    func warnDiscard() -> Sheet {
+    func warnDiscard(_ warn: Bool) -> Sheet {
         var sheet = self
-        sheet.discardWarningNeeded = true
+        sheet.discardWarningNeeded = warn
         return sheet
     }
     

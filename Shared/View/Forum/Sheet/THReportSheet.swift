@@ -22,6 +22,6 @@ struct THReportSheet: View {
             }
         }
         .completed(!reason.isEmpty)
-        .warnDiscard()
+        .warnDiscard(!reason.isEmpty)
     }
 }

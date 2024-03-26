@@ -38,6 +38,6 @@ struct THHoleEditSheet: View {
             }
         }
         .completed(!tags.isEmpty)
-        .warnDiscard()
+        .warnDiscard(!tags.isEmpty)
     }
 }

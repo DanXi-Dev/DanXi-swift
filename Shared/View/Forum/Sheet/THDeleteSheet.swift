@@ -46,7 +46,6 @@ struct THDeleteSheet: View {
                 PunishmentNotice()
             }
         }
-        .warnDiscard()
     }
 }
 

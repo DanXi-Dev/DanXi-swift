@@ -76,7 +76,6 @@ struct THDivisionSheet: View {
                 }
             }
         }
-        .warnDiscard()
         .scrollDismissesKeyboard(.immediately)
     }
 }
