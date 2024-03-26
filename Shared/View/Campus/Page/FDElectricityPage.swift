@@ -89,12 +89,14 @@ private struct FDElectricityPageChart: View {
                         ) {
                             VStack {
                                 Text("\(selectedData.date, format: .dateTime.day().month())")
+                                    .foregroundStyle(.secondary)
                                 Text(ElectricityUsage.convertEnergyToMeasuredString(selectedData.value))
+                                    .font(.subheadline)
+                                    .bold()
                             }
-                            .foregroundStyle(.green)
+                            .fixedSize()
                             .font(.system(.caption, design: .rounded))
-                            .padding(.bottom, 4)
-                            .padding(.trailing, 12)
+                            .padding(.bottom, 1)
                         }
                     PointMark(
                         x: .value("Date", selectedData.date, unit: .day),

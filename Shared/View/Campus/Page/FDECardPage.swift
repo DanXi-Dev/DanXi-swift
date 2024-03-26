@@ -117,12 +117,13 @@ private struct FDEcardPageChart: View {
                         ) {
                             VStack {
                                 Text("\(selectedData.date, format: .dateTime.day().month())")
+                                    .foregroundStyle(.secondary)
                                 Text("¥ \(String(format: "%.2f", selectedData.value))")
+                                    .font(.headline)
                             }
-                            .foregroundStyle(.orange)
+                            .fixedSize()
                             .font(.system(.caption, design: .rounded))
-                            .padding(.bottom, 4)
-                            .padding(.trailing, 12)
+                            .padding(.bottom, 1)
                         }
                     PointMark(
                         x: .value("Date", selectedData.date, unit: .day),
