@@ -625,6 +625,16 @@
         }
       }
     },
+    "Average" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中等"
+          }
+        }
+      }
+    },
     "Balance" : {
       "localizations" : {
         "en" : {
@@ -891,6 +901,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "食堂排队人数"
+          }
+        }
+      }
+    },
+    "Challenging" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "较难"
           }
         }
       }
@@ -1725,6 +1745,16 @@
         }
       }
     },
+    "Easy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "容易"
+          }
+        }
+      }
+    },
     "ECard" : {
       "comment" : "Fudan ECard",
       "localizations" : {
@@ -2100,6 +2130,16 @@
         }
       }
     },
+    "Excellent" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特别好评"
+          }
+        }
+      }
+    },
     "Exercise Logs" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2471,6 +2511,16 @@
         }
       }
     },
+    "Good" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好评"
+          }
+        }
+      }
+    },
     "GPA" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2533,6 +2583,16 @@
         }
       }
     },
+    "Hardcore" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "硬核"
+          }
+        }
+      }
+    },
     "Hidden Features" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2560,6 +2620,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隐藏此树洞"
+          }
+        }
+      }
+    },
+    "High" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "较大"
           }
         }
       }
@@ -2840,6 +2910,16 @@
         }
       }
     },
+    "Lenient" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宽松"
+          }
+        }
+      }
+    },
     "Library Popularity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2994,6 +3074,16 @@
         }
       }
     },
+    "Low" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "较小"
+          }
+        }
+      }
+    },
     "Main Section" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3071,7 +3161,14 @@
 
     },
     "Moderate" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中等"
+          }
+        }
+      }
     },
     "Modify Floor" : {
       "localizations" : {
@@ -3640,6 +3737,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "场馆类型"
+          }
+        }
+      }
+    },
+    "Poor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "差评"
           }
         }
       }
@@ -4684,6 +4791,16 @@
         }
       }
     },
+    "Strict" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "严格"
+          }
+        }
+      }
+    },
     "Student Type" : {
       "localizations" : {
         "en" : {
@@ -5298,6 +5415,66 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本%@ (%@)"
+          }
+        }
+      }
+    },
+    "Very Easy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常容易"
+          }
+        }
+      }
+    },
+    "Very High" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常大"
+          }
+        }
+      }
+    },
+    "Very Lenient" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常宽松"
+          }
+        }
+      }
+    },
+    "Very Low" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常小"
+          }
+        }
+      }
+    },
+    "Very Poor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特别差评"
+          }
+        }
+      }
+    },
+    "Very Strict" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常严格"
           }
         }
       }

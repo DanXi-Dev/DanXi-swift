@@ -67,16 +67,16 @@ struct DKPostSheet: View {
             
             Section {
                 LabeledContent("Overall Rating") {
-                    DKStarRatingView(rating: $overallRating)
+                    DKStarRatingView(rating: $overallRating, ratingType: .overall)
                 }
                 LabeledContent("Course Content") {
-                    DKStarRatingView(rating: $contentRating)
+                    DKStarRatingView(rating: $contentRating, ratingType: .content)
                 }
                 LabeledContent("Course Workload") {
-                    DKStarRatingView(rating: $workloadRating)
+                    DKStarRatingView(rating: $workloadRating, ratingType: .workload)
                 }
                 LabeledContent("Course Assessment") {
-                    DKStarRatingView(rating: $assessmentRating)
+                    DKStarRatingView(rating: $assessmentRating, ratingType: .assessment)
                 }
             } header: {
                 Text("Course Evaluation")
