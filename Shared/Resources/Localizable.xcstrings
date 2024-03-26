@@ -596,9 +596,6 @@
         }
       }
     },
-    "app-intro-description" : {
-
-    },
     "Are your sure you want to discard your contents? Your messages will be lost." : {
       "localizations" : {
         "zh-Hans" : {
@@ -1330,7 +1327,52 @@
       }
     },
     "danxi-app-account-system-description" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DanXi uses a dual-account system, including the Fudan Campus (UIS) account and the DanXi account."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕 app 使用双账户系统，包括复旦校园（UIS） 账户和旦夕账户。"
+          }
+        }
+      }
+    },
+    "danxi-app-account-system-footer-danxi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DanXi account is used to log into various services provided by DanXi, including community and course review. This account is not affiliated with Fudan University, but registration must be done using a Fudan University email. After logging into this account, you will be able to use the services provided by DanXi."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕账户用于登录旦夕团队提供的各项服务，包括社区和课评平台等。该账户与复旦大学无关，但必须使用复旦大学邮箱注册。登录该账户后，你将可以使用旦夕团队提供的服务。"
+          }
+        }
+      }
+    },
+    "danxi-app-account-system-footer-uis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fudan Campus account, also known as the UIS account, is used to access data provided by the Fudan University, including class schedules and campus card balances. This account does not require registration. After logging into this account, you will be able to view campus service data."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复旦校园账户，即UIS账户，用于获取复旦大学信息办提供的数据，包括课程表、校园卡余额等。该账户无须注册。登录该账户后，你将可以查看校园服务数据。"
+          }
+        }
+      }
     },
     "Date" : {
       "localizations" : {
@@ -1477,6 +1519,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "开课院系"
+          }
+        }
+      }
+    },
+    "Details in Classroom Schedules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更全面的教室日程查询"
           }
         }
       }
@@ -2549,6 +2601,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "[图片]"
+          }
+        }
+      }
+    },
+    "Import Schedules to Calendar" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更流畅的课表导入"
+          }
+        }
+      }
+    },
+    "Import your schedules directly into the calendar app." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将课程表直接导入系统日历。"
           }
         }
       }
@@ -3694,6 +3766,16 @@
         }
       }
     },
+    "Rebuilt from the ground up for a smoother experience." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新构建的旦夕app带来更流畅的体验。"
+          }
+        }
+      }
+    },
     "Recent Browsed" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3720,6 +3802,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "收件人"
+          }
+        }
+      }
+    },
+    "Redesigned Interface" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的界面"
           }
         }
       }
@@ -5200,6 +5292,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本%@ (%@)"
+          }
+        }
+      }
+    },
+    "View and search for schedule details in each classroom." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查询和搜索每个教室的具体课程。"
           }
         }
       }

@@ -22,14 +22,17 @@ struct IntroSheet: View {
                     .frame(width: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                     .padding(12)
-                Text(String(localized:"DanXi") + String(localized:"2.0"))
+                Text(String(localized:"DanXi") + "2.0")
                     .font(.largeTitle)
                     .bold()
                     .padding(8)
-                Text("app-intro-description")
-                    .multilineTextAlignment(.center)
-                    .font(.body)
-                    .padding(.horizontal, 32)
+                Spacer()
+                VStack(alignment: .leading) {
+                    NewFeature(title: "Redesigned Interface", subtitle: "Rebuilt from the ground up for a smoother experience.", icon: "app")
+                    NewFeature(title: "Import Schedules to Calendar", subtitle: "Import your schedules directly into the calendar app.", icon: "calendar")
+                    NewFeature(title: "Details in Classroom Schedules", subtitle: "View and search for schedule details in each classroom.", icon: "calendar.day.timeline.leading")
+                }
+                .padding(.horizontal, 32)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -37,7 +40,7 @@ struct IntroSheet: View {
                 Text("Use of this app is subject to our [Terms and Conditions](https://danxi.fduhole.com/doc/app-terms-and-condition) and [Privacy Policy](https://danxi.fduhole.com/doc/app-privacy)")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
-                    .font(.callout)
+                    .font(.footnote)
                     .padding(.horizontal, 32)
                 NavigationLink(destination: IntroLoginSheet(), label: {
                     Text("Continue")
@@ -52,6 +55,31 @@ struct IntroSheet: View {
             }
             .interactiveDismissDisabled()
         }
+    }
+}
+
+struct NewFeature: View {
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey
+    let icon: String
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            Image(systemName: icon)
+                .font(.title)
+                .foregroundStyle(.accent)
+                .frame(width: 50)
+            
+            VStack(alignment: .leading) {
+                Text(title)
+                    .font(.body)
+                    .bold()
+                Text(subtitle)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
     }
 }
 
@@ -72,7 +100,7 @@ struct IntroLoginSheet: View {
         Form {
             FormTitle(title: "Login", description: "danxi-app-account-system-description")
             
-            Section {
+            Section(content: {
                 NavigationLink(destination: FDLoginSheet(style: .subpage), label: {
                     LabeledContent("Fudan Campus Account") {
                         if campusModel.loggedIn {
@@ -80,7 +108,12 @@ struct IntroLoginSheet: View {
                         }
                     }
                 })
-                    .disabled(campusModel.loggedIn)
+                .disabled(campusModel.loggedIn)
+            }, footer: {
+                Text("danxi-app-account-system-footer-uis")
+            })
+            
+            Section {
                 NavigationLink(destination: DXAuthSheet(style: .subpage), label: {
                     LabeledContent("FDU Hole Account") {
                         if DXModel.shared.isLogged {
@@ -88,8 +121,11 @@ struct IntroLoginSheet: View {
                         }
                     }
                 })
-                    .disabled(DXModel.shared.isLogged)
+                .disabled(DXModel.shared.isLogged)
+            } footer: {
+                Text("danxi-app-account-system-footer-danxi")
             }
+
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
