@@ -1,20 +1,21 @@
 import SwiftUI
+import FudanKit
 import Charts
 
 struct FDRankPage: View {
     @State private var showSheet = false
     
     var body: some View {
-        AsyncContentView { () -> [FDRank] in
-            try await FDAcademicAPI.login()
-            return try await FDAcademicAPI.getGPA()
+        AsyncContentView { () -> [Rank] in
+            try await UndergraduateCourseAPI.login()
+            return try await UndergraduateCourseAPI.getRanks()
         } content: { ranks in
             List {
                 let myRank = ranks.first(where: { $0.isMe })
                 Section {
                     if let myRank = myRank {
                         LabeledContent {
-                            Text(String(myRank.gpa))
+                            Text(String(myRank.gradePoint))
                         } label: {
                             Text("My GPA")
                         }
@@ -73,7 +74,7 @@ struct FDRankPage: View {
 }
 
 fileprivate struct RankView: View {
-    let rank: FDRank
+    let rank: Rank
     
     var body: some View {
         HStack {
@@ -88,7 +89,7 @@ fileprivate struct RankView: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                Text(String(rank.gpa))
+                Text(String(rank.gradePoint))
                     .font(.headline)
                 Text("\(String(format: "%.1f", rank.credit)) Credit")
                     .font(.callout)
@@ -101,15 +102,15 @@ fileprivate struct RankView: View {
 
 @available(iOS 17, *)
 private struct RankChart: View {
-    private let ranks: [FDRank]
-    private let myRank: FDRank?
+    private let ranks: [Rank]
+    private let myRank: Rank?
     let color: Color = .accentColor
     
     @State private var chartSelection: Int?
     
-    init(_ ranks: [FDRank], myRank: FDRank?) {
+    init(_ ranks: [Rank], myRank: Rank?) {
         self.ranks = ranks.sorted(by: { a, b in
-            a.gpa < b.gpa
+            a.gradePoint < b.gradePoint
         })
         self.myRank = myRank
     }
@@ -122,13 +123,13 @@ private struct RankChart: View {
         Chart(Array(ranks.enumerated()), id: \.offset) { (index, rank) in
             LineMark(
                 x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
-                y: .value("GPA", rank.gpa)
+                y: .value("GPA", rank.gradePoint)
             )
             .foregroundStyle(color)
             
             AreaMark(
                 x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
-                y: .value("GPA", rank.gpa)
+                y: .value("GPA", rank.gradePoint)
             )
             .foregroundStyle(areaBackground)
             
@@ -140,7 +141,7 @@ private struct RankChart: View {
                     .foregroundStyle(.secondary)
                 PointMark(
                     x: .value("Rank", x),
-                    y: .value("GPA", value.gpa)
+                    y: .value("GPA", value.gradePoint)
                 )
                 .symbolSize(100)
             }
@@ -152,7 +153,7 @@ private struct RankChart: View {
                 Grid(alignment: .leading) {
                     GridRow {
                         Text("GPA: ")
-                        Text(String(format: "%.2f", value.gpa))
+                        Text(String(format: "%.2f", value.gradePoint))
                     }
                     GridRow {
                         Text("Rank: ")

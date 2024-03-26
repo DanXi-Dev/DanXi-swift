@@ -102,4 +102,8 @@ public struct Rank: Identifiable, Codable {
     public let grade, major, department: String
     public let gradePoint, credit: Double
     public let rank: Int
+    
+    public var isMe: Bool {
+        !name.contains("*")
+    }
 }
