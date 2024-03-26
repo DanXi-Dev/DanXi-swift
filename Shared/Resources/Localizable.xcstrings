@@ -2444,6 +2444,16 @@
         }
       }
     },
+    "GPA: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绩点："
+          }
+        }
+      }
+    },
     "GPA: %@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3670,6 +3680,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "排名"
+          }
+        }
+      }
+    },
+    "Rank: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排名："
           }
         }
       }

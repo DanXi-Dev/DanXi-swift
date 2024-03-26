@@ -125,47 +125,53 @@ private struct RankChart: View {
                 y: .value("GPA", rank.gpa)
             )
             .foregroundStyle(color)
-            .interpolationMethod(.cardinal)
             
             AreaMark(
                 x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
                 y: .value("GPA", rank.gpa)
             )
             .foregroundStyle(areaBackground)
-            .interpolationMethod(.cardinal)
             
             if let selected = chartSelection, selected > 0 && selected <= ranks.count {
-                let value = ranks[ranks.count - selected]
-                RuleMark(x: .value("Rank", selected))
+                let x = max(1, selected)
+                let value = ranks[ranks.count - x]
+                RuleMark(x: .value("Rank", x))
                     .lineStyle(StrokeStyle(lineWidth: 1))
                     .foregroundStyle(.secondary)
-                    .annotation(
-                        position: .top, spacing: 0,
-                        overflowResolution: .init(
-                            x: .fit(to: .chart),
-                            y: .disabled
-                        )
-                    ) {
-                        VStack {
-                            Text("\(String(format: "%.2f", value.gpa))")
-                            Text("\(value.rank)")
-                        }
-                        .font(.system(.caption, design: .rounded))
-                        .padding(.bottom, 4)
-                        .padding(.trailing, 12)
-                    }
                 PointMark(
-                    x: .value("Rank", selected),
+                    x: .value("Rank", x),
                     y: .value("GPA", value.gpa)
                 )
                 .symbolSize(100)
             }
         }
+        .overlay(alignment: .bottomLeading, {
+            if let selected = chartSelection {
+                let x = max(1, selected)
+                let value = ranks[ranks.count - x]
+                Grid(alignment: .leading) {
+                    GridRow {
+                        Text("GPA: ")
+                        Text(String(format: "%.2f", value.gpa))
+                    }
+                    GridRow {
+                        Text("Rank: ")
+                        Text("\(value.rank)")
+                    }
+                }
+                .padding(8)
+                .background(.ultraThinMaterial)
+                .cornerRadius(8)
+                .font(.system(.caption, design: .rounded))
+                .padding(.bottom, 56)
+                .padding(.leading, 24)
+            }
+        })
         .chartXScale(domain: 0 ... ranks.count)
         .chartXAxisLabel(String(localized:"Rank"))
         .chartYAxisLabel(String(localized:"GPA"))
         .chartXSelection(value: $chartSelection)
         .frame(height: 300)
-        .padding(.top, 10)
+        .padding(.top, 8)
     }
 }
