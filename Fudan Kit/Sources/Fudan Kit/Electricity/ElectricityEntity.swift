@@ -20,9 +20,12 @@ public struct ElectricityUsage: Codable {
         case electricityAll = "fj_all"
     }
     
-    static public func convertEnergyToMeasuredString(_ value: Float) -> String {
+    // To properly display the energy value (with space before the unit kWh), we need to convert it to a formatted string.
+    // The value is rounded to two decimal places.
+    public static func convertEnergyToMeasuredString(_ value: Float) -> String {
         let energy = Measurement<UnitEnergy>(value: Double(value), unit: .kilowattHours)
-        let style = Measurement<UnitEnergy>.FormatStyle(width: .abbreviated)
-        return style.format(energy)
+        return energy.formatted(.measurement(width: .abbreviated,
+                                             numberFormatStyle: .number
+                                                 .precision(.fractionLength(2))))
     }
 }
