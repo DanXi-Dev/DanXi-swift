@@ -11,6 +11,7 @@ struct THSearchTagPage: View {
             } content: { hole in
                 Section {
                     THHoleView(hole: hole)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                 }
             }
         }

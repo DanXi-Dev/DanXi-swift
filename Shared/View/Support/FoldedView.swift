@@ -7,7 +7,8 @@ struct FoldedView<Label: View, Content: View>: View {
 
     init(expand: Bool = false,
          @ViewBuilder label: () -> Label,
-         @ViewBuilder content: () -> Content) {
+         @ViewBuilder content: () -> Content)
+    {
         self._expand = State(initialValue: expand)
         self.label = label()
         self.content = content()
@@ -18,13 +19,12 @@ struct FoldedView<Label: View, Content: View>: View {
             if expand {
                 content
             } else {
-                Button {
-                    withAnimation {
-                        expand = true
+                label
+                    .onPress {
+                        withAnimation {
+                            expand = true
+                        }
                     }
-                } label: {
-                    label
-                }
             }
         }
     }
