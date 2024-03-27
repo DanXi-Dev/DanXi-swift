@@ -40,8 +40,8 @@ struct FDClassroomPage: View {
                     return try await ClassroomStore.shared.getCachedClassroom(building: building)
                 } content: { (classrooms: [Classroom]) in
                     let filteredClassrooms = searchText.isEmpty ? classrooms : classrooms.filter({
-                        $0.name.contains(searchText) || $0.schedules.contains(where: {
-                            $0.courseId.contains(searchText) || $0.name.contains(searchText)
+                        $0.name.localizedCaseInsensitiveContains(searchText) || $0.schedules.contains(where: {
+                            $0.courseId.localizedCaseInsensitiveContains(searchText) || $0.name.localizedCaseInsensitiveContains(searchText)
                         })
                     })
                     if filteredClassrooms.count > 0 {

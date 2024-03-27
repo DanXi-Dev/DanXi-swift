@@ -10,7 +10,7 @@ struct THTagsPage: View {
                 return tag.temperature >= 10
             }
             
-            return tag.name.contains(query)
+            return tag.name.localizedCaseInsensitiveContains(query)
         }
     }
     
