@@ -173,7 +173,6 @@ public enum UndergraduateCourseAPI {
             var updated = false
             
             mutating func update(weekday: Int, time: Int) {
-                updated = true
                 self.weekday = weekday
                 if !updated {
                     start = time
@@ -181,6 +180,7 @@ public enum UndergraduateCourseAPI {
                 } else {
                     end = max(end, time)
                 }
+                updated = true
             }
             
             func build() -> Course? {
@@ -219,12 +219,6 @@ public enum UndergraduateCourseAPI {
                     courses.append(course)
                 }
             }
-        }
-        
-        // last item problem
-        if let courseBuilder = courseBuilder,
-           let course = courseBuilder.build() {
-            courses.append(course)
         }
         
         return courses
