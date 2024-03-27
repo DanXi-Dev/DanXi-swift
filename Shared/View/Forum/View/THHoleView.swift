@@ -156,9 +156,6 @@ struct THHoleView: View {
                 .padding(.top, 2)
                 .foregroundStyle(.secondary.opacity(0.5))
         }
-        
-//        .background(Color.secondary.opacity(colorScheme == .dark ? 0.15 : 0.1))
-//        .cornerRadius(7)
     }
 }
 
