@@ -1,16 +1,17 @@
 import SwiftUI
+import ViewUtils
 
 struct THFavoritesPage: View {
     var body: some View {
         AsyncContentView {
-            return try await THRequests.loadFavorites()
+            try await THRequests.loadFavorites()
         } content: { favorites in
             FavoritePageContent(favorites)
         }
     }
 }
 
-fileprivate struct FavoritePageContent: View {
+private struct FavoritePageContent: View {
     @ObservedObject private var appModel = THModel.shared
     @State private var favorites: [THHole]
     @State private var showAlert = false
@@ -42,19 +43,21 @@ fileprivate struct FavoritePageContent: View {
             } else {
                 THBackgroundList {
                     ForEach(favorites) { hole in
-                        THHoleView(hole: hole)
-                            .swipeActions {
-                                Button(role: .destructive) {
-                                    removeFavorite(hole)
-                                } label: {
-                                    Image(systemName: "trash")
+                        Section {
+                            THHoleView(hole: hole)
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        removeFavorite(hole)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
                                 }
-                            }
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
                     }
                 }
-                .alert("Toggle Favorite Failed", isPresented: $showAlert) {
-                    
-                } message: {
+                .sectionSpacing(10)
+                .alert("Toggle Favorite Failed", isPresented: $showAlert) {} message: {
                     Text(deleteError)
                 }
             }

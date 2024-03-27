@@ -2419,6 +2419,22 @@
         }
       }
     },
+    "Folded" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folded"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已折叠"
+          }
+        }
+      }
+    },
     "Forbidden" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3168,6 +3184,7 @@
       }
     },
     "Main Section" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3791,6 +3808,7 @@
     },
     "Pinned" : {
       "comment" : "Treehole Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

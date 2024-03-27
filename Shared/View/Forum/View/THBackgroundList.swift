@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
     @ObservedObject private var settings = THSettings.shared
@@ -24,19 +25,18 @@ struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
     
     var body: some View {
         List(selection: $selection) {
-            content
-                .listRowBackground(Color.clear.opacity(0))
+                content
         }
-        .listStyle(.inset)
-        .scrollContentBackground(hasBackground ? .hidden : .visible)
-        .background(alignment: .bottomLeading) { // leading alignment is used so that the image won't move when the size of List changes during scroll (navigation title may change its size)
-            if let image = settings.backgroundImage {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .ignoresSafeArea()
-                    .opacity(0.3)
-            }
-        }
+        .sectionSpacing(10)
+//        .scrollContentBackground(hasBackground ? .hidden : .visible)
+//        .background(alignment: .bottomLeading) { // leading alignment is used so that the image won't move when the size of List changes during scroll (navigation title may change its size)
+//            if let image = settings.backgroundImage {
+//                image
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .ignoresSafeArea()
+//                    .opacity(0.3)
+//            }
+//        }
     }
 }

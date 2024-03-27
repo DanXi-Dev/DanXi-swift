@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import ViewUtils
 import WrappingHStack
 
 struct THHolePage: View {
@@ -13,7 +14,7 @@ struct THHolePage: View {
         self._model = StateObject(wrappedValue: THHoleModel(hole: hole))
     }
     
-    init(_ model: THHoleModel) { 
+    init(_ model: THHoleModel) {
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -21,20 +22,27 @@ struct THHolePage: View {
         ZStack {
             ScrollViewReader { proxy in
                 THBackgroundList(selection: $model.selectedFloor) {
-                    Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
-                        THHoleTags(tags: model.hole.tags)
-                            .listRowSeparator(.hidden, edges: .top)
-                        
-                        if model.hole.locked {
-                            Label("Post locked, reply is forbidden", systemImage: "lock.fill")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                                .listRowSeparator(.hidden)
-                        }
-                        
-                        AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
+                    AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
+                        Section {
                             THComplexFloor(floor)
                                 .tag(floor)
+                        } header: {
+                            if floor.id == model.floors.first?.id {
+                                VStack(alignment: .leading) {
+                                    if model.hole.locked {
+                                        HStack {
+                                            Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                                                .font(.callout)
+                                                .foregroundColor(.secondary)
+                                                .listRowSeparator(.hidden)
+                                            Spacer()
+                                        }
+                                    }
+                                    THHoleTags(tags: model.hole.tags)
+                                        .padding(.bottom, 5)
+                                        .textCase(.none)
+                                }
+                            }
                         }
                     }
                 }
@@ -64,18 +72,14 @@ struct THHolePage: View {
                     do {
                         try await THRequests.updateViews(holeId: model.hole.id)
                         THModel.shared.appendHistory(hole: model.hole)
-                    } catch {
-                        
-                    }
+                    } catch {}
                 }
                 .onReceive(screenshotPublisher) { _ in
                     if settings.screenshotAlert {
                         showScreenshotAlert = true
                     }
                 }
-                .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {
-                    
-                } message: {
+                .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {} message: {
                     Text("Screenshot Alert Content")
                 }
                 .environmentObject(model)
@@ -105,7 +109,7 @@ struct THHolePage: View {
     }
 }
 
-fileprivate struct THHoleToolbar: View {
+private struct THHoleToolbar: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THHoleModel
     @Environment(\.editMode) private var editMode
@@ -217,7 +221,7 @@ fileprivate struct THHoleToolbar: View {
                     try await model.deleteHole()
                 }
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) {}
         } message: {
             Text("This will affect all replies of this post")
         }
@@ -242,9 +246,7 @@ struct THHoleTags: View {
     }
 }
 
-
-
-fileprivate struct THHoleBottomBar: View {
+private struct THHoleBottomBar: View {
     @EnvironmentObject private var model: THHoleModel
     @Environment(\.editMode) private var editMode
     @State private var showAlert = false
@@ -296,7 +298,7 @@ fileprivate struct THHoleBottomBar: View {
     }
 }
 
-fileprivate struct BottomBarLabel: View {
+private struct BottomBarLabel: View {
     let text: LocalizedStringKey
     let systemImage: String
     

@@ -8,6 +8,8 @@ struct THBrowsePage: View {
     var body: some View {
         THBackgroundList {
             THDivisionPicker()
+                .listRowInsets(EdgeInsets(.all, 0))
+                .listRowBackground(Color.clear)
             
             if !appModel.banners.isEmpty && settings.showBanners {
                 BannerCarousel(appModel.banners)
@@ -20,35 +22,25 @@ struct THBrowsePage: View {
             
             // Pinned Holes
             if !model.division.pinned.isEmpty {
-                Section {
-                    Label("Pinned", systemImage: "pin.fill")
-                        .bold()
-                        .foregroundColor(.secondary)
-                        .listRowSeparator(.hidden)
-                        
-                    
-                    ForEach(model.division.pinned) { hole in
-                        THHoleView(hole: hole)
+                ForEach(model.division.pinned) { hole in
+                    Section {
+                        THHoleView(hole: hole, pinned: true)
                     }
+                    .listRowInsets(EdgeInsets(top: 10, leading: 12, bottom: 8, trailing: 12))
                 }
             }
             
             // Main Section
-            Section {
-                if !model.division.pinned.isEmpty { // only show lable when there is pinned section
-                    Label("Main Section", systemImage: "text.bubble.fill")
-                        .bold()
-                        .foregroundColor(.secondary)
-                        .listRowSeparator(.hidden)
-                }
-                
-                AsyncCollection(model.filteredHoles, endReached: false,
-                                action: model.loadMoreHoles) { hole in
-                    let fold = settings.sensitiveContent == .fold && hole.nsfw
+            AsyncCollection(model.filteredHoles, endReached: false,
+                            action: model.loadMoreHoles)
+            { hole in
+                let fold = settings.sensitiveContent == .fold && hole.nsfw
+                Section {
                     THHoleView(hole: hole, fold: fold)
+                        .listRowInsets(EdgeInsets(top: (fold ? 6: 10), leading: 12, bottom: 8, trailing: 12))
                 }
-                .id(model.configId) // stop old loading task when config change
             }
+            .id(model.configId) // stop old loading task when config change
         }
         .animation(.default, value: model.division)
         .navigationTitle(model.division.name)
@@ -64,7 +56,7 @@ struct THBrowsePage: View {
     }
 }
 
-fileprivate struct THDivisionPicker: View {
+private struct THDivisionPicker: View {
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     
@@ -80,7 +72,7 @@ fileprivate struct THDivisionPicker: View {
     }
 }
 
-fileprivate struct THDatePicker: View {
+private struct THDatePicker: View {
     @EnvironmentObject private var model: THBrowseModel
     @Environment(\.dismiss) private var dismiss
     
@@ -117,7 +109,7 @@ fileprivate struct THDatePicker: View {
     }
 }
 
-fileprivate struct THBrowseToolbar: View {
+private struct THBrowseToolbar: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var navigator: THNavigator
@@ -248,14 +240,13 @@ fileprivate struct THBrowseToolbar: View {
                 }
             }
             
-            
         } label: {
             Image(systemName: "ellipsis.circle")
         }
     }
 }
 
-fileprivate struct BannedNotice: View {
+private struct BannedNotice: View {
     let date: Date
     @State private var collapse = false
     
@@ -292,7 +283,7 @@ fileprivate struct BannedNotice: View {
     }
 }
 
-fileprivate struct BannerCarousel: View {
+private struct BannerCarousel: View {
     let banners: [DXBanner]
     @State private var showSheet = false
     @State private var currentBanner: Int = 0
@@ -335,7 +326,7 @@ fileprivate struct BannerCarousel: View {
             NavigationStack {
                 Form {
                     ScrollView {
-                        ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
+                        ForEach(Array(banners.enumerated()), id: \.offset) { _, banner in
                             BannerView(banner: banner) {
                                 showSheet = false // dismiss sheet when navigate to a hole page
                             }
@@ -356,11 +347,10 @@ fileprivate struct BannerCarousel: View {
             }
             .presentationDetents([.medium, .large])
         }
-        
     }
 }
 
-fileprivate struct BannerView: View {
+private struct BannerView: View {
     let banner: DXBanner
     let navigationTapCallback: () -> Void
     @Environment(\.openURL) private var openURL
@@ -373,10 +363,9 @@ fileprivate struct BannerView: View {
         if let callback = navigationTapCallback {
             self.navigationTapCallback = callback
         } else {
-            self.navigationTapCallback = { } // empty closure
+            self.navigationTapCallback = {} // empty closure
         }
     }
-    
     
     private func actionButton(_ action: String) {
         if let holeMatch = action.wholeMatch(of: /#(?<id>\d+)/),

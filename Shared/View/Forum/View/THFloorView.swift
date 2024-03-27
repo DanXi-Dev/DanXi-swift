@@ -27,7 +27,6 @@ struct THSimpleFloor: View {
     }
 }
 
-
 struct THComplexFloor: View {
     @Environment(\.editMode) private var editMode
     
@@ -45,9 +44,9 @@ struct THComplexFloor: View {
     
     private var text: String {
         switch holeModel.filterOption {
-        case .conversation(_):
+        case .conversation:
             return floor.removeFirstMention()
-        case .reply(_):
+        case .reply:
             return floor.removeFirstMention()
         default:
             return floor.content
@@ -69,7 +68,7 @@ struct THComplexFloor: View {
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
         .disabled(editMode?.wrappedValue.isEditing ?? false)
         // highlight control
-        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
+//        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
         .onReceive(holeModel.scrollControl) { id in
             if id == model.floor.id {
                 model.highlight()
@@ -94,15 +93,16 @@ struct THComplexFloor: View {
     }
     
     private var headLine: some View {
-        HStack {
-            let isPoster = floor.posterName == holeModel.floors.first?.posterName
-            THPosterView(name: floor.posterName,
-                         isPoster: isPoster)
+        VStack(alignment: .leading) {
             if !model.floor.spetialTag.isEmpty {
                 THSpecialTagView(content: floor.spetialTag)
             }
-            Spacer()
-            Actions()
+            HStack {
+                let isPoster = floor.posterName == holeModel.floors.first?.posterName
+                THPosterView(name: floor.posterName, isPoster: isPoster)
+                Spacer()
+                Actions()
+            }
         }
     }
     
@@ -173,7 +173,7 @@ struct THFloorContent: View {
         let floors = holeModel?.floors ?? []
         let mentions = floorModel?.floor.mention ?? []
         
-        var partialContent = self.content
+        var partialContent = content
         var parsedElements: [ReferenceItem] = []
         var count = 0
         
@@ -254,7 +254,8 @@ struct THFloorParagraph: View {
         
         while let match = content.firstMatch(of: /\^\[(?<id>[a-zA-Z0-9_]*)\]/) {
             guard let lowerBound = AttributedString.Index(match.range.lowerBound, within: attributedContent),
-                  let upperBound = AttributedString.Index(match.range.upperBound, within: attributedContent) else {
+                  let upperBound = AttributedString.Index(match.range.upperBound, within: attributedContent)
+            else {
                 text = text + Text(attributedContent)
                 break
             }
@@ -326,7 +327,7 @@ enum THSticker: String, CaseIterable {
 
 // MARK: - Components
 
-fileprivate struct Actions: View {
+private struct Actions: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var holeModel: THHoleModel
     @EnvironmentObject private var model: THFloorModel
@@ -397,7 +398,6 @@ fileprivate struct Actions: View {
                 .foregroundColor(floor.liked ? .pink : .secondary)
                 .fixedSize() // prevent numbers to disappear when special tag present
             }
-            
             
             AsyncButton {
                 try await model.dislike()
@@ -519,7 +519,7 @@ fileprivate struct Actions: View {
     }
 }
 
-fileprivate struct TextSelectionSheet: View {
+private struct TextSelectionSheet: View {
     @Environment(\.dismiss) private var dismiss
     let text: String
     

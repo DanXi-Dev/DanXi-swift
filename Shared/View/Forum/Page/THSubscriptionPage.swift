@@ -1,25 +1,26 @@
 import SwiftUI
+import ViewUtils
 
 struct THSubscriptionPage: View {
     var body: some View {
         AsyncContentView {
-            return try await THRequests.loadSubscriptions()
+            try await THRequests.loadSubscriptions()
         } content: { subscriptions in
             SubscriptionContent(subscriptions)
         }
     }
 }
 
-fileprivate struct SubscriptionContent: View {
+private struct SubscriptionContent: View {
     @ObservedObject private var appModel = THModel.shared
     @State private var subscriptions: [THHole]
     @State private var showAlert = false
     @State private var deleteError = ""
-    
+
     init(_ subscriptions: [THHole]) {
         self._subscriptions = State(initialValue: subscriptions)
     }
-    
+
     private func unsubscribe(_ hole: THHole) {
         Task { @MainActor in
             do {
@@ -33,7 +34,7 @@ fileprivate struct SubscriptionContent: View {
             }
         }
     }
-    
+
     var body: some View {
         Group {
             if subscriptions.isEmpty {
@@ -42,21 +43,23 @@ fileprivate struct SubscriptionContent: View {
             } else {
                 THBackgroundList {
                     ForEach(subscriptions) { hole in
-                        THHoleView(hole: hole)
-                            .swipeActions {
-                                Button(role: .destructive) {
-                                    unsubscribe(hole)
-                                } label: {
-                                    Image(systemName: "trash")
+                        Section {
+                            THHoleView(hole: hole)
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        unsubscribe(hole)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
                                 }
-                            }
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
                     }
-                    .alert("Remove Subscription Error", isPresented: $showAlert) {
-                        
-                    } message: {
+                    .alert("Remove Subscription Error", isPresented: $showAlert) {} message: {
                         Text(deleteError)
                     }
                 }
+                .sectionSpacing(10)
             }
         }
         .navigationTitle("Subscription List")

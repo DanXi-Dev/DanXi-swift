@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THMyPostPage: View {
     var body: some View {
@@ -6,10 +7,13 @@ struct THMyPostPage: View {
             AsyncCollection { holes in
                 try await THRequests.loadMyHoles(startTime: holes.last?.updateTime)
             } content: { hole in
-                THHoleView(hole: hole)
+                Section {
+                    THHoleView(hole: hole)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                }
             }
         }
-        .listStyle(.inset)
+        .sectionSpacing(8)
         .navigationTitle("My Post")
         .navigationBarTitleDisplayMode(.inline)
     }

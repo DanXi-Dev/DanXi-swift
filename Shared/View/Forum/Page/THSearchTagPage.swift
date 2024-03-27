@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THSearchTagPage: View {
     let tagname: String
@@ -8,10 +9,13 @@ struct THSearchTagPage: View {
             AsyncCollection { holes in
                 try await THRequests.listHoleByTag(tagName: tagname, startTime: holes.last?.updateTime.ISO8601Format())
             } content: { hole in
-                THHoleView(hole: hole)
+                Section {
+                    THHoleView(hole: hole)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                }
             }
         }
-        .listStyle(.inset)
+        .sectionSpacing(10)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(tagname)
     }
