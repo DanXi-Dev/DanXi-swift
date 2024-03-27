@@ -33,6 +33,7 @@ struct THTagsPage: View {
             }
             .listStyle(.inset)
             .navigationTitle("All Tags")
+            .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $query, prompt: Text("Search in Tags"))
         }
     }

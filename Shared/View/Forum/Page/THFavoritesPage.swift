@@ -60,5 +60,6 @@ fileprivate struct FavoritePageContent: View {
             }
         }
         .navigationTitle("Favorites")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -11,5 +11,6 @@ struct THMyPostPage: View {
         }
         .listStyle(.inset)
         .navigationTitle("My Post")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

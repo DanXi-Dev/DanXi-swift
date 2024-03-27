@@ -40,6 +40,7 @@ struct THModeratePage: View {
             }
             .listStyle(.inset)
             .navigationTitle("Moderate")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if filter == .open {
                     EditButton()

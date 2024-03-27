@@ -47,6 +47,12 @@ struct THHomePage: View {
     private var menu: some View {
         Menu {
             Button {
+                navigator.path.append(THPage.notifications)
+            } label: {
+                Label("Notifications", systemImage: "bell")
+            }
+            
+            Button {
                 navigator.path.append(THPage.favorite)
             } label: {
                 Label("Favorites", systemImage: "star")
@@ -80,12 +86,6 @@ struct THHomePage: View {
                 navigator.path.append(THPage.tags)
             } label: {
                 Label("All Tags", systemImage: "tag")
-            }
-            
-            Button {
-                navigator.path.append(THPage.notifications)
-            } label: {
-                Label("Notifications", systemImage: "bell")
             }
             
             if appModel.isAdmin {

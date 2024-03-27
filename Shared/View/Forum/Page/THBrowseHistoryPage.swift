@@ -53,6 +53,7 @@ struct THBrowseHistoryPage: View {
         }
         .listStyle(.inset)
         .navigationTitle("Recent Browsed")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
                 Button {

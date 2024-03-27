@@ -60,5 +60,6 @@ fileprivate struct SubscriptionContent: View {
             }
         }
         .navigationTitle("Subscription List")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

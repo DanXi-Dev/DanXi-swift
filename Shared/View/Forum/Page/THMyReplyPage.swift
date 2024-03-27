@@ -13,5 +13,6 @@ struct THMyReplyPage: View {
         }
         .listStyle(.inset)
         .navigationTitle("My Reply")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

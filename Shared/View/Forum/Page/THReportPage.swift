@@ -15,6 +15,7 @@ struct THReportPage: View {
         }
         .listStyle(.inset)
         .navigationTitle("Reports Management")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 filter

@@ -33,13 +33,14 @@ fileprivate struct NotificationContent: View {
         }
         .listStyle(.inset)
         .navigationTitle("Notifications")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if appModel.isAdmin {
                 ToolbarItem {
                     Button {
                         showMessageSheet = true
                     } label: {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: "envelope")
                     }
                 }
             }
