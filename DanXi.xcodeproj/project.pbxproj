@@ -67,7 +67,6 @@
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
 		276310272AB82B99005896AD /* FDCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276310262AB82B99005896AD /* FDCalendarView.swift */; };
-		2763102B2AB8380E005896AD /* FDGradCaledarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA028A3E4DF00C661BD /* DKCourseView.swift */; };
 		27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA528A3EAB100C661BD /* DKHomePage.swift */; };
@@ -80,7 +79,6 @@
 		27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF429D600E1008DC0C2 /* THSettingsView.swift */; };
 		27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF629D6012E008DC0C2 /* THSettingsModel.swift */; };
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
-		278996FC2AB78464009A7529 /* FDGradAgendaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */; };
 		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
 		2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791030C29C7640F003B9FD9 /* THPosterView.swift */; };
@@ -270,7 +268,6 @@
 		275B71CC28C5249800475BA3 /* THReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportPage.swift; sourceTree = "<group>"; };
 		275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDivisionSheet.swift; sourceTree = "<group>"; };
 		276310262AB82B99005896AD /* FDCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarView.swift; sourceTree = "<group>"; };
-		2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDGradCaledarPage.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
 		27719AA028A3E4DF00C661BD /* DKCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCourseView.swift; sourceTree = "<group>"; };
 		27719AA528A3EAB100C661BD /* DKHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKHomePage.swift; sourceTree = "<group>"; };
@@ -283,7 +280,6 @@
 		27834AF429D600E1008DC0C2 /* THSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsView.swift; sourceTree = "<group>"; };
 		27834AF629D6012E008DC0C2 /* THSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsModel.swift; sourceTree = "<group>"; };
 		27834AF829D6261E008DC0C2 /* THMyPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMyPostPage.swift; sourceTree = "<group>"; };
-		278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDGradAgendaAPI.swift; sourceTree = "<group>"; };
 		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
 		2791030C29C7640F003B9FD9 /* THPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPosterView.swift; sourceTree = "<group>"; };
@@ -418,7 +414,6 @@
 			children = (
 				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
 				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
-				2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */,
 				270131922A3C28FB0013FA7E /* FDCanteenPage.swift */,
 				2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */,
 				270131902A3C27F20013FA7E /* FDLibraryPage.swift */,
@@ -440,7 +435,6 @@
 			children = (
 				2706604E29312D8200F4C321 /* FDAuthAPI.swift */,
 				2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */,
-				278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1033,7 +1027,6 @@
 				270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */,
 				27013BD629D02A67004A5D2F /* THSearchPage.swift in Sources */,
-				278996FC2AB78464009A7529 /* FDGradAgendaAPI.swift in Sources */,
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
@@ -1143,7 +1136,6 @@
 				27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */,
 				27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */,
 				2733CA172AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
-				2763102B2AB8380E005896AD /* FDGradCaledarPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

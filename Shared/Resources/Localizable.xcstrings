@@ -280,6 +280,7 @@
       }
     },
     "%@年第%@学期" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -826,6 +827,7 @@
       }
     },
     "Calendar Access not Granted" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -836,6 +838,7 @@
       }
     },
     "Calendar Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1282,6 +1285,7 @@
       }
     },
     "Current semester expired, reset semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4527,6 +4531,7 @@
       }
     },
     "Select Semester Start Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4574,6 +4579,7 @@
       }
     },
     "Semester Start Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

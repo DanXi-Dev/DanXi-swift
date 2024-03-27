@@ -83,17 +83,11 @@ struct TabHomePage: View {
             }
             
             if campusModel.loggedIn {
-                Group {
-                    if campusModel.studentType == .undergrad {
-                        FDCalendarPageLoader()
-                    } else {
-                        FDGradCalendarPage()
+                FDCalendarPage()
+                    .tag(AppSection.calendar)
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
                     }
-                }
-                .tag(AppSection.calendar)
-                .tabItem {
-                    Label("Calendar", systemImage: "calendar")
-                }
             }
             
             SettingsPage()
@@ -148,13 +142,7 @@ struct SplitHomePage: View {
             case .curriculum:
                 DKHomePage()
             case .calendar:
-                Group {
-                    if campusModel.studentType == .undergrad {
-                        FDCalendarPageLoader()
-                    } else {
-                        FDGradCalendarPage()
-                    }
-                }
+                FDCalendarPage()
             case .settings:
                 SettingsPage()
             }
