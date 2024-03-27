@@ -91,7 +91,7 @@ public enum UndergraduateCourseAPI {
                 }
                 
                 // append array
-                let semester = Semester(id: UUID(), year: year, type: type, semesterId: id, startDate: nil, weekCount: 18)
+                let semester = Semester(year: year, type: type, semesterId: id, startDate: nil, weekCount: 18)
                 semesters.append(semester)
             }
         }

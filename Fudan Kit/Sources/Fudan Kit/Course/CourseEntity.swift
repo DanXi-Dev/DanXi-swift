@@ -5,12 +5,11 @@ import Foundation
 /// A semester
 ///
 /// Use ``name`` to get the formatted name of the semester.
-public struct Semester: Identifiable, Codable, Hashable {
+public struct Semester: Codable, Hashable {
     public enum SemesterType: Int, Codable, Hashable {
         case first, winter, second, summer
     }
     
-    public let id: UUID
     let year: Int
     let type: SemesterType
     let semesterId: Int
@@ -19,7 +18,7 @@ public struct Semester: Identifiable, Codable, Hashable {
 }
 
 extension Semester {
-    /// Formatted name of the semester0
+    /// Formatted name of the semester
     public var name: String {
         let semesterName = switch type {
         case .first: "第一学期"

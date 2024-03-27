@@ -37,6 +37,7 @@ public actor GraduateCourseStore {
         }
         
         let courses = try await GraduateCourseAPI.getCourses(semester: semester)
+        courseMap[semester] = courses
         try Disk.save(courses, to: .applicationSupport, as: "fdutools/grad-course-map.json")
         return courses
     }

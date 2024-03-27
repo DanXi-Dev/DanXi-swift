@@ -13,7 +13,7 @@ public class CourseModel: ObservableObject {
         let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
         let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
-        let model = CourseModel(studentType: .undergrad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
+        let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
         model.refreshCache()
         return model
     }
@@ -41,7 +41,7 @@ public class CourseModel: ObservableObject {
     /// Factory constructor for recreatng a model from local cache
     /// - Parameter studentType: the type of the student. If it's not matched with cache, it will return `nil` and invalidate cache.
     /// - Returns: A model recreated from local cache
-    public static func loadCache(for studentType: StudentType) async throws -> CourseModel? {
+    public static func loadCache(for studentType: StudentType) throws -> CourseModel? {
         guard let cache = try? Disk.retrieve("fdutools/course-model.json", from: .applicationSupport, as: CourseModelCache.self) else {
             return nil
         }
@@ -136,16 +136,28 @@ public class CourseModel: ObservableObject {
     
     /// Refresh courses in current semester and refresh semesters list
     /// - Parameter context: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
-    public func refresh(with context: [Int: Date]) async {
+    @MainActor public func refresh(with context: [Int: Date]) async {
         do {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
-                let (semesters, _) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+                let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+                guard semesters.isEmpty else {
+                    throw URLError(.badServerResponse)
+                }
                 self.semesters = matchUndergraduateSemesterStartDateByContext(semesters: semesters, context: context)
+                if self.semesters.contains(semester) {
+                    semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
+                }
             } else if studentType == .grad {
                 courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester)
-                let (semesters, _) = try await GraduateCourseStore.shared.getRefreshedSemesters()
+                let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
+                guard semesters.isEmpty else {
+                    throw URLError(.badServerResponse)
+                }
                 self.semesters = semesters
+                if self.semesters.contains(semester) {
+                    semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
+                }
             }
         } catch {
             networkError = error
@@ -174,7 +186,6 @@ public class CourseModel: ObservableObject {
     func exportToCalendar() {
         
     }
-
 }
 
 func computeWeekOffset(from startDate: Date?, courses: [Course]) -> Int {

@@ -66,7 +66,7 @@ public enum GraduateCourseAPI {
             }
             let type: Semester.SemesterType = (response.term == "1") ? .first : .second
             
-            let semester = Semester(id: UUID(), year: year, type: type, semesterId: 0, startDate: response.startday, weekCount: response.countweek)
+            let semester = Semester(year: year, type: type, semesterId: 0, startDate: response.startday, weekCount: response.countweek)
             semesters.append(semester)
         }
         
@@ -242,7 +242,7 @@ public enum GraduateCourseAPI {
         var onWeeks: [Int] = []
         
         func build() -> Course {
-            return Course(id: UUID(), name: name, code: code, teacher: teacher, location: location, weekday: weekday, start: start, end: end, onWeeks: onWeeks)
+            return Course(id: UUID(), name: name, code: code, teacher: teacher, location: location, weekday: weekday - 1, start: start, end: end, onWeeks: onWeeks)
         }
     }
     
