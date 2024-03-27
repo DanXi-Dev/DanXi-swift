@@ -2,8 +2,8 @@ import Foundation
 
 // MARK: URLs
 
-var FDUHOLE_AUTH_URL = "https://auth.fduhole.jingyijun.xyz:9443/api"
-var FDUHOLE_BASE_URL = "https://www.fduhole.jingyijun.xyz:9443/api"
+var FDUHOLE_AUTH_URL = "https://auth.fduhole.com/api"
+var FDUHOLE_BASE_URL = "https://www.fduhole.com/api"
 var DANKE_BASE_URL = "https://danke.fduhole.com/api"
 
 // MARK: Auto Refresh
