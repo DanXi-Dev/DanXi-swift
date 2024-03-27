@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 import WrappingHStack
 
 struct THHoleView: View {
@@ -17,7 +18,24 @@ struct THHoleView: View {
     
     var body: some View {
         FoldedView(expand: !fold) {
-            tags
+            HStack(alignment: .center) {
+                Spacer()
+                Text("Folded")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .fontWeight(.light)
+                    .padding(.leading, 3)
+                    .padding(.top, 1)
+                    .fixedSize()
+            }
+            .background(alignment: .leading) {
+                HStack {
+                    tags
+                        .fixedSize()
+                }
+                .clipped()
+            }
+            
         } content: {
             fullContent
         }
@@ -51,8 +69,8 @@ struct THHoleView: View {
             
             if hole.firstFloor.id != hole.lastFloor.id {
                 lastFloor
-                    .padding(.vertical, 2)
-                    .padding(.leading, 12)
+                    .padding(.vertical, 1)
+                    .padding(.leading, 10)
             }
             
             info

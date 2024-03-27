@@ -24,23 +24,7 @@ struct FoldedView<Label: View, Content: View>: View {
                         expand = true
                     }
                 } label: {
-                    HStack(alignment: .center) {
-                        Spacer()
-                        Text("Folded")
-                            .foregroundColor(.secondary)
-                            .font(.caption)
-                            .fontWeight(.light)
-                            .padding(.leading, 3)
-                            .padding(.top, 1)
-                            .fixedSize()
-                    }
-                    .background(alignment: .leading) {
-                        HStack {
-                            label
-                                .fixedSize()
-                        }
-                        .clipped()
-                    }
+                    label
                 }
             }
         }

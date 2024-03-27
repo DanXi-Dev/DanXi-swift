@@ -10,7 +10,6 @@ struct THBrowsePage: View {
             THDivisionPicker()
                 .listRowInsets(EdgeInsets(.all, 0))
                 .listRowBackground(Color.clear)
-//                .sectionSpacing(2)
             
             if !appModel.banners.isEmpty && settings.showBanners {
                 BannerCarousel(appModel.banners)
