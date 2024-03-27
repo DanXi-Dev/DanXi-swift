@@ -52,7 +52,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "(##%@)"
           }
         }
       }
@@ -62,7 +62,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "##%@"
           }
         }
       }
@@ -72,7 +72,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "#%@"
           }
         }
       }
@@ -92,7 +92,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%@"
           }
         }
       }
@@ -108,7 +108,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$@ - %2$@"
           }
         }
       }
@@ -124,7 +124,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$@ - %2$lld"
           }
         }
       }
@@ -140,7 +140,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$@ / %2$@"
           }
         }
       }
@@ -156,7 +156,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$@ %2$@"
           }
         }
       }
@@ -264,7 +264,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$@: %2$@"
           }
         }
       }
@@ -274,7 +274,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%@F"
           }
         }
       }
@@ -290,7 +290,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$@年第%2$@学期"
           }
         }
       }
@@ -337,7 +337,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "%1$lld (%2$@)"
           }
         }
       }
@@ -393,7 +393,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "¥ %@"
           }
         }
       }
@@ -403,7 +403,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "¥%@"
           }
         }
       }
