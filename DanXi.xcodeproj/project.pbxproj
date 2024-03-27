@@ -194,9 +194,6 @@
 		F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */; };
 		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
-		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
-		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
-		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -362,9 +359,6 @@
 		F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDDateValueChart.swift; sourceTree = "<group>"; };
 		F1728E332BB1661C00483F09 /* SheetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetExtension.swift; sourceTree = "<group>"; };
 		F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
-		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
-		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
-		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,7 +503,6 @@
 				27E2DE7A2A55496D00D26D86 /* Date.swift */,
 				2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */,
 				27CBA0762951C01E00F422DB /* Network.swift */,
-				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -807,16 +800,6 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		F1AE7C1528AA3C3500A3FEBA /* Machine Learning */ = {
-			isa = PBXGroup;
-			children = (
-				F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */,
-				F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */,
-				F1AE7C1128A9514B00A3FEBA /* MLModels.swift */,
-			);
-			path = "Machine Learning";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1081,7 +1064,6 @@
 				2701318F2A3B9A4F0013FA7E /* FDNoticePage.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
-				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
 				F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */,
 				F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */,
@@ -1140,7 +1122,6 @@
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				2798F2CB2AB2917D00578744 /* FDClassroomPage.swift in Sources */,
-				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
 				27E82FE929E88AB000F34B3B /* WebView.swift in Sources */,
 				27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */,
@@ -1152,7 +1133,6 @@
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
-				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
 				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,

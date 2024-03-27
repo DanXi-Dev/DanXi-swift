@@ -4960,6 +4960,7 @@
       }
     },
     "Suggest Tags" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
