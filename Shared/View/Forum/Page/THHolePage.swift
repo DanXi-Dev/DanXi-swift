@@ -11,7 +11,7 @@ struct THHolePage: View {
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     init(_ hole: THHole) {
-        self._model = StateObject(wrappedValue: THHoleModel(hole: hole))
+        self._model = StateObject(wrappedValue: THHoleModel(hole: hole, floors: hole.floors, loadMore: true))
     }
     
     init(_ model: THHoleModel) {
