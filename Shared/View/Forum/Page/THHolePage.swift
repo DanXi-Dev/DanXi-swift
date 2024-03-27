@@ -25,13 +25,13 @@ struct THHolePage: View {
                     Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
                         VStack(alignment: .leading) {
                             THHoleTags(tags: model.hole.tags)
-                                .padding(.bottom, 4)
                             //                            .listRowSeparator(.hidden, edges: .top)
                             if model.hole.locked {
                                 Label("Post locked, reply is forbidden", systemImage: "lock.fill")
                                     .font(.callout)
                                     .foregroundColor(.secondary)
                                     .listRowSeparator(.hidden)
+                                    .padding(.top, 4)
                             }
                         }
                     }

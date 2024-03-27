@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftUIX
-import WrappingHStack
 
 struct THSimpleFloor: View {
     let floor: THFloor
@@ -94,7 +93,7 @@ struct THComplexFloor: View {
     }
     
     private var headLine: some View {
-        WrappingHStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             if !model.floor.spetialTag.isEmpty {
                 THSpecialTagView(content: floor.spetialTag)
             }
@@ -557,7 +556,7 @@ private struct TextSelectionSheet: View {
     }
 }
 
-private struct SelectableText: UIViewRepresentable {
+fileprivate struct SelectableText: UIViewRepresentable {
     let text: String
     
     func makeUIView(context: Context) -> UITextView {
