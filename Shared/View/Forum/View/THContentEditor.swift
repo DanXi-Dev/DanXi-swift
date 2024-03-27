@@ -93,7 +93,7 @@ struct THContentEditor: View {
                 }
 
 
-            } header: {
+            } footer: {
                 Text("TH Edit Alert")
             }
             
