@@ -165,6 +165,7 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
             }
         }
         .frame(height: 50)
+        .listRowBackground(Color.clear)
     }
 }
 
