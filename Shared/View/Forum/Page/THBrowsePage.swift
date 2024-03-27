@@ -58,6 +58,7 @@ struct THBrowsePage: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 THBrowseToolbar()
+                    .environmentObject(model)
             }
         }
     }
@@ -136,6 +137,7 @@ fileprivate struct THBrowseToolbar: View {
         }
         .sheet(isPresented: $showDatePicker) {
             THDatePicker()
+                .environmentObject(model)
         }
         .sheet(isPresented: $showDivisionSheet) {
             THDivisionSheet(divisionId: model.division.id)
