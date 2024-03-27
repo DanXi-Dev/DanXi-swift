@@ -1110,6 +1110,9 @@
         }
       }
     },
+    "Copyright © 2024 DanXi-Dev" : {
+
+    },
     "Course Assessment" : {
       "localizations" : {
         "en" : {
@@ -5652,6 +5655,16 @@
         }
       }
     },
+    "Write a Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "给我们评分"
+          }
+        }
+      }
+    },
     "Write Review" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5744,6 +5757,16 @@
       }
     },
     "江湾校区" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "沪ICP备2021032046号-4A" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
