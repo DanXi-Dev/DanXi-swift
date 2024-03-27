@@ -15,7 +15,7 @@ struct THMyReplyPage: View {
                 }
             }
         }
-        .sectionSpacing(10)
+        .sectionSpacing(8)
         .navigationTitle("My Reply")
     }
 }
