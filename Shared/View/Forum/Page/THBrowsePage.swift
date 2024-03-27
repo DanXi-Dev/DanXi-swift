@@ -119,6 +119,7 @@ fileprivate struct THDatePicker: View {
 fileprivate struct THBrowseToolbar: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THBrowseModel
+    @EnvironmentObject private var navigator: THNavigator
     
     @State private var showPostSheet = false
     @State private var showDatePicker = false
@@ -158,6 +159,50 @@ fileprivate struct THBrowseToolbar: View {
     
     private var moreOptions: some View {
         Menu {
+            Button {
+                navigator.path.append(THPage.notifications)
+            } label: {
+                Label("Notifications", systemImage: "bell")
+            }
+            
+            Button {
+                navigator.path.append(THPage.favorite)
+            } label: {
+                Label("Favorites", systemImage: "star")
+            }
+            
+            Button {
+                navigator.path.append(THPage.subscription)
+            } label: {
+                Label("Subscription List", systemImage: "eye")
+            }
+            
+            Button {
+                navigator.path.append(THPage.mypost)
+            } label: {
+                Label("My Post", systemImage: "person")
+            }
+            
+            Button {
+                navigator.path.append(THPage.myreply)
+            } label: {
+                Label("My Reply", systemImage: "arrowshape.turn.up.left")
+            }
+            
+            Button {
+                navigator.path.append(THPage.history)
+            } label: {
+                Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
+            }
+            
+            Button {
+                navigator.path.append(THPage.tags)
+            } label: {
+                Label("All Tags", systemImage: "tag")
+            }
+            
+            Divider()
+            
             Picker("Sort Options", selection: $model.sortOption) {
                 Text("Last Updated")
                     .tag(THBrowseModel.SortOption.replyTime)
@@ -172,11 +217,29 @@ fileprivate struct THBrowseToolbar: View {
             }
             
             if appModel.isAdmin {
+                Divider()
+                
                 Menu {
                     Button {
                         showDivisionSheet = true
                     } label: {
                         Label("Edit Division Info", systemImage: "rectangle.3.group")
+                    }
+                    
+                    Button {
+                        navigator.path.append(THPage.report)
+                    } label: {
+                        Label("Report", systemImage: "exclamationmark.triangle")
+                    }
+                    
+                    Button {
+                        navigator.path.append(THPage.moderate)
+                    } label: {
+                        Label("Moderate", systemImage: "video")
+                    }
+                    
+                    NavigationLink("Send Message") {
+                        THMessageSheet()
                     }
                 } label: {
                     Label("Admin Actions", systemImage: "person.badge.key")
