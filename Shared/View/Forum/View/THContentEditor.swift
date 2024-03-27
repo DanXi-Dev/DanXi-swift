@@ -32,7 +32,7 @@ struct THContentEditor: View {
             
             for run in attributed.runs {
                 if let url = run.imageURL {
-                    if url.host()?.contains("jingyijun.xyz") != true {
+                    if url.host()?.contains(IMAGE_BASE_URL) != true {
                         await MainActor.run {
                             showExternalImageAlert = true
                         }

@@ -240,7 +240,7 @@ fileprivate struct ParagraphView: View {
                         .font(.callout)
                 case .image(let url):
                     // don't support external images. note that this is only a temporary solution, which may contain problem, and will eventually be rewritten
-                    if url.host()?.contains("jingyijun.xyz") == true {
+                    if url.host()?.contains(IMAGE_BASE_URL) == true {
                         HStack {
                             Spacer()
                             CachedAsyncImage(url: url) { phase in
@@ -258,8 +258,9 @@ fileprivate struct ParagraphView: View {
                             Spacer()
                         }
                     } else {
-                        Color.gray.opacity(0.1)
-                            .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
+                        SwiftUI.Text(url.absoluteString)
+                            .font(.callout)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
