@@ -3,6 +3,7 @@ import Foundation
 public enum GraduateCourseAPI {
     
     /// Get all semesters
+    /// - Returns: A tuple of semesters and current semester.
     ///
     /// - Important:
     ///     The `startday` property of the semester may be incorrect in previous semesters.
@@ -44,7 +45,7 @@ public enum GraduateCourseAPI {
     ///     }
     /// }
     /// ```
-    public static func getSemesters() async throws -> [Semester] {
+    public static func getSemesters() async throws -> ([Semester], Semester?) {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanyjskb/wap/default/get-index")!
         let data = try await AuthenticationAPI.authenticateForData(url)
         let json = try unwrapJSON(data)
@@ -68,7 +69,19 @@ public enum GraduateCourseAPI {
             let semester = Semester(id: UUID(), year: year, type: type, semesterId: 0, startDate: response.startday, weekCount: response.countweek)
             semesters.append(semester)
         }
-        return semesters
+        
+        var currentSemester: Semester? = nil
+        
+        let currentSemesterYearString = json["params"]["year"].stringValue
+        let currentSemsterTermString = json["params"]["term"].stringValue
+        if let currentSemesterYearMatch = currentSemesterYearString.firstMatch(of: /(?<startYear>\d+)-\d+/),
+           let currentSemesterYear = Int(currentSemesterYearMatch.startYear) {
+            let type: Semester.SemesterType = (currentSemsterTermString == "1") ? .first : .second
+            currentSemester = semesters.filter({ $0.year == currentSemesterYear && $0.type == type }).first
+        }
+        
+        
+        return (semesters, currentSemester)
     }
     
     private struct GraduateSemesterResponse: Decodable {

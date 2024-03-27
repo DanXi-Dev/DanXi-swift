@@ -5,8 +5,8 @@ import Foundation
 /// A semester
 ///
 /// Use ``name`` to get the formatted name of the semester.
-public struct Semester: Identifiable, Codable {
-    public enum SemesterType: Int, Codable {
+public struct Semester: Identifiable, Codable, Hashable {
+    public enum SemesterType: Int, Codable, Hashable {
         case first, winter, second, summer
     }
     
@@ -14,7 +14,7 @@ public struct Semester: Identifiable, Codable {
     let year: Int
     let type: SemesterType
     let semesterId: Int
-    public let startDate: Date?
+    public var startDate: Date?
     public let weekCount: Int
 }
 

@@ -138,15 +138,15 @@ public enum UndergraduateCourseAPI {
     
     /// Get course table for undergraduate
     /// - Parameters:
-    ///   - semester: semester ID
+    ///   - semesterId: semester ID
     ///   - ids: An internal parameter used to identify student type, can be retrieved by ``getParamsForCourses``
     ///   - startWeek: week number, default 1
     /// - Returns: A list of ``Course``, representing student course table
-    public static func getCourses(semester: Int, ids: String, startWeek: Int = 1) async throws -> [Course] {
+    public static func getCourses(semesterId: Int, ids: String, startWeek: Int = 1) async throws -> [Course] {
         // retrieve data from server
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd!courseTable.action")!
         let form = ["ignoreHead": "1",
-                    "semester.id": String(semester),
+                    "semester.id": String(semesterId),
                     "startWeek": String(startWeek),
                     "setting.kind": "std",
                     "ids": String(ids)]

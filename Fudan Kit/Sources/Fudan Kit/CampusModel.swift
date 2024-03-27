@@ -49,7 +49,7 @@ public class CampusModel: ObservableObject {
     }
 }
 
-public enum StudentType: Int {
+public enum StudentType: Int, Codable {
     case undergrad = 0
     case grad
     case staff
