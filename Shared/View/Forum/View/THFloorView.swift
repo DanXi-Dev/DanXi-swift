@@ -69,7 +69,7 @@ struct THComplexFloor: View {
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
         .disabled(editMode?.wrappedValue.isEditing ?? false)
         // highlight control
-        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
+//        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
         .onReceive(holeModel.scrollControl) { id in
             if id == model.floor.id {
                 model.highlight()
