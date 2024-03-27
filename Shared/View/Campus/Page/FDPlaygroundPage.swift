@@ -4,7 +4,7 @@ import FudanKit
 struct FDPlaygroundPage: View {
     var body: some View {
         AsyncContentView {
-            let playgrounds = try await ReservationStore.shared.getRefreshedPlayground()
+            let playgrounds = try await ReservationStore.shared.getCachedPlayground()
             return FDPlaygroundModel(playgrounds)
         } content: { model in
             FDPlaygroundContent(model)

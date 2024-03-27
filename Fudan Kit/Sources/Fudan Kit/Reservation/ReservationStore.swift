@@ -20,24 +20,12 @@ public actor ReservationStore {
             return playgrounds
         }
         
-        if !logged {
-            try await ReservationAPI.login()
-            logged = true
-        }
-        
-        let playgrounds = try await ReservationAPI.getPlaygrounds()
-        self.playgrounds = playgrounds
-        try Disk.save(playgrounds, to: .applicationSupport, as: "fdutools/playgrounds.json")
-        return playgrounds
+        return try await getRefreshedPlayground()
     }
     
     
     /// Invalidate cache and return new data froms erver
     public func getRefreshedPlayground() async throws -> [Playground] {
-        // invalidate cache
-        playgrounds = nil
-        try Disk.remove("fdutools/playgrounds.json", from: .applicationSupport)
-        
         if !logged {
             try await ReservationAPI.login()
             logged = true
