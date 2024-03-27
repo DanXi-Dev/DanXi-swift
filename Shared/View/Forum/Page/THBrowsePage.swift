@@ -302,8 +302,7 @@ private struct BannerView: View {
     
     private func actionButton(_ action: String) {
         if let holeMatch = action.wholeMatch(of: /#(?<id>\d+)/),
-           let holeId = Int(holeMatch.id)
-        {
+           let holeId = Int(holeMatch.id) {
             let loader = THHoleLoader(holeId: holeId)
             navigator.path.append(loader)
             navigationTapCallback()
