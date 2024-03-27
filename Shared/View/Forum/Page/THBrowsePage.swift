@@ -172,12 +172,14 @@ fileprivate struct THBrowseToolbar: View {
             }
             
             if appModel.isAdmin {
-                Divider()
-                
-                Button {
-                    showDivisionSheet = true
+                Menu {
+                    Button {
+                        showDivisionSheet = true
+                    } label: {
+                        Label("Edit Division Info", systemImage: "rectangle.3.group")
+                    }
                 } label: {
-                    Label("Edit Division Info", systemImage: "rectangle.3.group")
+                    Label("Admin Actions", systemImage: "person.badge.key")
                 }
             }
             

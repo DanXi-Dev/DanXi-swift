@@ -16,8 +16,10 @@ struct THFloorEditSheet: View {
             try await model.edit(content, specialTag: specialTag, fold: foldReason)
         } content: {
             if appModel.isAdmin {
-                TextField("Special Tag", text: $specialTag)
-                TextField("Fold Reason", text: $foldReason)
+                Section("Admin Actions") {
+                    TextField("Special Tag", text: $specialTag)
+                    TextField("Fold Reason", text: $foldReason)
+                }
             }
             
             THContentEditor(content: $content)

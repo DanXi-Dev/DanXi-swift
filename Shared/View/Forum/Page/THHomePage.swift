@@ -89,18 +89,24 @@ struct THHomePage: View {
             }
             
             if appModel.isAdmin {
-                Divider()
-                
-                Button {
-                    navigator.path.append(THPage.report)
+                Menu {
+                    Button {
+                        navigator.path.append(THPage.report)
+                    } label: {
+                        Label("Report", systemImage: "exclamationmark.triangle")
+                    }
+                    
+                    Button {
+                        navigator.path.append(THPage.moderate)
+                    } label: {
+                        Label("Moderate", systemImage: "video")
+                    }
+                    
+                    NavigationLink("Send Message") {
+                        THMessageSheet()
+                    }
                 } label: {
-                    Label("Report", systemImage: "exclamationmark.triangle")
-                }
-                
-                Button {
-                    navigator.path.append(THPage.moderate)
-                } label: {
-                    Label("Moderate", systemImage: "video")
+                    Label("Admin Actions", systemImage: "person.badge.key")
                 }
             }
         } label: {

@@ -179,28 +179,30 @@ fileprivate struct THHoleToolbar: View {
             }
             
             if appModel.isAdmin {
-                Divider()
-                
-                Button {
-                    withAnimation {
-                        editMode?.wrappedValue = .active
-                    }
-                } label: {
-                    Label("Batch Delete", systemImage: "trash")
-                }
-                
-                if !model.hole.hidden {
+                Menu {
                     Button {
-                        showDeleteAlert = true
+                        withAnimation {
+                            editMode?.wrappedValue = .active
+                        }
                     } label: {
-                        Label("Hide Hole", systemImage: "eye.slash.fill")
+                        Label("Batch Delete", systemImage: "trash")
                     }
-                }
-                
-                Button {
-                    showEditSheet = true
+                    
+                    if !model.hole.hidden {
+                        Button {
+                            showDeleteAlert = true
+                        } label: {
+                            Label("Hide Hole", systemImage: "eye.slash.fill")
+                        }
+                    }
+                    
+                    Button {
+                        showEditSheet = true
+                    } label: {
+                        Label("Edit Post Info", systemImage: "info.circle")
+                    }
                 } label: {
-                    Label("Edit Post Info", systemImage: "info.circle")
+                    Label("Admin Actions", systemImage: "person.badge.key")
                 }
             }
         } label: {
