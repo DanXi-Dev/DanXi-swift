@@ -308,8 +308,7 @@ private struct BannerView: View {
             navigator.path.append(loader)
             navigationTapCallback()
         } else if let floorMatch = action.wholeMatch(of: /##(?<id>\d+)/),
-                  let floorId = Int(floorMatch.id)
-        {
+                  let floorId = Int(floorMatch.id) {
             let loader = THHoleLoader(floorId: floorId)
             navigator.path.append(loader)
             navigationTapCallback()

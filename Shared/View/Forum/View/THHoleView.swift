@@ -159,7 +159,7 @@ struct THHoleView: View {
     }
 }
 
-private struct THHolePreview: View {
+fileprivate struct THHolePreview: View {
     @StateObject private var model: THHoleModel
     
     init(_ hole: THHole, _ floors: [THFloor]) {
