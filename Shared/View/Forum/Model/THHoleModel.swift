@@ -11,15 +11,25 @@ class THHoleModel: ObservableObject {
         self.initialScroll = nil
     }
     
-    init(hole: THHole, floors: [THFloor], scrollTo: Int? = nil) {
+    init(hole: THHole, floors: [THFloor], scrollTo: Int? = nil, loadMore: Bool = false) {
         self.hole = hole
         self.floors = []
-        self.endReached = true
+        self.endReached = !loadMore
         self.subscribed = THModel.shared.isSubscribed(hole.id)
         self.isFavorite = THModel.shared.isFavorite(hole.id)
         self.initialScroll = scrollTo
         
         insertFloors(floors)
+        if loadMore {
+            Task(priority: .background) { // Prefetched data is incomplete, we need to send another request to get full data
+                let refreshedPrefetchData = try await THRequests.loadFloors(holeId: hole.id, startFloor: 0)
+                for (index, floor) in refreshedPrefetchData.enumerated() {
+                    if index < self.floors.count {
+                        self.floors[index] = floor
+                    }
+                }
+            }
+        }
     }
     
     @Published var hole: THHole
