@@ -19,6 +19,10 @@ struct THHoleView: View {
     var body: some View {
         FoldedView(expand: !fold) {
             HStack(alignment: .center) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    tags
+                }
+                .scrollDisabled(true)
                 Spacer()
                 Text("Folded")
                     .foregroundColor(.secondary)
@@ -27,13 +31,6 @@ struct THHoleView: View {
                     .padding(.leading, 3)
                     .padding(.top, 1)
                     .fixedSize()
-            }
-            .background(alignment: .leading) {
-                HStack {
-                    tags
-                        .fixedSize()
-                }
-                .clipped()
             }
             
         } content: {
@@ -70,7 +67,7 @@ struct THHoleView: View {
             if hole.firstFloor.id != hole.lastFloor.id {
                 lastFloor
                     .padding(.vertical, 1)
-                    .padding(.leading, 10)
+                    .padding(.leading, 8)
             }
             
             info
@@ -159,7 +156,7 @@ struct THHoleView: View {
     }
 }
 
-fileprivate struct THHolePreview: View {
+private struct THHolePreview: View {
     @StateObject private var model: THHoleModel
     
     init(_ hole: THHole, _ floors: [THFloor]) {

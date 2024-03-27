@@ -32,10 +32,12 @@ struct THBrowseHistoryPage: View {
                     if index == 0 {
                         Section("Today") {
                             BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     } else {
                         Section {
                             BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     }
                 }
@@ -46,10 +48,12 @@ struct THBrowseHistoryPage: View {
                     if index == 0 {
                         Section("Yesterday") {
                             BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     } else {
                         Section {
                             BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     }
                 }
@@ -60,16 +64,17 @@ struct THBrowseHistoryPage: View {
                     if index == 0 {
                         Section("Earlier") {
                             BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     } else {
                         Section {
                             BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     }
                 }
             }
         }
-//        .listStyle(.inset)
         .sectionSpacing(8)
         .navigationTitle("Recent Browsed")
         .navigationBarTitleDisplayMode(.inline)

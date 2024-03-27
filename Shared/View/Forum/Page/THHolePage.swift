@@ -22,27 +22,27 @@ struct THHolePage: View {
         ZStack {
             ScrollViewReader { proxy in
                 THBackgroundList(selection: $model.selectedFloor) {
-                    Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
-                        VStack(alignment: .leading) {
-                            THHoleTags(tags: model.hole.tags)
-                            //                            .listRowSeparator(.hidden, edges: .top)
-                            if model.hole.locked {
-                                Label("Post locked, reply is forbidden", systemImage: "lock.fill")
-                                    .font(.callout)
-                                    .foregroundColor(.secondary)
-                                    .listRowSeparator(.hidden)
-                                    .padding(.top, 4)
-                            }
-                        }
-                    }
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 3, bottom: 5, trailing: 0))
-                    .sectionSpacing(0)
-                        
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
                         Section {
                             THComplexFloor(floor)
                                 .tag(floor)
+                        } header: {
+                            if floor.id == model.floors.first?.id {
+                                VStack(alignment: .leading) {
+                                    if model.hole.locked {
+                                        HStack {
+                                            Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                                                .font(.callout)
+                                                .foregroundColor(.secondary)
+                                                .listRowSeparator(.hidden)
+                                            Spacer()
+                                        }
+                                    }
+                                    THHoleTags(tags: model.hole.tags)
+                                        .padding(.bottom, 5)
+                                        .textCase(.none)
+                                }
+                            }
                         }
                     }
                 }

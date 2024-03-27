@@ -52,8 +52,8 @@ private struct FavoritePageContent: View {
                                         Image(systemName: "trash")
                                     }
                                 }
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
-                        .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                     }
                 }
                 .sectionSpacing(10)
