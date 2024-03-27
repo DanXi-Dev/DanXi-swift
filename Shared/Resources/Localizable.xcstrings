@@ -4418,50 +4418,80 @@
     },
     "Select Course" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Course"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择课程"
+            "value" : "课程"
           }
         }
       }
     },
     "Select Date" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter Earlier Than"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择起始日期"
+            "value" : "筛选不晚于日期"
           }
         }
       }
     },
     "Select Division" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Division"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择分区"
+            "value" : "分区"
           }
         }
       }
     },
     "Select Semester" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semester"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择学期"
+            "value" : "学期"
           }
         }
       }
     },
     "Select Semester Start Date" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semester Start Date"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择学期开始时间"
+            "value" : "开学日期"
           }
         }
       }
