@@ -1,5 +1,6 @@
 import SwiftUI
 import Disk
+import EventKit
 
 public class CourseModel: ObservableObject {
     
@@ -116,7 +117,7 @@ public class CourseModel: ObservableObject {
         }
     }
     
-    // MARK: Model Update
+    // MARK: - Model Update
     
     /// Work to be done after semester is changed
     @MainActor func updateSemester() async {
@@ -181,10 +182,40 @@ public class CourseModel: ObservableObject {
         }
     }
     
-    // Utilities
+    // MARK: - Calendars
     
-    func exportToCalendar() {
+    public struct CourseKey: Identifiable, Hashable {
+        public var id: String { code }
+        public let code: String
+        public let name: String
+    }
+    
+    /// The courses retrieved from server are separated.
+    /// To create a unified selection page, distinct courses with same ID should be grouped by the same key.
+    public var calendarMap: [CourseKey: [Course]] {
+        var map: [CourseKey: [Course]] = [:]
         
+        for course in courses {
+            let key = CourseKey(code: course.code, name: course.name)
+            map[key, default: []].append(course)
+        }
+        
+        return map
+    }
+    
+    public func exportToCalendar(to calendar: EKCalendar, keys: Set<CourseKey>) throws {
+        guard let startDate = semester.startDate else { return }
+        
+        let eventStore = EKEventStore()
+        
+        for key in keys {
+            guard let courses = self.calendarMap[key] else { continue }
+            for course in courses {
+                try course.exportEvents(for: eventStore, to: calendar, semesterStart: startDate)
+            }
+        }
+        
+        try eventStore.commit()
     }
 }
 
@@ -229,3 +260,77 @@ struct CourseModelCache: Codable {
     let semesters: [Semester]
 }
 
+// MARK: - Extension to Course for Calendar Export
+
+extension Course {
+    /// Determine whether the course is recurrent on every week
+    var weekly: Bool {
+        guard let max = onWeeks.max(), let min = onWeeks.min() else { return false }
+        return (max - min) == (onWeeks.count - 1)
+    }
+    
+    /// Determine whether the course is recurrent every two week
+    var doubleWeekly: Bool {
+        guard onWeeks.count > 1 else { return false }
+        for i in 1..<onWeeks.count {
+            if onWeeks[i] - onWeeks[i - 1] != 2 { return false }
+        }
+        return true
+    }
+    
+    /// For `EKRecurrenceRule`'s `interval` param
+    var recurrentWeek: Int? {
+        if weekly { return 1 }
+        if doubleWeekly { return 2 }
+        return nil
+    }
+    
+    /// Compute the actual start time and end time of a course on a given week, with respect to `semesterStart`.
+    func computeTime(from semesterStart: Date, on week: Int) -> (Date, Date) {
+        let calendar = Calendar.current
+        let days = (week - 1) * 7 + weekday // first week has index 1, thus it should be subtracted
+        let day = calendar.date(byAdding: DateComponents(day: days), to: semesterStart)!
+        var components = calendar.dateComponents([.year, .month, .day], from: day)
+        
+        let startTime = ClassTimeSlot.getItem(start + 1).start
+        let startComponent = calendar.dateComponents([.hour, .minute], from: startTime)
+        components.hour = startComponent.hour
+        components.minute = startComponent.minute
+        let startDate = calendar.date(from: components)!
+        
+        let endTime = ClassTimeSlot.getItem(end + 1).end
+        let endComponent = calendar.dateComponents([.hour, .minute], from: endTime)
+        components.hour = endComponent.hour
+        components.minute = endComponent.minute
+        let endDate = calendar.date(from: components)!
+        
+        return (startDate, endDate)
+    }
+    
+    func exportEvents(for eventStore: EKEventStore, to calendar: EKCalendar, semesterStart: Date) throws {
+        guard !onWeeks.isEmpty else { return }
+        if let recurrentWeek = recurrentWeek {
+            let event = EKEvent(eventStore: eventStore)
+            event.title = name
+            event.location = location
+            (event.startDate, event.endDate) = computeTime(from: semesterStart, on: onWeeks.first!)
+            let recurrenceRule = EKRecurrenceRule(
+                recurrenceWith: .weekly,
+                interval: recurrentWeek,
+                end: EKRecurrenceEnd(occurrenceCount: (onWeeks.last! - onWeeks.first!) / recurrentWeek + 1)
+            )
+            event.addRecurrenceRule(recurrenceRule)
+            event.calendar = calendar
+            try eventStore.save(event, span: .thisEvent)
+        } else {
+            for week in onWeeks {
+                let event = EKEvent(eventStore: eventStore)
+                event.title = name
+                event.location = location
+                (event.startDate, event.endDate) = computeTime(from: semesterStart, on: week)
+                event.calendar = calendar
+                try eventStore.save(event, span: .thisEvent)
+            }
+        }
+    }
+}

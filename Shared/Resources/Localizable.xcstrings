@@ -828,7 +828,6 @@
       }
     },
     "Calendar Access not Granted" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1622,6 +1621,17 @@
         }
       }
     },
+    "Deselect All" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消全选"
+          }
+        }
+      }
+    },
     "Details in Classroom Schedules" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2245,13 +2255,23 @@
         }
       }
     },
-    "Export to System Calendar" : {
+    "Export" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "导出到系统日历"
+            "value" : "导出"
+          }
+        }
+      }
+    },
+    "Export to Calendar" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出到日历"
           }
         }
       }
@@ -4515,6 +4535,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "搜索文字"
+          }
+        }
+      }
+    },
+    "Select All" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全选"
           }
         }
       }
