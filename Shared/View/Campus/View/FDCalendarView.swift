@@ -26,12 +26,12 @@ struct FDCourseView: View {
                     Text(subtitle)
                         .foregroundColor(color)
                         .font(.system(size: subtitleSize))
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer()
                 }
                 Spacer()
             }
             .padding(.leading, 8)
-            .padding(.trailing, 2)
             .frame(width: dim.dx,
                    height: CGFloat(span) * dim.dy)
             .background(color.opacity(0.2))
