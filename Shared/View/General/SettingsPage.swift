@@ -155,12 +155,6 @@ fileprivate struct DXUserSheet: View {
                                 }
                                 
                                 LabeledContent {
-                                    Text(user.nickname)
-                                } label: {
-                                    Label("Nickname", systemImage: "person.crop.circle")
-                                }
-                                
-                                LabeledContent {
                                     Text(user.joinTime.formatted(date: .long, time: .omitted))
                                 } label: {
                                     Label("Join Date", systemImage: "calendar.badge.clock")
