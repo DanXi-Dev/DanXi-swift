@@ -22,7 +22,7 @@ struct THHoleView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     tags
                 }
-                .scrollDisabled(true)
+                .allowsHitTesting(false)
                 Spacer()
                 Text("Folded")
                     .foregroundColor(.secondary)
@@ -32,7 +32,6 @@ struct THHoleView: View {
                     .padding(.top, 1)
                     .fixedSize()
             }
-            
         } content: {
             fullContent
         }
