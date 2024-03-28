@@ -4,6 +4,7 @@ import UserNotifications
 import SwiftyJSON
 import UIKit
 import Disk
+import Utils
 
 // MARK: Models
 
@@ -107,33 +108,6 @@ class DXModel: ObservableObject {
         self.user = user
         return user
     }
-    
-    // MARK: Remote Extra
-    
-    func loadExtra() async {
-        do {
-            let info = try await DXRequests.getInfo()
-            guard let extra = info.filter({ $0.type == -5 }).first,
-                  let data = extra.content.data(using: String.Encoding.utf8),
-                  let json = try? JSON(data: data) else {
-                return
-            }
-            
-            if let bannerData = try? json["banners"].rawData(),
-               let banners = try? JSONDecoder().decode([DXBanner].self, from: bannerData) {
-                THModel.shared.banners = banners
-            }
-            
-            if let timetableData = try? json["timetable", "fdu_ug"].rawData(),
-               let timetable = try? JSONDecoder().decode([Timetable].self, from: timetableData) {
-                FDCalendarModel.timetables = timetable
-                FDCalendarModel.timetablePublisher.send(timetable)
-            }
-        } catch {
-            
-        }
-        
-    }
 }
 
 @MainActor
@@ -145,7 +119,7 @@ class THModel: ObservableObject {
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var loaded = false
-    @Published var banners: [DXBanner] = []
+    @Published var banners: [Banner] = []
     @Published var browseHistory: [THBrowseHistory] = []
     
     func loadAll() async throws {

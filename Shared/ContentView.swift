@@ -34,13 +34,10 @@ struct ContentView: View {
         .onReceive(AppModel.notificationPublisher) { content in
             model.section = .forum
         }
-        .task {
-            await DXModel.shared.loadExtra()
-        }
-        .sheet(isPresented: $model.showIntro, content: {
+        .sheet(isPresented: $model.showIntro) {
             IntroSheet()
                 .environmentObject(model)
-        })
+        }
     }
 }
 
