@@ -7,17 +7,15 @@ struct THHistorySheet: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                AsyncContentView {
-                    return try await model.loadHistory()
-                } content: { histories in
-                    List {
-                        ForEach(histories) { history in
-                            THHistorySheetItem(history: history)
-                        }
+            AsyncContentView {
+                return try await model.loadHistory()
+            } content: { histories in
+                List {
+                    ForEach(histories) { history in
+                        THHistorySheetItem(history: history)
                     }
-                    .listStyle(.insetGrouped)
                 }
+                .listStyle(.insetGrouped)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
