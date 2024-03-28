@@ -5,9 +5,9 @@ import Foundation
 /// A semester
 ///
 /// Use ``name`` to get the formatted name of the semester.
-public struct Semester: Codable, Hashable {
+public struct Semester: Codable {
     public enum SemesterType: Int, Codable, Hashable {
-        case first, winter, second, summer
+        case first = 0, winter, second, summer
     }
     
     let year: Int
@@ -15,6 +15,33 @@ public struct Semester: Codable, Hashable {
     let semesterId: Int
     public var startDate: Date?
     public let weekCount: Int
+}
+
+extension Semester: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(year)
+        hasher.combine(type)
+        hasher.combine(semesterId)
+    }
+}
+
+extension Semester: Equatable {
+    public static func == (lhs: Semester, rhs: Semester) -> Bool {
+        let yearEqual = lhs.year == rhs.year
+        let typeEqual = lhs.type == rhs.type
+        let semesterIdEqual = lhs.semesterId == rhs.semesterId
+        return yearEqual && typeEqual && semesterIdEqual
+    }
+}
+
+extension Semester: Comparable {
+    public static func < (lhs: Semester, rhs: Semester) -> Bool {
+        if lhs.year != rhs.year {
+            return lhs.year < rhs.year
+        }
+        
+        return lhs.type.rawValue < rhs.type.rawValue
+    }
 }
 
 extension Semester {
