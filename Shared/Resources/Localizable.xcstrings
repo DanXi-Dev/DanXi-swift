@@ -1100,13 +1100,24 @@
         }
       }
     },
+    "Copy" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制"
+          }
+        }
+      }
+    },
     "Copy Floor ID" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复制回帖ID"
+            "value" : "复制楼层ID"
           }
         }
       }
