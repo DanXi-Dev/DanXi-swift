@@ -46,7 +46,7 @@ fileprivate struct LoginSheet: View {
             
             Section {
                 LabeledEntry("Email") {
-                    TextField("Use campus email to login", text: $model.username)
+                    TextField("DanXi Account Registered with Fudan Email", text: $model.username)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
@@ -56,7 +56,7 @@ fileprivate struct LoginSheet: View {
                 .showAlert(!usernameFocus && !model.usernameValid)
                 
                 LabeledEntry("Password") {
-                    SecureField("Required", text: $model.password)
+                    SecureField("Not related to Fudan UIS", text: $model.password)
                 }
             } footer: {
                 HStack(spacing: 20) {

@@ -1376,6 +1376,16 @@
         }
       }
     },
+    "DanXi Account Registered with Fudan Email" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用复旦邮箱注册的旦夕账户"
+          }
+        }
+      }
+    },
     "DanXi Login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2590,6 +2600,26 @@
         }
       }
     },
+    "Fudan UIS ID" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复旦UIS学工号"
+          }
+        }
+      }
+    },
+    "Fudan UIS Password" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复旦UIS密码"
+          }
+        }
+      }
+    },
     "Fudan.ID" : {
       "localizations" : {
         "en" : {
@@ -3624,6 +3654,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未登录"
+          }
+        }
+      }
+    },
+    "Not related to Fudan UIS" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该密码与复旦UIS无关"
           }
         }
       }
@@ -5603,6 +5643,7 @@
 
     },
     "Use campus email to login" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
