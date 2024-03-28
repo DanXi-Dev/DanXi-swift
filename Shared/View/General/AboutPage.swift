@@ -62,6 +62,7 @@ struct AboutPage: View {
         .labelStyle(.titleOnly)
         .navigationTitle("About")
         .navigationBarTitleDisplayMode(.inline)
+        .background(.secondarySystemBackground)
     }
     
     private var appIcon: some View {
