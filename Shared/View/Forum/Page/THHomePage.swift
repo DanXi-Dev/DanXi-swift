@@ -6,6 +6,9 @@ struct THHomePage: View {
     @StateObject private var navigator = THNavigator()
     
     var body: some View {
+        var userId: String {
+            appModel.user?.id != nil ? String(appModel.user!.id) : ""
+        }
         AsyncContentView(finished: forumModel.loaded) {
             _ = try await appModel.loadUser() // load user first to prevent concurrently refresh token
             try await forumModel.loadAll()
@@ -37,6 +40,7 @@ struct THHomePage: View {
             navigator.path.removeLast(navigator.path.count)
             navigator.path.append(THPage.notifications)
         }
+        .watermark(content: userId, opacity: 0.03)
     }
 }
 
