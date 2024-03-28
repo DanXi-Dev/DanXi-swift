@@ -211,11 +211,4 @@ struct DXRequests {
         let user = User(config)
         try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/\(userId)")!, payload: user, method: "PUT")
     }
-    
-    // MARK: Static Info
-    
-    static func getInfo() async throws -> [DXInfo] {
-        let (data, _) = try await sendRequest("https://danxi-static.fduhole.com/all.json")
-        return try processJSONData(data)
-    }
 }
