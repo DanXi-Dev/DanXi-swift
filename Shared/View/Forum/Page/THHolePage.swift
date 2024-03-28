@@ -122,7 +122,6 @@ private struct THHoleToolbar: View {
     var body: some View {
         Group {
             replyButton
-            favoriteButton
             menu
         }
     }
@@ -146,17 +145,28 @@ private struct THHoleToolbar: View {
         }
     }
     
-    private var favoriteButton: some View {
-        AsyncButton {
-            try await model.toggleFavorite()
-            haptic()
-        } label: {
-            Image(systemName: model.isFavorite ? "star.fill" : "star")
-        }
-    }
-    
     private var menu: some View {
         Menu {
+            AsyncButton {
+                try await model.toggleFavorite()
+            } label: {
+                if model.isFavorite {
+                    Label("Unfavorite", systemImage: "star.slash")
+                } else {
+                    Label("Favorite", systemImage: "star")
+                }
+            }
+            
+            AsyncButton {
+                try await model.toggleSubscribe()
+            } label: {
+                if model.subscribed {
+                    Label("Unsubscribe", systemImage: "bell.slash")
+                } else {
+                    Label("Subscribe", systemImage: "bell")
+                }
+            }
+            
             Picker("Filter Options", selection: $model.filterOption) {
                 Label("Show All", systemImage: "list.bullet")
                     .tag(THHoleModel.FilterOptions.all)
@@ -166,23 +176,15 @@ private struct THHoleToolbar: View {
             }
             
             AsyncButton {
-                try await model.toggleSubscribe()
-                haptic()
-            } label: {
-                if model.subscribed {
-                    Label("Unsubscribe", systemImage: "bell.slash")
-                } else {
-                    Label("Subscribe", systemImage: "bell")
-                }
-            }
-            
-            AsyncButton {
                 await model.loadAllFloors()
+                haptic()
             } label: {
                 Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
             }
             
             if appModel.isAdmin {
+                Divider()
+                
                 Menu {
                     Button {
                         withAnimation {

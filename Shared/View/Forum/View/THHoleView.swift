@@ -4,7 +4,7 @@ import WrappingHStack
 
 struct THHoleView: View {
     @Environment(\.colorScheme) private var colorScheme
-
+    
     @State private var expand = false
     let hole: THHole
     let fold: Bool
@@ -189,10 +189,10 @@ private struct PreviewActions: View {
                 haptic()
             } label: {
                 Group {
-                    if !appModel.isFavorite(hole.id) {
-                        Label("Add to Favorites", systemImage: "star")
+                    if appModel.isFavorite(hole.id) {
+                        Label("Unfavorite", systemImage: "star.slash")
                     } else {
-                        Label("Remove from Favorites", systemImage: "star.slash")
+                        Label("Favorite", systemImage: "star")
                     }
                 }
             }

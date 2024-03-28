@@ -502,6 +502,7 @@
     },
     "Add to Favorites" : {
       "comment" : "Treehole Detail Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2279,6 +2280,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课外活动考勤"
+          }
+        }
+      }
+    },
+    "Favorite" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收藏"
           }
         }
       }
@@ -4150,6 +4161,7 @@
       }
     },
     "Remove from Favorites" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5469,6 +5481,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本科生"
+          }
+        }
+      }
+    },
+    "Unfavorite" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消收藏"
           }
         }
       }
