@@ -212,7 +212,9 @@ private struct PreviewActions: View {
                 }
             }
             
-            Button {
+            Divider()
+            
+            Button(role: .destructive) {
                 if !settings.blockedHoles.contains(hole.id) {
                     withAnimation {
                         settings.blockedHoles.append(hole.id)

@@ -439,15 +439,9 @@ private struct Actions: View {
     private var menu: some View {
         Menu {
             Button {
-                showReportSheet = true
-            } label: {
-                Label("Report", systemImage: "exclamationmark.triangle")
-            }
-            
-            Button {
                 showSelectionSheet = true
             } label: {
-                Label("Select Text", systemImage: "selection.pin.in.out")
+                Label("Select Text", systemImage: "character.cursor.ibeam")
             }
             
             Button {
@@ -462,17 +456,16 @@ private struct Actions: View {
                 Label("All Replies", systemImage: "arrowshape.turn.up.left.2")
             }
             
-            if model.floor.firstMention() != nil {
-                Button {
-                    holeModel.filterOption = .conversation(starting: model.floor.id)
-                } label: {
-                    Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
-                }
+            Button {
+                holeModel.filterOption = .conversation(starting: model.floor.id)
+            } label: {
+                Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
             }
+            .disabled(model.floor.firstMention() == nil)
+            
+            Divider()
             
             if model.floor.isMe {
-                Divider()
-                
                 Button {
                     showEditSheet = true
                 } label: {
@@ -484,9 +477,17 @@ private struct Actions: View {
                 } label: {
                     Label("Delete", systemImage: "trash")
                 }
+            } else {
+                Button(role: .destructive) {
+                    showReportSheet = true
+                } label: {
+                    Label("Report", systemImage: "exclamationmark.triangle")
+                }
             }
             
             if appModel.isAdmin {
+                Divider()
+                
                 Menu {
                     Button {
                         showEditSheet = true

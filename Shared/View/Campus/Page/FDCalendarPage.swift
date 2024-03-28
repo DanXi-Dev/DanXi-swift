@@ -44,6 +44,7 @@ fileprivate struct CalendarContent: View {
                     if !model.courses.isEmpty {
                         Stepper(value: $model.week, in: model.weekRange) {
                             Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
+                                .labelStyle(.titleOnly)
                         }
                     }
                 }

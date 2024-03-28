@@ -197,12 +197,15 @@ private struct THBrowseToolbar: View {
             
             Divider()
             
-            Picker("Sort Options", selection: $model.sortOption) {
+            Picker(selection: $model.sortOption) {
                 Text("Last Updated")
                     .tag(THBrowseModel.SortOption.replyTime)
                 Text("Last Created")
                     .tag(THBrowseModel.SortOption.createTime)
+            } label: {
+                Label("Sort By", systemImage: "arrow.up.arrow.down")
             }
+            .pickerStyle(.menu)
             
             Button {
                 showDatePicker = true
