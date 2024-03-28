@@ -3494,6 +3494,7 @@
       }
     },
     "Nickname" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
