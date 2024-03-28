@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 struct THBrowsePage: View {
     @ObservedObject private var settings = THSettings.shared
@@ -11,8 +12,10 @@ struct THBrowsePage: View {
                 .listRowInsets(EdgeInsets(.all, 0))
                 .listRowBackground(Color.clear)
             
-            if !appModel.banners.isEmpty && settings.showBanners {
-                BannerCarousel(appModel.banners)
+            if settings.showBanners && !appModel.banners.isEmpty {
+                BannerCarousel(banners: appModel.banners)
+                    .listRowInsets(EdgeInsets(.all, 0))
+                    .listRowBackground(Color.clear)
             }
             
             // Banned Notice
@@ -52,6 +55,12 @@ struct THBrowsePage: View {
                 THBrowseToolbar()
                     .environmentObject(model)
             }
+        }
+        .onReceive(AppConfiguration.bannerPublisher) { banner in
+            appModel.banners = banner
+        }
+        .onAppear {
+            appModel.banners = AppConfiguration.shared.banners
         }
     }
 }
@@ -287,15 +296,11 @@ private struct BannedNotice: View {
 }
 
 private struct BannerCarousel: View {
-    let banners: [DXBanner]
+    let banners: [Banner]
     @State private var showSheet = false
     @State private var currentBanner: Int = 0
     @ScaledMetric private var containerHeight: CGFloat = 70
     private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
-    
-    init(_ banners: [DXBanner]) {
-        self.banners = banners
-    }
     
     private func updateBanner() {
         withAnimation {
@@ -319,8 +324,6 @@ private struct BannerCarousel: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: containerHeight)
-        .listRowSeparator(.hidden)
-        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
         .lineLimit(nil)
         .onReceive(timer) { _ in
             updateBanner()
@@ -354,14 +357,14 @@ private struct BannerCarousel: View {
 }
 
 private struct BannerView: View {
-    let banner: DXBanner
+    let banner: Banner
     let navigationTapCallback: () -> Void
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var navigator: THNavigator
     @ScaledMetric private var height: CGFloat = 40
     @ScaledMetric private var fontSize: CGFloat = 15
     
-    init(banner: DXBanner, navigationTapCallback: (() -> Void)? = nil) {
+    init(banner: Banner, navigationTapCallback: (() -> Void)? = nil) {
         self.banner = banner
         if let callback = navigationTapCallback {
             self.navigationTapCallback = callback
@@ -394,7 +397,7 @@ private struct BannerView: View {
                 .multilineTextAlignment(.leading)
                 .lineLimit(3)
             Spacer()
-            Button(banner.actionName) {
+            Button(banner.button) {
                 actionButton(banner.action)
             }
         }
@@ -403,6 +406,5 @@ private struct BannerView: View {
         .padding()
         .background(.gray.opacity(0.1))
         .cornerRadius(15)
-        .padding(.horizontal)
     }
 }
