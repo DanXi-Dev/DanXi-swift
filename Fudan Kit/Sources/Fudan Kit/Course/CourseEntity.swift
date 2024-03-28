@@ -32,7 +32,7 @@ extension Semester {
 }
 
 /// A course took by a student.
-public struct Course: Identifiable, Codable {
+public struct Course: Identifiable, Codable, Hashable {
     public let id: UUID
     public let name, code, teacher, location: String
     public let weekday: Int

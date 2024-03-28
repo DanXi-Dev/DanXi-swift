@@ -30,6 +30,7 @@ struct FDCalendarPage: View {
 fileprivate struct CalendarContent: View {
     @StateObject var model: CourseModel
     @State private var showErrorAlert = false
+    @State private var showExportSheet = false
     
     var body: some View {
         NavigationStack {
@@ -39,6 +40,13 @@ fileprivate struct CalendarContent: View {
                         ForEach(Array(model.semesters.enumerated()), id: \.offset) { _, semester in
                             Text(semester.name).tag(semester)
                         }
+                    }
+                    
+                    Button("Debug") {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "YYYY-MM-dd"
+                        let date = dateFormatter.date(from: "2024-02-26")!
+                        model.semester.startDate = date
                     }
                     
                     if !model.courses.isEmpty {
@@ -63,6 +71,17 @@ fileprivate struct CalendarContent: View {
             }
             .refreshable {
                 await model.refresh(with: [:])
+            }
+            .toolbar {
+                Button {
+                    showExportSheet = true
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .disabled(model.semester.startDate == nil)
+            }
+            .sheet(isPresented: $showExportSheet) {
+                ExportSheet()
             }
             .listStyle(.inset)
             .alert("Error", isPresented: $showErrorAlert) {
@@ -156,12 +175,120 @@ fileprivate struct CourseDetailSheet: View {
     }
 }
 
-fileprivate struct ExportSheet: UIViewControllerRepresentable {
-    @EnvironmentObject private var model: FDCalendarModel
+fileprivate struct ExportSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: CourseModel
+    @State private var selectedCalendar: EKCalendar? = nil
+    @State private var allKeys: [CourseModel.CourseKey] = []
+    @State private var selectedKeys = Set<CourseModel.CourseKey>()
+    @State private var showCalendarChooser = false
+    @State private var showPermissionDeniedAlert = false
+    @State private var showExportError = false
+    @State private var exportError: Error?
+    
+    private var allSelected: Bool {
+        selectedKeys.count == allKeys.count
+    }
+    
+    private func presentCalendarChooser() {
+        let eventStore = EKEventStore()
+        eventStore.requestAccess { (granted, error) in
+            if granted {
+                showCalendarChooser = true
+            } else {
+                showPermissionDeniedAlert = true
+            }
+        }
+    }
+    
+    private func exportToCalendar(calendar: EKCalendar) {
+        do {
+            try model.exportToCalendar(to: calendar, keys: selectedKeys)
+            dismiss()
+        } catch {
+            exportError = error
+        }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            List(allKeys, selection: $selectedKeys) {
+                courseKey in
+                VStack(alignment: .leading) {
+                    Text(courseKey.name)
+                    Text(courseKey.code)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .tag(courseKey)
+            }
+            .environment(\.editMode, .constant(.active))
+            .navigationTitle("Export to Calendar")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                withAnimation {
+                    allKeys = Array(model.calendarMap.keys)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    if allSelected {
+                        Button {
+                            selectedKeys = []
+                        } label: {
+                            Text("Deselect All")
+                        }
+                    } else {
+                        Button {
+                            selectedKeys = Set(allKeys)
+                        } label: {
+                            Text("Select All")
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    if selectedKeys.isEmpty {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Done")
+                                .bold()
+                        }
+                    } else {
+                        Button {
+                            presentCalendarChooser()
+                        } label: {
+                            Text("Export")
+                        }
+                    }
+                }
+            }
+            .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
+            .alert("Error", isPresented: $showExportError) {
+                
+            } message: {
+                Text(exportError?.localizedDescription ?? "")
+            }
+            .sheet(isPresented: $showCalendarChooser) {
+                CalendarChooserSheet(selectedCalendar: $selectedCalendar)
+                    .ignoresSafeArea()
+                    .onDisappear {
+                        if let selectedCalendar = selectedCalendar {
+                            exportToCalendar(calendar: selectedCalendar)
+                        }
+                    }
+            }
+        }
+    }
+}
+
+fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
+    @Binding var selectedCalendar: EKCalendar?
     @Environment(\.dismiss) private var dismiss
     private let eventStore = EKEventStore()
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ExportSheet>) -> UINavigationController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<CalendarChooserSheet>) -> UINavigationController {
         let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
         chooser.selectedCalendars = []
         chooser.delegate = context.coordinator
@@ -169,7 +296,7 @@ fileprivate struct ExportSheet: UIViewControllerRepresentable {
         return UINavigationController(rootViewController: chooser)
     }
     
-    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<ExportSheet>) {
+    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<CalendarChooserSheet>) {
         
     }
     
@@ -178,15 +305,15 @@ fileprivate struct ExportSheet: UIViewControllerRepresentable {
     }
     
     class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
-        let parent: ExportSheet
+        let parent: CalendarChooserSheet
         
-        init(_ parent: ExportSheet) {
+        init(_ parent: CalendarChooserSheet) {
             self.parent = parent
         }
         
         func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {
             if let calendar = calendarChooser.selectedCalendars.first {
-//                parent.model.exportToCalendar(calendar)
+                parent.selectedCalendar = calendar
             }
             parent.dismiss()
         }
