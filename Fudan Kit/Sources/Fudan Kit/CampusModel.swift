@@ -1,11 +1,12 @@
 import SwiftUI
+import Disk
 
 @MainActor
 public class CampusModel: ObservableObject {
     
     public static let shared = CampusModel()
     
-    @AppStorage("fd-student-type") public var studentType = StudentType.undergrad
+    @AppStorage("campus-student-type") public var studentType = StudentType.undergrad
     @Published public var loggedIn: Bool // cannot use computed property from credential store because it won't trigger SwiftUI reload
     
     public init() {
@@ -43,8 +44,18 @@ public class CampusModel: ObservableObject {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         
         // clear cache
-        Task {
-            try await ProfileStore.shared.clearCache()
+        Task(priority: .background) {
+            // reset user defaults
+            let defaults = UserDefaults.standard
+            let dictionary = defaults.dictionaryRepresentation()
+            dictionary.keys.forEach { key in
+                if key.hasPrefix("fdutools") {
+                    defaults.removeObject(forKey: key)
+                }
+            }
+            
+            // remove contents on disk
+            try Disk.remove("fdutools", from: .applicationSupport)
         }
     }
 }
