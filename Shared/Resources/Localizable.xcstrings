@@ -1758,10 +1758,16 @@
     },
     "Don't Show This Hole" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不显示此洞"
+            "value" : "屏蔽"
           }
         }
       }
@@ -4875,6 +4881,12 @@
     },
     "Show OP Only" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show DZ Only"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4951,6 +4963,7 @@
       }
     },
     "Sort Options" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
