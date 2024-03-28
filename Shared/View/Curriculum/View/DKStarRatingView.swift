@@ -18,6 +18,11 @@ enum RatingType {
             return ["Very Strict", "Strict", "Average", "Lenient", "Very Lenient"][rating-1]
         }
     }
+    
+    func text(forRating rating: Double) -> LocalizedStringKey {
+        let rounded = Int(rating.rounded(.toNearestOrAwayFromZero))
+        return text(forRating: rounded)
+    }
 }
 
 struct DKStarRatingView: View {
