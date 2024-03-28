@@ -26,10 +26,10 @@ struct FDLoginSheet: View {
                     }
                 }
                 LabeledEntry("Fudan.ID") {
-                    TextField("Required", text: $username)
+                    TextField("Fudan UIS ID", text: $username)
                 }
                 LabeledEntry("Password") {
-                    SecureField("Required", text: $password)
+                    SecureField("Fudan UIS Password", text: $password)
                 }
             }
         }
