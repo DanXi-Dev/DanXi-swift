@@ -770,7 +770,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屏蔽的帖子"
+            "value" : "屏蔽的树洞"
           }
         }
       }
@@ -1565,7 +1565,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删帖"
+            "value" : "删除楼层"
           }
         }
       }
@@ -1923,7 +1923,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "修改主题帖信息"
+            "value" : "修改本洞信息"
           }
         }
       }
@@ -2125,7 +2125,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "输入发帖内容"
+            "value" : "输入内容"
           }
         }
       }
@@ -3135,7 +3135,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "锁定帖子"
+            "value" : "锁定此洞"
           }
         }
       }
@@ -3448,7 +3448,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "收藏的帖子有新回复"
+            "value" : "收藏的内容有新回复"
           }
         }
       }
@@ -3635,7 +3635,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "收藏的树洞有新回复时通知"
+            "value" : "收藏的树洞有新回复时"
           }
         }
       }
@@ -3645,7 +3645,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "帖子被引用时通知"
+            "value" : "我的内容被引用时"
           }
         }
       }
@@ -3655,7 +3655,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "举报被处理时通知"
+            "value" : "举报被处理时"
           }
         }
       }
@@ -3903,7 +3903,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "帖子已被锁定，禁止回复"
+            "value" : "本洞已被锁定，禁止回复"
           }
         }
       }
@@ -4669,7 +4669,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "发帖失败"
+            "value" : "发布失败"
           }
         }
       }
@@ -4866,7 +4866,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "显示所有回帖"
+            "value" : "显示所有楼层"
           }
         }
       }
@@ -5184,7 +5184,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在您关注的帖子更新时，您将收到推送通知"
+            "value" : "在您关注的内容更新时，您将收到推送通知"
           }
         }
       }
