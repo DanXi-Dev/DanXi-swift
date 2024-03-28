@@ -34,7 +34,7 @@ struct THTagEditor: View {
         if text.isEmpty { return [] }
         
         var tags = appModel.tags.filter { tag in
-            !self.tags.contains(tag.name) && tag.name.contains(text)
+            !self.tags.contains(tag.name) && tag.name.localizedCaseInsensitiveContains(text)
         }
         if tags.count > 5 {
             tags = Array(tags[0..<5])

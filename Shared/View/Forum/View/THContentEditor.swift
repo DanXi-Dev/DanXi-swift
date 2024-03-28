@@ -75,6 +75,7 @@ struct THContentEditor: View {
                             .foregroundColor(.primary.opacity(0.25))
                             .padding(.top, 7)
                             .padding(.leading, 4)
+                            .allowsHitTesting(false)
                     }
                     
                     TextEditor(text: $content)
