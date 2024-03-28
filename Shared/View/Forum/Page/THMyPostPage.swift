@@ -13,7 +13,6 @@ struct THMyPostPage: View {
                 }
             }
         }
-        .sectionSpacing(8)
         .navigationTitle("My Post")
         .navigationBarTitleDisplayMode(.inline)
     }
