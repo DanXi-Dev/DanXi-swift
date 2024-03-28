@@ -63,6 +63,19 @@ struct THComplexFloor: View {
                 content
                 bottomLine
             }
+            .contextMenu(menuItems: {
+                Button(action: {
+                    UIPasteboard.general.string = NSAttributedString(floor.content.inlineAttributed()).string
+                }, label: {
+                    Label("Copy Full Text", systemImage: "doc.on.doc")
+                })
+                
+                Button(action: {
+                    UIPasteboard.general.string = "##\(floor.id)"
+                }, label: {
+                    Label("Copy Floor ID", systemImage: "number")
+                })
+            })
         }
         .environmentObject(model)
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
