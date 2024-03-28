@@ -75,7 +75,7 @@ struct THBrowseHistoryPage: View {
                 }
             }
         }
-        .sectionSpacing(8)
+        .compactSectionSpacing(spacing: 8)
         .navigationTitle("Recent Browsed")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

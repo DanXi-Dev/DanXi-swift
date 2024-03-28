@@ -59,7 +59,6 @@ private struct SubscriptionContent: View {
                         Text(deleteError)
                     }
                 }
-                .sectionSpacing(10)
             }
         }
         .navigationTitle("Subscription List")
