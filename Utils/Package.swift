@@ -11,7 +11,10 @@ let package = Package(
     products: [
         .library(name: "Utils", targets: ["Utils"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4")
+    ],
     targets: [
-        .target(name: "Utils"),
+        .target(name: "Utils", dependencies: ["Disk"]),
     ]
 )
