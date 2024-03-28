@@ -79,7 +79,7 @@ struct THContentEditor: View {
                     
                     TextEditor(text: $content)
                         .focused($isEditing)
-                        .frame(height: 250)
+                        .frame(minHeight: 250)
                         .onChange(of: isEditing) { isEditing in
                             if !isEditing {
                                 checkExternalImages()
