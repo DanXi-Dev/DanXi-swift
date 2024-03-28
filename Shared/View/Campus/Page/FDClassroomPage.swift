@@ -3,7 +3,7 @@ import FudanKit
 
 struct FDClassroomPage: View {
     @ScaledMetric private var dy = FDCalendarConfig.dy
-    @AppStorage("building-selection") private var building: Building = .empty
+    @AppStorage("campus-building-selection") private var building: Building = .empty
     var vpnLogged = false
     @State private var searchText: String = ""
     
