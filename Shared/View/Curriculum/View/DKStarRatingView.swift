@@ -11,11 +11,11 @@ enum RatingType {
         case .overall:
             return ["Very Poor", "Poor", "Average", "Good", "Excellent"][rating-1]
         case .content:
-            return ["Hardcore", "Challenging", "Moderate", "Easy", "Very Easy"][rating-1]
+            return ["Hardcore", "Challenging", "Average", "Easy", "Very Easy"][rating-1]
         case .workload:
-            return ["Very High", "High", "Moderate", "Low", "Very Low"][rating-1]
+            return ["Very High", "High", "Average", "Low", "Very Low"][rating-1]
         case .assessment:
-            return ["Very Strict", "Strict", "Moderate", "Lenient", "Very Lenient"][rating-1]
+            return ["Very Strict", "Strict", "Average", "Lenient", "Very Lenient"][rating-1]
         }
     }
 }
