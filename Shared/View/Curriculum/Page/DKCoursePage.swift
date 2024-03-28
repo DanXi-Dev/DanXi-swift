@@ -191,12 +191,12 @@ fileprivate struct ReviewSummary: View {
                     .font(.caption)
                     .fontWeight(.bold)
             }
+            .fixedSize()
             
             Spacer()
             
             VStack(alignment: .trailing) {
                 DKRatingView(rank: model.filteredRank)
-                    .frame(width: 200)
                 
                 Text("\(model.filteredReviews.count) Reviews")
                     .font(.caption)
