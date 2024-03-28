@@ -93,6 +93,17 @@ public class CourseModel: ObservableObject {
     
     // MARK: - Computed Property
     
+    public var filteredSemsters: [Semester] {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        
+        var filtered = semesters.filter({ $0.year > currentYear - 5 && $0.year <= currentYear })
+        if !filtered.contains(where: { $0 == semester }) {
+            filtered.append(semester)
+        }
+        
+        return filtered.sorted()
+    }
+    
     public var weekRange: ClosedRange<Int> {
         if let max = courses.compactMap({ $0.onWeeks.max() }).max(),
            let min = courses.compactMap({ $0.onWeeks.min() }).min() {

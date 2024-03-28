@@ -37,16 +37,9 @@ fileprivate struct CalendarContent: View {
             List {
                 Section {
                     Picker("Select Semester", selection: $model.semester) {
-                        ForEach(Array(model.semesters.enumerated()), id: \.offset) { _, semester in
+                        ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
                             Text(semester.name).tag(semester)
                         }
-                    }
-                    
-                    Button("Debug") {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "YYYY-MM-dd"
-                        let date = dateFormatter.date(from: "2024-02-26")!
-                        model.semester.startDate = date
                     }
                     
                     if !model.courses.isEmpty {
