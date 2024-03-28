@@ -190,6 +190,7 @@
 		F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
+		F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */; };
 		F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */; };
 		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
@@ -352,6 +353,7 @@
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F13306D32BA5766C005361D2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDDateValueChart.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				27D6F4532892C5D70059228F /* BundleResource.swift */,
 				27227FD428A512B300B3C99D /* Defaults.swift */,
 				F1728E332BB1661C00483F09 /* SheetExtension.swift */,
+				F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */,
 				27E2DE7A2A55496D00D26D86 /* Date.swift */,
 				2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */,
 				27CBA0762951C01E00F422DB /* Network.swift */,
@@ -1035,6 +1038,7 @@
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
+				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */,

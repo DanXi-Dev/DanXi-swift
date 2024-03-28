@@ -60,12 +60,18 @@ struct THTagEditor: View {
                     }
                     
                     if allowAppend {
-                        TextField("Add Tag", text: $text)
-                            .submitLabel(.done)
-                            .onSubmit {
-                                appendTag(text)
+                        BackspaceDetectingTextField(placeholder: String(localized: "Add Tag"), text: $text) { isEmpty in
+                            if isEmpty {
+                                if let last = tags.last {
+                                    removeTag(last)
+                                }
                             }
-                            .frame(width: width)
+                        } onSubmit: {
+                            appendTag(text)
+                        }
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .frame(width: width)
                     }
                 }
             }
