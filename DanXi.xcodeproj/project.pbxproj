@@ -123,6 +123,7 @@
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
 		27BD15DF2B04E6C0006A97A9 /* THModeratePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */; };
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
+		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
 		27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */; };
 		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
 		27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B412A8B90FE000A614B /* FormTitle.swift */; };
@@ -307,6 +308,7 @@
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
 		27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THModeratePage.swift; sourceTree = "<group>"; };
 		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
+		27C68CB12BB563A100037D52 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utils; sourceTree = "<group>"; };
 		27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXQuestionSheet.swift; sourceTree = "<group>"; };
 		27C95B412A8B90FE000A614B /* FormTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTitle.swift; sourceTree = "<group>"; };
 		27CAD2312A32AD94008F3D19 /* FoldedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldedView.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
+				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
 				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,6 +771,7 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
+				27C68CB12BB563A100037D52 /* Utils */,
 				270CD1902BAD68C900881ABA /* View Utils */,
 				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 			);
@@ -875,6 +879,7 @@
 				27D1D6472AB5F93D00E8D536 /* BetterSafariView */,
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
+				27C68CB22BB563EE00037D52 /* Utils */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -1661,6 +1666,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
+		};
+		27C68CB22BB563EE00037D52 /* Utils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utils;
 		};
 		27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
