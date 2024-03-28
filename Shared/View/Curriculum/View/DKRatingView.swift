@@ -38,7 +38,7 @@ struct DKRatingEntryView: View {
             Text(label)
                 .foregroundColor(.primary.opacity(0.7))
             ProgressView(value: rating, total: 5.0)
-                .frame(width: 120)
+                .frame(width: 100)
             Text(ratingType.text(forRating: rating))
                 .foregroundColor(.primary.opacity(0.7))
                 .gridColumnAlignment(.leading)
