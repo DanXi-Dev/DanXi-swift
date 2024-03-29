@@ -430,6 +430,9 @@
         }
       }
     },
+    "11号楼4514室" : {
+
+    },
     "About" : {
       "localizations" : {
         "zh-Hans" : {
@@ -5067,6 +5070,16 @@
         }
       }
     },
+    "Sort alphabetically." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按照字母顺序。"
+          }
+        }
+      }
+    },
     "Sort By" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5074,17 +5087,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "排序方式"
-          }
-        }
-      }
-    },
-    "Sort Options" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排序选项"
           }
         }
       }
@@ -5956,6 +5958,9 @@
           }
         }
       }
+    },
+    "光华楼101室" : {
+
     },
     "光华楼东辅楼" : {
       "localizations" : {
