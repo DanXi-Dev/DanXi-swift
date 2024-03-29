@@ -86,7 +86,7 @@ public struct AppConfiguration: Codable {
     init() {
         semesterStartDate = [:]
         banners = []
-        userAgent = "DanXi"
+        userAgent = "DXSwift"
     }
     
     init(semesterStartDate: [Int: Date], banners: [Banner], userAgent: String) {
