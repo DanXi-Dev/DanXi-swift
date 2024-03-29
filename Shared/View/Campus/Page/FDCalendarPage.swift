@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 import FudanKit
 import EventKit
 import EventKitUI
@@ -8,13 +9,16 @@ struct FDCalendarPage: View {
     
     var body: some View {
         AsyncContentView {
+            let context = ConfigurationCenter.configuration.semesterStartDate
+            
             if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
+                cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
                 return cachedModel
             }
             
             switch campusModel.studentType {
             case .undergrad:
-                return try await CourseModel.freshLoadForUndergraduate(startDateContext: [:])
+                return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
             case .grad:
                 return try await CourseModel.freshLoadForGraduate()
             case .staff:
@@ -64,6 +68,9 @@ fileprivate struct CalendarContent: View {
             }
             .refreshable {
                 await model.refresh(with: [:])
+            }
+            .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
+                model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
             }
             .toolbar {
                 Button {

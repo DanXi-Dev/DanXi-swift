@@ -22,9 +22,14 @@ class THHoleModel: ObservableObject {
         insertFloors(floors)
         if loadMore {
             Task(priority: .background) { // Prefetched data is incomplete, we need to send another request to get full data
-                let refreshedPrefetchData = try await THRequests.loadFloors(holeId: hole.id, startFloor: 0)
+                var refreshedPrefetchData = try await THRequests.loadFloors(holeId: hole.id, startFloor: 0)
                 let replaceEnd = min(refreshedPrefetchData.count, self.floors.count) - 1
                 guard replaceEnd >= 0 else { return }
+                var storey = 1
+                for i in 0..<refreshedPrefetchData.count {
+                    refreshedPrefetchData[i].storey = storey
+                    storey += 1
+                }
                 self.floors.replaceSubrange(0 ... replaceEnd, with: refreshedPrefetchData)
             }
         }

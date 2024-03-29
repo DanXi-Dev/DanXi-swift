@@ -57,11 +57,14 @@ struct THBrowsePage: View {
                     .environmentObject(model)
             }
         }
-        .onReceive(AppConfiguration.bannerPublisher) { banner in
+        .onReceive(ConfigurationCenter.bannerPublisher) { banner in
             appModel.banners = banner
         }
         .onAppear {
-            appModel.banners = AppConfiguration.shared.banners
+            withAnimation {
+                appModel.banners = ConfigurationCenter.configuration.banners
+            }
+            
         }
     }
 }

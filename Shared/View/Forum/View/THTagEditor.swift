@@ -50,9 +50,9 @@ struct THTagEditor: View {
     var body: some View {
         Group {
             Section {
-                WrappingHStack(alignment: .leading, verticalSpacing: 0) {
+                WrappingHStack(alignment: .leading, verticalSpacing: 4) {
                     ForEach(tags, id: \.self) { tag in
-                        THTagView(tag)
+                        THTagView(tag, deletable: true)
                             .transition(.scale)
                             .onTapGesture {
                                 removeTag(tag)
@@ -72,6 +72,7 @@ struct THTagEditor: View {
                         .frame(width: width)
                     }
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
             
             Section {
