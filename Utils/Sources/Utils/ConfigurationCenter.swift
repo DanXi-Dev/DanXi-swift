@@ -38,6 +38,7 @@ public enum ConfigurationCenter {
     private struct ConfigurationResponse: Codable {
         let semesterStartDate: [String: Date]
         let banners: [Banner]
+        let userAgent: String
         
         func constructConfiguration() -> AppConfiguration {
             var convertedSemsterStartDate: [Int: Date] = [:]
@@ -47,7 +48,7 @@ public enum ConfigurationCenter {
                 }
             }
             
-            return AppConfiguration(semesterStartDate: convertedSemsterStartDate, banners: banners)
+            return AppConfiguration(semesterStartDate: convertedSemsterStartDate, banners: banners, userAgent: userAgent)
         }
     }
     
@@ -79,16 +80,19 @@ public struct AppConfiguration: Codable {
     /// A map provided by DanXi backend to indicate the start date of each semester ID.
     public let semesterStartDate: [Int: Date]
     public let banners: [Banner]
+    public let userAgent: String
     
     /// Initializer that creates an empty configuration
     init() {
         semesterStartDate = [:]
         banners = []
+        userAgent = "DanXi"
     }
     
-    init(semesterStartDate: [Int: Date], banners: [Banner]) {
+    init(semesterStartDate: [Int: Date], banners: [Banner], userAgent: String) {
         self.semesterStartDate = semesterStartDate
         self.banners = banners
+        self.userAgent = userAgent
     }
 }
 
