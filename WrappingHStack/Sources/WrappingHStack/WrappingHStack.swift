@@ -101,8 +101,9 @@ public struct WrappingHStack: Layout {
                 let x: CGFloat = element.xOffset + anchor.x * (bounds.width - row.width)
                 let y: CGFloat = row.yOffset + anchor.y * (row.height - element.size.height)
                 let point = CGPoint(x: x + bounds.minX, y: y + bounds.minY)
-
-                subviews[element.index].place(at: point, anchor: .topLeading, proposal: proposal)
+                
+                let subviewProposal = ProposedViewSize(element.size)
+                subviews[element.index].place(at: point, anchor: .topLeading, proposal: subviewProposal)
             }
         }
     }
@@ -129,8 +130,9 @@ extension WrappingHStack {
         }
 
         let sizes = subviews.map { $0.sizeThatFits(proposal) }
+        let streches = subviews.map { $0[Streched.self] }
 
-        let hash = computeHash(proposal: proposal, sizes: sizes)
+        let hash = computeHash(proposal: proposal, sizes: sizes, streches: streches)
         if let (oldHash, oldRows) = cache.rows,
            oldHash == hash {
             return oldRows
@@ -146,7 +148,31 @@ extension WrappingHStack {
                 spacing = horizontalSpacing(subviews[previousIndex], subviews[index])
             }
 
-            let size = sizes[index]
+            var size = sizes[index]
+            let strech = streches[index]
+
+            if let strech = strech {
+                if currentX + strech + spacing > proposal.width ?? .infinity,
+                   !currentRow.elements.isEmpty {
+                    rows.append(currentRow)
+                    currentRow = Row()
+                    spacing = .zero
+                    currentX = .zero
+                }
+
+                currentRow.width = proposal.width ?? .infinity
+                let remain = currentRow.width - currentX - spacing
+                size.width = max(strech, remain)
+                print("Streched width: \(size.width)")
+                currentRow.elements.append((index, size, currentX + spacing))
+
+                rows.append(currentRow)
+                currentRow = Row()
+                spacing = .zero
+                currentX = .zero
+
+                continue
+            }
 
             if currentX + size.width + spacing > proposal.width ?? .infinity,
                !currentRow.elements.isEmpty {
@@ -192,7 +218,7 @@ extension WrappingHStack {
         return rows
     }
 
-    private func computeHash(proposal: ProposedViewSize, sizes: [CGSize]) -> Int {
+    private func computeHash(proposal: ProposedViewSize, sizes: [CGSize], streches: [CGFloat?]) -> Int {
         let proposal = proposal.replacingUnspecifiedDimensions(by: .infinity)
 
         var hasher = Hasher()
@@ -200,6 +226,13 @@ extension WrappingHStack {
         for size in [proposal] + sizes {
             hasher.combine(size.width)
             hasher.combine(size.height)
+        }
+
+        for (index, strech) in streches.enumerated() {
+            hasher.combine(index)
+            if let strech = strech {
+                hasher.combine(strech)
+            }
         }
 
         return hasher.finalize()
@@ -254,3 +287,16 @@ private extension UnitPoint {
         }
     }
 }
+
+private struct Streched: LayoutValueKey {
+    static let defaultValue: CGFloat? = nil
+}
+
+extension View {
+    /// Allow content inside a ``WrappingHStack`` to take all available space of current row.
+    /// - Parameter minWidth: The minimum width the view need. If there are not that much space, the view will be placed to the next row.
+    public func layoutStreched(minWidth: CGFloat?) -> some View {
+        layoutValue(key: Streched.self, value: minWidth)
+    }
+}
+
