@@ -31,6 +31,7 @@ struct THHomePage: View {
                         THSection(page: page)
                     }
             }
+            .watermark(content: userId, opacity: 0.03)
         }
         .environmentObject(navigator)
         .onOpenURL { url in
@@ -40,7 +41,6 @@ struct THHomePage: View {
             navigator.path.removeLast(navigator.path.count)
             navigator.path.append(THPage.notifications)
         }
-        .watermark(content: userId, opacity: 0.03)
     }
 }
 

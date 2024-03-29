@@ -1,12 +1,19 @@
 import SwiftUI
 
 struct DKHomePage: View {
+    @ObservedObject private var appModel = DXModel.shared
+    
     var body: some View {
+        var userId: String {
+            appModel.user?.id != nil ? String(appModel.user!.id) : ""
+        }
+        
         AsyncContentView { () -> [DKCourseGroup] in
             try await DKModel.shared.loadAll()
             return DKModel.shared.courses
         } content: { courses in
             HomePageContent(courses: courses)
+                .watermark(content: userId, opacity: 0.03)
         }
     }
 }
