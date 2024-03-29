@@ -45,7 +45,7 @@ struct FDHomePage: View {
                     }
                 }
             }
-            .sectionSpacing(10)
+            .compactSectionSpacing()
             .toolbar {
                 Button {
                     showSheet = true

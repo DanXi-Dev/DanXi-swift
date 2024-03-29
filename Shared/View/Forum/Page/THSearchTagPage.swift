@@ -15,7 +15,6 @@ struct THSearchTagPage: View {
                 }
             }
         }
-        .sectionSpacing(10)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(tagname)
     }

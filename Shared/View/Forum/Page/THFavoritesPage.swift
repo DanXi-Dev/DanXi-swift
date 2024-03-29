@@ -56,7 +56,6 @@ private struct FavoritePageContent: View {
                         }
                     }
                 }
-                .sectionSpacing(10)
                 .alert("Toggle Favorite Failed", isPresented: $showAlert) {} message: {
                     Text(deleteError)
                 }

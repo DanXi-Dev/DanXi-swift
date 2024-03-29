@@ -22,26 +22,22 @@ struct THHolePage: View {
         ZStack {
             ScrollViewReader { proxy in
                 THBackgroundList(selection: $model.selectedFloor) {
+                    
+                    // On older platform, adjusting list section spacing will hide section header
+                    // due to implementation of compactSectionSpacing.
+                    if #unavailable(iOS 17) {
+                        header
+                            .listRowBackground(Color.clear)
+                    }
+                    
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
                         Section {
                             THComplexFloor(floor)
                                 .tag(floor)
+                                .id(floor)
                         } header: {
                             if floor.id == model.floors.first?.id {
-                                VStack(alignment: .leading) {
-                                    if model.hole.locked {
-                                        HStack {
-                                            Label("Post locked, reply is forbidden", systemImage: "lock.fill")
-                                                .font(.callout)
-                                                .foregroundColor(.secondary)
-                                                .listRowSeparator(.hidden)
-                                            Spacer()
-                                        }
-                                    }
-                                    THHoleTags(tags: model.hole.tags)
-                                        .padding(.bottom, 5)
-                                        .textCase(.none)
-                                }
+                                header
                             }
                         }
                     }
@@ -105,6 +101,23 @@ struct THHolePage: View {
                     }
                 }
             }
+        }
+    }
+    
+    private var header: some View {
+        VStack(alignment: .leading) {
+            if model.hole.locked {
+                HStack {
+                    Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                        .listRowSeparator(.hidden)
+                    Spacer()
+                }
+            }
+            THHoleTags(tags: model.hole.tags)
+                .padding(.bottom, 5)
+                .textCase(.none)
         }
     }
 }

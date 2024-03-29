@@ -22,7 +22,7 @@ struct IntroSheet: View {
                     .frame(width: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                     .padding(12)
-                Text(String(localized:"DanXi") + "2.0")
+                Text(String(localized:"DanXi") + " 2.0")
                     .font(.largeTitle)
                     .bold()
                     .padding(8)
@@ -42,7 +42,7 @@ struct IntroSheet: View {
                     .foregroundStyle(.secondary)
                     .font(.footnote)
                     .padding(.horizontal, 32)
-                NavigationLink(destination: IntroLoginSheet(), label: {
+                NavigationLink(destination: IntroNotificationSheet(), label: {
                     Text("Continue")
                         .font(.title3)
                         .frame(maxWidth: 320)
@@ -152,6 +152,56 @@ struct IntroLoginSheet: View {
     }
 }
 
+struct IntroNotificationSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: AppModel
+    @ObservedObject private var campusModel = CampusModel.shared
+    
+    @State private var nextPage: Bool = false
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            Spacer()
+            Image(systemName: "app.badge")
+                .symbolRenderingMode(.multicolor)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100)
+                .padding(12)
+            Text("Enable Notifications")
+                .font(.largeTitle)
+                .bold()
+                .padding(8)
+            Text("DanXi provides timely notifications to keep you updated. You will be prompted for permission to enable this feature in the upcoming step. You can adjust this setting at any time within the system settings.")
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Button(action: {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                    // Next page
+                    nextPage = true
+                }
+            }, label: {
+                Text("Continue")
+                    .font(.title3)
+                    .frame(maxWidth: 320)
+                    .padding(8)
+            })
+            .buttonStyle(.borderedProminent)
+            .padding(.horizontal)
+            .padding(.top, 8)
+            Spacer()
+        }
+        .interactiveDismissDisabled()
+        .navigationDestination(isPresented: $nextPage, destination: { IntroLoginSheet() })
+    }
+}
 
 #Preview {
     IntroSheet()
