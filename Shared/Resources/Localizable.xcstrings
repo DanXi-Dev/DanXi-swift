@@ -420,6 +420,7 @@
       }
     },
     "2.0" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1397,6 +1398,16 @@
         }
       }
     },
+    "DanXi provides timely notifications to keep you updated. You will be prompted for permission to enable this feature in the upcoming step. You can adjust this setting at any time within the system settings." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕会发送通知以方便您及时掌握最新动向。请在下一步中授予我们推送通知权限。您可以随时在系统设置中更改此设置。"
+          }
+        }
+      }
+    },
     "DanXi Qualification" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2096,6 +2107,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无关注的贴子"
+          }
+        }
+      }
+    },
+    "Enable Notifications" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启推送通知"
           }
         }
       }

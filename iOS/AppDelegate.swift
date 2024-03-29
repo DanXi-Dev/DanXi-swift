@@ -23,13 +23,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
             application.registerForRemoteNotifications()
         }
         
-        // Request notification permission
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            if granted || error == nil {
-
-            }
-        }
-        
 #if !targetEnvironment(macCatalyst)
         // Activate internet connection
         let cellular = CTCellularData()
