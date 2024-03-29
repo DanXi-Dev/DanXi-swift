@@ -69,9 +69,7 @@ struct THTagEditor: View {
                         } onSubmit: {
                             appendTag(text)
                         }
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
-                        .frame(width: width)
+                        .frame(minWidth: width)
                     }
                 }
             }
