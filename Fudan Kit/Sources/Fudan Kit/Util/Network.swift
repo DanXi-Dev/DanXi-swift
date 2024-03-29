@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 extension URLSession {
     static let campusSession = URLSession(configuration: .default)
@@ -13,10 +14,8 @@ func constructRequest(_ url: URL, payload: Data? = nil, method: String? = nil) -
     var request = URLRequest(url: url)
     
     // set user agent
-    let appVersion = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "0.0.0"
-    let ua = "DXSwift/\(appVersion)"
-    request.setValue(ua,
-                     forHTTPHeaderField: "User-Agent")
+    let userAgent = ConfigurationCenter.configuration.userAgent
+    request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
     
     // set method and payload
     if let payload = payload {
