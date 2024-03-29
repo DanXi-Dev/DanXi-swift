@@ -27,7 +27,7 @@ struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
         List(selection: $selection) {
                 content
         }
-        .sectionSpacing(10)
+        .compactSectionSpacing()
 //        .scrollContentBackground(hasBackground ? .hidden : .visible)
 //        .background(alignment: .bottomLeading) { // leading alignment is used so that the image won't move when the size of List changes during scroll (navigation title may change its size)
 //            if let image = settings.backgroundImage {
