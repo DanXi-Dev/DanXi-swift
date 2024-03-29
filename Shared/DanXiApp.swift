@@ -11,7 +11,7 @@ struct DanXiApp: App {
         WindowGroup {
             ContentView()
                 .task {
-                    AppConfiguration.initialFetch()
+                    ConfigurationCenter.initialFetch()
                 }
         }
     }
