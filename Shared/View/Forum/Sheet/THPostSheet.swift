@@ -32,9 +32,12 @@ struct THPostSheet: View {
                             .tag(division.id)
                     }
                 }
+                       .labelStyle(.titleOnly)
             }
             
-            THTagEditor($tags, maxSize: 5)
+            Section("Tags") {
+                THTagEditor($tags, maxSize: 5)
+            }
             
             THContentEditor(content: $content)
         }
