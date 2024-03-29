@@ -8,79 +8,66 @@
 import SwiftUI
 
 /// This TextField is specifically designed for [THTagEditor]
-public struct BackspaceDetectingTextField: UIViewRepresentable {
+struct BackspaceDetectingTextField: UIViewRepresentable {
     let placeholder: String
     @Binding var text: String
-    let onBackspace: (Bool) -> Void
+    let onBackPressed: (Bool) -> Void
     let onSubmit: () -> Void
     
-    public func makeCoordinator() -> BackspaceDetectingTextFieldCoordinator {
-        BackspaceDetectingTextFieldCoordinator(textBinding: $text, onSubmit: onSubmit)
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text, onBackPressed: onBackPressed, onSubmit: onSubmit)
     }
     
-    public func makeUIView(context: Context) -> BackspaceDetectingUITextField {
-        let view = BackspaceDetectingUITextField()
-        view.placeholder = placeholder
-        view.delegate = context.coordinator
-        view.autocorrectionType = .no
-        view.autocapitalizationType = .none
-        view.spellCheckingType = .no
-        view.returnKeyType = .done
-        view.onBackspace = onBackspace
-        return view
+    func makeUIView(context: Context) -> CustomTextField {
+        let textField = CustomTextField()
+        textField.delegate = context.coordinator
+        textField.onBackPressed = onBackPressed
+        textField.placeholder = placeholder
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
+        textField.returnKeyType = .done
+        textField.addTarget(context.coordinator, action: #selector(Coordinator.textChange(textField:)), for: .editingChanged)
+        return textField
     }
     
-    public func updateUIView(_ uiView: BackspaceDetectingUITextField, context: Context) {
+    func updateUIView(_ uiView: CustomTextField, context: Context) {
         uiView.text = text
     }
     
-    public class BackspaceDetectingUITextField: UITextField {
-        var onBackspace: ((Bool) -> Void)?
+//    func sizeThatFits(_ proposal: ProposedViewSize, uiView: CustomTextField, context: Context) -> CGSize? {
+//        return uiView.intrinsicContentSize
+//    }
+    
+    class Coordinator: NSObject, UITextFieldDelegate {
+        @Binding var text: String
+        let onBackPressed: (Bool) -> Void
+        let onSubmit: () -> Void
         
-        override init(frame: CGRect) {
-            onBackspace = nil
-            super.init(frame: frame)
+        init(text: Binding<String>, onBackPressed: @escaping (Bool) -> Void, onSubmit: @escaping () -> Void) {
+            self._text = text
+            self.onBackPressed = onBackPressed
+            self.onSubmit = onSubmit
         }
         
-        required init?(coder: NSCoder) {
-            print("Unsupported method called in BackspaceDetectingTextField")
-            fatalError()
+        @objc func textChange(textField: UITextField) {
+            DispatchQueue.main.async { [weak self] in
+                self?.text = textField.text ?? ""
+            }
         }
         
-        override public func deleteBackward() {
-            onBackspace?(text?.isEmpty == true)
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            onSubmit()
+            return true
+        }
+    }
+    
+    class CustomTextField: UITextField {
+        open var onBackPressed: ((Bool) -> Void)?
+        
+        override func deleteBackward() {
+            onBackPressed?(text?.isEmpty == true)
             super.deleteBackward()
         }
-    }
-}
-
-public class BackspaceDetectingTextFieldCoordinator: NSObject {
-    let textBinding: Binding<String>
-    let onSubmit: () -> Void
-    
-    init(textBinding: Binding<String>, onSubmit: @escaping () -> Void) {
-        self.textBinding = textBinding
-        self.onSubmit = onSubmit
-    }
-}
-
-extension BackspaceDetectingTextFieldCoordinator: UITextFieldDelegate {
-    public func textField(_ textField: UITextField,
-                          shouldChangeCharactersIn range: NSRange,
-                          replacementString string: String) -> Bool {
-        let currentText = textField.text ?? ""
-        let replacementText = (currentText as NSString).replacingCharacters(in: range, with: string)
-        DispatchQueue.main.async {
-            self.textBinding.wrappedValue = replacementText
-        }
-        return true
-    }
-    
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-        DispatchQueue.main.async {
-            self.onSubmit()
-        }
-        return true
     }
 }
