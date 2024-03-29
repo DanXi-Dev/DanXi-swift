@@ -5,7 +5,7 @@ struct THTagEditor: View {
     private let maxSize: Int?
     @Binding private var tags: [String]
     @State private var text = ""
-    @ScaledMetric private var width = 100
+    @ScaledMetric private var textFieldWidth = 100
     @ObservedObject private var appModel = THModel.shared
     
     init(_ tags: Binding<[String]>, maxSize: Int? = nil) {
@@ -69,7 +69,7 @@ struct THTagEditor: View {
                         } onSubmit: {
                             appendTag(text)
                         }
-                        .frame(width: width)
+                        .layoutStreched(minWidth: textFieldWidth)
                     }
                 }
                 .fixedSize(horizontal: false, vertical: true)
