@@ -4,21 +4,31 @@ import WrappingHStack
 struct THTagView: View {
     let name: String
     let color: Color
+    let deletable: Bool
     
-    init(_ tag: THTag) {
+    init(_ tag: THTag, deletable: Bool = false) {
         self.name = tag.name
         self.color = randomColor(tag.name)
+        self.deletable = deletable
     }
     
-    init(_ name: String, color: Color? = nil) {
+    init(_ name: String, color: Color? = nil, deletable: Bool = false) {
         self.name = name
         self.color = color ?? randomColor(name)
+        self.deletable = deletable
     }
     
     var body: some View {
-        Text(name)
-            .textCase(nil)
-            .tagStyle(color: color)
+        HStack {
+            Text(name)
+            if deletable {
+                Divider()
+                Image(systemName: "multiply")
+                    .imageScale(.small)
+            }
+        }
+        .textCase(nil)
+        .tagStyle(color: color)
     }
 }
 
