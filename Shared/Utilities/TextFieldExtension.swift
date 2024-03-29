@@ -35,9 +35,14 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
         uiView.text = text
     }
     
-//    func sizeThatFits(_ proposal: ProposedViewSize, uiView: CustomTextField, context: Context) -> CGSize? {
-//        return uiView.intrinsicContentSize
-//    }
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView: CustomTextField, context: Context) -> CGSize? {
+        guard
+            let width = proposal.width,
+            let height = proposal.height
+        else { return nil }
+        
+        return CGSize(width: width, height: height)
+    }
     
     class Coordinator: NSObject, UITextFieldDelegate {
         @Binding var text: String
@@ -51,7 +56,7 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
         }
         
         @objc func textChange(textField: UITextField) {
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async { @MainActor [weak self] in
                 self?.text = textField.text ?? ""
             }
         }
