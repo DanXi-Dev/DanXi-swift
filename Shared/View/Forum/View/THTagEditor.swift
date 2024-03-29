@@ -50,7 +50,7 @@ struct THTagEditor: View {
     var body: some View {
         Group {
             Section {
-                WrappingHStack(alignment: .leading) {
+                WrappingHStack(alignment: .leading, verticalSpacing: 0) {
                     ForEach(tags, id: \.self) { tag in
                         THTagView(tag)
                             .transition(.scale)
@@ -69,7 +69,7 @@ struct THTagEditor: View {
                         } onSubmit: {
                             appendTag(text)
                         }
-                        .frame(minWidth: width)
+                        .frame(width: width)
                     }
                 }
             }
