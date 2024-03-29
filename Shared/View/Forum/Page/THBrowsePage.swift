@@ -13,9 +13,10 @@ struct THBrowsePage: View {
                 .listRowBackground(Color.clear)
             
             if settings.showBanners && !appModel.banners.isEmpty {
-                BannerCarousel(banners: appModel.banners)
-                    .listRowInsets(EdgeInsets(.all, 0))
-                    .listRowBackground(Color.clear)
+                Section {
+                    BannerCarousel(banners: appModel.banners)
+                        .listRowInsets(EdgeInsets(.all, 0))
+                }
             }
             
             // Banned Notice
@@ -361,7 +362,7 @@ private struct BannerView: View {
     let navigationTapCallback: () -> Void
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var navigator: THNavigator
-    @ScaledMetric private var height: CGFloat = 40
+    @ScaledMetric private var height: CGFloat = 20
     @ScaledMetric private var fontSize: CGFloat = 15
     
     init(banner: Banner, navigationTapCallback: (() -> Void)? = nil) {
@@ -404,7 +405,5 @@ private struct BannerView: View {
         .font(.system(size: fontSize))
         .frame(height: height)
         .padding()
-        .background(.gray.opacity(0.1))
-        .cornerRadius(15)
     }
 }
