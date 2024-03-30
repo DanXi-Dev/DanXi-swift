@@ -136,7 +136,7 @@ class THModerateModel: ObservableObject {
                 try await THRequests.setSensitive(id: id, sensitive: sensitive)
                 successIds.append(id)
             } catch {
-                print(error)
+                // print(error)
             }
         }
         
