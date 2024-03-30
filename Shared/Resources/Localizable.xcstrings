@@ -4934,7 +4934,6 @@
       }
     },
     "Show Activity Announcements" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5876,6 +5875,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "违规处理通知"
+          }
+        }
+      }
+    },
+    "Watermark Opacity %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水印透明度 %@"
           }
         }
       }

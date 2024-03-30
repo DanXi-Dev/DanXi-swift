@@ -13,7 +13,7 @@ struct DKHomePage: View {
             return DKModel.shared.courses
         } content: { courses in
             HomePageContent(courses: courses)
-                .watermark(content: userId, opacity: 0.03)
+                .watermark(content: userId, opacity: THSettings.shared.watermarkOpacity)
         }
     }
 }
