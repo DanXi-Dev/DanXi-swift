@@ -4,8 +4,8 @@ struct THPostSheet: View {
     @EnvironmentObject private var navigator: THNavigator
     @ObservedObject private var appModel = THModel.shared
     @State var divisionId: Int
-    @AppStorage("post-content") private var content = ""
-    @AppStorage("post-tag") private var tags: [String] = []
+    @State private var content = ""
+    @State private var tags: [String] = []
     
     var body: some View {
         Sheet("New Post") {
