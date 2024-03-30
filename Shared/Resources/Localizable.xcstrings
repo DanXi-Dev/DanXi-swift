@@ -430,9 +430,6 @@
         }
       }
     },
-    "11号楼4514室" : {
-
-    },
     "About" : {
       "localizations" : {
         "zh-Hans" : {
@@ -5072,10 +5069,16 @@
     },
     "Sort alphabetically." : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorted Alphabetically"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "按照字母顺序。"
+            "value" : "按照名称字母顺序排序"
           }
         }
       }
@@ -5958,9 +5961,6 @@
           }
         }
       }
-    },
-    "光华楼101室" : {
-
     },
     "光华楼东辅楼" : {
       "localizations" : {

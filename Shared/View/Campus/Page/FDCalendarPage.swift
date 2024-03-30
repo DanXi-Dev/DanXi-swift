@@ -185,14 +185,24 @@ fileprivate struct ExportSheet: View {
     @State private var showPermissionDeniedAlert = false
     @State private var showExportError = false
     @State private var exportError: Error?
+    let eventStore = EKEventStore()
     
     private var allSelected: Bool {
         selectedKeys.count == allKeys.count
     }
     
-    private func presentCalendarChooser() {
+    private func presentCalendarChooser() async throws {
         let eventStore = EKEventStore()
-        eventStore.requestAccess { (granted, error) in
+        
+        if #available(iOS 17, *) {
+            let granted = try await eventStore.requestWriteOnlyAccessToEvents()
+            if granted {
+                showCalendarChooser = true
+            } else {
+                showPermissionDeniedAlert = true
+            }
+        } else {
+            let granted = try await eventStore.requestAccess(to: .event)
             if granted {
                 showCalendarChooser = true
             } else {
@@ -203,7 +213,7 @@ fileprivate struct ExportSheet: View {
     
     private func exportToCalendar(calendar: EKCalendar) {
         do {
-            try model.exportToCalendar(to: calendar, keys: selectedKeys)
+            try model.exportToCalendar(to: calendar, keys: selectedKeys, eventStore: eventStore)
             dismiss()
         } catch {
             exportError = error
@@ -257,7 +267,9 @@ fileprivate struct ExportSheet: View {
                         }
                     } else {
                         Button {
-                            presentCalendarChooser()
+                            Task(priority: .userInitiated) {
+                                try await presentCalendarChooser()
+                            }
                         } label: {
                             Text("Export")
                         }
@@ -271,7 +283,7 @@ fileprivate struct ExportSheet: View {
                 Text(exportError?.localizedDescription ?? "")
             }
             .sheet(isPresented: $showCalendarChooser) {
-                CalendarChooserSheet(selectedCalendar: $selectedCalendar)
+                CalendarChooserSheet(selectedCalendar: $selectedCalendar, eventStore: eventStore)
                     .ignoresSafeArea()
                     .onDisappear {
                         if let selectedCalendar = selectedCalendar {
@@ -286,7 +298,7 @@ fileprivate struct ExportSheet: View {
 fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
     @Binding var selectedCalendar: EKCalendar?
     @Environment(\.dismiss) private var dismiss
-    private let eventStore = EKEventStore()
+    let eventStore: EKEventStore
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<CalendarChooserSheet>) -> UINavigationController {
         let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
