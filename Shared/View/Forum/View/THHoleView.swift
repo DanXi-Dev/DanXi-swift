@@ -80,16 +80,15 @@ struct THHoleView: View {
                     THTagView(tag)
                 }
             }
-            
-            if !hole.firstFloor.spetialTag.isEmpty {
-                Spacer()
-                HStack {
+            Spacer()
+            HStack {
+                if !hole.firstFloor.spetialTag.isEmpty {
                     THSpecialTagView(content: hole.firstFloor.spetialTag)
-                    if pinned {
-                        Image(systemName: "pin.fill")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                    }
+                }
+                if pinned {
+                    Image(systemName: "pin.fill")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
                 }
             }
         }
