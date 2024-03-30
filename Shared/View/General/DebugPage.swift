@@ -19,6 +19,9 @@ struct DebugPage: View {
             
             Section {
                 ScreenshotAlert()
+                Toggle(isOn: THSettings.shared.$showBanners) {
+                    Label("Show Activity Announcements", systemImage: "bell")
+                }
             }
             
             Section {

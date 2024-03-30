@@ -6,11 +6,6 @@ struct THSettingsView: View {
     
     var body: some View {
         Section("Forum") {
-            
-            //            Toggle(isOn: $settings.showBanners) {
-            //                Label("Show Activity Announcements", systemImage: "bell")
-            //            }
-            
             NavigationLink {
                 NotificationSettingWrapper()
             } label: {
