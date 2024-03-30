@@ -179,53 +179,51 @@ class FDCalendarModel: ObservableObject {
     }
     
     
-    func exportToCalendar(_ calendar: EKCalendar) {
+    func exportToCalendar(_ calendar: EKCalendar) async throws {
         guard let base = semesterStart else { return }
-        
         let eventStore = EKEventStore()
-        eventStore.requestAccess { granted, error in
-            guard granted, error == nil else {
-                return
-            }
-            
-            for course in self.courses {
-                do {
-                    if course.weeks.isEmpty { continue }
-                    
-                    if let recurrentWeek = course.recurrentWeek {
+        
+        if #available(iOS 17, *) {
+            let granted = try await eventStore.requestWriteOnlyAccessToEvents()
+            guard granted else { return }
+        } else {
+            let granted = try await eventStore.requestAccess(to: .event)
+            guard granted else { return }
+        }
+        
+        for course in self.courses {
+            do {
+                if course.weeks.isEmpty { continue }
+                
+                if let recurrentWeek = course.recurrentWeek {
+                    let event = EKEvent(eventStore: eventStore)
+                    event.title = course.name
+                    event.location = course.location
+                    (event.startDate, event.endDate) = course.calcTime(base: base, week: course.weeks.first!)
+                    let recurrenceRule = EKRecurrenceRule(
+                        recurrenceWith: .weekly,
+                        interval: recurrentWeek,
+                        end: EKRecurrenceEnd(occurrenceCount: (course.weeks.last! - course.weeks.first!) / recurrentWeek + 1)
+                    )
+                    event.addRecurrenceRule(recurrenceRule)
+                    event.calendar = calendar
+                    try eventStore.save(event, span: .thisEvent, commit: false)
+                } else {
+                    for week in course.weeks {
                         let event = EKEvent(eventStore: eventStore)
                         event.title = course.name
                         event.location = course.location
-                        (event.startDate, event.endDate) = course.calcTime(base: base, week: course.weeks.first!)
-                        let recurrenceRule = EKRecurrenceRule(
-                            recurrenceWith: .weekly,
-                            interval: recurrentWeek,
-                            end: EKRecurrenceEnd(occurrenceCount: (course.weeks.last! - course.weeks.first!) / recurrentWeek + 1)
-                        )
-                        event.addRecurrenceRule(recurrenceRule)
+                        (event.startDate, event.endDate) = course.calcTime(base: base, week: week)
                         event.calendar = calendar
                         try eventStore.save(event, span: .thisEvent, commit: false)
-                    } else {
-                        for week in course.weeks {
-                            let event = EKEvent(eventStore: eventStore)
-                            event.title = course.name
-                            event.location = course.location
-                            (event.startDate, event.endDate) = course.calcTime(base: base, week: week)
-                            event.calendar = calendar
-                            try eventStore.save(event, span: .thisEvent, commit: false)
-                        }
                     }
-                } catch {
-                    continue
                 }
-            }
-            
-            do {
-                try eventStore.commit()
             } catch {
-                
+                continue
             }
         }
+        
+        try eventStore.commit()
     }
 }
 

@@ -214,10 +214,8 @@ public class CourseModel: ObservableObject {
         return map
     }
     
-    public func exportToCalendar(to calendar: EKCalendar, keys: Set<CourseKey>) throws {
+    public func exportToCalendar(to calendar: EKCalendar, keys: Set<CourseKey>, eventStore: EKEventStore) throws {
         guard let startDate = semester.startDate else { return }
-        
-        let eventStore = EKEventStore()
         
         for key in keys {
             guard let courses = self.calendarMap[key] else { continue }
@@ -332,7 +330,7 @@ extension Course {
             )
             event.addRecurrenceRule(recurrenceRule)
             event.calendar = calendar
-            try eventStore.save(event, span: .thisEvent)
+            try eventStore.save(event, span: .thisEvent, commit: false)
         } else {
             for week in onWeeks {
                 let event = EKEvent(eventStore: eventStore)
@@ -340,7 +338,7 @@ extension Course {
                 event.location = location
                 (event.startDate, event.endDate) = computeTime(from: semesterStart, on: week)
                 event.calendar = calendar
-                try eventStore.save(event, span: .thisEvent)
+                try eventStore.save(event, span: .thisEvent, commit: false)
             }
         }
     }
