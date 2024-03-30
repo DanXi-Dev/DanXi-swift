@@ -31,13 +31,17 @@ struct THHolePage: View {
                     }
                     
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                        Section {
-                            THComplexFloor(floor)
-                                .tag(floor)
-                                .id(floor)
-                        } header: {
-                            if floor.id == model.floors.first?.id {
-                                header
+                        if !floor.content.isEmpty {
+                            // If a floor has empty content, hide it
+                            // This is at the request of OpenTreehole backend
+                            Section {
+                                THComplexFloor(floor)
+                                    .tag(floor)
+                                    .id(floor)
+                            } header: {
+                                if floor.id == model.floors.first?.id {
+                                    header
+                                }
                             }
                         }
                     }
