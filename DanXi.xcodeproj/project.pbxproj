@@ -47,6 +47,7 @@
 		272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* THReplySheet.swift */; };
 		272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */; };
 		272B08462A6EE6F40078CFF6 /* THBrowseHistoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */; };
+		272D87AA2BB74AF70027C548 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 272D87A92BB74AF70027C548 /* WrappingHStack */; };
 		272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */; };
 		272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */; };
 		2733CA172AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */; };
@@ -91,7 +92,6 @@
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
 		27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A44E9D29AF253500CE6661 /* FDRankPage.swift */; };
-		27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1A29D6D4DD0042D28D /* WrappingHStack */; };
 		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
 		27A5DA2829D74A630042D28D /* FDCalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2729D74A630042D28D /* FDCalendarPage.swift */; };
@@ -140,7 +140,6 @@
 		27D07BFA2A78261900B94855 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF92A78261900B94855 /* SwiftUIX */; };
 		27D07BFC2A78261900B94855 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BFB2A78261900B94855 /* SwiftyJSON */; };
 		27D07C002A78261900B94855 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BFF2A78261900B94855 /* KeychainAccess */; };
-		27D07C022A78261900B94855 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07C012A78261900B94855 /* WrappingHStack */; };
 		27D07C042A7826A200B94855 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27D07C052A7826AD00B94855 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
 		27D07C062A7826B000B94855 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E2DE7A2A55496D00D26D86 /* Date.swift */; };
@@ -251,6 +250,7 @@
 		272AC8E22896F29800092B0C /* THReplySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReplySheet.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorEditSheet.swift; sourceTree = "<group>"; };
 		272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseHistoryPage.swift; sourceTree = "<group>"; };
+		272D87A82BB74A930027C548 /* WrappingHStack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WrappingHStack; sourceTree = "<group>"; };
 		272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagEditor.swift; sourceTree = "<group>"; };
 		272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentEditor.swift; sourceTree = "<group>"; };
 		2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDUnwrapJSON.swift; sourceTree = "<group>"; };
@@ -371,7 +371,6 @@
 				27D07BF82A78261900B94855 /* CachedAsyncImage in Frameworks */,
 				27D07C002A78261900B94855 /* KeychainAccess in Frameworks */,
 				27D07BF42A78261900B94855 /* Markdown in Frameworks */,
-				27D07C022A78261900B94855 /* WrappingHStack in Frameworks */,
 				27D07BF62A78261900B94855 /* SwiftSoup in Frameworks */,
 				27D07BFC2A78261900B94855 /* SwiftyJSON in Frameworks */,
 				27D07BFA2A78261900B94855 /* SwiftUIX in Frameworks */,
@@ -398,11 +397,11 @@
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
+				272D87AA2BB74AF70027C548 /* WrappingHStack in Frameworks */,
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */,
-				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
@@ -780,6 +779,7 @@
 				27C68CB12BB563A100037D52 /* Utils */,
 				270CD1902BAD68C900881ABA /* View Utils */,
 				27DD19B22BA5C16900B75643 /* Fudan Kit */,
+				272D87A82BB74A930027C548 /* WrappingHStack */,
 			);
 			sourceTree = "<group>";
 		};
@@ -827,7 +827,6 @@
 				27D07BF92A78261900B94855 /* SwiftUIX */,
 				27D07BFB2A78261900B94855 /* SwiftyJSON */,
 				27D07BFF2A78261900B94855 /* KeychainAccess */,
-				27D07C012A78261900B94855 /* WrappingHStack */,
 			);
 			productName = "DanXi-watch Watch App";
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
@@ -879,13 +878,13 @@
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
 				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
-				27A5DA1A29D6D4DD0042D28D /* WrappingHStack */,
 				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
 				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 				27D1D6472AB5F93D00E8D536 /* BetterSafariView */,
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
 				27C68CB22BB563EE00037D52 /* Utils */,
+				272D87A92BB74AF70027C548 /* WrappingHStack */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -930,7 +929,6 @@
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
 				27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */,
 				27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
@@ -1541,14 +1539,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ksemianov/WrappingHStack";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
-			};
-		};
 		27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/advanced-scrollview";
@@ -1620,6 +1610,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewUtils;
 		};
+		272D87A92BB74AF70027C548 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WrappingHStack;
+		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
@@ -1629,11 +1623,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
-		};
-		27A5DA1A29D6D4DD0042D28D /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
 		};
 		27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1713,11 +1702,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
-		};
-		27D07C012A78261900B94855 /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
 		};
 		27D1D6472AB5F93D00E8D536 /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;
