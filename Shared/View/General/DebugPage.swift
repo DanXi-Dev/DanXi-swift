@@ -4,6 +4,7 @@ struct DebugPage: View {
     @EnvironmentObject private var model: AppModel
     @State private var showURLSheet = false
     @State private var showHTTPSheet = false
+    @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
         List {
@@ -19,9 +20,10 @@ struct DebugPage: View {
             
             Section {
                 ScreenshotAlert()
-                Toggle(isOn: THSettings.shared.$showBanners) {
+                Toggle(isOn: settings.$showBanners) {
                     Label("Show Activity Announcements", systemImage: "bell")
                 }
+                Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.005)
             }
             
             Section {

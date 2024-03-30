@@ -31,7 +31,7 @@ struct THHomePage: View {
                         THSection(page: page)
                     }
             }
-            .watermark(content: userId, opacity: 0.03)
+            .watermark(content: userId, opacity: THSettings.shared.watermarkOpacity)
         }
         .environmentObject(navigator)
         .onOpenURL { url in
