@@ -3,6 +3,7 @@ import SwiftUI
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
     @ObservedObject private var forumModel = THModel.shared
+    @ObservedObject private var settings = THSettings.shared
     @StateObject private var navigator = THNavigator()
     
     var body: some View {
@@ -31,7 +32,7 @@ struct THHomePage: View {
                         THSection(page: page)
                     }
             }
-            .watermark(content: userId, opacity: THSettings.shared.watermarkOpacity)
+            .watermark(content: userId, opacity: settings.watermarkOpacity)
         }
         .environmentObject(navigator)
         .onOpenURL { url in
