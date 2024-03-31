@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 import EventKit
 import Combine
 import Disk
@@ -8,8 +9,8 @@ class FDCalendarModel: ObservableObject {
     static let timetablePublisher = PassthroughSubject<[Timetable], Never>()
     static var timetables: [Timetable] = []
     
-    @Published var semester: FDSemester
-    @Published var semesters: [FDSemester]
+    @Published var semester: Semester
+    @Published var semesters: [Semester]
     var semesterUpdated = false
     @Published var semesterStart: Date?
     @Published var courses: [FDCourse]
@@ -52,7 +53,7 @@ class FDCalendarModel: ObservableObject {
         
         // load from server
         try await FDAcademicAPI.login()
-        let semesters = try await FDAcademicAPI.getSemesters()
+        let semesters = try await UndergraduateCourseAPI.getSemesters()
         let (semesterId, courses) = try await FDAcademicAPI.getCourseList()
         let model = FDCalendarModel(semesters, semesterId, courses)
         try model.save()
@@ -62,11 +63,11 @@ class FDCalendarModel: ObservableObject {
     
     // MARK: - Load from Server
     
-    init(_ semesters: [FDSemester],
+    init(_ semesters: [Semester],
          _ semesterId: Int,
          _ courses: [FDCourse]) {
         self.semesters = semesters
-        self.semester = semesters.filter { $0.id == semesterId }.first!
+        self.semester = semesters.filter { $0.semesterId == semesterId }.first!
         self.courses = courses
         self.week = 1
         
@@ -76,8 +77,8 @@ class FDCalendarModel: ObservableObject {
     // MARK: - Load from Disk
     
     struct Bundle: Codable {
-        let semester: FDSemester
-        let semesters: [FDSemester]
+        let semester: Semester
+        let semesters: [Semester]
         let semesterStart: Date?
         let courses: [FDCourse]
     }
@@ -137,15 +138,15 @@ class FDCalendarModel: ObservableObject {
         }
     }
     
-    static func getStartDateFromTimetable(_ semester: FDSemester) -> Date? {
-        if let timetable = Self.timetables.filter({ $0.semester == semester.id }).first {
+    static func getStartDateFromTimetable(_ semester: Semester) -> Date? {
+        if let timetable = Self.timetables.filter({ $0.semester == semester.semesterId }).first {
             return timetable.startDate
         }
         return nil
     }
     
     func matchTimetable() {
-        if let timetable = Self.timetables.filter({ $0.semester == semester.id }).first {
+        if let timetable = Self.timetables.filter({ $0.semester == semester.semesterId }).first {
             self.semesterStart = timetable.startDate
         }
         reloadWeek()
@@ -157,14 +158,14 @@ class FDCalendarModel: ObservableObject {
     func reloadSemesters() async throws {
         if semesterUpdated { return }
         try await FDAcademicAPI.login()
-        semesters = try await FDAcademicAPI.getSemesters()
+        semesters = try await UndergraduateCourseAPI.getSemesters()
         semesterUpdated = true
     }
     
-    func refresh(_ semester: FDSemester, _ startDate: Date) async throws {
+    func refresh(_ semester: Semester, _ startDate: Date) async throws {
         semesterStart = startDate
         
-        if semester.id == self.semester.id { // only set date, no need to request from server
+        if semester.semesterId == self.semester.semesterId { // only set date, no need to request from server
             matchTimetable()
             try save()
             return
@@ -172,7 +173,7 @@ class FDCalendarModel: ObservableObject {
         
         // request from server
         try await FDAcademicAPI.login()
-        (_, self.courses) = try await FDAcademicAPI.getCourseList(semester: semester.id)
+        (_, self.courses) = try await FDAcademicAPI.getCourseList(semester: semester.semesterId)
         self.semester = semester
         matchTimetable()
         try save()
