@@ -55,11 +55,15 @@ public enum ConfigurationCenter {
     /// Set shared and publish changes
     static func saveConfiguration(_ configuration: AppConfiguration) {
         if configuration.semesterStartDate != self.configuration.semesterStartDate {
-            semesterMapPublisher.send(configuration.semesterStartDate)
+            Task { @MainActor in
+                semesterMapPublisher.send(configuration.semesterStartDate)
+            }
         }
         
         if configuration.banners != self.configuration.banners {
-            bannerPublisher.send(configuration.banners)
+            Task { @MainActor in
+                bannerPublisher.send(configuration.banners)
+            }
         }
         
         self.configuration = configuration
