@@ -430,6 +430,9 @@
         }
       }
     },
+    "11号楼4514室" : {
+
+    },
     "About" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1266,6 +1269,7 @@
       }
     },
     "Credential not found, login again" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2246,6 +2250,7 @@
       }
     },
     "Error: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3243,6 +3248,7 @@
       }
     },
     "Login failed, check username and password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3483,6 +3489,7 @@
       }
     },
     "Need captcha, visit UIS webpage to login" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3649,6 +3656,7 @@
       }
     },
     "Not in dining time" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4894,6 +4902,7 @@
       }
     },
     "Service unavailable, connect to campus WiFi or VPN to access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5970,6 +5979,9 @@
           }
         }
       }
+    },
+    "光华楼101室" : {
+
     },
     "光华楼东辅楼" : {
       "localizations" : {
