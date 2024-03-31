@@ -6,14 +6,17 @@ struct FDElectricityPage: View {
     var body: some View {
         AsyncContentView(animation: .default) {
             async let usage = ElectricityStore.shared.getCachedElectricityUsage()
-            async let dateValues = MyStore.shared.getCachedElectricityLogs().map { FDDateValueChartData(date: $0.date, value: $0.usage) }
+            async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map { FDDateValueChartData(date: $0.date, value: $0.usage) }
             
             let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
             
-            let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
-                        
-            return (usageLoaded, filteredDateValues)
-        } content: { (info: ElectricityUsage, transactions: [FDDateValueChartData]) in
+            if let dateValuesLoaded {
+                let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
+                return (usageLoaded, filteredDateValues)
+            } else {
+                return (usageLoaded, dateValuesLoaded)
+            }
+        } content: { (info: ElectricityUsage, transactions: [FDDateValueChartData]?) in
             List {
                 LabeledContent {
                     Text(info.campus)
@@ -39,7 +42,7 @@ struct FDElectricityPage: View {
                     Text("Electricity Used")
                 }
                 
-                if #available(iOS 17, *) {
+                if #available(iOS 17, *), let transactions {
                     FDElectricityPageChart(data: transactions)
                 }
             }
