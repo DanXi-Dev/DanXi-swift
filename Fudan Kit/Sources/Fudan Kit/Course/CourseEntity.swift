@@ -65,6 +65,10 @@ public struct Course: Identifiable, Codable, Hashable {
     public let weekday: Int
     public let start, end: Int
     public let onWeeks: [Int]
+    
+    public func openOn(_ week: Int) -> Bool {
+            onWeeks.contains(week)
+        }
 }
 
 /// Time slot that courses are held.
@@ -72,7 +76,7 @@ public struct Course: Identifiable, Codable, Hashable {
 /// All possible time slots have been created.
 /// Do not create your own time slot.
 /// Retrieve time slot by calling ``getItem(_:)``
-public struct ClassTimeSlot {
+public struct ClassTimeSlot: Identifiable{
     public let id: Int
     public let start, end: Date
 }
@@ -88,7 +92,7 @@ extension ClassTimeSlot {
         self.end = formatter.date(from: end)!
     }
     
-    static let list = [ClassTimeSlot(1, "08:00", "08:45"),
+    public static let list = [ClassTimeSlot(1, "08:00", "08:45"),
                               ClassTimeSlot(2, "08:55", "09:40"),
                               ClassTimeSlot(3, "09:55", "10:40"),
                               ClassTimeSlot(4, "10:50", "11:35"),

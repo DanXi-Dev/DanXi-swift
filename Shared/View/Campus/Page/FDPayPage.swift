@@ -29,7 +29,7 @@ struct FDPayPage: View {
                 let scaledCIImage = ciimage.transformed(by: transform)
                 let uiImage = UIImage(ciImage: scaledCIImage)
                 qrCodeData = uiImage.pngData()!
-            } catch FDError.termsNotAgreed {
+            } catch CampusError.termsNotAgreed {
                 showTermsAlert = true
             } catch {
                 

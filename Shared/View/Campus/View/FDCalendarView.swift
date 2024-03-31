@@ -1,5 +1,5 @@
+import FudanKit
 import SwiftUI
-
 
 // MARK: Courses
 
@@ -69,7 +69,7 @@ struct DateHeader: View {
     var body: some View {
         CalDimensionReader { dim in
             ZStack {
-                ForEach(0..<7) { i in
+                ForEach(0 ..< 7) { i in
                     let point = CGPoint(x: dim.dx / 2 + CGFloat(i) * dim.dx, y: dim.y / 2)
                     let date = calendar.date(byAdding: .day, value: i, to: start)!
                     let isToday = calendar.isDateInToday(date)
@@ -91,12 +91,12 @@ struct DateHeader: View {
 }
 
 struct TimeslotsSidebar: View {
-    private let h = TimeSlot.list.count
+    private let h = ClassTimeSlot.list.count
     
     var body: some View {
         CalDimensionReader { dim in
             ZStack {
-                ForEach(TimeSlot.list) { timeSlot in
+                ForEach(ClassTimeSlot.list) { timeSlot in
                     let point = CGPoint(x: dim.x / 2 + 5,
                                         y: dim.y - (dim.dy / 2) + CGFloat(timeSlot.id) * dim.dy)
                     TimeSlotView(timeSlot: timeSlot)
@@ -104,12 +104,13 @@ struct TimeslotsSidebar: View {
                 }
             }
             .frame(width: dim.x, height: dim.y + CGFloat(h) * dim.dy)
+            .frame(width: dim.x, height: dim.y + CGFloat(h) * dim.dy)
         }
     }
 }
 
 fileprivate struct TimeSlotView: View {
-    let timeSlot: TimeSlot
+    let timeSlot: ClassTimeSlot
     
     @ScaledMetric private var courseSize = 14
     @ScaledMetric private var timeSize = 9
@@ -120,8 +121,8 @@ fileprivate struct TimeSlotView: View {
                 .font(.system(size: courseSize))
                 .bold()
             Group {
-                Text(timeSlot.start)
-                Text(timeSlot.end)
+                Text(timeSlot.start.formatted(date: .omitted, time: .shortened))
+                Text(timeSlot.end.formatted(date: .omitted, time: .shortened))
             }
             .font(.system(size: timeSize))
         }
@@ -131,11 +132,11 @@ fileprivate struct TimeSlotView: View {
 
 struct GridBackground: View {
     let width: Int
-    private let h = TimeSlot.list.count
+    private let h = ClassTimeSlot.list.count
     
     var body: some View {
         CalDimensionReader { dim in
-            Canvas { context, size in
+            Canvas { context, _ in
                 let separatorColor = Color.secondary.opacity(0.2)
                 
                 // draw horizontal lines
