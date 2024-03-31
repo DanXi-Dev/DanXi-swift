@@ -1,16 +1,16 @@
 import SwiftUI
+import FudanKit
 
 struct FDScorePage: View {
     struct SemesterInfo {
-        let semesters: [FDSemester]
-        let currentSemester: FDSemester?
+        let semesters: [Semester]
+        let currentSemester: Semester?
     }
     
     var body: some View {
         AsyncContentView { () -> SemesterInfo in
-            try await FDAcademicAPI.login()
-            let (semesters, currentId) = try await (FDAcademicAPI.getSemesters(), FDAcademicAPI.getCurrentSemesterId())
-            let currentSemester = semesters.filter { $0.id == currentId }.first
+            try await UndergraduateCourseAPI.login()
+            let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
             let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
             return info
         } content: { info in
@@ -20,17 +20,17 @@ struct FDScorePage: View {
 }
 
 fileprivate struct ScorePageContent: View {
-    private let semesters: [FDSemester]
-    @State private var semester: FDSemester
+    private let semesters: [Semester]
+    @State private var semester: Semester
     
-    init(_ semesters: [FDSemester], current: FDSemester?) {
+    init(_ semesters: [Semester], current: Semester?) {
         self.semesters = semesters
         self._semester = State(initialValue: current ?? semesters.last!)
     }
     
     var body: some View {
         List {
-            SemesterPicker(semesters: semesters, semester: $semester)
+            SemesterPicker(semesters: semesters.sorted(), semester: $semester)
             ScoreList(semester: semester)
         }
         .navigationTitle("Exams & Score")
@@ -39,11 +39,11 @@ fileprivate struct ScorePageContent: View {
 }
 
 fileprivate struct ScoreList: View {
-    let semester: FDSemester
+    let semester: Semester
     
     var body: some View {
-        AsyncContentView(style: .widget) { () -> [FDScore] in
-            return try await FDAcademicAPI.getScore(semester: semester.id)
+        AsyncContentView(style: .widget) { () -> [Score] in
+            return try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
         } content: { scores in
             Section {
                 ForEach(scores) { score in
@@ -59,20 +59,20 @@ fileprivate struct ScoreList: View {
                 }
             }
         }
-        .id(semester.id) // force reload after semester change
+        .id(semester.semesterId) // force reload after semester change
     }
 }
 
 fileprivate struct ScoreView: View {
-    let score: FDScore
+    let score: Score
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(score.type)
+                Text(score.courseType)
                     .font(.callout)
                     .foregroundColor(.secondary)
-                Text(score.name)
+                Text(score.courseName)
                     .font(.headline)
             }
             Spacer()
@@ -84,8 +84,8 @@ fileprivate struct ScoreView: View {
 }
 
 fileprivate struct SemesterPicker: View {
-    let semesters: [FDSemester]
-    @Binding var semester: FDSemester
+    let semesters: [Semester]
+    @Binding var semester: Semester
     
     private func moveSemester(offset: Int) {
         guard let idx = semesters.firstIndex(of: semester) else { return }
@@ -107,9 +107,9 @@ fileprivate struct SemesterPicker: View {
                 
                 Spacer()
                 
-                Menu(semester.formatted()) {
-                    ForEach(semesters) { semester in
-                        Button(semester.formatted()) {
+                Menu(semester.name) {
+                    ForEach(semesters, id: \.semesterId) { semester in
+                        Button(semester.name) {
                             self.semester = semester
                         }
                     }
