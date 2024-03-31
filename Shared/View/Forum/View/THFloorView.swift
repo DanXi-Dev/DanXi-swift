@@ -106,16 +106,16 @@ struct THComplexFloor: View {
     }
     
     private var headLine: some View {
-        VStack(alignment: .leading) {
+        HStack {
+            let isPoster = floor.posterName == holeModel.floors.first?.posterName
+            THPosterView(name: floor.posterName, isPoster: isPoster)
+                .fixedSize()
             if !model.floor.spetialTag.isEmpty {
                 THSpecialTagView(content: floor.spetialTag)
+                    .fixedSize()
             }
-            HStack {
-                let isPoster = floor.posterName == holeModel.floors.first?.posterName
-                THPosterView(name: floor.posterName, isPoster: isPoster)
-                Spacer()
-                Actions()
-            }
+            Spacer()
+            Actions()
         }
     }
     
@@ -356,7 +356,7 @@ private struct Actions: View {
     @State private var showQuestionSheet = false
     
     var body: some View {
-        HStack(alignment: .center, spacing: 20) {
+        HStack(alignment: .center, spacing: 12) {
             if !model.floor.deleted {
                 likeButton
                 replyButton
