@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DKHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
+    @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
         var userId: String {
@@ -13,7 +14,7 @@ struct DKHomePage: View {
             return DKModel.shared.courses
         } content: { courses in
             HomePageContent(courses: courses)
-                .watermark(content: userId, opacity: THSettings.shared.watermarkOpacity)
+                .watermark(content: userId, opacity: settings.watermarkOpacity)
         }
     }
 }
