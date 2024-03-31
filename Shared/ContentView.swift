@@ -131,17 +131,22 @@ struct SplitHomePage: View {
             }
             .navigationTitle("DanXi")
         } detail: {
-            switch model.section {
-            case .campus:
-                FDHomePage()
-            case .forum:
-                THHomePage()
-            case .curriculum:
-                DKHomePage()
-            case .calendar:
-                FDCalendarPage()
-            case .settings:
-                SettingsPage()
+            // FIXME: This ZStack is a workaround for SwiftUI bug 91311311 on iOS 16
+            // > Conditional views in columns of NavigationSplitView fail to update on some state changes.
+            // > Workaround: Wrap the contents of the column in a ZStack.
+            ZStack {
+                switch model.section {
+                case .campus:
+                    FDHomePage()
+                case .forum:
+                    THHomePage()
+                case .curriculum:
+                    DKHomePage()
+                case .calendar:
+                    FDCalendarPage()
+                case .settings:
+                    SettingsPage()
+                }
             }
         }
     }
