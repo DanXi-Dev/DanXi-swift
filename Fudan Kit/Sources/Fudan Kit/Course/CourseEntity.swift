@@ -12,7 +12,7 @@ public struct Semester: Codable {
     
     let year: Int
     let type: SemesterType
-    let semesterId: Int
+    public let semesterId: Int
     public var startDate: Date?
     public let weekCount: Int
 }
