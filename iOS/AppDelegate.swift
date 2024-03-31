@@ -84,7 +84,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let content = response.notification.request.content
-        AppModel.notificationPublisher.send(content) // publish event for UI to handle
+        Task { @MainActor in
+            AppModel.notificationPublisher.send(content) // publish event for UI to handle
+        }
         completionHandler()
     }
     
