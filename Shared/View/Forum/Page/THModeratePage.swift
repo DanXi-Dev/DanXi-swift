@@ -46,6 +46,7 @@ struct THModeratePage: View {
                     EditButton()
                 }
             }
+            .watermark()
             
             HStack(spacing: 30) {
                 if !model.selectedItems.isEmpty {

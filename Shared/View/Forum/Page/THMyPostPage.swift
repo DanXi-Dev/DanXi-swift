@@ -15,5 +15,6 @@ struct THMyPostPage: View {
         }
         .navigationTitle("My Post")
         .navigationBarTitleDisplayMode(.inline)
+        .watermark()
     }
 }

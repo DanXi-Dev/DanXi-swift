@@ -17,5 +17,6 @@ struct THMyReplyPage: View {
         }
         .navigationTitle("My Reply")
         .navigationBarTitleDisplayMode(.inline)
+        .watermark()
     }
 }

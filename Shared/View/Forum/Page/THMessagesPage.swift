@@ -6,6 +6,7 @@ struct THNotificationPage: View {
             return try await THRequests.loadMessages()
         } content: { messages in
             NotificationContent(messages: messages)
+                .watermark()
         }
     }
 }

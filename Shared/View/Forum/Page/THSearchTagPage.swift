@@ -17,5 +17,6 @@ struct THSearchTagPage: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(tagname)
+        .watermark()
     }
 }

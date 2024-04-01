@@ -7,6 +7,7 @@ struct THFavoritesPage: View {
             try await THRequests.loadFavorites()
         } content: { favorites in
             FavoritePageContent(favorites)
+                .watermark()
         }
     }
 }

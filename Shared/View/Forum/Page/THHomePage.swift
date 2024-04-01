@@ -28,7 +28,6 @@ struct THHomePage: View {
                         THSection(page: page)
                     }
             }
-            .watermark()
         }
         .environmentObject(navigator)
         .onOpenURL { url in

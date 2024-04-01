@@ -46,6 +46,7 @@ struct THBrowsePage: View {
             }
             .id(model.configId) // stop old loading task when config change
         }
+        .watermark()
         .animation(.default, value: model.division)
         .navigationTitle(model.division.name)
         .refreshable {
@@ -64,7 +65,6 @@ struct THBrowsePage: View {
             withAnimation {
                 appModel.banners = ConfigurationCenter.configuration.banners
             }
-            
         }
     }
 }

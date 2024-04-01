@@ -22,6 +22,7 @@ struct THReportPage: View {
             }
         }
         .animation(.default, value: model.reports)
+        .watermark()
     }
     
     private var filter: some View {

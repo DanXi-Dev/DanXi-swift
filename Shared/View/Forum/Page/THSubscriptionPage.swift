@@ -7,6 +7,7 @@ struct THSubscriptionPage: View {
             try await THRequests.loadSubscriptions()
         } content: { subscriptions in
             SubscriptionContent(subscriptions)
+                .watermark()
         }
     }
 }
