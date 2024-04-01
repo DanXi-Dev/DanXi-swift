@@ -53,6 +53,9 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
                 
                 Section {
                     HStack {
@@ -65,6 +68,9 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
             }
             .refreshable {
                 await model.refresh(with: [:])

@@ -57,6 +57,9 @@ struct FDNoticePage: View {
                     .foregroundColor(.primary)
                 }
             }
+#if targetEnvironment(macCatalyst)
+            .listRowBackground(Color.clear)
+#endif
         }
         .listStyle(.inset)
         .navigationTitle("Academic Office Announcements")

@@ -25,6 +25,9 @@ struct FDClassroomPage: View {
                 Text("张江校区").tag(Building.z)
                 Text("枫林校区").tag(Building.f)
             }
+#if targetEnvironment(macCatalyst)
+            .listRowBackground(Color.clear)
+#endif
             
             if building == .empty {
                 HStack {
@@ -35,6 +38,9 @@ struct FDClassroomPage: View {
                 }
                 .padding(50)
                 .listRowSeparator(.hidden, edges: .bottom)
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
             } else {
                 AsyncContentView(style: .widget) {
                     return try await ClassroomStore.shared.getCachedClassroom(building: building)
@@ -64,6 +70,9 @@ struct FDClassroomPage: View {
                 }
                 .id(building)
                 .listRowSeparator(.hidden, edges: .bottom)
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
             }
         }
         .searchable(text: $searchText)
