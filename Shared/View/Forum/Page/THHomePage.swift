@@ -3,13 +3,9 @@ import SwiftUI
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
     @ObservedObject private var forumModel = THModel.shared
-    @ObservedObject private var settings = THSettings.shared
     @StateObject private var navigator = THNavigator()
     
     var body: some View {
-        var userId: String {
-            appModel.user?.id != nil ? String(appModel.user!.id) : ""
-        }
         AsyncContentView(finished: forumModel.loaded) {
             _ = try await appModel.loadUser() // load user first to prevent concurrently refresh token
             try await forumModel.loadAll()
@@ -32,7 +28,7 @@ struct THHomePage: View {
                         THSection(page: page)
                     }
             }
-            .watermark(content: userId, opacity: settings.watermarkOpacity)
+            .watermark()
         }
         .environmentObject(navigator)
         .onOpenURL { url in
