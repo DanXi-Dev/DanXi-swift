@@ -40,6 +40,7 @@ struct DKReviewPage: View {
             }
         }
         .padding(.horizontal)
+        .watermark()
         .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
         /*
         .toolbar {
