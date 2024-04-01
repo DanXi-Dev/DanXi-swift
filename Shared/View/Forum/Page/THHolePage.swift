@@ -21,8 +21,7 @@ struct THHolePage: View {
     var body: some View {
         ZStack {
             ScrollViewReader { proxy in
-                THBackgroundList(selection: $model.selectedFloor) {
-                    
+                THBackgroundList(selection: $model.selectedFloor, selectable: $model.floorSelectable) {
                     // On older platform, adjusting list section spacing will hide section header
                     // due to implementation of compactSectionSpacing.
                     if #unavailable(iOS 17) {
@@ -114,6 +113,7 @@ struct THHolePage: View {
             if model.hole.locked {
                 HStack {
                     Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                        .textCase(.none)
                         .font(.callout)
                         .foregroundColor(.secondary)
                         .listRowSeparator(.hidden)
@@ -206,6 +206,7 @@ private struct THHoleToolbar: View {
                 Menu {
                     Button {
                         withAnimation {
+                            model.floorSelectable = true
                             editMode?.wrappedValue = .active
                         }
                     } label: {
@@ -283,20 +284,25 @@ private struct THHoleBottomBar: View {
             }
             
             if editMode?.wrappedValue.isEditing == true {
-                if model.selectedFloor.isEmpty {
+                HStack {
+                    Spacer()
                     Button {
                         withAnimation {
                             editMode?.wrappedValue = .inactive
+                            model.floorSelectable = false
                         }
                     } label: {
                         Text("Cancel")
                     }
-                } else {
-                    Button(role: .destructive) {
-                        showAlert = true
-                    } label: {
-                        BottomBarLabel("Delete Selected", systemImage: "trash")
+                    if !model.selectedFloor.isEmpty {
+                        Spacer()
+                        Button(role: .destructive) {
+                            showAlert = true
+                        } label: {
+                            BottomBarLabel("Delete Selected", systemImage: "trash")
+                        }
                     }
+                    Spacer()
                 }
             }
         }
@@ -310,6 +316,7 @@ private struct THHoleBottomBar: View {
                 
                 withAnimation {
                     editMode?.wrappedValue = .inactive
+                    model.floorSelectable = false
                 }
             } label: {
                 Text("Submit")

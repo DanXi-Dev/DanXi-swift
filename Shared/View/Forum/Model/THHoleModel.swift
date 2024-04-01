@@ -219,6 +219,7 @@ class THHoleModel: ObservableObject {
     
     // MARK: - Floor Batch Delete (Admin)
     
+    @Published var floorSelectable = false
     @Published var selectedFloor: Set<THFloor> = []
     let deleteBroadcast = PassthroughSubject<[Int], Never>()
     func batchDelete(_ floors: [THFloor], reason: String) async {
