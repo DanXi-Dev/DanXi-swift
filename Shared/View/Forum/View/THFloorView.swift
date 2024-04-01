@@ -356,13 +356,16 @@ private struct Actions: View {
     @State private var showQuestionSheet = false
     
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: 0) {
             if !model.floor.deleted {
                 likeButton
+                Spacer()
                 replyButton
+                Spacer()
             }
             menu
         }
+        .frame(maxWidth: 140)
         .sheet(isPresented: $showReportSheet) {
             THReportSheet()
         }
@@ -411,6 +414,8 @@ private struct Actions: View {
                 .foregroundColor(floor.liked ? .pink : .secondary)
                 .fixedSize() // prevent numbers to disappear when special tag present
             }
+            
+            Spacer()
             
             AsyncButton {
                 try await model.dislike()
