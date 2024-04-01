@@ -12,11 +12,6 @@ struct THHomePage: View {
         } content: {
             NavigationStack(path: $navigator.path) {
                 THBrowseWrapper()
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            menu
-                        }
-                    }
                     .navigationDestination(for: THHole.self) { hole in
                         THHolePage(hole)
                             .environmentObject(navigator) // prevent crash on NavigationSplitView, reason unknown
@@ -41,70 +36,6 @@ struct THHomePage: View {
         .onReceive(AppModel.notificationPublisher) { content in
             navigator.path.removeLast(navigator.path.count)
             navigator.path.append(THPage.notifications)
-        }
-    }
-    
-    private var menu: some View {
-        Menu {
-            Button {
-                navigator.path.append(THPage.favorite)
-            } label: {
-                Label("Favorites", systemImage: "star")
-            }
-            
-            Button {
-                navigator.path.append(THPage.subscription)
-            } label: {
-                Label("Subscription List", systemImage: "eye")
-            }
-            
-            Button {
-                navigator.path.append(THPage.mypost)
-            } label: {
-                Label("My Post", systemImage: "person")
-            }
-            
-            Button {
-                navigator.path.append(THPage.myreply)
-            } label: {
-                Label("My Reply", systemImage: "arrowshape.turn.up.left")
-            }
-            
-            Button {
-                navigator.path.append(THPage.history)
-            } label: {
-                Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
-            }
-            
-            Button {
-                navigator.path.append(THPage.tags)
-            } label: {
-                Label("All Tags", systemImage: "tag")
-            }
-            
-            Button {
-                navigator.path.append(THPage.notifications)
-            } label: {
-                Label("Notifications", systemImage: "bell")
-            }
-            
-            if appModel.isAdmin {
-                Divider()
-                
-                Button {
-                    navigator.path.append(THPage.report)
-                } label: {
-                    Label("Report", systemImage: "exclamationmark.triangle")
-                }
-                
-                Button {
-                    navigator.path.append(THPage.moderate)
-                } label: {
-                    Label("Moderate", systemImage: "video")
-                }
-            }
-        } label: {
-            Image(systemName: "rectangle.stack")
         }
     }
 }

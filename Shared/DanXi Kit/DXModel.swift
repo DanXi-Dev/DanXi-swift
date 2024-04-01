@@ -4,6 +4,7 @@ import UserNotifications
 import SwiftyJSON
 import UIKit
 import Disk
+import Utils
 
 // MARK: Models
 
@@ -45,6 +46,11 @@ class DXModel: ObservableObject {
     
     func login(username: String, password: String) async throws {
         token = try await DXRequests.login(username: username, password: password)
+        
+        // If an APNS token was previously stored, upload it
+        if let token = defaults.string(forKey: "notification-token"), let deviceId = defaults.string(forKey: "notification-token-device-id") {
+            uploadAPNSToken(token: token, deviceId: deviceId)
+        }
     }
     
     func resetPassword(email: String, password: String, verification: String, create: Bool) async throws {
@@ -70,24 +76,41 @@ class DXModel: ObservableObject {
     
     private let defaults = UserDefaults.standard
     
-    private func tokenDidChange(_ token: String) -> Bool {
-        guard let oldToken = defaults.string(forKey: "notification-token") else {
-            return true
+    //    private func tokenDidChange(_ token: String) -> Bool {
+    //        guard let oldToken = defaults.string(forKey: "notification-token") else {
+    //            return true
+    //        }
+    //        return token != oldToken
+    //    }
+    
+    private func uploadAPNSToken(token: String, deviceId: String) {
+        Task(priority: .background) {
+            try await DXRequests.uploadNotificationToken(deviceId: deviceId, token: token)
+            defaults.removeObject(forKey: "notification-token")
+            defaults.removeObject(forKey: "notification-token-device-id")
         }
-        return token != oldToken
     }
-
+    
     func receiveToken(_ tokenData: Data, _ deviceId: UUID) {
-        guard isLogged else { return }
         let token: String = tokenData.map { String(format: "%.2hhx", $0) }.joined()
-        guard tokenDidChange(token) else {
+        
+        guard isLogged else {
+            // Save token for uploading after login
+            defaults.set(token, forKey: "notification-token")
+            defaults.set(deviceId.uuidString, forKey: "notification-token-device-id")
             return
         }
         
-        Task {
-            try await DXRequests.uploadNotificationToken(deviceId: deviceId.uuidString, token: token)
-            defaults.set(token, forKey: "notification-token")
-        }
+        // Apple Developer Document specifically instructed us NOT to cache device tokens locally
+        // And upload it every time we receive
+        // We probably shouldn't assume server state is always consistent with app state.
+        // i.e. server database could be rolled-back, etc.
+        
+        //        guard tokenDidChange(token) else {
+        //            return
+        //        }
+        
+        uploadAPNSToken(token: token, deviceId: deviceId.uuidString)
     }
     
     // MARK: User
@@ -107,33 +130,6 @@ class DXModel: ObservableObject {
         self.user = user
         return user
     }
-    
-    // MARK: Remote Extra
-    
-    func loadExtra() async {
-        do {
-            let info = try await DXRequests.getInfo()
-            guard let extra = info.filter({ $0.type == -5 }).first,
-                  let data = extra.content.data(using: String.Encoding.utf8),
-                  let json = try? JSON(data: data) else {
-                return
-            }
-            
-            if let bannerData = try? json["banners"].rawData(),
-               let banners = try? JSONDecoder().decode([DXBanner].self, from: bannerData) {
-                THModel.shared.banners = banners
-            }
-            
-            if let timetableData = try? json["timetable", "fdu_ug"].rawData(),
-               let timetable = try? JSONDecoder().decode([Timetable].self, from: timetableData) {
-                FDCalendarModel.timetables = timetable
-                FDCalendarModel.timetablePublisher.send(timetable)
-            }
-        } catch {
-            
-        }
-        
-    }
 }
 
 @MainActor
@@ -145,7 +141,7 @@ class THModel: ObservableObject {
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var loaded = false
-    @Published var banners: [DXBanner] = []
+    @Published var banners: [Banner] = []
     @Published var browseHistory: [THBrowseHistory] = []
     
     func loadAll() async throws {
@@ -235,7 +231,7 @@ class THModel: ObservableObject {
         if browseHistory.count > 200 {
             browseHistory.removeSubrange(200...) // only keep recent 200 records
         }
-
+        
         Task {
             // save to disk, perform on background task
             try Disk.save(browseHistory, to: .applicationSupport, as: "fduhole/history.json")

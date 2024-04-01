@@ -191,7 +191,6 @@ fileprivate struct ParagraphView: View {
         func createParagraph(_ substring: AttributedSubstring) -> ParagraphElement {
             let characters = String(substring.characters)
             if characters.contains(/\$(.+)\$/) {
-                print("capture math: \(characters)")
                 return .mathParagraph(content: characters)
             } else {
                 return .paragraph(content: AttributedString(substring))

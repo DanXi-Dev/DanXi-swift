@@ -10,29 +10,61 @@ struct AboutPage: View {
     }
     
     var body: some View {
-        List {
-            Section {
-                LinkView(url: "https://danxi.fduhole.com", text: "Website", icon: "safari")
-                LinkView(url: "https://danxi.fduhole.com/doc/app-terms-and-condition", text: "Terms and Conditions", icon: "info.circle")
-
-                NavigationLink {
-                    CreditPage()
-                } label: {
-                    Label("Acknowledgements", systemImage: "heart")
+        VStack {
+            List {
+                Section {
+                    LinkView(url: "https://danxi.fduhole.com", text: "Website", icon: "safari")
+                    LinkView(url: "https://danxi.fduhole.com/doc/app-terms-and-condition", text: "Terms and Conditions", icon: "info.circle")
+                    LinkView(url: "https://apps.apple.com/app/id1568629997?action=write-review", text: "Write a Review", icon: "star")
+                    
+                    NavigationLink {
+                        CreditPage()
+                    } label: {
+                        Label("Acknowledgements", systemImage: "heart")
+                    }
+                } header: {
+                    appIcon
+                        .textCase(.none)
                 }
                 
-                NavigationLink {
-                    DebugPage()
-                } label: {
-                    Label("Debug", systemImage: "ant.circle.fill")
+                if DXModel.shared.isAdmin {
+                    Section {
+                        NavigationLink {
+                            DebugPage()
+                        } label: {
+                            Label("Debug", systemImage: "ant.circle.fill")
+                        }
+                    }
                 }
-            } header: {
-                appIcon
+            }
+            .scrollDisabled(true)
+            
+            Spacer()
+            
+            HStack {
+                Spacer()
+                VStack {
+                    Text("Copyright © 2024 DanXi-Dev")
+                    Text("沪ICP备2021032046号-4A")
+                        .onPress {
+                            let url = URL(string: "https://beian.miit.gov.cn/")!
+                            if UIApplication.shared.canOpenURL(url) {
+                                UIApplication.shared.open(url, options: [:])
+                            }
+                        }
+                }
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+                .padding()
+                Spacer()
             }
         }
+        .labelStyle(.titleOnly)
         .navigationTitle("About")
+        .navigationBarTitleDisplayMode(.inline)
+        .background(.systemGroupedBackground)
     }
-
+    
     private var appIcon: some View {
         HStack {
             Spacer()

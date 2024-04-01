@@ -184,10 +184,10 @@ public struct HTTPError: LocalizedError {
     
     public var errorDescription: String? {
         if let message = self.message {
-            let localized = NSLocalizedString("Server returns error code: %@, %@", comment: "")
+            let localized = NSLocalizedString("%@: %@", comment: "")
             return String(format: localized, String(code), message)
         }
-        let localized = NSLocalizedString("Server returns error code: %@", comment: "")
+        let localized = NSLocalizedString("Error %@", comment: "")
         return String(format: localized, String(code))
     }
 }

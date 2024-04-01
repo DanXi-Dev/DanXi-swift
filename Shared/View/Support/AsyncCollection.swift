@@ -126,12 +126,14 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
     var body: some View {
         Group {
             ForEach(items) { item in
-                content(item)
-                    .task {
-                        if item.id == items.last?.id {
+                if item.id == items.last?.id {
+                    content(item)
+                        .task {
                             await loadMore()
                         }
-                    }
+                } else {
+                    content(item)
+                }
             }
             footer
                 .listRowSeparator(.hidden, edges: .bottom)
@@ -165,6 +167,7 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
             }
         }
         .frame(height: 50)
+        .listRowBackground(Color.clear)
     }
 }
 

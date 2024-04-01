@@ -1,202 +1,109 @@
 import SwiftUI
-import EventKitUI
+import Utils
+import FudanKit
 import EventKit
+import EventKitUI
 
-struct FDCalendarPageLoader: View {
+struct FDCalendarPage: View {
+    @ObservedObject private var campusModel = CampusModel.shared
+    
     var body: some View {
         AsyncContentView {
-            try await FDCalendarModel.load()
+            let context = ConfigurationCenter.configuration.semesterStartDate
+            
+            if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
+                cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
+                return cachedModel
+            }
+            
+            switch campusModel.studentType {
+            case .undergrad:
+                return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
+            case .grad:
+                return try await CourseModel.freshLoadForGraduate()
+            case .staff:
+                throw URLError(.unknown) // calendar for staff is not supported
+            }
         } content: { model in
-            FDCalendarPage(model)
+            CalendarContent(model: model)
         }
+        .id(campusModel.studentType) // ensure the page will refresh when student type changes
     }
 }
 
-struct FDCalendarPage: View {
-    @StateObject private var model: FDCalendarModel
-    @State private var showSettingSheet = false
+fileprivate struct CalendarContent: View {
+    @StateObject var model: CourseModel
+    @State private var showErrorAlert = false
     @State private var showExportSheet = false
-    @State private var showPermissionDeniedAlert = false
-    
-    init(_ model: FDCalendarModel) {
-        self._model = StateObject(wrappedValue: model)
-    }
-    
-    func presentExportSheet() {
-        let eventStore = EKEventStore()
-        eventStore.requestAccess { (granted, error) in
-            if granted {
-                showExportSheet = true
-            } else {
-                showPermissionDeniedAlert = true
-            }
-        }
-    }
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    if model.expired {
-                        Button {
-                            showSettingSheet = true
-                        } label: {
-                            Label("Current semester expired, reset semester", systemImage: "calendar.badge.exclamationmark")
+                    Picker("Select Semester", selection: $model.semester) {
+                        ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                            Text(semester.name).tag(semester)
                         }
-                        .foregroundColor(.red)
                     }
                     
-                    if model.semesterStart == nil {
-                        Button {
-                            showSettingSheet = true
-                        } label: {
-                            Label("Select Semester Start Date", systemImage: "calendar.badge.exclamationmark")
-                        }
-                        .foregroundColor(.red)
-                    } else if !model.courses.isEmpty {
+                    if !model.courses.isEmpty {
                         Stepper(value: $model.week, in: model.weekRange) {
                             Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
+                                .labelStyle(.titleOnly)
                         }
                     }
                 }
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
                 
-                HStack {
-                    TimeslotsSidebar()
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        VStack {
-                            DateHeader(model.weekStart)
-                            CalendarEvents()
+                Section {
+                    HStack {
+                        TimeslotsSidebar()
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            VStack {
+                                DateHeader(model.weekStart)
+                                CalendarEvents()
+                            }
                         }
                     }
                 }
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
             }
-            .listStyle(.inset)
-            .navigationTitle("Calendar")
+            .refreshable {
+                await model.refresh(with: [:])
+            }
+            .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
+                model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
+            }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        showSettingSheet = true
-                    } label: {
-                        Image(systemName: "calendar")
-                    }
+                Button {
+                    showExportSheet = true
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        presentExportSheet()
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .disabled(model.semesterStart == nil)
-                }
-            }
-            .sheet(isPresented: $showSettingSheet) {
-                FDCalendarSetting(semester: model.semester, startDate: model.semesterStart)
+                .disabled(model.semester.startDate == nil)
             }
             .sheet(isPresented: $showExportSheet) {
                 ExportSheet()
-                    .ignoresSafeArea()
             }
-            .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
-            .environmentObject(model)
-            .onReceive(FDCalendarModel.timetablePublisher) { timetable in
-                model.matchTimetable()
-                Task {
-                    try model.save()
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Controls
-
-fileprivate struct FDCalendarSetting: View {
-    @EnvironmentObject private var model: FDCalendarModel
-    @State private var semester: FDSemester
-    @State private var startDate: Date
-    
-    init(semester: FDSemester, startDate: Date?) {
-        self._semester = State(initialValue: semester)
-        self._startDate = State(initialValue: startDate ?? Date.now)
-    }
-    
-    var body: some View {
-        AsyncContentView {
-            try await model.reloadSemesters()
-        } content: { _ in
-            Sheet("Calendar Settings") {
-                try await model.refresh(semester, startDate)
-            } content: {
-                Picker(selection: $semester, label: Text("Select Semester")) {
-                    ForEach(model.semesters) { semester in
-                        Text(semester.formatted()).tag(semester)
-                    }
-                }
+            .listStyle(.inset)
+            .alert("Error", isPresented: $showErrorAlert) {
                 
-                if FDCalendarModel.getStartDateFromTimetable(semester) == nil {
-                    // provide the option for user to pick semester start date when match failed
-                    DatePicker(selection: $startDate, displayedComponents: [.date]) {
-                        Label("Semester Start Date", systemImage: "calendar")
-                    }
-                }
+            } message: {
+                Text(model.networkError?.localizedDescription ?? "")
             }
-            .onChange(of: semester) { semester in
-                if let startDate = FDCalendarModel.getStartDateFromTimetable(semester) {
-                    self.startDate = startDate
-                }
-            }
+            .navigationTitle("Calendar")
+            .environmentObject(model)
         }
     }
 }
-
-fileprivate struct ExportSheet: UIViewControllerRepresentable {
-    @EnvironmentObject private var model: FDCalendarModel
-    @Environment(\.dismiss) private var dismiss
-    private let eventStore = EKEventStore()
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ExportSheet>) -> UINavigationController {
-        let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
-        chooser.selectedCalendars = []
-        chooser.delegate = context.coordinator
-        chooser.showsDoneButton = true
-        return UINavigationController(rootViewController: chooser)
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<ExportSheet>) {
-        
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
-    }
-
-    class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
-        let parent: ExportSheet
-
-        init(_ parent: ExportSheet) {
-            self.parent = parent
-        }
-
-        func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {
-            if let calendar = calendarChooser.selectedCalendars.first {
-                parent.model.exportToCalendar(calendar)
-            }
-            parent.dismiss()
-        }
-
-        func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
-            parent.dismiss()
-        }
-    }
-}
-
-
-// MARK: - Course UI
 
 fileprivate struct CalendarEvents: View {
-    @EnvironmentObject private var model: FDCalendarModel
-    @State private var selectedCourse: FDCourse?
+    @EnvironmentObject private var model: CourseModel
+    @State private var selectedCourse: Course?
     
     private let h = FDCalendarConfig.h
     @ScaledMetric private var courseTitle = 15
@@ -206,7 +113,8 @@ fileprivate struct CalendarEvents: View {
         CalDimensionReader { dim in
             ZStack {
                 GridBackground(width: 7)
-                ForEach(model.weekCourses) { course in
+                
+                ForEach(model.coursesInThisWeek) { course in
                     let length = CGFloat(course.end + 1 - course.start) * dim.dy
                     let point = CGPoint(x: CGFloat(course.weekday) * dim.dx + dim.dx / 2,
                                         y: CGFloat(course.start) * dim.dy + length / 2)
@@ -228,7 +136,9 @@ fileprivate struct CalendarEvents: View {
 }
 
 fileprivate struct CourseDetailSheet: View {
-    let course: FDCourse
+    @Environment(\.dismiss) private var dismiss
+    
+    let course: Course
     
     var body: some View {
         NavigationStack {
@@ -239,7 +149,7 @@ fileprivate struct CourseDetailSheet: View {
                     Label("Course Name", systemImage: "magazine")
                 }
                 LabeledContent {
-                    Text(course.instructor)
+                    Text(course.teacher)
                 } label: {
                     Label("Instructor", systemImage: "person")
                 }
@@ -254,12 +164,184 @@ fileprivate struct CourseDetailSheet: View {
                     Label("Location", systemImage: "mappin.and.ellipse")
                 }
             }
+            .labelStyle(.titleOnly)
             .listStyle(.insetGrouped)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
+                }
+            }
             .navigationTitle("Course Detail")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
+
+fileprivate struct ExportSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: CourseModel
+    @State private var selectedCalendar: EKCalendar? = nil
+    @State private var allKeys: [CourseModel.CourseKey] = []
+    @State private var selectedKeys = Set<CourseModel.CourseKey>()
+    @State private var showCalendarChooser = false
+    @State private var showPermissionDeniedAlert = false
+    @State private var showExportError = false
+    @State private var exportError: Error?
+    let eventStore = EKEventStore()
+    
+    private var allSelected: Bool {
+        selectedKeys.count == allKeys.count
+    }
+    
+    private func presentCalendarChooser() async throws {
+        let eventStore = EKEventStore()
+        
+        if #available(iOS 17, *) {
+            let granted = try await eventStore.requestWriteOnlyAccessToEvents()
+            if granted {
+                showCalendarChooser = true
+            } else {
+                showPermissionDeniedAlert = true
+            }
+        } else {
+            let granted = try await eventStore.requestAccess(to: .event)
+            if granted {
+                showCalendarChooser = true
+            } else {
+                showPermissionDeniedAlert = true
+            }
+        }
+    }
+    
+    private func exportToCalendar(calendar: EKCalendar) {
+        do {
+            try model.exportToCalendar(to: calendar, keys: selectedKeys, eventStore: eventStore)
+            dismiss()
+        } catch {
+            exportError = error
+        }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            List(allKeys, selection: $selectedKeys) {
+                courseKey in
+                VStack(alignment: .leading) {
+                    Text(courseKey.name)
+                    Text(courseKey.code)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .tag(courseKey)
+            }
+            .environment(\.editMode, .constant(.active))
+            .navigationTitle("Export to Calendar")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                withAnimation {
+                    allKeys = Array(model.calendarMap.keys)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    if allSelected {
+                        Button {
+                            selectedKeys = []
+                        } label: {
+                            Text("Deselect All")
+                        }
+                    } else {
+                        Button {
+                            selectedKeys = Set(allKeys)
+                        } label: {
+                            Text("Select All")
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    if selectedKeys.isEmpty {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Done")
+                                .bold()
+                        }
+                    } else {
+                        Button {
+                            Task(priority: .userInitiated) {
+                                try await presentCalendarChooser()
+                            }
+                        } label: {
+                            Text("Export")
+                        }
+                    }
+                }
+            }
+            .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
+            .alert("Error", isPresented: $showExportError) {
+                
+            } message: {
+                Text(exportError?.localizedDescription ?? "")
+            }
+            .sheet(isPresented: $showCalendarChooser) {
+                CalendarChooserSheet(selectedCalendar: $selectedCalendar, eventStore: eventStore)
+                    .ignoresSafeArea()
+                    .onDisappear {
+                        if let selectedCalendar = selectedCalendar {
+                            exportToCalendar(calendar: selectedCalendar)
+                        }
+                    }
+            }
+        }
+    }
+}
+
+fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
+    @Binding var selectedCalendar: EKCalendar?
+    @Environment(\.dismiss) private var dismiss
+    let eventStore: EKEventStore
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<CalendarChooserSheet>) -> UINavigationController {
+        let chooser = EKCalendarChooser(selectionStyle: .single, displayStyle: .allCalendars, entityType: .event, eventStore: eventStore)
+        chooser.selectedCalendars = []
+        chooser.delegate = context.coordinator
+        chooser.showsDoneButton = true
+        return UINavigationController(rootViewController: chooser)
+    }
+    
+    func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<CalendarChooserSheet>) {
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
+        let parent: CalendarChooserSheet
+        
+        init(_ parent: CalendarChooserSheet) {
+            self.parent = parent
+        }
+        
+        func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {
+            if let calendar = calendarChooser.selectedCalendars.first {
+                parent.selectedCalendar = calendar
+            }
+            parent.dismiss()
+        }
+        
+        func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
+            parent.dismiss()
+        }
+    }
+}
+
 
 
 // MARK: - Length Constants
@@ -269,5 +351,5 @@ struct FDCalendarConfig {
     static let y: CGFloat = 40
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
-    static let h = TimeSlot.list.count
+    static let h = ClassTimeSlot.list.count
 }

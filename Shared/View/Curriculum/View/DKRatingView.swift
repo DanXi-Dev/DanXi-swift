@@ -4,21 +4,25 @@ struct DKRatingView: View {
     let rank: DKRank
     
     var body: some View {
-        VStack(alignment: .trailing, spacing: 0) {
+        Grid(alignment: .trailing, verticalSpacing: 0) {
             DKRatingEntryView(
                 rating: rank.overall,
+                ratingType: .overall,
                 label: "Overall Rating")
             
             DKRatingEntryView(
                 rating: rank.content,
+                ratingType: .content,
                 label: "Course Content")
             
             DKRatingEntryView(
                 rating: rank.workload,
+                ratingType: .workload,
                 label: "Course Workload")
             
             DKRatingEntryView(
                 rating: rank.assessment,
+                ratingType: .assessment,
                 label: "Course Assessment")
         }
     }
@@ -26,14 +30,18 @@ struct DKRatingView: View {
 
 struct DKRatingEntryView: View {
     let rating: Double
+    let ratingType: RatingType
     let label: LocalizedStringKey
     
     var body: some View {
-        HStack {
+        GridRow {
             Text(label)
                 .foregroundColor(.primary.opacity(0.7))
             ProgressView(value: rating, total: 5.0)
-                .frame(width: 130)
+                .frame(width: 100)
+            Text(ratingType.text(forRating: rating))
+                .foregroundColor(.primary.opacity(0.7))
+                .gridColumnAlignment(.leading)
         }
         .font(.caption2)
         .frame(height: 16)

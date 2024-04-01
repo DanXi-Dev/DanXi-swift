@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 @main
 struct DanXiApp: App {
@@ -9,6 +10,9 @@ struct DanXiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .task {
+                    ConfigurationCenter.initialFetch()
+                }
         }
     }
 }

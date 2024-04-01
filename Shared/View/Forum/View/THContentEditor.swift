@@ -1,11 +1,14 @@
 import SwiftUI
 import PhotosUI
+import Markdown
 
 struct THContentEditor: View {
     @Binding var content: String
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
     @State private var showStickers = false
+    
+    @FocusState private var isEditing: Bool
     
     private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
@@ -36,14 +39,14 @@ struct THContentEditor: View {
                 }
                 .alert("Upload Image Failed", isPresented: $showUploadError) { }
                 
-                Button {
-                    showStickers = true
-                } label: {
-                    Label("Stickers", systemImage: "smiley")
-                }
-                .sheet(isPresented: $showStickers) {
-                    stickerPicker
-                }
+//                Button {
+//                    showStickers = true
+//                } label: {
+//                    Label("Stickers", systemImage: "smiley")
+//                }
+//                .sheet(isPresented: $showStickers) {
+//                    stickerPicker
+//                }
                 
                 ZStack(alignment: .topLeading) {
                     if content.isEmpty {
@@ -51,12 +54,16 @@ struct THContentEditor: View {
                             .foregroundColor(.primary.opacity(0.25))
                             .padding(.top, 7)
                             .padding(.leading, 4)
+                            .allowsHitTesting(false)
                     }
                     
                     TextEditor(text: $content)
-                        .frame(height: 250)
+                        .focused($isEditing)
+                        .frame(minHeight: 250)
                 }
-            } header: {
+
+
+            } footer: {
                 Text("TH Edit Alert")
             }
             
@@ -72,18 +79,29 @@ struct THContentEditor: View {
     
     private var stickerPicker: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.flexible()),
-                                    GridItem(.flexible()),
-                                    GridItem(.flexible()),
-                                    GridItem(.flexible())]) {
-                    ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
-                        Button {
-                            content += " ^[\(sticker.rawValue)]"
-                            showStickers = false
-                        } label: {
-                            sticker.image
+            Form {
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.flexible()),
+                                        GridItem(.flexible()),
+                                        GridItem(.flexible()),
+                                        GridItem(.flexible())]) {
+                        ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
+                            Button {
+                                content += " ^[\(sticker.rawValue)]"
+                                showStickers = false
+                            } label: {
+                                sticker.image
+                            }
                         }
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        showStickers = false
+                    } label: {
+                        Text("Cancel")
                     }
                 }
             }

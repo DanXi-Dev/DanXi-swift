@@ -6,8 +6,12 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:www.fduhole.com</string>
-		<string>applinks:www.fduhole.com</string>
+		<string>webcredentials:fduhole.com</string>
+		<string>applinks:fduhole.com</string>
+	</array>
+	<key>com.apple.developer.sensitivecontentanalysis.client</key>
+	<array>
+		<string>analysis</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
@@ -17,7 +21,7 @@
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>com.apple.security.personal-information.location</key>
+	<key>com.apple.security.personal-information.calendars</key>
 	<true/>
 	<key>com.apple.security.personal-information.photos-library</key>
 	<true/>

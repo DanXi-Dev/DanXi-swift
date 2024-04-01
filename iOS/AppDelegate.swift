@@ -15,15 +15,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         // Clear badge on launch
         UIApplication.shared.applicationIconBadgeNumber = 0
         
-        // Request notification permission
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            if granted || error == nil {
-                Task { @MainActor in
-                    application.registerForRemoteNotifications()
-                }
-            }
+        // Register for remote notification
+        // We receive notifications regardless of whether we have the permission to display them
+        // According to https://developer.apple.com/documentation/usernotifications/registering-your-app-with-apns
+        // > You register your app and receive your device token each time your app launches using Apple-provided APIs.
+        Task(priority: .background) { @MainActor in
+            application.registerForRemoteNotifications()
         }
         
+#if !targetEnvironment(macCatalyst)
         // Activate internet connection
         let cellular = CTCellularData()
         if cellular.restrictedState != .notRestricted {
@@ -35,6 +35,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                 }
             }
         }
+#endif
         
         return true
     }
@@ -46,6 +47,28 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                      deviceToken: Data) {
         if let deviceId = UIDevice.current.identifierForVendor {
             DXModel.shared.receiveToken(deviceToken, deviceId)
+        } else {
+            // According to https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
+            // > If the value is nil, wait and get the value again later. This happens, for example, after the device has been restarted but before the user has unlocked the device.
+            Task(priority: .background) {
+                try await Task.sleep(for: .seconds(120))
+                // We shall only retry once. If it still fails, we'll simply ignore this
+                if let deviceId = UIDevice.current.identifierForVendor {
+                    DXModel.shared.receiveToken(deviceToken, deviceId)
+                }
+            }
+        }
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError
+                     error: Error) {
+        // According to https://developer.apple.com/documentation/usernotifications/registering-your-app-with-apns
+        // > Registration might fail if the user’s device isn’t connected to the network, if the APNs server is unreachable for any reason, or if the app doesn’t have the proper code-signing entitlement.
+        // > When a failure occurs, set a flag and try to register again at a later time.
+        Task(priority: .background) {
+            try await Task.sleep(for: .seconds(120))
+            application.registerForRemoteNotifications()
         }
     }
     
@@ -61,7 +84,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let content = response.notification.request.content
-        AppModel.notificationPublisher.send(content) // publish event for UI to handle
+        Task { @MainActor in
+            AppModel.notificationPublisher.send(content) // publish event for UI to handle
+        }
         completionHandler()
     }
     

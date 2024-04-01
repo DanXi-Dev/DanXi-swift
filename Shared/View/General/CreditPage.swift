@@ -6,8 +6,8 @@ struct CreditPage: View {
 
     var body: some View {
         List {
-            Section("Contributors") {
-                ForEach(contributors, id: \.name) { contributor in
+            Section {
+                ForEach(contributors.sorted(by: { $0.name.lowercased() < $1.name.lowercased() }), id: \.name) { contributor in
                     HStack {
                         Image(contributor.image)
                             .resizable()
@@ -21,10 +21,14 @@ struct CreditPage: View {
                         Text(contributor.name)
                     }
                 }
+            } header: {
+                Text("Contributors")
+            } footer: {
+                Text("Sort alphabetically.")
             }
-            
+
             Section("Open Source Software") {
-                ForEach(licenses, id: \.name) { license in
+                ForEach(licenses.sorted(by: { $0.name.lowercased() < $1.name.lowercased() }), id: \.name) { license in
                     Link(destination: URL(string: license.link)!) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -44,6 +48,7 @@ struct CreditPage: View {
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Acknowledgements")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -51,7 +56,7 @@ struct LinkView: View {
     let url: String
     let text: LocalizedStringKey
     let icon: String
-    
+
     var body: some View {
         Link(destination: URL(string: url)!) {
             HStack {

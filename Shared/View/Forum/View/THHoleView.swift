@@ -1,21 +1,37 @@
 import SwiftUI
+import ViewUtils
 import WrappingHStack
 
 struct THHoleView: View {
     @Environment(\.colorScheme) private var colorScheme
-
+    
     @State private var expand = false
     let hole: THHole
     let fold: Bool
+    let pinned: Bool
     
-    init(hole: THHole, fold: Bool = false) {
+    init(hole: THHole, fold: Bool = false, pinned: Bool = false) {
         self.hole = hole
         self.fold = fold
+        self.pinned = pinned
     }
     
     var body: some View {
         FoldedView(expand: !fold) {
-            tags
+            HStack(alignment: .center) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    tags
+                }
+                .allowsHitTesting(false)
+                Spacer()
+                Text("Folded")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .fontWeight(.light)
+                    .padding(.leading, 3)
+                    .padding(.top, 1)
+                    .fixedSize()
+            }
         } content: {
             fullContent
         }
@@ -25,6 +41,7 @@ struct THHoleView: View {
         NavigationListRow(value: hole) {
             VStack(alignment: .leading) {
                 tags
+                    .padding(.bottom, 3)
                 holeContent
             }
         }
@@ -37,23 +54,19 @@ struct THHoleView: View {
     
     private var holeContent: some View {
         Group {
-            if !hole.firstFloor.spetialTag.isEmpty {
-                HStack {
-                    Spacer()
-                    THSpecialTagView(content: hole.firstFloor.spetialTag)
-                }
-            }
-            
             let firstFloorContent = hole.firstFloor.fold.isEmpty ? hole.firstFloor.content : hole.firstFloor.fold
             
             Text(firstFloorContent.inlineAttributed())
-                .font(.callout)
+                .font(.subheadline)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
+                .padding(.leading, 3)
             
             if hole.firstFloor.id != hole.lastFloor.id {
                 lastFloor
+                    .padding(.vertical, 1)
+                    .padding(.leading, 8)
             }
             
             info
@@ -61,9 +74,22 @@ struct THHoleView: View {
     }
     
     private var tags: some View {
-        WrappingHStack(alignment: .leading) {
-            ForEach(hole.tags) { tag in
-                THTagView(tag)
+        HStack(alignment: .top) {
+            WrappingHStack(alignment: .leading) {
+                ForEach(hole.tags) { tag in
+                    THTagView(tag)
+                }
+            }
+            Spacer()
+            HStack {
+                if !hole.firstFloor.spetialTag.isEmpty {
+                    THSpecialTagView(content: hole.firstFloor.spetialTag)
+                }
+                if pinned {
+                    Image(systemName: "pin.fill")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
             }
         }
     }
@@ -102,8 +128,6 @@ struct THHoleView: View {
     
     private var lastFloor: some View {
         HStack(alignment: .top) {
-            Image(systemName: "arrowshape.turn.up.left.fill")
-            
             VStack(alignment: .leading, spacing: 3) {
                 Text("\(hole.lastFloor.posterName) replied \(hole.lastFloor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
                     .font(.custom("", size: 12))
@@ -115,18 +139,22 @@ struct THHoleView: View {
                     .lineLimit(1)
                     .font(.custom("", size: 14))
                     .fixedSize(horizontal: false, vertical: true)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.secondary)
             }
             Spacer()
         }
         .foregroundColor(.secondary)
-        .padding(10)
-        .background(Color.secondary.opacity(colorScheme == .dark ? 0.15 : 0.1))
-        .cornerRadius(7)
+        .padding(.leading, 8)
+        .overlay(alignment: .leading) {
+            Rectangle()
+                .frame(width: 3, height: nil)
+                .padding(.top, 2)
+                .foregroundStyle(.secondary.opacity(0.5))
+        }
     }
 }
 
-fileprivate struct THHolePreview: View {
+private struct THHolePreview: View {
     @StateObject private var model: THHoleModel
     
     init(_ hole: THHole, _ floors: [THFloor]) {
@@ -146,7 +174,7 @@ fileprivate struct THHolePreview: View {
     }
 }
 
-fileprivate struct PreviewActions: View {
+private struct PreviewActions: View {
     @ObservedObject private var appModel = THModel.shared
     @ObservedObject private var settings = THSettings.shared
     
@@ -159,10 +187,10 @@ fileprivate struct PreviewActions: View {
                 haptic()
             } label: {
                 Group {
-                    if !appModel.isFavorite(hole.id) {
-                        Label("Add to Favorites", systemImage: "star")
+                    if appModel.isFavorite(hole.id) {
+                        Label("Unfavorite", systemImage: "star.slash")
                     } else {
-                        Label("Remove from Favorites", systemImage: "star.slash")
+                        Label("Favorite", systemImage: "star")
                     }
                 }
             }
@@ -182,7 +210,9 @@ fileprivate struct PreviewActions: View {
                 }
             }
             
-            Button {
+            Divider()
+            
+            Button(role: .destructive) {
                 if !settings.blockedHoles.contains(hole.id) {
                     withAnimation {
                         settings.blockedHoles.append(hole.id)

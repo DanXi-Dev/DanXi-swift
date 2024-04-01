@@ -35,12 +35,11 @@ struct ImageBrowser: View {
             .navigationTitle("View Image")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {
                         Text("Done")
-                            .bold()
                     }
                 }
                 

@@ -10,7 +10,7 @@ struct THTagsPage: View {
                 return tag.temperature >= 10
             }
             
-            return tag.name.contains(query)
+            return tag.name.localizedCaseInsensitiveContains(query)
         }
     }
     
@@ -31,8 +31,8 @@ struct THTagsPage: View {
                     }
                 }
             }
-            .listStyle(.inset)
             .navigationTitle("All Tags")
+            .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $query, prompt: Text("Search in Tags"))
         }
     }

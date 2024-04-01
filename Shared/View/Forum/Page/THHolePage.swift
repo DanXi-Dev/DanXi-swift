@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import ViewUtils
 import WrappingHStack
 
 struct THHolePage: View {
@@ -10,34 +11,41 @@ struct THHolePage: View {
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     init(_ hole: THHole) {
-        self._model = StateObject(wrappedValue: THHoleModel(hole: hole))
+        self._model = StateObject(wrappedValue: THHoleModel(hole: hole, floors: hole.floors, loadMore: true))
     }
     
-    init(_ model: THHoleModel) { 
+    init(_ model: THHoleModel) {
         self._model = StateObject(wrappedValue: model)
     }
     
     var body: some View {
         ZStack {
             ScrollViewReader { proxy in
-                THBackgroundList(selection: $model.selectedFloor) {
-                    Section { // if no section is added, the expansion animation of folded floor will gone. The reason is not clear yet.
-                        THHoleTags(tags: model.hole.tags)
-                            .listRowSeparator(.hidden, edges: .top)
-                        
-                        if model.hole.locked {
-                            Label("Post locked, reply is forbidden", systemImage: "lock.fill")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                                .listRowSeparator(.hidden)
-                        }
-                        
-                        AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                            THComplexFloor(floor)
-                                .tag(floor)
+                THBackgroundList(selection: $model.selectedFloor, selectable: $model.floorSelectable) {
+                    // On older platform, adjusting list section spacing will hide section header
+                    // due to implementation of compactSectionSpacing.
+                    if #unavailable(iOS 17) {
+                        header
+                            .listRowBackground(Color.clear)
+                    }
+                    
+                    AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
+                        if !floor.content.isEmpty {
+                            // If a floor has empty content, hide it
+                            // This is at the request of OpenTreehole backend
+                            Section {
+                                THComplexFloor(floor)
+                                    .tag(floor)
+                                    .id(floor)
+                            } header: {
+                                if floor.id == model.floors.first?.id {
+                                    header
+                                }
+                            }
                         }
                     }
                 }
+                .watermark()
                 // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
                 .onAppear {
                     if let initialScroll = model.initialScroll {
@@ -64,18 +72,14 @@ struct THHolePage: View {
                     do {
                         try await THRequests.updateViews(holeId: model.hole.id)
                         THModel.shared.appendHistory(hole: model.hole)
-                    } catch {
-                        
-                    }
+                    } catch {}
                 }
                 .onReceive(screenshotPublisher) { _ in
                     if settings.screenshotAlert {
                         showScreenshotAlert = true
                     }
                 }
-                .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {
-                    
-                } message: {
+                .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {} message: {
                     Text("Screenshot Alert Content")
                 }
                 .environmentObject(model)
@@ -103,9 +107,27 @@ struct THHolePage: View {
             }
         }
     }
+    
+    private var header: some View {
+        VStack(alignment: .leading) {
+            if model.hole.locked {
+                HStack {
+                    Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                        .textCase(.none)
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                        .listRowSeparator(.hidden)
+                    Spacer()
+                }
+            }
+            THHoleTags(tags: model.hole.tags)
+                .padding(.bottom, 5)
+                .textCase(.none)
+        }
+    }
 }
 
-fileprivate struct THHoleToolbar: View {
+private struct THHoleToolbar: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THHoleModel
     @Environment(\.editMode) private var editMode
@@ -118,7 +140,6 @@ fileprivate struct THHoleToolbar: View {
     var body: some View {
         Group {
             replyButton
-            favoriteButton
             menu
         }
     }
@@ -142,17 +163,28 @@ fileprivate struct THHoleToolbar: View {
         }
     }
     
-    private var favoriteButton: some View {
-        AsyncButton {
-            try await model.toggleFavorite()
-            haptic()
-        } label: {
-            Image(systemName: model.isFavorite ? "star.fill" : "star")
-        }
-    }
-    
     private var menu: some View {
         Menu {
+            AsyncButton {
+                try await model.toggleFavorite()
+            } label: {
+                if model.isFavorite {
+                    Label("Unfavorite", systemImage: "star.slash")
+                } else {
+                    Label("Favorite", systemImage: "star")
+                }
+            }
+            
+            AsyncButton {
+                try await model.toggleSubscribe()
+            } label: {
+                if model.subscribed {
+                    Label("Unsubscribe", systemImage: "bell.slash")
+                } else {
+                    Label("Subscribe", systemImage: "bell")
+                }
+            }
+            
             Picker("Filter Options", selection: $model.filterOption) {
                 Label("Show All", systemImage: "list.bullet")
                     .tag(THHoleModel.FilterOptions.all)
@@ -162,18 +194,8 @@ fileprivate struct THHoleToolbar: View {
             }
             
             AsyncButton {
-                try await model.toggleSubscribe()
-                haptic()
-            } label: {
-                if model.subscribed {
-                    Label("Unsubscribe", systemImage: "bell.slash")
-                } else {
-                    Label("Subscribe", systemImage: "bell")
-                }
-            }
-            
-            AsyncButton {
                 await model.loadAllFloors()
+                haptic()
             } label: {
                 Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
             }
@@ -181,26 +203,31 @@ fileprivate struct THHoleToolbar: View {
             if appModel.isAdmin {
                 Divider()
                 
-                Button {
-                    withAnimation {
-                        editMode?.wrappedValue = .active
-                    }
-                } label: {
-                    Label("Batch Delete", systemImage: "trash")
-                }
-                
-                if !model.hole.hidden {
+                Menu {
                     Button {
-                        showDeleteAlert = true
+                        withAnimation {
+                            model.floorSelectable = true
+                            editMode?.wrappedValue = .active
+                        }
                     } label: {
-                        Label("Hide Hole", systemImage: "eye.slash.fill")
+                        Label("Batch Delete", systemImage: "trash")
                     }
-                }
-                
-                Button {
-                    showEditSheet = true
+                    
+                    if !model.hole.hidden {
+                        Button {
+                            showDeleteAlert = true
+                        } label: {
+                            Label("Hide Hole", systemImage: "eye.slash.fill")
+                        }
+                    }
+                    
+                    Button {
+                        showEditSheet = true
+                    } label: {
+                        Label("Edit Post Info", systemImage: "info.circle")
+                    }
                 } label: {
-                    Label("Edit Post Info", systemImage: "info.circle")
+                    Label("Admin Actions", systemImage: "person.badge.key")
                 }
             }
         } label: {
@@ -215,7 +242,7 @@ fileprivate struct THHoleToolbar: View {
                     try await model.deleteHole()
                 }
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) {}
         } message: {
             Text("This will affect all replies of this post")
         }
@@ -240,9 +267,7 @@ struct THHoleTags: View {
     }
 }
 
-
-
-fileprivate struct THHoleBottomBar: View {
+private struct THHoleBottomBar: View {
     @EnvironmentObject private var model: THHoleModel
     @Environment(\.editMode) private var editMode
     @State private var showAlert = false
@@ -259,20 +284,25 @@ fileprivate struct THHoleBottomBar: View {
             }
             
             if editMode?.wrappedValue.isEditing == true {
-                if model.selectedFloor.isEmpty {
+                HStack {
+                    Spacer()
                     Button {
                         withAnimation {
                             editMode?.wrappedValue = .inactive
+                            model.floorSelectable = false
                         }
                     } label: {
                         Text("Cancel")
                     }
-                } else {
-                    Button(role: .destructive) {
-                        showAlert = true
-                    } label: {
-                        BottomBarLabel("Delete Selected", systemImage: "trash")
+                    if !model.selectedFloor.isEmpty {
+                        Spacer()
+                        Button(role: .destructive) {
+                            showAlert = true
+                        } label: {
+                            BottomBarLabel("Delete Selected", systemImage: "trash")
+                        }
                     }
+                    Spacer()
                 }
             }
         }
@@ -286,6 +316,7 @@ fileprivate struct THHoleBottomBar: View {
                 
                 withAnimation {
                     editMode?.wrappedValue = .inactive
+                    model.floorSelectable = false
                 }
             } label: {
                 Text("Submit")
@@ -294,7 +325,7 @@ fileprivate struct THHoleBottomBar: View {
     }
 }
 
-fileprivate struct BottomBarLabel: View {
+private struct BottomBarLabel: View {
     let text: LocalizedStringKey
     let systemImage: String
     

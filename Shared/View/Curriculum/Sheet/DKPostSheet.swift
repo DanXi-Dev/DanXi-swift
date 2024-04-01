@@ -19,6 +19,12 @@ struct DKPostSheet: View {
         overallRating != 0 && contentRating != 0 && workloadRating != 0 && assessmentRating != 0
     }
     
+    private var allowDiscard: Bool {
+        courseId != -1 ||
+        !title.isEmpty || !content.isEmpty ||
+        overallRating != 0 || contentRating != 0 || workloadRating != 0 || assessmentRating != 0
+    }
+    
     var body: some View {
         Sheet("New Review") {
             let rank = DKRank(overall: Double(overallRating),
@@ -67,22 +73,23 @@ struct DKPostSheet: View {
             
             Section {
                 LabeledContent("Overall Rating") {
-                    DKStarRatingView(rating: $overallRating)
+                    DKStarRatingView(rating: $overallRating, ratingType: .overall)
                 }
                 LabeledContent("Course Content") {
-                    DKStarRatingView(rating: $contentRating)
+                    DKStarRatingView(rating: $contentRating, ratingType: .content)
                 }
                 LabeledContent("Course Workload") {
-                    DKStarRatingView(rating: $workloadRating)
+                    DKStarRatingView(rating: $workloadRating, ratingType: .workload)
                 }
                 LabeledContent("Course Assessment") {
-                    DKStarRatingView(rating: $assessmentRating)
+                    DKStarRatingView(rating: $assessmentRating, ratingType: .assessment)
                 }
             } header: {
                 Text("Course Evaluation")
             }
         }
         .completed(allowSubmit)
+        .warnDiscard(allowDiscard)
         .scrollDismissesKeyboard(.immediately)
     }
 }

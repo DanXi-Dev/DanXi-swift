@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 @MainActor
 class THFloorModel: ObservableObject {
@@ -16,10 +17,14 @@ class THFloorModel: ObservableObject {
     }
     
     func highlight() {
-        highlighted = true
+        withAnimation {
+            highlighted = true
+        }
         Task {
-            try await Task.sleep(nanoseconds: 1_000_000_000)
-            highlighted = false
+            try await Task.sleep(for: .seconds(1))
+            withAnimation {
+                highlighted = false
+            }
         }
     }
     

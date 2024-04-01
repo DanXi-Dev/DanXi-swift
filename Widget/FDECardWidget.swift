@@ -1,5 +1,6 @@
- import WidgetKit
+import WidgetKit
 import SwiftUI
+import FudanKit
 
 struct FDECardProvider: TimelineProvider {
     func placeholder(in context: Context) -> FDECardEntry {
@@ -17,10 +18,10 @@ struct FDECardProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         Task {
             do {
-                try await FDECardAPI.getCSRF()
-                let balance = try await FDECardAPI.getBalance()
-                let transactions = try await FDECardAPI.getTransactions()
-                let entry = FDECardEntry(balance, transactions)
+                async let balance = MyStore.shared.getCachedUserInfo().balance
+                async let dateValues = MyStore.shared.getCachedWalletLogs()
+                let (loadedBalance, loadedHistory) = try await (balance, dateValues)
+                let entry = FDECardEntry(loadedBalance, loadedHistory)
                 let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
                 let timeline = Timeline(entries: [entry], policy: .after(date))
                 completion(timeline)
@@ -38,21 +39,20 @@ struct FDECardProvider: TimelineProvider {
 struct FDECardEntry: TimelineEntry {
     let date: Date
     let balance: String
-    let transactions: [FDTransaction]
+    let history: [WalletLog]
     var placeholder = false
     var loadFailed = false
     
     init() {
         date = Date()
         balance = "100.0"
-        let sampleTransaction = FDTransaction(createTime: "", location: "食堂", amount: "10.0", balance: "")
-        transactions = [sampleTransaction]
+        history = []
     }
     
-    init(_ balance: String, _ transactions: [FDTransaction]) {
+    init(_ balance: String, _ history: [WalletLog]) {
         date = Date()
         self.balance = balance
-        self.transactions = transactions
+        self.history = history
     }
 }
 
@@ -108,13 +108,13 @@ struct FDECardView: View {
 
         Spacer()
         
-        if let transaction = entry.transactions.first {
-            Label("\(transaction.location) \(transaction.amount)", systemImage: "clock")
-                .bold()
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .padding(.top)
-        }
+//        if let transaction = entry.transactions.first {
+//            Label("\(transaction.location) \(transaction.amount)", systemImage: "clock")
+//                .bold()
+//                .font(.footnote)
+//                .foregroundColor(.secondary)
+//                .padding(.top)
+//        }
     }
 }
 

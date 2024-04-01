@@ -1,17 +1,24 @@
 import SwiftUI
 
+enum SheetStyle {
+    case independent, subpage
+}
+
 struct Sheet<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var loading = false
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var showDiscardWarning = false
     
     let content: Content
     let action: () async throws -> Void
     var titleText: LocalizedStringKey = ""
     var submitText: LocalizedStringKey = "Submit"
     var completed: Bool = true
+    var style: SheetStyle = .independent
+    var discardWarningNeeded: Bool = false
     
     init(_ titleText: LocalizedStringKey = "",
          action: @escaping () async throws -> Void,
@@ -39,13 +46,27 @@ struct Sheet<Content: View>: View {
         return sheet
     }
     
+    func sheetStyle(_ style: SheetStyle = .independent) -> Sheet {
+        var sheet = self
+        sheet.style = style
+        return sheet
+    }
+    
+    func warnDiscard(_ warn: Bool) -> Sheet {
+        var sheet = self
+        sheet.discardWarningNeeded = warn
+        return sheet
+    }
+    
     func submit() {
         Task {
             do {
                 loading = true
                 defer { loading = false }
                 try await action()
-                dismiss()
+                await MainActor.run {
+                    dismiss() // SwiftUI view updates must be published on the main thread
+                }
             } catch {
                 alertMessage = error.localizedDescription
                 showAlert = true
@@ -63,7 +84,20 @@ struct Sheet<Content: View>: View {
             .navigationTitle(titleText)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                if style == .independent {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            if discardWarningNeeded {
+                                showDiscardWarning = true
+                            } else {
+                                dismiss()
+                            }
+                        } label: {
+                            Text("Cancel")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
                     if loading {
                         ProgressView()
                     } else {
@@ -77,11 +111,24 @@ struct Sheet<Content: View>: View {
                     }
                 }
             }
-            .alert("Error", isPresented: $showAlert) {
-                
-            } message: {
-                Text(alertMessage)
+        }
+        .alert("Error", isPresented: $showAlert) {
+            
+        } message: {
+            Text(alertMessage)
+        }
+        .alert("Unsaved Changes", isPresented: $showDiscardWarning, actions: {
+            Button("Cancel", role: .cancel) {
+                showDiscardWarning = false
             }
+            Button("Discard", role: .destructive) {
+                dismiss()
+            }
+        }, message: {
+            Text("Are your sure you want to discard your contents? Your messages will be lost.")
+        })
+        .interactiveDismiss(canDismissSheet: !discardWarningNeeded) {
+            showDiscardWarning = true
         }
     }
 }

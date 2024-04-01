@@ -1,8 +1,9 @@
 import SwiftUI
+import FudanKit
 
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
-    @ObservedObject private var campusModel = FDModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
     
     @State private var campusLoginSheet = false
     @State private var campusUserSheet = false
@@ -10,7 +11,7 @@ struct SettingsPage: View {
     @State private var forumUserSheet = false
     
     var showToolbar: Bool {
-        campusModel.isLogged || forumModel.isLogged
+        campusModel.loggedIn || forumModel.isLogged
     }
     
     var body: some View {
@@ -18,13 +19,13 @@ struct SettingsPage: View {
             List {
                 Section("Accounts Management") {
                     Button {
-                        if campusModel.isLogged {
+                        if campusModel.loggedIn {
                             campusUserSheet = true
                         } else {
                             campusLoginSheet = true
                         }
                     } label: {
-                        AccountLabel(loggedIn: campusModel.isLogged, title: "Fudan Campus Account")
+                        AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
                     }
                     
                     Button {
@@ -38,14 +39,14 @@ struct SettingsPage: View {
                     }
                 }
                 
-                if campusModel.isLogged {
+                if campusModel.loggedIn {
                     Section("Campus.Tab") {
                         Picker(selection: $campusModel.studentType) {
-                            Text("Undergraduate").tag(FDStudentType.undergrad)
-                            Text("Graduate").tag(FDStudentType.grad)
-                            Text("Staff").tag(FDStudentType.staff)
+                            Text("Undergraduate").tag(StudentType.undergrad)
+                            Text("Graduate").tag(StudentType.grad)
+                            Text("Staff").tag(StudentType.staff)
                         } label: {
-                            Label("Student Type", systemImage: "graduationcap")
+                            Label("Student Type", systemImage: "person.text.rectangle")
                         }
                     }
                 }
@@ -68,114 +69,128 @@ struct SettingsPage: View {
             FDLoginSheet()
         }
         .sheet(isPresented: $campusUserSheet) {
-            AsyncContentView { () -> FDIdentity? in
-                return try? await FDIdentityAPI.getIdentity()
-            } content: { identity in
-                FDUserSheet(identity: identity)
-            }
+            FDUserSheet()
         }
         .sheet(isPresented: $forumLoginSheet) {
             DXAuthSheet()
         }
         .sheet(isPresented: $forumUserSheet) {
-            AsyncContentView { () -> DXUser? in
-                if let user = forumModel.user {
-                    return user
-                }
-                // return nil when error
-                // this is to allow user to logout even when some error occurs and cannot connect to backend server
-                return try? await forumModel.loadUser()
-            } content: { user in
-                DXUserSheet(user: user)
-            }
+            DXUserSheet()
         }
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
     }
 }
 
 fileprivate struct FDUserSheet: View {
-    let identity: FDIdentity?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
-            List {
-                if let identity = identity {
-                    Section {
-                        LabeledContent("Name", value: identity.name)
-                        LabeledContent("Fudan.ID", value: identity.studentId)
-                        LabeledContent("ID Number", value: identity.idNumber)
-                        LabeledContent("Department", value: identity.department)
-                        LabeledContent("Major", value: identity.major)
+            Form {
+                List {
+                    AsyncContentView(style: .widget, animation: .default) { () -> Profile? in
+                        return try? await ProfileStore.shared.getCachedProfile()
+                    } content: { profile in
+                        if let profile = profile {
+                            Section {
+                                LabeledContent("Name", value: profile.name)
+                                LabeledContent("Fudan.ID", value: profile.campusId)
+                                LabeledContent("ID Number", value: profile.idNumber)
+                                LabeledContent("Department", value: profile.department)
+                                LabeledContent("Major", value: profile.major)
+                            }
+                        }
                     }
-                }
-                
-                Section {
-                    Button(role: .destructive) {
-                        FDModel.shared.logout()
-                        dismiss()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text("Logout")
-                            Spacer()
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            CampusModel.shared.logout()
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Logout")
+                                Spacer()
+                            }
                         }
                     }
                 }
+                .navigationTitle("Account Info")
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .navigationTitle("Account Info")
-            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
+                }
+            }
         }
     }
 }
 
 fileprivate struct DXUserSheet: View {
-    let user: DXUser?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
-            List {
-                if let user = user {
-                    Section {
-                        LabeledContent {
-                            Text(String(user.id))
-                        } label: {
-                            Label("User ID", systemImage: "person.text.rectangle")
+            Form {
+                List {
+                    AsyncContentView(style: .widget, animation: .default) { () -> DXUser? in
+                        if let user = DXModel.shared.user {
+                            return user
                         }
-                        
-                        if user.isAdmin {
-                            LabeledContent {
-                                Text("Enabled")
-                            } label: {
-                                Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                        // return nil when error
+                        // this is to allow user to logout even when some error occurs and cannot connect to backend server
+                        return try? await DXModel.shared.loadUser()
+                    } content: { user in
+                        if let user = user {
+                            Section {
+                                LabeledContent {
+                                    Text(String(user.id))
+                                } label: {
+                                    Label("User ID", systemImage: "person.text.rectangle")
+                                }
+                                
+                                LabeledContent {
+                                    Text(user.joinTime.formatted(date: .long, time: .omitted))
+                                } label: {
+                                    Label("Join Date", systemImage: "calendar.badge.clock")
+                                }
+                                
+                                if user.isAdmin {
+                                    LabeledContent {
+                                        Text("Enabled")
+                                    } label: {
+                                        Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                                    }
+                                }
                             }
                         }
-                        
-                        LabeledContent {
-                            Text(user.nickname)
+                    }
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            DXModel.shared.logout()
+                            dismiss()
                         } label: {
-                            Label("Nickname", systemImage: "person.crop.circle")
-                        }
-                        
-                        LabeledContent {
-                            Text(user.joinTime.formatted(date: .long, time: .omitted))
-                        } label: {
-                            Label("Join Date", systemImage: "calendar.badge.clock")
+                            HStack {
+                                Spacer()
+                                Text("Logout")
+                                Spacer()
+                            }
                         }
                     }
                 }
-                
-                Section {
-                    Button(role: .destructive) {
-                        DXModel.shared.logout()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
                         dismiss()
                     } label: {
-                        HStack {
-                            Spacer()
-                            Text("Logout")
-                            Spacer()
-                        }
+                        Text("Done")
                     }
                 }
             }
@@ -191,12 +206,13 @@ fileprivate struct AccountLabel: View {
     
     var body: some View {
         HStack {
-            Image(systemName: loggedIn ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.fill.badge.plus")
+            Image(systemName: loggedIn ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.fill")
                 .font(.system(size: 42))
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(loggedIn ? Color.accentColor : Color.secondary,
                                  loggedIn ? Color.accentColor.opacity(0.3) : Color.secondary.opacity(0.3))
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 8)
             VStack(alignment: .leading, spacing: 3.0) {
                 Text(title)
                     .foregroundColor(.primary)

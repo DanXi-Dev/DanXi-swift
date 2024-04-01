@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -7,7 +8,7 @@ struct ContentView: View {
     init() {
         let model = AppModel()
         
-        if FDModel.shared.isLogged {
+        if CampusModel.shared.loggedIn {
             model.section = .campus
         } else if DXModel.shared.isLogged {
             model.section = .forum
@@ -33,8 +34,9 @@ struct ContentView: View {
         .onReceive(AppModel.notificationPublisher) { content in
             model.section = .forum
         }
-        .task {
-            await DXModel.shared.loadExtra()
+        .sheet(isPresented: $model.showIntro) {
+            IntroSheet()
+                .environmentObject(model)
         }
     }
 }
@@ -43,17 +45,17 @@ struct ContentView: View {
 struct TabHomePage: View {
     @EnvironmentObject private var model: AppModel
     @ObservedObject private var forumModel = DXModel.shared
-    @ObservedObject private var campusModel = FDModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
     
     private var loginStatus: Int {
         let forumStatus = forumModel.isLogged ? 2 : 0
-        let campusStatus = campusModel.isLogged ? 1 : 0
+        let campusStatus = campusModel.loggedIn ? 1 : 0
         return forumStatus + campusStatus
     }
     
     var body: some View {
         TabView(selection: $model.section) {
-            if campusModel.isLogged {
+            if campusModel.loggedIn {
                 FDHomePage()
                     .tag(AppSection.campus)
                     .tabItem {
@@ -77,18 +79,12 @@ struct TabHomePage: View {
                     .toolbarBackground(.visible, for: .tabBar)
             }
             
-            if campusModel.isLogged {
-                Group {
-                    if campusModel.studentType == .undergrad {
-                        FDCalendarPageLoader()
-                    } else {
-                        FDGradCalendarPage()
+            if campusModel.loggedIn {
+                FDCalendarPage()
+                    .tag(AppSection.calendar)
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
                     }
-                }
-                .tag(AppSection.calendar)
-                .tabItem {
-                    Label("Calendar", systemImage: "calendar")
-                }
             }
             
             SettingsPage()
@@ -106,7 +102,7 @@ struct TabHomePage: View {
 struct SplitHomePage: View {
     @EnvironmentObject private var model: AppModel
     @ObservedObject private var forumModel = DXModel.shared
-    @ObservedObject private var campusModel = FDModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
     
     var body: some View {
         NavigationSplitView {
@@ -116,7 +112,7 @@ struct SplitHomePage: View {
             )
             
             List(selection: sectionBinding) {
-                if campusModel.isLogged {
+                if campusModel.loggedIn {
                     Label("Campus.Tab", systemImage: "square.stack")
                         .tag(AppSection.campus)
                 }
@@ -126,7 +122,7 @@ struct SplitHomePage: View {
                     Label("Curriculum", systemImage: "books.vertical")
                         .tag(AppSection.curriculum)
                 }
-                if campusModel.isLogged {
+                if campusModel.loggedIn {
                     Label("Calendar", systemImage: "calendar")
                         .tag(AppSection.calendar)
                 }
@@ -135,23 +131,22 @@ struct SplitHomePage: View {
             }
             .navigationTitle("DanXi")
         } detail: {
-            switch model.section {
-            case .campus:
-                FDHomePage()
-            case .forum:
-                THHomePage()
-            case .curriculum:
-                DKHomePage()
-            case .calendar:
-                Group {
-                    if campusModel.studentType == .undergrad {
-                        FDCalendarPageLoader()
-                    } else {
-                        FDGradCalendarPage()
-                    }
+            // FIXME: This ZStack is a workaround for SwiftUI bug 91311311 on iOS 16
+            // > Conditional views in columns of NavigationSplitView fail to update on some state changes.
+            // > Workaround: Wrap the contents of the column in a ZStack.
+            ZStack {
+                switch model.section {
+                case .campus:
+                    FDHomePage()
+                case .forum:
+                    THHomePage()
+                case .curriculum:
+                    DKHomePage()
+                case .calendar:
+                    FDCalendarPage()
+                case .settings:
+                    SettingsPage()
                 }
-            case .settings:
-                SettingsPage()
             }
         }
     }

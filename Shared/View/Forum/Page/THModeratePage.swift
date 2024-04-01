@@ -40,11 +40,13 @@ struct THModeratePage: View {
             }
             .listStyle(.inset)
             .navigationTitle("Moderate")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if filter == .open {
                     EditButton()
                 }
             }
+            .watermark()
             
             HStack(spacing: 30) {
                 if !model.selectedItems.isEmpty {
@@ -135,7 +137,7 @@ class THModerateModel: ObservableObject {
                 try await THRequests.setSensitive(id: id, sensitive: sensitive)
                 successIds.append(id)
             } catch {
-                print(error)
+                // print(error)
             }
         }
         

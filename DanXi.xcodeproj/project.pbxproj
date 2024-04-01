@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2700FB2B2A3CC7B5003A2B00 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */; };
 		2701318B2A3B46BE0013FA7E /* FDElectricityPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */; };
-		2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */; };
 		2701318F2A3B9A4F0013FA7E /* FDNoticePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */; };
 		270131912A3C27F20013FA7E /* FDLibraryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270131902A3C27F20013FA7E /* FDLibraryPage.swift */; };
 		270131932A3C28FB0013FA7E /* FDCanteenPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270131922A3C28FB0013FA7E /* FDCanteenPage.swift */; };
@@ -26,15 +25,10 @@
 		2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602D292F51BC00F4C321 /* CreditPage.swift */; };
 		27066032292F56AF00F4C321 /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066031292F56AF00F4C321 /* license.json */; };
 		27066038292FA34200F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066037292FA34200F4C321 /* contributor.json */; };
-		2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604D29312D8200F4C321 /* FDECardAPI.swift */; };
-		2706605529312D8300F4C321 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
-		2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604F29312D8200F4C321 /* FDElectricityAPI.swift */; };
-		2706605729312D8300F4C321 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
 		270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* DKReviewPage.swift */; };
+		270CD1942BAD697600881ABA /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 270CD1932BAD697600881ABA /* ViewUtils */; };
 		2711C8972AD595CE00B58D80 /* EventStoreCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */; };
-		2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
 		2713B5EB293A7BCF00ADE348 /* FDSportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */; };
-		2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
 		2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86C29AE17BD00A533E1 /* FDScorePage.swift */; };
 		27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27173F1E2A0EBC2C00A570E1 /* THBackgroundList.swift */; };
 		271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D1D5029F178C600DDEEC9 /* Decode.swift */; };
@@ -50,11 +44,9 @@
 		272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E22896F29800092B0C /* THReplySheet.swift */; };
 		272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */; };
 		272B08462A6EE6F40078CFF6 /* THBrowseHistoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */; };
+		272D87AA2BB74AF70027C548 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 272D87A92BB74AF70027C548 /* WrappingHStack */; };
 		272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */; };
 		272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */; };
-		2733CA172AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */; };
-		2733CA182AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */; };
-		2733CA192AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */; };
 		2733CA1B2AB6DBBE001AF2CD /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
 		273FAFB628C13C6100FC3950 /* THSpecialTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */; };
@@ -62,17 +54,14 @@
 		274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197229D1BF9B000DE221 /* WatchApp.swift */; };
 		274C197529D1BF9B000DE221 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197429D1BF9B000DE221 /* ContentView.swift */; };
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
-		274E7C412AB223FF00E1B588 /* FDWebVPNAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */; };
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
 		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
 		27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */; };
 		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
-		27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
 		276310272AB82B99005896AD /* FDCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276310262AB82B99005896AD /* FDCalendarView.swift */; };
-		2763102B2AB8380E005896AD /* FDGradCaledarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */; };
 		2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2764E5D7289840E1000C0A98 /* RandomColor.swift */; };
 		27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA028A3E4DF00C661BD /* DKCourseView.swift */; };
 		27719AA628A3EAB100C661BD /* DKHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA528A3EAB100C661BD /* DKHomePage.swift */; };
@@ -85,10 +74,8 @@
 		27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF429D600E1008DC0C2 /* THSettingsView.swift */; };
 		27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF629D6012E008DC0C2 /* THSettingsModel.swift */; };
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
-		278996FC2AB78464009A7529 /* FDGradAgendaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */; };
 		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
-		278F83C02AAFE9D2008ED56C /* FDIdentityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F83BF2AAFE9D2008ED56C /* FDIdentityAPI.swift */; };
 		2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791030C29C7640F003B9FD9 /* THPosterView.swift */; };
 		2791031229C774F8003B9FD9 /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = 2791031129C774F8003B9FD9 /* Disk */; };
 		2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791031529C82BC3003B9FD9 /* DXModel.swift */; };
@@ -99,27 +86,13 @@
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
 		27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A44E9D29AF253500CE6661 /* FDRankPage.swift */; };
-		27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1A29D6D4DD0042D28D /* WrappingHStack */; };
 		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
 		27A5DA2829D74A630042D28D /* FDCalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2729D74A630042D28D /* FDCalendarPage.swift */; };
-		27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */; };
 		27A5DA2D29D98A300042D28D /* ImageBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2C29D98A300042D28D /* ImageBrowser.swift */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B19FC528F59C2C0001587F /* FDPayPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC428F59C2C0001587F /* FDPayPage.swift */; };
 		27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */; };
-		27B7ABF929DEB24700DAE0C5 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
-		27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
-		27B7AC0529DEB27100DAE0C5 /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
-		27B7AC0629DEB27100DAE0C5 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
-		27B7AC0729DEB27100DAE0C5 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
-		27B7AC0829DEB27100DAE0C5 /* FDCanteenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */; };
-		27B7AC0929DEB27100DAE0C5 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
-		27B7AC0A29DEB27100DAE0C5 /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
-		27B7AC0B29DEB27100DAE0C5 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
-		27B7AC0C29DEB27100DAE0C5 /* FDECardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604D29312D8200F4C321 /* FDECardAPI.swift */; };
-		27B7AC0D29DEB27100DAE0C5 /* FDElectricityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604F29312D8200F4C321 /* FDElectricityAPI.swift */; };
-		27B7AC0E29DEB27100DAE0C5 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27B7AC1129DEB28C00DAE0C5 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
 		27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */; };
@@ -139,58 +112,42 @@
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
 		27BD15DF2B04E6C0006A97A9 /* THModeratePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */; };
 		27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9E529AD287600EE8131 /* FDECardPage.swift */; };
+		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
 		27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */; };
 		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
 		27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B412A8B90FE000A614B /* FormTitle.swift */; };
 		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
-		27D07BE52A7825C900B94855 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
-		27D07BE62A7825CD00B94855 /* FDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706605029312D8200F4C321 /* FDError.swift */; };
-		27D07BE72A7825D200B94855 /* FDWebVPNAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */; };
-		27D07BE82A7825D200B94855 /* FDAcademicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */; };
-		27D07BE92A7825D200B94855 /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
-		27D07BEA2A7825D200B94855 /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
-		27D07BEB2A7825D200B94855 /* FDCanteenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */; };
-		27D07BEC2A7825D200B94855 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
-		27D07BED2A7825D200B94855 /* FDNoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */; };
-		27D07BEE2A7825D200B94855 /* FDAuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604E29312D8200F4C321 /* FDAuthAPI.swift */; };
-		27D07BEF2A7825D200B94855 /* FDECardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604D29312D8200F4C321 /* FDECardAPI.swift */; };
-		27D07BF02A7825D200B94855 /* FDElectricityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706604F29312D8200F4C321 /* FDElectricityAPI.swift */; };
-		27D07BF12A7825D200B94855 /* FDSportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */; };
-		27D07BF22A7825D200B94855 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27D07BF42A78261900B94855 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF32A78261900B94855 /* Markdown */; };
 		27D07BF62A78261900B94855 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF52A78261900B94855 /* SwiftSoup */; };
 		27D07BF82A78261900B94855 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF72A78261900B94855 /* CachedAsyncImage */; };
 		27D07BFA2A78261900B94855 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF92A78261900B94855 /* SwiftUIX */; };
 		27D07BFC2A78261900B94855 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BFB2A78261900B94855 /* SwiftyJSON */; };
 		27D07C002A78261900B94855 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BFF2A78261900B94855 /* KeychainAccess */; };
-		27D07C022A78261900B94855 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07C012A78261900B94855 /* WrappingHStack */; };
 		27D07C042A7826A200B94855 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27D07C052A7826AD00B94855 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
 		27D07C062A7826B000B94855 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E2DE7A2A55496D00D26D86 /* Date.swift */; };
 		27D07C072A7826B400B94855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
 		27D07C082A7826B800B94855 /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 27D1D6472AB5F93D00E8D536 /* BetterSafariView */; };
-		27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */; };
-		27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */; };
-		27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */; };
 		27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D69EDB29A2B0B10024D242 /* FDHomePage.swift */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
 		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
-		27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6329CB270E00F32093 /* FDModel.swift */; };
 		27DAFA6729CB375D00F32093 /* THHoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6629CB375D00F32093 /* THHoleModel.swift */; };
 		27DAFA6929CB43FA00F32093 /* THHoleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6829CB43FA00F32093 /* THHoleLoader.swift */; };
 		27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6C29CB529D00F32093 /* THLoaderPage.swift */; };
 		27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA6E29CB589000F32093 /* THHolePage.swift */; };
 		27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7029CB5B4500F32093 /* THFloorModel.swift */; };
 		27DAFA7929CC50E100F32093 /* AsnyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DAFA7829CC50E100F32093 /* AsnyncButton.swift */; };
+		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
+		27DD19B62BA5ED3400B75643 /* FDECardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19B52BA5ED3400B75643 /* FDECardCard.swift */; };
+		27DD19B82BA5F1AC00B75643 /* FDElectricityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */; };
+		27DD19BC2BA5F3D400B75643 /* FDNoticeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
-		27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABA29A50190008849D1 /* FDBusAPI.swift */; };
 		27DDBABD29A501A7008849D1 /* FDBusPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DDBABC29A501A7008849D1 /* FDBusPage.swift */; };
 		27DE299829E5A83600B5B28A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE299729E5A83600B5B28A /* Sheet.swift */; };
-		27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */; };
 		27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */; };
 		27E1178B2A782ABA0006EE20 /* DXEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0F2912C33C007C2905 /* DXEntity.swift */; };
 		27E1178C2A782BC90006EE20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
@@ -204,33 +161,24 @@
 		27E82FE329E86CBA00F34B3B /* FDNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE229E86CBA00F34B3B /* FDNavigator.swift */; };
 		27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */; };
 		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
-		27E82FEB29E896EA00F34B3B /* FDWebVPNAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */; };
-		27E82FED29E8977400F34B3B /* FDCoursePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FEC29E8977400F34B3B /* FDCoursePage.swift */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF021229DF519E0094F7D5 /* AsyncContentView.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
+		EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */; };
+		F111DF642BAC1B2D00F72C98 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = F111DF632BAC1B2D00F72C98 /* FudanKit */; };
 		F13306D42BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D52BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
-		F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1128A9514B00A3FEBA /* MLModels.swift */; };
-		F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */; };
-		F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */; };
+		F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */; };
+		F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */; };
+		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
+		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		27536EC829DC9A8300894A98 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
-			remoteInfo = DanXi_WigdetExtension;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
@@ -243,23 +191,11 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F165C51828D1882E0000DB6F /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				27536ECA29DC9A8300894A98 /* DanXi Wigdet.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityPage.swift; sourceTree = "<group>"; };
-		2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticeAPI.swift; sourceTree = "<group>"; };
 		2701318E2A3B9A4F0013FA7E /* FDNoticePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticePage.swift; sourceTree = "<group>"; };
 		270131902A3C27F20013FA7E /* FDLibraryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryPage.swift; sourceTree = "<group>"; };
 		270131922A3C28FB0013FA7E /* FDCanteenPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCanteenPage.swift; sourceTree = "<group>"; };
@@ -276,15 +212,10 @@
 		2706602D292F51BC00F4C321 /* CreditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditPage.swift; sourceTree = "<group>"; };
 		27066031292F56AF00F4C321 /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
 		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
-		2706604D29312D8200F4C321 /* FDECardAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDECardAPI.swift; sourceTree = "<group>"; };
-		2706604E29312D8200F4C321 /* FDAuthAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDAuthAPI.swift; sourceTree = "<group>"; };
-		2706604F29312D8200F4C321 /* FDElectricityAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDElectricityAPI.swift; sourceTree = "<group>"; };
-		2706605029312D8200F4C321 /* FDError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDError.swift; sourceTree = "<group>"; };
 		270CA42928BD13A10024BDF2 /* DKReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewPage.swift; sourceTree = "<group>"; };
+		270CD1902BAD68C900881ABA /* View Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "View Utils"; sourceTree = "<group>"; };
 		2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreCompatible.swift; sourceTree = "<group>"; };
-		2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportAPI.swift; sourceTree = "<group>"; };
 		2713B5EA293A7BCF00ADE348 /* FDSportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDSportPage.swift; sourceTree = "<group>"; };
-		2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAcademicAPI.swift; sourceTree = "<group>"; };
 		2715A86C29AE17BD00A533E1 /* FDScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDScorePage.swift; sourceTree = "<group>"; };
 		27173F1E2A0EBC2C00A570E1 /* THBackgroundList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBackgroundList.swift; sourceTree = "<group>"; };
 		271D1D5029F178C600DDEEC9 /* Decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decode.swift; sourceTree = "<group>"; };
@@ -300,9 +231,9 @@
 		272AC8E22896F29800092B0C /* THReplySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReplySheet.swift; sourceTree = "<group>"; };
 		272AC8E52896F30E00092B0C /* THFloorEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorEditSheet.swift; sourceTree = "<group>"; };
 		272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseHistoryPage.swift; sourceTree = "<group>"; };
+		272D87A82BB74A930027C548 /* WrappingHStack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WrappingHStack; sourceTree = "<group>"; };
 		272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagEditor.swift; sourceTree = "<group>"; };
 		272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentEditor.swift; sourceTree = "<group>"; };
-		2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDUnwrapJSON.swift; sourceTree = "<group>"; };
 		2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
@@ -320,7 +251,6 @@
 		275B71CC28C5249800475BA3 /* THReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportPage.swift; sourceTree = "<group>"; };
 		275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDivisionSheet.swift; sourceTree = "<group>"; };
 		276310262AB82B99005896AD /* FDCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarView.swift; sourceTree = "<group>"; };
-		2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDGradCaledarPage.swift; sourceTree = "<group>"; };
 		2764E5D7289840E1000C0A98 /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
 		27719AA028A3E4DF00C661BD /* DKCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCourseView.swift; sourceTree = "<group>"; };
 		27719AA528A3EAB100C661BD /* DKHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKHomePage.swift; sourceTree = "<group>"; };
@@ -333,10 +263,8 @@
 		27834AF429D600E1008DC0C2 /* THSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsView.swift; sourceTree = "<group>"; };
 		27834AF629D6012E008DC0C2 /* THSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsModel.swift; sourceTree = "<group>"; };
 		27834AF829D6261E008DC0C2 /* THMyPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMyPostPage.swift; sourceTree = "<group>"; };
-		278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDGradAgendaAPI.swift; sourceTree = "<group>"; };
 		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
-		278F83BF2AAFE9D2008ED56C /* FDIdentityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDIdentityAPI.swift; sourceTree = "<group>"; };
 		2791030C29C7640F003B9FD9 /* THPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPosterView.swift; sourceTree = "<group>"; };
 		2791031529C82BC3003B9FD9 /* DXModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXModel.swift; sourceTree = "<group>"; };
 		27939FE828C26E0600E8D199 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -347,7 +275,6 @@
 		27A44E9D29AF253500CE6661 /* FDRankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDRankPage.swift; sourceTree = "<group>"; };
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
 		27A5DA2729D74A630042D28D /* FDCalendarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarPage.swift; sourceTree = "<group>"; };
-		27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCalendarModel.swift; sourceTree = "<group>"; };
 		27A5DA2C29D98A300042D28D /* ImageBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowser.swift; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27B19FC428F59C2C0001587F /* FDPayPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPayPage.swift; sourceTree = "<group>"; };
@@ -362,29 +289,28 @@
 		27BBBD152912C33C007C2905 /* THRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THRequests.swift; sourceTree = "<group>"; };
 		27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THModeratePage.swift; sourceTree = "<group>"; };
 		27BDF9E529AD287600EE8131 /* FDECardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardPage.swift; sourceTree = "<group>"; };
+		27C68CB12BB563A100037D52 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utils; sourceTree = "<group>"; };
 		27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXQuestionSheet.swift; sourceTree = "<group>"; };
 		27C95B412A8B90FE000A614B /* FormTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTitle.swift; sourceTree = "<group>"; };
 		27CAD2312A32AD94008F3D19 /* FoldedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldedView.swift; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
-		27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDClassroomAPI.swift; sourceTree = "<group>"; };
-		27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDLibraryAPI.swift; sourceTree = "<group>"; };
-		27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCanteenAPI.swift; sourceTree = "<group>"; };
 		27D69EDB29A2B0B10024D242 /* FDHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDHomePage.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* THReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportSheet.swift; sourceTree = "<group>"; };
-		27DAFA6329CB270E00F32093 /* FDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDModel.swift; sourceTree = "<group>"; };
 		27DAFA6629CB375D00F32093 /* THHoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleModel.swift; sourceTree = "<group>"; };
 		27DAFA6829CB43FA00F32093 /* THHoleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleLoader.swift; sourceTree = "<group>"; };
 		27DAFA6C29CB529D00F32093 /* THLoaderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THLoaderPage.swift; sourceTree = "<group>"; };
 		27DAFA6E29CB589000F32093 /* THHolePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHolePage.swift; sourceTree = "<group>"; };
 		27DAFA7029CB5B4500F32093 /* THFloorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorModel.swift; sourceTree = "<group>"; };
 		27DAFA7829CC50E100F32093 /* AsnyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsnyncButton.swift; sourceTree = "<group>"; };
+		27DD19B22BA5C16900B75643 /* Fudan Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Fudan Kit"; sourceTree = "<group>"; };
+		27DD19B52BA5ED3400B75643 /* FDECardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardCard.swift; sourceTree = "<group>"; };
+		27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDElectricityCard.swift; sourceTree = "<group>"; };
+		27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNoticeCard.swift; sourceTree = "<group>"; };
 		27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKStarRatingView.swift; sourceTree = "<group>"; };
-		27DDBABA29A50190008849D1 /* FDBusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusAPI.swift; sourceTree = "<group>"; };
 		27DDBABC29A501A7008849D1 /* FDBusPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBusPage.swift; sourceTree = "<group>"; };
 		27DE299729E5A83600B5B28A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
-		27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDPlaygroundAPI.swift; sourceTree = "<group>"; };
 		27E0040529C4B910006CFF61 /* FDPlaygroundPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundPage.swift; sourceTree = "<group>"; };
 		27E1C52C29D09CF700B333BA /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -396,8 +322,6 @@
 		27E82FE229E86CBA00F34B3B /* FDNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDNavigator.swift; sourceTree = "<group>"; };
 		27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDPlaygroundModel.swift; sourceTree = "<group>"; };
 		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDWebVPNAPI.swift; sourceTree = "<group>"; };
-		27E82FEC29E8977400F34B3B /* FDCoursePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDCoursePage.swift; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
 		27EF021229DF519E0094F7D5 /* AsyncContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncContentView.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
@@ -406,13 +330,15 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkView.swift; sourceTree = "<group>"; };
 		F13306D32BA5766C005361D2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		F1AE7C1128A9514B00A3FEBA /* MLModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModels.swift; sourceTree = "<group>"; };
-		F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = TagPredictorME.mlpackage; sourceTree = "<group>"; };
-		F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TagPredictorTL.mlmodel; sourceTree = "<group>"; };
+		F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDDateValueChart.swift; sourceTree = "<group>"; };
+		F1728E332BB1661C00483F09 /* SheetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetExtension.swift; sourceTree = "<group>"; };
+		F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,7 +349,6 @@
 				27D07BF82A78261900B94855 /* CachedAsyncImage in Frameworks */,
 				27D07C002A78261900B94855 /* KeychainAccess in Frameworks */,
 				27D07BF42A78261900B94855 /* Markdown in Frameworks */,
-				27D07C022A78261900B94855 /* WrappingHStack in Frameworks */,
 				27D07BF62A78261900B94855 /* SwiftSoup in Frameworks */,
 				27D07BFC2A78261900B94855 /* SwiftyJSON in Frameworks */,
 				27D07BFA2A78261900B94855 /* SwiftUIX in Frameworks */,
@@ -439,6 +364,7 @@
 				27B7AC1A29DEB2C900DAE0C5 /* KeychainAccess in Frameworks */,
 				27B7AC1829DEB2C900DAE0C5 /* Disk in Frameworks */,
 				27B7AC1629DEB2C900DAE0C5 /* SwiftyJSON in Frameworks */,
+				F111DF642BAC1B2D00F72C98 /* FudanKit in Frameworks */,
 				27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,14 +375,17 @@
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
+				272D87AA2BB74AF70027C548 /* WrappingHStack in Frameworks */,
+				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
+				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */,
-				27A5DA1B29D6D4DD0042D28D /* WrappingHStack in Frameworks */,
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
+				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
 				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,9 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				27D69EDB29A2B0B10024D242 /* FDHomePage.swift */,
-				27E82FEC29E8977400F34B3B /* FDCoursePage.swift */,
 				27A5DA2729D74A630042D28D /* FDCalendarPage.swift */,
-				2763102A2AB8380D005896AD /* FDGradCaledarPage.swift */,
 				270131922A3C28FB0013FA7E /* FDCanteenPage.swift */,
 				2798F2CA2AB2917D00578744 /* FDClassroomPage.swift */,
 				270131902A3C27F20013FA7E /* FDLibraryPage.swift */,
@@ -485,27 +412,6 @@
 				2701318A2A3B46BE0013FA7E /* FDElectricityPage.swift */,
 			);
 			path = Page;
-			sourceTree = "<group>";
-		};
-		2706604C29312D8200F4C321 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				2706604E29312D8200F4C321 /* FDAuthAPI.swift */,
-				2715A86A29ADAD5E00A533E1 /* FDAcademicAPI.swift */,
-				278996FB2AB78464009A7529 /* FDGradAgendaAPI.swift */,
-				27DDBABA29A50190008849D1 /* FDBusAPI.swift */,
-				27D5EE0D29C36FC800A2E52A /* FDCanteenAPI.swift */,
-				27D5EE0329C2F2BB00A2E52A /* FDClassroomAPI.swift */,
-				278F83BF2AAFE9D2008ED56C /* FDIdentityAPI.swift */,
-				2706604D29312D8200F4C321 /* FDECardAPI.swift */,
-				27E0040329C46FC2006CFF61 /* FDPlaygroundAPI.swift */,
-				2706604F29312D8200F4C321 /* FDElectricityAPI.swift */,
-				2701318C2A3B947B0013FA7E /* FDNoticeAPI.swift */,
-				27D5EE0529C32B6800A2E52A /* FDLibraryAPI.swift */,
-				2713B5E6293A7B9E00ADE348 /* FDSportAPI.swift */,
-				27E82FEA29E896EA00F34B3B /* FDWebVPNAPI.swift */,
-			);
-			path = Requests;
 			sourceTree = "<group>";
 		};
 		274C197129D1BF9B000DE221 /* watchOS */ = {
@@ -537,6 +443,10 @@
 				27B19FC028F5769A0001587F /* FDLoginSheet.swift */,
 				276310262AB82B99005896AD /* FDCalendarView.swift */,
 				2700FB2A2A3CC7B5003A2B00 /* CircularProgressView.swift */,
+				27DD19BB2BA5F3D400B75643 /* FDNoticeCard.swift */,
+				27DD19B52BA5ED3400B75643 /* FDECardCard.swift */,
+				F16B5F482BAAB57800FE7AE1 /* FDDateValueChart.swift */,
+				27DD19B72BA5F1AC00B75643 /* FDElectricityCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -558,10 +468,11 @@
 			children = (
 				27D6F4532892C5D70059228F /* BundleResource.swift */,
 				27227FD428A512B300B3C99D /* Defaults.swift */,
+				F1728E332BB1661C00483F09 /* SheetExtension.swift */,
+				F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */,
 				27E2DE7A2A55496D00D26D86 /* Date.swift */,
 				2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */,
 				27CBA0762951C01E00F422DB /* Network.swift */,
-				F1AE7C1528AA3C3500A3FEBA /* Machine Learning */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -571,7 +482,6 @@
 			children = (
 				27E82FE229E86CBA00F34B3B /* FDNavigator.swift */,
 				27E82FE429E87BB500F34B3B /* FDPlaygroundModel.swift */,
-				27A5DA2A29D77E3F0042D28D /* FDCalendarModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -584,17 +494,6 @@
 				27BBBD102912C33C007C2905 /* Requests */,
 			);
 			path = "DanXi Kit";
-			sourceTree = "<group>";
-		};
-		27BBBD092912C2EC007C2905 /* Fudan Kit */ = {
-			isa = PBXGroup;
-			children = (
-				27DAFA6329CB270E00F32093 /* FDModel.swift */,
-				2706605029312D8200F4C321 /* FDError.swift */,
-				2733CA162AB6C482001AF2CD /* FDUnwrapJSON.swift */,
-				2706604C29312D8200F4C321 /* Requests */,
-			);
-			path = "Fudan Kit";
 			sourceTree = "<group>";
 		};
 		27BBBD0C2912C33C007C2905 /* Entity */ = {
@@ -775,11 +674,13 @@
 			isa = PBXGroup;
 			children = (
 				2706602D292F51BC00F4C321 /* CreditPage.swift */,
+				F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */,
 				2706602B292F513700F4C321 /* AboutPage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
 				27A424F029EE6B2300339E82 /* DXAuthSheet.swift */,
 				27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */,
 				27E70CA02AF136B300820933 /* DebugPage.swift */,
+				EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -816,7 +717,6 @@
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
 				27CBA0782952213A00F422DB /* View */,
 				27BBBD082912C2E6007C2905 /* DanXi Kit */,
-				27BBBD092912C2EC007C2905 /* Fudan Kit */,
 				27936F442939E1D300A40D36 /* Utilities */,
 				2778D6342891D316009F4DB1 /* Resources */,
 			);
@@ -832,6 +732,10 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
+				27C68CB12BB563A100037D52 /* Utils */,
+				270CD1902BAD68C900881ABA /* View Utils */,
+				27DD19B22BA5C16900B75643 /* Fudan Kit */,
+				272D87A82BB74A930027C548 /* WrappingHStack */,
 			);
 			sourceTree = "<group>";
 		};
@@ -854,16 +758,6 @@
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		F1AE7C1528AA3C3500A3FEBA /* Machine Learning */ = {
-			isa = PBXGroup;
-			children = (
-				F1AE7C1628AA3F1600A3FEBA /* TagPredictorME.mlpackage */,
-				F1BB1CD528AA560A000C39BE /* TagPredictorTL.mlmodel */,
-				F1AE7C1128A9514B00A3FEBA /* MLModels.swift */,
-			);
-			path = "Machine Learning";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -889,7 +783,6 @@
 				27D07BF92A78261900B94855 /* SwiftUIX */,
 				27D07BFB2A78261900B94855 /* SwiftyJSON */,
 				27D07BFF2A78261900B94855 /* KeychainAccess */,
-				27D07C012A78261900B94855 /* WrappingHStack */,
 			);
 			productName = "DanXi-watch Watch App";
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
@@ -913,6 +806,7 @@
 				27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */,
 				27B7AC1729DEB2C900DAE0C5 /* Disk */,
 				27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */,
+				F111DF632BAC1B2D00F72C98 /* FudanKit */,
 			);
 			productName = DanXi_WigdetExtension;
 			productReference = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */;
@@ -926,12 +820,10 @@
 				8AC7A5CA26872C3E00C9CD98 /* Frameworks */,
 				8AC7A5CB26872C3E00C9CD98 /* Resources */,
 				8AC7A63326872C4100C9CD98 /* Embed Watch Content */,
-				F165C51828D1882E0000DB6F /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				27536EC929DC9A8300894A98 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -942,10 +834,13 @@
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
 				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
-				27A5DA1A29D6D4DD0042D28D /* WrappingHStack */,
 				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
 				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 				27D1D6472AB5F93D00E8D536 /* BetterSafariView */,
+				27DD19B32BA5CCA400B75643 /* FudanKit */,
+				270CD1932BAD697600881ABA /* ViewUtils */,
+				27C68CB22BB563EE00037D52 /* Utils */,
+				272D87A92BB74AF70027C548 /* WrappingHStack */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -990,7 +885,6 @@
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
 				27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */,
 				27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
@@ -1046,28 +940,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D07BE62A7825CD00B94855 /* FDError.swift in Sources */,
 				27D07C062A7826B000B94855 /* Date.swift in Sources */,
 				27E1178B2A782ABA0006EE20 /* DXEntity.swift in Sources */,
-				27D07BEA2A7825D200B94855 /* FDClassroomAPI.swift in Sources */,
 				27D07C072A7826B400B94855 /* Defaults.swift in Sources */,
-				27D07BF02A7825D200B94855 /* FDElectricityAPI.swift in Sources */,
-				27D07BE92A7825D200B94855 /* FDLibraryAPI.swift in Sources */,
-				2733CA182AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
-				27D07BED2A7825D200B94855 /* FDNoticeAPI.swift in Sources */,
-				27D07BE72A7825D200B94855 /* FDWebVPNAPI.swift in Sources */,
-				27D07BEE2A7825D200B94855 /* FDAuthAPI.swift in Sources */,
-				27D07BE82A7825D200B94855 /* FDAcademicAPI.swift in Sources */,
 				27D07C082A7826B800B94855 /* BundleResource.swift in Sources */,
 				27D07C052A7826AD00B94855 /* RichTextProcess.swift in Sources */,
-				27D07BE52A7825C900B94855 /* FDModel.swift in Sources */,
-				27D07BEF2A7825D200B94855 /* FDECardAPI.swift in Sources */,
-				27D07BEC2A7825D200B94855 /* FDPlaygroundAPI.swift in Sources */,
 				274C197529D1BF9B000DE221 /* ContentView.swift in Sources */,
-				27D07BF12A7825D200B94855 /* FDSportAPI.swift in Sources */,
 				274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */,
-				27D07BF22A7825D200B94855 /* FDBusAPI.swift in Sources */,
-				27D07BEB2A7825D200B94855 /* FDCanteenAPI.swift in Sources */,
 				27D07C042A7826A200B94855 /* Network.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1076,25 +955,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27B7AC0E29DEB27100DAE0C5 /* FDAcademicAPI.swift in Sources */,
-				27B7AC0729DEB27100DAE0C5 /* FDAuthAPI.swift in Sources */,
 				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
 				27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */,
-				27B7AC0D29DEB27100DAE0C5 /* FDElectricityAPI.swift in Sources */,
-				27B7AC0B29DEB27100DAE0C5 /* FDBusAPI.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */,
 				2733CA1B2AB6DBBE001AF2CD /* Compatibility.swift in Sources */,
 				27B7AC1129DEB28C00DAE0C5 /* Defaults.swift in Sources */,
-				27B7ABF929DEB24700DAE0C5 /* FDModel.swift in Sources */,
-				27B7AC0929DEB27100DAE0C5 /* FDSportAPI.swift in Sources */,
-				2733CA192AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
-				27B7AC0829DEB27100DAE0C5 /* FDCanteenAPI.swift in Sources */,
-				27B7AC0C29DEB27100DAE0C5 /* FDECardAPI.swift in Sources */,
-				27B7AC0A29DEB27100DAE0C5 /* FDClassroomAPI.swift in Sources */,
-				274E7C412AB223FF00E1B588 /* FDWebVPNAPI.swift in Sources */,
-				27B7AC0629DEB27100DAE0C5 /* FDPlaygroundAPI.swift in Sources */,
-				27B7AC0529DEB27100DAE0C5 /* FDLibraryAPI.swift in Sources */,
-				27B7ABFA29DEB25700DAE0C5 /* FDError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1103,27 +968,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				27A5DA2D29D98A300042D28D /* ImageBrowser.swift in Sources */,
-				27DDBABB29A50190008849D1 /* FDBusAPI.swift in Sources */,
 				27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */,
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
-				27D5EE0429C2F2BB00A2E52A /* FDClassroomAPI.swift in Sources */,
 				271D1D5329F19D1500DDEEC9 /* THMessagesPage.swift in Sources */,
 				272B08462A6EE6F40078CFF6 /* THBrowseHistoryPage.swift in Sources */,
 				2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */,
 				27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */,
 				27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */,
 				2715A86D29AE17BD00A533E1 /* FDScorePage.swift in Sources */,
-				2706605429312D8300F4C321 /* FDECardAPI.swift in Sources */,
 				27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */,
 				27BDF9E629AD287600EE8131 /* FDECardPage.swift in Sources */,
 				2729071528B0B45F0087ACC0 /* THMentionView.swift in Sources */,
 				270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */,
 				27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */,
 				27013BD629D02A67004A5D2F /* THSearchPage.swift in Sources */,
-				278996FC2AB78464009A7529 /* FDGradAgendaAPI.swift in Sources */,
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
+				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */,
@@ -1131,7 +993,6 @@
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
-				27D5EE0E29C36FC800A2E52A /* FDCanteenAPI.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				276310272AB82B99005896AD /* FDCalendarView.swift in Sources */,
 				27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */,
@@ -1152,27 +1013,23 @@
 				2701318F2A3B9A4F0013FA7E /* FDNoticePage.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
-				F1AE7C1728AA3F1600A3FEBA /* TagPredictorME.mlpackage in Sources */,
 				27E0040629C4B910006CFF61 /* FDPlaygroundPage.swift in Sources */,
-				2713B5E7293A7B9E00ADE348 /* FDSportAPI.swift in Sources */,
-				27DAFA6429CB270E00F32093 /* FDModel.swift in Sources */,
+				F16B5F492BAAB57800FE7AE1 /* FDDateValueChart.swift in Sources */,
+				F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */,
+				EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
-				2715A86B29ADAD5E00A533E1 /* FDAcademicAPI.swift in Sources */,
 				27E8194E2A4C12F1009C87C6 /* THMessageSheet.swift in Sources */,
-				2701318D2A3B947B0013FA7E /* FDNoticeAPI.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
 				27BBBD202912C33D007C2905 /* DXRequests.swift in Sources */,
-				278F83C02AAFE9D2008ED56C /* FDIdentityAPI.swift in Sources */,
-				2706605629312D8300F4C321 /* FDElectricityAPI.swift in Sources */,
+				27DD19B82BA5F1AC00B75643 /* FDElectricityCard.swift in Sources */,
 				27DAFA6929CB43FA00F32093 /* THHoleLoader.swift in Sources */,
 				2772231128F05B3300458EAC /* THHistorySheet.swift in Sources */,
 				27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */,
 				27E82FE329E86CBA00F34B3B /* FDNavigator.swift in Sources */,
 				27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */,
-				27D5EE0629C32B6800A2E52A /* FDLibraryAPI.swift in Sources */,
-				27E0040429C46FC2006CFF61 /* FDPlaygroundAPI.swift in Sources */,
+				F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */,
 				27BBBD0B2912C330007C2905 /* DXError.swift in Sources */,
 				271D1D5529F1A31700DDEEC9 /* THNotificationView.swift in Sources */,
 				2778D62C2891D22D009F4DB1 /* THTagView.swift in Sources */,
@@ -1189,9 +1046,7 @@
 				2713B5EB293A7BCF00ADE348 /* FDSportPage.swift in Sources */,
 				2795EB1528AE6CB400518597 /* DKCoursePage.swift in Sources */,
 				27BBBD232912C33D007C2905 /* DXNetwork.swift in Sources */,
-				2706605529312D8300F4C321 /* FDAuthAPI.swift in Sources */,
 				2701318B2A3B46BE0013FA7E /* FDElectricityPage.swift in Sources */,
-				2706605729312D8300F4C321 /* FDError.swift in Sources */,
 				2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */,
 				27E82FE529E87BB500F34B3B /* FDPlaygroundModel.swift in Sources */,
 				27BD15DF2B04E6C0006A97A9 /* THModeratePage.swift in Sources */,
@@ -1200,11 +1055,11 @@
 				27BBBD242912C33D007C2905 /* THRequests.swift in Sources */,
 				270131912A3C27F20013FA7E /* FDLibraryPage.swift in Sources */,
 				27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */,
-				27A5DA2B29D77E3F0042D28D /* FDCalendarModel.swift in Sources */,
+				27DD19BC2BA5F3D400B75643 /* FDNoticeCard.swift in Sources */,
 				27DAFA6D29CB529D00F32093 /* THLoaderPage.swift in Sources */,
 				27E2DE7B2A55496D00D26D86 /* Date.swift in Sources */,
-				27E82FED29E8977400F34B3B /* FDCoursePage.swift in Sources */,
 				272AC8E32896F29800092B0C /* THReplySheet.swift in Sources */,
+				27DD19B62BA5ED3400B75643 /* FDECardCard.swift in Sources */,
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
@@ -1212,20 +1067,17 @@
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				2798F2CB2AB2917D00578744 /* FDClassroomPage.swift in Sources */,
-				F1AE7C1228A9514B00A3FEBA /* MLModels.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
 				27E82FE929E88AB000F34B3B /* WebView.swift in Sources */,
 				27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */,
 				27A5DA2829D74A630042D28D /* FDCalendarPage.swift in Sources */,
 				2700FB2B2A3CC7B5003A2B00 /* CircularProgressView.swift in Sources */,
-				27E82FEB29E896EA00F34B3B /* FDWebVPNAPI.swift in Sources */,
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
 				27262AFE2B04A002000C3962 /* THMyReplyPage.swift in Sources */,
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
-				F1BB1CD628AA560A000C39BE /* TagPredictorTL.mlmodel in Sources */,
 				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
@@ -1235,21 +1087,10 @@
 				270131932A3C28FB0013FA7E /* FDCanteenPage.swift in Sources */,
 				27A44E9E29AF253500CE6661 /* FDRankPage.swift in Sources */,
 				27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */,
-				2733CA172AB6C483001AF2CD /* FDUnwrapJSON.swift in Sources */,
-				2763102B2AB8380E005896AD /* FDGradCaledarPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		27536EC929DC9A8300894A98 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
-			targetProxy = 27536EC829DC9A8300894A98 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		274C197B29D1BF9C000DE221 /* Debug */ = {
@@ -1508,7 +1349,6 @@
 		8AC7A63526872C4100C9CD98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/DanXi.entitlements;
@@ -1535,7 +1375,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1546,7 +1386,6 @@
 		8AC7A63626872C4100C9CD98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iOS/DanXi.entitlements;
@@ -1573,7 +1412,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1638,14 +1477,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
-			};
-		};
-		27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ksemianov/WrappingHStack";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
 			};
 		};
 		27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */ = {
@@ -1715,6 +1546,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		270CD1932BAD697600881ABA /* ViewUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewUtils;
+		};
+		272D87A92BB74AF70027C548 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WrappingHStack;
+		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
@@ -1724,11 +1563,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
-		};
-		27A5DA1A29D6D4DD0042D28D /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
 		};
 		27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1770,6 +1604,10 @@
 			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
 		};
+		27C68CB22BB563EE00037D52 /* Utils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utils;
+		};
 		27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */;
@@ -1805,11 +1643,6 @@
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
-		27D07C012A78261900B94855 /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A5DA1929D6D4DD0042D28D /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
-		};
 		27D1D6472AB5F93D00E8D536 /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
@@ -1820,10 +1653,18 @@
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
+		27DD19B32BA5CCA400B75643 /* FudanKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanKit;
+		};
 		27EDD624293B6DFD0028CCE4 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		F111DF632BAC1B2D00F72C98 /* FudanKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

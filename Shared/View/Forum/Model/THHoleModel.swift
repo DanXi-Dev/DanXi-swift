@@ -11,15 +11,28 @@ class THHoleModel: ObservableObject {
         self.initialScroll = nil
     }
     
-    init(hole: THHole, floors: [THFloor], scrollTo: Int? = nil) {
+    init(hole: THHole, floors: [THFloor], scrollTo: Int? = nil, loadMore: Bool = false) {
         self.hole = hole
         self.floors = []
-        self.endReached = true
+        self.endReached = !loadMore
         self.subscribed = THModel.shared.isSubscribed(hole.id)
         self.isFavorite = THModel.shared.isFavorite(hole.id)
         self.initialScroll = scrollTo
         
         insertFloors(floors)
+        if loadMore {
+            Task(priority: .background) { // Prefetched data is incomplete, we need to send another request to get full data
+                var refreshedPrefetchData = try await THRequests.loadFloors(holeId: hole.id, startFloor: 0)
+                let replaceEnd = min(refreshedPrefetchData.count, self.floors.count) - 1
+                guard replaceEnd >= 0 else { return }
+                var storey = 1
+                for i in 0..<refreshedPrefetchData.count {
+                    refreshedPrefetchData[i].storey = storey
+                    storey += 1
+                }
+                self.floors.replaceSubrange(0 ... replaceEnd, with: refreshedPrefetchData)
+            }
+        }
     }
     
     @Published var hole: THHole
@@ -206,6 +219,7 @@ class THHoleModel: ObservableObject {
     
     // MARK: - Floor Batch Delete (Admin)
     
+    @Published var floorSelectable = false
     @Published var selectedFloor: Set<THFloor> = []
     let deleteBroadcast = PassthroughSubject<[Int], Never>()
     func batchDelete(_ floors: [THFloor], reason: String) async {

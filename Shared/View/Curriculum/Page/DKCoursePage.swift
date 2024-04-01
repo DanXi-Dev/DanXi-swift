@@ -6,12 +6,14 @@ struct DKCoursePage: View {
     let courseGroup: DKCourseGroup
     @State private var showPostSheet = false
     
+    init(courseGroup: DKCourseGroup) {
+        self.courseGroup = courseGroup
+        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
+    }
+    
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
-                Text(courseGroup.name)
-                    .font(.title)
-                    .bold()
                 Text(courseGroup.code)
                     .foregroundColor(.secondary)
                 
@@ -27,9 +29,12 @@ struct DKCoursePage: View {
                     ReviewSection(courseGroup)
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom)
         }
-        .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
+        .watermark()
+        .navigationTitle(courseGroup.name)
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem {
                 Button {
@@ -191,12 +196,12 @@ fileprivate struct ReviewSummary: View {
                     .font(.caption)
                     .fontWeight(.bold)
             }
+            .fixedSize()
             
             Spacer()
             
             VStack(alignment: .trailing) {
                 DKRatingView(rank: model.filteredRank)
-                    .frame(width: 200)
                 
                 Text("\(model.filteredReviews.count) Reviews")
                     .font(.caption)

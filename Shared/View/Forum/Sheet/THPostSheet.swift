@@ -4,16 +4,8 @@ struct THPostSheet: View {
     @EnvironmentObject private var navigator: THNavigator
     @ObservedObject private var appModel = THModel.shared
     @State var divisionId: Int
-    @AppStorage("post-content") private var content = ""
-    @AppStorage("post-tag") private var tags: [String] = []
-    
-    private func suggestTags() {
-        let input = content.stripToNLProcessableString()
-        guard let predictedTags = TagPredictor.shared?.suggest(input) else { return }
-        withAnimation {
-            tags = predictedTags
-        }
-    }
+    @State private var content = ""
+    @State private var tags: [String] = []
     
     var body: some View {
         Sheet("New Post") {
@@ -40,18 +32,17 @@ struct THPostSheet: View {
                             .tag(division.id)
                     }
                 }
+                       .labelStyle(.titleOnly)
             }
             
-            THTagEditor($tags, maxSize: 5)
-            Button {
-                suggestTags()
-            } label: {
-                Label("Suggest Tags", systemImage: "wand.and.rays")
+            Section("Tags") {
+                THTagEditor($tags, maxSize: 5)
             }
             
             THContentEditor(content: $content)
         }
         .completed(!tags.isEmpty && !content.isEmpty)
+        .warnDiscard(!tags.isEmpty || !content.isEmpty)
         // FIXME: This modifier may cause hang during the first focus of tag editor, the reason is unknown
         .scrollDismissesKeyboard(.immediately)
     }

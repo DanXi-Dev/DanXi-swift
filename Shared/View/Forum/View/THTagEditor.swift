@@ -5,7 +5,7 @@ struct THTagEditor: View {
     private let maxSize: Int?
     @Binding private var tags: [String]
     @State private var text = ""
-    @ScaledMetric private var width = 100
+    @ScaledMetric private var textFieldWidth = 100
     @ObservedObject private var appModel = THModel.shared
     
     init(_ tags: Binding<[String]>, maxSize: Int? = nil) {
@@ -34,7 +34,7 @@ struct THTagEditor: View {
         if text.isEmpty { return [] }
         
         var tags = appModel.tags.filter { tag in
-            !self.tags.contains(tag.name) && tag.name.contains(text)
+            !self.tags.contains(tag.name) && tag.name.localizedCaseInsensitiveContains(text)
         }
         if tags.count > 5 {
             tags = Array(tags[0..<5])
@@ -50,9 +50,9 @@ struct THTagEditor: View {
     var body: some View {
         Group {
             Section {
-                WrappingHStack(alignment: .leading) {
+                WrappingHStack(alignment: .leading, verticalSpacing: 4) {
                     ForEach(tags, id: \.self) { tag in
-                        THTagView(tag)
+                        THTagView(tag, deletable: true)
                             .transition(.scale)
                             .onTapGesture {
                                 removeTag(tag)
@@ -60,14 +60,19 @@ struct THTagEditor: View {
                     }
                     
                     if allowAppend {
-                        TextField("Add Tag", text: $text)
-                            .submitLabel(.done)
-                            .onSubmit {
-                                appendTag(text)
+                        BackspaceDetectingTextField(placeholder: String(localized: "Add Tag"), text: $text) { isEmpty in
+                            if isEmpty {
+                                if let last = tags.last {
+                                    removeTag(last)
+                                }
                             }
-                            .frame(width: width)
+                        } onSubmit: {
+                            appendTag(text)
+                        }
+                        .layoutStreched(minWidth: textFieldWidth)
                     }
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
             
             Section {

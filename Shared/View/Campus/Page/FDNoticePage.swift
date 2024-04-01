@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 import SafariServices
 import BetterSafariView
 
@@ -15,64 +16,57 @@ struct FDNoticePage: View {
         self.configuration = configuration
     }
     
-    private func loadNotice() async throws -> [FDNotice] {
-        let notices = try await FDNoticeAPI.getNoticeList(page)
-        page += 1
-        return notices
-    }
-    
-    private func authenticateLink(notice: FDNotice) async {
+    private func authenticateLink(announcement: Announcement) async {
         if authenticated {
-            presentLink = AuthenticatedLink(url: notice.link)
+            presentLink = AuthenticatedLink(url: announcement.link)
             return
         }
         
         do {
-            let url = try await FDNoticeAPI.authenticate(notice.link)
+            let url = try await AuthenticationAPI.authenticateForURL(announcement.link)
             self.authenticated = true
             presentLink = AuthenticatedLink(url: url)
         } catch {
-            presentLink = AuthenticatedLink(url: notice.link)
+            presentLink = AuthenticatedLink(url: announcement.link)
         }
     }
     
     var body: some View {
         List {
-            AsyncCollection { _ in
-                return try await loadNotice()
-            } content: { notice in
+            AsyncCollection { (previous: [Announcement]) in
+                let announcements = try await AnnouncementStore.shared.getCachedAnnouncements()
+                let previousIds = previous.map(\.id)
+                return announcements.filter({ !previousIds.contains($0.id) })
+            } content: { announcement in
                 Button {
                     Task {
-                        await authenticateLink(notice: notice)
+                        await authenticateLink(announcement: announcement)
                     }
                 } label: {
-                    NoticeView(notice: notice)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 7) {
+                            Text(announcement.title)
+                            Text(announcement.date.formatted(date: .abbreviated, time: .omitted))
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                        }
+                        Spacer()
+                        Image(systemName: "link")
+                            .foregroundColor(.secondary)
+                    }
+                    .foregroundColor(.primary)
                 }
             }
+#if targetEnvironment(macCatalyst)
+            .listRowBackground(Color.clear)
+#endif
         }
+        .listStyle(.inset)
         .navigationTitle("Academic Office Announcements")
+        .navigationBarTitleDisplayMode(.inline)
         .safariView(item: $presentLink) { link in
             SafariView(url: link.url, configuration: configuration)
         }
-    }
-}
-
-fileprivate struct NoticeView: View {
-    let notice: FDNotice
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 7) {
-                Text(notice.title)
-                Text(notice.date)
-                    .foregroundColor(.secondary)
-                    .font(.caption)
-            }
-            Spacer()
-            Image(systemName: "link")
-                .foregroundColor(.secondary)
-        }
-        .foregroundColor(.primary)
     }
 }
 

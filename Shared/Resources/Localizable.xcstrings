@@ -2,31 +2,112 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    " " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "--.--" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "--.--"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "--.--"
+          }
+        }
+      }
     },
     "·" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "(##%@)" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(##%@)"
+          }
+        }
+      }
     },
     "##%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "##%@"
+          }
+        }
+      }
     },
     "#%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%@"
+          }
+        }
+      }
     },
     "#%lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
     },
     "%@ - %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$@ - %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$@ - %2$@"
           }
         }
@@ -39,6 +120,12 @@
             "state" : "new",
             "value" : "%1$@ - %2$lld"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ - %2$lld"
+          }
         }
       }
     },
@@ -47,6 +134,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$@ / %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$@ / %2$@"
           }
         }
@@ -58,6 +151,23 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "%@ ¥" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ¥"
           }
         }
       }
@@ -83,7 +193,15 @@
       }
     },
     "%@ kWh" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@kWh"
+          }
+        }
+      }
     },
     "%@ replied %@:" : {
       "localizations" : {
@@ -135,27 +253,91 @@
         }
       }
     },
+    "%@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
     "%@F" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@F"
+          }
+        }
+      }
     },
     "%@年第%@学期" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@年第%2$@学期"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@年第%2$@学期"
+          }
+        }
+      }
+    },
+    "%f kWh" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%f千瓦时"
+          }
+        }
+      }
+    },
+    "%lf" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
     "%lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%lld (%@)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$lld (%2$@)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "%1$lld (%2$@)"
           }
         }
@@ -167,6 +349,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld / %2$lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -182,10 +370,65 @@
       }
     },
     "%lld." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "¥" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "¥ %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¥ %@"
+          }
+        }
+      }
     },
     "¥%@" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¥%@"
+          }
+        }
+      }
+    },
+    "¥%lf" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "2.0" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "About" : {
       "localizations" : {
@@ -260,6 +503,7 @@
     },
     "Add to Favorites" : {
       "comment" : "Treehole Detail Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -309,8 +553,25 @@
         }
       }
     },
+    "All Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部功能"
+          }
+        }
+      }
+    },
     "All Professors" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Teachers"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -380,6 +641,16 @@
         }
       }
     },
+    "Are your sure you want to discard your contents? Your messages will be lost." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定要关闭吗？已编辑的内容将会丢失。"
+          }
+        }
+      }
+    },
     "Auth" : {
 
     },
@@ -389,6 +660,32 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "只显示可预约的时段"
+          }
+        }
+      }
+    },
+    "Average" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中等"
+          }
+        }
+      }
+    },
+    "Balance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balance"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "余额"
           }
         }
       }
@@ -459,12 +756,22 @@
         }
       }
     },
+    "Blocked Content" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏蔽的内容"
+          }
+        }
+      }
+    },
     "Blocked Holes" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屏蔽的帖子"
+            "value" : "屏蔽的树洞"
           }
         }
       }
@@ -475,6 +782,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "屏蔽的标签"
+          }
+        }
+      }
+    },
+    "Building" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教学楼"
           }
         }
       }
@@ -522,6 +839,7 @@
       }
     },
     "Calendar Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -627,6 +945,16 @@
         }
       }
     },
+    "Challenging" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "较难"
+          }
+        }
+      }
+    },
     "Check ECard balance and transactions." : {
       "localizations" : {
         "zh-Hans" : {
@@ -643,6 +971,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请在邮箱内查收验证码，如未收到邮件，请检查垃圾箱或重试"
+          }
+        }
+      }
+    },
+    "Classroom Schedule" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教室日程查询"
           }
         }
       }
@@ -672,7 +1010,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "清除"
+            "value" : "清除历史"
           }
         }
       }
@@ -742,6 +1080,16 @@
         }
       }
     },
+    "Continue" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
+    },
     "Contributors" : {
       "localizations" : {
         "zh-Hans" : {
@@ -752,13 +1100,24 @@
         }
       }
     },
+    "Copy" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制"
+          }
+        }
+      }
+    },
     "Copy Floor ID" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复制回帖ID"
+            "value" : "复制楼层ID"
           }
         }
       }
@@ -773,8 +1132,17 @@
         }
       }
     },
+    "Copyright © 2024 DanXi-Dev" : {
+
+    },
     "Course Assessment" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assessment"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -805,6 +1173,12 @@
     },
     "Course Content" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Content"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -877,6 +1251,12 @@
     },
     "Course Workload" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workload"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -886,6 +1266,7 @@
       }
     },
     "Credential not found, login again" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -906,6 +1287,7 @@
       }
     },
     "Credit: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -916,6 +1298,7 @@
       }
     },
     "Current semester expired, reset semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -947,6 +1330,16 @@
     },
     "Custom" : {
 
+    },
+    "Daily Spending" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日消费"
+          }
+        }
+      }
     },
     "danke" : {
 
@@ -985,6 +1378,16 @@
         }
       }
     },
+    "DanXi Account Registered with Fudan Email" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用复旦邮箱注册的旦夕账户"
+          }
+        }
+      }
+    },
     "DanXi Login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -992,6 +1395,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登录旦夕账户"
+          }
+        }
+      }
+    },
+    "DanXi provides timely notifications to keep you updated. You will be prompted for permission to enable this feature in the upcoming step. You can adjust this setting at any time within the system settings." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕会发送通知以方便您及时掌握最新动向。请在下一步中授予我们推送通知权限。您可以随时在系统设置中更改此设置。"
           }
         }
       }
@@ -1033,6 +1446,64 @@
         }
       }
     },
+    "danxi-app-account-system-description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DanXi uses a dual-account system, including the Fudan Campus account and the DanXi account."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕 app 使用双账户系统，包括复旦校园账户和旦夕账户。"
+          }
+        }
+      }
+    },
+    "danxi-app-account-system-footer-danxi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DanXi account is used to log into various services provided by DanXi, including FDUHole and DanKe Course Review. This account is not affiliated with Fudan University, but registration must be done using a Fudan University email."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕账户由旦夕团队提供，用于访问树洞、蛋壳课评等社区服务。旦夕账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
+          }
+        }
+      }
+    },
+    "danxi-app-account-system-footer-uis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fudan Campus account, also known as the UIS account, is used to access data provided by the Fudan University, including class schedules and campus card balances."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复旦校园账户，即UIS账户，用于访问复旦大学提供的各项校园服务信息，包括课程表、校园卡余额等。"
+          }
+        }
+      }
+    },
+    "Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期"
+          }
+        }
+      }
+    },
     "Dealt" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1054,7 +1525,14 @@
       }
     },
     "Debug" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "调试"
+          }
+        }
+      }
     },
     "Debug Base URL" : {
 
@@ -1108,7 +1586,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删帖"
+            "value" : "删除楼层"
           }
         }
       }
@@ -1144,12 +1622,54 @@
         }
       }
     },
+    "Density" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密度"
+          }
+        }
+      }
+    },
     "Department" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "开课院系"
+          }
+        }
+      }
+    },
+    "Deselect All" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消全选"
+          }
+        }
+      }
+    },
+    "Details in Classroom Schedules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更全面的教室日程查询"
+          }
+        }
+      }
+    },
+    "Discard" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "丢弃"
           }
         }
       }
@@ -1282,10 +1802,16 @@
     },
     "Don't Show This Hole" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不显示此洞"
+            "value" : "屏蔽"
           }
         }
       }
@@ -1326,6 +1852,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更早"
+          }
+        }
+      }
+    },
+    "Easy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "容易"
           }
         }
       }
@@ -1403,12 +1939,23 @@
         }
       }
     },
+    "Edit Home Page Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑首页功能"
+          }
+        }
+      }
+    },
     "Edit Post Info" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "修改主题帖信息"
+            "value" : "修改本洞信息"
           }
         }
       }
@@ -1486,6 +2033,16 @@
         }
       }
     },
+    "Electricity Usage History" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "历史用电量"
+          }
+        }
+      }
+    },
     "Electricity Used" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1519,6 +2076,7 @@
       }
     },
     "Empty Classrooms" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1540,10 +2098,26 @@
     },
     "Empty Subscription List" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Subscriptions"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无关注贴"
+            "value" : "无关注的贴子"
+          }
+        }
+      }
+    },
+    "Enable Notifications" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启推送通知"
           }
         }
       }
@@ -1593,7 +2167,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "输入发帖内容"
+            "value" : "输入内容"
           }
         }
       }
@@ -1651,6 +2225,16 @@
         }
       }
     },
+    "Error %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "错误%@"
+          }
+        }
+      }
+    },
     "Error description: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1663,6 +2247,7 @@
       }
     },
     "Error: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1683,6 +2268,16 @@
         }
       }
     },
+    "Excellent" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特别好评"
+          }
+        }
+      }
+    },
     "Exercise Logs" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1693,13 +2288,51 @@
         }
       }
     },
-    "Export to System Calendar" : {
+    "Export" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "导出到系统日历"
+            "value" : "导出"
+          }
+        }
+      }
+    },
+    "Export to Calendar" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出到日历"
+          }
+        }
+      }
+    },
+    "External Image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外部图片"
+          }
+        }
+      }
+    },
+    "external-image-alert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For security reason, image from external sources are not supported. Use the upload button to upload an image."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由于安全原因，本站不支持外链图片。请使用上传图片按钮来上传图片。"
           }
         }
       }
@@ -1711,6 +2344,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课外活动考勤"
+          }
+        }
+      }
+    },
+    "Favorite" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收藏"
           }
         }
       }
@@ -1727,6 +2370,12 @@
     },
     "FDU Hole Account" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FDUHole Account"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1739,13 +2388,34 @@
 
     },
     "FDUHole" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "Filter Options" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选"
+          }
+        }
+      }
     },
     "Filter Report" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选举报"
+          }
+        }
+      }
     },
     "Filter Reports" : {
       "extractionState" : "manual",
@@ -1759,10 +2429,24 @@
       }
     },
     "Filter Semester" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选学期"
+          }
+        }
+      }
     },
     "Filter Teacher" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选教师"
+          }
+        }
+      }
     },
     "Floor ##%@ not exist" : {
       "localizations" : {
@@ -1816,6 +2500,22 @@
         }
       }
     },
+    "Folded" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folded"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已折叠"
+          }
+        }
+      }
+    },
     "Forbidden" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1856,6 +2556,12 @@
     },
     "Forum" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FDUHole"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1917,6 +2623,26 @@
         }
       }
     },
+    "Fudan UIS ID" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复旦UIS学工号"
+          }
+        }
+      }
+    },
+    "Fudan UIS Password" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复旦UIS密码"
+          }
+        }
+      }
+    },
     "Fudan.ID" : {
       "localizations" : {
         "en" : {
@@ -1929,6 +2655,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "学/工号"
+          }
+        }
+      }
+    },
+    "Full" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已满"
           }
         }
       }
@@ -1975,8 +2711,35 @@
         }
       }
     },
+    "Good" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好评"
+          }
+        }
+      }
+    },
     "GPA" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绩点"
+          }
+        }
+      }
+    },
+    "GPA Distribution" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绩点分布"
+          }
+        }
+      }
     },
     "GPA Rank" : {
       "comment" : "Fudan Rank",
@@ -1989,7 +2752,18 @@
         }
       }
     },
+    "GPA: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绩点："
+          }
+        }
+      }
+    },
     "GPA: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2005,6 +2779,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "研究生"
+          }
+        }
+      }
+    },
+    "Hardcore" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "硬核"
+          }
+        }
+      }
+    },
+    "Hidden Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏功能"
           }
         }
       }
@@ -2025,6 +2820,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隐藏此树洞"
+          }
+        }
+      }
+    },
+    "High" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "较大"
           }
         }
       }
@@ -2072,6 +2877,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "[图片]"
+          }
+        }
+      }
+    },
+    "Import Schedules to Calendar" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更流畅的课表导入"
+          }
+        }
+      }
+    },
+    "Import your schedules directly into the calendar app." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将课程表直接导入系统日历。"
           }
         }
       }
@@ -2244,6 +3069,16 @@
         }
       }
     },
+    "kWh" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "千瓦时"
+          }
+        }
+      }
+    },
     "Last Created" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2275,6 +3110,16 @@
         }
       }
     },
+    "Lenient" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宽松"
+          }
+        }
+      }
+    },
     "Library Popularity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2297,7 +3142,14 @@
       }
     },
     "Load Failed" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加载失败"
+          }
+        }
+      }
     },
     "Load More" : {
       "extractionState" : "manual",
@@ -2356,7 +3208,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "锁定帖子"
+            "value" : "锁定此洞"
           }
         }
       }
@@ -2393,6 +3245,7 @@
       }
     },
     "Login failed, check username and password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2422,7 +3275,18 @@
         }
       }
     },
+    "Low" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "较小"
+          }
+        }
+      }
+    },
     "Main Section" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2499,7 +3363,14 @@
 
     },
     "Moderate" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理"
+          }
+        }
+      }
     },
     "Modify Floor" : {
       "localizations" : {
@@ -2554,10 +3425,16 @@
     },
     "My Post" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Holes"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "我的帖子"
+            "value" : "我的树洞"
           }
         }
       }
@@ -2573,7 +3450,20 @@
       }
     },
     "My Reply" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Replies"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的回复"
+          }
+        }
+      }
     },
     "Name" : {
       "localizations" : {
@@ -2596,6 +3486,7 @@
       }
     },
     "Need captcha, visit UIS webpage to login" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2632,7 +3523,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "收藏的帖子有新回复"
+            "value" : "收藏的内容有新回复"
           }
         }
       }
@@ -2658,6 +3549,7 @@
       }
     },
     "Nickname" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2684,6 +3576,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "没有符合条件的校车班次"
+          }
+        }
+      }
+    },
+    "No Data" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有数据"
           }
         }
       }
@@ -2719,6 +3621,16 @@
         }
       }
     },
+    "No Time Slots Available" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无可预约时段"
+          }
+        }
+      }
+    },
     "Not Dealt" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2741,6 +3653,7 @@
       }
     },
     "Not in dining time" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2767,6 +3680,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未登录"
+          }
+        }
+      }
+    },
+    "Not related to Fudan UIS" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该密码与复旦UIS无关"
           }
         }
       }
@@ -2799,7 +3722,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "收藏的树洞有新回复时通知"
+            "value" : "收藏的树洞有新回复时"
           }
         }
       }
@@ -2809,7 +3732,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "帖子被引用时通知"
+            "value" : "我的内容被引用时"
           }
         }
       }
@@ -2819,7 +3742,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "举报被处理时通知"
+            "value" : "举报被处理时"
           }
         }
       }
@@ -2846,11 +3769,22 @@
       }
     },
     "Online Course Table" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "在线课表"
+          }
+        }
+      }
+    },
+    "Open Notification Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开通知设置"
           }
         }
       }
@@ -2888,6 +3822,12 @@
     },
     "Overall Rating" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overall"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2983,11 +3923,23 @@
     },
     "Pinned" : {
       "comment" : "Treehole Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "置顶贴"
+          }
+        }
+      }
+    },
+    "Pinned Features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶功能"
           }
         }
       }
@@ -3023,12 +3975,22 @@
         }
       }
     },
+    "Poor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "差评"
+          }
+        }
+      }
+    },
     "Post locked, reply is forbidden" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "帖子已被锁定，禁止回复"
+            "value" : "本洞已被锁定，禁止回复"
           }
         }
       }
@@ -3055,6 +4017,12 @@
     },
     "Professors" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teachers"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3073,12 +4041,28 @@
         }
       }
     },
-    "Push Notification Settings" : {
+    "Push Notification Not Authorized" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "推送通知设置"
+            "value" : "没有推送通知权限"
+          }
+        }
+      }
+    },
+    "Push Notification Settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push Notification"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "推送通知"
           }
         }
       }
@@ -3116,10 +4100,43 @@
       }
     },
     "Rank" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排名"
+          }
+        }
+      }
+    },
+    "Rank: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排名："
+          }
+        }
+      }
+    },
+    "Rebuilt from the ground up for a smoother experience." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新构建的旦夕app带来更流畅的体验。"
+          }
+        }
+      }
     },
     "Recent Browsed" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3130,6 +4147,12 @@
     },
     "Recent Search" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3144,6 +4167,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "收件人"
+          }
+        }
+      }
+    },
+    "Redesigned Interface" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的界面"
           }
         }
       }
@@ -3226,6 +4259,7 @@
       }
     },
     "Remove from Favorites" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3237,6 +4271,12 @@
     },
     "Remove Subscription Error" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to remove subscription"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3386,6 +4426,7 @@
       }
     },
     "Reserved" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3485,13 +4526,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please do not spread this screenshot on public social media. Thank you for your cooperation. You may turn off this alert in settings."
+            "value" : "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), please do not share screenshots with non-FDUHole users. Thank you for your cooperation."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请勿在公共社区传播此截图，感谢您的配合。您可以在设置中关闭此提示。"
+            "value" : "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，请勿将截图分享给非本树洞用户，感谢您的配合。"
           }
         }
       }
@@ -3565,73 +4606,94 @@
         }
       }
     },
-    "Select Building" : {
-      "comment" : "Empty Classrooms",
+    "Select All" : {
+      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择教学楼"
+            "value" : "全选"
           }
         }
       }
     },
     "Select Course" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Course"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择课程"
+            "value" : "课程"
           }
         }
       }
     },
     "Select Date" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter Earlier Than"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择起始日期"
+            "value" : "筛选不晚于日期"
           }
         }
       }
     },
     "Select Division" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择分区"
+            "value" : "Division"
           }
-        }
-      }
-    },
-    "Select Reservation Date" : {
-      "localizations" : {
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择预约日期"
+            "value" : "分区"
           }
         }
       }
     },
     "Select Semester" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semester"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择学期"
+            "value" : "学期"
           }
         }
       }
     },
     "Select Semester Start Date" : {
+      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semester Start Date"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择学期开始时间"
+            "value" : "开学日期"
           }
         }
       }
@@ -3668,6 +4730,7 @@
       }
     },
     "Semester Start Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3704,7 +4767,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "发帖失败"
+            "value" : "发布失败"
           }
         }
       }
@@ -3734,10 +4797,16 @@
     "Sending Post..." : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sending..."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "正在发帖..."
+            "value" : "正在发送..."
           }
         }
       }
@@ -3754,10 +4823,36 @@
       }
     },
     "Sensitive.Closed" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已处理"
+          }
+        }
+      }
     },
     "Sensitive.Open" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未处理"
+          }
+        }
+      }
     },
     "Server Error" : {
       "extractionState" : "manual",
@@ -3782,6 +4877,7 @@
       }
     },
     "Server returns error code: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3792,6 +4888,7 @@
       }
     },
     "Server returns error code: %@, %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3802,6 +4899,7 @@
       }
     },
     "Service unavailable, connect to campus WiFi or VPN to access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3846,7 +4944,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "显示一些活动"
+            "value" : "显示活动通知"
           }
         }
       }
@@ -3866,7 +4964,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "显示所有回帖"
+            "value" : "显示所有楼层"
           }
         }
       }
@@ -3904,6 +5002,12 @@
     },
     "Show OP Only" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show DZ Only"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3938,12 +5042,48 @@
         }
       }
     },
+    "Show Transaction History" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示交易记录"
+          }
+        }
+      }
+    },
     "Single Selection" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "单选题"
+          }
+        }
+      }
+    },
+    "Skip" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳过"
+          }
+        }
+      }
+    },
+    "Sort alphabetically." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorted Alphabetically"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按照名称字母顺序排序"
           }
         }
       }
@@ -3958,9 +5098,6 @@
           }
         }
       }
-    },
-    "Sort Options" : {
-
     },
     "Special Tag" : {
       "localizations" : {
@@ -3983,17 +5120,47 @@
       }
     },
     "Start Date" : {
-
-    },
-    "Stickers" : {
-
-    },
-    "Student Type" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "学生类别"
+            "value" : "开始日期"
+          }
+        }
+      }
+    },
+    "Stickers" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "表情"
+          }
+        }
+      }
+    },
+    "Strict" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "严格"
+          }
+        }
+      }
+    },
+    "Student Type" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Type"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户类别"
           }
         }
       }
@@ -4031,15 +5198,22 @@
     },
     "Subscription List" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscriptions"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关注贴列表"
+            "value" : "关注"
           }
         }
       }
     },
     "Suggest Tags" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4113,7 +5287,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在您关注的帖子更新时，您将收到推送通知"
+            "value" : "在您关注的内容更新时，您将收到推送通知"
           }
         }
       }
@@ -4375,7 +5549,14 @@
       }
     },
     "Type" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "类型"
+          }
+        }
+      }
     },
     "Unanswered Questions" : {
       "localizations" : {
@@ -4398,12 +5579,32 @@
         }
       }
     },
+    "Unavailable" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不可用"
+          }
+        }
+      }
+    },
     "Undergraduate" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "本科生"
+          }
+        }
+      }
+    },
+    "Unfavorite" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消收藏"
           }
         }
       }
@@ -4415,6 +5616,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未知错误"
+          }
+        }
+      }
+    },
+    "Unsaved Changes" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未保存的改动"
           }
         }
       }
@@ -4463,6 +5674,7 @@
 
     },
     "Use campus email to login" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4499,6 +5711,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "应使用复旦大学校园邮箱"
+          }
+        }
+      }
+    },
+    "Use of this app is subject to our [Terms and Conditions](https://danxi.fduhole.com/doc/app-terms-and-condition) and [Privacy Policy](https://danxi.fduhole.com/doc/app-privacy)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用本app即表示您已同意我们的[使用条款](https://danxi.fduhole.com/doc/app-terms-and-condition)和[隐私政策](https://danxi.fduhole.com/doc/app-privacy)"
           }
         }
       }
@@ -4563,6 +5785,76 @@
         }
       }
     },
+    "Very Easy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常容易"
+          }
+        }
+      }
+    },
+    "Very High" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常大"
+          }
+        }
+      }
+    },
+    "Very Lenient" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常宽松"
+          }
+        }
+      }
+    },
+    "Very Low" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常小"
+          }
+        }
+      }
+    },
+    "Very Poor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特别差评"
+          }
+        }
+      }
+    },
+    "Very Strict" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常严格"
+          }
+        }
+      }
+    },
+    "View and search for schedule details in each classroom." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查询和搜索每个教室的具体课程。"
+          }
+        }
+      }
+    },
     "View Conversation" : {
       "localizations" : {
         "zh-Hans" : {
@@ -4589,6 +5881,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "违规处理通知"
+          }
+        }
+      }
+    },
+    "Watermark Opacity %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水印透明度 %@"
           }
         }
       }
@@ -4624,6 +5926,16 @@
         }
       }
     },
+    "Write a Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "给我们评分"
+          }
+        }
+      }
+    },
     "Write Review" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4655,38 +5967,136 @@
         }
       }
     },
+    "Yuan" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元"
+          }
+        }
+      }
+    },
     "光华楼东辅楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "光华楼西辅楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "张江校区" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "新闻学院" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "枫林校区" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "江湾校区" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "沪ICP备2021032046号-4A" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第三教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第二教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第五教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第六教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "第四教学楼" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
+}

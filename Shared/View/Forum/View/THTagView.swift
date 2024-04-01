@@ -4,21 +4,31 @@ import WrappingHStack
 struct THTagView: View {
     let name: String
     let color: Color
+    let deletable: Bool
     
-    init(_ tag: THTag) {
+    init(_ tag: THTag, deletable: Bool = false) {
         self.name = tag.name
         self.color = randomColor(tag.name)
+        self.deletable = deletable
     }
     
-    init(_ name: String, color: Color? = nil) {
+    init(_ name: String, color: Color? = nil, deletable: Bool = false) {
         self.name = name
         self.color = color ?? randomColor(name)
+        self.deletable = deletable
     }
     
     var body: some View {
-        Text(name)
-            .textCase(nil)
-            .tagStyle(color: color)
+        HStack {
+            Text(name)
+            if deletable {
+                Divider()
+                Image(systemName: "multiply")
+                    .imageScale(.small)
+            }
+        }
+        .textCase(nil)
+        .tagStyle(color: color)
     }
 }
 
@@ -30,7 +40,7 @@ struct TagStyle: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+            .padding(EdgeInsets(top: 3, leading: 8, bottom: 3, trailing: 8))
             .background(color.opacity(colorScheme == .light ? 0.1 : 0.2))
             .cornerRadius(5)
             .foregroundColor(color)
@@ -45,7 +55,7 @@ extension View {
     ///   - color: The color of the tag.
     ///   - font: (Optional) Control the font of the text.
     /// - Returns: A view that applies tag style
-    func tagStyle(color: Color, font: Font = .footnote) -> some View {
+    func tagStyle(color: Color, font: Font = .caption2) -> some View {
         modifier(TagStyle(color: color, font: font))
     }
 }

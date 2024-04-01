@@ -15,6 +15,7 @@ struct THReplySheet: View {
             THContentEditor(content: $content)
         }
         .completed(!content.isEmpty)
+        .warnDiscard(!content.isEmpty)
         .scrollDismissesKeyboard(.immediately)
     }
 }

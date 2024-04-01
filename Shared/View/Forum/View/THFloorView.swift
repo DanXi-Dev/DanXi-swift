@@ -15,7 +15,7 @@ struct THSimpleFloor: View {
             bottom
         }
     }
-
+    
     var bottom: some View {
         HStack {
             Text("##\(String(floor.id))")
@@ -26,7 +26,6 @@ struct THSimpleFloor: View {
         .foregroundColor(.separator)
     }
 }
-
 
 struct THComplexFloor: View {
     @Environment(\.editMode) private var editMode
@@ -45,9 +44,9 @@ struct THComplexFloor: View {
     
     private var text: String {
         switch holeModel.filterOption {
-        case .conversation(_):
+        case .conversation:
             return floor.removeFirstMention()
-        case .reply(_):
+        case .reply:
             return floor.removeFirstMention()
         default:
             return floor.content
@@ -64,12 +63,25 @@ struct THComplexFloor: View {
                 content
                 bottomLine
             }
+            .contextMenu(menuItems: {
+                Button(action: {
+                    UIPasteboard.general.string = NSAttributedString(floor.content.inlineAttributed()).string
+                }, label: {
+                    Label("Copy Full Text", systemImage: "doc.on.doc")
+                })
+                
+                Button(action: {
+                    UIPasteboard.general.string = "##\(floor.id)"
+                }, label: {
+                    Label("Copy Floor ID", systemImage: "number")
+                })
+            })
         }
         .environmentObject(model)
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
         .disabled(editMode?.wrappedValue.isEditing ?? false)
         // highlight control
-        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
+//        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
         .onReceive(holeModel.scrollControl) { id in
             if id == model.floor.id {
                 model.highlight()
@@ -96,10 +108,11 @@ struct THComplexFloor: View {
     private var headLine: some View {
         HStack {
             let isPoster = floor.posterName == holeModel.floors.first?.posterName
-            THPosterView(name: floor.posterName,
-                         isPoster: isPoster)
+            THPosterView(name: floor.posterName, isPoster: isPoster)
+                .fixedSize()
             if !model.floor.spetialTag.isEmpty {
                 THSpecialTagView(content: floor.spetialTag)
+                    .fixedSize()
             }
             Spacer()
             Actions()
@@ -147,8 +160,8 @@ struct THComplexFloor: View {
 }
 
 struct THFloorContent: View {
-    @OptionalEnvironmentObject var holeModel: THHoleModel?
-    @OptionalEnvironmentObject var floorModel: THFloorModel?
+    @EnvironmentObject.Optional var holeModel: THHoleModel?
+    @EnvironmentObject.Optional var floorModel: THFloorModel?
     
     let content: String
     let interactable: Bool
@@ -173,7 +186,7 @@ struct THFloorContent: View {
         let floors = holeModel?.floors ?? []
         let mentions = floorModel?.floor.mention ?? []
         
-        var partialContent = self.content
+        var partialContent = content
         var parsedElements: [ReferenceItem] = []
         var count = 0
         
@@ -254,7 +267,8 @@ struct THFloorParagraph: View {
         
         while let match = content.firstMatch(of: /\^\[(?<id>[a-zA-Z0-9_]*)\]/) {
             guard let lowerBound = AttributedString.Index(match.range.lowerBound, within: attributedContent),
-                  let upperBound = AttributedString.Index(match.range.upperBound, within: attributedContent) else {
+                  let upperBound = AttributedString.Index(match.range.upperBound, within: attributedContent)
+            else {
                 text = text + Text(attributedContent)
                 break
             }
@@ -326,7 +340,7 @@ enum THSticker: String, CaseIterable {
 
 // MARK: - Components
 
-fileprivate struct Actions: View {
+private struct Actions: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var holeModel: THHoleModel
     @EnvironmentObject private var model: THFloorModel
@@ -342,13 +356,16 @@ fileprivate struct Actions: View {
     @State private var showQuestionSheet = false
     
     var body: some View {
-        HStack(alignment: .center, spacing: 20) {
+        HStack(alignment: .center, spacing: 0) {
             if !model.floor.deleted {
                 likeButton
+                Spacer()
                 replyButton
+                Spacer()
             }
             menu
         }
+        .frame(maxWidth: 140)
         .sheet(isPresented: $showReportSheet) {
             THReportSheet()
         }
@@ -397,7 +414,8 @@ fileprivate struct Actions: View {
                 .foregroundColor(floor.liked ? .pink : .secondary)
                 .fixedSize() // prevent numbers to disappear when special tag present
             }
-
+            
+            Spacer()
             
             AsyncButton {
                 try await model.dislike()
@@ -439,15 +457,9 @@ fileprivate struct Actions: View {
     private var menu: some View {
         Menu {
             Button {
-                showReportSheet = true
-            } label: {
-                Label("Report", systemImage: "exclamationmark.triangle")
-            }
-            
-            Button {
                 showSelectionSheet = true
             } label: {
-                Label("Select Text", systemImage: "selection.pin.in.out")
+                Label("Select Text", systemImage: "character.cursor.ibeam")
             }
             
             Button {
@@ -462,17 +474,16 @@ fileprivate struct Actions: View {
                 Label("All Replies", systemImage: "arrowshape.turn.up.left.2")
             }
             
-            if model.floor.firstMention() != nil {
-                Button {
-                    holeModel.filterOption = .conversation(starting: model.floor.id)
-                } label: {
-                    Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
-                }
+            Button {
+                holeModel.filterOption = .conversation(starting: model.floor.id)
+            } label: {
+                Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
             }
+            .disabled(model.floor.firstMention() == nil)
+            
+            Divider()
             
             if model.floor.isMe {
-                Divider()
-                
                 Button {
                     showEditSheet = true
                 } label: {
@@ -484,9 +495,17 @@ fileprivate struct Actions: View {
                 } label: {
                     Label("Delete", systemImage: "trash")
                 }
+            } else {
+                Button(role: .destructive) {
+                    showReportSheet = true
+                } label: {
+                    Label("Report", systemImage: "exclamationmark.triangle")
+                }
             }
             
             if appModel.isAdmin {
+                Divider()
+                
                 Menu {
                     Button {
                         showEditSheet = true
@@ -519,7 +538,7 @@ fileprivate struct Actions: View {
     }
 }
 
-fileprivate struct TextSelectionSheet: View {
+private struct TextSelectionSheet: View {
     @Environment(\.dismiss) private var dismiss
     let text: String
     
@@ -542,6 +561,13 @@ fileprivate struct TextSelectionSheet: View {
                                 Image(systemName: "doc.on.doc")
                             }
                             .labelStyle(.titleAndIcon)
+                        }
+                    }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Cancel")
                         }
                     }
                 }

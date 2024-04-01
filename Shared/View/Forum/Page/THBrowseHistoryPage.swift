@@ -1,5 +1,6 @@
 import SwiftUI
 import WrappingHStack
+import ViewUtils
 
 struct THBrowseHistoryPage: View {
     @ObservedObject private var model = THModel.shared
@@ -24,39 +25,64 @@ struct THBrowseHistoryPage: View {
         }
     }
     
-    
     var body: some View {
         List {
             if !todayHistory.isEmpty {
-                Section("Today") {
-                    ForEach(todayHistory) { history in
-                        BrowseHistoryView(history: history)
+                ForEach(Array(todayHistory.enumerated()), id: \.offset) { index, history in
+                    if index == 0 {
+                        Section("Today") {
+                            BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
+                    } else {
+                        Section {
+                            BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
                     }
                 }
             }
             
             if !yesterdayHistory.isEmpty {
-                Section("Yesterday") {
-                    ForEach(yesterdayHistory) { history in
-                        BrowseHistoryView(history: history)
+                ForEach(Array(yesterdayHistory.enumerated()), id: \.offset) { index, history in
+                    if index == 0 {
+                        Section("Yesterday") {
+                            BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
+                    } else {
+                        Section {
+                            BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
                     }
                 }
             }
             
             if !furtherHistory.isEmpty {
-                Section("Earlier") {
-                    ForEach(furtherHistory) { history in
-                        BrowseHistoryView(history: history)
+                ForEach(Array(furtherHistory.enumerated()), id: \.offset) { index, history in
+                    if index == 0 {
+                        Section("Earlier") {
+                            BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
+                    } else {
+                        Section {
+                            BrowseHistoryView(history: history)
+                                .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        }
                     }
                 }
             }
         }
-        .listStyle(.inset)
+        .compactSectionSpacing(spacing: 8)
         .navigationTitle("Recent Browsed")
+        .navigationBarTitleDisplayMode(.inline)
+        .watermark()
         .toolbar {
             ToolbarItem {
                 Button {
-                     showConfirmation = true
+                    showConfirmation = true
                 } label: {
                     Image(systemName: "trash")
                 }
@@ -72,7 +98,7 @@ struct THBrowseHistoryPage: View {
     }
 }
 
-fileprivate struct BrowseHistoryView: View {
+private struct BrowseHistoryView: View {
     let history: THBrowseHistory
     
     var body: some View {
@@ -125,4 +151,3 @@ fileprivate struct BrowseHistoryView: View {
         .font(.caption2)
     }
 }
-

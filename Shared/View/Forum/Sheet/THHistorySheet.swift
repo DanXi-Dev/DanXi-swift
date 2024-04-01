@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct THHistorySheet: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: THFloorModel
     @State private var histories: [THHistory] = []
     
@@ -15,6 +16,15 @@ struct THHistorySheet: View {
                     }
                 }
                 .listStyle(.insetGrouped)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
+                }
             }
             .navigationTitle("Edit History")
             .navigationBarTitleDisplayMode(.inline)

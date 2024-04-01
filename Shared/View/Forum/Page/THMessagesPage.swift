@@ -6,6 +6,7 @@ struct THNotificationPage: View {
             return try await THRequests.loadMessages()
         } content: { messages in
             NotificationContent(messages: messages)
+                .watermark()
         }
     }
 }
@@ -13,7 +14,6 @@ struct THNotificationPage: View {
 fileprivate struct NotificationContent: View {
     @ObservedObject private var appModel = DXModel.shared
     let messages: [THMessage]
-    @State private var showMessageSheet = false
     
     var body: some View {
         THBackgroundList {
@@ -33,19 +33,6 @@ fileprivate struct NotificationContent: View {
         }
         .listStyle(.inset)
         .navigationTitle("Notifications")
-        .toolbar {
-            if appModel.isAdmin {
-                ToolbarItem {
-                    Button {
-                        showMessageSheet = true
-                    } label: {
-                        Image(systemName: "square.and.pencil")
-                    }
-                }
-            }
-        }
-        .sheet(isPresented: $showMessageSheet) {
-            THMessageSheet()
-        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -1,54 +1,80 @@
 import SwiftUI
+import FudanKit
 import Charts
 
 struct FDRankPage: View {
     @State private var showSheet = false
     
     var body: some View {
-        AsyncContentView { () -> [FDRank] in
-            try await FDAcademicAPI.login()
-            return try await FDAcademicAPI.getGPA()
+        AsyncContentView { () -> [Rank] in
+            try await UndergraduateCourseAPI.login()
+            return try await UndergraduateCourseAPI.getRanks()
         } content: { ranks in
             List {
-                let myRank = ranks.filter({ $0.isMe }).first
-                RankChart(ranks, myRank: myRank)
-                if let myRank = myRank {
-                    LabeledContent {
-                        Text(String(myRank.rank))
-                    } label: {
-                        Label("My Rank", systemImage: "number")
-                    }
-                    LabeledContent {
-                        Text(String(myRank.gpa))
-                    } label: {
-                        Label("My GPA", systemImage: "graduationcap.fill")
-                    }
-                    LabeledContent {
-                        Text(String(format: "%.1f", myRank.credit))
-                    } label: {
-                        Label("My Credit", systemImage: "person.fill")
-                    }
-                }
-                Button {
-                    showSheet = true
-                } label: {
-                    Label("Show all GPA rank", systemImage: "info.circle")
-                }
-                .sheet(isPresented: $showSheet) {
-                    List {
-                        ForEach(ranks) { rank in
-                            RankView(rank: rank)
+                let myRank = ranks.first(where: { $0.isMe })
+                Section {
+                    if let myRank = myRank {
+                        LabeledContent {
+                            Text(String(myRank.gradePoint))
+                        } label: {
+                            Text("My GPA")
+                        }
+                        LabeledContent {
+                            Text(String(myRank.rank))
+                        } label: {
+                            Text("My Rank")
+                        }
+                        LabeledContent {
+                            Text(String(format: "%.1f", myRank.credit))
+                        } label: {
+                            Text("My Credit")
                         }
                     }
+                    
+                    Button {
+                        showSheet = true
+                    } label: {
+                        Text("Show all GPA rank")
+                    }
                 }
+                
+                if #available(iOS 17, *) {
+                    Section("GPA Distribution") {
+                        RankChart(ranks, myRank: myRank)
+                    }
+                }
+                
             }
             .navigationTitle("GPA Rank")
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showSheet) {
+                NavigationStack {
+                    Form {
+                        List {
+                            ForEach(ranks) { rank in
+                                RankView(rank: rank)
+                            }
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                showSheet = false
+                            } label: {
+                                Text("Done")
+                            }
+                        }
+                    }
+                    .navigationTitle("GPA Rank")
+                    .navigationBarTitleDisplayMode(.inline)
+                }
+            }
         }
     }
 }
 
 fileprivate struct RankView: View {
-    let rank: FDRank
+    let rank: Rank
     
     var body: some View {
         HStack {
@@ -63,7 +89,7 @@ fileprivate struct RankView: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                Text(String(rank.gpa))
+                Text(String(rank.gradePoint))
                     .font(.headline)
                 Text("\(String(format: "%.1f", rank.credit)) Credit")
                     .font(.callout)
@@ -74,118 +100,79 @@ fileprivate struct RankView: View {
     }
 }
 
-fileprivate struct RankChart: View {
-    private let ranks: [FDRank]
-    @State private var selectedRank: FDRank?
+@available(iOS 17, *)
+private struct RankChart: View {
+    private let ranks: [Rank]
+    private let myRank: Rank?
+    let color: Color = .accentColor
     
-    init(_ ranks: [FDRank], myRank: FDRank?) {
-        // invert the label in x axis
-        self.ranks = ranks.map { rank in
-            var reversedRank = rank
-            reversedRank.rank = ranks.count - rank.rank
-            return reversedRank
-        }
-        
-        if let myRank = myRank {
-            var myRankReversed = myRank
-            myRankReversed.rank = ranks.count - myRank.rank
-            self._selectedRank = State(initialValue: myRankReversed)
-        } else {
-            self._selectedRank = State(initialValue: nil)
-        }
+    @State private var chartSelection: Int?
+    
+    init(_ ranks: [Rank], myRank: Rank?) {
+        self.ranks = ranks.sorted(by: { a, b in
+            a.gradePoint < b.gradePoint
+        })
+        self.myRank = myRank
     }
     
-    private func findElement(location: CGPoint, proxy: ChartProxy, geometry: GeometryProxy) -> FDRank? {
-        let relativeXPosition = location.x - geometry[proxy.plotAreaFrame].origin.x
-        if let rank = proxy.value(atX: relativeXPosition) as Int? {
-            // Find the closest rank element
-            var minDistance: Int = .max
-            var index: Int? = nil
-            for i in ranks.indices {
-                let distance = rank - ranks[i].rank
-                if abs(distance) < minDistance {
-                    minDistance = abs(distance)
-                    index = i
-                }
-            }
-            
-            if let index {
-                return ranks[index]
-            }
-        }
-        return nil
+    private var areaBackground: Gradient {
+        return Gradient(colors: [color.opacity(0.5), .clear])
     }
     
     var body: some View {
-        Chart(ranks) { rank in
-            LineMark(x: .value("Rank", rank.rank),
-                     y: .value("GPA", rank.gpa))
-        }
-        .chartXAxis(.hidden)
-        .chartOverlay { proxy in
-            GeometryReader { geo in
-                Rectangle().fill(.clear).contentShape(Rectangle())
-                    .gesture(
-                        SpatialTapGesture()
-                            .onEnded { value in
-                                let rank = findElement(location: value.location, proxy: proxy, geometry: geo)
-                                if selectedRank?.rank == rank?.rank {
-                                    selectedRank = nil
-                                } else {
-                                    selectedRank = rank
-                                }
-                            }
-                            .exclusively(
-                                before: DragGesture()
-                                    .onChanged { value in
-                                        selectedRank = findElement(location: value.location, proxy: proxy, geometry: geo)
-                                    }
-                            )
-                    )
+        Chart(Array(ranks.enumerated()), id: \.offset) { (index, rank) in
+            LineMark(
+                x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
+                y: .value("GPA", rank.gradePoint)
+            )
+            .foregroundStyle(color)
+            
+            AreaMark(
+                x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
+                y: .value("GPA", rank.gradePoint)
+            )
+            .foregroundStyle(areaBackground)
+            
+            if let selected = chartSelection, selected > 0 && selected <= ranks.count {
+                let x = max(1, selected)
+                let value = ranks[ranks.count - x]
+                RuleMark(x: .value("Rank", x))
+                    .lineStyle(StrokeStyle(lineWidth: 1))
+                    .foregroundStyle(.secondary)
+                PointMark(
+                    x: .value("Rank", x),
+                    y: .value("GPA", value.gradePoint)
+                )
+                .symbolSize(100)
             }
         }
-        .chartBackground { proxy in
-            ZStack(alignment: .bottomLeading) {
-                GeometryReader { geo in
-                    if let selectedRank = selectedRank {
-                        let startPositionX1 = proxy.position(forX: selectedRank.rank) ?? 0
-                        let lineX = startPositionX1 + geo[proxy.plotAreaFrame].origin.x
-                        let lineHeight = geo[proxy.plotAreaFrame].maxY
-                        let boxWidth: CGFloat = 80
-                        let boxOffset = max(0, min(geo.size.width - boxWidth, lineX - boxWidth / 2))
-                        
-                        Rectangle()
-                            .fill(.red)
-                            .frame(width: 2, height: lineHeight)
-                            .position(x: lineX, y: lineHeight / 2)
-                        
-                        VStack(alignment: .leading) {
-                            Group {
-                                Text("GPA: \(String(format: "%.2f", selectedRank.gpa))")
-                                Text("Credit: \(String(format: "%.1f", selectedRank.credit))")
-                            }
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                            Text("#\(ranks.count - selectedRank.rank)") // change the reversed rank back to original
-                                .font(.title2.bold())
-                                .foregroundColor(.primary)
-                        }
-                        .frame(width: boxWidth, alignment: .leading)
-                        .background {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.background)
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(.quaternary.opacity(0.7))
-                            }
-                            .padding(.horizontal, -8)
-                            .padding(.vertical, -4)
-                        }
-                        .offset(x: boxOffset)
+        .overlay(alignment: .bottomLeading, {
+            if let selected = chartSelection {
+                let x = max(1, selected)
+                let value = ranks[ranks.count - x]
+                Grid(alignment: .leading) {
+                    GridRow {
+                        Text("GPA: ")
+                        Text(String(format: "%.2f", value.gradePoint))
+                    }
+                    GridRow {
+                        Text("Rank: ")
+                        Text("\(value.rank)")
                     }
                 }
+                .padding(8)
+                .background(.ultraThinMaterial)
+                .cornerRadius(8)
+                .font(.system(.caption, design: .rounded))
+                .padding(.bottom, 56)
+                .padding(.leading, 24)
             }
-        }
+        })
+        .chartXScale(domain: 0 ... ranks.count)
+        .chartXAxisLabel(String(localized:"Rank"))
+        .chartYAxisLabel(String(localized:"GPA"))
+        .chartXSelection(value: $chartSelection)
         .frame(height: 300)
+        .padding(.top, 8)
     }
 }
