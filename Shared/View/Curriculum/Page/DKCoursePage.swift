@@ -9,9 +9,6 @@ struct DKCoursePage: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
-                Text(courseGroup.name)
-                    .font(.title)
-                    .bold()
                 Text(courseGroup.code)
                     .foregroundColor(.secondary)
                 
@@ -27,10 +24,12 @@ struct DKCoursePage: View {
                     ReviewSection(courseGroup)
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom)
         }
-        .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
         .watermark()
+        .navigationTitle(courseGroup.name)
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem {
                 Button {
