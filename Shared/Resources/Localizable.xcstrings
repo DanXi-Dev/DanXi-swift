@@ -1265,17 +1265,6 @@
         }
       }
     },
-    "Credential not found, login again" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录凭据无效，请重新登录"
-          }
-        }
-      }
-    },
     "Credit" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2242,17 +2231,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "错误原因：%@"
-          }
-        }
-      }
-    },
-    "Error: %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "错误：%@"
           }
         }
       }
@@ -3244,17 +3222,6 @@
         }
       }
     },
-    "Login failed, check username and password" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录失败，检查用户名或密码"
-          }
-        }
-      }
-    },
     "Login with Fudan campus account (UIS) to access various campus services" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3485,17 +3452,6 @@
         }
       }
     },
-    "Need captcha, visit UIS webpage to login" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "需要验证码，请前往UIS网页登录后再在App中重新登录"
-          }
-        }
-      }
-    },
     "New Post" : {
       "comment" : "Treehole Edit Page",
       "localizations" : {
@@ -3648,17 +3604,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "资源不存在"
-          }
-        }
-      }
-    },
-    "Not in dining time" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "不在用餐时间"
           }
         }
       }
@@ -4905,17 +4850,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "服务器返回错误码：%@，%@"
-          }
-        }
-      }
-    },
-    "Service unavailable, connect to campus WiFi or VPN to access" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "服务不可用，请连接校园WiFi或VPN以访问"
           }
         }
       }

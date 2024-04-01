@@ -14,19 +14,19 @@ extension CampusError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .credentialNotFound:
-            return String(localized: "Credential not found, login again", comment: "")
+            return String(localized: "Credential not found, login again", bundle: .module)
         case .needCaptcha:
-            return String(localized: "Need captcha, visit UIS webpage to login", comment: "")
+            return String(localized: "Need captcha, visit UIS webpage to login", bundle: .module)
         case .loginFailed:
             return String(localized: "Login failed, check username and password", comment: "")
         case .campusOnly:
-            return String(localized: "Service unavailable, connect to campus WiFi or VPN to access", comment: "")
+            return String(localized: "Service unavailable, connect to campus WiFi or VPN to access", bundle: .module)
         case .notDiningTime:
-            return String(localized: "Not in dining time", comment: "")
+            return String(localized: "Not in dining time", bundle: .module)
         case .termsNotAgreed:
-            return String(localized: "Terms not Agreed", comment: "")
+            return String(localized: "Terms not Agreed", bundle: .module)
         case .customError(let message):
-            return String(format: NSLocalizedString("Error: %@", comment: ""), message)
+            return String(localized: "Error: \(message)", bundle: .module)
         }
     }
 }

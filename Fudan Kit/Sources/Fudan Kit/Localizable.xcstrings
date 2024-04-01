@@ -1,0 +1,76 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Credential not found, login again" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录凭据无效，请重新登录"
+          }
+        }
+      }
+    },
+    "Error: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "错误%@"
+          }
+        }
+      }
+    },
+    "Login failed, check username and password" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录失败，检查用户名或密码"
+          }
+        }
+      }
+    },
+    "Need captcha, visit UIS webpage to login" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要验证码，请前往UIS网页登录后再在App中重新登录"
+          }
+        }
+      }
+    },
+    "Not in dining time" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在用餐时间"
+          }
+        }
+      }
+    },
+    "Service unavailable, connect to campus WiFi or VPN to access" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务不可用，请连接校园WiFi或VPN以访问"
+          }
+        }
+      }
+    },
+    "Terms not Agreed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要接受条款"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
