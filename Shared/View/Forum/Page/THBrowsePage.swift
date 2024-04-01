@@ -308,11 +308,8 @@ private struct BannerCarousel: View {
     
     private func updateBanner() {
         withAnimation {
-            if currentBanner == banners.count {
-                currentBanner = 0
-            } else {
-                currentBanner += 1
-            }
+            currentBanner += 1
+            currentBanner %= banners.count
         }
     }
     
@@ -334,12 +331,10 @@ private struct BannerCarousel: View {
         }
         .sheet(isPresented: $showSheet) {
             NavigationStack {
-                Form {
-                    ScrollView {
-                        ForEach(Array(banners.enumerated()), id: \.offset) { _, banner in
-                            BannerView(banner: banner) {
-                                showSheet = false // dismiss sheet when navigate to a hole page
-                            }
+                List {
+                    ForEach(Array(banners.enumerated()), id: \.offset) { _, banner in
+                        BannerView(banner: banner) {
+                            showSheet = false // dismiss sheet when navigate to a hole page
                         }
                     }
                 }
