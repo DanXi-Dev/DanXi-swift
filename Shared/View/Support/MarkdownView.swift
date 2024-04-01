@@ -239,28 +239,21 @@ fileprivate struct ParagraphView: View {
                         .errorMode(.rendered)
                         .font(.callout)
                 case .image(let url):
-                    // don't support external images. note that this is only a temporary solution, which may contain problem, and will eventually be rewritten
-                    if url.host()?.contains(IMAGE_BASE_URL) == true {
-                        HStack {
-                            Spacer()
-                            CachedAsyncImage(url: url) { phase in
-                                if let image = phase.image {
-                                    ImageWithPopover(image: image)
-                                } else if phase.error != nil {
-                                    Color.gray.opacity(0.1)
-                                        .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
-                                } else {
-                                    Color.gray.opacity(0.1)
-                                        .overlay { ProgressView() }
-                                }
+                    HStack {
+                        Spacer()
+                        CachedAsyncImage(url: url) { phase in
+                            if let image = phase.image {
+                                ImageWithPopover(image: image)
+                            } else if phase.error != nil {
+                                Color.gray.opacity(0.1)
+                                    .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
+                            } else {
+                                Color.gray.opacity(0.1)
+                                    .overlay { ProgressView() }
                             }
-                            .frame(width: 300, height: 300)
-                            Spacer()
                         }
-                    } else {
-                        SwiftUI.Text(url.absoluteString)
-                            .font(.callout)
-                            .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: 300, height: 300)
+                        Spacer()
                     }
                 }
             }
