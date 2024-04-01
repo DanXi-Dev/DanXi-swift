@@ -85,7 +85,7 @@ struct QuickLookPresentor: UIViewRepresentable {
                 previewController.delegate = self
                 return previewController
             } actionProvider: { suggestedActions in
-                let save = UIAction(title: String(localized: "Save to Album"), image: UIImage(systemName: "square.and.arrow.down")) { action in
+                let save = UIAction(title: String(localized: "Save to Album", bundle: .module), image: UIImage(systemName: "square.and.arrow.down")) { action in
                     UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil)
                 }
 
@@ -107,7 +107,7 @@ struct QuickLookPresentor: UIViewRepresentable {
     class PreviewItem: NSObject, QLPreviewItem {
         let previewItemURL: URL?
         var previewItemTitle: String? {
-            ""
+            String(localized: "Photo")
         }
         
         init(_ url: URL?) {
