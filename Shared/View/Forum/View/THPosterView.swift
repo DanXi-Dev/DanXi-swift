@@ -15,7 +15,7 @@ struct THPosterView: View {
                 Text(verbatim: "DZ")
                     .font(.footnote)
                     .font(.footnote)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundColor(.white)
                     .padding(.horizontal, posterPadding)
                     .background(randomColor(name))
@@ -24,7 +24,7 @@ struct THPosterView: View {
             
             Text(name)
                 .font(.subheadline)
-                .fontWeight(.bold)
+                .bold()
         }
         .foregroundColor(randomColor(name))
         .padding(.leading, barPadding)

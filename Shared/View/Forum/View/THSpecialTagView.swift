@@ -8,7 +8,7 @@ struct THSpecialTagView: View {
         Text(content)
             .foregroundColor(.white)
             .font(.system(size: 10))
-            .fontWeight(.black)
+            .bold()
             .padding(.horizontal, 5)
             .padding(.vertical, 3)
             .background(LinearGradient(gradient: Gradient(colors: [.red, .red.opacity(0.8)]), startPoint: .top, endPoint: .bottom))
