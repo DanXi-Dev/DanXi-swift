@@ -40,10 +40,7 @@ class THBrowseModel: ObservableObject {
     
     func refresh() async {
         do {
-            // This line is to prevent glitches that occur during a drag-down refresh action.
-            try await Task.sleep(for: .seconds(0.5))
-            
-            try await THModel.shared.refreshDivisions()
+            let (_, _) = try await (THModel.shared.refreshDivisions(), Task.sleep(for: .seconds(0.5))) // FIXME: 0.5 seconds is a hack by @Ivanfei prevent glitches that occur during a drag-down refresh action.
             
             if let currentDivision = THModel.shared.divisions.filter({ $0.id == self.division.id }).first {
                 self.division = currentDivision
