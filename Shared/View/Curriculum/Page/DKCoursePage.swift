@@ -30,6 +30,7 @@ struct DKCoursePage: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
+        .watermark()
         .toolbar {
             ToolbarItem {
                 Button {

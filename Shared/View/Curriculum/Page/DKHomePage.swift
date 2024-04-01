@@ -39,6 +39,5 @@ fileprivate struct HomePageContent: View {
                 DKCoursePage(courseGroup: course)
             }
         }
-        .watermark()
     }
 }
