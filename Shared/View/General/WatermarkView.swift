@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct StructuredWatermarkView: View {
-    var content: String
-    var rowCount: Int
-    var columnCount: Int
-    var opacity: Double
+    let content: String?
+    let rowCount: Int
+    let columnCount: Int
+    let opacity: Double?
     
+    @ObservedObject var appModel = DXModel.shared
+    @ObservedObject var settings = THSettings.shared
+    
+    var userId: String {
+        appModel.user?.id != nil ? String(appModel.user!.id) : ""
+    }
+
     var body: some View {
         GeometryReader { geometry in
             let cellWidth = geometry.size.width / CGFloat(columnCount)
@@ -22,9 +29,9 @@ struct StructuredWatermarkView: View {
                 let row = index / columnCount
                 let column = index % columnCount
                 
-                Text(content)
+                Text(content ?? userId)
                     .font(.system(size: 36))
-                    .foregroundColor(.gray.opacity(opacity))
+                    .foregroundColor(.primary.opacity(opacity ?? settings.watermarkOpacity))
                     .rotationEffect(.degrees(20))
                     .frame(width: cellWidth, height: cellHeight, alignment: .center)
                     .position(x: CGFloat(column) * cellWidth + cellWidth / 2,
@@ -36,8 +43,18 @@ struct StructuredWatermarkView: View {
 }
 
 struct WatermarkModifier: ViewModifier {
-    var watermarkContent: String
-    var opacity: Double
+    let watermarkContent: String?
+    let opacity: Double?
+    
+    init() {
+        self.watermarkContent = nil
+        self.opacity = nil
+    }
+    
+    init(watermarkContent: String?, opacity: Double?) {
+        self.watermarkContent = watermarkContent
+        self.opacity = opacity
+    }
     
     func body(content: Content) -> some View {
         content
@@ -50,7 +67,11 @@ struct WatermarkModifier: ViewModifier {
 }
 
 extension View {
-    func watermark(content: String, opacity: Double = 0.1) -> some View {
+    func watermark() -> some View {
+        self.modifier(WatermarkModifier())
+    }
+    
+    func watermark(content: String, opacity: Double) -> some View {
         self.modifier(WatermarkModifier(watermarkContent: content, opacity: opacity))
     }
 }
