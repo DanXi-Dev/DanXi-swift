@@ -1,7 +1,7 @@
 import SwiftUI
 import Markdown
-import CachedAsyncImage
 import LaTeXSwiftUI
+import ViewUtils
 
 /// A view that renders Markdown content.
 struct MarkdownView: View {
@@ -241,18 +241,8 @@ fileprivate struct ParagraphView: View {
                 case .image(let url):
                     HStack {
                         Spacer()
-                        CachedAsyncImage(url: url) { phase in
-                            if let image = phase.image {
-                                ImageWithPopover(image: image)
-                            } else if phase.error != nil {
-                                Color.gray.opacity(0.1)
-                                    .overlay { Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.red) }
-                            } else {
-                                Color.gray.opacity(0.1)
-                                    .overlay { ProgressView() }
-                            }
-                        }
-                        .frame(width: 300, height: 300)
+                        CachedRemoteImage(url)
+                            .frame(width: 300, height: 300)
                         Spacer()
                     }
                 }

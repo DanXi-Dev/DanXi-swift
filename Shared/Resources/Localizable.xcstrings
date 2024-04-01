@@ -4511,6 +4511,17 @@
         }
       }
     },
+    "Save to Album" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存到相册"
+          }
+        }
+      }
+    },
     "Screenshot Alert" : {
       "localizations" : {
         "zh-Hans" : {
