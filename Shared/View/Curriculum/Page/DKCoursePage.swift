@@ -6,6 +6,11 @@ struct DKCoursePage: View {
     let courseGroup: DKCourseGroup
     @State private var showPostSheet = false
     
+    init(courseGroup: DKCourseGroup) {
+        self.courseGroup = courseGroup
+        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
+    }
+    
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
