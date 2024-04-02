@@ -26,8 +26,29 @@ public struct CachedRemoteImage: View {
         loadingStatus = status
     }
     
+    public static func evictCache(daysToKeep: Int = 7) {
+        let fm = FileManager.default
+        var path = fm.urls(for: .cachesDirectory, in: .userDomainMask)
+        guard !path.isEmpty else { return }
+        path[0].append(path: "cachedimages")
+        do {
+            let items = try fm.contentsOfDirectory(at: path[0], includingPropertiesForKeys: nil)
+            for item in items {
+                let attrs = try fm.attributesOfItem(atPath: item.path()) // FIXME: This API does not accept URL. It only accepts strings and some filenames could cause it to explode.
+                let creationDate = attrs[FileAttributeKey.creationDate] as? Date
+                guard let creationDate, let lastKeepDate = Calendar.current.date(byAdding: .day, value: -daysToKeep, to: Date.now) else { return }
+                print(creationDate)
+                if creationDate < lastKeepDate {
+                    try fm.removeItem(at: item)
+                }
+            }
+        } catch {
+            print("Failed to evict cache \(error)")
+        }
+    }
+    
     func loadImage() {
-        Task {
+        Task(priority: .medium) {
             do {
                 await setLoadingStatus(.loading)
                 let name = url.absoluteString.data(using: .utf8)!.base64EncodedString()

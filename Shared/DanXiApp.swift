@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 import Utils
 
 @main
@@ -10,8 +11,9 @@ struct DanXiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .task {
+                .task(priority: .background) {
                     ConfigurationCenter.initialFetch()
+                    CachedRemoteImage.evictCache()
                 }
         }
     }
