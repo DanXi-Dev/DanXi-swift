@@ -16,7 +16,7 @@ let package = Package(
         .package(path: "../Utils"),
     ],
     targets: [
-        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils"]),
+        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils"], path: "."),
     ]
 )
 

@@ -16,8 +16,6 @@ let package = Package(
         .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4")
     ],
     targets: [
-        .target(name: "ViewUtils", dependencies: [
-            .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"), "Disk"
-        ]),
+        .target(name: "ViewUtils", dependencies: [.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"), "Disk"], path: "."),
     ]
 )

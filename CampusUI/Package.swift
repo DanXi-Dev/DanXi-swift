@@ -15,6 +15,6 @@ let package = Package(
         .package(url: "https://github.com/stleamist/BetterSafariView.git", .upToNextMajor(from: "2.4.2")),
     ],
     targets: [
-        .target(name: "CampusUI", dependencies: ["FudanKit", "ViewUtils", "Utils", "BetterSafariView"]),
+        .target(name: "CampusUI", dependencies: ["FudanKit", "ViewUtils", "Utils", "BetterSafariView"], path: "."),
     ]
 )
