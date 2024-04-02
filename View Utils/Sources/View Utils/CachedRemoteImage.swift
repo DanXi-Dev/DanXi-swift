@@ -31,7 +31,7 @@ public struct CachedRemoteImage: View {
             do {
                 await setLoadingStatus(.loading)
                 let name = url.absoluteString.data(using: .utf8)!.base64EncodedString()
-                let filename = "cachedimages/" + name
+                let filename = "cachedimages/\(name).jpg"
                 
                 // retrive cache from disk
                 if let fileURL = try? Disk.url(for: filename, in: .caches),
