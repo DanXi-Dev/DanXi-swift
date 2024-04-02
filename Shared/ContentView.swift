@@ -1,5 +1,6 @@
 import SwiftUI
 import FudanKit
+import CampusUI
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -56,7 +57,7 @@ struct TabHomePage: View {
     var body: some View {
         TabView(selection: $model.section) {
             if campusModel.loggedIn {
-                FDHomePage()
+                CampusHomePage()
                     .tag(AppSection.campus)
                     .tabItem {
                         Label("Campus.Tab", systemImage: "square.stack")
@@ -80,7 +81,7 @@ struct TabHomePage: View {
             }
             
             if campusModel.loggedIn {
-                FDCalendarPage()
+                CoursePage()
                     .tag(AppSection.calendar)
                     .tabItem {
                         Label("Calendar", systemImage: "calendar")
@@ -137,13 +138,13 @@ struct SplitHomePage: View {
             ZStack {
                 switch model.section {
                 case .campus:
-                    FDHomePage()
+                    CampusHomePage()
                 case .forum:
                     THHomePage()
                 case .curriculum:
                     DKHomePage()
                 case .calendar:
-                    FDCalendarPage()
+                    CoursePage()
                 case .settings:
                     SettingsPage()
                 }

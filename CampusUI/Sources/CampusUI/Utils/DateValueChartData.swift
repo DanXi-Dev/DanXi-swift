@@ -8,7 +8,7 @@
 import Charts
 import SwiftUI
 
-struct FDDateValueChartData: Identifiable, Equatable {
+struct DateValueChartData: Identifiable, Equatable {
     var date: Date
     var value: Float
     var id = UUID()
@@ -19,19 +19,19 @@ struct FDDateValueChartData: Identifiable, Equatable {
     // If there is no data, return [].
     // For example, if the input data is:
     // [
-    //     FDDateValueChartData(date: "2024-03-20", value: 10),
-    //     FDDateValueChartData(date: "2024-03-16", value: 30),
-    //     FDDateValueChartData(date: "2024-03-18", value: 20),
+    //     DateValueChartData(date: "2024-03-20", value: 10),
+    //     DateValueChartData(date: "2024-03-16", value: 30),
+    //     DateValueChartData(date: "2024-03-18", value: 20),
     // ]
     // The output data should be:
     // [
-    //     FDDateValueChartData(date: "2024-03-20", value: 10),
-    //     FDDateValueChartData(date: "2024-03-19", value: 0),
-    //     FDDateValueChartData(date: "2024-03-18", value: 20),
+    //     DateValueChartData(date: "2024-03-20", value: 10),
+    //     DateValueChartData(date: "2024-03-19", value: 0),
+    //     DateValueChartData(date: "2024-03-18", value: 20),
     //     ...
-    //     FDDateValueChartData(date: "2024-03-16", value: 30),
+    //     DateValueChartData(date: "2024-03-16", value: 30),
     // ]
-    static func formattedData(_ data: [FDDateValueChartData]) -> [FDDateValueChartData] {
+    static func formattedData(_ data: [DateValueChartData]) -> [DateValueChartData] {
         var rankedData = Array(data.sorted(by: { a, b in a.date > b.date }))
         let daysWithData = Set(rankedData.map { $0.date })
         
@@ -41,7 +41,7 @@ struct FDDateValueChartData: Identifiable, Equatable {
             for dayOffset in 0 ..< dateInterval {
                 let dateToCheck = Calendar.current.date(byAdding: .day, value: -dayOffset, to: lastDateOfData)!
                 if !daysWithData.contains(dateToCheck) {
-                    rankedData.append(FDDateValueChartData(date: dateToCheck, value: 0))
+                    rankedData.append(DateValueChartData(date: dateToCheck, value: 0))
                 }
             }
             
@@ -53,8 +53,8 @@ struct FDDateValueChartData: Identifiable, Equatable {
     }
 }
 
-struct FDDateValueChart: View {
-    let data: [FDDateValueChartData]
+struct DateValueChart: View {
+    let data: [DateValueChartData]
     let backtrackRange: Int
     let color: Color
     
@@ -62,15 +62,15 @@ struct FDDateValueChart: View {
         return Gradient(colors: [self.color.opacity(0.5), .clear])
     }
     
-    var filteredData: [FDDateValueChartData]
+    var filteredData: [DateValueChartData]
     // set last date to now
     var lastDate: Date
     
-    init(data: [FDDateValueChartData], color: Color, backtrackRange: Int = 7) {
+    init(data: [DateValueChartData], color: Color, backtrackRange: Int = 7) {
         self.data = data
         self.backtrackRange = backtrackRange
         self.color = color
-        self.filteredData = Array(FDDateValueChartData.formattedData(data)[0 ..< min(backtrackRange, data.count)])
+        self.filteredData = Array(DateValueChartData.formattedData(data)[0 ..< min(backtrackRange, data.count)])
         self.lastDate = Date()
         
         let daysWithData = Set(self.filteredData.map { $0.date })
@@ -160,8 +160,8 @@ struct FDDateValueChart: View {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
     let data = dictionary.map { i in
-        FDDateValueChartData(date: dateFormatter.date(from: i[0])!, value: Float(i[1])!)
+        DateValueChartData(date: dateFormatter.date(from: i[0])!, value: Float(i[1])!)
     }
-    return FDDateValueChart(data: data, color: .orange)
+    return DateValueChart(data: data, color: .orange)
         .frame(width: 100, height: 40)
 }

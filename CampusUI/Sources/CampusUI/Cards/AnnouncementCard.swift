@@ -1,7 +1,8 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDNoticeCard: View {
+struct AnnouncementCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center) {
@@ -29,7 +30,7 @@ struct FDNoticeCard: View {
                         }
                     }
                 } loadingView: {
-                    AnyView(                
+                    AnyView(
                         VStack(alignment: .leading) {
                         Rectangle()
                             .foregroundColor(.gray)
@@ -58,12 +59,5 @@ struct FDNoticeCard: View {
                 .bold()
                 .font(.footnote)
         }
-    }
-}
-
-#Preview {
-    List {
-        FDNoticeCard()
-            .frame(height: 85)
     }
 }

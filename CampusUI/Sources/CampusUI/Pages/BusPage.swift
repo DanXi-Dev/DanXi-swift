@@ -1,7 +1,8 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDBusPage: View {
+struct BusPage: View {
     var body: some View {
         AsyncContentView { () -> FDBusModel in
             let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getCachedRoutes()

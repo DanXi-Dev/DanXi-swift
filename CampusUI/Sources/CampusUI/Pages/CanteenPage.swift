@@ -1,7 +1,10 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDCanteenPage: View {
+struct CanteenPage: View {
+    init() { }
+    
     var body: some View {
         AsyncContentView {
             return try await CanteenAPI.getCanteenQueuing()
@@ -32,7 +35,7 @@ fileprivate struct CanteenRow: View {
                 Spacer()
                 
                 VStack {
-                    CircularProgressView(progress: Double(room.current) / Double(room.capacity))
+                    CircularProgressView(value: room.current, total: room.capacity)
                     Text("\(room.current) / \(room.capacity)")
                         .font(.footnote)
                 }

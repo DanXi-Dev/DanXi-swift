@@ -1,13 +1,18 @@
 import SwiftUI
+import ViewUtils
 import Utils
 import FudanKit
 import EventKit
 import EventKitUI
 
-struct FDCalendarPage: View {
+public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
     
-    var body: some View {
+    public init() {
+        
+    }
+    
+    public var body: some View {
         AsyncContentView {
             let context = ConfigurationCenter.configuration.semesterStartDate
             
@@ -105,7 +110,7 @@ fileprivate struct CalendarEvents: View {
     @EnvironmentObject private var model: CourseModel
     @State private var selectedCourse: Course?
     
-    private let h = FDCalendarConfig.h
+    private let h = CalendarConfig.h
     @ScaledMetric private var courseTitle = 15
     @ScaledMetric private var courseLocation = 10
     
@@ -118,7 +123,7 @@ fileprivate struct CalendarEvents: View {
                     let length = CGFloat(course.end + 1 - course.start) * dim.dy
                     let point = CGPoint(x: CGFloat(course.weekday) * dim.dx + dim.dx / 2,
                                         y: CGFloat(course.start) * dim.dy + length / 2)
-                    FDCourseView(title: course.name, subtitle: course.location,
+                    CourseView(title: course.name, subtitle: course.location,
                                  span: course.end - course.start + 1)
                     .position(point)
                     .onTapGesture {
@@ -340,16 +345,4 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
             parent.dismiss()
         }
     }
-}
-
-
-
-// MARK: - Length Constants
-
-struct FDCalendarConfig {
-    static let x: CGFloat = 40
-    static let y: CGFloat = 40
-    static let dx: CGFloat = 60
-    static let dy: CGFloat = 50
-    static let h = ClassTimeSlot.list.count
 }

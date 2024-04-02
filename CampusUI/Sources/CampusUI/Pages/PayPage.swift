@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 import FudanKit
 
-struct FDPayPage: View {
+struct PayPage: View {
     @Environment(\.openURL) var openURL
     
     @State private var qrCodeData: Data? = nil
@@ -18,12 +18,12 @@ struct FDPayPage: View {
                 
                 // generate QR code data
                 guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
-                    throw ParseError.invalidResponse
+                    throw URLError(.badServerResponse)
                 }
                 let data = qrcodeStr.data(using: .ascii, allowLossyConversion: false)
                 filter.setValue(data, forKey: "inputMessage")
                 guard let ciimage = filter.outputImage else {
-                    throw ParseError.invalidResponse
+                    throw URLError(.badServerResponse)
                 }
                 let transform = CGAffineTransform(scaleX: 10, y: 10)
                 let scaledCIImage = ciimage.transformed(by: transform)
@@ -77,14 +77,6 @@ struct FDPayPage: View {
         .navigationBarTitleDisplayMode(.inline)
         .task {
             loadCodeData()
-        }
-    }
-}
-
-struct FDPayPage_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            FDPayPage()
         }
     }
 }

@@ -1,22 +1,23 @@
 import Charts
+import ViewUtils
 import FudanKit
 import SwiftUI
 
-struct FDElectricityPage: View {
+struct ElectricityPage: View {
     var body: some View {
         AsyncContentView(animation: .default) {
             async let usage = ElectricityStore.shared.getCachedElectricityUsage()
-            async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map { FDDateValueChartData(date: $0.date, value: $0.usage) }
+            async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map { DateValueChartData(date: $0.date, value: $0.usage) }
             
             let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
             
             if let dateValuesLoaded {
-                let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
+                let filteredDateValues = Array(DateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
                 return (usageLoaded, filteredDateValues)
             } else {
                 return (usageLoaded, dateValuesLoaded)
             }
-        } content: { (info: ElectricityUsage, transactions: [FDDateValueChartData]?) in
+        } content: { (info: ElectricityUsage, transactions: [DateValueChartData]?) in
             List {
                 LabeledContent {
                     Text(info.campus)
@@ -43,7 +44,7 @@ struct FDElectricityPage: View {
                 }
                 
                 if #available(iOS 17, *), let transactions {
-                    FDElectricityPageChart(data: transactions)
+                    ElectricityPageChart(data: transactions)
                 }
             }
             .navigationTitle("Dorm Electricity")
@@ -53,8 +54,8 @@ struct FDElectricityPage: View {
 }
 
 @available(iOS 17.0, *)
-private struct FDElectricityPageChart: View {
-    let data: [FDDateValueChartData]
+private struct ElectricityPageChart: View {
+    let data: [DateValueChartData]
     @State private var chartSelection: Date?
     
     private var areaBackground: Gradient {
@@ -106,7 +107,7 @@ private struct FDElectricityPageChart: View {
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(70)
-                    .foregroundStyle(Color.secondarySystemGroupedBackground)
+                    .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
                     PointMark(
                         x: .value("Date", selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)

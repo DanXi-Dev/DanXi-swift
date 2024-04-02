@@ -3,6 +3,21 @@ import SwiftUI
 struct CircularProgressView: View {
     let progress: Double
     
+    init(progress: Double) {
+        self.progress = progress
+    }
+    
+    init(value: Int, total: Int) {
+        let progress = Double(value) / Double(total)
+        if progress > 1.0 {
+            self.progress = 1.0
+        } else if progress < 0.0 {
+            self.progress = 0.0
+        } else {
+            self.progress = progress
+        }
+    }
+    
     var body: some View {
         ZStack {
             Circle()

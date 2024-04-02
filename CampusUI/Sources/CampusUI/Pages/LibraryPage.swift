@@ -1,7 +1,8 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDLibraryPage: View {
+struct LibraryPage: View {
     var body: some View {
         AsyncContentView {
             return try await LibraryAPI.getLibrary()
@@ -19,8 +20,7 @@ struct FDLibraryPage: View {
                         Spacer()
                         
                         VStack(alignment: .center) {
-                            let progress = library.current > library.capacity ? 1.0 : (Double(library.current) / Double(library.capacity))
-                            CircularProgressView(progress: progress)
+                            CircularProgressView(value: library.current, total: library.capacity)
                             Text("\(String(library.current)) / \(String(library.capacity))")
                                 .font(.footnote)
                         }
@@ -36,6 +36,6 @@ struct FDLibraryPage: View {
 
 #Preview {
     NavigationStack {
-        FDLibraryPage()
+        LibraryPage()
     }
 }

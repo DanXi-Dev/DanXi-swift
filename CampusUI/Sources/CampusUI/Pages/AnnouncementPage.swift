@@ -1,9 +1,10 @@
 import SwiftUI
+import ViewUtils
 import FudanKit
 import SafariServices
 import BetterSafariView
 
-struct FDNoticePage: View {
+struct AnnouncementPage: View {
     @State private var authenticated = false
     @State private var page = 1
     @State private var presentLink: AuthenticatedLink?

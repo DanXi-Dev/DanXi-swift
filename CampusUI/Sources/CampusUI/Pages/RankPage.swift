@@ -1,8 +1,9 @@
 import SwiftUI
 import FudanKit
 import Charts
+import ViewUtils
 
-struct FDRankPage: View {
+struct RankPage: View {
     @State private var showSheet = false
     
     var body: some View {
@@ -146,7 +147,7 @@ private struct RankChart: View {
                 .symbolSize(100)
             }
         }
-        .overlay(alignment: .bottomLeading, {
+        .overlay(alignment: .bottomLeading, content: {
             if let selected = chartSelection {
                 let x = max(1, selected)
                 let value = ranks[ranks.count - x]

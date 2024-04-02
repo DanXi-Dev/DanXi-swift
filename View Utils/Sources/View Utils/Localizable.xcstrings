@@ -11,6 +11,12 @@
         }
       }
     },
+    "Loading" : {
+
+    },
+    "Loading Failed" : {
+
+    },
     "Photo" : {
       "localizations" : {
         "zh-Hans" : {
@@ -20,6 +26,9 @@
           }
         }
       }
+    },
+    "Retry" : {
+
     },
     "Save to Album" : {
       "localizations" : {

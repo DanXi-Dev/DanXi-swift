@@ -1,8 +1,9 @@
 import SwiftUI
+import ViewUtils
 import FudanKit
 
-struct FDClassroomPage: View {
-    @ScaledMetric private var dy = FDCalendarConfig.dy
+struct ClassroomPage: View {
+    @ScaledMetric private var dy = CalendarConfig.dy
     @AppStorage("campus-building-selection") private var building: Building = .empty
     var vpnLogged = false
     @State private var searchText: String = ""
@@ -122,7 +123,7 @@ fileprivate struct CalendarEvents: View {
                 GridBackground(width: classrooms.count)
                 ForEach(Array(classrooms.enumerated()), id: \.offset) { i, classroom in
                     ForEach(classroom.schedules) { schedule in
-                        FDCourseView(title: schedule.name, subtitle: schedule.teacher ?? "",
+                        CourseView(title: schedule.name, subtitle: schedule.teacher ?? "",
                                      span: schedule.end + 1 - schedule.start)
                         .position(x: (CGFloat(i) * dim.dx) + (dim.dx / 2),
                                   y: CGFloat(schedule.start + schedule.end) * dim.dy / 2 + dim.dy / 2)
@@ -203,6 +204,6 @@ fileprivate struct ScheduleDetailSheet: View {
 
 #Preview {
     NavigationStack {
-        FDClassroomPage()
+        ClassroomPage()
     }
 }

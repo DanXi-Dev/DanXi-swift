@@ -1,17 +1,18 @@
 import SwiftUI
+import Utils
 
-class FDNavigator: ObservableObject {
+class CampusNavigator: ObservableObject {
     @Published var path = NavigationPath()
-    @AppStorage("campus-pinned") var cards: [FDSection] = []
-    @AppStorage("campus-unpinned") var pages: [FDSection] = []
-    @AppStorage("campus-hidden") var hidden: [FDSection] = []
+    @AppStorage("campus-pinned") var cards: [CampusSection] = []
+    @AppStorage("campus-unpinned") var pages: [CampusSection] = []
+    @AppStorage("campus-hidden") var hidden: [CampusSection] = []
     
     init() {
         // when the app update to include more sections, update storage
-        for feature in FDSection.allCases {
+        for feature in CampusSection.allCases {
             if !cards.contains(feature) && !pages.contains(feature) && !hidden.contains(feature) {
                 // A new feature has been added to the app
-                if FDSection.pinnable.contains(feature) {
+                if CampusSection.pinnable.contains(feature) {
                     cards.append(feature)
                 } else {
                     pages.append(feature)
@@ -20,8 +21,8 @@ class FDNavigator: ObservableObject {
         }
     }
     
-    func pin(section: FDSection) {
-        if pages.contains(section) && FDSection.pinnable.contains(section) {
+    func pin(section: CampusSection) {
+        if pages.contains(section) && CampusSection.pinnable.contains(section) {
             withAnimation {
                 pages.removeAll { $0 == section }
                 cards.append(section)
@@ -29,7 +30,7 @@ class FDNavigator: ObservableObject {
         }
     }
     
-    func unpin(section: FDSection) {
+    func unpin(section: CampusSection) {
         if cards.contains(section) {
             withAnimation {
                 cards.removeAll { $0 == section }
@@ -38,7 +39,7 @@ class FDNavigator: ObservableObject {
         }
     }
     
-    func remove(section: FDSection) {
+    func remove(section: CampusSection) {
         if pages.contains(section) {
             withAnimation {
                 pages.removeAll { $0 == section }
@@ -47,7 +48,7 @@ class FDNavigator: ObservableObject {
         }
     }
     
-    func unhide(section: FDSection) {
+    func unhide(section: CampusSection) {
         if hidden.contains(section) {
             withAnimation {
                 hidden.removeAll { $0 == section }
@@ -61,16 +62,17 @@ class FDNavigator: ObservableObject {
             return
         }
         
-        if let section = FDSection(rawValue: url.pathComponents[1]) {
+        if let section = CampusSection(rawValue: url.pathComponents[1]) {
             path.removeLast(path.count)
             path.append(section)
         }
     }
 }
 
-enum FDSection: String, Codable, CaseIterable {
-    case ecard, electricity, notice, pay, bus, courses, library, canteen, sport, score, rank, playground
-    static let gradHidden: Set<FDSection> = [.sport, .rank, .score]
-    static let staffHidden: Set<FDSection> = [.sport, .rank, .score, .electricity]
-    static let pinnable: Set<FDSection> = [.ecard, .electricity, .notice]
+enum CampusSection: String, Codable, CaseIterable {
+    case wallet, electricity, announcenemnt, pay, bus, classroom, library, canteen, sport, score, rank, playground
+    
+    static let gradHidden: Set<CampusSection> = [.sport, .rank, .score]
+    static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity]
+    static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt]
 }

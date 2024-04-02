@@ -1,7 +1,8 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDScorePage: View {
+struct ScorePage: View {
     struct SemesterInfo {
         let semesters: [Semester]
         let currentSemester: Semester?

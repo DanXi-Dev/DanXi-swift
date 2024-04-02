@@ -1,74 +1,74 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDECardCard: View {
+struct ElectricityCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack(alignment: .center) {
+            VStack {
                 HStack {
-                    Image(systemName: "creditcard.fill")
-                    Text("ECard")
+                    Image(systemName: "bolt.fill")
+                    Text("Dorm Electricity")
                     Spacer()
                 }
                 .bold()
                 .font(.callout)
-                .foregroundColor(.orange)
+                .foregroundColor(.green)
                 
                 Spacer()
                 
                 HStack(alignment: .bottom) {
                     AsyncContentView(animation: .default) {
-                        async let balance = MyStore.shared.getCachedUserInfo().balance
-                        async let dateValues = MyStore.shared.getCachedWalletLogs().map({ FDDateValueChartData(date: $0.date, value: $0.amount) })
-                        return try await (balance, dateValues)
-                    } content: {(balance: String, transactions: [FDDateValueChartData]) in
+                        async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+                        async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                        return try await (usage, dateValues)
+                    } content: {(info: ElectricityUsage, transactions: [DateValueChartData]?) in
                         VStack(alignment: .leading) {
-                            Text("Balance")
+                            Text(info.campus + info.building + info.room)
                                 .foregroundColor(.secondary)
                                 .bold()
                                 .font(.caption)
                             
                             HStack(alignment: .bottom) {
-                                Text(balance)
+                                Text(String(info.electricityAvailable))
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
                                 + Text(" ")
-                                + Text("Yuan")
+                                + Text("kWh")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption2)
                                 
-                                
                                 Spacer()
                             }
-                            
                         }
-                                                    
-                        FDDateValueChart(data: transactions.map({value in FDDateValueChartData(date: value.date, value: value.value)}), color: .orange)
-                            .frame(width: 100, height: 40)
-                        
-                        Spacer(minLength: 10)
+    
+                        if let transactions {
+                            DateValueChart(data: transactions.map({value in DateValueChartData(date: value.date, value: value.value)}), color: .green)
+                                .frame(width: 100, height: 40)
+                            
+                            Spacer(minLength: 10)
+                        }
                     } loadingView: {
                         AnyView(
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("")
-                                        .foregroundColor(.gray)
-                                        .bold()
-                                        .font(.caption)
-                                    
+                            VStack(alignment: .leading) {
+                                Text("")
+                                    .foregroundColor(.secondary)
+                                    .bold()
+                                    .font(.caption)
+                                
+                                HStack {
                                     Text("--.--")
                                         .bold()
                                         .font(.system(size: 25, design: .rounded))
-                                    
                                     + Text(" ")
-
-                                    + Text("Yuan")
+                                    + Text("kWh")
                                         .foregroundColor(.secondary)
                                         .bold()
                                         .font(.caption2)
+                                    
+                                    Spacer()
                                 }
-                                Spacer()
                             }
                         )
                     } failureView: { error, retryHandler in
@@ -81,7 +81,6 @@ struct FDECardCard: View {
                             }
                                 .padding(.bottom, 15)
                         )
-                        
                     }
                 }
             }
@@ -91,12 +90,5 @@ struct FDECardCard: View {
                 .bold()
                 .font(.footnote)
         }
-    }
-}
-
-#Preview {
-    List {
-        FDECardCard()
-            .frame(height: 85)
     }
 }

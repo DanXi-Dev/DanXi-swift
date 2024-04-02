@@ -1,17 +1,18 @@
 import Charts
 import FudanKit
 import SwiftUI
+import ViewUtils
 
-struct FDECardPage: View {
+struct WalletPage: View {
     var body: some View {
         AsyncContentView {
             async let balance = MyStore.shared.getCachedUserInfo().balance
             async let dateValues = MyStore.shared.getCachedWalletLogs()
-                .map { FDDateValueChartData(date: $0.date, value: $0.amount) }
+                .map { DateValueChartData(date: $0.date, value: $0.amount) }
             
             let (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
             
-            let filteredDateValues = Array(FDDateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
+            let filteredDateValues = Array(DateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
             
             return (balanceLoaded, filteredDateValues)
         } content: { balance, history in
@@ -22,7 +23,7 @@ struct FDECardPage: View {
 
 private struct ECardPageContent: View {
     let balance: String
-    let history: [FDDateValueChartData]
+    let history: [DateValueChartData]
     
     @State private var showDetailedTransactionHistory = false
     
@@ -79,7 +80,7 @@ private struct TransactionView: View {
 
 @available(iOS 17.0, *)
 private struct FDEcardPageChart: View {
-    let data: [FDDateValueChartData]
+    let data: [DateValueChartData]
     @State private var chartSelection: Date?
     
     private var areaBackground: Gradient {
@@ -130,7 +131,7 @@ private struct FDEcardPageChart: View {
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(70)
-                    .foregroundStyle(Color.secondarySystemGroupedBackground)
+                    .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
                     PointMark(
                         x: .value("Date", selectedData.date, unit: .day),
                         y: .value("Yuan", selectedData.value)

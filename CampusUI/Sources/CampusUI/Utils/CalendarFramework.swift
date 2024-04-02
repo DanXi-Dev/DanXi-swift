@@ -1,15 +1,36 @@
-import FudanKit
 import SwiftUI
+import FudanKit
 
 // MARK: Courses
 
-struct FDCourseView: View {
+struct CourseView: View {
     let title: String
     let subtitle: String
     let span: Int
     
     @ScaledMetric private var titleSize = 15
     @ScaledMetric private var subtitleSize = 10
+    
+    func randomColor(_ name: String) -> Color {
+        let randomColorList = [
+            Color.red,
+            Color.pink,
+            Color.purple,
+            Color.blue,
+            Color.cyan,
+            Color.teal,
+            Color.green,
+            Color.orange,
+            Color.brown,
+        ]
+        
+        var sum = 0
+        for c in name.utf16 {
+            sum += Int(c)
+        }
+        sum %= randomColorList.count
+        return randomColorList[sum]
+    }
     
     var body: some View {
         let color = randomColor(title)
@@ -217,4 +238,14 @@ struct CalDimensionReader<Content: View>: View {
                dx: dimension.dx, dy: dimension.dy,
                calContent: content)
     }
+}
+
+// MARK: - Length Constants
+
+struct CalendarConfig {
+    static let x: CGFloat = 40
+    static let y: CGFloat = 40
+    static let dx: CGFloat = 60
+    static let dy: CGFloat = 50
+    static let h = ClassTimeSlot.list.count
 }

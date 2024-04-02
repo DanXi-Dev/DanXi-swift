@@ -12,6 +12,7 @@
       }
     },
     " " : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -22,6 +23,7 @@
       }
     },
     "--.--" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -130,6 +132,7 @@
       }
     },
     "%@ / %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -214,6 +217,7 @@
       }
     },
     "%@ seats" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -328,6 +332,7 @@
       }
     },
     "%lld (%@)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -344,6 +349,7 @@
       }
     },
     "%lld / %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -380,6 +386,7 @@
       }
     },
     "¥" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -390,6 +397,7 @@
       }
     },
     "¥ %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -441,6 +449,7 @@
       }
     },
     "Academic Office Announcements" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -534,6 +543,7 @@
       }
     },
     "All" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -655,6 +665,7 @@
 
     },
     "Available Time Slots Only" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -675,6 +686,7 @@
       }
     },
     "Balance" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -787,6 +799,7 @@
       }
     },
     "Building" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -797,6 +810,7 @@
       }
     },
     "Building not selected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -808,6 +822,7 @@
     },
     "Bus Schedule" : {
       "comment" : "Fudan Bus Schedule",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -829,6 +844,7 @@
       }
     },
     "Calendar Access not Granted" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -860,6 +876,7 @@
       }
     },
     "Campus Services" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -926,6 +943,7 @@
       }
     },
     "Cannot Reserve" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -936,6 +954,7 @@
       }
     },
     "Canteen Popularity" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -976,6 +995,7 @@
       }
     },
     "Classroom Schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1152,6 +1172,7 @@
       }
     },
     "Course Capacity" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1162,6 +1183,7 @@
       }
     },
     "Course Category" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1188,6 +1210,7 @@
       }
     },
     "Course Detail" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1208,6 +1231,7 @@
       }
     },
     "Course ID" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1229,6 +1253,7 @@
       }
     },
     "Course Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1321,6 +1346,7 @@
 
     },
     "Daily Spending" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1484,6 +1510,7 @@
       }
     },
     "Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1816,6 +1843,7 @@
       }
     },
     "Dorm" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1826,6 +1854,7 @@
       }
     },
     "Dorm Electricity" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1867,6 +1896,7 @@
       }
     },
     "ECard Balance" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1877,6 +1907,7 @@
       }
     },
     "ECard Information" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2013,6 +2044,7 @@
       }
     },
     "Electricity Available" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2023,6 +2055,7 @@
       }
     },
     "Electricity Usage History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2033,6 +2066,7 @@
       }
     },
     "Electricity Used" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2237,6 +2271,7 @@
     },
     "Exams & Score" : {
       "comment" : "Fudan Score",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2257,6 +2292,7 @@
       }
     },
     "Exercise Logs" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2278,6 +2314,7 @@
       }
     },
     "Export to Calendar" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2317,6 +2354,7 @@
     },
     "Extracurricular Activities" : {
       "comment" : "Fudan Sport Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2549,6 +2587,7 @@
       }
     },
     "From" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2592,6 +2631,7 @@
     },
     "Fudan QR Code" : {
       "comment" : "Fudan QR Code",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2638,6 +2678,7 @@
       }
     },
     "Full" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2669,6 +2710,7 @@
       }
     },
     "Go to Browser" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2700,6 +2742,7 @@
       }
     },
     "GPA" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2710,6 +2753,7 @@
       }
     },
     "GPA Distribution" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2721,6 +2765,7 @@
     },
     "GPA Rank" : {
       "comment" : "Fudan Rank",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2731,6 +2776,7 @@
       }
     },
     "GPA: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2813,6 +2859,7 @@
       }
     },
     "Holiday" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2911,6 +2958,7 @@
       }
     },
     "Instructor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3048,6 +3096,7 @@
       }
     },
     "kWh" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3099,6 +3148,7 @@
       }
     },
     "Library Popularity" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3172,6 +3222,7 @@
       }
     },
     "Location" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3371,6 +3422,7 @@
       }
     },
     "My Credit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3381,6 +3433,7 @@
       }
     },
     "My GPA" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3407,6 +3460,7 @@
       }
     },
     "My Rank" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3527,6 +3581,7 @@
       }
     },
     "No available schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3537,6 +3592,7 @@
       }
     },
     "No Data" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3557,6 +3613,7 @@
       }
     },
     "No Score Entry" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3578,6 +3635,7 @@
       }
     },
     "No Time Slots Available" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3814,6 +3872,7 @@
       }
     },
     "PE Curriculum" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3824,6 +3883,7 @@
       }
     },
     "PE Exam" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3834,6 +3894,7 @@
       }
     },
     "PE Exam Logs" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3890,6 +3951,7 @@
       }
     },
     "Playground List" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3901,6 +3963,7 @@
     },
     "Playground Reservation" : {
       "comment" : "Fudan Playground",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3911,6 +3974,7 @@
       }
     },
     "Playground Type" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4045,6 +4109,7 @@
       }
     },
     "Rank" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4055,6 +4120,7 @@
       }
     },
     "Rank: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4127,6 +4193,7 @@
       }
     },
     "Refresh QR Code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4351,6 +4418,7 @@
       }
     },
     "Reserve" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4361,6 +4429,7 @@
       }
     },
     "Reserve Page" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4622,6 +4691,7 @@
       }
     },
     "Select Semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4915,6 +4985,7 @@
       }
     },
     "Show all GPA rank" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4962,6 +5033,7 @@
       }
     },
     "Show schedule after %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4988,6 +5060,7 @@
       }
     },
     "Show Transaction History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5211,6 +5284,7 @@
       }
     },
     "Terms not Agreed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5381,6 +5455,7 @@
       }
     },
     "To" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5391,6 +5466,7 @@
       }
     },
     "To use QRCode, you must accept terms and conditions in webpage" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5441,6 +5517,7 @@
       }
     },
     "Total Score" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5494,6 +5571,7 @@
       }
     },
     "Type" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5525,6 +5603,7 @@
       }
     },
     "Unavailable" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5852,6 +5931,7 @@
       }
     },
     "Week %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5862,6 +5942,7 @@
       }
     },
     "Workday" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5913,6 +5994,7 @@
       }
     },
     "Yuan" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5923,6 +6005,7 @@
       }
     },
     "光华楼东辅楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5933,6 +6016,7 @@
       }
     },
     "光华楼西辅楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5943,6 +6027,7 @@
       }
     },
     "张江校区" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5953,6 +6038,7 @@
       }
     },
     "新闻学院" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5963,6 +6049,7 @@
       }
     },
     "枫林校区" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5973,6 +6060,7 @@
       }
     },
     "江湾校区" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5993,6 +6081,7 @@
       }
     },
     "第三教学楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6003,6 +6092,7 @@
       }
     },
     "第二教学楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6013,6 +6103,7 @@
       }
     },
     "第五教学楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6023,6 +6114,7 @@
       }
     },
     "第六教学楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6033,6 +6125,7 @@
       }
     },
     "第四教学楼" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

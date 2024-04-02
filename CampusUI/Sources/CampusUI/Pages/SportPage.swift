@@ -1,7 +1,8 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
-struct FDSportPage: View {
+struct SportPage: View {
     @State private var showExerciseSheet = false
     @State private var showExamSheet = false
     
