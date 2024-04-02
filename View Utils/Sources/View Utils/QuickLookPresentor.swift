@@ -21,6 +21,9 @@ struct QuickLookPresentor: UIViewRepresentable {
         let interaction = UIContextMenuInteraction(delegate: context.coordinator)
         imageView.addInteraction(interaction)
         
+        let dragInteraction = UIDragInteraction(delegate: context.coordinator)
+        imageView.addInteraction(dragInteraction)
+        
         context.coordinator.uiView = imageView
         
         return imageView
@@ -30,7 +33,7 @@ struct QuickLookPresentor: UIViewRepresentable {
         context.coordinator.uiView = imageView
     }
     
-    class Coordinator: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIContextMenuInteractionDelegate {
+    class Coordinator: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate {
         init(image: UIImage, imageURL: URL) {
             self.image = image
             self.imageURL = imageURL
@@ -97,6 +100,14 @@ struct QuickLookPresentor: UIViewRepresentable {
                 previewController.delegate = self
                 self.uiView?.window?.farthestPresentedViewController?.show(previewController, sender: self)
             }
+        }
+        
+        func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+            let image = self.image
+            let provider = NSItemProvider(object: image)
+            let item = UIDragItem(itemProvider: provider)
+            item.localObject = image
+            return [item]
         }
     }
     
