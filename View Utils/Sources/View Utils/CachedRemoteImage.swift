@@ -1,5 +1,4 @@
 import SwiftUI
-import CryptoKit
 import Disk
 
 public struct CachedRemoteImage: View {
@@ -31,8 +30,8 @@ public struct CachedRemoteImage: View {
         Task {
             do {
                 await setLoadingStatus(.loading)
-                let hash = Insecure.MD5.hash(data: url.absoluteString.data(using: .utf8)!) // FIXME: @fsy2001 should you really use hash as filename?
-                let filename = "cachedimages/" + hash.map { String(format: "%02hhx", $0) }.joined() + ".jpg"
+                let name = url.absoluteString.data(using: .utf8)!.base64EncodedString()
+                let filename = "cachedimages/" + name
                 
                 // retrive cache from disk
                 if let fileURL = try? Disk.url(for: filename, in: .caches),
@@ -88,7 +87,7 @@ public struct CachedRemoteImage: View {
 #Preview {
     NavigationStack {
         List {
-            CachedRemoteImage(URL(string: "https://abc.com")!)
+            CachedRemoteImage(URL(string: "https://danxi.fduhole.com/assets/app.webp")!)
         }
     }
 }
