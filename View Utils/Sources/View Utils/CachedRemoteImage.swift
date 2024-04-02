@@ -74,6 +74,7 @@ public struct CachedRemoteImage: View {
             }
         case .loaded(let loaded):
             QuickLookPresentor(image: loaded.uiImage, imageURL: loaded.fileURL)
+                .scaledToFit()
         }
     }
 }

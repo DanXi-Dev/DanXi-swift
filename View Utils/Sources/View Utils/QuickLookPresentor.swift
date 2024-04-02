@@ -8,17 +8,11 @@ struct QuickLookPresentor: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(image: image, imageURL: imageURL)
     }
-    
-    func makeUIView(context: Context) -> UIImageView {
-        let imageView = UIImageView()
-        imageView.image = image
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
+    func makeUIView(context: Context) -> UIView {
+        let imageView = UIImageView(image: image)
         
-        imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        imageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.present))
         imageView.isUserInteractionEnabled = true
@@ -32,7 +26,7 @@ struct QuickLookPresentor: UIViewRepresentable {
         return imageView
     }
     
-    func updateUIView(_ imageView: UIImageView, context: Context) {
+    func updateUIView(_ imageView: UIView, context: Context) {
         context.coordinator.uiView = imageView
     }
     
@@ -68,8 +62,6 @@ struct QuickLookPresentor: UIViewRepresentable {
             uiView
         }
         
-        
-        
         @objc func present() {
             let previewController = QLPreviewController()
             previewController.dataSource = self
@@ -88,7 +80,7 @@ struct QuickLookPresentor: UIViewRepresentable {
                 let save = UIAction(title: String(localized: "Save to Album", bundle: .module), image: UIImage(systemName: "square.and.arrow.down")) { action in
                     UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil)
                 }
-
+                
                 // Create and return a UIMenu with all of the actions as children
                 return UIMenu(title: "", children: [save])
             }
