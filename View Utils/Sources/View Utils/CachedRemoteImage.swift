@@ -7,7 +7,7 @@ public struct CachedRemoteImage: View {
         case error(error: Error)
         case loaded(image: LoadedImage)
     }
-
+    
     struct LoadedImage {
         let image: Image
         let uiImage: UIImage
@@ -57,29 +57,23 @@ public struct CachedRemoteImage: View {
     }
     
     public var body: some View {
-        HStack {
-            Spacer()
-            
-            switch loadingStatus {
-            case .loading:
-                ProgressView()
+        switch loadingStatus {
+        case .loading:
+            ProgressView()
+                .frame(width: 200, height: 150)
+                .background(Color.gray.opacity(0.2))
+                .onAppear {
+                    loadImage()
+                }
+        case .error:
+            Button(action: loadImage) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.red)
                     .frame(width: 200, height: 150)
                     .background(Color.gray.opacity(0.2))
-                    .onAppear {
-                        loadImage()
-                    }
-            case .error:
-                Button(action: loadImage) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.red)
-                        .frame(width: 200, height: 150)
-                        .background(Color.gray.opacity(0.2))
-                }
-            case .loaded(let loaded):
-                QuickLookPresentor(image: loaded.uiImage, imageURL: loaded.fileURL)
             }
-            
-            Spacer()
+        case .loaded(let loaded):
+            QuickLookPresentor(image: loaded.uiImage, imageURL: loaded.fileURL)
         }
     }
 }

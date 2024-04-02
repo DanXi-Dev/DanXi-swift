@@ -242,7 +242,7 @@ fileprivate struct ParagraphView: View {
                     HStack {
                         Spacer()
                         CachedRemoteImage(url)
-                            .frame(width: 300, height: 300)
+                            .frame(maxHeight: 300)
                         Spacer()
                     }
                 }
