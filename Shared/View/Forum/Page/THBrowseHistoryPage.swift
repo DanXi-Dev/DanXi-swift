@@ -1,5 +1,4 @@
 import SwiftUI
-import WrappingHStack
 import ViewUtils
 
 struct THBrowseHistoryPage: View {

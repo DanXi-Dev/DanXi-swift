@@ -1,7 +1,6 @@
 import SwiftUI
 import UIKit
 import ViewUtils
-import WrappingHStack
 
 struct THHolePage: View {
     @ObservedObject private var settings = THSettings.shared

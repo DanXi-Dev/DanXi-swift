@@ -1,6 +1,5 @@
 import SwiftUI
 import ViewUtils
-import WrappingHStack
 
 struct THHoleView: View {
     @Environment(\.colorScheme) private var colorScheme

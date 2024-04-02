@@ -1,5 +1,5 @@
 import SwiftUI
-import WrappingHStack
+import ViewUtils
 
 struct THTagEditor: View {
     private let maxSize: Int?

@@ -1,5 +1,5 @@
 import SwiftUI
-import WrappingHStack
+import ViewUtils
 
 struct THTagView: View {
     let name: String
