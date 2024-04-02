@@ -81,8 +81,12 @@ struct QuickLookPresentor: UIViewRepresentable {
                     UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil)
                 }
                 
+                let copy = UIAction(title: String(localized: "Copy", bundle: .module), image: UIImage(systemName: "doc.on.doc")) { action in
+                    UIPasteboard.general.image = self.image
+                }
+                
                 // Create and return a UIMenu with all of the actions as children
-                return UIMenu(title: "", children: [save])
+                return UIMenu(title: "", children: [copy, save])
             }
         }
         
