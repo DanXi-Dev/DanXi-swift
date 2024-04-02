@@ -31,7 +31,7 @@ public struct CachedRemoteImage: View {
         Task {
             do {
                 await setLoadingStatus(.loading)
-                let hash = Insecure.MD5.hash(data: url.absoluteString.data(using: .utf8)!)
+                let hash = Insecure.MD5.hash(data: url.absoluteString.data(using: .utf8)!) // FIXME: @fsy2001 should you really use hash as filename?
                 let filename = "cachedimages/" + hash.map { String(format: "%02hhx", $0) }.joined() + ".jpg"
                 
                 // retrive cache from disk
@@ -58,10 +58,14 @@ public struct CachedRemoteImage: View {
     }
     
     public var body: some View {
-        ZStack {
+        HStack {
+            Spacer()
+            
             switch loadingStatus {
             case .loading:
                 ProgressView()
+                    .frame(width: 200, height: 150)
+                    .background(Color.gray.opacity(0.2))
                     .onAppear {
                         loadImage()
                     }
@@ -69,10 +73,22 @@ public struct CachedRemoteImage: View {
                 Button(action: loadImage) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(.red)
+                        .frame(width: 200, height: 150)
+                        .background(Color.gray.opacity(0.2))
                 }
             case .loaded(let loaded):
                 QuickLookPresentor(image: loaded.uiImage, imageURL: loaded.fileURL)
             }
+            
+            Spacer()
+        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        List {
+            CachedRemoteImage(URL(string: "https://abc.com")!)
         }
     }
 }
