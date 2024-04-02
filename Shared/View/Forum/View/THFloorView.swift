@@ -443,11 +443,25 @@ private struct Actions: View {
     
     private var menu: some View {
         Menu {
+            Button  {
+                UIPasteboard.general.string = NSAttributedString(model.floor.content.inlineAttributed()).string
+            } label: {
+                Label("Copy Full Text", systemImage: "doc.on.doc")
+            }
+            
+            Button {
+                UIPasteboard.general.string = "##\(model.floor.id)"
+            } label: {
+                Label("Copy Floor ID", systemImage: "number")
+            }
+            
             Button {
                 showSelectionSheet = true
             } label: {
                 Label("Select Text", systemImage: "character.cursor.ibeam")
             }
+            
+            Divider()
             
             Button {
                 holeModel.filterOption = .user(name: model.floor.posterName)
@@ -467,18 +481,6 @@ private struct Actions: View {
                 Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
             }
             .disabled(model.floor.firstMention() == nil)
-            
-            Button  {
-                UIPasteboard.general.string = NSAttributedString(model.floor.content.inlineAttributed()).string
-            } label: {
-                Label("Copy Full Text", systemImage: "doc.on.doc")
-            }
-            
-            Button {
-                UIPasteboard.general.string = "##\(model.floor.id)"
-            } label: {
-                Label("Copy Floor ID", systemImage: "number")
-            }
             
             Divider()
             
