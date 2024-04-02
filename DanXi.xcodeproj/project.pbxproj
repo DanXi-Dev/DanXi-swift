@@ -38,7 +38,6 @@
 		272B08462A6EE6F40078CFF6 /* THBrowseHistoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */; };
 		272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */; };
 		272FFC5429E9D6A400EB4CBF /* THContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */; };
-		2733CA1B2AB6DBBE001AF2CD /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */; };
 		273C1E6328C9CE5C0067E61E /* THHoleEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */; };
 		273FAFB628C13C6100FC3950 /* THSpecialTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */; };
 		2749B145298E5DC00011C78C /* DKPostSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749B144298E5DC00011C78C /* DKPostSheet.swift */; };
@@ -78,12 +77,7 @@
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
 		27A5DA2D29D98A300042D28D /* ImageBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2C29D98A300042D28D /* ImageBrowser.swift */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
-		27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
-		27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */; };
-		27B7AC1629DEB2C900DAE0C5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */; };
-		27B7AC1829DEB2C900DAE0C5 /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1729DEB2C900DAE0C5 /* Disk */; };
-		27B7AC1A29DEB2C900DAE0C5 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */; };
 		27BBBCFF29119368007C2905 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBCFE29119368007C2905 /* Markdown */; };
 		27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD01291193A9007C2905 /* SwiftSoup */; };
 		27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD04291193D2007C2905 /* CachedAsyncImage */; };
@@ -114,6 +108,10 @@
 		27D07C062A7826B000B94855 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E2DE7A2A55496D00D26D86 /* Date.swift */; };
 		27D07C082A7826B800B94855 /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D3A4962BBC844200350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4952BBC844200350D21 /* CampusUI */; };
+		27D3A4982BBC9C6100350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4972BBC9C6100350D21 /* CampusUI */; };
+		27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49B2BBC9E0900350D21 /* SwiftyJSON */; };
+		27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49D2BBC9E1A00350D21 /* KeychainAccess */; };
+		27D3A49F2BBC9F0800350D21 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
 		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
@@ -143,7 +141,6 @@
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
 		EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */; };
-		F111DF642BAC1B2D00F72C98 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = F111DF632BAC1B2D00F72C98 /* FudanKit */; };
 		F13306D42BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D52BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
@@ -154,6 +151,23 @@
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
+			remoteInfo = "DanXi Wigdet";
+		};
+		27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
+			remoteInfo = "DanXi Wigdet";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		27D3A4942BBC840A00350D21 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -163,6 +177,17 @@
 			files = (
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27D3A4A22BBC9F0800350D21 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				27D3A49F2BBC9F0800350D21 /* DanXi Wigdet.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
@@ -209,7 +234,6 @@
 		272B08452A6EE6F40078CFF6 /* THBrowseHistoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseHistoryPage.swift; sourceTree = "<group>"; };
 		272FFC4F29E9C0CB00EB4CBF /* THTagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagEditor.swift; sourceTree = "<group>"; };
 		272FFC5329E9D6A400EB4CBF /* THContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContentEditor.swift; sourceTree = "<group>"; };
-		2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
 		273C1E6228C9CE5C0067E61E /* THHoleEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleEditSheet.swift; sourceTree = "<group>"; };
 		273FAFB528C13C6100FC3950 /* THSpecialTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSpecialTagView.swift; sourceTree = "<group>"; };
 		2749B144298E5DC00011C78C /* DKPostSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKPostSheet.swift; sourceTree = "<group>"; };
@@ -248,7 +272,6 @@
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
 		27A5DA2C29D98A300042D28D /* ImageBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowser.swift; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
-		27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDECardWidget.swift; sourceTree = "<group>"; };
 		27BBBD0A2912C330007C2905 /* DXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXError.swift; sourceTree = "<group>"; };
 		27BBBD0D2912C33C007C2905 /* DKEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKEntity.swift; sourceTree = "<group>"; };
 		27BBBD0E2912C33C007C2905 /* THEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THEntity.swift; sourceTree = "<group>"; };
@@ -321,12 +344,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */,
+				27D3A4982BBC9C6100350D21 /* CampusUI in Frameworks */,
+				27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */,
 				27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */,
-				27B7AC1A29DEB2C900DAE0C5 /* KeychainAccess in Frameworks */,
-				27B7AC1829DEB2C900DAE0C5 /* Disk in Frameworks */,
-				27B7AC1629DEB2C900DAE0C5 /* SwiftyJSON in Frameworks */,
-				F111DF642BAC1B2D00F72C98 /* FudanKit in Frameworks */,
-				27B7AC1429DEB2C900DAE0C5 /* SwiftSoup in Frameworks */,
+				27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,8 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */,
-				2733CA1A2AB6DBBE001AF2CD /* Compatibility.swift */,
-				27B7ABF629DEAB1500DAE0C5 /* FDECardWidget.swift */,
 				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
 				27536EC729DC9A8300894A98 /* Info.plist */,
@@ -707,11 +726,9 @@
 			);
 			name = "DanXi Wigdet";
 			packageProductDependencies = (
-				27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */,
-				27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */,
-				27B7AC1729DEB2C900DAE0C5 /* Disk */,
-				27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */,
-				F111DF632BAC1B2D00F72C98 /* FudanKit */,
+				27D3A4972BBC9C6100350D21 /* CampusUI */,
+				27D3A49B2BBC9E0900350D21 /* SwiftyJSON */,
+				27D3A49D2BBC9E1A00350D21 /* KeychainAccess */,
 			);
 			productName = DanXi_WigdetExtension;
 			productReference = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */;
@@ -726,10 +743,13 @@
 				8AC7A5CB26872C3E00C9CD98 /* Resources */,
 				8AC7A63326872C4100C9CD98 /* Embed Watch Content */,
 				27D3A4942BBC840A00350D21 /* Embed Frameworks */,
+				27D3A4A22BBC9F0800350D21 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
+				27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -860,9 +880,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
-				27B7ABF829DEB22F00DAE0C5 /* FDECardWidget.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */,
-				2733CA1B2AB6DBBE001AF2CD /* Compatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,6 +989,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
+			targetProxy = 27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */;
+		};
+		27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
+			targetProxy = 27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		274C197B29D1BF9C000DE221 /* Debug */ = {
@@ -1445,26 +1476,6 @@
 			package = 27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */;
 			productName = AdvancedScrollView;
 		};
-		27B7AC1329DEB2C900DAE0C5 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		27B7AC1529DEB2C900DAE0C5 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		27B7AC1729DEB2C900DAE0C5 /* Disk */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
-			productName = Disk;
-		};
-		27B7AC1929DEB2C900DAE0C5 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
-		};
 		27BBBCFE29119368007C2905 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */;
@@ -1523,6 +1534,20 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = CampusUI;
 		};
+		27D3A4972BBC9C6100350D21 /* CampusUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CampusUI;
+		};
+		27D3A49B2BBC9E0900350D21 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		27D3A49D2BBC9E1A00350D21 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		27DAFA6129CAF1BC00F32093 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
@@ -1536,10 +1561,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
-		};
-		F111DF632BAC1B2D00F72C98 /* FudanKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FudanKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

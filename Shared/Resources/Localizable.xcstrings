@@ -408,6 +408,7 @@
       }
     },
     "¥%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -418,6 +419,7 @@
       }
     },
     "¥%lf" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -975,6 +977,7 @@
       }
     },
     "Check ECard balance and transactions." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1886,6 +1889,7 @@
     },
     "ECard" : {
       "comment" : "Fudan ECard",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3170,6 +3174,7 @@
       }
     },
     "Load Failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
