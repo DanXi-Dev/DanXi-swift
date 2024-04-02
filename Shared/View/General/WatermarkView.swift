@@ -31,6 +31,8 @@ struct StructuredWatermarkView: View {
                 
                 Text(content ?? userId)
                     .font(.system(size: 36))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .foregroundColor(.primary.opacity(opacity ?? settings.watermarkOpacity))
                     .rotationEffect(.degrees(20))
                     .frame(width: cellWidth, height: cellHeight, alignment: .center)
