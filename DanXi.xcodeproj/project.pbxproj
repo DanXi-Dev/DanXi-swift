@@ -130,6 +130,7 @@
 		27D07C072A7826B400B94855 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27227FD428A512B300B3C99D /* Defaults.swift */; };
 		27D07C082A7826B800B94855 /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D1D6482AB5F93D00E8D536 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 27D1D6472AB5F93D00E8D536 /* BetterSafariView */; };
+		27D3A4532BBC429900350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4522BBC429900350D21 /* CampusUI */; };
 		27D69EDC29A2B0B10024D242 /* FDHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D69EDB29A2B0B10024D242 /* FDHomePage.swift */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
@@ -293,6 +294,7 @@
 		27CAD2312A32AD94008F3D19 /* FoldedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldedView.swift; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
+		27D3A4512BBC428B00350D21 /* CampusUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CampusUI; sourceTree = "<group>"; };
 		27D69EDB29A2B0B10024D242 /* FDHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDHomePage.swift; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* THReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportSheet.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
+				27D3A4532BBC429900350D21 /* CampusUI in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
@@ -729,6 +732,7 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
+				27D3A4512BBC428B00350D21 /* CampusUI */,
 				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 				270CD1902BAD68C900881ABA /* View Utils */,
 				27C68CB12BB563A100037D52 /* Utils */,
@@ -836,6 +840,7 @@
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
 				27C68CB22BB563EE00037D52 /* Utils */,
+				27D3A4522BBC429900350D21 /* CampusUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -1638,6 +1643,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
 			productName = BetterSafariView;
+		};
+		27D3A4522BBC429900350D21 /* CampusUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CampusUI;
 		};
 		27DAFA6129CAF1BC00F32093 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
