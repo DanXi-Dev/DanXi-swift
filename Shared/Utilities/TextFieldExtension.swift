@@ -33,6 +33,7 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
     
     func updateUIView(_ uiView: CustomTextField, context: Context) {
         uiView.text = text
+        uiView.placeholder = placeholder
     }
     
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: CustomTextField, context: Context) -> CGSize? {
@@ -63,7 +64,7 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
         
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             onSubmit()
-            return true
+            return false
         }
     }
     

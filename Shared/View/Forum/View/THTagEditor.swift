@@ -60,7 +60,7 @@ struct THTagEditor: View {
                     }
                     
                     if allowAppend {
-                        BackspaceDetectingTextField(placeholder: String(localized: "Add Tag"), text: $text) { isEmpty in
+                        BackspaceDetectingTextField(placeholder: tags.isEmpty ? String(localized: "Add Tag") : "", text: $text) { isEmpty in
                             if isEmpty {
                                 if let last = tags.last {
                                     removeTag(last)
