@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-#if os(iOS)
+#if canImport(Disk)
 import Disk
 #endif
 
