@@ -37,13 +37,12 @@ public struct CachedRemoteImage: View {
                 let attrs = try fm.attributesOfItem(atPath: item.path()) // FIXME: This API does not accept URL. It only accepts strings and some filenames could cause it to explode.
                 let creationDate = attrs[FileAttributeKey.creationDate] as? Date
                 guard let creationDate, let lastKeepDate = Calendar.current.date(byAdding: .day, value: -daysToKeep, to: Date.now) else { return }
-                print(creationDate)
                 if creationDate < lastKeepDate {
                     try fm.removeItem(at: item)
                 }
             }
         } catch {
-            print("Failed to evict cache \(error)")
+            // print("Failed to evict cache \(error)")
         }
     }
     
