@@ -5,6 +5,9 @@ struct THBrowsePage: View {
     @ObservedObject private var settings = THSettings.shared
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
+    @State private var showScreenshotAlert = false
+    
+    private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     var body: some View {
         THBackgroundList {
@@ -60,6 +63,14 @@ struct THBrowsePage: View {
         }
         .onReceive(ConfigurationCenter.bannerPublisher) { banner in
             appModel.banners = banner
+        }
+        .onReceive(screenshotPublisher) { _ in
+            if settings.screenshotAlert {
+                showScreenshotAlert = true
+            }
+        }
+        .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {} message: {
+            Text("Screenshot Alert Content")
         }
         .onAppear {
             withAnimation {
