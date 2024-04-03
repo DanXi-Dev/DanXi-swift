@@ -1,11 +1,14 @@
 import SwiftUI
+import SensitiveContentAnalysis
 import Disk
 
 public struct CachedRemoteImage: View {
+    @State private var showSensitive = false
+    
     enum LoadingStatus {
         case loading
         case error(error: Error)
-        case loaded(image: LoadedImage)
+        case loaded(image: LoadedImage, sensitive: Bool)
     }
     
     struct LoadedImage {
@@ -52,13 +55,15 @@ public struct CachedRemoteImage: View {
                 await setLoadingStatus(.loading)
                 let name = url.absoluteString.data(using: .utf8)!.base64EncodedString()
                 let filename = "cachedimages/\(name).jpg"
+                let sensitiveMarker = filename + "-sensitive"
                 
                 // retrive cache from disk
                 if let fileURL = try? Disk.url(for: filename, in: .caches),
                    let uiImage = try? Disk.retrieve(filename, from: .caches, as: UIImage.self) {
                     let image = Image(uiImage: uiImage)
                     let loadedImage = LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
-                    await setLoadingStatus(.loaded(image: loadedImage))
+                    let sensitive = Disk.exists(sensitiveMarker, in: .caches)
+                    await setLoadingStatus(.loaded(image: loadedImage, sensitive: sensitive))
                     return
                 }
                 
@@ -69,11 +74,26 @@ public struct CachedRemoteImage: View {
                 try Disk.save(uiImage, to: .caches, as: filename)
                 let fileURL = try Disk.url(for: filename, in: .caches)
                 let loadedImage = LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
-                await setLoadingStatus(.loaded(image: loadedImage))
+                let sensitive = await analyzeSensitiveIfAvailable(fileURL)
+                if sensitive {
+                    // Create a file to mark sensitive
+                    try? Disk.save("", to: .caches, as: sensitiveMarker)
+                }
+                await setLoadingStatus(.loaded(image: loadedImage, sensitive: sensitive))
             } catch {
                 loadingStatus = .error(error: error)
             }
         }
+    }
+    
+    func analyzeSensitiveIfAvailable(_ at: URL) async -> Bool {
+        guard #available(iOS 17, *) else { return false }
+        let analyzer = SCSensitivityAnalyzer()
+        let policy = analyzer.analysisPolicy
+        if policy == .disabled { return false }
+        let response = try? await analyzer.analyzeImage(at: url)
+        guard let response else { return false }
+        return response.isSensitive
     }
     
     public var body: some View {
@@ -92,10 +112,35 @@ public struct CachedRemoteImage: View {
                     .frame(width: 200, height: 150)
                     .background(Color.gray.opacity(0.2))
             }
-        case .loaded(let loaded):
-            QuickLookPresentor(image: loaded.uiImage, imageURL: loaded.fileURL)
-                .scaledToFit()
+        case .loaded(let loaded, let sensitive):
+            if sensitive && !showSensitive {
+                ZStack(alignment: .center, content: {
+                    ImageViewer(image: loaded)
+                        .blur(radius: 30.0)
+                        .clipped()
+                        .allowsHitTesting(false)
+
+                    Image(systemName: "eye.trianglebadge.exclamationmark")
+                        .font(.largeTitle)
+                })
+                .onTapGesture {
+                    withAnimation {
+                        showSensitive = true
+                    }
+                }
+            } else {
+                ImageViewer(image: loaded)
+            }
         }
+    }
+}
+
+struct ImageViewer: View {
+    let image: CachedRemoteImage.LoadedImage
+    
+    var body: some View {
+        QuickLookPresentor(image: image.uiImage, imageURL: image.fileURL)
+            .scaledToFit()
     }
 }
 
@@ -103,6 +148,7 @@ public struct CachedRemoteImage: View {
     NavigationStack {
         List {
             CachedRemoteImage(URL(string: "https://danxi.fduhole.com/assets/app.webp")!)
+                .frame(maxHeight: 300)
         }
     }
 }
