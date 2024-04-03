@@ -4,6 +4,7 @@ struct DebugPage: View {
     @EnvironmentObject private var model: AppModel
     @State private var showURLSheet = false
     @State private var showHTTPSheet = false
+    @State private var showQuestionSheet = false
     @ObservedObject private var settings = THSettings.shared
     
     var body: some View {
@@ -23,7 +24,10 @@ struct DebugPage: View {
                 Toggle(isOn: settings.$showBanners) {
                     Label("Show Activity Announcements", systemImage: "bell")
                 }
-                Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.005)
+                Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
+                Button("Test Register Questions") {
+                    showQuestionSheet = true
+                }
             }
             
             Section {
@@ -38,6 +42,9 @@ struct DebugPage: View {
         }
         .sheet(isPresented: $showHTTPSheet) {
             DebugHTTPForm()
+        }
+        .sheet(isPresented: $showQuestionSheet) {
+            DXQuestionSheet()
         }
     }
 }
