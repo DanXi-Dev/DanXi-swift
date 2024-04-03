@@ -348,8 +348,8 @@ private struct Actions: View {
                 likeButton
                 Spacer()
                 replyButton
-                Spacer()
             }
+            Spacer()
             menu
         }
         .frame(maxWidth: 140)
