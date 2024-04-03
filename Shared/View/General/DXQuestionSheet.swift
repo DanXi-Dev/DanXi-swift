@@ -15,6 +15,7 @@ fileprivate struct QuestionPage: View {
     @StateObject private var model: QuestionModel
     @State private var showSubmitAlert = false
     @State private var showIncorrectAlert = false
+    @State private var scrollTarget: DXQuestion.ID?
     @Environment(\.dismiss) var dismiss
     
     init(_ questions: DXQuestions) {
@@ -24,20 +25,33 @@ fileprivate struct QuestionPage: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                FormTitle(title: "DanXi Qualification",
-                          description: "DanXi Question Prompt")
-                                
-                ForEach(model.questions) { question in
-                    switch question.type {
-                    case .singleSelection, .trueOrFalse:
-                        QuestionPicker(question: question)
-                    case .multipleSelection:
-                        MultiQuestionSelectior(question: question)
+            ScrollViewReader { scrollView in
+                Form {
+                    FormTitle(title: "DanXi Qualification",
+                              description: "DanXi Question Prompt")
+                    
+                    ForEach(model.questions) { question in
+                        Group {
+                            switch question.type {
+                            case .singleSelection, .trueOrFalse:
+                                QuestionPicker(question: question)
+                            case .multipleSelection:
+                                MultiQuestionSelectior(question: question)
+                            }
+                        }
+                        .id(question.id)
                     }
+                    
+                    submitButton
                 }
-                
-                submitButton
+                .onChange(of: scrollTarget) { target in
+                    if let target {
+                        withAnimation {
+                            scrollView.scrollTo(target, anchor: .center)
+                        }
+                    }
+                    scrollTarget = nil
+                }
             }
             .alert("Unanswered Questions", isPresented: $showSubmitAlert, actions: { }, message: {
                 Text("Answer all questions before submit")
@@ -55,22 +69,42 @@ fileprivate struct QuestionPage: View {
                         Text("Cancel")
                     }
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    AsyncButton {
+                        try await submit()
+                    } label: {
+                        Text("Submit")
+                    }
+                }
             }
+        }
+    }
+    
+    func submit() async throws {
+        // Check answered
+        if let firstUnanswered = model.allAnswered {
+            scrollTarget = firstUnanswered
+            try? await Task.sleep(for: .seconds(0.5))
+            showSubmitAlert = true
+            return
+        }
+        
+        // All question has been answered
+        let (correct, firstWrongId) = try await model.submit()
+        if correct {
+            dismiss()
+        } else {
+            if let firstWrongId {
+                scrollTarget = firstWrongId
+                try? await Task.sleep(for: .seconds(0.5))
+            }
+            showIncorrectAlert = true
         }
     }
     
     private var submitButton: some View {
         AsyncButton {
-            if model.allAnswered {
-                let correct = try await model.submit()
-                if correct {
-                    dismiss()
-                } else {
-                    showIncorrectAlert = true
-                }
-            } else {
-                showSubmitAlert = true
-            }
+            try await submit()
         } label: {
             HStack {
                 Spacer()
@@ -217,16 +251,17 @@ fileprivate class QuestionModel: ObservableObject {
         self.answers = answers
     }
     
-    var allAnswered: Bool {
-        for (_, answer) in answers {
-            if answer.isEmpty {
-                return false
+    /// Returns nil on success, first unanswered question id on fail.
+    var allAnswered: Int? {
+        for q in questions {
+            if answers[q.id]?.isEmpty == true {
+                return q.id
             }
         }
-        return true
+        return nil
     }
     
-    func submit() async throws -> Bool {
+    func submit() async throws -> (Bool, Int?) {
         let (correct, token, wrongIds) = try await DXRequests.submitQuestions(answers: answers, version: version)
         if correct {
             DXModel.shared.token = token // reset token
@@ -239,6 +274,6 @@ fileprivate class QuestionModel: ObservableObject {
         } else {
             wrongQuestionPublisher.send(wrongIds)
         }
-        return correct
+        return (correct, wrongIds.first)
     }
 }
