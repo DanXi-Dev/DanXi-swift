@@ -45,11 +45,11 @@
 		<true/>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>DanXi needs access to your calendar to store courses information</string>
+	<string>DanXi needs to write to your calendar to save your courses events.</string>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-	<string>DanXi needs access to your calendar to store courses information</string>
+	<string>DanXi needs to write to your calendar to save your courses events.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>DanXi needs to write to your photo library to save your images.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

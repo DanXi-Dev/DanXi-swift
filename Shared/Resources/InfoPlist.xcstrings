@@ -13,7 +13,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "校园助手"
           }
         }
@@ -28,22 +28,46 @@
             "state" : "new",
             "value" : "DanXi"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕"
+          }
         }
       }
     },
     "NSCalendarsUsageDescription" : {
       "comment" : "Privacy - Calendars Usage Description",
+      "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "DanXi needs to access calendar to store course events."
+            "state" : "new",
+            "value" : "DanXi needs to write to your calendar to save your courses events."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕需要访问系统日历以存储课程信息"
+            "value" : "旦夕需要日历写入权限以保存您的课程。"
+          }
+        }
+      }
+    },
+    "NSCalendarsWriteOnlyAccessUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DanXi needs to write to your calendar to save your courses events."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕需要日历写入权限以保存您的课程。"
           }
         }
       }
@@ -55,7 +79,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : ""
+            "value" : "DanXi needs to write to your photo library to save your images."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕需要相册写入权限以保存您的图片。"
           }
         }
       }
