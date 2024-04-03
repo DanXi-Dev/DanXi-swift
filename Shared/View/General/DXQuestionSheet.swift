@@ -141,6 +141,7 @@ fileprivate struct QuestionLabel: View {
             .font(.footnote)
             
             Text(question.question)
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(incorrect ? .red : .primary)
         }
     }
