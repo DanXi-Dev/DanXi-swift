@@ -132,11 +132,6 @@ fileprivate struct QuestionLabel: View {
                     case .singleSelection: Text("Single Selection")
                     case .multipleSelection: Text("Multiple Selection")
                     }
-                    
-                    switch question.group {
-                    case .required: Text("Question.Required")
-                    case .optional: Text("Question.Optional")
-                    }
                 }
                 .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                 .background(.accentColor.opacity(colorScheme == .light ? 0.1 : 0.2))

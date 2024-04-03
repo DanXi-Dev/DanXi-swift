@@ -4082,6 +4082,7 @@
       }
     },
     "Question.Optional" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4098,6 +4099,7 @@
       }
     },
     "Question.Required" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
