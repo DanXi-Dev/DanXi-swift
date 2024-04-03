@@ -4,7 +4,7 @@ struct DKHomePage: View {
     var body: some View {
         AsyncContentView { () -> [DKCourseGroup] in
             try await DKModel.shared.loadAll()
-            return DKModel.shared.courses
+            return DKModel.shared.courses.shuffled()
         } content: { courses in
             HomePageContent(courses: courses)
         }
