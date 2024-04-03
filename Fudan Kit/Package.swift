@@ -6,17 +6,20 @@ let package = Package(
     name: "FudanKit",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v16), .watchOS(.v9)
     ],
     products: [
         .library(name: "FudanKit", targets: ["FudanKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.6.0"),
+        .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.0.0"),
+        .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(path: "../Utils"),
+        
     ],
     targets: [
-        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils"], path: "."),
+        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON"], path: "."),
     ]
 )
 

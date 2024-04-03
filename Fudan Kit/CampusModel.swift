@@ -1,5 +1,9 @@
 import SwiftUI
+#if !os(watchOS)
 import Disk
+#else
+import Utils
+#endif
 
 @MainActor
 public class CampusModel: ObservableObject {

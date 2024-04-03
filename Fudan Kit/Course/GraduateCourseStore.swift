@@ -1,6 +1,9 @@
 import Foundation
+#if !os(watchOS)
 import Disk
-
+#else
+import Utils
+#endif
 public actor GraduateCourseStore {
     public static let shared = GraduateCourseStore()
     

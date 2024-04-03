@@ -1,5 +1,9 @@
 import Foundation
+#if !os(watchOS)
 import Disk
+#else
+import Utils
+#endif
 
 /// App-wide cache for reservation. Cache is persisted to disk.
 /// Only `Playground` is cached, not `Reservation`, which

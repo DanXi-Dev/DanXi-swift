@@ -1,6 +1,8 @@
 import Foundation
 import Combine
+#if os(iOS)
 import Disk
+#endif
 
 // MARK: - Configuration Center
 

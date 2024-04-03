@@ -1,6 +1,10 @@
 import SwiftUI
-import Disk
+#if !os(watchOS)
 import EventKit
+import Disk
+#else
+import Utils
+#endif
 
 public class CourseModel: ObservableObject {
     
@@ -195,6 +199,8 @@ public class CourseModel: ObservableObject {
     
     // MARK: - Calendars
     
+    #if !os(watchOS)
+    
     public struct CourseKey: Identifiable, Hashable {
         public var id: String { code }
         public let code: String
@@ -226,6 +232,8 @@ public class CourseModel: ObservableObject {
         
         try eventStore.commit()
     }
+    
+    #endif
 }
 
 func computeWeekOffset(from startDate: Date?, courses: [Course]) -> Int {
@@ -316,6 +324,7 @@ extension Course {
         return (startDate, endDate)
     }
     
+    #if !os(watchOS)
     func exportEvents(for eventStore: EKEventStore, to calendar: EKCalendar, semesterStart: Date) throws {
         guard !onWeeks.isEmpty else { return }
         if let recurrentWeek = recurrentWeek {
@@ -342,4 +351,5 @@ extension Course {
             }
         }
     }
+    #endif
 }

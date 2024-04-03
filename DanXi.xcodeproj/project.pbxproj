@@ -97,21 +97,14 @@
 		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
-		27D07BF42A78261900B94855 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF32A78261900B94855 /* Markdown */; };
-		27D07BF62A78261900B94855 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF52A78261900B94855 /* SwiftSoup */; };
-		27D07BF82A78261900B94855 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF72A78261900B94855 /* CachedAsyncImage */; };
-		27D07BFA2A78261900B94855 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BF92A78261900B94855 /* SwiftUIX */; };
-		27D07BFC2A78261900B94855 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BFB2A78261900B94855 /* SwiftyJSON */; };
-		27D07C002A78261900B94855 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D07BFF2A78261900B94855 /* KeychainAccess */; };
-		27D07C042A7826A200B94855 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
-		27D07C052A7826AD00B94855 /* RichTextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2729071028B0B3DE0087ACC0 /* RichTextProcess.swift */; };
-		27D07C062A7826B000B94855 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E2DE7A2A55496D00D26D86 /* Date.swift */; };
-		27D07C082A7826B800B94855 /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D3A4962BBC844200350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4952BBC844200350D21 /* CampusUI */; };
 		27D3A4982BBC9C6100350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4972BBC9C6100350D21 /* CampusUI */; };
 		27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49B2BBC9E0900350D21 /* SwiftyJSON */; };
 		27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49D2BBC9E1A00350D21 /* KeychainAccess */; };
 		27D3A49F2BBC9F0800350D21 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
+		27D3A4AA2BBCFA6E00350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */; };
+		27D3A4AC2BBCFB0D00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7110728CA29B7001E9464 /* THReportSheet.swift */; };
 		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
@@ -124,7 +117,6 @@
 		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
 		27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DD20E0299FC16D00E9F833 /* DKStarRatingView.swift */; };
 		27DE299829E5A83600B5B28A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE299729E5A83600B5B28A /* Sheet.swift */; };
-		27E1178B2A782ABA0006EE20 /* DXEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0F2912C33C007C2905 /* DXEntity.swift */; };
 		27E1178C2A782BC90006EE20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52C29D09CF700B333BA /* AppModel.swift */; };
 		27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */; };
@@ -330,12 +322,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D07BF82A78261900B94855 /* CachedAsyncImage in Frameworks */,
-				27D07C002A78261900B94855 /* KeychainAccess in Frameworks */,
-				27D07BF42A78261900B94855 /* Markdown in Frameworks */,
-				27D07BF62A78261900B94855 /* SwiftSoup in Frameworks */,
-				27D07BFC2A78261900B94855 /* SwiftyJSON in Frameworks */,
-				27D07BFA2A78261900B94855 /* SwiftUIX in Frameworks */,
+				27D3A4AA2BBCFA6E00350D21 /* SwiftyJSON in Frameworks */,
+				27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */,
+				27D3A4AC2BBCFB0D00350D21 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,12 +690,9 @@
 			);
 			name = "DanXi Watch";
 			packageProductDependencies = (
-				27D07BF32A78261900B94855 /* Markdown */,
-				27D07BF52A78261900B94855 /* SwiftSoup */,
-				27D07BF72A78261900B94855 /* CachedAsyncImage */,
-				27D07BF92A78261900B94855 /* SwiftUIX */,
-				27D07BFB2A78261900B94855 /* SwiftyJSON */,
-				27D07BFF2A78261900B94855 /* KeychainAccess */,
+				27D3A4A72BBCFA3D00350D21 /* FudanKit */,
+				27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */,
+				27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */,
 			);
 			productName = "DanXi-watch Watch App";
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
@@ -865,13 +851,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D07C062A7826B000B94855 /* Date.swift in Sources */,
-				27E1178B2A782ABA0006EE20 /* DXEntity.swift in Sources */,
-				27D07C082A7826B800B94855 /* BundleResource.swift in Sources */,
-				27D07C052A7826AD00B94855 /* RichTextProcess.swift in Sources */,
 				274C197529D1BF9B000DE221 /* ContentView.swift in Sources */,
 				274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */,
-				27D07C042A7826A200B94855 /* Network.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,7 +1011,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -1061,7 +1042,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -1500,36 +1481,6 @@
 			package = 27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */;
 			productName = LaTeXSwiftUI;
 		};
-		27D07BF32A78261900B94855 /* Markdown */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */;
-			productName = Markdown;
-		};
-		27D07BF52A78261900B94855 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		27D07BF72A78261900B94855 /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
-		};
-		27D07BF92A78261900B94855 /* SwiftUIX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
-			productName = SwiftUIX;
-		};
-		27D07BFB2A78261900B94855 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		27D07BFF2A78261900B94855 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
-		};
 		27D3A4952BBC844200350D21 /* CampusUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CampusUI;
@@ -1544,6 +1495,20 @@
 			productName = SwiftyJSON;
 		};
 		27D3A49D2BBC9E1A00350D21 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		27D3A4A72BBCFA3D00350D21 /* FudanKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanKit;
+		};
+		27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
