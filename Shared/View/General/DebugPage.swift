@@ -51,17 +51,15 @@ struct DebugPage: View {
 
 fileprivate struct DebugURLForm: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var auth: String = FDUHOLE_AUTH_URL
-    @State private var fduhole: String = FDUHOLE_BASE_URL
-    @State private var danke: String = DANKE_BASE_URL
+    @ObservedObject private var urls = FDUHoleUrls.shared
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Auth", text: $auth)
-                    TextField("fduhole", text: $fduhole)
-                    TextField("danke", text: $danke)
+                    TextField("Auth", text: urls.$fduholeAuthUrl)
+                    TextField("fduhole", text: urls.$fduholeBaseUrl)
+                    TextField("danke", text: urls.$dankeBaseUrl)
                 }
             }
             .navigationTitle("Debug Base URL")
@@ -69,12 +67,12 @@ fileprivate struct DebugURLForm: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        if let authURL = URL(string: auth),
-                           let fduholeURL = URL(string: fduhole),
-                           let dankeURL = URL(string: danke) {
-                            FDUHOLE_AUTH_URL = authURL.absoluteString
-                            FDUHOLE_BASE_URL = fduholeURL.absoluteString
-                            DANKE_BASE_URL = dankeURL.absoluteString
+                        if let authURL = URL(string: urls.fduholeAuthUrl),
+                           let fduholeURL = URL(string: urls.fduholeBaseUrl),
+                           let dankeURL = URL(string: urls.dankeBaseUrl) {
+                            urls.fduholeAuthUrl = authURL.absoluteString
+                            urls.fduholeBaseUrl = fduholeURL.absoluteString
+                            urls.dankeBaseUrl = dankeURL.absoluteString
                         }
                         dismiss()
                     } label: {
@@ -95,6 +93,7 @@ fileprivate struct DebugURLForm: View {
 
 fileprivate struct DebugHTTPForm: View {
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var urls = FDUHoleUrls.shared
     
     enum BaseURL {
         case fduhole, auth, danke, custom
@@ -117,11 +116,11 @@ fileprivate struct DebugHTTPForm: View {
         var base = ""
         switch baseURL {
         case .fduhole:
-            base = FDUHOLE_BASE_URL
+            base = urls.fduholeBaseUrl
         case .auth:
-            base = FDUHOLE_AUTH_URL
+            base = urls.fduholeAuthUrl
         case .danke:
-            base = DANKE_BASE_URL
+            base = urls.dankeBaseUrl
         case .custom:
             base = ""
         }

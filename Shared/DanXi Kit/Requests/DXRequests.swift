@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import SwiftUI
 
 struct DXRequests {
     // MARK: - Account
@@ -7,7 +8,8 @@ struct DXRequests {
     /// Request email verification code.
     /// - Parameter email: Email, must end with fudan domain name suffix.
     static func verifyEmail(email: String) async throws {
-        var components = URLComponents(string: FDUHOLE_AUTH_URL + "/verify/email")!
+        @ObservedObject var urls = FDUHoleUrls.shared
+        var components = URLComponents(string: (urls.fduholeAuthUrl + "/verify/email"))!
         components.queryItems = [URLQueryItem(name: "email", value: email)]
         let request = prepareRequest(components.url!)
         _ = try await sendRequest(request)
@@ -23,6 +25,9 @@ struct DXRequests {
                   password: String,
                   verification: String,
                          create: Bool) async throws -> Token {
+        
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
         struct ChangePasswordConfig: Codable {
             let password: String
             let email: String
@@ -33,7 +38,7 @@ struct DXRequests {
                                            email: email,
                                            verification: verification)
         let method = create ? "POST" : "PUT"
-        let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/register")!, payload: payload, method: method)
+        let request = try prepareJSONRequest(URL(string: urls.fduholeAuthUrl + "/register")!, payload: payload, method: method)
         let (data, _) = try await sendRequest(request)
         return try processJSONData(data)
     }
@@ -41,7 +46,8 @@ struct DXRequests {
     // MARK: - Register Questions
     
     static func retrieveQuestions() async throws -> DXQuestions {
-        return try await DXResponse(URL(string: FDUHOLE_AUTH_URL + "/register/questions")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        return try await DXResponse(URL(string: urls.fduholeAuthUrl + "/register/questions")!)
     }
     
     static func submitQuestions(answers: [Int : [String]], version: Int) async throws -> (Bool, Token?, [Int]) {
@@ -54,6 +60,8 @@ struct DXRequests {
             let id: Int
             let answer: [String]
         }
+        
+        @ObservedObject var urls = FDUHoleUrls.shared
 
         // transform data structure
         var submit = Submit(version: version, answers: [])
@@ -61,7 +69,7 @@ struct DXRequests {
             submit.answers.append(SubmitItem(id: id, answer: answer))
         }
         
-        let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/register/questions/_answer")!,
+        let request = try prepareJSONRequest(URL(string: urls.fduholeAuthUrl + "/register/questions/_answer")!,
                                              payload: submit)
         let data = try await autoRefresh(request)
         let json = try JSON(data: data)
@@ -89,7 +97,9 @@ struct DXRequests {
     
     /// Get current user info.
     static func loadUserInfo() async throws -> DXUser {
-        let request = prepareRequest(URL(string: FDUHOLE_BASE_URL + "/users/me")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        let request = prepareRequest(URL(string: urls.fduholeBaseUrl + "/users/me")!)
         let data = try await autoRefresh(request)
         do {
             var user = try JSONDecoder().decode(DXUser.self, from: data)
@@ -134,9 +144,11 @@ struct DXRequests {
             let password: String
         }
         
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
         do {
             let payload = LoginBody(email: username, password: password)
-            let request = try prepareJSONRequest(URL(string: FDUHOLE_AUTH_URL + "/login")!, payload: payload)
+            let request = try prepareJSONRequest(URL(string: urls.fduholeAuthUrl + "/login")!, payload: payload)
             let (data, _) = try await sendRequest(request)
             return try processJSONData(data)
         } catch let error as HTTPError {
@@ -150,7 +162,9 @@ struct DXRequests {
     
     /// Logout and invalidate token.
     static func logout() async throws {
-        try await DXRequest(URL(string: FDUHOLE_AUTH_URL + "/logout")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        try await DXRequest(URL(string: urls.fduholeAuthUrl + "/logout")!)
     }
     
     /// Request a new token when current token is expired.
@@ -160,8 +174,10 @@ struct DXRequests {
             throw DXError.tokenNotFound
         }
         
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
         do {
-            var request = prepareRequest(URL(string: FDUHOLE_AUTH_URL + "/refresh")!, method: "POST")
+            var request = prepareRequest(URL(string: urls.fduholeAuthUrl + "/refresh")!, method: "POST")
             request.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
             let (data, _) = try await sendRequest(request)
             return try processJSONData(data)
@@ -179,10 +195,11 @@ struct DXRequests {
             let token: String
             let packageName: String
         }
+        @ObservedObject var urls = FDUHoleUrls.shared
         
         let packageName = Bundle.main.bundleIdentifier ?? "com.fduhole.danxi"
         let config = UploadConfig(service: "apns", deviceId: deviceId, token: token, packageName: packageName)
-        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/push-tokens")!, payload: config)
+        try await DXRequest(URL(string: urls.fduholeBaseUrl + "/users/push-tokens")!, payload: config)
     }
     
     static func deleteNotificationToken(deviceId: String) async throws {
@@ -190,8 +207,10 @@ struct DXRequests {
             let deviceId: String
         }
         
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
         let config = DeleteConfig(deviceId: deviceId)
-        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/push-tokens")!,
+        try await DXRequest(URL(string: urls.fduholeBaseUrl + "/users/push-tokens")!,
                             payload: config, method: "DELETE")
     }
     
@@ -208,7 +227,9 @@ struct DXRequests {
             }
         }
         
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
         let user = User(config)
-        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/users/\(userId)")!, payload: user, method: "PUT")
+        try await DXRequest(URL(string: urls.fduholeBaseUrl + "/users/\(userId)")!, payload: user, method: "PUT")
     }
 }

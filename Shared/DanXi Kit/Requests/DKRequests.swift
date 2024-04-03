@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct DKRequests {
     
@@ -7,13 +8,15 @@ struct DKRequests {
     
     /// Get all course groups.
     static func loadCourseGroups() async throws -> [DKCourseGroup] {
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/courses")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        return try await DXResponse(URL(string: urls.dankeBaseUrl + "/courses")!)
     }
     
     
     /// Get course group by ID.
     static func loadCourseGroup(id: Int) async throws -> DKCourseGroup {
-        let components = URLComponents(string: DANKE_BASE_URL + "/group/\(id)")!
+        @ObservedObject var urls = FDUHoleUrls.shared
+        let components = URLComponents(string: urls.dankeBaseUrl + "/group/\(id)")!
         return try await DXResponse(components.url!)
     }
     
@@ -24,14 +27,18 @@ struct DKRequests {
             let hash: String
         }
         
-        let hash: Hash = try await DXResponse(URL(string: DANKE_BASE_URL + "/courses/hash")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        let hash: Hash = try await DXResponse(URL(string: urls.dankeBaseUrl + "/courses/hash")!)
         return hash.hash
     }
     
 
     /// Get course by ID.
     static func loadCourse(id: Int) async throws -> DKCourse {
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/course/\(id)")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        return try await DXResponse(URL(string: urls.dankeBaseUrl + "/course/\(id)")!)
     }
     
     
@@ -40,7 +47,9 @@ struct DKRequests {
     
     /// Get all reviews published by me.
     static func myReviews() async throws -> [DKReview] {
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/reviews/me")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        return try await DXResponse(URL(string: urls.dankeBaseUrl + "/reviews/me")!)
     }
     
     
@@ -49,7 +58,9 @@ struct DKRequests {
     /// - Parameter courseId: Course ID.
     /// - Returns: Review list.
     static func loadReviews(courseId: Int) async throws -> [DKReview] {
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/courses/\(courseId)/reviews")!)
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        return try await DXResponse(URL(string: urls.dankeBaseUrl + "/courses/\(courseId)/reviews")!)
     }
     
     
@@ -67,8 +78,10 @@ struct DKRequests {
             let title, content: String
             let rank: DKRank
         }
+        
+        @ObservedObject var urls = FDUHoleUrls.shared
 
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/courses/\(courseId)/reviews")!,
+        return try await DXResponse(URL(string: urls.dankeBaseUrl + "/courses/\(courseId)/reviews")!,
                                     payload: ReviewConfig(title: title, content: content, rank: rank),
                                     method: modify ? "PUT" : "POST")
     }
@@ -77,7 +90,9 @@ struct DKRequests {
     /// Remove review by ID.
     /// - Parameter id: Review ID.
     static func removeReview(id: Int) async throws {
-        try await DXRequest(URL(string: DANKE_BASE_URL + "reviews/\(id)")!, method: "DELETE")
+        @ObservedObject var urls = FDUHoleUrls.shared
+        
+        try await DXRequest(URL(string: urls.dankeBaseUrl + "reviews/\(id)")!, method: "DELETE")
     }
     
     
@@ -91,8 +106,10 @@ struct DKRequests {
         struct UpvoteConfig: Codable {
             let upvote: Bool
         }
+        
+        @ObservedObject var urls = FDUHoleUrls.shared
 
-        return try await DXResponse(URL(string: DANKE_BASE_URL + "/reviews/\(reviewId)")!,
+        return try await DXResponse(URL(string: urls.dankeBaseUrl + "/reviews/\(reviewId)")!,
                                     payload: UpvoteConfig(upvote: upvote), method: "PATCH")
     }
 }
