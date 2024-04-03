@@ -1,4 +1,5 @@
 import SwiftUI
+import SensitiveContentAnalysis
 import PhotosUI
 
 struct THSettingsView: View {
@@ -12,10 +13,10 @@ struct THSettingsView: View {
                 Label("Push Notification Settings", systemImage: "app.badge")
             }
             
-            Picker(selection: $settings.sensitiveContent, label: Label("NSFW Content", systemImage: "eye.square")) {
-                Text("Show").tag(THSettings.SensitiveContentSetting.show)
-                Text("Fold").tag(THSettings.SensitiveContentSetting.fold)
-                Text("Hide").tag(THSettings.SensitiveContentSetting.hide)
+            NavigationLink {
+                NSFWSettings()
+            } label: {
+                Label("NSFW Content", systemImage: "eye.square")
             }
             
             NavigationLink {
@@ -26,6 +27,41 @@ struct THSettingsView: View {
             
             //            ImagePicker() // FDUHole background image
         }
+    }
+}
+
+fileprivate struct NSFWSettings: View {
+    @ObservedObject private var settings = THSettings.shared
+    
+    var body: some View {
+        Form {
+            Picker(selection: $settings.sensitiveContent) {
+                Text("Show").tag(THSettings.SensitiveContentSetting.show)
+                Text("Fold").tag(THSettings.SensitiveContentSetting.fold)
+                Text("Hide").tag(THSettings.SensitiveContentSetting.hide)
+            }
+            .pickerStyle(.inline)
+            
+            if #available(iOS 17, *) {
+                let policy = SCSensitivityAnalyzer().analysisPolicy
+                Section {
+                    LabeledContent {
+                        switch(policy) {
+                        case .disabled:
+                            Text("Disabled")
+                        default:
+                            Text("Enabled")
+                        }
+                    } label: {
+                        Text("Sensitive Content Analysis")
+                    }
+                } footer: {
+                    Text("Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in [system settings](\(UIApplication.openSettingsURLString))")
+                }
+            }
+        }
+        .navigationTitle("NSFW Content")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
