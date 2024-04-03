@@ -6000,6 +6000,16 @@
         }
       }
     },
+    "You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您没有屏蔽任何树洞。若要屏蔽树洞，可以长按它并选择屏蔽。"
+          }
+        }
+      }
+    },
     "Yuan" : {
       "extractionState" : "stale",
       "localizations" : {
