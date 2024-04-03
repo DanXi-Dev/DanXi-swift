@@ -114,19 +114,22 @@ public struct CachedRemoteImage: View {
             }
         case .loaded(let loaded, let sensitive):
             if sensitive && !showSensitive {
-                ZStack(alignment: .center, content: {
-                    ImageViewer(image: loaded)
-                        .blur(radius: 30.0)
-                        .clipped()
-                        .allowsHitTesting(false)
-
-                    Image(systemName: "eye.trianglebadge.exclamationmark")
-                        .font(.largeTitle)
-                })
-                .onTapGesture {
+                Button(action:  {
                     withAnimation {
                         showSensitive = true
                     }
+                }) {
+                    ZStack(alignment: .center, content: {
+                        ImageViewer(image: loaded)
+                            .blur(radius: 30.0)
+                            .clipped()
+                            .allowsHitTesting(false)
+                        
+                        Image(systemName: "eye.trianglebadge.exclamationmark")
+                            .font(.largeTitle)
+                            .foregroundColor(.primary)
+                            .symbolRenderingMode(.multicolor)
+                    })
                 }
             } else {
                 ImageViewer(image: loaded)
