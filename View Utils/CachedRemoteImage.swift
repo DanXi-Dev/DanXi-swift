@@ -2,6 +2,34 @@ import SwiftUI
 import SensitiveContentAnalysis
 import Disk
 
+actor MemoryImageCache {
+    let capacity: Int = 100
+    
+    static public let shared = MemoryImageCache()
+    // [Key : (Image, isSensitive)]
+    private var cache: [String: (CachedRemoteImage.LoadedImage, Bool)] = [:]
+    
+    init() {
+        cache.reserveCapacity(capacity)
+    }
+    
+    public func getImage(_ key: String) -> (CachedRemoteImage.LoadedImage, Bool)? {
+        cache[key]
+    }
+    
+    public func setImage(_ key: String, _ value: (CachedRemoteImage.LoadedImage, Bool)) {
+        if cache.count >= capacity {
+            evict()
+        }
+        cache[key] = value
+    }
+    
+    func evict() {
+        cache = Dictionary(uniqueKeysWithValues: cache.suffix(capacity / 2))
+        cache.reserveCapacity(capacity)
+    }
+}
+
 public struct CachedRemoteImage: View {
     @State private var showSensitive = false
     
@@ -57,17 +85,24 @@ public struct CachedRemoteImage: View {
                 let filename = "cachedimages/\(name).jpg"
                 let sensitiveMarker = filename + "-sensitive"
                 
-                // retrive cache from disk
+                // Retrieve from memory first
+                if let (loadedImage, sensitive) = await MemoryImageCache.shared.getImage(filename) {
+                    await setLoadingStatus(.loaded(image: loadedImage, sensitive: sensitive))
+                    return
+                }
+                
+                // Retrive cache from disk
                 if let fileURL = try? Disk.url(for: filename, in: .caches),
                    let uiImage = try? Disk.retrieve(filename, from: .caches, as: UIImage.self) {
                     let image = Image(uiImage: uiImage)
                     let loadedImage = LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
                     let sensitive = Disk.exists(sensitiveMarker, in: .caches)
+                    await MemoryImageCache.shared.setImage(filename, (loadedImage, sensitive))
                     await setLoadingStatus(.loaded(image: loadedImage, sensitive: sensitive))
                     return
                 }
                 
-                // download from internet
+                // Download from internet
                 let (data, _) = try await URLSession.shared.data(from: url)
                 guard let uiImage = UIImage(data: data) else { throw URLError(.badServerResponse) }
                 let image = Image(uiImage: uiImage)
@@ -79,6 +114,7 @@ public struct CachedRemoteImage: View {
                     // Create a file to mark sensitive
                     try? Disk.save("", to: .caches, as: sensitiveMarker)
                 }
+                await MemoryImageCache.shared.setImage(filename, (loadedImage, sensitive))
                 await setLoadingStatus(.loaded(image: loadedImage, sensitive: sensitive))
             } catch {
                 loadingStatus = .error(error: error)
