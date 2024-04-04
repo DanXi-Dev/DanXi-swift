@@ -67,12 +67,15 @@ fileprivate struct DebugURLForm: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        if let authURL = URL(string: urls.fduholeAuthUrl),
-                           let fduholeURL = URL(string: urls.fduholeBaseUrl),
-                           let dankeURL = URL(string: urls.dankeBaseUrl) {
-                            urls.fduholeAuthUrl = authURL.absoluteString
-                            urls.fduholeBaseUrl = fduholeURL.absoluteString
-                            urls.dankeBaseUrl = dankeURL.absoluteString
+                        if let authURL = URL(string: auth),
+                           let fduholeURL = URL(string: fduhole),
+                           let dankeURL = URL(string: danke) {
+                            UserDefaults.standard.set(authURL.absoluteString, forKey: "fduhole_auth_url")
+                            UserDefaults.standard.set(fduholeURL.absoluteString, forKey: "fduhole_base_url")
+                            UserDefaults.standard.set(dankeURL.absoluteString, forKey: "danke_base_url")
+//                            FDUHOLE_AUTH_URL = authURL.absoluteString
+//                            FDUHOLE_BASE_URL = fduholeURL.absoluteString
+//                            DANKE_BASE_URL = dankeURL.absoluteString
                         }
                         dismiss()
                     } label: {
