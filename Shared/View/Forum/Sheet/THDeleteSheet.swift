@@ -19,6 +19,7 @@ struct THDeleteSheet: View {
             } header: {
                 Label("Content to Delete", systemImage: "text.alignleft")
             }
+            .labelStyle(.titleOnly)
             
             Section {
                 TextField("Enter delete reason", text: $reason)
@@ -41,11 +42,13 @@ struct THDeleteSheet: View {
                     }
                 }
             }
+            .labelStyle(.titleOnly)
             
             if ban {
                 PunishmentNotice()
             }
         }
+        .warnDiscard(!reason.isEmpty)
     }
 }
 
