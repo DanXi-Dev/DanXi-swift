@@ -95,7 +95,6 @@ fileprivate struct FDUserSheet: View {
                             Section {
                                 LabeledContent("Name", value: profile.name)
                                 LabeledContent("Fudan.ID", value: profile.campusId)
-                                LabeledContent("ID Number", value: profile.idNumber)
                                 LabeledContent("Department", value: profile.department)
                                 LabeledContent("Major", value: profile.major)
                             }
