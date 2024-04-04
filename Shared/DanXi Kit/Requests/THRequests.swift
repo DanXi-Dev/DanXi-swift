@@ -1,6 +1,5 @@
 import Foundation
 import SwiftyJSON
-import SwiftUI
 
 struct THRequests {
     
@@ -10,8 +9,7 @@ struct THRequests {
     /// List all divisions.
     /// - Returns: A list of `THDivision`
     static func loadDivisions() async throws -> [THDivision] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/divisions")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions")!)
     }
     
     
@@ -19,8 +17,7 @@ struct THRequests {
     /// - Parameter id: Division ID.
     /// - Returns: The matching `THDivision`.
     static func getDivision(id: Int) async throws -> THDivision {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/divisions/\(id)")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!)
     }
     
     static func modifyDivision(id: Int, name: String, description: String, pinned: [Int]) async throws -> THDivision {
@@ -30,10 +27,8 @@ struct THRequests {
             let pinned: [Int]
         }
         
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         let payload = ModifyConfig(name: name, description: description, pinned: pinned)
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/divisions/\(id)")!, payload: payload, method: "PUT")
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(id)")!, payload: payload, method: "PUT")
     }
     
     
@@ -46,9 +41,7 @@ struct THRequests {
     ///   - divisionId: Division ID.
     /// - Returns: A list of holes.
     static func loadHoles(startTime: String? = nil, divisionId: Int, order: String = "time_updated") async throws -> [THHole] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/divisions/\(divisionId)/holes")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!
         components.queryItems = [URLQueryItem(name: "order", value: order)]
         if let time = startTime {
             components.queryItems?.append(URLQueryItem(name: "offset", value: time))
@@ -75,12 +68,10 @@ struct THRequests {
             var tags: [Tag]
         }
         
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         let payload = Post(content: content,
                            specialTag: specialTag,
                            tags: tags.map { Tag(name: $0) })
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/divisions/\(divisionId)/holes")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/divisions/\(divisionId)/holes")!,
                                      payload: payload)
     }
     
@@ -89,10 +80,8 @@ struct THRequests {
     /// - Parameter holeId: Hole ID.
     /// - Returns: The matching `THHole`.
     static func loadHoleById(holeId: Int) async throws -> THHole {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         do {
-            let url = URL(string: urls.fduholeBaseUrl + "/holes/\(holeId)")!
+            let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
             return try await DXResponse(url)
         } catch let error as HTTPError {
             if error.code == 404 {
@@ -108,9 +97,8 @@ struct THRequests {
     /// - Parameter startTime: Updated time offset, default is now.
     /// - Returns: A list of holes.
     static func loadMyHoles(startTime: Date? = nil) async throws -> [THHole] {
-        @ObservedObject var urls = FDUHoleUrls.shared
         
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/users/me/holes")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/users/me/holes")!
         if let time = startTime {
             components.queryItems = [URLQueryItem(name: "offset", value: time.ISO8601Format())]
             components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -121,9 +109,7 @@ struct THRequests {
     
     /// Modify hole.
     static func modifyHole(_ info: THHoleInfo) async throws -> THHole {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        let components = URLComponents(string: urls.fduholeBaseUrl + "/holes/\(info.holeId)")!
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(info.holeId)")!
         return try await DXResponse(components.url!, payload: info, method: "PUT")
     }
     
@@ -131,9 +117,7 @@ struct THRequests {
     /// Hide a hole, only visible to admins.
     /// - Parameter holeId: Hole ID.
     static func deleteHole(holeId: Int) async throws {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        let url = URL(string: urls.fduholeBaseUrl + "/holes/\(holeId)")!
+        let url = URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         try await DXRequest(url, method: "DELETE")
     }
     
@@ -141,9 +125,7 @@ struct THRequests {
     /// Update hole view count.
     /// - Parameter holeId: Hole ID.
     static func updateViews(holeId: Int) async throws {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        let components = URLComponents(string: urls.fduholeBaseUrl + "/holes/\(holeId)")!
+        let components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)")!
         try await DXRequest(components.url!, method: "PATCH")
     }
     
@@ -153,9 +135,7 @@ struct THRequests {
     ///   - startTime: update time offset
     /// - Returns: List of `THHole`.
     static func listHoleByTag(tagName: String, startTime: String? = nil) async throws -> [THHole] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/holes")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes")!
         components.queryItems = [URLQueryItem(name: "tag", value: tagName)]
         if let time = startTime {
             components.queryItems?.append(URLQueryItem(name: "start_time", value: time))
@@ -171,10 +151,8 @@ struct THRequests {
     /// Get a floor by ID.
     /// - Parameter floorId: Floor ID.
     static func loadFloorById(floorId: Int) async throws -> THFloor {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         do {
-            return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)")!)
+            return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!)
         } catch let error as HTTPError {
             if error.code == 404 {
                 throw DXError.floorNotExist(floorId: floorId)
@@ -205,15 +183,13 @@ struct THRequests {
             let content: String
         }
         
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         let isAdmin = !fold.isEmpty || !specialTag.isEmpty
         if isAdmin {
-            return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)")!,
+            return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
                                         payload: AdminEditConfig(content: content, specialTag: specialTag, foldV2: fold),
                                         method: "PUT")
         } else {
-            return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)")!,
+            return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
                                         payload: EditConfig(content: content),
                                         method: "PUT")
         }
@@ -230,9 +206,7 @@ struct THRequests {
             let deleteReason: String
         }
         
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)")!,
                                     payload: DeleteConfig(deleteReason: reason), method: "DELETE")
     }
     
@@ -240,8 +214,7 @@ struct THRequests {
     /// Get a floor's history.
     /// - Parameter floorId: Floor ID.
     static func loadFloorHistory(floorId: Int) async throws -> [THHistory] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)/history")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/history")!)
     }
     
     
@@ -251,8 +224,7 @@ struct THRequests {
     ///   - like: Set like status, 1 is like, 0 is reset, -1 is dislike.
     /// - Returns: Modified floor.
     static func like(floorId: Int, like: Int) async throws -> THFloor {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl +
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL +
                                              "/floors/\(floorId)/like/\(like)")!,
                                     method: "POST")
     }
@@ -268,9 +240,8 @@ struct THRequests {
         struct RestoreConfig: Codable {
             let restoreReason: String
         }
-        @ObservedObject var urls = FDUHoleUrls.shared
         
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)/restore/\(historyId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/restore/\(historyId)")!,
                                     payload: RestoreConfig(restoreReason: restoreReason))
     }
     
@@ -281,9 +252,7 @@ struct THRequests {
     ///   - startFloor: Start floor offset.
     /// - Returns: A list of floors.
     static func loadFloors(holeId: Int, startFloor: Int) async throws -> [THFloor] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/holes/\(holeId)/floors")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!
         components.queryItems = [
             URLQueryItem(name: "offset", value: String(startFloor)),
             URLQueryItem(name: "order_by", value: "id")
@@ -297,9 +266,7 @@ struct THRequests {
     /// - Parameter holeId: Hole ID.
     /// - Returns: A list of floors.
     static func loadAllFloors(holeId: Int) async throws -> [THFloor] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/floors")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         components.queryItems = [
             URLQueryItem(name: "hole_id", value: String(holeId)),
             URLQueryItem(name: "start_floor", value: "0"),
@@ -321,18 +288,14 @@ struct THRequests {
             let specialTag: String
             // TODO: reply to
         }
-        
-        @ObservedObject var urls = FDUHoleUrls.shared
 
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/holes/\(holeId)/floors")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/holes/\(holeId)/floors")!,
                              payload: ReplyConfig(content: content, specialTag: specialTag))
     }
     
     
     static func loadMyFloor(offset: Int) async throws -> [THFloor] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/users/me/floors")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/users/me/floors")!
         components.queryItems = [URLQueryItem(name: "offset", value: String(offset))]
         return try await DXResponse(components.url!)
     }
@@ -342,9 +305,7 @@ struct THRequests {
     
     // TODO: Implement new search API
     static func searchKeyword(keyword: String, startFloor: Int = 0) async throws -> [THFloor] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/floors")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors")!
         components.queryItems = [
             URLQueryItem(name: "s", value: keyword),
             URLQueryItem(name: "length", value: "10"),
@@ -363,9 +324,7 @@ struct THRequests {
     ///   - range: Report type, 0: not dealt; 1: dealt; 2: all
     /// - Returns: Report list.
     static func loadReports(offset: Int, range: Int) async throws -> [THReport] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/reports")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/reports")!
         components.queryItems = [
             URLQueryItem(name: "offset", value: String(offset)),
             URLQueryItem(name: "range", value: String(range))
@@ -379,14 +338,12 @@ struct THRequests {
     ///   - floorId: Floor ID to report.
     ///   - reason: Report reason.
     static func report(floorId: Int, reason: String) async throws {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct ReportConfig: Codable {
             let floorId: Int
             let reason: String
         }
 
-        try await DXRequest(URL(string: urls.fduholeBaseUrl + "/reports")!,
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/reports")!,
                               payload: ReportConfig(floorId: floorId, reason: reason))
     }
     
@@ -395,9 +352,7 @@ struct THRequests {
     /// - Parameter reportId: Report ID
     /// - Returns: A matching `THReport`.
     static func getReportById(reportId: Int) async throws -> THReport {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/reports/\(reportId)")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!)
     }
     
     
@@ -405,9 +360,7 @@ struct THRequests {
     /// - Parameter reportId: Report ID.
     /// - Returns: Dealt `THReport` struct.
     static func dealReport(reportId: Int) async throws -> THReport {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/reports/\(reportId)")!,
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/reports/\(reportId)")!,
                                     method: "DELETE")
     }
     
@@ -415,10 +368,8 @@ struct THRequests {
     // MARK: Moderation
     
     static func listSensitive(startTime: String? = nil, open: Bool = true) async throws -> [THSensitiveEntry] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         let time = startTime ?? Date.now.ISO8601Format(.iso8601)
-        var components = URLComponents(string: urls.fduholeBaseUrl + "/floors/_sensitive")!
+        var components = URLComponents(string: FDUHOLE_BASE_URL + "/floors/_sensitive")!
         components.queryItems = [URLQueryItem(name: "offset", value: time),
                                  URLQueryItem(name: "open", value: open ? "true" : "false")]
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
@@ -427,13 +378,11 @@ struct THRequests {
     
     
     static func setSensitive(id: Int, sensitive: Bool) async throws {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct SensitiveConfig: Codable {
             let isActualSensitive: Bool
         }
         
-        let url = URL(string: urls.fduholeBaseUrl + "/floors/\(id)/_sensitive")!
+        let url = URL(string: FDUHOLE_BASE_URL + "/floors/\(id)/_sensitive")!
         let payload = SensitiveConfig(isActualSensitive: sensitive)
         try await DXRequest(url, payload: payload, method: "PUT")
     }
@@ -444,9 +393,7 @@ struct THRequests {
     
     /// Load all tags.
     static func loadTags() async throws -> [THTag] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/tags")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/tags")!)
     }
     
     // MARK: Subscriptions
@@ -455,18 +402,14 @@ struct THRequests {
         struct Response: Codable {
             let data: [Int]
         }
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        var component = URLComponents(string: urls.fduholeBaseUrl + "/users/subscriptions")!
+        var component = URLComponents(string: FDUHOLE_BASE_URL + "/users/subscriptions")!
         component.queryItems = [URLQueryItem(name: "plain", value: "true")]
         let response: Response = try await DXResponse(component.url!)
         return response.data
     }
     
     static func loadSubscriptions() async throws -> [THHole] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/users/subscriptions")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/subscriptions")!)
     }
     
     static func addSubscription(_ holeId: Int) async throws -> [Int] {
@@ -478,17 +421,13 @@ struct THRequests {
             let data: [Int]
         }
         
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         let payload = AddConfig(holeId: holeId)
-        let response: Response = try await DXResponse(URL(string: urls.fduholeBaseUrl + "/users/subscriptions")!,
+        let response: Response = try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/subscriptions")!,
                                                       payload: payload)
         return response.data
     }
     
     static func deleteSubscription(_ holeId: Int) async throws -> [Int] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct DeleteConfig: Codable {
             let holeId: Int
         }
@@ -498,7 +437,7 @@ struct THRequests {
         }
         
         let payload = DeleteConfig(holeId: holeId)
-        let response: Response = try await DXResponse(URL(string: urls.fduholeBaseUrl + "/users/subscription")!,
+        let response: Response = try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/users/subscription")!,
                                                       payload: payload, method: "DELETE")
         return response.data
     }
@@ -509,22 +448,18 @@ struct THRequests {
     /// Load favorites hole.
     /// - Returns: List of favorites hole.
     static func loadFavorites() async throws -> [THHole] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/user/favorites")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/user/favorites")!)
     }
     
     
     /// Load favorites hole IDs.
     /// - Returns: List of favorite hole ID.
     static func loadFavoritesIds() async throws -> [Int] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct FavoriteResponse: Codable {
             let data: [Int]
         }
         
-        var component = URLComponents(string: urls.fduholeBaseUrl + "/user/favorites")!
+        var component = URLComponents(string: FDUHOLE_BASE_URL + "/user/favorites")!
         component.queryItems = [URLQueryItem(name: "plain", value: "true")]
         let response: FavoriteResponse = try await DXResponse(component.url!)
         return response.data
@@ -535,8 +470,6 @@ struct THRequests {
     /// - Parameter holeIds: New hole IDs.
     /// - Returns: List of favorite hole ID.
     static func modifyFavorites(holeIds: [Int]) async throws -> [Int] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct FavoriteConfig: Codable {
             let holeIds: [Int]
         }
@@ -547,7 +480,7 @@ struct THRequests {
         }
         
         let payload = FavoriteConfig(holeIds: holeIds)
-        let response: ReturnConfig = try await DXResponse(URL(string: urls.fduholeBaseUrl + "/user/favorites")!,
+        let response: ReturnConfig = try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
                                                           payload: payload,
                                                           method: "PUT")
         return response.data
@@ -559,8 +492,6 @@ struct THRequests {
     ///   - add: Add or remove this hole from favorites.
     /// - Returns: List of favorites hole ID.
     static func toggleFavorites(holeId: Int, add: Bool) async throws -> [Int] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct FavoriteConfig: Codable {
             let holeId: Int
         }
@@ -571,7 +502,7 @@ struct THRequests {
         }
         
         let response: ServerResponse =
-        try await DXResponse(URL(string: urls.fduholeBaseUrl + "/user/favorites")!,
+        try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/user/favorites")!,
                              payload: FavoriteConfig(holeId: holeId),
                              method: add ? "POST" : "DELETE")
         return response.data
@@ -586,15 +517,13 @@ struct THRequests {
     ///   - days: Penalty duration.
     ///   - reason: Reason.
     static func addPenalty(_ floorId: Int, _ days: Int, reason: String = "") async throws {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct BanConfig: Codable {
             let days: Int
             let reason: String
         }
         
         let payload = BanConfig(days: days, reason: reason)
-        try await DXRequest(URL(string: urls.fduholeBaseUrl + "/penalty/\(floorId)")!,
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/penalty/\(floorId)")!,
                                   payload: payload)
     }
     
@@ -602,36 +531,28 @@ struct THRequests {
     /// - Parameter floorId: Floor ID.
     /// - Returns: A list of reasons.
     static func loadPunishmenthistory(_ floorId: Int) async throws -> [String] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/floors/\(floorId)/punishment")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/floors/\(floorId)/punishment")!)
     }
     
     // MARK: Messages
     
     static func loadMessages() async throws -> [THMessage] {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
-        return try await DXResponse(URL(string: urls.fduholeBaseUrl + "/messages")!)
+        return try await DXResponse(URL(string: FDUHOLE_BASE_URL + "/messages")!)
     }
     
     static func sendMessage(message: String, recipients: [Int]) async throws {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         struct SendConfig: Codable {
             let description: String
             let recipients: [Int]
         }
         
         let payload = SendConfig(description: message, recipients: recipients)
-        try await DXRequest(URL(string: urls.fduholeBaseUrl + "/messages")!, payload: payload)
+        try await DXRequest(URL(string: FDUHOLE_BASE_URL + "/messages")!, payload: payload)
     }
     
     // MARK: Images
     
     static func uploadImage(_ imageData: Data) async throws -> URL {
-        @ObservedObject var urls = FDUHoleUrls.shared
-        
         func formParam(_ boundaryData: Data, key: String, value: String) -> Data {
             var data = Data()
             data.append(boundaryData)

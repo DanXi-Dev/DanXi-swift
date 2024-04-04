@@ -51,15 +51,17 @@ struct DebugPage: View {
 
 fileprivate struct DebugURLForm: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject private var urls = FDUHoleUrls.shared
+    @State private var auth: String = FDUHOLE_AUTH_URL
+    @State private var fduhole: String = FDUHOLE_BASE_URL
+    @State private var danke: String = DANKE_BASE_URL
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Auth", text: urls.$fduholeAuthUrl)
-                    TextField("fduhole", text: urls.$fduholeBaseUrl)
-                    TextField("danke", text: urls.$dankeBaseUrl)
+                    TextField("Auth", text: $auth)
+                    TextField("fduhole", text: $fduhole)
+                    TextField("danke", text: $danke)
                 }
             }
             .navigationTitle("Debug Base URL")
@@ -96,7 +98,6 @@ fileprivate struct DebugURLForm: View {
 
 fileprivate struct DebugHTTPForm: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject private var urls = FDUHoleUrls.shared
     
     enum BaseURL {
         case fduhole, auth, danke, custom
@@ -119,11 +120,11 @@ fileprivate struct DebugHTTPForm: View {
         var base = ""
         switch baseURL {
         case .fduhole:
-            base = urls.fduholeBaseUrl
+            base = FDUHOLE_BASE_URL
         case .auth:
-            base = urls.fduholeAuthUrl
+            base = FDUHOLE_AUTH_URL
         case .danke:
-            base = urls.dankeBaseUrl
+            base = DANKE_BASE_URL
         case .custom:
             base = ""
         }
