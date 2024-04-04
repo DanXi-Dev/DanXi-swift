@@ -16,7 +16,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "Utils", 
-                dependencies: [.product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS]))],
+                dependencies: [.product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst]))],
                 path: "."),
     ]
 )
