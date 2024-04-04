@@ -4877,11 +4877,22 @@
       }
     },
     "Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in [system settings](%@)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "敏感内容分析能够检测图片中的裸露内容并提醒您谨慎查看。该功能通过设备端机器学习实现。您可以在[系统设置](%@)中开启或关闭该功能。"
+          }
+        }
+      }
+    },
+    "Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in System Privacy Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感内容分析能够检测图片中的裸露内容并提醒您谨慎查看。该功能通过设备端机器学习实现。您可以在系统隐私设置中开启或关闭该功能。"
           }
         }
       }

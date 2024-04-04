@@ -22,7 +22,7 @@ class THSettings: ObservableObject {
     @AppStorage("blocked-holes") var blockedHoles: [Int] = []
     @AppStorage("screenshot-alert") var screenshotAlert = true
     @AppStorage("show-activity") var showBanners = true
-    let watermarkOpacity = 0.011
+    let watermarkOpacity = 0.010
     @Published var backgroundImage: Image? = nil
     
     func setBackgroundImage(_ item: PhotosPickerItem?) {

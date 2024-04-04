@@ -56,7 +56,7 @@ fileprivate struct NSFWSettings: View {
                         Text("Sensitive Content Analysis")
                     }
                 } footer: {
-                    Text("Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in [system settings](\(UIApplication.openSettingsURLString))")
+                    Text("Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in System Privacy Settings")
                 }
             }
         }
