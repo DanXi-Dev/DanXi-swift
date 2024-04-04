@@ -2,17 +2,6 @@ import Foundation
 
 // MARK: URLs
 
-//var FDUHOLE_AUTH_URL = "https://auth.fduhole.com/api"
-//var FDUHOLE_BASE_URL = "https://www.fduhole.com/api"
-//var DANKE_BASE_URL = "https://danke.fduhole.com/api"
-
-//struct FDUHoleUrls {
-//    static var fduholeAuthUrl = "https://auth.fduhole.com/api"
-//    static var fduholeBaseUrl = "https://www.fduhole.com/api"
-//    static var dankeBaseUrl = "https://danke.fduhole.com/api"
-//}
-
-//private let defaultStandard = UserDefaults.standard
 var FDUHOLE_AUTH_URL = UserDefaults.standard.string(forKey: "fduhole_auth_url") ?? "https://auth.fduhole.com/api"
 var FDUHOLE_BASE_URL = UserDefaults.standard.string(forKey: "fduhole_base_url") ?? "https://www.fduhole.com/api"
 var DANKE_BASE_URL = UserDefaults.standard.string(forKey: "danke_base_url") ?? "https://danke.fduhole.com/api"

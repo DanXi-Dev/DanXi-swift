@@ -75,9 +75,9 @@ fileprivate struct DebugURLForm: View {
                             UserDefaults.standard.set(authURL.absoluteString, forKey: "fduhole_auth_url")
                             UserDefaults.standard.set(fduholeURL.absoluteString, forKey: "fduhole_base_url")
                             UserDefaults.standard.set(dankeURL.absoluteString, forKey: "danke_base_url")
-//                            FDUHOLE_AUTH_URL = authURL.absoluteString
-//                            FDUHOLE_BASE_URL = fduholeURL.absoluteString
-//                            DANKE_BASE_URL = dankeURL.absoluteString
+                            FDUHOLE_AUTH_URL = authURL.absoluteString
+                            FDUHOLE_BASE_URL = fduholeURL.absoluteString
+                            DANKE_BASE_URL = dankeURL.absoluteString
                         }
                         dismiss()
                     } label: {
