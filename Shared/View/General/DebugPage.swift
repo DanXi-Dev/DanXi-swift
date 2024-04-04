@@ -24,7 +24,7 @@ struct DebugPage: View {
                 Toggle(isOn: settings.$showBanners) {
                     Label("Show Activity Announcements", systemImage: "bell")
                 }
-                Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
+//                Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
                 Button("Test Register Questions") {
                     showQuestionSheet = true
                 }

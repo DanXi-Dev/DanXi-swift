@@ -5948,6 +5948,7 @@
       }
     },
     "Watermark Opacity %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
