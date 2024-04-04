@@ -92,6 +92,9 @@ fileprivate struct RankView: View {
             VStack(alignment: .trailing) {
                 Text(String(rank.gradePoint))
                     .font(.headline)
+                Text(rank.major)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
                 Text("\(String(format: "%.1f", rank.credit)) Credit")
                     .font(.callout)
                     .foregroundColor(.secondary)
