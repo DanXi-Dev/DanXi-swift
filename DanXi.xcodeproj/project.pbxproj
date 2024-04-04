@@ -47,7 +47,7 @@
 		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
 		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
-		27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */; };
+		27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */; };
 		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
@@ -236,7 +236,7 @@
 		274C197629D1BF9C000DE221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
 		27536EBD29DC9A8100894A98 /* DanXi Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWigdetBundle.swift; sourceTree = "<group>"; };
+		27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWidgetBundle.swift; sourceTree = "<group>"; };
 		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WigdetExtension.entitlements; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 		27536EC029DC9A8100894A98 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */,
+				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
 				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
 				27536EC729DC9A8300894A98 /* Info.plist */,
@@ -865,7 +865,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
-				27536EC229DC9A8100894A98 /* DanXiWigdetBundle.swift in Sources */,
+				27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
