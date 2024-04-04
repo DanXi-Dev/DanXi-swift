@@ -27,8 +27,6 @@ struct THHoleView: View {
                     .foregroundColor(.secondary)
                     .font(.caption)
                     .fontWeight(.light)
-                    .padding(.leading, 3)
-                    .padding(.top, 1)
                     .fixedSize()
             }
         } content: {

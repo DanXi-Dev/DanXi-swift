@@ -57,7 +57,6 @@ fileprivate struct QuestionPage: View {
                 Text("Answer all questions before submit")
             })
             .alert("Answer incorrect, please review and re-submit", isPresented: $showIncorrectAlert, actions: { })
-            .headerProminence(.increased)
             .environmentObject(model)
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
@@ -143,6 +142,9 @@ fileprivate struct QuestionLabel: View {
             Text(question.question)
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(incorrect ? .red : .primary)
+                .font(.headline)
+                .bold()
+                .textCase(.none)
         }
     }
 }
