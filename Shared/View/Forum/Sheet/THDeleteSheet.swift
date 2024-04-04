@@ -41,6 +41,7 @@ struct THDeleteSheet: View {
                     }
                 }
             }
+            .labelStyle(.titleOnly)
             
             if ban {
                 PunishmentNotice()

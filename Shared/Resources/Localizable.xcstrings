@@ -6038,7 +6038,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您已被此板块封禁，解封日期为%@"
+            "value" : "您已被此分区封禁，解封日期为%@"
           }
         }
       }

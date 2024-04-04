@@ -276,37 +276,20 @@ private struct THBrowseToolbar: View {
 
 private struct BannedNotice: View {
     let date: Date
-    @State private var collapse = false
     
     var body: some View {
-        if collapse {
-            EmptyView()
-        } else {
-            Section {
-                HStack(alignment: .top) {
-                    Image(systemName: "exclamationmark.circle.fill")
-                    VStack(alignment: .leading) {
-                        Text("You are banned in this division until \(date.formatted())")
-                        Text("If you have any question, you may contact admin@fduhole.com")
-                            .font(.footnote)
-                    }
-                    Spacer()
-                    Button {
-                        withAnimation {
-                            collapse = true
-                        }
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.secondary)
-                            .font(.footnote)
-                    }
+        Section {
+            HStack(alignment: .top) {
+                Image(systemName: "exclamationmark.circle.fill")
+                VStack(alignment: .leading) {
+                    Text("You are banned in this division until \(date.formatted())")
+                    Text("If you have any question, you may contact admin@fduhole.com")
+                        .font(.footnote)
                 }
-                .padding()
-                .foregroundColor(.red)
-                .background(.red.opacity(0.15))
-                .cornerRadius(7)
-                .listRowSeparator(.hidden)
             }
+            .padding(.vertical, 8)
+            .foregroundColor(.red)
+            .listRowBackground(Color.red.opacity(0.15))
         }
     }
 }
