@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-#if canImport(Disk)
+#if !os(watchOS)
 import Disk
 #endif
 
