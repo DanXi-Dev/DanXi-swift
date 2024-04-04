@@ -101,7 +101,7 @@
 		27D3A4982BBC9C6100350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4972BBC9C6100350D21 /* CampusUI */; };
 		27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49B2BBC9E0900350D21 /* SwiftyJSON */; };
 		27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49D2BBC9E1A00350D21 /* KeychainAccess */; };
-		27D3A49F2BBC9F0800350D21 /* DanXi Wigdet.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
 		27D3A4AA2BBCFA6E00350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */; };
 		27D3A4AC2BBCFB0D00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */; };
@@ -178,7 +178,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				27D3A49F2BBC9F0800350D21 /* DanXi Wigdet.appex in Embed Foundation Extensions */,
+				27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,7 +235,7 @@
 		274C197429D1BF9B000DE221 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		274C197629D1BF9C000DE221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
-		27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Wigdet.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27536EBD29DC9A8100894A98 /* DanXi Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27536EC129DC9A8100894A98 /* DanXiWigdetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWigdetBundle.swift; sourceTree = "<group>"; };
 		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -660,7 +660,7 @@
 			children = (
 				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
 				274C197029D1BF9B000DE221 /* DanXi Watch.app */,
-				27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */,
+				27536EBD29DC9A8100894A98 /* DanXi Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -701,9 +701,9 @@
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		27536EBC29DC9A8100894A98 /* DanXi Wigdet */ = {
+		27536EBC29DC9A8100894A98 /* DanXi Widget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Wigdet" */;
+			buildConfigurationList = 27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Widget" */;
 			buildPhases = (
 				27536EB929DC9A8100894A98 /* Sources */,
 				27536EBA29DC9A8100894A98 /* Frameworks */,
@@ -713,14 +713,14 @@
 			);
 			dependencies = (
 			);
-			name = "DanXi Wigdet";
+			name = "DanXi Widget";
 			packageProductDependencies = (
 				27D3A4972BBC9C6100350D21 /* CampusUI */,
 				27D3A49B2BBC9E0900350D21 /* SwiftyJSON */,
 				27D3A49D2BBC9E1A00350D21 /* KeychainAccess */,
 			);
 			productName = DanXi_WigdetExtension;
-			productReference = 27536EBD29DC9A8100894A98 /* DanXi Wigdet.appex */;
+			productReference = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
@@ -809,7 +809,7 @@
 			targets = (
 				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
 				274C196F29D1BF9B000DE221 /* DanXi Watch */,
-				27536EBC29DC9A8100894A98 /* DanXi Wigdet */,
+				27536EBC29DC9A8100894A98 /* DanXi Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -978,12 +978,12 @@
 /* Begin PBXTargetDependency section */
 		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
+			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
 			targetProxy = 27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */;
 		};
 		27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Wigdet */;
+			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
 			targetProxy = 27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1329,7 +1329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Wigdet" */ = {
+		27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Widget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27536ECC29DC9A8300894A98 /* Debug */,
