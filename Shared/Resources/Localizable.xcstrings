@@ -5144,13 +5144,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sorted Alphabetically"
+            "value" : "Sorted alphabetically."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "按照名称字母顺序排序"
+            "value" : "按照名称字母顺序排列。"
           }
         }
       }
