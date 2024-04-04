@@ -2884,6 +2884,7 @@
       }
     },
     "ID Number" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

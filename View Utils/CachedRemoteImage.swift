@@ -100,7 +100,7 @@ public struct CachedRemoteImage: View {
         switch loadingStatus {
         case .loading:
             ProgressView()
-                .frame(width: 200, height: 150)
+                .frame(width: 300, height: 300)
                 .background(Color.gray.opacity(0.2))
                 .onAppear {
                     loadImage()
@@ -109,7 +109,7 @@ public struct CachedRemoteImage: View {
             Button(action: loadImage) {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundStyle(.red)
-                    .frame(width: 200, height: 150)
+                    .frame(width: 300, height: 300)
                     .background(Color.gray.opacity(0.2))
             }
         case .loaded(let loaded, let sensitive):

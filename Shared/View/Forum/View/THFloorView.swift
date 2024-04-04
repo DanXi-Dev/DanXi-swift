@@ -34,8 +34,7 @@ struct THComplexFloor: View {
     @StateObject private var model: THFloorModel
     
     init(_ floor: THFloor) {
-        let model = THFloorModel(floor: floor)
-        self._model = StateObject(wrappedValue: model)
+        self._model = StateObject(wrappedValue: THFloorModel(floor: floor))
     }
     
     private var floor: THFloor {
