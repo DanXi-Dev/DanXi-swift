@@ -30,7 +30,7 @@ struct StructuredWatermarkView: View {
                 let column = index % columnCount
                 
                 Text(content ?? userId)
-                    .font(.system(size: 36))
+                    .font(.system(size: 30))
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                     .foregroundColor(.primary.opacity(opacity ?? settings.watermarkOpacity))
@@ -61,7 +61,7 @@ struct WatermarkModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(
-                StructuredWatermarkView(content: watermarkContent, rowCount: 8, columnCount: 4, opacity: opacity)
+                StructuredWatermarkView(content: watermarkContent, rowCount: 10, columnCount: 4, opacity: opacity)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
             )
