@@ -165,7 +165,7 @@ private struct RankChart: View {
                     }
                 }
                 .padding(8)
-                .background(.ultraThinMaterial)
+                .background(.regularMaterial)
                 .cornerRadius(8)
                 .font(.system(.caption, design: .rounded))
                 .padding(.bottom, 56)

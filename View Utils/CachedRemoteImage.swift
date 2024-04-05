@@ -157,7 +157,7 @@ public struct CachedRemoteImage: View {
                 }) {
                     ZStack(alignment: .center, content: {
                         ImageViewer(image: loaded)
-                            .blur(radius: 30.0)
+                            .overlay(.ultraThickMaterial)
                             .clipped()
                             .allowsHitTesting(false)
                         
