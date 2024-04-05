@@ -31,6 +31,7 @@ class THHoleModel: ObservableObject {
                     storey += 1
                 }
                 self.floors.replaceSubrange(0 ... replaceEnd, with: refreshedPrefetchData)
+                floorChangedBroadcast.send(refreshedPrefetchData.map(\.id))
             }
         }
     }
@@ -221,7 +222,7 @@ class THHoleModel: ObservableObject {
     
     @Published var floorSelectable = false
     @Published var selectedFloor: Set<THFloor> = []
-    let deleteBroadcast = PassthroughSubject<[Int], Never>()
+    let floorChangedBroadcast = PassthroughSubject<[Int], Never>()
     func batchDelete(_ floors: [THFloor], reason: String) async {
         let previousFloors = self.floors
         
@@ -268,7 +269,7 @@ class THHoleModel: ObservableObject {
         // submit UI change
         self.floors = newFloors
         // notify subviews
-        deleteBroadcast.send(deletedFloors.map(\.id))
+        floorChangedBroadcast.send(deletedFloors.map(\.id))
     }
     
     // MARK: - Hole Info Edit

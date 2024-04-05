@@ -35,7 +35,6 @@ struct THHolePage: View {
                             Section {
                                 THComplexFloor(floor)
                                     .tag(floor)
-                                    .id(floor)
                             } header: {
                                 if floor.id == model.floors.first?.id {
                                     header

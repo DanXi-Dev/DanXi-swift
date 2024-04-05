@@ -74,9 +74,9 @@ struct THComplexFloor: View {
             }
         }
         // update floor when batch delete
-        .onReceive(holeModel.deleteBroadcast) { ids in
+        .onReceive(holeModel.floorChangedBroadcast) { ids in
             if ids.contains(floor.id) {
-                if let newFloor = holeModel.floors.filter({ $0.id == floor.id }).first {
+                if let newFloor = holeModel.floors.first(where: { $0.id == floor.id }) {
                     model.floor = newFloor
                 }
             }
