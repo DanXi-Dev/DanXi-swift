@@ -101,7 +101,7 @@ fileprivate struct BlockedContent: View {
     }
 }
 
-fileprivate struct NotificationSettingWrapper: View {
+struct NotificationSettingWrapper: View {
     var body: some View {
         AsyncContentView {
             async let userInfo = await DXRequests.loadUserInfo()

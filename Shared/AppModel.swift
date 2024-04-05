@@ -7,6 +7,7 @@ import SwiftUI
 class AppModel: ObservableObject {
     // publish event when user taps notification, UI should perform navigation
     static let notificationPublisher = PassthroughSubject<UNNotificationContent, Never>()
+    static let notificationSettingsPublisher = PassthroughSubject<UNNotificationContent?, Never>()
     
     @AppStorage("intro-done") var showIntro = true // Shown once
     @Published var section = AppSection.campus

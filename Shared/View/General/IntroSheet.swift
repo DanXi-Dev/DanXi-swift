@@ -183,7 +183,7 @@ struct IntroNotificationSheet: View {
             Spacer()
             Spacer()
             Button(action: {
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound, .providesAppNotificationSettings]) { granted, error in
                     // Next page
                     nextPage = true
                 }

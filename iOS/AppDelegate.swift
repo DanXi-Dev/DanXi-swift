@@ -90,6 +90,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         completionHandler()
     }
     
+    // This function will be called when user taps the link in System Notification Settings
+    // It should open the notification settings in our app
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        let content = notification?.request.content
+        Task { @MainActor in
+            AppModel.notificationSettingsPublisher.send(content)
+        }
+    }
+    
     
     // MARK: - Watch Connectivity
     

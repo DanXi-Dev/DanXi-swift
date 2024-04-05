@@ -35,6 +35,9 @@ struct ContentView: View {
         .onReceive(AppModel.notificationPublisher) { content in
             model.section = .forum
         }
+        .onReceive(AppModel.notificationSettingsPublisher) { content in
+            model.section = .settings
+        }
         .sheet(isPresented: $model.showIntro) {
             IntroSheet()
                 .environmentObject(model)

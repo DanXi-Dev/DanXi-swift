@@ -9,6 +9,7 @@ struct SettingsPage: View {
     @State private var campusUserSheet = false
     @State private var forumLoginSheet = false
     @State private var forumUserSheet = false
+    @State private var showPushSettings = false
     
     var showToolbar: Bool {
         campusModel.loggedIn || forumModel.isLogged
@@ -64,6 +65,7 @@ struct SettingsPage: View {
                 }
             }
             .navigationTitle("Settings")
+            .navigationDestination(isPresented: $showPushSettings, destination: { NotificationSettingWrapper() })
         }
         .sheet(isPresented: $campusLoginSheet) {
             FDLoginSheet()
@@ -76,6 +78,9 @@ struct SettingsPage: View {
         }
         .sheet(isPresented: $forumUserSheet) {
             DXUserSheet()
+        }
+        .onReceive(AppModel.notificationSettingsPublisher) { content in
+            showPushSettings = true
         }
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
     }
