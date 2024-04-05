@@ -147,7 +147,13 @@ private struct RankChart: View {
                     x: .value("Rank", x),
                     y: .value("GPA", value.gradePoint)
                 )
-                .symbolSize(100)
+                .symbolSize(70)
+                .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                PointMark(
+                    x: .value("Rank", x),
+                    y: .value("GPA", value.gradePoint)
+                )
+                .symbolSize(40)
             }
         }
         .overlay(alignment: .bottomLeading, content: {
