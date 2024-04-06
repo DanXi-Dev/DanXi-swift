@@ -1,4 +1,5 @@
 import Foundation
+import Queue
 
 // MARK: URLs
 
@@ -9,7 +10,20 @@ var DANKE_BASE_URL = UserDefaults.standard.string(forKey: "danke_base_url") ?? "
 
 // MARK: Auto Refresh
 
+// FIXME: Current queue implementation forces all requests to run serially
+// We can in fact run some of the requests in parallel
+// By setting the AsyncQueue with attribute [.concurrent]
+// And setting token refresh operation to become a barrier operation
+let autoRefreshQueue = AsyncQueue()
+
 func autoRefresh(_ urlRequest: URLRequest) async throws -> Data {
+    let task = autoRefreshQueue.addOperation {
+        return try await _autoRefresh(urlRequest)
+    }
+    return try await task.value
+}
+
+func _autoRefresh(_ urlRequest: URLRequest) async throws -> Data {
     var request = urlRequest
     var refreshed = false
     
