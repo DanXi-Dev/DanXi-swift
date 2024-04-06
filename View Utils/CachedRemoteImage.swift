@@ -109,7 +109,7 @@ public struct CachedRemoteImage: View {
                 try Disk.save(uiImage, to: .caches, as: filename)
                 let fileURL = try Disk.url(for: filename, in: .caches)
                 let loadedImage = LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
-                let sensitive = await analyzeSensitiveIfAvailable(fileURL)
+                let sensitive = await analyzeSensitiveIfAvailable(uiImage)
                 if sensitive {
                     // Create a file to mark sensitive
                     try? Disk.save("", to: .caches, as: sensitiveMarker)
@@ -122,12 +122,13 @@ public struct CachedRemoteImage: View {
         }
     }
     
-    func analyzeSensitiveIfAvailable(_ at: URL) async -> Bool {
+    func analyzeSensitiveIfAvailable(_ image: UIImage) async -> Bool {
         guard #available(iOS 17, *) else { return false }
         let analyzer = SCSensitivityAnalyzer()
         let policy = analyzer.analysisPolicy
         if policy == .disabled { return false }
-        let response = try? await analyzer.analyzeImage(at: url)
+        guard let cgImage = image.cgImage else { return false }
+        let response = try? await analyzer.analyzeImage(cgImage)
         guard let response else { return false }
         return response.isSensitive
     }
