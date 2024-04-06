@@ -14,6 +14,7 @@ struct THSimpleFloor: View {
                 .lineLimit(6)
             bottom
         }
+        .listRowInsets(EdgeInsets(top: 11, leading: 12, bottom: 11, trailing: 12))
     }
     
     var bottom: some View {
@@ -56,13 +57,18 @@ struct THComplexFloor: View {
         FoldedView(expand: !model.collapse) {
             Text(model.collapsedContent)
                 .foregroundColor(.secondary)
+                .font(.subheadline)
         } content: {
             VStack(alignment: .leading) {
                 headLine
                 content
                 bottomLine
             }
+            // this line is for unfolded floor
+            .listRowInsets(EdgeInsets(top: 10, leading: 12, bottom: 8, trailing: 12))
         }
+        // this line is for folded floor
+        .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
         .environmentObject(model)
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
         .disabled(editMode?.wrappedValue.isEditing ?? false)

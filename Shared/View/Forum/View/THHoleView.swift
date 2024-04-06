@@ -31,7 +31,11 @@ struct THHoleView: View {
             }
         } content: {
             fullContent
+                // this line is for unfolded hole
+                .listRowInsets(EdgeInsets(top: 10, leading: 10, bottom: 8, trailing: 10))
         }
+        // this line is for folded hole
+        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
     }
     
     private var fullContent: some View {
@@ -41,6 +45,7 @@ struct THHoleView: View {
                     .padding(.bottom, 3)
                 holeContent
             }
+//            .listRowInsets(EdgeInsets(top: 10, leading: 12, bottom: 8, trailing: 12))
         }
         .contextMenu {
             PreviewActions(hole: hole)

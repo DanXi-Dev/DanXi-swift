@@ -34,18 +34,15 @@ struct THBrowsePage: View {
                     Section {
                         THHoleView(hole: hole, pinned: true)
                     }
-                    .listRowInsets(EdgeInsets(top: 10, leading: 12, bottom: 8, trailing: 12))
                 }
             }
             
             // Main Section
             AsyncCollection(model.filteredHoles, endReached: false,
-                            action: model.loadMoreHoles)
-            { hole in
+                            action: model.loadMoreHoles) { hole in
                 let fold = settings.sensitiveContent == .fold && hole.nsfw
                 Section {
                     THHoleView(hole: hole, fold: fold)
-                        .listRowInsets(EdgeInsets(top: (fold ? 6: 10), leading: 12, bottom: 8, trailing: 12))
                 }
             }
             .id(model.configId) // stop old loading task when config change
