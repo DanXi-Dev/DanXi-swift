@@ -73,5 +73,10 @@
         "name": "SwiftUI Introspect",
         "link": "https://github.com/siteline/SwiftUI-Introspect",
         "license": "Copyright 2019 Timber Software"
+    },
+    {
+        "name": "Queue",
+        "link": "https://github.com/mattmassicotte/Queue",
+        "license": "BSD-3-Clause license"
     }
 ]
