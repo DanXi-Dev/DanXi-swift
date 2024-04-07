@@ -135,10 +135,7 @@ struct SplitHomePage: View {
             }
             .navigationTitle("DanXi")
         } detail: {
-            // FIXME: This ZStack is a workaround for SwiftUI bug 91311311 on iOS 16
-            // > Conditional views in columns of NavigationSplitView fail to update on some state changes.
-            // > Workaround: Wrap the contents of the column in a ZStack.
-            ZStack {
+            if #available(iOS 17, *) {
                 switch model.section {
                 case .campus:
                     CampusHomePage()
@@ -150,6 +147,26 @@ struct SplitHomePage: View {
                     CoursePage()
                 case .settings:
                     SettingsPage()
+                }
+            } else {
+                // FIXME: This ZStack is a workaround for SwiftUI bug 91311311 on iOS 16
+                // > Conditional views in columns of NavigationSplitView fail to update on some state changes.
+                // > Workaround: Wrap the contents of the column in a ZStack.
+                //
+                // Yet it seems this workaround causes issues on Mac Catalyst, so we should apply it only if we must
+                ZStack {
+                    switch model.section {
+                    case .campus:
+                        CampusHomePage()
+                    case .forum:
+                        THHomePage()
+                    case .curriculum:
+                        DKHomePage()
+                    case .calendar:
+                        CoursePage()
+                    case .settings:
+                        SettingsPage()
+                    }
                 }
             }
         }
