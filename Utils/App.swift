@@ -7,4 +7,8 @@
 
 import Combine
 
-public let onDoubleTapTabItem = PassthroughSubject<Void, Never>()
+public let OnDoubleTapCampusTabBarItem = PassthroughSubject<Void, Never>()
+public let OnDoubleTapForumTabBarItem = PassthroughSubject<Void, Never>()
+public let OnDoubleTapCurriculumTabBarItem = PassthroughSubject<Void, Never>()
+public let OnDoubleTapCalendarTabBarItem = PassthroughSubject<Void, Never>()
+public let OnDoubleTapSettingsTabBarItem = PassthroughSubject<Void, Never>()

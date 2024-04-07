@@ -70,7 +70,7 @@ struct SettingsPage: View {
                         }
                     }
                 }
-                .onReceive(onDoubleTapTabItem, perform: {
+                .onReceive(OnDoubleTapSettingsTabBarItem, perform: {
                     if navigator.path.count > 0 {
                         navigator.path.removeLast(navigator.path.count)
                     } else {

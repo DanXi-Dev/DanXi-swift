@@ -53,7 +53,7 @@ public struct CampusHomePage: View {
                     }
                 }
                 .compactSectionSpacing()
-                .onReceive(onDoubleTapTabItem, perform: {
+                .onReceive(OnDoubleTapCampusTabBarItem, perform: {
                     if navigator.path.count > 0 {
                         navigator.path.removeLast(navigator.path.count)
                     } else {

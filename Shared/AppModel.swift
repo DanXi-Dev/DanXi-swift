@@ -14,7 +14,18 @@ class AppModel: ObservableObject {
     @Published var section: AppSection = .campus {
         willSet {
             if section == newValue {
-                onDoubleTapTabItem.send()
+                switch(section) {
+                case .campus:
+                    OnDoubleTapCampusTabBarItem.send()
+                case .forum:
+                    OnDoubleTapForumTabBarItem.send()
+                case .curriculum:
+                    OnDoubleTapCurriculumTabBarItem.send()
+                case .calendar:
+                    OnDoubleTapCalendarTabBarItem.send()
+                case .settings:
+                    OnDoubleTapSettingsTabBarItem.send()
+                }
             }
         }
     }

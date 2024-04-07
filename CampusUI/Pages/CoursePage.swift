@@ -43,39 +43,49 @@ fileprivate struct CalendarContent: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    Picker("Select Semester", selection: $model.semester) {
-                        ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
-                            Text(semester.name).tag(semester)
-                        }
-                    }
+            ScrollViewReader { proxy in
+                List {
+                    EmptyView()
+                        .id("cal-top")
                     
-                    if !model.courses.isEmpty {
-                        Stepper(value: $model.week, in: model.weekRange) {
-                            Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
-                                .labelStyle(.titleOnly)
+                    Section {
+                        Picker("Select Semester", selection: $model.semester) {
+                            ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                                Text(semester.name).tag(semester)
+                            }
                         }
-                    }
-                }
-#if targetEnvironment(macCatalyst)
-                .listRowBackground(Color.clear)
-#endif
-                
-                Section {
-                    HStack {
-                        TimeslotsSidebar()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            VStack {
-                                DateHeader(model.weekStart)
-                                CalendarEvents()
+                        
+                        if !model.courses.isEmpty {
+                            Stepper(value: $model.week, in: model.weekRange) {
+                                Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
+                                    .labelStyle(.titleOnly)
                             }
                         }
                     }
-                }
 #if targetEnvironment(macCatalyst)
-                .listRowBackground(Color.clear)
+                    .listRowBackground(Color.clear)
 #endif
+                    
+                    Section {
+                        HStack {
+                            TimeslotsSidebar()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                VStack {
+                                    DateHeader(model.weekStart)
+                                    CalendarEvents()
+                                }
+                            }
+                        }
+                    }
+#if targetEnvironment(macCatalyst)
+                    .listRowBackground(Color.clear)
+#endif
+                }
+                .onReceive(OnDoubleTapCalendarTabBarItem, perform: {
+                    withAnimation {
+                        proxy.scrollTo("cal-top")
+                    }
+                })
             }
             .refreshable {
                 await model.refresh(with: [:])
@@ -124,7 +134,7 @@ fileprivate struct CalendarEvents: View {
                     let point = CGPoint(x: CGFloat(course.weekday) * dim.dx + dim.dx / 2,
                                         y: CGFloat(course.start) * dim.dy + length / 2)
                     CourseView(title: course.name, subtitle: course.location,
-                                 span: course.end - course.start + 1)
+                               span: course.end - course.start + 1)
                     .position(point)
                     .onTapGesture {
                         selectedCourse = course
