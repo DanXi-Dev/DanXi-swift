@@ -2,6 +2,7 @@ import Foundation
 import UserNotifications
 import Combine
 import SwiftUI
+import Utils
 
 @MainActor
 class AppModel: ObservableObject {
@@ -9,13 +10,11 @@ class AppModel: ObservableObject {
     static let notificationPublisher = PassthroughSubject<UNNotificationContent, Never>()
     static let notificationSettingsPublisher = PassthroughSubject<UNNotificationContent?, Never>()
     
-    static let onDoubleTapTabItem = PassthroughSubject<AppSection, Never>()
-    
     @AppStorage("intro-done") var showIntro = true // Shown once
     @Published var section: AppSection = .campus {
         willSet {
             if section == newValue {
-                AppModel.onDoubleTapTabItem.send(newValue)
+                onDoubleTapTabItem.send()
             }
         }
     }

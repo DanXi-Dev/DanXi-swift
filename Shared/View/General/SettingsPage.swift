@@ -1,5 +1,6 @@
 import SwiftUI
 import FudanKit
+import Utils
 
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
@@ -69,8 +70,7 @@ struct SettingsPage: View {
                         }
                     }
                 }
-                .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
-                    guard section == .settings else { return }
+                .onReceive(onDoubleTapTabItem, perform: {
                     if navigator.path.count > 0 {
                         navigator.path.removeLast(navigator.path.count)
                     } else {

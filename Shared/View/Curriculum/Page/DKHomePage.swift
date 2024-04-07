@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 struct DKHomePage: View {
     var body: some View {
@@ -37,8 +38,7 @@ fileprivate struct HomePageContent: View {
                         }
                     }
                 }
-                .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
-                    guard section == .curriculum else { return }
+                .onReceive(onDoubleTapTabItem, perform: {
                     if navigator.path.count > 0 {
                         navigator.path.removeLast(navigator.path.count)
                     } else {

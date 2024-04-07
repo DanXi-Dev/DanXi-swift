@@ -1,11 +1,14 @@
 import SwiftUI
 import FudanKit
 import ViewUtils
+import Utils
 
 public struct CampusHomePage: View {
     @ObservedObject private var model = CampusModel.shared
     @StateObject private var navigator = CampusNavigator()
     @State private var showSheet = false
+    
+    public init() {}
     
     public var body: some View {
         NavigationStack(path: $navigator.path) {
@@ -50,16 +53,15 @@ public struct CampusHomePage: View {
                     }
                 }
                 .compactSectionSpacing()
-//                .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
-//                    guard section == .settings else { return }
-//                    if navigator.path.count > 0 {
-//                        navigator.path.removeLast(navigator.path.count)
-//                    } else {
-//                        withAnimation {
-//                            proxy.scrollTo("campus-top")
-//                        }
-//                    }
-//                })
+                .onReceive(onDoubleTapTabItem, perform: {
+                    if navigator.path.count > 0 {
+                        navigator.path.removeLast(navigator.path.count)
+                    } else {
+                        withAnimation {
+                            proxy.scrollTo("campus-top")
+                        }
+                    }
+                })
             }
             .toolbar {
                 Button {

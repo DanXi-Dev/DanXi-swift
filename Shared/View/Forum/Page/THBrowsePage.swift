@@ -52,8 +52,7 @@ struct THBrowsePage: View {
                 }
                                 .id(model.configId) // stop old loading task when config change
             }
-            .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
-                guard section == .forum else { return }
+            .onReceive(onDoubleTapTabItem, perform: {
                 if navigator.path.count > 0 {
                     navigator.path.removeLast(navigator.path.count)
                 } else {
