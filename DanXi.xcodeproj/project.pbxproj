@@ -142,6 +142,7 @@
 		F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */; };
 		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
+		F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */ = {isa = PBXBuildFile; productRef = F1B1DF772BC19FC4005E8F87 /* Queue */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -346,6 +347,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */,
 				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
@@ -755,6 +757,7 @@
 				270CD1932BAD697600881ABA /* ViewUtils */,
 				27C68CB22BB563EE00037D52 /* Utils */,
 				27D3A4952BBC844200350D21 /* CampusUI */,
+				F1B1DF772BC19FC4005E8F87 /* Queue */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -802,6 +805,7 @@
 				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
 				27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */,
 				27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
+				F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -1439,6 +1443,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mattmassicotte/Queue";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1530,6 +1542,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		F1B1DF772BC19FC4005E8F87 /* Queue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */;
+			productName = Queue;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,4 +1,5 @@
 import Foundation
+import Queue
 
 // MARK: URLs
 
@@ -9,25 +10,39 @@ var DANKE_BASE_URL = UserDefaults.standard.string(forKey: "danke_base_url") ?? "
 
 // MARK: Auto Refresh
 
-func autoRefresh(_ urlRequest: URLRequest) async throws -> Data {
+let autoRefreshQueue = AsyncQueue(attributes: [.concurrent])
+
+func autoRefresh(_ urlRequest: URLRequest, alreadyRefreshed: Bool = false) async throws -> Data {
+    guard let token = await DXModel.shared.token else {
+        throw DXError.tokenNotFound
+    }
     var request = urlRequest
-    var refreshed = false
+    request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
+    let newRequest = request
     
-    while true {
-        do {
-            guard let token = await DXModel.shared.token else {
-                throw DXError.tokenNotFound
+    // First try
+    let task = autoRefreshQueue.addOperation {
+        return try await sendRequest(newRequest).0 // return data only
+    }
+    do {
+        return try await task.value
+    } catch let error as HTTPError {
+        if error.code == 401 && !alreadyRefreshed {
+            // Refresh Token
+            let refreshTask = autoRefreshQueue.addBarrierOperation {
+                guard let newToken = await DXModel.shared.token else {
+                    throw DXError.tokenNotFound
+                }
+                if newToken.access == token.access {
+                    // Token has not been refreshed by other processes, commence token refresh on this barrier operation
+                    try await DXModel.shared.refreshToken()
+                }
             }
-            request.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
-            return try await sendRequest(request).0 // return data only
-        } catch let error as HTTPError {
-            if error.code == 401 && !refreshed {
-                try await DXModel.shared.refreshToken()
-                refreshed = true
-            } else {
-                throw error
-            }
+            try await refreshTask.value
+            // and retry
+            return try await autoRefresh(urlRequest, alreadyRefreshed: true)
         }
+        throw error
     }
 }
 
