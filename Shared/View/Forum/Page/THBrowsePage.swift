@@ -6,46 +6,62 @@ struct THBrowsePage: View {
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var mainAppModel: AppModel
+    @EnvironmentObject private var navigator: THNavigator
     @State private var showScreenshotAlert = false
     
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     var body: some View {
-        THBackgroundList {
-            THDivisionPicker()
-                .listRowInsets(EdgeInsets(.all, 0))
-                .listRowBackground(Color.clear)
-            
-            if settings.showBanners && !appModel.banners.isEmpty {
-                Section {
-                    BannerCarousel(banners: appModel.banners)
-                        .listRowInsets(EdgeInsets(.all, 0))
-                }
-            }
-            
-            // Banned Notice
-            if let bannedDate = model.bannedDate {
-                BannedNotice(date: bannedDate)
-            }
-            
-            // Pinned Holes
-            if !model.division.pinned.isEmpty {
-                ForEach(model.division.pinned) { hole in
+        ScrollViewReader { proxy in
+            THBackgroundList {
+                EmptyView()
+                    .id("th-top")
+                
+                THDivisionPicker()
+                    .listRowInsets(EdgeInsets(.all, 0))
+                    .listRowBackground(Color.clear)
+                
+                if settings.showBanners && !appModel.banners.isEmpty {
                     Section {
-                        THHoleView(hole: hole, pinned: true)
+                        BannerCarousel(banners: appModel.banners)
+                            .listRowInsets(EdgeInsets(.all, 0))
                     }
                 }
-            }
-            
-            // Main Section
-            AsyncCollection(model.filteredHoles, endReached: false,
-                            action: model.loadMoreHoles) { hole in
-                let fold = settings.sensitiveContent == .fold && hole.nsfw
-                Section {
-                    THHoleView(hole: hole, fold: fold)
+                
+                // Banned Notice
+                if let bannedDate = model.bannedDate {
+                    BannedNotice(date: bannedDate)
                 }
+                
+                // Pinned Holes
+                if !model.division.pinned.isEmpty {
+                    ForEach(model.division.pinned) { hole in
+                        Section {
+                            THHoleView(hole: hole, pinned: true)
+                        }
+                    }
+                }
+                
+                // Main Section
+                AsyncCollection(model.filteredHoles, endReached: false,
+                                action: model.loadMoreHoles) { hole in
+                    let fold = settings.sensitiveContent == .fold && hole.nsfw
+                    Section {
+                        THHoleView(hole: hole, fold: fold)
+                    }
+                }
+                                .id(model.configId) // stop old loading task when config change
             }
-            .id(model.configId) // stop old loading task when config change
+            .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
+                guard section == .forum else { return }
+                if navigator.path.count > 0 {
+                    navigator.path.removeLast(navigator.path.count)
+                } else {
+                    withAnimation {
+                        proxy.scrollTo("th-top")
+                    }
+                }
+            })
         }
         .watermark()
         .animation(.default, value: model.division)

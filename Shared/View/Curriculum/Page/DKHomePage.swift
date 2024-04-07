@@ -14,6 +14,7 @@ struct DKHomePage: View {
 fileprivate struct HomePageContent: View {
     let courses: [DKCourseGroup]
     @State private var searchText = ""
+    @StateObject var navigator = DKNavigator()
     
     private var searchResults: [DKCourseGroup] {
         if searchText.isEmpty {
@@ -24,13 +25,28 @@ fileprivate struct HomePageContent: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(searchResults) { course in
-                    NavigationLink(value: course) {
-                        DKCourseView(courseGroup: course)
+        NavigationStack(path: $navigator.path) {
+            ScrollViewReader { proxy in
+                List {
+                    EmptyView()
+                        .id("dk-top")
+                    
+                    ForEach(searchResults) { course in
+                        NavigationLink(value: course) {
+                            DKCourseView(courseGroup: course)
+                        }
                     }
                 }
+                .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
+                    guard section == .curriculum else { return }
+                    if navigator.path.count > 0 {
+                        navigator.path.removeLast(navigator.path.count)
+                    } else {
+                        withAnimation {
+                            proxy.scrollTo("dk-top")
+                        }
+                    }
+                })
             }
             .listStyle(.plain)
             .searchable(text: $searchText)
@@ -40,4 +56,8 @@ fileprivate struct HomePageContent: View {
             }
         }
     }
+}
+
+class DKNavigator: ObservableObject {
+    @Published var path = NavigationPath()
 }

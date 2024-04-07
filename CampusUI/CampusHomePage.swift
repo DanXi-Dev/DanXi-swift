@@ -7,49 +7,60 @@ public struct CampusHomePage: View {
     @StateObject private var navigator = CampusNavigator()
     @State private var showSheet = false
     
-    public init() {
-        
-    }
-    
     public var body: some View {
         NavigationStack(path: $navigator.path) {
-            List {
-                ForEach(navigator.cards, id: \.self) { card in
-                    Section {
-                        FDHomeCard(section: card)
-                            .swipeActions {
-                                Button(role: .destructive) {
-                                    navigator.unpin(section: card)
-                                } label: {
-                                    Image(systemName: "pin.slash.fill")
-                                }
-                            }
-                    }
-                }
-                
-                Section {
-                    ForEach(navigator.pages, id: \.self) { section in
-                        if (model.studentType == .undergrad) ||
-                            (model.studentType == .grad && !CampusSection.gradHidden.contains(section)) ||
-                            (model.studentType == .staff && !CampusSection.staffHidden.contains(section)) {
-                            NavigationLink(value: section) {
-                                FDHomeSimpleLink(section: section)
-                            }
-                            .swipeActions {
-                                if CampusSection.pinnable.contains(section) {
-                                    Button {
-                                        navigator.pin(section: section)
+            ScrollViewReader { proxy in
+                List {
+                    EmptyView()
+                        .id("campus-top")
+                    
+                    ForEach(navigator.cards, id: \.self) { card in
+                        Section {
+                            FDHomeCard(section: card)
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        navigator.unpin(section: card)
                                     } label: {
-                                        Image(systemName: "pin.fill")
+                                        Image(systemName: "pin.slash.fill")
                                     }
-                                    .tint(.orange)
+                                }
+                        }
+                    }
+                    
+                    Section {
+                        ForEach(navigator.pages, id: \.self) { section in
+                            if (model.studentType == .undergrad) ||
+                                (model.studentType == .grad && !CampusSection.gradHidden.contains(section)) ||
+                                (model.studentType == .staff && !CampusSection.staffHidden.contains(section)) {
+                                NavigationLink(value: section) {
+                                    FDHomeSimpleLink(section: section)
+                                }
+                                .swipeActions {
+                                    if CampusSection.pinnable.contains(section) {
+                                        Button {
+                                            navigator.pin(section: section)
+                                        } label: {
+                                            Image(systemName: "pin.fill")
+                                        }
+                                        .tint(.orange)
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                .compactSectionSpacing()
+//                .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
+//                    guard section == .settings else { return }
+//                    if navigator.path.count > 0 {
+//                        navigator.path.removeLast(navigator.path.count)
+//                    } else {
+//                        withAnimation {
+//                            proxy.scrollTo("campus-top")
+//                        }
+//                    }
+//                })
             }
-            .compactSectionSpacing()
             .toolbar {
                 Button {
                     showSheet = true

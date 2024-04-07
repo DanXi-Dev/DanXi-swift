@@ -4,6 +4,7 @@ import FudanKit
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
+    @StateObject private var navigator = SettingsNavigator()
     
     @State private var campusLoginSheet = false
     @State private var campusUserSheet = false
@@ -16,53 +17,68 @@ struct SettingsPage: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
-                Section("Accounts Management") {
-                    Button {
-                        if campusModel.loggedIn {
-                            campusUserSheet = true
-                        } else {
-                            campusLoginSheet = true
+        NavigationStack(path: $navigator.path) {
+            ScrollViewReader { proxy in
+                List {
+                    EmptyView()
+                        .id("settings-top")
+                    
+                    Section("Accounts Management") {
+                        Button {
+                            if campusModel.loggedIn {
+                                campusUserSheet = true
+                            } else {
+                                campusLoginSheet = true
+                            }
+                        } label: {
+                            AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
                         }
-                    } label: {
-                        AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
+                        
+                        Button {
+                            if forumModel.isLogged {
+                                forumUserSheet = true
+                            } else {
+                                forumLoginSheet = true
+                            }
+                        } label: {
+                            AccountLabel(loggedIn: forumModel.isLogged, title: "FDU Hole Account")
+                        }
                     }
                     
-                    Button {
-                        if forumModel.isLogged {
-                            forumUserSheet = true
-                        } else {
-                            forumLoginSheet = true
+                    if campusModel.loggedIn {
+                        Section("Campus.Tab") {
+                            Picker(selection: $campusModel.studentType) {
+                                Text("Undergraduate").tag(StudentType.undergrad)
+                                Text("Graduate").tag(StudentType.grad)
+                                Text("Staff").tag(StudentType.staff)
+                            } label: {
+                                Label("Student Type", systemImage: "person.text.rectangle")
+                            }
                         }
-                    } label: {
-                        AccountLabel(loggedIn: forumModel.isLogged, title: "FDU Hole Account")
                     }
-                }
-                
-                if campusModel.loggedIn {
-                    Section("Campus.Tab") {
-                        Picker(selection: $campusModel.studentType) {
-                            Text("Undergraduate").tag(StudentType.undergrad)
-                            Text("Graduate").tag(StudentType.grad)
-                            Text("Staff").tag(StudentType.staff)
+                    
+                    if forumModel.isLogged {
+                        THSettingsView()
+                    }
+                    
+                    Section {
+                        NavigationLink {
+                            AboutPage()
                         } label: {
-                            Label("Student Type", systemImage: "person.text.rectangle")
+                            Label("About", systemImage: "info.circle")
                         }
                     }
                 }
-                
-                if forumModel.isLogged {
-                    THSettingsView()
-                }
-                
-                Section {
-                    NavigationLink {
-                        AboutPage()
-                    } label: {
-                        Label("About", systemImage: "info.circle")
+                .onReceive(AppModel.onDoubleTapTabItem, perform: { (section: AppSection) in
+                    guard section == .settings else { return }
+                    if navigator.path.count > 0 {
+                        navigator.path.removeLast(navigator.path.count)
+                    } else {
+                        withAnimation {
+                            proxy.scrollTo("settings-top")
+                        }
                     }
-                }
+                })
             }
             .navigationTitle("Settings")
             .navigationDestination(isPresented: $showPushSettings, destination: { NotificationSettingWrapper() })
@@ -227,4 +243,8 @@ fileprivate struct AccountLabel: View {
             }
         }
     }
+}
+
+class SettingsNavigator: ObservableObject {
+    @Published var path = NavigationPath()
 }
