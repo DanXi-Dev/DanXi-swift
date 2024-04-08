@@ -72,7 +72,7 @@ struct THMentionView: View {
             .foregroundColor(.secondary)
             .padding(.top, 1.0)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 12.0)
         .padding(.vertical, 7.0)
         .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
         .cornerRadius(7.0)

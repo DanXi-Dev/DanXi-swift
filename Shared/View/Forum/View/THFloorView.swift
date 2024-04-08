@@ -14,7 +14,7 @@ struct THSimpleFloor: View {
                 .lineLimit(6)
             bottom
         }
-        .listRowInsets(EdgeInsets(top: 11, leading: 12, bottom: 11, trailing: 12))
+        .listRowInsets(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
     }
     
     var bottom: some View {
@@ -64,16 +64,13 @@ struct THComplexFloor: View {
                 content
                 bottomLine
             }
-            // this line is for unfolded floor
-            .listRowInsets(EdgeInsets(top: 10, leading: 12, bottom: 8, trailing: 12))
         }
-        // this line is for folded floor
-        .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+        .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
         .environmentObject(model)
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
         .disabled(editMode?.wrappedValue.isEditing ?? false)
         // highlight control
-//        .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
+        // .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
         .onReceive(holeModel.scrollControl) { id in
             if id == model.floor.id {
                 model.highlight()

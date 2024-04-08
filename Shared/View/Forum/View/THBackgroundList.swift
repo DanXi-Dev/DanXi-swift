@@ -32,11 +32,15 @@ struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
             List(selection: $selection) {
                 content
             }
+            // defaultMinListRowHeight is a custom modifier that reduces the height of list items
+            // this property should be adjusted based the listRowInsets of the content
+            .environment(\.defaultMinListRowHeight, 35)
             .compactSectionSpacing()
         } else {
             List {
                 content
             }
+            .environment(\.defaultMinListRowHeight, 35)
             .compactSectionSpacing()
         }
 //        .scrollContentBackground(hasBackground ? .hidden : .visible)
