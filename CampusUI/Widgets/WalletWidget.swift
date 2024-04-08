@@ -115,7 +115,7 @@ struct WalletWidgetView: View {
         Spacer()
         
         if let transaction = entry.transactions.first {
-            Label("\(transaction.location) \(transaction.amount)", systemImage: "clock")
+            Label("\(transaction.location) \(String(format:"%.2f",transaction.amount))", systemImage: "clock")
                 .bold()
                 .font(.footnote)
                 .foregroundColor(.secondary)
