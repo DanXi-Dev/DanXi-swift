@@ -75,15 +75,44 @@ actor Authenticator {
         
         // try login once, mutex
         
-        let tryLoginTask = authenticationQueue.addBarrierOperation { () -> Data? in
-            if self.isLoggedIn(host: host) {
-                return nil
+        if !self.isLoggedIn(host: host) {
+            let tryLoginTask = authenticationQueue.addBarrierOperation { () -> Data? in
+                if self.isLoggedIn(host: host) { // more check inside barrier to prevent duplicated requests
+                    return nil
+                }
+                let (data, response) = try await URLSession.campusSession.data(for: request)
+                if response.url?.host() != "uis.fudan.edu.cn" {
+                    return data
+                }
+                
+                guard let username = CredentialStore.shared.username,
+                      let password = CredentialStore.shared.password else {
+                    throw CampusError.credentialNotFound
+                }
+                
+                let request = try AuthenticationAPI.constructAuthenticationRequest(response.url!, form: data, username: username, password: password)
+                let (reloadedData, reloadedResponse) = try await URLSession.campusSession.data(for: request)
+                guard reloadedResponse.url?.host() != "uis.fudan.edu.cn" else {
+                    throw CampusError.loginFailed
+                }
+                self.hostLastLoggedInDate[host] = Date() // refresh isLogged status
+                return reloadedData
             }
+            
+            if let data = try await tryLoginTask.value {
+                return data
+            }
+        }
+        
+        // already logged-in, direct request, parallel
+        
+        let directRequestTask = authenticationQueue.addOperation {
             let (data, response) = try await URLSession.campusSession.data(for: request)
             if response.url?.host() != "uis.fudan.edu.cn" {
                 return data
             }
             
+            // retry once
             guard let username = CredentialStore.shared.username,
                   let password = CredentialStore.shared.password else {
                 throw CampusError.credentialNotFound
@@ -96,20 +125,6 @@ actor Authenticator {
             }
             self.hostLastLoggedInDate[host] = Date() // refresh isLogged status
             return reloadedData
-        }
-        
-        if let data = try await tryLoginTask.value {
-            return data
-        }
-        
-        // already logged-in, direct request, parallel
-        
-        let directRequestTask = authenticationQueue.addOperation {
-            let (data, response) = try await URLSession.campusSession.data(for: request)
-            guard response.url?.host() != "uis.fudan.edu.cn" else {
-                throw CampusError.loginFailed
-            }
-            return data
         }
         
         return try await directRequestTask.value
