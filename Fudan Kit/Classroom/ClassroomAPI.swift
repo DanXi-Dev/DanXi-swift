@@ -6,17 +6,7 @@ import SwiftSoup
 /// This API uses data from `http://10.64.130.6/`, which can only be accessed in campus.
 /// To enable users to view course schedules anywhere, we use WebVPN service to access this service
 /// outside campus.
-///
-/// - Important:
-/// Call ``loginVPN()`` before invoking any data-related API.
 public enum ClassroomAPI {
-    
-    /// Login to campus VPN service
-    public static func loginVPN() async throws {
-        let url = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
-        _ = try await AuthenticationAPI.authenticateForData(url)
-    }
-    
     /// Get classroom and schedules in the given building.
     ///
     /// ## API Detail
@@ -67,8 +57,7 @@ public enum ClassroomAPI {
         var component = URLComponents(string: "https://webvpn.fudan.edu.cn/http/77726476706e69737468656265737421a1a70fca737e39032e46df/")!
         component.queryItems = [URLQueryItem(name: "b", value: building.rawValue)]
         let url = component.url!
-        let request = constructRequest(url)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
         
         var classrooms: [Classroom] = []
         

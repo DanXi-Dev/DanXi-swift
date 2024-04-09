@@ -8,7 +8,6 @@ struct RankPage: View {
     
     var body: some View {
         AsyncContentView { () -> [Rank] in
-            try await UndergraduateCourseAPI.login()
             return try await UndergraduateCourseAPI.getRanks()
         } content: { ranks in
             List {

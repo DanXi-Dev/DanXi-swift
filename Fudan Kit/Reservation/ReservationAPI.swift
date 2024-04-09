@@ -4,14 +4,8 @@ import SwiftyJSON
 
 
 /// API collection for playground reservation
-///
-/// - Important:
-/// These API are protected. Call `login()` before invoking any of the API.
 public enum ReservationAPI {
-    public static func login() async throws {
-        let url = URL(string: "https://elife.fudan.edu.cn/login2.action")!
-        _ = try await AuthenticationAPI.authenticateForData(url)
-    }
+    static let loginURL = URL(string: "https://elife.fudan.edu.cn/login2.action")!
     
     /// Get playgrounds for reservation.
     ///
@@ -140,7 +134,7 @@ public enum ReservationAPI {
             // get data from server
             var component = URLComponents(string: "https://elife.fudan.edu.cn/public/front/search.htm")!
             component.queryItems = [URLQueryItem(name: "id", value: categoryId), URLQueryItem(name: "pageBean.pageSize", value: "100")]
-            let (data, _) = try await URLSession.campusSession.data(for: URLRequest(url: component.url!))
+            let data = try await Authenticator.shared.authenticate(component.url!, manualLoginURL: loginURL)
             
             // parse data from HTML stirng
             let elements = try decodeHTMLElementList(data, selector: "div.order_list > table > tbody > tr > td > table > tbody")
@@ -240,7 +234,7 @@ public enum ReservationAPI {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         component.queryItems = [URLQueryItem(name: "contentId", value: playground.id),
                                 URLQueryItem(name: "currentDate", value: dateFormatter.string(from: date))]
-        let (data, _) = try await URLSession.campusSession.data(for: URLRequest(url: component.url!))
+        let data = try await Authenticator.shared.authenticate(component.url!, manualLoginURL: loginURL)
         
         // check if is available
         guard let html = String(data: data, encoding: String.Encoding.utf8) else { return [] }

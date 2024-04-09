@@ -12,7 +12,6 @@ public actor ReservationStore {
     public static let shared = ReservationStore()
     
     var playgrounds: [Playground]?
-    var logged = false
     
     init() {
         playgrounds = try? Disk.retrieve("fdutools/playgrounds.json", from: .applicationSupport, as: [Playground].self)
@@ -30,11 +29,6 @@ public actor ReservationStore {
     
     /// Invalidate cache and return new data froms erver
     public func getRefreshedPlayground() async throws -> [Playground] {
-        if !logged {
-            try await ReservationAPI.login()
-            logged = true
-        }
-        
         let playgrounds = try await ReservationAPI.getPlaygrounds()
         self.playgrounds = playgrounds
         try Disk.save(playgrounds, to: .applicationSupport, as: "fdutools/playgrounds.json")
@@ -42,11 +36,6 @@ public actor ReservationStore {
     }
     
     public func getReservations(playground: Playground, date: Date) async throws -> [Reservation] {
-        if !logged {
-            try await ReservationAPI.login()
-            logged = true
-        }
-        
         return try await ReservationAPI.getReservations(playground: playground, date: date)
     }
 }

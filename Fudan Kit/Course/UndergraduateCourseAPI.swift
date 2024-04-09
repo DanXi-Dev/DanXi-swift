@@ -3,15 +3,9 @@ import SwiftyJSON
 
 /// API collection for academic and courses service.
 /// These API are only available to undergraduate students.
-///
-/// - Important:
-///     ``login`` must be called before invoking any other API.
 public enum UndergraduateCourseAPI {
     
-    public static func login() async throws {
-        let loginURL = URL(string: "http://jwfw.fudan.edu.cn/eams/home.action")! // TODO: What if the scheme is changed to HTTPS?
-        _ = try await AuthenticationAPI.authenticateForData(loginURL)
-    }
+    static let loginURL = URL(string: "http://jwfw.fudan.edu.cn/eams/home.action")!
     
     // MARK: - Courses
     
@@ -48,12 +42,12 @@ public enum UndergraduateCourseAPI {
     /// It will be parsed to get all semesters. Note that this is not JSON since the key are not quoted with ".
     public static func getSemesters() async throws -> [Semester] {
         // set semester cookies from server, otherwise the data will not be returned
-        _ = try await URLSession.campusSession.data(from: URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!)
+        _ = try await Authenticator.shared.authenticate(URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!, manualLoginURL: loginURL)
         
         // request semester data from server
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/dataQuery.action")!
         let request = constructFormRequest(url, form: ["dataType": "semesterCalendar"])
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         
         // the data sent from server is not real JSON, need to add quotes
         guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
@@ -118,8 +112,7 @@ public enum UndergraduateCourseAPI {
     /// We'll extract the information we need using Regex.
     public static func getParamsForCourses() async throws -> (Int, String) {
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd.action")!
-        let request = constructRequest(url)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         let html = String(data: data, encoding: String.Encoding.utf8)!
         
         let idsPattern = /bg\.form\.addInput\(form,\s*"ids",\s*"(?<ids>\d+)"\);/
@@ -151,7 +144,7 @@ public enum UndergraduateCourseAPI {
                     "setting.kind": "std",
                     "ids": String(ids)]
         let request = constructFormRequest(url, form: form)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         
         // get script content
         guard let elements = try? decodeHTMLElementList(data, selector: "body > script"),
@@ -231,8 +224,7 @@ public enum UndergraduateCourseAPI {
     /// - Returns: A list of ``Score``
     public static func getScore(semester: Int) async throws -> [Score] {
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/teach/grade/course/person!search.action?semesterId=\(String(semester))")!
-        let request = constructRequest(url)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         
         let table = try decodeHTMLElement(data, selector: "tbody")
         
@@ -250,8 +242,7 @@ public enum UndergraduateCourseAPI {
     /// Get the rank list, aka GPA ranking table
     public static func getRanks() async throws -> [Rank] {
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action")!
-        let request = constructRequest(url)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         
         let table = try decodeHTMLElement(data, selector: "tbody")
         
