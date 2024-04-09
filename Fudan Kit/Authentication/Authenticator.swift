@@ -1,6 +1,10 @@
 import Foundation
 import Queue
 
+
+/// A central object that handle all UIS login requests.
+///
+/// Use this object to authenticate for all services to prevent duplicated authentication requests and concurrency issues.
 actor Authenticator {
     static let shared = Authenticator()
     
@@ -9,8 +13,8 @@ actor Authenticator {
     
     /// Determine whether the given host has credential or whether the credential has expired.
     ///
-    /// If it has been 2 hours since last login, the credential is regared expired.
-    func isLoggedIn(host: String) -> Bool {
+    /// If it has been 2 hours since last login, the credential is regarded expired.
+    private func isLoggedIn(host: String) -> Bool {
         guard let loginDate = hostLastLoggedInDate[host] else {
             return false
         }
@@ -22,11 +26,28 @@ actor Authenticator {
         return hours < 2
     }
     
+    /// Authenticate a request and return the data required.
+    /// - Parameters:
+    ///   - url: The `URL`
+    ///   - manualLoginURL: Some service require specific URL to login, set this optional parameter to provide one.
+    /// - Returns: The business data.
+    ///
+    /// This function requests data from server, and perform authentication to services when necessary.
+    /// Use this function to prevent duplicated UIS requests and concurrency issues.
     func authenticate(_ url: URL, manualLoginURL: URL? = nil) async throws -> Data {
         let request = constructRequest(url)
         return try await authenticate(request, manualLoginURL: manualLoginURL)
     }
     
+    
+    /// Authenticate a request and return the data required.
+    /// - Parameters:
+    ///   - request: The `URLRequest`
+    ///   - manualLoginURL: Some service require specific URL to login, set this optional parameter to provide one.
+    /// - Returns: The business data.
+    ///
+    /// This function requests data from server, and perform authentication to services when necessary.
+    /// Use this function to prevent duplicated UIS requests and concurrency issues.
     func authenticate(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> Data {
         guard let host = request.url?.host(), let method = request.httpMethod else { throw URLError(.badURL) }
         
