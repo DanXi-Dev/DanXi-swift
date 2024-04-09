@@ -15,11 +15,11 @@ let package = Package(
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.6.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.0.0"),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
+        .package(url: "https://github.com/mattmassicotte/Queue", from: "0.1.4"),
         .package(path: "../Utils"),
-        
     ],
     targets: [
-        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON"], path: "."),
+        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON", "Queue"], path: "."),
     ]
 )
 
