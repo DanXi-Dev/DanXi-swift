@@ -25,7 +25,8 @@ struct DKReviewPage: View {
                 
                 DKRatingView(rank: review.rank)
                 
-                Text(review.content)
+                Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                        .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 
                 HStack {
                     Spacer()
