@@ -14,7 +14,7 @@ public enum WalletAPI {
     /// app should redirect user to proper webpage to agree.
     public static func getQRCode() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
-        let data = try await AuthenticationAPI.authenticateForData(url)
+        let data = try await Authenticator.shared.authenticate(url)
         
         do {
             let element = try decodeHTMLElement(data, selector: "#myText")
@@ -35,7 +35,7 @@ public enum WalletAPI {
     /// This API is slower than ``MyAPI.getUserInfo()``, which should be preferred.
     public static func getBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let responseData = try await AuthenticationAPI.authenticateForData(url)
+        let responseData = try await Authenticator.shared.authenticate(url)
         let cashElement = try decodeHTMLElement(responseData, selector: ".payway-box-bottom-item > p")
         return try cashElement.html()
     }
@@ -83,7 +83,7 @@ public enum WalletAPI {
                 }
                 
                 let url = URL(string: "https://ecard.fudan.edu.cn/epay/consume/index")!
-                let responseData = try await AuthenticationAPI.authenticateForData(url)
+                let responseData = try await Authenticator.shared.authenticate(url)
                 let element = try decodeHTMLElement(responseData, selector: "meta[name=\"_csrf\"]")
                 let csrf = try element.attr("content")
                 self.csrf = csrf
@@ -96,7 +96,7 @@ public enum WalletAPI {
         let form = ["pageNo": String(page), "_csrf": csrf]
         let request = constructFormRequest(url, form: form)
         
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request)
         
         let table = try decodeHTMLElement(data, selector: "#all tbody")
         var transactions: [Transaction] = []

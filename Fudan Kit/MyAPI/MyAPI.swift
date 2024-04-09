@@ -12,11 +12,8 @@ import SwiftyJSON
 /// - Canteen
 /// - ECard balance & spending history
 /// - Electricity usage
-enum MyAPI {
-    public static func login() async throws {
-        let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_mrxf.json")! // The login URL must be one of the specific data requests, not a generic https://my.fudan.edu.cn URL
-        _ = try await AuthenticationAPI.authenticateForData(url)
-    }
+public enum MyAPI {
+    static let loginURL = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_mrxf.json")!
     
     /// API for daily electricity usage
     /// - Returns: A list of ``ElectricityLog``, which contains a date and the electricity used in this date
@@ -27,7 +24,7 @@ enum MyAPI {
         // a magical payload discovered by @singularity-s0
         let payload = "draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false"
         let request = constructRequest(url, payload: payload.data(using: .utf8))
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         let dateValues = try decodeMyAPIResponse(data: data)
         return dateValues.map { dateValue in
             ElectricityLog(id: UUID(), date: dateValue.date, usage: dateValue.value)
@@ -43,7 +40,7 @@ enum MyAPI {
         // a magical payload discovered by @singularity-s0
         let payload = "draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false"
         let request = constructRequest(url, payload: payload.data(using: .utf8))
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         let dateValues = try decodeMyAPIResponse(data: data)
         return dateValues.map { dateValue in
             WalletLog(id: UUID(), date: dateValue.date, amount: dateValue.value)
@@ -73,7 +70,7 @@ enum MyAPI {
     public static func getUserInfo() async throws -> UserInfo {
         let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_xx.json")!
         let request = constructRequest(url, method: "POST")
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
         let userData = (dictionary["data"] as! [[String]])[0]
         return UserInfo(userId: userData[0], userName: userData[1], cardStatus: userData[2], entryPermission: userData[3], expirationDate: userData[4], balance: userData[5])

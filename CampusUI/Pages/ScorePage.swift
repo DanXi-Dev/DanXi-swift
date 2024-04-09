@@ -10,7 +10,6 @@ struct ScorePage: View {
     
     var body: some View {
         AsyncContentView { () -> SemesterInfo in
-            try await UndergraduateCourseAPI.login()
             let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
             let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
             return info
