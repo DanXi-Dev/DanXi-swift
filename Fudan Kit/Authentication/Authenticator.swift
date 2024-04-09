@@ -19,11 +19,13 @@ actor Authenticator {
             return false
         }
         
-        let currentDate = Date()
-        let calendar = Calendar.current
-        let hours = calendar.dateComponents([.hour], from: loginDate, to: currentDate).hour ?? 0
+        var dateComponents = DateComponents()
+        dateComponents.hour = 2
         
-        return hours < 2
+        let calendar = Calendar.current
+        guard let addedDate = calendar.date(byAdding: dateComponents, to: loginDate) else { return false }
+        
+        return addedDate < Date.now
     }
     
     /// Authenticate a request and return the data required.
