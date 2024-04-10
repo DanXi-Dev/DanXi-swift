@@ -22,7 +22,6 @@
 		27066038292FA34200F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066037292FA34200F4C321 /* contributor.json */; };
 		270CA42A28BD13A10024BDF2 /* DKReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CA42928BD13A10024BDF2 /* DKReviewPage.swift */; };
 		270CD1942BAD697600881ABA /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 270CD1932BAD697600881ABA /* ViewUtils */; };
-		2711C8972AD595CE00B58D80 /* EventStoreCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */; };
 		27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27173F1E2A0EBC2C00A570E1 /* THBackgroundList.swift */; };
 		271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D1D5029F178C600DDEEC9 /* Decode.swift */; };
 		271D1D5329F19D1500DDEEC9 /* THMessagesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */; };
@@ -212,7 +211,6 @@
 		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
 		270CA42928BD13A10024BDF2 /* DKReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewPage.swift; sourceTree = "<group>"; };
 		270CD1902BAD68C900881ABA /* View Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "View Utils"; sourceTree = "<group>"; };
-		2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreCompatible.swift; sourceTree = "<group>"; };
 		27173F1E2A0EBC2C00A570E1 /* THBackgroundList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBackgroundList.swift; sourceTree = "<group>"; };
 		271D1D5029F178C600DDEEC9 /* Decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decode.swift; sourceTree = "<group>"; };
 		271D1D5229F19D1500DDEEC9 /* THMessagesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessagesPage.swift; sourceTree = "<group>"; };
@@ -671,7 +669,6 @@
 			isa = PBXGroup;
 			children = (
 				27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */,
-				2711C8962AD594D300B58D80 /* EventStoreCompatible.swift */,
 				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 			);
@@ -970,7 +967,6 @@
 				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
 				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
-				2711C8972AD595CE00B58D80 /* EventStoreCompatible.swift in Sources */,
 				2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */,
 				27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */,
 				27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */,
