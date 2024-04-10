@@ -7,6 +7,7 @@ struct THContentEditor: View {
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
     @State private var showStickers = false
+    @State private var showPreview = false
     
     @FocusState private var isEditing: Bool
     
@@ -23,7 +24,20 @@ struct THContentEditor: View {
     }
     
     var body: some View {
-        Group {
+        Picker(selection: $showPreview) {
+            Text("Edit").tag(false)
+            Text("Preview").tag(true)
+        }
+        .pickerStyle(.segmented)
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+        .listRowInsets(.zero)
+        
+        if showPreview {
+            Section {
+                THFloorContent(content, interactable: false)
+            }
+        } else {
             Section {
                 PhotosPicker(selection: $photo, matching: .images) {
                     Label("Upload Image", systemImage: "photo")
@@ -39,14 +53,14 @@ struct THContentEditor: View {
                 }
                 .alert("Upload Image Failed", isPresented: $showUploadError) { }
                 
-//                Button {
-//                    showStickers = true
-//                } label: {
-//                    Label("Stickers", systemImage: "smiley")
-//                }
-//                .sheet(isPresented: $showStickers) {
-//                    stickerPicker
-//                }
+                //                Button {
+                //                    showStickers = true
+                //                } label: {
+                //                    Label("Stickers", systemImage: "smiley")
+                //                }
+                //                .sheet(isPresented: $showStickers) {
+                //                    stickerPicker
+                //                }
                 
                 ZStack(alignment: .topLeading) {
                     if content.isEmpty {
@@ -61,18 +75,10 @@ struct THContentEditor: View {
                         .focused($isEditing)
                         .frame(minHeight: 250)
                 }
-
-
+                
+                
             } footer: {
                 Text("TH Edit Alert")
-            }
-            
-            if !content.isEmpty {
-                Section {
-                    THFloorContent(content, interactable: false)
-                } header: {
-                    Text("Preview")
-                }
             }
         }
     }
