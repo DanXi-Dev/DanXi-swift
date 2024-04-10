@@ -23,7 +23,8 @@ struct DKReviewView: View {
                     .foregroundColor(.secondary)
             }
 
-            Text(review.content)
+            Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                    .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 .multilineTextAlignment(.leading)
                 .lineLimit(10)
 

@@ -77,13 +77,8 @@ fileprivate struct FDPlaygroundReservePage: View {
                 if filteredReservations.isEmpty {
                     Text("No Time Slots Available")
                 } else {
-                    Grid(alignment: .leading) {
-                        ForEach(filteredReservations) { reservation in
-                            ReservationView(reservation: reservation)
-                            if reservation.id != filteredReservations.last?.id {
-                                Divider()
-                            }
-                        }
+                    ForEach(filteredReservations) { reservation in
+                        ReservationView(reservation: reservation)
                     }
                 }
             }
@@ -99,24 +94,27 @@ fileprivate struct ReservationView: View {
     @State private var showSheet = false
     
     var body: some View {
-        GridRow {
+        HStack {
             Text("\(reservation.begin.formatted(date: .omitted, time: .shortened)) - \(reservation.end.formatted(date: .omitted, time: .shortened))")
-            Spacer()
+                .frame(maxWidth: .infinity, alignment: .leading)
             Text("\(reservation.reserved) / \(reservation.total)")
-            Spacer()
-            if reservation.available {
-                Button {
-                    showSheet = true
-                } label: {
-                    Text("Reserve")
+                .frame(maxWidth: .infinity, alignment: .center)
+            Group {
+                if reservation.available {
+                    Button {
+                        showSheet = true
+                    } label: {
+                        Text("Reserve")
+                    }
+                } else if reservation.reserved == reservation.total {
+                    Text("Full")
+                        .foregroundColor(.secondary)
+                } else {
+                    Text("Unavailable")
+                        .foregroundColor(.secondary)
                 }
-            } else if reservation.reserved == reservation.total {
-                Text("Full")
-                    .foregroundColor(.secondary)
-            } else {
-                Text("Unavailable")
-                    .foregroundColor(.secondary)
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .sheet(isPresented: $showSheet) {
             ReservationSheet(reservation)
@@ -168,10 +166,10 @@ fileprivate struct ReservationSheet: View {
 class FDPlaygroundModel: ObservableObject {
     init(_ playgrounds: [Playground]) {
         self.playgrounds = playgrounds
-
+        
         let categoriesSet = Set(playgrounds.map(\.category))
         self.categoriesList = Array(categoriesSet).sorted().reversed()
-
+        
         let campusSet = Set(playgrounds.map(\.campus))
         self.campusList = Array(campusSet).sorted().reversed()
     }
@@ -182,7 +180,7 @@ class FDPlaygroundModel: ObservableObject {
     
     @Published var category = ""
     @Published var campus = ""
-
+    
     var filteredPlaygrounds: [Playground] {
         var result = playgrounds
         if !campus.isEmpty {

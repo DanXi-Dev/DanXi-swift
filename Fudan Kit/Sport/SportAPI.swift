@@ -6,18 +6,13 @@ import SwiftSoup
 /// - Important:
 ///        Call ``login()`` before invoking any API
 public enum SportAPI {
-    public static func login() async throws {
-        let loginURL = URL(string: "http://tac.fudan.edu.cn/thirds/tjb.act?redir=sportScore")!
-        _ = try await AuthenticationAPI.authenticateForData(loginURL)
-    }
-    
+    static let loginURL = URL(string: "http://tac.fudan.edu.cn/thirds/tjb.act?redir=sportScore")!
     
     /// Get exercise
     /// - Returns: A tuple, including the count of each exercise category and exercise logs.
     public static func getExercise() async throws -> ([Exercise], [ExerciseLog]) {
         let exerciseURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stscore.aspx?item=1")!
-        let request = constructRequest(exerciseURL)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(exerciseURL, manualLoginURL: loginURL)
         
         let exercises = try parseExercise(data: data)
         if let logs = try? parseExerciseLog(data: data) {
@@ -96,8 +91,7 @@ public enum SportAPI {
     /// Get exam data, including score, items and logs.
     public static func getExam() async throws -> SportExam {
         let examURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stScore.aspx?item=3")!
-        let request = constructRequest(examURL)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(examURL, manualLoginURL: loginURL)
         
         let document = try decodeHTMLDocument(data)
         

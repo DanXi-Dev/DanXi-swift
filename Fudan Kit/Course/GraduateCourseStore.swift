@@ -7,7 +7,6 @@ import Utils
 public actor GraduateCourseStore {
     public static let shared = GraduateCourseStore()
     
-    var logged = false
     var currentSemester: Semester? = nil
     var semesters: [Semester]
     var courseMap: [Semester: [Course]]
@@ -34,11 +33,7 @@ public actor GraduateCourseStore {
         return try await getRefreshedCourses(semester: semester)
     }
     
-    func getRefreshedCourses(semester: Semester) async throws -> [Course] {
-        if !logged {
-            _ = try await getRefreshedSemesters()
-        }
-        
+    func getRefreshedCourses(semester: Semester) async throws -> [Course] {        
         let courses = try await GraduateCourseAPI.getCourses(semester: semester)
         courseMap[semester] = courses
         try Disk.save(courses, to: .applicationSupport, as: "fdutools/grad-course-map.json")

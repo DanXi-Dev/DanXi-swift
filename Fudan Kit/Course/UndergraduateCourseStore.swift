@@ -11,16 +11,8 @@ public actor UndergraduateCourseStore {
     private var currentSemesterId: Int? = nil
     private var ids: String? = nil
     
-    var logged = false
     var semesters: [Semester]
     var courseMap: [Semester: [Course]]
-    
-    func checkLogin() async throws {
-        if !logged {
-            try await UndergraduateCourseAPI.login()
-            logged = true
-        }
-    }
     
     /// Initialize information from local cache
     init() {
@@ -69,8 +61,6 @@ public actor UndergraduateCourseStore {
     }
     
     public func getRefreshedSemesters() async throws -> ([Semester], Semester?) {
-        try await checkLogin()
-        
         let semesters = try await UndergraduateCourseAPI.getSemesters()
         let (currentSemesterId, _) = try await getNecessaryParams()
         let currentSemester = semesters.filter({ $0.semesterId == currentSemesterId }).first
@@ -90,7 +80,6 @@ public actor UndergraduateCourseStore {
     }
     
     public func getRefreshedCourses(semester: Semester) async throws -> [Course] {
-        try await checkLogin()
         let (_, ids) = try await getNecessaryParams()
         let courses = try await UndergraduateCourseAPI.getCourses(semesterId: semester.semesterId, ids: ids)
         self.courseMap[semester] = courses

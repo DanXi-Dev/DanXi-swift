@@ -47,7 +47,7 @@ public enum GraduateCourseAPI {
     /// ```
     public static func getSemesters() async throws -> ([Semester], Semester?) {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanyjskb/wap/default/get-index")!
-        let data = try await AuthenticationAPI.authenticateForData(url)
+        let data = try await Authenticator.shared.authenticate(url)
         let json = try unwrapJSON(data)
         let semesterData = try json["termInfo"].rawData()
         
@@ -201,7 +201,7 @@ public enum GraduateCourseAPI {
                     "week": String(week),
                     "type": "1"]
         let request = constructFormRequest(url, form: form)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.shared.authenticate(request)
         
         // decode data into GraduateCourseResponse
         let json = try unwrapJSON(data)
