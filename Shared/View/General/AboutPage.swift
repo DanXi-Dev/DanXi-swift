@@ -37,7 +37,6 @@ struct AboutPage: View {
                     }
                 }
             }
-            .scrollDisabled(true)
             
             Spacer()
             
