@@ -78,8 +78,6 @@
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27BBBCFF29119368007C2905 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBCFE29119368007C2905 /* Markdown */; };
-		27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD01291193A9007C2905 /* SwiftSoup */; };
-		27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBD04291193D2007C2905 /* CachedAsyncImage */; };
 		27BBBD0B2912C330007C2905 /* DXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0A2912C330007C2905 /* DXError.swift */; };
 		27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0D2912C33C007C2905 /* DKEntity.swift */; };
 		27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0E2912C33C007C2905 /* THEntity.swift */; };
@@ -346,7 +344,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */,
-				27BBBD05291193D2007C2905 /* CachedAsyncImage in Frameworks */,
 				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
@@ -354,7 +351,6 @@
 				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
 				27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
-				27BBBD02291193A9007C2905 /* SwiftSoup in Frameworks */,
 				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
 				27D3A4962BBC844200350D21 /* CampusUI in Frameworks */,
 				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
@@ -742,8 +738,6 @@
 			name = DanXi;
 			packageProductDependencies = (
 				27BBBCFE29119368007C2905 /* Markdown */,
-				27BBBD01291193A9007C2905 /* SwiftSoup */,
-				27BBBD04291193D2007C2905 /* CachedAsyncImage */,
 				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
@@ -793,15 +787,12 @@
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
 				27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */,
-				27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
 				27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */,
-				27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
@@ -1391,33 +1382,9 @@
 				kind = branch;
 			};
 		};
-		27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/colinc86/LaTeXSwiftUI";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		27D1D6462AB5F93C00E8D536 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stleamist/BetterSafariView";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -1473,16 +1440,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
-		};
-		27BBBD01291193A9007C2905 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBD00291193A9007C2905 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		27BBBD04291193D2007C2905 /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBD03291193D2007C2905 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
 		};
 		27C68CB22BB563EE00037D52 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;

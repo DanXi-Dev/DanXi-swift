@@ -5,18 +5,8 @@
         "license": "Apache-2.0 license"
     },
     {
-        "name": "HTMLEntities",
-        "link": "https://app.codecov.io/gh/Kitura/swift-html-entities",
-        "license": "Apache-2.0 license"
-    },
-    {
         "name": "SwiftSoup",
         "link": "https://github.com/scinfu/SwiftSoup",
-        "license": "MIT license"
-    },
-    {
-        "name": "SwiftUI CachedAsyncImage",
-        "link": "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
         "license": "MIT license"
     },
     {

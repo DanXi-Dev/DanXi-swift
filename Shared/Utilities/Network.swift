@@ -1,6 +1,4 @@
 import Foundation
-import SwiftSoup
-
 
 // MARK: - Prepare
 
@@ -35,18 +33,6 @@ func prepareJSONRequest<S: Encodable>(_ url: URL,
     
     return request
 }
-
-func prepareFormRequest(_ url: URL, method: String = "POST", form: [URLQueryItem]) -> URLRequest {
-    var request = prepareRequest(url, method: method)
-    request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    
-    var requestBodyComponents = URLComponents()
-    requestBodyComponents.queryItems = form
-    request.httpBody = requestBodyComponents.query?.data(using: .ascii)
-    
-    return request
-}
-
 
 // MARK: - Request
 
@@ -118,45 +104,6 @@ func decodeDate<K: CodingKey>(_ values: KeyedDecodingContainer<K>, key: KeyedDec
     }
     throw ParseError.invalidDateFormat
 }
-
-func processHTMLData(_ data: Data) throws -> Document {
-    do {
-        guard let htmlText = String(data: data, encoding: String.Encoding.utf8) else {
-            throw ParseError.invalidResponse
-        }
-        return try SwiftSoup.parse(htmlText)
-    } catch {
-        throw ParseError.invalidHTML
-    }
-}
-
-func processHTMLData(_ data: Data, selector: String) throws -> Element {
-    do {
-        guard let htmlText = String(data: data, encoding: String.Encoding.utf8) else {
-            throw ParseError.invalidResponse
-        }
-        let doc = try SwiftSoup.parse(htmlText)
-        guard let element = try doc.select(selector).first() else {
-            throw ParseError.invalidResponse
-        }
-        return element
-    } catch {
-        throw ParseError.invalidHTML
-    }
-}
-
-func processHTMLDataList(_ data: Data, selector: String) throws -> Elements {
-    do {
-        guard let htmlText = String(data: data, encoding: String.Encoding.utf8) else {
-            throw ParseError.invalidResponse
-        }
-        let doc = try SwiftSoup.parse(htmlText)
-        return try doc.select(selector)
-    } catch {
-        throw ParseError.invalidHTML
-    }
-}
-
 
 // MARK: - Error
 
