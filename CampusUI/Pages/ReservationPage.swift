@@ -203,7 +203,8 @@ class FDPlaygroundModel: ObservableObject {
                        "排球": "volleyball.fill",
                        "网球": "tennis.racket",
                        "舞蹈房": "figure.dance",
-                       "体能房": "dumbbell.fill"]
+                       "体能房": "dumbbell.fill",
+                       "乒乓球": "figure.table.tennis"]
         for (name, icon) in iconMap {
             if category.contains(name) {
                 return icon
