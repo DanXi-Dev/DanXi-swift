@@ -1,16 +1,39 @@
 import SwiftUI
 import MarkdownUI
+import LaTeXSwiftUI
 
-// TODO: finish this
 public struct CustomMarkdown: View {
+    let content: String
+    
+    let theme = Theme.gitHub.paragraph { blockConfiguration in
+        let plaintext = blockConfiguration.content.renderPlainText()
+        
+        if plaintext.contains(/\$(.+)\$/) {
+            LaTeX(plaintext)
+        } else {
+            blockConfiguration.label
+        }
+    }
     
     public init(_ content: String) {
         self.content = content
     }
     
-    let content: String
-    
     public var body: some View {
-        Text(content)
+        Markdown(content)
+            .markdownTheme(theme)
+            .markdownImageProvider(CustomImageProvider())
+    }
+}
+
+struct CustomImageProvider: ImageProvider {
+    func makeImage(url: URL?) -> some View {
+        Group {
+            if let url = url {
+                CachedRemoteImage(url)
+            } else {
+                EmptyView()
+            }
+        }
     }
 }

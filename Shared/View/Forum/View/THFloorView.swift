@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftUIX
 import ViewUtils
+import MarkdownUI
 
 struct THSimpleFloor: View {
     let floor: THFloor
@@ -227,6 +228,7 @@ struct THFloorContent: View {
                 switch item.type {
                 case .text(let content):
                     CustomMarkdown(content)
+                        .markdownInlineImageProvider(StickerImageProvider())
                 case .local(let floor):
                     if interactable {
                         THLocalMentionView(floor)
@@ -323,6 +325,15 @@ enum THSticker: String, CaseIterable {
         case .touchFish: Image("Touch Fish")
         case .twin: Image("Twin")
         }
+    }
+}
+
+struct StickerImageProvider: InlineImageProvider {
+    func image(with url: URL, label: String) throws -> Image {
+        guard let sticker = THSticker(rawValue: url.absoluteString) else {
+            throw URLError(.badURL)
+        }
+        return sticker.image
     }
 }
 

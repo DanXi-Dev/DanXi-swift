@@ -52,14 +52,14 @@ struct THContentEditor: View {
                 }
                 .alert("Upload Image Failed", isPresented: $showUploadError) { }
                 
-                //                Button {
-                //                    showStickers = true
-                //                } label: {
-                //                    Label("Stickers", systemImage: "smiley")
-                //                }
-                //                .sheet(isPresented: $showStickers) {
-                //                    stickerPicker
-                //                }
+                Button {
+                    showStickers = true
+                } label: {
+                    Label("Stickers", systemImage: "smiley")
+                }
+                .sheet(isPresented: $showStickers) {
+                    stickerPicker
+                }
                 
                 ZStack(alignment: .topLeading) {
                     if content.isEmpty {
@@ -92,7 +92,7 @@ struct THContentEditor: View {
                                         GridItem(.flexible())]) {
                         ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
                             Button {
-                                content += " ^[\(sticker.rawValue)]"
+                                content += " ![](\(sticker.rawValue))"
                                 showStickers = false
                             } label: {
                                 sticker.image
@@ -119,6 +119,6 @@ struct THContentEditor: View {
 
 #Preview {
     List {
-        THContentEditor(content: .constant("Hello World ^[egg]"))
+        THContentEditor(content: .constant("hello ![](dx_egg)"))
     }
 }
