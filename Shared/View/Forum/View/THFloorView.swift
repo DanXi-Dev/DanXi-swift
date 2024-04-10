@@ -65,12 +65,13 @@ struct THComplexFloor: View {
                 bottomLine
             }
         }
-        .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+        .listRowInsets(.zero)
+        .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+        // highlight control
+        .overlay(Color.accentColor.opacity(model.highlighted ? 0.5 : 0).listRowInsets(.zero))
         .environmentObject(model)
         // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
         .disabled(editMode?.wrappedValue.isEditing ?? false)
-        // highlight control
-        // .listRowBackground(Color.separator.opacity(model.highlighted ? 0.5 : 0))
         .onReceive(holeModel.scrollControl) { id in
             if id == model.floor.id {
                 model.highlight()

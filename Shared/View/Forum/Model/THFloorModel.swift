@@ -17,11 +17,19 @@ class THFloorModel: ObservableObject {
     }
     
     func highlight() {
-        withAnimation {
-            highlighted = true
-        }
         Task {
-            try await Task.sleep(for: .seconds(1))
+            withAnimation {
+                highlighted = true
+            }
+            try await Task.sleep(for: .seconds(0.1))
+            withAnimation {
+                highlighted = false
+            }
+            try await Task.sleep(for: .seconds(0.2))
+            withAnimation {
+                highlighted = true
+            }
+            try await Task.sleep(for: .seconds(0.1))
             withAnimation {
                 highlighted = false
             }
