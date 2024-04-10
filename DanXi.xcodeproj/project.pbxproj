@@ -43,7 +43,6 @@
 		274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197229D1BF9B000DE221 /* WatchApp.swift */; };
 		274C197529D1BF9B000DE221 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197429D1BF9B000DE221 /* ContentView.swift */; };
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
-		2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2751E52928BFB33800104ACD /* MarkdownView.swift */; };
 		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
 		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
 		27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */; };
@@ -72,12 +71,9 @@
 		2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279997992AC1734E00DE835A /* THSubscriptionPage.swift */; };
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
-		27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */; };
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
-		27A5DA2D29D98A300042D28D /* ImageBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA2C29D98A300042D28D /* ImageBrowser.swift */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
-		27BBBCFF29119368007C2905 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 27BBBCFE29119368007C2905 /* Markdown */; };
 		27BBBD0B2912C330007C2905 /* DXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0A2912C330007C2905 /* DXError.swift */; };
 		27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0D2912C33C007C2905 /* DKEntity.swift */; };
 		27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0E2912C33C007C2905 /* THEntity.swift */; };
@@ -88,7 +84,6 @@
 		27BBBD242912C33D007C2905 /* THRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD152912C33C007C2905 /* THRequests.swift */; };
 		27BD15DF2B04E6C0006A97A9 /* THModeratePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BD15DE2B04E6C0006A97A9 /* THModeratePage.swift */; };
 		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
-		27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */; };
 		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
 		27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B412A8B90FE000A614B /* FormTitle.swift */; };
 		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
@@ -231,7 +226,6 @@
 		274C197229D1BF9B000DE221 /* WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchApp.swift; sourceTree = "<group>"; };
 		274C197429D1BF9B000DE221 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		274C197629D1BF9C000DE221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2751E52928BFB33800104ACD /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
 		27536EBD29DC9A8100894A98 /* DanXi Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWidgetBundle.swift; sourceTree = "<group>"; };
 		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -260,7 +254,6 @@
 		279997992AC1734E00DE835A /* THSubscriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSubscriptionPage.swift; sourceTree = "<group>"; };
 		27A424F029EE6B2300339E82 /* DXAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXAuthSheet.swift; sourceTree = "<group>"; };
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
-		27A5DA2C29D98A300042D28D /* ImageBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowser.swift; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27BBBD0A2912C330007C2905 /* DXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXError.swift; sourceTree = "<group>"; };
 		27BBBD0D2912C33C007C2905 /* DKEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKEntity.swift; sourceTree = "<group>"; };
@@ -348,10 +341,7 @@
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
-				27BBBCFF29119368007C2905 /* Markdown in Frameworks */,
-				27C9160F2AB0AB38000E561A /* LaTeXSwiftUI in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
-				27A5DA1E29D6D51E0042D28D /* AdvancedScrollView in Frameworks */,
 				27D3A4962BBC844200350D21 /* CampusUI in Frameworks */,
 				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
 				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
@@ -569,12 +559,10 @@
 				27063AB929FB094C0060AC8B /* AsyncCollection.swift */,
 				27CAD2312A32AD94008F3D19 /* FoldedView.swift */,
 				27C95B412A8B90FE000A614B /* FormTitle.swift */,
-				2751E52928BFB33800104ACD /* MarkdownView.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
 				278B291B2939D2D9008C29ED /* Navigation.swift */,
 				27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */,
-				27A5DA2C29D98A300042D28D /* ImageBrowser.swift */,
 				27DE299729E5A83600B5B28A /* Sheet.swift */,
 				27E82FE829E88AB000F34B3B /* WebView.swift */,
 			);
@@ -737,13 +725,10 @@
 			);
 			name = DanXi;
 			packageProductDependencies = (
-				27BBBCFE29119368007C2905 /* Markdown */,
 				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
 				27A308C629A6753B00E8F646 /* SwiftyJSON */,
 				2791031129C774F8003B9FD9 /* Disk */,
 				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
-				27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */,
-				27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */,
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
 				27C68CB22BB563EE00037D52 /* Utils */,
@@ -786,13 +771,10 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
-				27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */,
 				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */,
-				27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */,
 				F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
@@ -865,7 +847,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27A5DA2D29D98A300042D28D /* ImageBrowser.swift in Sources */,
 				27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */,
 				27939FE928C26E0600E8D199 /* Haptics.swift in Sources */,
 				271D1D5329F19D1500DDEEC9 /* THMessagesPage.swift in Sources */,
@@ -957,7 +938,6 @@
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
-				2751E52A28BFB33800104ACD /* MarkdownView.swift in Sources */,
 				2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */,
 				27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */,
 				27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */,
@@ -1366,30 +1346,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dmytro-anokhin/advanced-scrollview";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.6;
-			};
-		};
-		27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-markdown";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/colinc86/LaTeXSwiftUI";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
@@ -1431,24 +1387,9 @@
 			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
 		};
-		27A5DA1D29D6D51E0042D28D /* AdvancedScrollView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A5DA1C29D6D51E0042D28D /* XCRemoteSwiftPackageReference "advanced-scrollview" */;
-			productName = AdvancedScrollView;
-		};
-		27BBBCFE29119368007C2905 /* Markdown */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27BBBCFD29119368007C2905 /* XCRemoteSwiftPackageReference "swift-markdown" */;
-			productName = Markdown;
-		};
 		27C68CB22BB563EE00037D52 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utils;
-		};
-		27C9160E2AB0AB38000E561A /* LaTeXSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27C9160D2AB0AB38000E561A /* XCRemoteSwiftPackageReference "LaTeXSwiftUI" */;
-			productName = LaTeXSwiftUI;
 		};
 		27D3A4952BBC844200350D21 /* CampusUI */ = {
 			isa = XCSwiftPackageProductDependency;

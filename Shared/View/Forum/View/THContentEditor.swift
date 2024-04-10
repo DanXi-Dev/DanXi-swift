@@ -1,6 +1,5 @@
 import SwiftUI
 import PhotosUI
-import Markdown
 
 struct THContentEditor: View {
     @Binding var content: String

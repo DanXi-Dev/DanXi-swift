@@ -1,21 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "advanced-scrollview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dmytro-anokhin/advanced-scrollview",
-      "state" : {
-        "revision" : "87d83354cde746751029312efdb844e0f57dc820",
-        "version" : "0.0.6"
-      }
-    },
-    {
       "identity" : "bettersafariview",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stleamist/BetterSafariView",
       "state" : {
-        "branch" : "main",
-        "revision" : "884533749e55949b2566030948c6fdbe2873ed0c"
+        "revision" : "884533749e55949b2566030948c6fdbe2873ed0c",
+        "version" : "2.4.2"
       }
     },
     {
@@ -37,21 +28,12 @@
       }
     },
     {
-      "identity" : "latexswiftui",
+      "identity" : "networkimage",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/colinc86/LaTeXSwiftUI",
+      "location" : "https://github.com/gonzalezreal/NetworkImage",
       "state" : {
-        "branch" : "main",
-        "revision" : "766be13e75a901cd0097122be189bac88b5b1963"
-      }
-    },
-    {
-      "identity" : "mathjaxswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/colinc86/MathJaxSwift",
-      "state" : {
-        "revision" : "e23d6eab941da699ac4a60fb0e60f3ba5c937459",
-        "version" : "3.4.0"
+        "revision" : "7aff8d1b31148d32c5933d75557d42f6323ee3d1",
+        "version" : "6.0.0"
       }
     },
     {
@@ -64,39 +46,12 @@
       }
     },
     {
-      "identity" : "svgview",
+      "identity" : "swift-markdown-ui",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/exyte/SVGView",
+      "location" : "https://github.com/gonzalezreal/swift-markdown-ui",
       "state" : {
-        "revision" : "6465962facdd25cb96eaebc35603afa2f15d2c0d",
-        "version" : "1.0.6"
-      }
-    },
-    {
-      "identity" : "swift-cmark",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-cmark.git",
-      "state" : {
-        "branch" : "gfm",
-        "revision" : "2c47322cb32cbed555f13bf5cbfaa488cc30a785"
-      }
-    },
-    {
-      "identity" : "swift-html-entities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Kitura/swift-html-entities",
-      "state" : {
-        "revision" : "d8ca73197f59ce260c71bd6d7f6eb8bbdccf508b",
-        "version" : "4.0.1"
-      }
-    },
-    {
-      "identity" : "swift-markdown",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-markdown",
-      "state" : {
-        "branch" : "main",
-        "revision" : "907674c2ae2d24c32fba50101821b1a7fdd291e2"
+        "revision" : "ae799d015a5374708f7b4c85f3294c05f2a564e2",
+        "version" : "2.3.0"
       }
     },
     {
@@ -104,17 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scinfu/SwiftSoup",
       "state" : {
-        "branch" : "master",
-        "revision" : "028487d4a8a291b2fe1b4392b5425b6172056148"
-      }
-    },
-    {
-      "identity" : "swiftui-cached-async-image",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
-      "state" : {
-        "revision" : "467a3d17479887943ab917a379e62bbaff60ac8a",
-        "version" : "2.1.1"
+        "revision" : "028487d4a8a291b2fe1b4392b5425b6172056148",
+        "version" : "2.7.2"
       }
     },
     {

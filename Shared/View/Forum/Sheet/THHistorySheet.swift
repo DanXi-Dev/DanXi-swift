@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THHistorySheet: View {
     @Environment(\.dismiss) private var dismiss
@@ -48,7 +49,7 @@ struct THHistorySheetItem: View {
                     .font(.caption)
             }
             
-            MarkdownView(history.content)
+            CustomMarkdown(history.content)
                 .foregroundColor(.primary)
             
             HStack {

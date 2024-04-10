@@ -40,6 +40,7 @@
       }
     },
     "·" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -376,6 +377,7 @@
       }
     },
     "%lld." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3723,9 +3725,6 @@
         }
       }
     },
-    "Not Supported: %@" : {
-
-    },
     "Notifications" : {
       "localizations" : {
         "zh-Hans" : {
@@ -5939,6 +5938,7 @@
       }
     },
     "View Image" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

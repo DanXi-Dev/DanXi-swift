@@ -1,17 +1,7 @@
 [
     {
-        "name": "Swift Markdown",
-        "link": "https://github.com/apple/swift-markdown",
-        "license": "Apache-2.0 license"
-    },
-    {
         "name": "SwiftSoup",
         "link": "https://github.com/scinfu/SwiftSoup",
-        "license": "MIT license"
-    },
-    {
-        "name": "SVGViewTests",
-        "link": "https://github.com/exyte/SVGViewTests",
         "license": "MIT license"
     },
     {
@@ -22,16 +12,6 @@
     {
         "name": "KeychainAccess",
         "link": "https://github.com/kishikawakatsumi/KeychainAccess",
-        "license": "MIT license"
-    },
-    {
-        "name": "LaTeXSwiftUI",
-        "link": "https://github.com/colinc86/LaTeXSwiftUI",
-        "license": "MIT license"
-    },
-    {
-        "name": "MathJaxSwift",
-        "link": "https://github.com/colinc86/MathJaxSwift",
         "license": "MIT license"
     },
     {
@@ -47,11 +27,6 @@
     {
         "name": "WrappingHStack",
         "link": "https://github.com/dkk/WrappingHStack",
-        "license": "MIT license"
-    },
-    {
-        "name": "Advanced ScrollView",
-        "link": "https://github.com/dmytro-anokhin/advanced-scrollview",
         "license": "MIT license"
     },
     {

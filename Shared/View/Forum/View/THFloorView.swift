@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftUIX
+import ViewUtils
 
 struct THSimpleFloor: View {
     let floor: THFloor
@@ -225,10 +226,7 @@ struct THFloorContent: View {
             ForEach(items) { item in
                 switch item.type {
                 case .text(let content):
-                    MarkdownView(content)
-                        .customParagraph { text in
-                            THFloorParagraph(text)
-                        }
+                    CustomMarkdown(content)
                 case .local(let floor):
                     if interactable {
                         THLocalMentionView(floor)

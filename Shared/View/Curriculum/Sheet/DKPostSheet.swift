@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct DKPostSheet: View {
     let courseGroup: DKCourseGroup
@@ -65,7 +66,7 @@ struct DKPostSheet: View {
             
             if !content.isEmpty {
                 Section {
-                    MarkdownView(content)
+                    CustomMarkdown(content)
                 } header: {
                     Text("Preview")
                 }

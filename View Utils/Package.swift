@@ -13,9 +13,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.10.0"),
-        .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4")
+        .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4"),
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.0.2")
     ],
     targets: [
-        .target(name: "ViewUtils", dependencies: [.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"), "Disk"], path: "."),
+        .target(name: "ViewUtils", dependencies: [
+            .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
+            .product(name: "MarkdownUI", package: "swift-markdown-ui"), "Disk"], path: "."),
     ]
 )
