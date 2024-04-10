@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AboutPage: View {
+    @Environment(\.openURL) private var openURL
+    
     private var version: String {
         Bundle.main.releaseVersionNumber ?? ""
     }
@@ -46,10 +48,7 @@ struct AboutPage: View {
                     Text("Copyright © 2024 DanXi-Dev")
                     Text("沪ICP备2021032046号-4A")
                         .onPress {
-                            let url = URL(string: "https://beian.miit.gov.cn/")!
-                            if UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.open(url, options: [:])
-                            }
+                            openURL(URL(string: "https://beian.miit.gov.cn/")!)
                         }
                 }
                 .foregroundStyle(.secondary)
