@@ -2829,7 +2829,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "研究生"
           }
         }
@@ -4037,6 +4037,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "作者：%@"
+          }
+        }
+      }
+    },
+    "Postgraduate Academic Announcements" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "研究生教务通知"
           }
         }
       }
@@ -5679,6 +5690,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本科生"
+          }
+        }
+      }
+    },
+    "Undergraduate Academic Announcements" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本科教务通知"
           }
         }
       }

@@ -10,7 +10,8 @@ struct AnnouncementCard: View {
             VStack(alignment: .center) {
                 HStack {
                     Image(systemName: "bell.fill")
-                    Text(String(localized: campusModel.studentType == .undergrad ? "Undergraduate" : "Graduate") + String(localized: "Academic Office Announcements"))
+                    
+                    Text(campusModel.studentType == .undergrad ? "Undergraduate Academic Announcements" : "Postgraduate Academic Announcements")
                     Spacer()
                 }
                 .bold()

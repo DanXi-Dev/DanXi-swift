@@ -80,7 +80,7 @@ struct AnnouncementPage: View {
 #endif
         }
         .listStyle(.inset)
-        .navigationTitle(String(localized: campusModel.studentType == .undergrad ? "Undergraduate" : "Graduate") + String(localized: "Academic Office Announcements"))
+        .navigationTitle(campusModel.studentType == .undergrad ? "Undergraduate Academic Announcements" : "Postgraduate Academic Announcements")
         .navigationBarTitleDisplayMode(.inline)
         .safariView(item: $presentLink) { link in
             SafariView(url: link.url, configuration: configuration)
