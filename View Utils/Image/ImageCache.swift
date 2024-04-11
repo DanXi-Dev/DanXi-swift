@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Disk
 import SensitiveContentAnalysis
+import CryptoKit
 
 struct LoadedImage {
     let image: Image
@@ -45,7 +46,8 @@ func analyzeSensitive(_ image: UIImage) async -> Bool {
 }
 
 func makeImageKey(_ url: URL) -> String {
-    url.absoluteString.data(using: .utf8)!.base64EncodedString()
+    let hash = Insecure.MD5.hash(data: url.absoluteString.data(using: .utf8)!)
+    return hash.map { String(format: "%02hhx", $0) }.joined()
 }
 
 actor DiskImageCache {
