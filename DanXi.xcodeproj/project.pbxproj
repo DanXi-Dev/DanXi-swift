@@ -61,6 +61,8 @@
 		27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF429D600E1008DC0C2 /* THSettingsView.swift */; };
 		27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF629D6012E008DC0C2 /* THSettingsModel.swift */; };
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
+		2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A72BC8645100D50D31 /* FudanUI */; };
+		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
 		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
 		2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791030C29C7640F003B9FD9 /* THPosterView.swift */; };
@@ -89,8 +91,6 @@
 		27CAD2322A32AD94008F3D19 /* FoldedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAD2312A32AD94008F3D19 /* FoldedView.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
-		27D3A4962BBC844200350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4952BBC844200350D21 /* CampusUI */; };
-		27D3A4982BBC9C6100350D21 /* CampusUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4972BBC9C6100350D21 /* CampusUI */; };
 		27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49B2BBC9E0900350D21 /* SwiftyJSON */; };
 		27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49D2BBC9E1A00350D21 /* KeychainAccess */; };
 		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -245,6 +245,7 @@
 		27834AF429D600E1008DC0C2 /* THSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsView.swift; sourceTree = "<group>"; };
 		27834AF629D6012E008DC0C2 /* THSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsModel.swift; sourceTree = "<group>"; };
 		27834AF829D6261E008DC0C2 /* THMyPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMyPostPage.swift; sourceTree = "<group>"; };
+		2785E2A62BC8641E00D50D31 /* FudanUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FudanUI; sourceTree = "<group>"; };
 		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
 		2791030C29C7640F003B9FD9 /* THPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPosterView.swift; sourceTree = "<group>"; };
@@ -270,7 +271,6 @@
 		27CAD2312A32AD94008F3D19 /* FoldedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldedView.swift; sourceTree = "<group>"; };
 		27CBA0762951C01E00F422DB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDeleteSheet.swift; sourceTree = "<group>"; };
-		27D3A4512BBC428B00350D21 /* CampusUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CampusUI; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27D7110728CA29B7001E9464 /* THReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportSheet.swift; sourceTree = "<group>"; };
 		27DAFA6629CB375D00F32093 /* THHoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHoleModel.swift; sourceTree = "<group>"; };
@@ -325,8 +325,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */,
-				27D3A4982BBC9C6100350D21 /* CampusUI in Frameworks */,
 				27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */,
+				2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */,
 				27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */,
 				27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */,
 			);
@@ -342,7 +342,7 @@
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
-				27D3A4962BBC844200350D21 /* CampusUI in Frameworks */,
+				2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */,
 				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
 				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
 			);
@@ -632,7 +632,7 @@
 				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
-				27D3A4512BBC428B00350D21 /* CampusUI */,
+				2785E2A62BC8641E00D50D31 /* FudanUI */,
 				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 				270CD1902BAD68C900881ABA /* View Utils */,
 				27C68CB12BB563A100037D52 /* Utils */,
@@ -698,9 +698,9 @@
 			);
 			name = "DanXi Widget";
 			packageProductDependencies = (
-				27D3A4972BBC9C6100350D21 /* CampusUI */,
 				27D3A49B2BBC9E0900350D21 /* SwiftyJSON */,
 				27D3A49D2BBC9E1A00350D21 /* KeychainAccess */,
+				2785E2A72BC8645100D50D31 /* FudanUI */,
 			);
 			productName = DanXi_WigdetExtension;
 			productReference = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */;
@@ -732,8 +732,8 @@
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
 				27C68CB22BB563EE00037D52 /* Utils */,
-				27D3A4952BBC844200350D21 /* CampusUI */,
 				F1B1DF772BC19FC4005E8F87 /* Queue */,
+				2785E2A92BC8645900D50D31 /* FudanUI */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -1377,6 +1377,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewUtils;
 		};
+		2785E2A72BC8645100D50D31 /* FudanUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanUI;
+		};
+		2785E2A92BC8645900D50D31 /* FudanUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanUI;
+		};
 		2791031129C774F8003B9FD9 /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
@@ -1390,14 +1398,6 @@
 		27C68CB22BB563EE00037D52 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utils;
-		};
-		27D3A4952BBC844200350D21 /* CampusUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CampusUI;
-		};
-		27D3A4972BBC9C6100350D21 /* CampusUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CampusUI;
 		};
 		27D3A49B2BBC9E0900350D21 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

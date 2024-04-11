@@ -1,6 +1,6 @@
 import SwiftUI
 import FudanKit
-import CampusUI
+import FudanUI
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass

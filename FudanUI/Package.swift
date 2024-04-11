@@ -3,10 +3,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "CampusUI",
+    name: "FudanUI",
     platforms: [.iOS(.v16)],
     products: [
-        .library(name: "CampusUI", targets: ["CampusUI"]),
+        .library(name: "FudanUI", targets: ["FudanUI"]),
     ],
     dependencies: [
         .package(name: "FudanKit", path: "../Fudan Kit"),
@@ -15,6 +15,6 @@ let package = Package(
         .package(url: "https://github.com/stleamist/BetterSafariView.git", .upToNextMajor(from: "2.4.2")),
     ],
     targets: [
-        .target(name: "CampusUI", dependencies: ["FudanKit", "ViewUtils", "Utils", "BetterSafariView"], path: "."),
+        .target(name: "FudanUI", dependencies: ["FudanKit", "ViewUtils", "Utils", "BetterSafariView"], path: "."),
     ]
 )

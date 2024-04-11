@@ -1,6 +1,6 @@
 import WidgetKit
 import SwiftUI
-import CampusUI
+import FudanUI
 
 @main
 struct DanXiWigdetBundle: WidgetBundle {
