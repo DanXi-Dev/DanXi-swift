@@ -59,7 +59,7 @@ import SwiftSoup
 /// To get the list of announcements, we should use CSS selector  `#wp_news_w6 > ul > li.list_item`
 public enum AnnouncementAPI {
     static let undergraduateAnnouncementURL = URL(string: "https://jwc.fudan.edu.cn")!
-    static let postgraduateAnnouncementURL = URL(string: "https://gs.fudan.edu.cn/tzgg/list.htm")!
+    static let postgraduateAnnouncementURL = URL(string: "https://gs.fudan.edu.cn")!
     
     public static func getUndergraduateAnnouncement(page: Int) async throws -> [Announcement] {
         let (data, _) = try await URLSession.campusSession.data(from: undergraduateAnnouncementURL.appending(path: "/9397/list\(page).htm"))
@@ -108,7 +108,7 @@ public enum AnnouncementAPI {
                 continue
             }
         }
-        
+
         return announcements
     }
 }
