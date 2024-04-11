@@ -1,4 +1,5 @@
 import SwiftUI
+import BetterSafariView
 import Utils
 
 struct DKHomePage: View {
@@ -15,6 +16,7 @@ struct DKHomePage: View {
 fileprivate struct HomePageContent: View {
     let courses: [DKCourseGroup]
     @State private var searchText = ""
+    @State private var openURL: URL? = nil
     @StateObject var navigator = DKNavigator()
     
     private var searchResults: [DKCourseGroup] {
@@ -54,6 +56,15 @@ fileprivate struct HomePageContent: View {
             .navigationDestination(for: DKCourseGroup.self) { course in
                 DKCoursePage(courseGroup: course)
             }
+#if !targetEnvironment(macCatalyst)
+            .environment(\.openURL, OpenURLAction { url in
+                openURL = url
+                return .handled
+            })
+            .safariView(item: $openURL) { link in
+                SafariView(url: link)
+            }
+#endif
         }
     }
 }
