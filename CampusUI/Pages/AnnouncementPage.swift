@@ -5,6 +5,7 @@ import SafariServices
 import BetterSafariView
 
 struct AnnouncementPage: View {
+    @ObservedObject private var campusModel = CampusModel.shared
     @State private var authenticated = false
     @State private var page = 1
     @State private var presentLink: AuthenticatedLink?
@@ -17,8 +18,8 @@ struct AnnouncementPage: View {
         self.configuration = configuration
     }
     
-    private func authenticateLink(announcement: Announcement) async {
-        if authenticated {
+    private func getLink(announcement: Announcement, needAuthenticate: Bool) async {
+        if authenticated || !needAuthenticate {
             presentLink = AuthenticatedLink(url: announcement.link)
             return
         }
@@ -35,13 +36,20 @@ struct AnnouncementPage: View {
     var body: some View {
         List {
             AsyncCollection { (previous: [Announcement]) in
-                let announcements = try await AnnouncementStore.shared.getCachedAnnouncements()
-                let previousIds = previous.map(\.id)
-                return announcements.filter({ !previousIds.contains($0.id) })
+                switch(campusModel.studentType) {
+                case .undergrad:
+                    let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
+                    let previousIds = previous.map(\.id)
+                    return announcements.filter({ !previousIds.contains($0.id) })
+                default:
+                    let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
+                    let previousIds = previous.map(\.id)
+                    return announcements.filter({ !previousIds.contains($0.id) })
+                }
             } content: { announcement in
                 Button {
                     Task {
-                        await authenticateLink(announcement: announcement)
+                        await getLink(announcement: announcement, needAuthenticate: campusModel.studentType == .undergrad)
                     }
                 } label: {
                     HStack {

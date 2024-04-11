@@ -3,6 +3,8 @@ import FudanKit
 import ViewUtils
 
 struct AnnouncementCard: View {
+    @ObservedObject private var campusModel = CampusModel.shared
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center) {
@@ -18,8 +20,14 @@ struct AnnouncementCard: View {
                 Spacer()
                 
                 AsyncContentView(animation: .default) {
-                    let announcements = try await AnnouncementStore.shared.getCachedAnnouncements()
-                    return Array(announcements.prefix(1))
+                    switch(campusModel.studentType) {
+                    case .undergrad:
+                        let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
+                        return Array(announcements.prefix(1))
+                    default:
+                        let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
+                        return Array(announcements.prefix(1))
+                    }
                 } content: { (annoucements: [Announcement]) in
                     ForEach(annoucements) { announcement in
                         HStack {
