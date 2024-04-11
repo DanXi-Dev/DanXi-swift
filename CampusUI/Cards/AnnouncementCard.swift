@@ -10,7 +10,7 @@ struct AnnouncementCard: View {
             VStack(alignment: .center) {
                 HStack {
                     Image(systemName: "bell.fill")
-                    Text("Academic Office Announcements")
+                    Text(String(localized: campusModel.studentType == .undergrad ? "Undergraduate" : "Graduate") + String(localized: "Academic Office Announcements"))
                     Spacer()
                 }
                 .bold()
@@ -60,7 +60,6 @@ struct AnnouncementCard: View {
                             .padding(.bottom, 15)
                     )
                 }
-                .id(campusModel.studentType)
             }
             
             Image(systemName: "chevron.right")
@@ -68,5 +67,6 @@ struct AnnouncementCard: View {
                 .bold()
                 .font(.footnote)
         }
+        .id(campusModel.studentType)
     }
 }

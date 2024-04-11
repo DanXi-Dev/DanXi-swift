@@ -455,9 +455,15 @@
     "Academic Office Announcements" : {
       "extractionState" : "stale",
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Academic Announcements"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "教务处通知"
           }
         }
@@ -2815,9 +2821,15 @@
     },
     "Graduate" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Postgraduate"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "研究生"
           }
         }
