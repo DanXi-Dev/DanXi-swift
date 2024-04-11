@@ -134,44 +134,49 @@ public struct CachedRemoteImage: View {
     }
     
     public var body: some View {
-        switch loadingStatus {
-        case .loading:
-            ProgressView()
-                .frame(width: 300, height: 300)
-                .background(Color.gray.opacity(0.2))
-                .onAppear {
-                    loadImage()
-                }
-        case .error:
-            Button(action: loadImage) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.red)
+        HStack {
+            Spacer()
+            switch loadingStatus {
+            case .loading:
+                ProgressView()
                     .frame(width: 300, height: 300)
                     .background(Color.gray.opacity(0.2))
-            }
-        case .loaded(let loaded, let sensitive):
-            if sensitive && !showSensitive {
-                Button(action:  {
-                    withAnimation {
-                        showSensitive = true
+                    .onAppear {
+                        loadImage()
                     }
-                }) {
-                    ZStack(alignment: .center, content: {
-                        ImageViewer(image: loaded)
-                            .overlay(.ultraThickMaterial)
-                            .clipped()
-                            .allowsHitTesting(false)
-                        
-                        Image(systemName: "eye.trianglebadge.exclamationmark")
-                            .font(.largeTitle)
-                            .foregroundColor(.primary)
-                            .symbolRenderingMode(.multicolor)
-                    })
+            case .error:
+                Button(action: loadImage) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.red)
+                        .frame(width: 300, height: 300)
+                        .background(Color.gray.opacity(0.2))
                 }
-            } else {
-                ImageViewer(image: loaded)
+            case .loaded(let loaded, let sensitive):
+                if sensitive && !showSensitive {
+                    Button(action:  {
+                        withAnimation {
+                            showSensitive = true
+                        }
+                    }) {
+                        ZStack(alignment: .center, content: {
+                            ImageViewer(image: loaded)
+                                .overlay(.ultraThickMaterial)
+                                .clipped()
+                                .allowsHitTesting(false)
+                            
+                            Image(systemName: "eye.trianglebadge.exclamationmark")
+                                .font(.largeTitle)
+                                .foregroundColor(.primary)
+                                .symbolRenderingMode(.multicolor)
+                        })
+                    }
+                } else {
+                    ImageViewer(image: loaded)
+                }
             }
+            Spacer()
         }
+        .frame(maxHeight: 300)
     }
 }
 
