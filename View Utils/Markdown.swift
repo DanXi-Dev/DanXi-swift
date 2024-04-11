@@ -30,7 +30,7 @@ struct CustomImageProvider: ImageProvider {
     func makeImage(url: URL?) -> some View {
         Group {
             if let url = url {
-                CachedRemoteImage(url)
+                ImageView(url)
             } else {
                 EmptyView()
             }

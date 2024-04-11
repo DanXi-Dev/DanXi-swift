@@ -1,7 +1,7 @@
 import SwiftUI
 import QuickLook
 
-struct QuickLookPresentor: UIViewRepresentable {
+struct ImageBrowser: UIViewRepresentable {
     let image: UIImage
     let imageURL: URL
     

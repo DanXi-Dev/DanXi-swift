@@ -13,7 +13,6 @@ struct DanXiApp: App {
             ContentView()
                 .task(priority: .background) {
                     ConfigurationCenter.initialFetch()
-                    CachedRemoteImage.evictCache()
                 }
         }
     }
