@@ -192,8 +192,13 @@ private struct THHoleToolbar: View {
             }
             
             AsyncButton {
-                await model.loadAllFloors()
-                haptic()
+                prepareHaptic()
+                do {
+                    try await model.loadAllFloors()
+                    haptic(.success)
+                } catch {
+                    haptic(.error)
+                }
             } label: {
                 Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
             }

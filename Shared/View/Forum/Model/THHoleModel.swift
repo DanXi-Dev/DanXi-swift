@@ -165,7 +165,7 @@ class THHoleModel: ObservableObject {
         _ = try await THRequests.createFloor(content: content, holeId: hole.id)
         self.endReached = false
         Task {
-            await self.loadAllFloors()
+            try? await self.loadAllFloors()
         }
     }
     
@@ -175,7 +175,7 @@ class THHoleModel: ObservableObject {
     @Published var loadingAll = false
     let scrollControl = PassthroughSubject<Int, Never>()
     
-    func loadAllFloors() async {
+    func loadAllFloors() async throws {
         if endReached {
             if let lastFloorId = filteredFloors.last?.id {
                 scrollControl.send(lastFloorId)
@@ -183,16 +183,12 @@ class THHoleModel: ObservableObject {
             return
         }
         
-        do {
-            loadingAll = true
-            defer { loadingAll = false }
-            let floors = try await THRequests.loadAllFloors(holeId: hole.id)
-            insertFloors(floors)
-            endReached = true
-            // sending value to publisher is moved to view
-        } catch {
-            
-        }
+        loadingAll = true
+        defer { loadingAll = false }
+        let floors = try await THRequests.loadAllFloors(holeId: hole.id)
+        insertFloors(floors)
+        endReached = true
+        // sending value to publisher is moved to view
     }
     
     // MARK: - Subscription
