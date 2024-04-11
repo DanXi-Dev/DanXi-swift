@@ -5,6 +5,7 @@ import SafariServices
 import BetterSafariView
 
 struct AnnouncementPage: View {
+    @Environment(\.openURL) private var openURL
     @ObservedObject private var campusModel = CampusModel.shared
     @State private var authenticated = false
     @State private var page = 1
@@ -18,18 +19,26 @@ struct AnnouncementPage: View {
         self.configuration = configuration
     }
     
-    private func getLink(announcement: Announcement, needAuthenticate: Bool) async {
+    private func openLink(announcement: Announcement, needAuthenticate: Bool) async {
+        func present(url: URL) {
+#if targetEnvironment(macCatalyst)
+            openURL(url)
+#else
+            presentLink = AuthenticatedLink(url: url)
+#endif
+        }
+        
         if authenticated || !needAuthenticate {
-            presentLink = AuthenticatedLink(url: announcement.link)
+            present(url: announcement.link)
             return
         }
         
         do {
             let url = try await AuthenticationAPI.authenticateForURL(announcement.link)
             self.authenticated = true
-            presentLink = AuthenticatedLink(url: url)
+            present(url: url)
         } catch {
-            presentLink = AuthenticatedLink(url: announcement.link)
+            present(url: announcement.link)
         }
     }
     
@@ -49,7 +58,7 @@ struct AnnouncementPage: View {
             } content: { announcement in
                 Button {
                     Task {
-                        await getLink(announcement: announcement, needAuthenticate: campusModel.studentType == .undergrad)
+                        await openLink(announcement: announcement, needAuthenticate: campusModel.studentType == .undergrad)
                     }
                 } label: {
                     HStack {
