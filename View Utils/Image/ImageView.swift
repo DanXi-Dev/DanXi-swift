@@ -68,7 +68,7 @@ struct ImageView: View {
                         }
                     }
                 } else {
-                    ImageBrowser(image: loadedImage.uiImage, imageURL: loadedImage.fileURL)
+                    ImageBrowser(image: loadedImage.uiImage, fileURL: loadedImage.fileURL, remoteURL: url)
                         .scaledToFit()
                 }
             }

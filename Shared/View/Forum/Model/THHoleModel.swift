@@ -47,6 +47,7 @@ class THHoleModel: ObservableObject {
     
     @Published var loading = false
     @Published var endReached = false
+    @Published var imageURLs: [URL] = []
     
     func loadMoreFloors() async throws {
         guard !endReached else { return }
@@ -61,12 +62,25 @@ class THHoleModel: ObservableObject {
     private func insertFloors(_ floors: [THFloor]) {
         let currentIds = self.floors.map(\.id)
         var insertFloors = floors.filter { !currentIds.contains($0.id) }
+        
+        var newImageURLs: [URL] = []
+        
         var storey = (self.floors.last?.storey ?? 0) + 1
         for i in 0..<insertFloors.count {
             insertFloors[i].storey = storey
             storey += 1
+            
+            // parse content and extract remote image URLs
+            let content = insertFloors[i].content
+            guard let attributed = try? AttributedString(markdown: content) else { continue }
+            for run in attributed.runs {
+                if let imageURL = run.imageURL {
+                    newImageURLs.append(imageURL)
+                }
+            }
         }
         self.floors += insertFloors
+        self.imageURLs += newImageURLs
     }
     
     // MARK: - Floor Filtering

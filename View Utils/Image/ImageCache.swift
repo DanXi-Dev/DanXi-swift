@@ -74,6 +74,15 @@ actor DiskImageCache {
         return LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL, isSensitive: isSensitive)
     }
     
+    nonisolated func getImageURL(_ url: URL) -> URL? {
+        let key = makeImageKey(url)
+        let filename = "cachedimages/\(key).jpg"
+        guard let fileURL = try? Disk.url(for: filename, in: .caches), Disk.exists(fileURL) else {
+            return nil
+        }
+        return fileURL
+    }
+    
     func setImage(_ url: URL, _ value: LoadedImage) throws {
         let key = makeImageKey(url)
         let filename = "cachedimages/\(key).jpg"

@@ -43,6 +43,7 @@ struct THHolePage: View {
                         }
                     }
                 }
+                .environment(\.allImageURL, model.imageURLs)
                 .watermark()
                 // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
                 .onAppear {
