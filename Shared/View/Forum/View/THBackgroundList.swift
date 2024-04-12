@@ -3,6 +3,7 @@ import ViewUtils
 
 struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
     @ObservedObject private var settings = THSettings.shared
+    @Environment(\.defaultMinListRowHeight) private var defaultMinListRowHeight
     @Binding private var selection: Set<SelectionValue>
     @Binding private var selectable: Bool
     
@@ -31,6 +32,7 @@ struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
         if selectable {
             List(selection: $selection) {
                 content
+                    .environment(\.defaultMinListRowHeight, defaultMinListRowHeight)
             }
             // defaultMinListRowHeight is a custom modifier that reduces the height of list items
             // this property should be adjusted based the listRowInsets of the content
@@ -39,6 +41,7 @@ struct THBackgroundList<Content: View, SelectionValue: Hashable>: View {
         } else {
             List {
                 content
+                    .environment(\.defaultMinListRowHeight, defaultMinListRowHeight)
             }
             .environment(\.defaultMinListRowHeight, 35)
             .compactSectionSpacing()
