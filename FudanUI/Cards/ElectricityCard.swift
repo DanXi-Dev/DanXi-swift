@@ -55,20 +55,24 @@ struct ElectricityCard: View {
                     } loadingView: {
                         AnyView(
                             VStack(alignment: .leading) {
-                                Text("")
+                                Text("光华楼101室")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption)
+                                    .redacted(reason: .placeholder)
                                 
-                                HStack {
-                                    Text("--.--")
+                                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                                    Text("99.99")
                                         .bold()
                                         .font(.system(size: 25, design: .rounded))
-                                    + Text(" ")
-                                    + Text("kWh")
+                                        .redacted(reason: .placeholder)
+                                    
+                                    Text(" ")
+                                    Text("kWh")
                                         .foregroundColor(.secondary)
                                         .bold()
                                         .font(.caption2)
+                                        .redacted(reason: .placeholder)
                                     
                                     Spacer()
                                 }

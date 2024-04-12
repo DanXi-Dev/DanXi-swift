@@ -53,21 +53,27 @@ struct WalletCard: View {
                         AnyView(
                             HStack {
                                 VStack(alignment: .leading) {
-                                    Text("")
-                                        .foregroundColor(.gray)
-                                        .bold()
-                                        .font(.caption)
-                                    
-                                    Text("--.--")
-                                        .bold()
-                                        .font(.system(size: 25, design: .rounded))
-                                    
-                                    + Text(" ")
-                                    
-                                    + Text("Yuan")
+                                    Text("Balance")
                                         .foregroundColor(.secondary)
                                         .bold()
-                                        .font(.caption2)
+                                        .font(.caption)
+                                        .redacted(reason: .placeholder)
+                                    
+                                    HStack(alignment: .firstTextBaseline, spacing: 0) {
+                                        Text("99.99")
+                                            .bold()
+                                            .font(.system(size: 25, design: .rounded))
+                                            .redacted(reason: .placeholder)
+                                        
+                                        Text(" ")
+                                        Text("Yuan")
+                                            .foregroundColor(.secondary)
+                                            .bold()
+                                            .font(.caption2)
+                                            .redacted(reason: .placeholder)
+                                        
+                                        Spacer()
+                                    }
                                 }
                                 Spacer()
                             }
