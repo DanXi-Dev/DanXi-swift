@@ -40,15 +40,12 @@ struct AnnouncementCard: View {
                     }
                 } loadingView: {
                     AnyView(
-                        VStack(alignment: .leading) {
-                            Rectangle()
-                                .foregroundColor(.gray)
-                                .opacity(0.2)
-                                .frame(height: 18)
-                            Rectangle()
-                                .foregroundColor(.gray)
-                                .opacity(0.2)
-                                .frame(width: 70, height: 18)
+                        HStack {
+                            Text("关于2024年上海交通大学暑期学校面向C9成员高校学生开放选课的通知，关于2024年上海交通大学暑期学校面向C9成员高校学生开放选课的通知")
+                                .font(.callout)
+                                .lineLimit(3)
+                                .redacted(reason: .placeholder)
+                            Spacer()
                         })
                 } failureView: { error, retryHandler in
                     let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
