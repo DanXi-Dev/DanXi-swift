@@ -111,7 +111,7 @@ struct THTextEditorUIView: UIViewRepresentable {
         textView.isEditable = true
         textView.delegate = context.coordinator
         textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.backgroundColor = .secondarySystemGroupedBackground
+        textView.backgroundColor = .clear
         return textView
     }
     
