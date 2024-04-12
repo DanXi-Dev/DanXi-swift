@@ -77,3 +77,89 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
         }
     }
 }
+
+/// This TextField is specifically designed as a Text Editor for Tree Hole
+struct THTextEditor: View {
+    @Binding var text: String
+    let placeholder: String?
+    let minHeight: CGFloat
+    @State private var height: CGFloat?
+
+    var body: some View {
+        THTextEditorUIView(placeholder: placeholder ?? "", textDidChange: self.textDidChange, text: $text)
+            .frame(height: height ?? minHeight)
+    }
+
+    private func textDidChange(_ textView: UITextView) {
+        self.height = max(textView.contentSize.height, minHeight)
+    }
+}
+
+struct THTextEditorUIView: UIViewRepresentable {
+    typealias UIViewType = UITextView
+    
+    let placeholder: String
+    let textDidChange: (UITextView) -> Void
+    @Binding var text: String
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text, placeholder: placeholder, textDidChange: textDidChange)
+    }
+    
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.isEditable = true
+        textView.delegate = context.coordinator
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.backgroundColor = .secondarySystemGroupedBackground
+        return textView
+    }
+    
+    func updateUIView(_ textView: UITextView, context: Context) {
+        if text.isEmpty && !textView.isFirstResponder {
+            textView.text = placeholder
+            textView.textColor = .placeholderText
+        } else {
+            textView.text = text
+            textView.textColor = .label
+        }
+        DispatchQueue.main.async {
+            self.textDidChange(textView)
+        }
+    }
+    
+    class Coordinator: NSObject, UITextViewDelegate {
+        @Binding var text: String
+        let placeholder: String
+        let textDidChange: (UITextView) -> Void
+        
+        init(text: Binding<String>, placeholder: String, textDidChange: @escaping (UITextView) -> Void) {
+            self._text = text
+            self.placeholder = placeholder
+            self.textDidChange = textDidChange
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            DispatchQueue.main.async { @MainActor [weak self] in
+                self?.text = textView.text
+                self?.textDidChange(textView)
+            }
+        }
+
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            // Remove placeholder text when the user starts editing
+            if textView.textColor == .placeholderText {
+                textView.text = nil
+                textView.textColor = .label
+            }
+        }
+
+        func textViewDidEndEditing(_ textView: UITextView) {
+            // Add placeholder text if the user ends editing with an empty field
+            if textView.text.isEmpty {
+                textView.text = placeholder
+                textView.textColor = .placeholderText
+            }
+        }
+    }
+}

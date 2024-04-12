@@ -8,8 +8,6 @@ struct THContentEditor: View {
     @State private var showStickers = false
     @State private var showPreview = false
     
-    @FocusState private var isEditing: Bool
-    
     private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
               let imageData = try await photo.loadTransferable(type: Data.self) else {
@@ -61,20 +59,7 @@ struct THContentEditor: View {
                     stickerPicker
                 }
                 
-                ZStack(alignment: .topLeading) {
-                    if content.isEmpty {
-                        Text("Enter post content")
-                            .foregroundColor(.primary.opacity(0.25))
-                            .padding(.top, 7)
-                            .padding(.leading, 4)
-                            .allowsHitTesting(false)
-                    }
-                    
-                    TextEditor(text: $content)
-                        .focused($isEditing)
-                        .frame(minHeight: 250)
-                }
-                
+                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200)
                 
             } footer: {
                 Text("TH Edit Alert")
