@@ -28,13 +28,16 @@ struct ElectricityCard: View {
                                 .foregroundColor(.secondary)
                                 .bold()
                                 .font(.caption)
+                                .privacySensitive()
                             
-                            HStack(alignment: .bottom) {
+                            HStack(alignment: .firstTextBaseline, spacing: 0) {
                                 Text(String(info.electricityAvailable))
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
-                                + Text(" ")
-                                + Text("kWh")
+                                    .privacySensitive()
+                                
+                                Text(" ")
+                                Text("kWh")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption2)
@@ -42,7 +45,7 @@ struct ElectricityCard: View {
                                 Spacer()
                             }
                         }
-    
+                        
                         if let transactions {
                             DateValueChart(data: transactions.map({value in DateValueChartData(date: value.date, value: value.value)}), color: .green)
                                 .frame(width: 100, height: 40)

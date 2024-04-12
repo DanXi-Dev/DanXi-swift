@@ -29,22 +29,22 @@ struct WalletCard: View {
                                 .bold()
                                 .font(.caption)
                             
-                            HStack(alignment: .bottom) {
+                            HStack(alignment: .firstTextBaseline, spacing: 0) {
                                 Text(balance)
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
-                                + Text(" ")
-                                + Text("Yuan")
+                                    .privacySensitive()
+                                
+                                Text(" ")
+                                Text("Yuan")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption2)
                                 
-                                
                                 Spacer()
                             }
-                            
                         }
-                                                    
+                        
                         DateValueChart(data: transactions.map({value in DateValueChartData(date: value.date, value: value.value)}), color: .orange)
                             .frame(width: 100, height: 40)
                         
@@ -63,7 +63,7 @@ struct WalletCard: View {
                                         .font(.system(size: 25, design: .rounded))
                                     
                                     + Text(" ")
-
+                                    
                                     + Text("Yuan")
                                         .foregroundColor(.secondary)
                                         .bold()
