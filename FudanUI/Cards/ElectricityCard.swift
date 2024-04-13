@@ -18,10 +18,16 @@ struct ElectricityCard: View {
                 Spacer()
                 
                 HStack(alignment: .bottom) {
-                    AsyncContentView(animation: .default) {
-                        async let usage = ElectricityStore.shared.getCachedElectricityUsage()
-                        async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
-                        return try await (usage, dateValues)
+                    AsyncContentView(animation: .default) { forceReload in
+                        if forceReload {
+                            async let usage = ElectricityStore.shared.getRefreshedEletricityUsage()
+                            async let dateValues = try? MyStore.shared.getRefreshedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                            return try await (usage, dateValues)
+                        } else {
+                            async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+                            async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                            return try await (usage, dateValues)
+                        }
                     } content: {(info: ElectricityUsage, transactions: [DateValueChartData]?) in
                         VStack(alignment: .leading) {
                             Text(info.campus + info.building + info.room)

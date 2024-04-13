@@ -95,26 +95,35 @@ struct AsyncTaskView<Content: View>: View {
     
     var body: some View {
         switch loader.state {
+        case .none:
+            Group {
+                if let loadingView = loadingView {
+                    loadingView()
+                } else {
+                    LoadingView(style: self.style)
+                }
+            }
+            .task {
+                await loader.load()
+            }
         case .loading:
             if let loadingView = loadingView {
                 loadingView()
-                    .task {
-                        await loader.load()
-                    }
             } else {
                 LoadingView(style: self.style)
-                    .task {
-                        await loader.load()
-                    }
             }
         case .failed(let error):
             if let failureView = failureView {
                 failureView(error) {
-                    loader.state = .loading
+                    Task {
+                        await loader.load()
+                    }
                 }
             } else {
                 ErrorView(style: self.style, error: error) {
-                    loader.state = .loading
+                    Task {
+                        await loader.load()
+                    }
                 }
             }
         case .loaded(_):
@@ -158,26 +167,35 @@ struct AsyncMappingView<Output, Content: View>: View {
     
     var body: some View {
         switch loader.state {
+        case .none:
+            Group {
+                if let loadingView = loadingView {
+                    loadingView()
+                } else {
+                    LoadingView(style: self.style)
+                }
+            }
+            .task {
+                await loader.load()
+            }
         case .loading:
             if let loadingView = loadingView {
                 loadingView()
-                    .task {
-                        await loader.load()
-                    }
             } else {
                 LoadingView(style: self.style)
-                    .task {
-                        await loader.load()
-                    }
             }
         case .failed(let error):
             if let failureView = failureView {
                 failureView(error) {
-                    loader.state = .loading
+                    Task {
+                        await loader.load()
+                    }
                 }
             } else {
                 ErrorView(style: self.style, error: error) {
-                    loader.state = .loading
+                    Task {
+                        await loader.load()
+                    }
                 }
             }
         case .loaded(let output):
@@ -277,6 +295,8 @@ fileprivate struct ErrorView: View {
 enum LoadingState<Value>: Equatable {
     static func == (lhs: LoadingState<Value>, rhs: LoadingState<Value>) -> Bool {
         switch (lhs, rhs) {
+        case (.none, .none):
+            fallthrough
         case (.loading, .loading):
             return true
         default:
@@ -284,6 +304,7 @@ enum LoadingState<Value>: Equatable {
         }
     }
     
+    case none
     case loading
     case failed(Error)
     case loaded(Value)
@@ -291,7 +312,7 @@ enum LoadingState<Value>: Equatable {
 
 @MainActor
 class AsyncLoader<Output>: ObservableObject {
-    @Published var state: LoadingState<Output> = .loading
+    @Published var state: LoadingState<Output> = .none
     let animation: Animation?
     let action: (Bool) async throws -> Output
     
@@ -304,7 +325,7 @@ class AsyncLoader<Output>: ObservableObject {
         if state == .loading { return }
         
         do {
-            state = .loading
+            if !forceReload { state = .loading } // We would like to keep the original view in a refresh operation
             let output = try await action(forceReload)
             withAnimation(animation) {
                 self.state = .loaded(output)

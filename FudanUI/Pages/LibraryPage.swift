@@ -4,7 +4,7 @@ import ViewUtils
 
 struct LibraryPage: View {
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             return try await LibraryAPI.getLibrary()
         } content: { libraries in
             List {

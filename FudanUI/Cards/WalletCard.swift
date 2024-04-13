@@ -18,10 +18,16 @@ struct WalletCard: View {
                 Spacer()
                 
                 HStack(alignment: .bottom) {
-                    AsyncContentView(animation: .default) {
-                        async let balance = MyStore.shared.getCachedUserInfo().balance
-                        async let dateValues = MyStore.shared.getCachedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
-                        return try await (balance, dateValues)
+                    AsyncContentView(animation: .default) { forceReload in
+                        if forceReload {
+                            async let balance = MyStore.shared.getRefreshedUserInfo().balance
+                            async let dateValues = MyStore.shared.getRefreshedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
+                            return try await (balance, dateValues)
+                        } else {
+                            async let balance = MyStore.shared.getCachedUserInfo().balance
+                            async let dateValues = MyStore.shared.getCachedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
+                            return try await (balance, dateValues)
+                        }
                     } content: {(balance: String, transactions: [DateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")

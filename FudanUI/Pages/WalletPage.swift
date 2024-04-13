@@ -5,12 +5,21 @@ import ViewUtils
 
 struct WalletPage: View {
     var body: some View {
-        AsyncContentView {
-            async let balance = MyStore.shared.getCachedUserInfo().balance
-            async let dateValues = MyStore.shared.getCachedWalletLogs()
-                .map { DateValueChartData(date: $0.date, value: $0.amount) }
+        AsyncContentView { forceReload in
+            var balanceLoaded: String
+            var dateValuesLoaded: [DateValueChartData]
             
-            let (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
+            if forceReload {
+                async let balance = MyStore.shared.getRefreshedUserInfo().balance
+                async let dateValues = MyStore.shared.getRefreshedWalletLogs()
+                    .map { DateValueChartData(date: $0.date, value: $0.amount) }
+                (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
+            } else {
+                async let balance = MyStore.shared.getCachedUserInfo().balance
+                async let dateValues = MyStore.shared.getCachedWalletLogs()
+                    .map { DateValueChartData(date: $0.date, value: $0.amount) }
+                (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
+            }
             
             let filteredDateValues = Array(DateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
             
