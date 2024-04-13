@@ -1145,20 +1145,32 @@
     "Copy Floor ID" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy ID"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复制楼层ID"
+            "value" : "复制ID"
           }
         }
       }
     },
     "Copy Full Text" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Content"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复制全文"
+            "value" : "复制内容"
           }
         }
       }

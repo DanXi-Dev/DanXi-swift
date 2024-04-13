@@ -281,7 +281,9 @@ private struct THHoleBottomBar: View {
         Group {
             if model.showBottomBar {
                 Button {
-                    model.filterOption = .all
+                    withAnimation {
+                        model.filterOption = .all
+                    }
                 } label: {
                     BottomBarLabel("Show All Floors", systemImage: "bubble.left.and.bubble.right")
                 }

@@ -471,11 +471,11 @@ private struct Actions: View {
                 Label("Copy Full Text", systemImage: "doc.on.doc")
             }
             
-            Button {
-                UIPasteboard.general.string = "##\(model.floor.id)"
-            } label: {
-                Label("Copy Floor ID", systemImage: "number")
-            }
+//            Button {
+//                UIPasteboard.general.string = "##\(model.floor.id)"
+//            } label: {
+//                Label("Copy Floor ID", systemImage: "number")
+//            }
             
             Button {
                 showSelectionSheet = true
@@ -486,19 +486,25 @@ private struct Actions: View {
             Divider()
             
             Button {
-                holeModel.filterOption = .user(name: model.floor.posterName)
+                withAnimation {
+                    holeModel.filterOption = .user(name: model.floor.posterName)
+                }
             } label: {
                 Label("Show This Person", systemImage: "message")
             }
             
             Button {
-                holeModel.filterOption = .reply(floorId: model.floor.id)
+                withAnimation {
+                    holeModel.filterOption = .reply(floorId: model.floor.id)
+                }
             } label: {
                 Label("All Replies", systemImage: "arrowshape.turn.up.left.2")
             }
             
             Button {
-                holeModel.filterOption = .conversation(starting: model.floor.id)
+                withAnimation {
+                    holeModel.filterOption = .conversation(starting: model.floor.id)
+                }
             } label: {
                 Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
             }
