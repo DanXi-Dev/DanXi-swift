@@ -12,7 +12,7 @@ public struct AsyncContentView<Output, Content: View>: View {
     public init(finished: Bool = false,
                 animation: Animation? = .none,
                 style: AsyncContentStyle = .page,
-                action: @escaping (Bool) async throws -> Void,
+                action: @escaping (Bool) async throws -> Void, // The bool value, when set to true, indicates the user is triggering a refresh action and prefers not to use cache
                 @ViewBuilder content: () -> Content) where Output == Void {
         nestedView = AnyView(AsyncTaskView(finished: finished,
                                            style: style,
@@ -23,7 +23,7 @@ public struct AsyncContentView<Output, Content: View>: View {
     
     public init(style: AsyncContentStyle = .page,
                 animation: Animation? = .none,
-                action: @escaping (Bool) async throws -> Output,
+                action: @escaping (Bool) async throws -> Output, // The bool value, when set to true, indicates the user is triggering a refresh action and prefers not to use cache
                 @ViewBuilder content: @escaping (Output) -> Content) {
         nestedView = AnyView(AsyncMappingView(style: style,
                                               animation: animation,
@@ -33,7 +33,7 @@ public struct AsyncContentView<Output, Content: View>: View {
     
     public init(finished: Bool = false,
                 animation: Animation? = .none,
-                action: @escaping (Bool) async throws -> Void,
+                action: @escaping (Bool) async throws -> Void, // The bool value, when set to true, indicates the user is triggering a refresh action and prefers not to use cache
                 @ViewBuilder content: () -> Content,
                 loadingView: (() -> AnyView)?,
                 failureView: ((Error, @escaping () -> Void) -> AnyView)?) where Output == Void {
@@ -41,7 +41,7 @@ public struct AsyncContentView<Output, Content: View>: View {
     }
     
     public init(animation: Animation? = .none,
-                action: @escaping (Bool) async throws -> Output,
+                action: @escaping (Bool) async throws -> Output, // The bool value, when set to true, indicates the user is triggering a refresh action and prefers not to use cache
                 @ViewBuilder content: @escaping (Output) -> Content,
                 loadingView: (() -> AnyView)?,
                 failureView: ((Error, @escaping () -> Void) -> AnyView)?) {
@@ -125,7 +125,7 @@ struct AsyncTaskView<Content: View>: View {
             }
         case .loaded(_):
             content
-                .refreshable {
+                .refreshable { // This passes as an environment variable down to child. Child can call RefreshAction in environment to trigger refresh
                     await loader.load(forceReload: true)
                 }
         }
@@ -194,7 +194,7 @@ struct AsyncMappingView<Output, Content: View>: View {
             }
         case .loaded(let output):
             content(output)
-                .refreshable {
+                .refreshable { // This passes as an environment variable down to child. Child can call RefreshAction in environment to trigger refresh
                     await loader.load(forceReload: true)
                 }
         }
