@@ -1,8 +1,9 @@
 import SwiftUI
+import ViewUtils
 
 struct THNotificationPage: View {
     var body: some View {
-        AsyncContentView { () -> [THMessage] in
+        AsyncContentView { (_) -> [THMessage] in
             return try await THRequests.loadMessages()
         } content: { messages in
             NotificationContent(messages: messages)

@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THTagsPage: View {
     @ObservedObject private var appModel = THModel.shared
@@ -15,7 +16,7 @@ struct THTagsPage: View {
     }
     
     var body: some View {
-        AsyncContentView(finished: !appModel.tags.isEmpty) {
+        AsyncContentView(finished: !appModel.tags.isEmpty) { _ in
             appModel.tags = try await appModel.loadTags()
         } content: { 
             THBackgroundList {

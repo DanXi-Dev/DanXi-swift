@@ -1,10 +1,11 @@
 import SwiftUI
 import BetterSafariView
 import Utils
+import ViewUtils
 
 struct DKHomePage: View {
     var body: some View {
-        AsyncContentView { () -> [DKCourseGroup] in
+        AsyncContentView { (_) -> [DKCourseGroup] in
             try await DKModel.shared.loadAll()
             return DKModel.shared.courses.shuffled()
         } content: { courses in

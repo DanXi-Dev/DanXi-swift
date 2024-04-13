@@ -3,7 +3,7 @@ import ViewUtils
 
 struct THSubscriptionPage: View {
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             try await THRequests.loadSubscriptions()
         } content: { subscriptions in
             SubscriptionContent(subscriptions)

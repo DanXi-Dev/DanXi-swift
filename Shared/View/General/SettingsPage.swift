@@ -1,6 +1,7 @@
 import SwiftUI
 import FudanKit
 import Utils
+import ViewUtils
 
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
@@ -109,8 +110,8 @@ fileprivate struct FDUserSheet: View {
         NavigationStack {
             Form {
                 List {
-                    AsyncContentView(style: .widget, animation: .default) { () -> Profile? in
-                        return try? await ProfileStore.shared.getCachedProfile()
+                    AsyncContentView(style: .widget, animation: .default) { forceReload in
+                        return try? await forceReload ? ProfileStore.shared.getRefreshedProfile() : ProfileStore.shared.getCachedProfile()
                     } content: { profile in
                         if let profile = profile {
                             Section {
@@ -158,9 +159,11 @@ fileprivate struct DXUserSheet: View {
         NavigationStack {
             Form {
                 List {
-                    AsyncContentView(style: .widget, animation: .default) { () -> DXUser? in
-                        if let user = DXModel.shared.user {
-                            return user
+                    AsyncContentView(style: .widget, animation: .default) { (forceReload: Bool) -> DXUser? in
+                        if !forceReload {
+                            if let user = DXModel.shared.user {
+                                return user
+                            }
                         }
                         // return nil when error
                         // this is to allow user to logout even when some error occurs and cannot connect to backend server

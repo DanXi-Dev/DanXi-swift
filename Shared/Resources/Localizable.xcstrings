@@ -3231,6 +3231,7 @@
       }
     },
     "Loading Failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

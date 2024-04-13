@@ -1,9 +1,10 @@
 import SwiftUI
 import Combine
+import ViewUtils
 
 struct DXQuestionSheet: View {
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             return try await DXRequests.retrieveQuestions()
         } content: { questions in
             QuestionPage(questions)

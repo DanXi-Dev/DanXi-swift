@@ -120,7 +120,6 @@
 		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
-		27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF021229DF519E0094F7D5 /* AsyncContentView.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
@@ -291,7 +290,6 @@
 		27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessageSheet.swift; sourceTree = "<group>"; };
 		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
-		27EF021229DF519E0094F7D5 /* AsyncContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncContentView.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
@@ -555,7 +553,6 @@
 			isa = PBXGroup;
 			children = (
 				27DAFA7829CC50E100F32093 /* AsnyncButton.swift */,
-				27EF021229DF519E0094F7D5 /* AsyncContentView.swift */,
 				27063AB929FB094C0060AC8B /* AsyncCollection.swift */,
 				27CAD2312A32AD94008F3D19 /* FoldedView.swift */,
 				27C95B412A8B90FE000A614B /* FormTitle.swift */,
@@ -924,7 +921,6 @@
 				27E5E82B28BA62140074D295 /* DKStarsView.swift in Sources */,
 				2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */,
 				27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */,
-				27EF021329DF519E0094F7D5 /* AsyncContentView.swift in Sources */,
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,

@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THDeleteSheet: View {
     @EnvironmentObject private var model: THFloorModel
@@ -94,7 +95,7 @@ struct THPunishmentHistorySheet: View {
     @EnvironmentObject private var model: THFloorModel
     
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             return try await THRequests.loadPunishmenthistory(model.floor.id)
         } content: { histories in
             List(Array(histories.enumerated()), id: \.offset) { _, history in
