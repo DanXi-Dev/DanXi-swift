@@ -20,13 +20,13 @@ struct AnnouncementCard: View {
                 
                 Spacer()
                 
-                AsyncContentView(animation: .default) {
+                AsyncContentView(animation: .default) { forceReload in
                     switch(campusModel.studentType) {
                     case .undergrad:
-                        let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
+                        let announcements = try await forceReload ? UndergraduateAnnouncementStore.shared.getRefreshedAnnouncements() : UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
                         return Array(announcements.prefix(1))
                     default:
-                        let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
+                        let announcements = try await forceReload ? PostgraduateAnnouncementStore.shared.getRefreshedAnnouncements() : PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
                         return Array(announcements.prefix(1))
                     }
                 } content: { (annoucements: [Announcement]) in

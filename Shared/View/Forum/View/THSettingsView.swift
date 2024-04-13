@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 import SensitiveContentAnalysis
 import PhotosUI
 
@@ -103,7 +104,7 @@ fileprivate struct BlockedContent: View {
 
 struct NotificationSettingWrapper: View {
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             async let userInfo = await DXRequests.loadUserInfo()
             async let authorizationStatus = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
             return try await (userInfo, authorizationStatus)

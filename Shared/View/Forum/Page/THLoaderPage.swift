@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THLoaderPage: View {
     let loader: THHoleLoader
@@ -8,7 +9,7 @@ struct THLoaderPage: View {
     }
 
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             return try await loader.load()
         } content: { model in
             THHolePage(model)

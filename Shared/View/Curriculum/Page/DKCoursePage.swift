@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 // MARK: - View
 
@@ -23,7 +24,7 @@ struct DKCoursePage: View {
                 
                 Divider()
                 
-                AsyncContentView(style: .widget) {
+                AsyncContentView(style: .widget) { _ in
                     return try await DKRequests.loadCourseGroup(id: courseGroup.id)
                 } content: { courseGroup in
                     ReviewSection(courseGroup)

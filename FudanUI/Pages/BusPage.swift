@@ -4,8 +4,8 @@ import ViewUtils
 
 struct BusPage: View {
     var body: some View {
-        AsyncContentView { () -> FDBusModel in
-            let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getCachedRoutes()
+        AsyncContentView { forceReload in
+            let (workdayRoutes, holidayRoutes) = try await forceReload ? BusStore.shared.getRefreshedRoutes() : BusStore.shared.getCachedRoutes()
             return FDBusModel(workdayRoutes, holidayRoutes)
         } content: { model in
             BusPageContent(model)

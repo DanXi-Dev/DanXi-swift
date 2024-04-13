@@ -8,7 +8,7 @@ struct THHistorySheet: View {
     
     var body: some View {
         NavigationView {
-            AsyncContentView {
+            AsyncContentView { _ in
                 return try await model.loadHistory()
             } content: { histories in
                 List {

@@ -3,7 +3,7 @@ import ViewUtils
 
 struct THFavoritesPage: View {
     var body: some View {
-        AsyncContentView {
+        AsyncContentView { _ in
             try await THRequests.loadFavorites()
         } content: { favorites in
             FavoritePageContent(favorites)
