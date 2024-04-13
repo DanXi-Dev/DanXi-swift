@@ -7,7 +7,7 @@ struct RankPage: View {
     @State private var showSheet = false
     
     var body: some View {
-        AsyncContentView { () -> [Rank] in
+        AsyncContentView { _ in
             return try await UndergraduateCourseAPI.getRanks()
         } content: { ranks in
             List {

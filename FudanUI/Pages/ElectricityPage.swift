@@ -5,9 +5,9 @@ import SwiftUI
 
 struct ElectricityPage: View {
     var body: some View {
-        AsyncContentView(animation: .default) {
-            async let usage = ElectricityStore.shared.getCachedElectricityUsage()
-            async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map { DateValueChartData(date: $0.date, value: $0.usage) }
+        AsyncContentView(animation: .default) { forceReload in
+            async let usage = forceReload ? ElectricityStore.shared.getRefreshedEletricityUsage() : ElectricityStore.shared.getCachedElectricityUsage()
+            async let dateValues = try? (forceReload ? MyStore.shared.getRefreshedElectricityLogs() : MyStore.shared.getCachedElectricityLogs()).map { DateValueChartData(date: $0.date, value: $0.usage) }
             
             let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
             

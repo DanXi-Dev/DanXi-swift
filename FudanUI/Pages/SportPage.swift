@@ -7,9 +7,9 @@ struct SportPage: View {
     @State private var showExamSheet = false
     
     var body: some View {
-        AsyncContentView { () -> SportData in
-            let (exercises, logs) = try await SportStore.shared.getCachedExercises()
-            let exam = try? await SportStore.shared.getCachedExam() // when this fails, user can still view exercise data
+        AsyncContentView { forceReload in
+            let (exercises, logs) = try await forceReload ? SportStore.shared.getRefreshedExercises() : SportStore.shared.getCachedExercises()
+            let exam = try? await forceReload ? SportStore.shared.getRefreshedExam() : SportStore.shared.getCachedExam() // when this fails, user can still view exercise data
             return SportData(exercises: exercises, exerciseLogs: logs, exam: exam)
         } content: { (sportData: SportData) in
             List {
