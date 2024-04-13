@@ -95,7 +95,7 @@ struct AsyncTaskView<Content: View>: View {
     
     var body: some View {
         switch loader.state {
-        case .loading:
+        case .none:
             if let loadingView = loadingView {
                 loadingView()
                     .task {
@@ -107,14 +107,20 @@ struct AsyncTaskView<Content: View>: View {
                         await loader.load()
                     }
             }
+        case .loading:
+            if let loadingView = loadingView {
+                loadingView()
+            } else {
+                LoadingView(style: self.style)
+            }
         case .failed(let error):
             if let failureView = failureView {
                 failureView(error) {
-                    loader.state = .loading
+                    Task { await loader.load() }
                 }
             } else {
                 ErrorView(style: self.style, error: error) {
-                    loader.state = .loading
+                    Task { await loader.load() }
                 }
             }
         case .loaded(_):
@@ -158,7 +164,7 @@ struct AsyncMappingView<Output, Content: View>: View {
     
     var body: some View {
         switch loader.state {
-        case .loading:
+        case .none:
             if let loadingView = loadingView {
                 loadingView()
                     .task {
@@ -170,14 +176,20 @@ struct AsyncMappingView<Output, Content: View>: View {
                         await loader.load()
                     }
             }
+        case .loading:
+            if let loadingView = loadingView {
+                loadingView()
+            } else {
+                LoadingView(style: self.style)
+            }
         case .failed(let error):
             if let failureView = failureView {
                 failureView(error) {
-                    loader.state = .loading
+                    Task { await loader.load() }
                 }
             } else {
                 ErrorView(style: self.style, error: error) {
-                    loader.state = .loading
+                    Task { await loader.load() }
                 }
             }
         case .loaded(let output):
@@ -274,24 +286,16 @@ fileprivate struct ErrorView: View {
 
 // MARK: - Model
 
-enum LoadingState<Value>: Equatable {
-    static func == (lhs: LoadingState<Value>, rhs: LoadingState<Value>) -> Bool {
-        switch (lhs, rhs) {
-        case (.loading, .loading):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    case loading
+enum LoadingState<Value> {
+    case none
+    case loading(Task<Value, any Error>)
     case failed(Error)
     case loaded(Value)
 }
 
 @MainActor
 class AsyncLoader<Output>: ObservableObject {
-    @Published var state: LoadingState<Output> = .loading
+    @Published var state: LoadingState<Output> = .none
     let animation: Animation?
     let action: (Bool) async throws -> Output
     
@@ -301,17 +305,33 @@ class AsyncLoader<Output>: ObservableObject {
     }
     
     func load(forceReload: Bool = false) async {
-        if state == .loading { return }
-        
-        do {
-            state = .loading
-            let output = try await action(forceReload)
-            withAnimation(animation) {
-                self.state = .loaded(output)
+        func setLoadTask() async {
+            do {
+                let task = Task { try await action(forceReload) }
+                if !forceReload { state = .loading(task) } // If this is a refresh task, we would like to keep the loaded data while refreshing
+                let output = try await task.value
+                withAnimation(animation) {
+                    self.state = .loaded(output)
+                }
+            } catch _ as CancellationError {
+                // Ignored
+            } catch {
+                state = .failed(error)
             }
-        } catch {
-            state = .failed(error)
         }
+        
+        switch(state) {
+        case .loading(let task):
+            // Cancel task and reload if forceReload is set
+            if forceReload {
+                task.cancel()
+                await setLoadTask()
+            }
+            // Else do nothing
+        default:
+            await setLoadTask()
+        }
+        
     }
 }
 
