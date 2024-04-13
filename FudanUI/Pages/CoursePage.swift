@@ -13,10 +13,10 @@ public struct CoursePage: View {
     }
     
     public var body: some View {
-        AsyncContentView { forceReload in
+        AsyncContentView {
             let context = ConfigurationCenter.configuration.semesterStartDate
             
-            if !forceReload, let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
+            if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
                 cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
                 return cachedModel
             }

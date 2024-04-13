@@ -43,12 +43,8 @@ struct ClassroomPage: View {
                 .listRowBackground(Color.clear)
 #endif
             } else {
-                AsyncContentView(style: .widget) { forceReload in
-                    if forceReload {
-                        return try await ClassroomStore.shared.getRefreshedClassroom(building: building)
-                    } else {
-                        return try await ClassroomStore.shared.getCachedClassroom(building: building)
-                    }
+                AsyncContentView(style: .widget) {
+                    return try await ClassroomStore.shared.getCachedClassroom(building: building)
                 } content: { (classrooms: [Classroom]) in
                     let filteredClassrooms = searchText.isEmpty ? classrooms : classrooms.filter({
                         $0.name.localizedCaseInsensitiveContains(searchText) || $0.schedules.contains(where: {

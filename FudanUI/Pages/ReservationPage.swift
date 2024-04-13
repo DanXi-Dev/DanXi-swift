@@ -4,14 +4,9 @@ import ViewUtils
 
 struct ReservationPage: View {
     var body: some View {
-        AsyncContentView { forceReload in
-            if forceReload {
-                let playgrounds = try await ReservationStore.shared.getRefreshedPlayground()
-                return FDPlaygroundModel(playgrounds)
-            } else {
-                let playgrounds = try await ReservationStore.shared.getCachedPlayground()
-                return FDPlaygroundModel(playgrounds)
-            }
+        AsyncContentView {
+            let playgrounds = try await ReservationStore.shared.getCachedPlayground()
+            return FDPlaygroundModel(playgrounds)
         } content: { model in
             FDPlaygroundContent(model)
         }
@@ -74,7 +69,7 @@ fileprivate struct FDPlaygroundReservePage: View {
                 Toggle("Available Time Slots Only", isOn: $showAvailable)
             }
             
-            AsyncContentView(style: .widget) { _ in
+            AsyncContentView(style: .widget) {
                 return try await ReservationStore.shared.getReservations(playground: playground, date: date)
             } content: { reservations in
                 let filteredReservations = reservations.filter { $0.available || !showAvailable }
