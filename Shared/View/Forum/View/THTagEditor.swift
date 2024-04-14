@@ -18,16 +18,12 @@ struct THTagEditor: View {
         
         text = ""
         if !tags.contains(newTag) {
-            withAnimation {
-                self.tags.append(newTag)
-            }
+            self.tags.append(newTag)
         }
     }
     
     func removeTag(_ tag: String) {
-        withAnimation {
-            tags.removeAll { $0 == tag }
-        }
+        tags.removeAll { $0 == tag }
     }
     
     var suggestedTags: [THTag] {
@@ -53,9 +49,11 @@ struct THTagEditor: View {
                 WrappingHStack(alignment: .leading, verticalSpacing: 4) {
                     ForEach(tags, id: \.self) { tag in
                         THTagView(tag, deletable: true)
-                            .transition(.scale)
+                            .transition(.opacity)
                             .onTapGesture {
-                                removeTag(tag)
+                                withAnimation {
+                                    removeTag(tag)
+                                }
                             }
                     }
                     
@@ -63,11 +61,15 @@ struct THTagEditor: View {
                         BackspaceDetectingTextField(placeholder: tags.isEmpty ? String(localized: "Add Tag") : "", text: $text) { isEmpty in
                             if isEmpty {
                                 if let last = tags.last {
-                                    removeTag(last)
+                                    withAnimation {
+                                        removeTag(last)
+                                    }
                                 }
                             }
                         } onSubmit: {
-                            appendTag(text)
+                            withAnimation {
+                                appendTag(text)
+                            }
                         }
                         .layoutStreched(minWidth: textFieldWidth)
                     }

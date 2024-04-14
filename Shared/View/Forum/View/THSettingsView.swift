@@ -95,6 +95,7 @@ fileprivate struct BlockedContent: View {
             
             if settings.blockedHoles.isEmpty {
                 Section("You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu.") {}
+                    .textCase(.none)
             }
         }
         .navigationTitle("Blocked Content")
