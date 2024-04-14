@@ -120,6 +120,8 @@
 		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
+		27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2212BCBE8C80017CB5E /* AppScreen.swift */; };
+		27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
@@ -290,6 +292,8 @@
 		27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessageSheet.swift; sourceTree = "<group>"; };
 		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
+		27F2F2212BCBE8C80017CB5E /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
+		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
@@ -597,6 +601,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		27F2F2202BCBE8C10017CB5E /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				27F2F2212BCBE8C80017CB5E /* AppScreen.swift */,
+				27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		7795D21A27D82B1C00840D02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,6 +625,7 @@
 				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
 				27E1C52C29D09CF700B333BA /* AppModel.swift */,
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
+				27F2F2202BCBE8C10017CB5E /* Navigation */,
 				27CBA0782952213A00F422DB /* View */,
 				27BBBD082912C2E6007C2905 /* DanXi Kit */,
 				27936F442939E1D300A40D36 /* Utilities */,
@@ -861,6 +875,7 @@
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
 				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
+				27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
@@ -878,6 +893,7 @@
 				27063ABA29FB094C0060AC8B /* AsyncCollection.swift in Sources */,
 				272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */,
 				27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */,
+				27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */,
 				27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */,
 				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,

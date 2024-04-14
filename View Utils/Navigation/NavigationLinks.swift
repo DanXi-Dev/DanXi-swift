@@ -3,7 +3,7 @@ import SwiftUI
 /// A replacement for ``NavigationLink`` that pushes value into content column or
 /// simply the current stack, depending on the screen width.
 public struct ContentLink<Label: View, Value: Hashable>: View {
-    @EnvironmentObject private var organizer: NavigationOrganizer
+    @EnvironmentObject private var organizer: AppNavigator
     private let label: Label
     private let value: Value
     
@@ -30,7 +30,7 @@ public struct ContentLink<Label: View, Value: Hashable>: View {
 /// A replacement for ``NavigationLink`` that pushes value into detail column or
 /// simply the current stack, depending on the screen width.
 public struct DetailLink<Label: View, Value: Hashable>: View {
-    @EnvironmentObject private var organizer: NavigationOrganizer
+    @EnvironmentObject private var organizer: AppNavigator
     private let label: Label
     private let value: Value
     private let replace: Bool

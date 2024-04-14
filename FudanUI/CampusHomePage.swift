@@ -70,9 +70,9 @@ public struct CampusHomePage: View {
                     Text("Edit")
                 }
             }
-            .sheet(isPresented: $showSheet) {
-                HomePageEditor()
-            }
+//            .sheet(isPresented: $showSheet) {
+//                HomePageEditor()
+//            }
             .navigationTitle("Campus Services")
             .navigationDestination(for: CampusSection.self) { section in
                 FDHomeDestination(section: section)
@@ -81,93 +81,6 @@ public struct CampusHomePage: View {
                 navigator.openURL(url)
             }
             .environmentObject(navigator)
-        }
-    }
-}
-
-fileprivate struct HomePageEditor: View {
-    @EnvironmentObject private var navigator: CampusNavigator
-    @Environment(\.dismiss) private var dismiss
-    @ScaledMetric private var buttonSize = 23
-    @State private var id = UUID()
-    
-    var body: some View {
-        NavigationStack {
-            List {
-                Section("Pinned Features") {
-                    ForEach(navigator.cards, id: \.self) { section in
-                        FDHomeSimpleLink(section: section)
-                    }
-                    .onMove { indices, newOffset in
-                        navigator.cards.move(fromOffsets: indices, toOffset: newOffset)
-                    }
-                    .onDelete { indecies in
-                        indecies.forEach { i in
-                            withAnimation {
-                                let removed = navigator.cards.remove(at: i)
-                                navigator.pages.append(removed)
-                            }
-                        }
-                    }
-                }
-                
-                Section("All Features") {
-                    ForEach(navigator.pages, id: \.self) { section in
-                        HStack {
-                            FDHomeSimpleLink(section: section)
-                            Spacer()
-                            if CampusSection.pinnable.contains(section) {
-                                Button {
-                                    navigator.pin(section: section)
-                                } label: {
-                                    Image(systemName: "pin.circle.fill")
-                                        .foregroundStyle(.orange)
-                                        .font(.system(size: buttonSize))
-                                }
-                            }
-                        }
-                    }
-                    .onMove { indices, newOffset in
-                        navigator.pages.move(fromOffsets: indices, toOffset: newOffset)
-                    }
-                    .onDelete { indecies in
-                        indecies.forEach { i in
-                            withAnimation {
-                                let removed = navigator.pages.remove(at: i)
-                                navigator.hidden.append(removed)
-                            }
-                        }
-                    }
-                }
-                .id(id) // a display bug, the remove button won't show if I don't force it to redraw
-                
-                Section("Hidden Features") {
-                    ForEach(navigator.hidden, id: \.self) { section in
-                        HStack {
-                            Button {
-                                navigator.unhide(section: section)
-                                id = UUID()
-                            } label: {
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundStyle(.green)
-                                    .font(.system(size: buttonSize))
-                            }
-                            FDHomeSimpleLink(section: section)
-                        }
-                    }
-                }
-            }
-            .toolbar {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Done")
-                        .bold()
-                }
-            }
-            .environment(\.editMode, .constant(.active))
-            .navigationTitle("Edit Home Page Features")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -201,6 +114,8 @@ fileprivate struct FDHomeSimpleLink: View {
             Label("Library Popularity", systemImage: "building.columns.fill")
         case .canteen:
             Label("Canteen Popularity", systemImage: "fork.knife")
+        case .course:
+            EmptyView()
         }
     }
 }
@@ -259,6 +174,8 @@ fileprivate struct FDHomeDestination: View {
             LibraryPage()
         case .canteen:
             CanteenPage()
+        case .course:
+            EmptyView()
         }
     }
 }

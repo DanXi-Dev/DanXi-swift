@@ -1,11 +1,11 @@
 import SwiftUI
 import Combine
 
-/// An organizer object for navigation.
+/// An organizer for navigation.
 ///  
 /// This object is passed down the view hierarchy as environment object. Use this object
 /// in deeply-nested views to manage global navigation status.
-public class NavigationOrganizer: ObservableObject {
+public class AppNavigator: ObservableObject {
     public typealias DetailNavigation = (any Hashable, Bool)
     
     /// A publisher for top-level view to receive content push event and append value to navigation path.
@@ -13,6 +13,12 @@ public class NavigationOrganizer: ObservableObject {
     /// A publisher for top-level view to receive detail push event and append value to navigation path.
     /// The `Bool` parameter is to indicate whether it should clear the current detail navigation path.
     public let detailSubject = PassthroughSubject<DetailNavigation, Never>()
+    /// Represent the screen width, whether it's compact.
+    public let isCompactMode: Bool
+    
+    public init(isCompactMode: Bool) {
+        self.isCompactMode = isCompactMode
+    }
     
     /// Push a value into navigation stack in content column.
     ///
