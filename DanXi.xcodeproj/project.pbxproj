@@ -137,7 +137,6 @@
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */; };
 		F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */; };
-		F15DD9ED2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15DD9EC2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift */; };
 		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
 		F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */ = {isa = PBXBuildFile; productRef = F1B1DF772BC19FC4005E8F87 /* Queue */; };
@@ -352,7 +351,6 @@
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
-				F15DD9ED2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */,
 				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
@@ -775,7 +773,6 @@
 				27C68CB22BB563EE00037D52 /* Utils */,
 				F1B1DF772BC19FC4005E8F87 /* Queue */,
 				2785E2A92BC8645900D50D31 /* FudanUI */,
-				F15DD9EC2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -818,7 +815,6 @@
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */,
-				F15DD9EB2BCD6A2D000BA2E1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -1410,14 +1406,6 @@
 				minimumVersion = 0.1.3;
 			};
 		};
-		F15DD9EB2BCD6A2D000BA2E1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.2;
-			};
-		};
 		F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mattmassicotte/Queue";
@@ -1492,11 +1480,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
-		};
-		F15DD9EC2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F15DD9EB2BCD6A2D000BA2E1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
 		};
 		F1B1DF772BC19FC4005E8F87 /* Queue */ = {
 			isa = XCSwiftPackageProductDependency;
