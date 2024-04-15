@@ -39,10 +39,6 @@ public class IQTextFieldViewListener {
 
     public init() {
         //  Registering for keyboard notification.
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)),
-                                               name: UITextField.textDidBeginEditingNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didEndEditing(_:)),
-                                               name: UITextField.textDidEndEditingNotification, object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didBeginEditing(_:)),
                                                name: UITextView.textDidBeginEditingNotification, object: nil)

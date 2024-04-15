@@ -141,11 +141,7 @@ public extension IQKeyboardManager {
             // Maintain keyboardDistanceFromTextField
             let specialKeyboardDistanceFromTextField: CGFloat
 
-            if let searchBar: UIView = textFieldView.iq.textFieldSearchBar() {
-                specialKeyboardDistanceFromTextField = searchBar.iq.distanceFromKeyboard
-            } else {
-                specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
-            }
+            specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
 
             if specialKeyboardDistanceFromTextField == UIView.defaultKeyboardDistance {
                 keyboardDistance = keyboardDistanceFromTextField
