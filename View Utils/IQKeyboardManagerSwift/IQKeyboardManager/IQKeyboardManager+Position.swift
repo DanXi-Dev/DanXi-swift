@@ -103,8 +103,7 @@ public extension IQKeyboardManager {
 
     @objc internal func applicationDidBecomeActive(_ notification: Notification) {
 
-        guard privateIsEnabled(),
-              activeConfiguration.keyboardInfo.keyboardShowing,
+        guard activeConfiguration.keyboardInfo.keyboardShowing,
               activeConfiguration.isReady else {
             return
         }

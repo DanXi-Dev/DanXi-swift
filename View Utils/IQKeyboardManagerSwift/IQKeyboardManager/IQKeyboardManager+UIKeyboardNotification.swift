@@ -46,22 +46,14 @@ internal extension IQKeyboardManager {
 
         setupTextFieldView()
 
-        if !privateIsEnabled() {
-            restorePosition()
-        } else {
-            adjustPosition()
-        }
+        adjustPosition()
     }
 
     func handleKeyboardTextFieldViewChanged() {
 
         setupTextFieldView()
 
-        if !privateIsEnabled() {
-            restorePosition()
-        } else {
-            adjustPosition()
-        }
+        adjustPosition()
     }
 
     func handleKeyboardTextFieldViewHide() {
