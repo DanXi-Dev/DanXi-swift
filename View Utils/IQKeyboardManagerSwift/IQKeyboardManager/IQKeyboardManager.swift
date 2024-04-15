@@ -159,7 +159,8 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
     /*  Refreshes textField/textView position if any external changes is explicitly made by user.   */
     @objc public func reloadLayoutIfNeeded() {
 
-        guard activeConfiguration.keyboardInfo.keyboardShowing,
+        guard privateIsEnabled(),
+              activeConfiguration.keyboardInfo.keyboardShowing,
               activeConfiguration.isReady else {
                 return
         }
