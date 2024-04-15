@@ -75,7 +75,7 @@ struct THBrowsePage: View {
             appModel.banners = banner
         }
         .onReceive(screenshotPublisher) { _ in
-            if settings.screenshotAlert && mainAppModel.section == .forum {
+            if settings.screenshotAlert && mainAppModel.screen == .forum {
                 showScreenshotAlert = true
             }
         }

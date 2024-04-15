@@ -14,12 +14,12 @@ public class AppNavigator: ObservableObject {
     /// The `Bool` parameter is to indicate whether it should clear the current detail navigation path.
     public let detailSubject = PassthroughSubject<DetailNavigation, Never>()
     /// Represent the screen width, whether it's compact.
-    public let isCompactMode: Bool
+    @Published public var isCompactMode = true
     
-    public init(isCompactMode: Bool) {
-        self.isCompactMode = isCompactMode
+    public init() {
+        
     }
-    
+
     /// Push a value into navigation stack in content column.
     ///
     /// This function pushes the value to the content column on wide screen. On smaller screen,

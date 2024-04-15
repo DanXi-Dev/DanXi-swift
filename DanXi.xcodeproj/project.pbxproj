@@ -73,6 +73,8 @@
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
+		27AF614B2BCD543C00754718 /* CurriculumNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */; };
+		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27BBBD0B2912C330007C2905 /* DXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0A2912C330007C2905 /* DXError.swift */; };
@@ -257,6 +259,8 @@
 		279997992AC1734E00DE835A /* THSubscriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSubscriptionPage.swift; sourceTree = "<group>"; };
 		27A424F029EE6B2300339E82 /* DXAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXAuthSheet.swift; sourceTree = "<group>"; };
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
+		27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumNavigation.swift; sourceTree = "<group>"; };
+		27AF614C2BCD61DE00754718 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27BBBD0A2912C330007C2905 /* DXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXError.swift; sourceTree = "<group>"; };
 		27BBBD0D2912C33C007C2905 /* DKEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKEntity.swift; sourceTree = "<group>"; };
@@ -404,6 +408,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		27AF61492BCD542F00754718 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		27BBBD082912C2E6007C2905 /* DanXi Kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +475,7 @@
 		27CBA07C295221B100F422DB /* Curriculum */ = {
 			isa = PBXGroup;
 			children = (
+				27AF61492BCD542F00754718 /* Navigation */,
 				27CBA08329522BB100F422DB /* Page */,
 				27CBA08629522BB800F422DB /* Sheet */,
 				27CBA08529522BB500F422DB /* View */,
@@ -609,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				27F2F2212BCBE8C80017CB5E /* AppScreen.swift */,
+				27AF614C2BCD61DE00754718 /* TabNavigation.swift */,
 				27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */,
 			);
 			path = Navigation;
@@ -887,6 +901,7 @@
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
+				27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */,
 				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */,
@@ -924,6 +939,7 @@
 				2772231128F05B3300458EAC /* THHistorySheet.swift in Sources */,
 				27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */,
 				27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */,
+				27AF614B2BCD543C00754718 /* CurriculumNavigation.swift in Sources */,
 				F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */,
 				27BBBD0B2912C330007C2905 /* DXError.swift in Sources */,
 				271D1D5529F1A31700DDEEC9 /* THNotificationView.swift in Sources */,

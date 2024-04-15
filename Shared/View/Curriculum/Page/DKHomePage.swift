@@ -29,19 +29,18 @@ fileprivate struct HomePageContent: View {
     }
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
             ScrollViewReader { proxy in
                 List {
                     EmptyView()
                         .id("dk-top")
                     
                     ForEach(searchResults) { course in
-                        NavigationLink(value: course) {
+                        DetailLink(value: course) {
                             DKCourseView(courseGroup: course)
                         }
                     }
                 }
-                .onReceive(OnDoubleTapCurriculumTabBarItem, perform: {
+                .onReceive(OnDoubleTapCurriculumTabBarItem) {
                     if navigator.path.count > 0 {
                         navigator.path.removeLast(navigator.path.count)
                     } else {
@@ -49,15 +48,12 @@ fileprivate struct HomePageContent: View {
                             proxy.scrollTo("dk-top")
                         }
                     }
-                })
+                }
             }
             .listStyle(.plain)
             .searchable(text: $searchText)
             .navigationTitle("Curriculum Board")
-            .navigationDestination(for: DKCourseGroup.self) { course in
-                DKCoursePage(courseGroup: course)
-            }
-#if !targetEnvironment(macCatalyst)
+            #if !targetEnvironment(macCatalyst)
             .environment(\.openURL, OpenURLAction { url in
                 openURL = url
                 return .handled
@@ -65,8 +61,7 @@ fileprivate struct HomePageContent: View {
             .safariView(item: $openURL) { link in
                 SafariView(url: link)
             }
-#endif
-        }
+            #endif
     }
 }
 

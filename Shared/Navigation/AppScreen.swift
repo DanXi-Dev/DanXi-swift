@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanUI
 
 enum AppScreen: Codable, Hashable, Identifiable, CaseIterable {
     case campus, forum, curriculum, calendar, settings
@@ -24,7 +25,35 @@ extension AppScreen {
         }
     }
     
-    // var content: some View
+    @ViewBuilder
+    var content: some View {
+        switch self {
+        case .campus:
+            CampusContent()
+        case .forum:
+            ForumContent()
+        case .curriculum:
+            CurriculumContent()
+        case .calendar:
+            NavigationStack {
+                CoursePage()
+            }
+        case .settings:
+            SettingsPage()
+        }
+    }
     
-    // var detail: some View
+    @ViewBuilder
+    var detail: some View {
+        switch self {
+        case .campus:
+            CampusDetail()
+        case .forum:
+            ForumDetail()
+        case .curriculum:
+            CurriculumDetail()
+        default:
+            EmptyView()
+        }
+    }
 }

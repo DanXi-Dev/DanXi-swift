@@ -9,8 +9,6 @@ import SwiftUI
 import FudanKit
 
 struct IntroSheet: View {
-    @EnvironmentObject private var model: AppModel
-    
     var body: some View {
         NavigationStack {
             VStack(alignment: .center) {
@@ -131,9 +129,9 @@ struct IntroLoginSheet: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     if DXModel.shared.isLogged {
-                        model.section = .forum
+                        model.screen = .forum
                     } else if campusModel.loggedIn {
-                        model.section = .campus
+                        model.screen = .campus
                     }
                     model.showIntro = false
                 } label: {
@@ -144,7 +142,7 @@ struct IntroLoginSheet: View {
         }
         .onAppear() {
             if allAccountLogined {
-                model.section = .campus
+                model.screen = .campus
                 model.showIntro = false
             }
         }

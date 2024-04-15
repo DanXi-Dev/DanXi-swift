@@ -1,63 +1,48 @@
 import SwiftUI
+import FudanKit
 import FudanUI
 import ViewUtils
 
 struct SplitNavigation: View {
-    @StateObject private var navigator = AppNavigator(isCompactMode: false)
-    @State private var contentPath = NavigationPath()
-    @State private var detailPath = NavigationPath()
-    
-    func appendContent(item: any Hashable) {
-        contentPath.append(item)
-    }
-    
-    func appendDetail(item: any Hashable, replace: Bool) {
-        if replace {
-            detailPath.removeLast(detailPath.count)
-        }
-        detailPath.append(item)
-    }
+    @Binding var screen: AppScreen?
     
     var body: some View {
-//        NavigationSplitView {
-//            List {
-//                Text("Campus.Tab")
-//            }
-//            .navigationTitle("DanXi")
-//        } content: {
-//            NavigationStack(path: $contentPath) {
-//                CampusHome()
-//                    .environmentObject(navigator)
-//            }
-//            .onReceive(navigator.contentSubject) { item in
-//                appendContent(item: item)
-//            }
-//        } detail: {
-//            NavigationStack(path: $detailPath) {
-//                CampusDetail()
-//                    .environmentObject(navigator)
-//            }
-//            .onReceive(navigator.detailSubject) { item, replace in
-//                appendDetail(item: item, replace: replace)
-//            }
-//        }
-        
         NavigationSplitView {
-            List {
-                Text("Forum")
-            }
-            .navigationTitle("DanXi")
+            AppSidebarList(screen: $screen)
         } content: {
-//            ForumContent()
-            CampusContent()
-                .environmentObject(navigator)
+            screen?.content
         } detail: {
-            CampusDetail()
-                .environmentObject(navigator)
+            screen?.detail
         }
     }
 }
 
-#Preview {
-    SplitNavigation()
+struct AppSidebarList: View {
+    @Binding var screen: AppScreen?
+    @ObservedObject private var communityModel = DXModel.shared
+    @ObservedObject private var campusModel = CampusModel.shared
+    
+    var body: some View {
+        NavigationStack {
+            List(selection: $screen) {
+                if campusModel.loggedIn {
+                    AppScreen.campus.label
+                        .tag(AppScreen.campus)
+                }
+                
+                if communityModel.isLogged {
+                    AppScreen.forum.label
+                        .tag(AppScreen.forum)
+                    
+                    AppScreen.curriculum.label
+                        .tag(AppScreen.curriculum)
+                }
+                
+                AppScreen.settings.label
+                    .tag(AppScreen.settings)
+            }
+            .navigationTitle("DanXi")
+            .navigationBarTitleDisplayMode(.large)
+        }
+    }
 }
