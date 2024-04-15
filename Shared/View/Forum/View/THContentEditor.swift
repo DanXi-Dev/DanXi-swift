@@ -69,6 +69,7 @@ struct THContentEditor: View {
             Section {
 #if targetEnvironment(macCatalyst)
                 toolbar
+                    .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
 #endif
                 THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200) {
                     toolbar
