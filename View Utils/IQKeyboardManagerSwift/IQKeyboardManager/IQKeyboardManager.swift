@@ -80,11 +80,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     internal var activeConfiguration: IQActiveConfiguration = .init()
 
-    /**
-    Configuration related to keyboard appearance
-    */
-    @objc public let keyboardConfiguration: IQKeyboardConfiguration = .init()
-
     /*******************************************/
 
     /**
@@ -170,29 +165,5 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
                 return
         }
         adjustPosition()
-    }
-}
-
-@available(iOSApplicationExtension, unavailable)
-extension IQKeyboardManager: UIGestureRecognizerDelegate {
-
-    /** Resigning on tap gesture.   (Enhancement ID: #14)*/
-    @objc private func tapRecognized(_ gesture: UITapGestureRecognizer) {
-
-        if gesture.state == .ended {
-
-            // Resigning currently responder textField.
-            resignFirstResponder()
-        }
-    }
-
-    /** Note: returning YES is guaranteed to allow simultaneous recognition.
-     returning NO is not guaranteed to prevent simultaneous recognition,
-     as the other gesture's delegate may return YES.
-     */
-    @objc public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                                        shouldRecognizeSimultaneouslyWith
-                                        otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
     }
 }

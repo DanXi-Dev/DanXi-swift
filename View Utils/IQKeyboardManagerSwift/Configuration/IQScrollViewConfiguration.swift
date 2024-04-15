@@ -73,19 +73,8 @@ internal struct IQScrollViewConfiguration {
            scrollView.iq.restoreContentOffset,
            !scrollView.contentOffset.equalTo(startingContentOffset) {
 
-            //  (Bug ID: #1365, #1508, #1541)
-            let stackView: UIStackView? = textFieldView?.iq.superviewOf(type: UIStackView.self,
-                                                                        belowView: scrollView)
-            // (Bug ID: #1901, #1996)
-            let animatedContentOffset: Bool = stackView != nil ||
-            scrollView is UICollectionView ||
-            scrollView is UITableView
+            scrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)
 
-            if animatedContentOffset {
-                scrollView.setContentOffset(startingContentOffset, animated: UIView.areAnimationsEnabled)
-            } else {
-                scrollView.contentOffset = startingContentOffset
-            }
             success = true
         }
 
