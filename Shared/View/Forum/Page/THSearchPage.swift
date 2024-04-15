@@ -1,8 +1,9 @@
 import SwiftUI
+import ViewUtils
 
 struct THSearchPage: View {
     @EnvironmentObject private var model: THSearchModel
-    @EnvironmentObject private var navigator: THNavigator
+    @EnvironmentObject private var navigator: AppNavigator
     
     var body: some View {
         THBackgroundList {
@@ -11,32 +12,30 @@ struct THSearchPage: View {
             }
             
             if let matchFloor = model.matchFloor {
-                Button {
+                DetailLink(value: THHoleLoader(floorId: matchFloor)) {
                     model.appendHistory(model.searchText)
-                    navigator.path.append(THHoleLoader(floorId: matchFloor))
                 } label: {
                     Label("##\(String(matchFloor))", systemImage: "arrow.right.square")
                 }
             }
             
             if let matchHole = model.matchHole {
-                Button {
+                DetailLink(value: THHoleLoader(holeId: matchHole)) {
                     model.appendHistory(model.searchText)
-                    navigator.path.append(THHoleLoader(holeId: matchHole))
                 } label: {
                     Label("#\(String(matchHole))", systemImage: "arrow.right.square")
                 }
             }
             
             ForEach(model.matchTags) { tag in
-                NavigationLink(value: tag) {
+                ContentLink(value: tag) {
                     Label(tag.name, systemImage: "tag")
                 }
             }
         }
         .onChange(of: model.navLoader) { loader in
             if let loader = loader {
-                navigator.path.append(loader)
+                navigator.pushDetail(value: loader, replace: true)
                 model.navLoader = nil // reset loader, prevent not be able to jump to the same destination the next time
             }
         }
@@ -90,7 +89,7 @@ struct THSearchResultPage: View {
             AsyncCollection { floors in
                 try await THRequests.searchKeyword(keyword: model.searchText, startFloor: floors.count)
             } content: { floor in
-                NavigationListRow(value: THHoleLoader(floor)) {
+                DetailLink(value: THHoleLoader(floor)) {
                     THSimpleFloor(floor: floor)
                 }
             }

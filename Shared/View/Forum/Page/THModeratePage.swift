@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THModeratePage: View {
     @Environment(\.editMode) private var editMode
@@ -78,7 +79,7 @@ fileprivate struct SensitiveContentView: View {
     let item: THSensitiveEntry
     
     var body: some View {
-        NavigationLink(value: THHoleLoader(floorId: item.id)) {
+        DetailLink(value: THHoleLoader(floorId: item.id)) {
             HStack(alignment: .top) {
                 if let sensitive = item.sensitive {
                     if sensitive {

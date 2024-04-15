@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC529CE3022004A5D2F /* THFloorView.swift */; };
-		27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC729CF7AC2004A5D2F /* THNavigator.swift */; };
 		27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC929CF7B74004A5D2F /* THHomePage.swift */; };
 		27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCB29D01E7D004A5D2F /* THSearchModel.swift */; };
 		27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */; };
@@ -122,6 +121,9 @@
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2212BCBE8C80017CB5E /* AppScreen.swift */; };
 		27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */; };
+		27F2F22C2BCC47810017CB5E /* ForumNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */; };
+		27F2F2302BCC49F30017CB5E /* ForumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F22F2BCC49F30017CB5E /* ForumSection.swift */; };
+		27F2F2322BCD09930017CB5E /* ForumContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2312BCD09930017CB5E /* ForumContent.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
@@ -191,7 +193,6 @@
 
 /* Begin PBXFileReference section */
 		27013BC529CE3022004A5D2F /* THFloorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorView.swift; sourceTree = "<group>"; };
-		27013BC729CF7AC2004A5D2F /* THNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNavigator.swift; sourceTree = "<group>"; };
 		27013BC929CF7B74004A5D2F /* THHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHomePage.swift; sourceTree = "<group>"; };
 		27013BCB29D01E7D004A5D2F /* THSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchModel.swift; sourceTree = "<group>"; };
 		27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseWrapper.swift; sourceTree = "<group>"; };
@@ -294,6 +295,9 @@
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
 		27F2F2212BCBE8C80017CB5E /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
 		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
+		27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumNavigation.swift; sourceTree = "<group>"; };
+		27F2F22F2BCC49F30017CB5E /* ForumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumSection.swift; sourceTree = "<group>"; };
+		27F2F2312BCD09930017CB5E /* ForumContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumContent.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 		27CBA0792952219500F422DB /* Forum */ = {
 			isa = PBXGroup;
 			children = (
+				27F2F22A2BCC47750017CB5E /* Navigation */,
 				27DAFA6529CB375300F32093 /* Model */,
 				27CBA07D295221BA00F422DB /* Page */,
 				27CBA07F295221C200F422DB /* View */,
@@ -589,7 +594,6 @@
 		27DAFA6529CB375300F32093 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				27013BC729CF7AC2004A5D2F /* THNavigator.swift */,
 				27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */,
 				27013BCB29D01E7D004A5D2F /* THSearchModel.swift */,
 				27DAFA6629CB375D00F32093 /* THHoleModel.swift */,
@@ -606,6 +610,16 @@
 			children = (
 				27F2F2212BCBE8C80017CB5E /* AppScreen.swift */,
 				27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		27F2F22A2BCC47750017CB5E /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */,
+				27F2F22F2BCC49F30017CB5E /* ForumSection.swift */,
+				27F2F2312BCD09930017CB5E /* ForumContent.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -877,7 +891,6 @@
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
-				27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
@@ -887,6 +900,7 @@
 				27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
 				27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */,
+				27F2F2322BCD09930017CB5E /* ForumContent.swift in Sources */,
 				27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */,
 				2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */,
 				2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */,
@@ -947,6 +961,8 @@
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
+				27F2F22C2BCC47810017CB5E /* ForumNavigation.swift in Sources */,
+				27F2F2302BCC49F30017CB5E /* ForumSection.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,

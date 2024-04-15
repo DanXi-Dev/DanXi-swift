@@ -36,7 +36,7 @@ struct THHoleView: View {
     }
     
     private var fullContent: some View {
-        NavigationListRow(value: hole) {
+        DetailLink(value: hole) {
             VStack(alignment: .leading) {
                 tags
                     .padding(.bottom, 3)

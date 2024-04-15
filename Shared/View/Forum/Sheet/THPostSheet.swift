@@ -1,7 +1,8 @@
 import SwiftUI
+import ViewUtils
 
 struct THPostSheet: View {
-    @EnvironmentObject private var navigator: THNavigator
+    @EnvironmentObject private var navigator: AppNavigator
     @ObservedObject private var appModel = THModel.shared
     @State var divisionId: Int
     @State private var content = ""
@@ -18,7 +19,7 @@ struct THPostSheet: View {
             content = ""
             tags = []
             
-            navigator.path.append(hole) // navigate to hole page
+            navigator.pushDetail(value: hole, replace: true) // navigate to hole page
             
             Task { // reload favorites since new post will automatically be favorited
                 try await appModel.loadFavoriteIds()

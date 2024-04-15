@@ -19,27 +19,40 @@ struct SplitNavigation: View {
     }
     
     var body: some View {
+//        NavigationSplitView {
+//            List {
+//                Text("Campus.Tab")
+//            }
+//            .navigationTitle("DanXi")
+//        } content: {
+//            NavigationStack(path: $contentPath) {
+//                CampusHome()
+//                    .environmentObject(navigator)
+//            }
+//            .onReceive(navigator.contentSubject) { item in
+//                appendContent(item: item)
+//            }
+//        } detail: {
+//            NavigationStack(path: $detailPath) {
+//                CampusDetail()
+//                    .environmentObject(navigator)
+//            }
+//            .onReceive(navigator.detailSubject) { item, replace in
+//                appendDetail(item: item, replace: replace)
+//            }
+//        }
+        
         NavigationSplitView {
             List {
-                Text("Campus.Tab")
+                Text("Forum")
             }
             .navigationTitle("DanXi")
         } content: {
-            NavigationStack(path: $contentPath) {
-                CampusHome()
-                    .environmentObject(navigator)
-            }
-            .onReceive(navigator.contentSubject) { item in
-                appendContent(item: item)
-            }
+            ForumContent()
+                .environmentObject(navigator)
         } detail: {
-            NavigationStack(path: $detailPath) {
-                CampusDetail()
-                    .environmentObject(navigator)
-            }
-            .onReceive(navigator.detailSubject) { item, replace in
-                appendDetail(item: item, replace: replace)
-            }
+            ForumDetail()
+                .environmentObject(navigator)
         }
     }
 }
