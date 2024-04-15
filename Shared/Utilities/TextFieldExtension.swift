@@ -79,14 +79,15 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
 }
 
 /// This TextField is specifically designed as a Text Editor for Tree Hole
-struct THTextEditor: View {
+struct THTextEditor<Toolbar: View>: View {
     @Binding var text: String
     let placeholder: String?
     let minHeight: CGFloat
+    @ViewBuilder let toolbar: () -> Toolbar
     @State private var height: CGFloat?
 
     var body: some View {
-        THTextEditorUIView(placeholder: placeholder ?? "", textDidChange: self.textDidChange, text: $text)
+        THTextEditorUIView(placeholder: placeholder ?? "", textDidChange: self.textDidChange, text: $text, toolbar: toolbar)
             .frame(height: height ?? minHeight)
     }
 
@@ -95,12 +96,13 @@ struct THTextEditor: View {
     }
 }
 
-struct THTextEditorUIView: UIViewRepresentable {
+struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     typealias UIViewType = UITextView
     
     let placeholder: String
     let textDidChange: (UITextView) -> Void
     @Binding var text: String
+    @ViewBuilder let toolbar: () -> Toolbar
     
     func makeCoordinator() -> Coordinator {
         return Coordinator(text: $text, placeholder: placeholder, textDidChange: textDidChange)
@@ -112,6 +114,15 @@ struct THTextEditorUIView: UIViewRepresentable {
         textView.delegate = context.coordinator
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = .clear
+        
+        let toolbarHostingVC = UIHostingController(rootView: toolbar())
+        toolbarHostingVC.sizingOptions = [.intrinsicContentSize]
+        toolbarHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
+        toolbarHostingVC.view.backgroundColor = .clear
+        let inputView = UIInputView(frame: CGRect(origin: toolbarHostingVC.view.frame.origin, size: toolbarHostingVC.view.intrinsicContentSize))
+        inputView.addSubview(toolbarHostingVC.view)
+        textView.inputAccessoryView = inputView
+        
         return textView
     }
     

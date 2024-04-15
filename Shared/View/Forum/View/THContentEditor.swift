@@ -20,6 +20,24 @@ struct THContentEditor: View {
         content.replace("![Uploading \(taskID)...]", with: "![](\(imageURL.absoluteString))")
     }
     
+    private var toolbar: some View {
+        HStack(alignment: .center, spacing: 12) {
+            PhotosPicker(selection: $photo, matching: .images) {
+                Label("Upload Image", systemImage: "photo")
+            }
+            
+            Button {
+                showStickers = true
+            } label: {
+                Label("Stickers", systemImage: "smiley")
+            }
+            
+            Spacer()
+        }
+        .labelStyle(.iconOnly)
+        .tint(.primary)
+    }
+    
     var body: some View {
         Picker(selection: $showPreview) {
             Text("Edit").tag(false)
@@ -29,6 +47,19 @@ struct THContentEditor: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .listRowInsets(.zero)
+        .onChange(of: photo) { photo in
+            Task {
+                do {
+                    try await uploadPhoto(photo)
+                } catch {
+                    showUploadError = true
+                }
+            }
+        }
+        .alert("Upload Image Failed", isPresented: $showUploadError) { }
+        .sheet(isPresented: $showStickers) {
+            stickerPicker
+        }
         
         if showPreview {
             Section {
@@ -36,30 +67,13 @@ struct THContentEditor: View {
             }
         } else {
             Section {
-                PhotosPicker(selection: $photo, matching: .images) {
-                    Label("Upload Image", systemImage: "photo")
+#if targetEnvironment(macCatalyst)
+                toolbar
+#endif
+                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200) {
+                    toolbar
+                        .padding()
                 }
-                .onChange(of: photo) { photo in
-                    Task {
-                        do {
-                            try await uploadPhoto(photo)
-                        } catch {
-                            showUploadError = true
-                        }
-                    }
-                }
-                .alert("Upload Image Failed", isPresented: $showUploadError) { }
-                
-                Button {
-                    showStickers = true
-                } label: {
-                    Label("Stickers", systemImage: "smiley")
-                }
-                .sheet(isPresented: $showStickers) {
-                    stickerPicker
-                }
-                
-                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200)
                 
             } footer: {
                 Text("TH Edit Alert")
