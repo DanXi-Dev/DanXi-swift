@@ -148,6 +148,7 @@ struct THHoleView: View {
                 .frame(width: 3, height: nil)
                 .padding(.top, 2)
                 .foregroundStyle(.secondary.opacity(0.5))
+                .tint(.primary)
         }
     }
 }

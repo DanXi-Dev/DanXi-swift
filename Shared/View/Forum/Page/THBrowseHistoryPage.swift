@@ -76,6 +76,7 @@ struct THBrowseHistoryPage: View {
         }
         .compactSectionSpacing(spacing: 8)
         .navigationTitle("Recent Browsed")
+        .tint(.primary)
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
         .toolbar {
