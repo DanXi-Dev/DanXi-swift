@@ -3,6 +3,8 @@ import SwiftUI
 
 struct THContentEditor: View {
     @Binding var content: String
+    @State private var cursorPosition: Int = 0
+    @State private var selectOffset: Int = 0
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
     @State private var showStickers = false
@@ -22,10 +24,15 @@ struct THContentEditor: View {
         }
 
         let taskID = UUID().uuidString
-        content.append("\n![Uploading \(taskID)...]")
+        // get cursor position
+//        print("outer cursor pos: \(cursorPosition)")
+        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition)
+//        print(cursorPosition)
+//        content.append("\n![Uploading \(taskID)...]")
+        content.insert(contentsOf: "\n![Uploading \(taskID)...]\n", at: cursorPosition)
         do {
             let imageURL = try await THRequests.uploadImage(imageData)
-            content.replace("\n![Uploading \(taskID)...]", with: "\n![](\(imageURL.absoluteString))")
+            content.replace("\n![Uploading \(taskID)...]\n", with: "\n![](\(imageURL.absoluteString))\n")
         } catch {
             content = content.replacingOccurrences(of: "![Uploading \(taskID)...]", with: "")
             showUploadError = true

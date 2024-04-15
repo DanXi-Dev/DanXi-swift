@@ -82,6 +82,8 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
 /// This TextField is specifically designed as a Text Editor for Tree Hole
 struct THTextEditor<Toolbar: View>: View {
     @Binding var text: String
+    @Binding var cursorPosition: Int
+    @Binding var selectOffset: Int
     let placeholder: String?
     let minHeight: CGFloat
     let uploadImageAction: (Data?) async throws -> Void
@@ -89,7 +91,13 @@ struct THTextEditor<Toolbar: View>: View {
     @State private var height: CGFloat?
 
     var body: some View {
-        THTextEditorUIView(placeholder: placeholder ?? "", textDidChange: textDidChange, uploadImageAction: uploadImageAction, text: $text, toolbar: toolbar)
+        THTextEditorUIView(placeholder: placeholder ?? "", 
+                           textDidChange: textDidChange,
+                           uploadImageAction: uploadImageAction,
+                           text: $text,
+                           cursorPosition: $cursorPosition,
+                           selectOffset: $selectOffset,
+                           toolbar: toolbar)
             .frame(height: height ?? minHeight)
     }
 
@@ -105,10 +113,12 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     let textDidChange: (UITextView) -> Void
     let uploadImageAction: (Data?) async throws -> Void
     @Binding var text: String
+    @Binding var cursorPosition: Int
+    @Binding var selectOffset: Int
     @ViewBuilder let toolbar: () -> Toolbar
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, placeholder: placeholder, textDidChange: textDidChange, parent: self)
+        return Coordinator(text: $text, cursorPosition: $cursorPosition, selectOffset: $selectOffset, placeholder: placeholder, textDidChange: textDidChange, parent: self)
     }
     
     class TextViewWithImagePasting: UITextView {
@@ -143,15 +153,15 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         textView.delegate = context.coordinator
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = .clear
-        textView.allowsEditingTextAttributes = true
+        textView.allowsEditingTextAttributes = false
 
         let toolbarHostingVC = UIHostingController(rootView: toolbar())
         toolbarHostingVC.sizingOptions = [.intrinsicContentSize]
         toolbarHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
-        toolbarHostingVC.view.backgroundColor = .clear
-        let inputView = UIInputView(frame: CGRect(origin: toolbarHostingVC.view.frame.origin, size: toolbarHostingVC.view.intrinsicContentSize))
-        inputView.addSubview(toolbarHostingVC.view)
-        textView.inputAccessoryView = inputView
+        toolbarHostingVC.view.backgroundColor = .secondarySystemBackground
+//        let inputView = UIInputView(frame: CGRect(origin: toolbarHostingVC.view.frame.origin, size: toolbarHostingVC.view.intrinsicContentSize))
+//        inputView.addSubview(toolbarHostingVC.view)
+        textView.inputAccessoryView = toolbarHostingVC.view
 
         return textView
     }
@@ -167,16 +177,23 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         DispatchQueue.main.async {
             self.textDidChange(textView)
         }
+//        if let selectStartPosition = textView.position(from: textView.beginningOfDocument, offset: cursorPosition), let selectEndPosition = textView.position(from: textView.beginningOfDocument, offset: cursorPosition + selectOffset) {
+//            textView.selectedTextRange = textView.textRange(from: selectStartPosition, to: selectEndPosition)
+//                }
     }
     
     class Coordinator: NSObject, UITextViewDelegate {
         @Binding var text: String
+        @Binding var cursorPosition: Int
+        @Binding var selectOffset: Int
         let placeholder: String
         let textDidChange: (UITextView) -> Void
         let parent: THTextEditorUIView
         
-        init(text: Binding<String>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
+        init(text: Binding<String>, cursorPosition: Binding<Int>, selectOffset: Binding<Int>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
             self._text = text
+            self._cursorPosition = cursorPosition
+            self._selectOffset = selectOffset
             self.placeholder = placeholder
             self.textDidChange = textDidChange
             self.parent = parent
@@ -198,6 +215,7 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
             return nil
             
             // todo I'll do this later
+
 //            guard range.length > 0 else { return nil }
 //            
 //            var customActions: [UIMenuElement] = []
@@ -247,6 +265,23 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
                 textView.textColor = .label
             }
         }
+        
+        func textViewDidChangeSelection(_ textView: UITextView) {
+            if let selectedRange = textView.selectedTextRange {
+                let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
+                let selectOffset = textView.offset(from: selectedRange.start, to: selectedRange.end)
+                self.cursorPosition = cursorPosition
+                self.selectOffset = selectOffset
+            }
+        }
+        
+//        func textCursorDidChange(_ textView: UITextView) {
+//            print("I love SwiftUI Cursor")
+//            if let selectedRange = textView.selectedTextRange {
+//                let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
+//                self.cursorPosition = cursorPosition
+//            }
+//        }
 
         func textViewDidEndEditing(_ textView: UITextView) {
             // Add placeholder text if the user ends editing with an empty field
