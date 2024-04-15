@@ -27,6 +27,10 @@ public struct CampusContent: View {
         path.append(value)
     }
     
+    func appendDetail(value: any Hashable) {
+        path.append(value)
+    }
+    
     public init() {
         
     }
@@ -39,6 +43,11 @@ public struct CampusContent: View {
         }
         .onReceive(navigator.contentSubject) { value in
             appendContent(value: value)
+        }
+        .onReceive(navigator.detailSubject) { value, _ in
+            if navigator.isCompactMode {
+                appendDetail(value: value)
+            }
         }
     }
 }

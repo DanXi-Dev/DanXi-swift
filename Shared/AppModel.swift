@@ -11,7 +11,7 @@ class AppModel: ObservableObject {
     static let notificationSettingsPublisher = PassthroughSubject<UNNotificationContent?, Never>()
     
     @AppStorage("intro-done") var showIntro = true // Shown once
-    @Published var screen: AppScreen? = .campus {
+    @Published var screen: AppScreen = .campus {
         willSet {
             if screen == newValue {
                 switch(screen) {
@@ -25,8 +25,6 @@ class AppModel: ObservableObject {
                     OnDoubleTapCalendarTabBarItem.send()
                 case .settings:
                     OnDoubleTapSettingsTabBarItem.send()
-                case .none: break
-                    // do nothing
                 }
             }
         }
