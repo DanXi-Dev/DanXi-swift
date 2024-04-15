@@ -1,5 +1,5 @@
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct THContentEditor: View {
     @Binding var content: String
@@ -8,16 +8,47 @@ struct THContentEditor: View {
     @State private var showStickers = false
     @State private var showPreview = false
     
-    private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
+    private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
               let imageData = try await photo.loadTransferable(type: Data.self) else {
             return
         }
-        
+        await uploadPhoto(imageData)
+    }
+    
+    func uploadPhoto(_ imageData: Data?) async {
+        guard let imageData = imageData else {
+            return
+        }
+
         let taskID = UUID().uuidString
-        content.append("![Uploading \(taskID)...]")
-        let imageURL = try await THRequests.uploadImage(imageData)
-        content.replace("![Uploading \(taskID)...]", with: "![](\(imageURL.absoluteString))")
+        content.append("\n![Uploading \(taskID)...]")
+        do {
+            let imageURL = try await THRequests.uploadImage(imageData)
+            content.replace("\n![Uploading \(taskID)...]", with: "\n![](\(imageURL.absoluteString))")
+        } catch {
+            content = content.replacingOccurrences(of: "![Uploading \(taskID)...]", with: "")
+            showUploadError = true
+            return
+        }
+    }
+    
+    private var toolbar: some View {
+        HStack(alignment: .center, spacing: 12) {
+            PhotosPicker(selection: $photo, matching: .images) {
+                Label("Upload Image", systemImage: "photo")
+            }
+            
+            Button {
+                showStickers = true
+            } label: {
+                Label("Stickers", systemImage: "smiley")
+            }
+            
+            Spacer()
+        }
+        .labelStyle(.iconOnly)
+        .tint(.primary)
     }
     
     var body: some View {
@@ -29,6 +60,19 @@ struct THContentEditor: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .listRowInsets(.zero)
+        .onChange(of: photo) { photo in
+            Task {
+                do {
+                    try await handlePickerResult(photo)
+                } catch {
+                    showUploadError = true
+                }
+            }
+        }
+        .alert("Upload Image Failed", isPresented: $showUploadError) { }
+        .sheet(isPresented: $showStickers) {
+            stickerPicker
+        }
         
         if showPreview {
             Section {
@@ -36,30 +80,14 @@ struct THContentEditor: View {
             }
         } else {
             Section {
-                PhotosPicker(selection: $photo, matching: .images) {
-                    Label("Upload Image", systemImage: "photo")
+#if targetEnvironment(macCatalyst)
+                toolbar
+                    .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
+#endif
+                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
+                    toolbar
+                        .padding()
                 }
-                .onChange(of: photo) { photo in
-                    Task {
-                        do {
-                            try await uploadPhoto(photo)
-                        } catch {
-                            showUploadError = true
-                        }
-                    }
-                }
-                .alert("Upload Image Failed", isPresented: $showUploadError) { }
-                
-                Button {
-                    showStickers = true
-                } label: {
-                    Label("Stickers", systemImage: "smiley")
-                }
-                .sheet(isPresented: $showStickers) {
-                    stickerPicker
-                }
-                
-                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200)
                 
             } footer: {
                 Text("TH Edit Alert")
