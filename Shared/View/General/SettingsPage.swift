@@ -71,6 +71,7 @@ struct SettingsPage: View {
                         }
                     }
                 }
+                .listStyle(.insetGrouped)
                 .onReceive(OnDoubleTapSettingsTabBarItem, perform: {
                     if navigator.path.count > 0 {
                         navigator.path.removeLast(navigator.path.count)

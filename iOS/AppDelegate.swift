@@ -2,6 +2,7 @@ import UIKit
 import UserNotifications
 import WatchConnectivity
 import CoreTelephony
+import IQKeyboardManagerSwift
 
 class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNotificationCenterDelegate, ObservableObject {
     // MARK: - App Delegate
@@ -11,6 +12,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         UNUserNotificationCenter.current().delegate = self
+        IQKeyboardManager.shared.enable = true
         
         // Clear badge on launch
         UIApplication.shared.applicationIconBadgeNumber = 0

@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 import Utils
 
 struct THBrowsePage: View {
@@ -6,7 +7,6 @@ struct THBrowsePage: View {
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var mainAppModel: AppModel
-    @EnvironmentObject private var navigator: THNavigator
     @State private var showScreenshotAlert = false
     
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
@@ -50,17 +50,14 @@ struct THBrowsePage: View {
                         THHoleView(hole: hole, fold: fold)
                     }
                 }
-                                .id(model.configId) // stop old loading task when config change
+                .id(model.configId) // stop old loading task when config change
             }
-            .onReceive(OnDoubleTapForumTabBarItem, perform: {
-                if navigator.path.count > 0 {
-                    navigator.path.removeLast(navigator.path.count)
-                } else {
-                    withAnimation {
-                        proxy.scrollTo("th-top")
-                    }
+            .listStyle(.insetGrouped)
+            .onReceive(OnDoubleTapForumTabBarItem) {
+                withAnimation {
+                    proxy.scrollTo("th-top")
                 }
-            })
+            }
         }
         .watermark()
         .animation(.default, value: model.division)
@@ -78,7 +75,7 @@ struct THBrowsePage: View {
             appModel.banners = banner
         }
         .onReceive(screenshotPublisher) { _ in
-            if settings.screenshotAlert && mainAppModel.section == .forum {
+            if settings.screenshotAlert && mainAppModel.screen == .forum {
                 showScreenshotAlert = true
             }
         }
@@ -149,7 +146,6 @@ private struct THDatePicker: View {
 private struct THBrowseToolbar: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THBrowseModel
-    @EnvironmentObject private var navigator: THNavigator
     
     @State private var showPostSheet = false
     @State private var showDatePicker = false
@@ -190,46 +186,10 @@ private struct THBrowseToolbar: View {
     
     private var moreOptions: some View {
         Menu {
-            Button {
-                navigator.path.append(THPage.notifications)
-            } label: {
-                Label("Notifications", systemImage: "bell")
-            }
-            
-            Button {
-                navigator.path.append(THPage.favorite)
-            } label: {
-                Label("Favorites", systemImage: "star")
-            }
-            
-            Button {
-                navigator.path.append(THPage.subscription)
-            } label: {
-                Label("Subscription List", systemImage: "eye")
-            }
-            
-            Button {
-                navigator.path.append(THPage.mypost)
-            } label: {
-                Label("My Post", systemImage: "person")
-            }
-            
-            Button {
-                navigator.path.append(THPage.myreply)
-            } label: {
-                Label("My Reply", systemImage: "arrowshape.turn.up.left")
-            }
-            
-            Button {
-                navigator.path.append(THPage.history)
-            } label: {
-                Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
-            }
-            
-            Button {
-                navigator.path.append(THPage.tags)
-            } label: {
-                Label("All Tags", systemImage: "tag")
+            ForEach(ForumSection.userFeatures) { section in
+                ContentLink(value: section) {
+                    section.label
+                }
             }
             
             Divider()
@@ -260,20 +220,10 @@ private struct THBrowseToolbar: View {
                         Label("Edit Division Info", systemImage: "rectangle.3.group")
                     }
                     
-                    Button {
-                        navigator.path.append(THPage.report)
-                    } label: {
-                        Label("Report", systemImage: "exclamationmark.triangle")
-                    }
-                    
-                    Button {
-                        navigator.path.append(THPage.moderate)
-                    } label: {
-                        Label("Moderate", systemImage: "video")
-                    }
-                    
-                    NavigationLink("Send Message") {
-                        THMessageSheet()
+                    ForEach(ForumSection.adminFeatures) { section in
+                        ContentLink(value: section) {
+                            section.label
+                        }
                     }
                 } label: {
                     Label("Admin Actions", systemImage: "person.badge.key")
@@ -366,7 +316,7 @@ private struct BannerView: View {
     let banner: Banner
     let navigationTapCallback: () -> Void
     @Environment(\.openURL) private var openURL
-    @EnvironmentObject private var navigator: THNavigator
+    @EnvironmentObject private var navigator: AppNavigator
     @ScaledMetric private var height: CGFloat = 20
     @ScaledMetric private var fontSize: CGFloat = 15
     
@@ -383,12 +333,12 @@ private struct BannerView: View {
         if let holeMatch = action.wholeMatch(of: /#(?<id>\d+)/),
            let holeId = Int(holeMatch.id) {
             let loader = THHoleLoader(holeId: holeId)
-            navigator.path.append(loader)
+            navigator.pushDetail(value: loader, replace: true)
             navigationTapCallback()
         } else if let floorMatch = action.wholeMatch(of: /##(?<id>\d+)/),
                   let floorId = Int(floorMatch.id) {
             let loader = THHoleLoader(floorId: floorId)
-            navigator.path.append(loader)
+            navigator.pushDetail(value: loader, replace: true)
             navigationTapCallback()
         } else if let url = URL(string: action) {
             openURL(url)

@@ -20,11 +20,11 @@ fileprivate struct NotificationContent: View {
         THBackgroundList {
             ForEach(messages) { message in
                 if let floor = message.floor {
-                    NavigationListRow(value: THHoleLoader(floorId: floor.id)) {
+                    DetailLink(value: THHoleLoader(floorId: floor.id)) {
                         THNotificationView(message: message)
                     }
                 } else if let report = message.report {
-                    NavigationListRow(value: THHoleLoader(floorId: report.floor.id)) {
+                    DetailLink(value: THHoleLoader(floorId: report.floor.id)) {
                         THNotificationView(message: message)
                     }
                 } else {

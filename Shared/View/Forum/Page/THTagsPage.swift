@@ -21,7 +21,7 @@ struct THTagsPage: View {
         } content: { 
             THBackgroundList {
                 ForEach(filteredTags) { tag in
-                    NavigationLink(value: tag) {
+                    ContentLink(value: tag) {
                         HStack {
                             Label(tag.name, systemImage: "tag")
                                 .foregroundColor(randomColor(tag.name))

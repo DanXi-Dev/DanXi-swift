@@ -11,10 +11,10 @@ class AppModel: ObservableObject {
     static let notificationSettingsPublisher = PassthroughSubject<UNNotificationContent?, Never>()
     
     @AppStorage("intro-done") var showIntro = true // Shown once
-    @Published var section: AppSection = .campus {
+    @Published var screen: AppScreen? = .campus {
         willSet {
-            if section == newValue {
-                switch(section) {
+            if screen == newValue {
+                switch(screen) {
                 case .campus:
                     OnDoubleTapCampusTabBarItem.send()
                 case .forum:
@@ -25,6 +25,8 @@ class AppModel: ObservableObject {
                     OnDoubleTapCalendarTabBarItem.send()
                 case .settings:
                     OnDoubleTapSettingsTabBarItem.send()
+                case .none: break
+                    // do nothing
                 }
             }
         }
@@ -33,20 +35,16 @@ class AppModel: ObservableObject {
     func openURL(_ url: URL) {
         switch url.host {
         case "settings":
-            section = .settings
+            screen = .settings
         case "campus":
-            section = .campus
+            screen = .campus
         case "forum":
-            section = .forum
+            screen = .forum
         case "calendar":
-            section = .calendar
+            screen = .calendar
         case "curriculum":
-            section = .curriculum
+            screen = .curriculum
         default: break
         }
     }
-}
-
-enum AppSection {
-    case campus, forum, curriculum, calendar, settings
 }

@@ -101,7 +101,7 @@ private struct BrowseHistoryView: View {
     let history: THBrowseHistory
     
     var body: some View {
-        NavigationListRow(value: THHoleLoader(holeId: history.id)) {
+        DetailLink(value: THHoleLoader(holeId: history.id)) {
             VStack(alignment: .leading) {
                 WrappingHStack(alignment: .leading) {
                     ForEach(history.tags) { tag in

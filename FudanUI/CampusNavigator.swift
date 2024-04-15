@@ -1,7 +1,7 @@
 import SwiftUI
 import Utils
 
-class CampusNavigator: ObservableObject {
+class CampusNavigator: ObservableObject {    
     @Published var path = NavigationPath()
     @AppStorage("campus-pinned") var cards: [CampusSection] = []
     @AppStorage("campus-unpinned") var pages: [CampusSection] = []
@@ -69,10 +69,3 @@ class CampusNavigator: ObservableObject {
     }
 }
 
-enum CampusSection: String, Codable, CaseIterable {
-    case wallet, electricity, announcenemnt, pay, bus, classroom, library, canteen, sport, score, rank, playground
-    
-    static let gradHidden: Set<CampusSection> = [.sport, .rank, .score]
-    static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity]
-    static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt]
-}

@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THReportPage: View {
     @StateObject private var model = THReportModel()
@@ -44,7 +45,7 @@ fileprivate struct ReportView: View {
     let report: THReport
     
     var body: some View {
-        NavigationListRow(value: THHoleLoader(report.floor)) {
+        DetailLink(value: THHoleLoader(report.floor)) {
             VStack(alignment: .leading, spacing: 7) {
                 HStack {
                     Text("Incident ID: \(String(report.id))")

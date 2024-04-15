@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import ViewUtils
 
 // MARK: - Basic Mention View
 
@@ -101,16 +102,19 @@ struct THLocalMentionView: View {
 }
 
 struct THRemoteMentionView: View {
-    @EnvironmentObject private var navigator: THNavigator
     let mention: THMention
+    let loader: THHoleLoader
+    
+    init(mention: THMention) {
+        self.mention = mention
+        var loader = THHoleLoader()
+        loader.holeId = mention.holeId
+        loader.floorId = mention.floorId
+        self.loader = loader
+    }
     
     var body: some View {
-        Button {
-            var loader = THHoleLoader()
-            loader.holeId = mention.holeId
-            loader.floorId = mention.floorId
-            navigator.path.append(loader)
-        } label: {
+        DetailLink(value: loader, replace: false) {
             THMentionView(mention: mention)
         }
         .buttonStyle(.borderless)

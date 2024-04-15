@@ -6,17 +6,17 @@ struct ReservationPage: View {
     var body: some View {
         AsyncContentView { forceReload in
             let playgrounds = try await forceReload ? ReservationStore.shared.getRefreshedPlayground() : ReservationStore.shared.getCachedPlayground()
-            return FDPlaygroundModel(playgrounds)
+            return PlaygroundModel(playgrounds)
         } content: { model in
-            FDPlaygroundContent(model)
+            PlaygroundContent(model)
         }
     }
 }
 
-fileprivate struct FDPlaygroundContent: View {
-    @StateObject private var model: FDPlaygroundModel
+struct PlaygroundContent: View {
+    @StateObject private var model: PlaygroundModel
     
-    init(_ model: FDPlaygroundModel) {
+    init(_ model: PlaygroundModel) {
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -48,12 +48,12 @@ fileprivate struct FDPlaygroundContent: View {
         .navigationTitle("Playground Reservation")
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: Playground.self) { playground in
-            FDPlaygroundReservePage(playground)
+            PlaygroundPage(playground)
         }
     }
 }
 
-fileprivate struct FDPlaygroundReservePage: View {
+struct PlaygroundPage: View {
     private let playground: Playground
     @State private var showAvailable = false
     @State private var date = Date.now
@@ -163,7 +163,7 @@ fileprivate struct ReservationSheet: View {
 }
 
 @MainActor
-class FDPlaygroundModel: ObservableObject {
+class PlaygroundModel: ObservableObject {
     init(_ playgrounds: [Playground]) {
         self.playgrounds = playgrounds
         

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC529CE3022004A5D2F /* THFloorView.swift */; };
-		27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC729CF7AC2004A5D2F /* THNavigator.swift */; };
 		27013BCA29CF7B74004A5D2F /* THHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BC929CF7B74004A5D2F /* THHomePage.swift */; };
 		27013BCC29D01E7D004A5D2F /* THSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCB29D01E7D004A5D2F /* THSearchModel.swift */; };
 		27013BCE29D01F3F004A5D2F /* THBrowseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */; };
@@ -74,6 +73,8 @@
 		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27A424F129EE6B2300339E82 /* DXAuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A424F029EE6B2300339E82 /* DXAuthSheet.swift */; };
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
+		27AF614B2BCD543C00754718 /* CurriculumNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */; };
+		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
 		27B19FC128F5769A0001587F /* FDLoginSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B19FC028F5769A0001587F /* FDLoginSheet.swift */; };
 		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27BBBD0B2912C330007C2905 /* DXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0A2912C330007C2905 /* DXError.swift */; };
@@ -120,6 +121,11 @@
 		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
 		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
+		27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2212BCBE8C80017CB5E /* AppScreen.swift */; };
+		27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */; };
+		27F2F22C2BCC47810017CB5E /* ForumNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */; };
+		27F2F2302BCC49F30017CB5E /* ForumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F22F2BCC49F30017CB5E /* ForumSection.swift */; };
+		27F2F2322BCD09930017CB5E /* ForumContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2312BCD09930017CB5E /* ForumContent.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
@@ -131,6 +137,7 @@
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */; };
 		F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */; };
+		F15DD9ED2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15DD9EC2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift */; };
 		F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1728E332BB1661C00483F09 /* SheetExtension.swift */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
 		F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */ = {isa = PBXBuildFile; productRef = F1B1DF772BC19FC4005E8F87 /* Queue */; };
@@ -189,7 +196,6 @@
 
 /* Begin PBXFileReference section */
 		27013BC529CE3022004A5D2F /* THFloorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THFloorView.swift; sourceTree = "<group>"; };
-		27013BC729CF7AC2004A5D2F /* THNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THNavigator.swift; sourceTree = "<group>"; };
 		27013BC929CF7B74004A5D2F /* THHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THHomePage.swift; sourceTree = "<group>"; };
 		27013BCB29D01E7D004A5D2F /* THSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchModel.swift; sourceTree = "<group>"; };
 		27013BCD29D01F3F004A5D2F /* THBrowseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseWrapper.swift; sourceTree = "<group>"; };
@@ -254,6 +260,8 @@
 		279997992AC1734E00DE835A /* THSubscriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSubscriptionPage.swift; sourceTree = "<group>"; };
 		27A424F029EE6B2300339E82 /* DXAuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXAuthSheet.swift; sourceTree = "<group>"; };
 		27A5DA1F29D6EF010042D28D /* THTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTagsPage.swift; sourceTree = "<group>"; };
+		27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumNavigation.swift; sourceTree = "<group>"; };
+		27AF614C2BCD61DE00754718 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		27B19FC028F5769A0001587F /* FDLoginSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLoginSheet.swift; sourceTree = "<group>"; };
 		27BBBD0A2912C330007C2905 /* DXError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DXError.swift; sourceTree = "<group>"; };
 		27BBBD0D2912C33C007C2905 /* DKEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKEntity.swift; sourceTree = "<group>"; };
@@ -290,6 +298,11 @@
 		27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessageSheet.swift; sourceTree = "<group>"; };
 		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
+		27F2F2212BCBE8C80017CB5E /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
+		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
+		27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumNavigation.swift; sourceTree = "<group>"; };
+		27F2F22F2BCC49F30017CB5E /* ForumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumSection.swift; sourceTree = "<group>"; };
+		27F2F2312BCD09930017CB5E /* ForumContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumContent.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
@@ -339,6 +352,7 @@
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
 				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
+				F15DD9ED2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift in Frameworks */,
 				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */,
 				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
@@ -396,6 +410,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		27AF61492BCD542F00754718 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		27BBBD082912C2E6007C2905 /* DanXi Kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +465,7 @@
 		27CBA0792952219500F422DB /* Forum */ = {
 			isa = PBXGroup;
 			children = (
+				27F2F22A2BCC47750017CB5E /* Navigation */,
 				27DAFA6529CB375300F32093 /* Model */,
 				27CBA07D295221BA00F422DB /* Page */,
 				27CBA07F295221C200F422DB /* View */,
@@ -454,6 +477,7 @@
 		27CBA07C295221B100F422DB /* Curriculum */ = {
 			isa = PBXGroup;
 			children = (
+				27AF61492BCD542F00754718 /* Navigation */,
 				27CBA08329522BB100F422DB /* Page */,
 				27CBA08629522BB800F422DB /* Sheet */,
 				27CBA08529522BB500F422DB /* View */,
@@ -585,7 +609,6 @@
 		27DAFA6529CB375300F32093 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				27013BC729CF7AC2004A5D2F /* THNavigator.swift */,
 				27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */,
 				27013BCB29D01E7D004A5D2F /* THSearchModel.swift */,
 				27DAFA6629CB375D00F32093 /* THHoleModel.swift */,
@@ -595,6 +618,26 @@
 				27834AF629D6012E008DC0C2 /* THSettingsModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		27F2F2202BCBE8C10017CB5E /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				27F2F2212BCBE8C80017CB5E /* AppScreen.swift */,
+				27AF614C2BCD61DE00754718 /* TabNavigation.swift */,
+				27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		27F2F22A2BCC47750017CB5E /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */,
+				27F2F22F2BCC49F30017CB5E /* ForumSection.swift */,
+				27F2F2312BCD09930017CB5E /* ForumContent.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		7795D21A27D82B1C00840D02 /* Frameworks */ = {
@@ -612,6 +655,7 @@
 				8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */,
 				27E1C52C29D09CF700B333BA /* AppModel.swift */,
 				2778D6112891D22D009F4DB1 /* ContentView.swift */,
+				27F2F2202BCBE8C10017CB5E /* Navigation */,
 				27CBA0782952213A00F422DB /* View */,
 				27BBBD082912C2E6007C2905 /* DanXi Kit */,
 				27936F442939E1D300A40D36 /* Utilities */,
@@ -731,6 +775,7 @@
 				27C68CB22BB563EE00037D52 /* Utils */,
 				F1B1DF772BC19FC4005E8F87 /* Queue */,
 				2785E2A92BC8645900D50D31 /* FudanUI */,
+				F15DD9EC2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift */,
 			);
 			productName = "DanXi-native";
 			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
@@ -773,6 +818,7 @@
 				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
 				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */,
+				F15DD9EB2BCD6A2D000BA2E1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -859,10 +905,11 @@
 				27CBA0772951C01E00F422DB /* Network.swift in Sources */,
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
+				27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */,
 				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
+				27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */,
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
-				27013BC829CF7AC2004A5D2F /* THNavigator.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */,
 				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
@@ -872,12 +919,14 @@
 				27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
 				27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */,
+				27F2F2322BCD09930017CB5E /* ForumContent.swift in Sources */,
 				27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */,
 				2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */,
 				2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */,
 				27063ABA29FB094C0060AC8B /* AsyncCollection.swift in Sources */,
 				272FFC5029E9C0CB00EB4CBF /* THTagEditor.swift in Sources */,
 				27BBBD222912C33D007C2905 /* DKRequests.swift in Sources */,
+				27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */,
 				27013BC629CE3022004A5D2F /* THFloorView.swift in Sources */,
 				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
@@ -894,6 +943,7 @@
 				2772231128F05B3300458EAC /* THHistorySheet.swift in Sources */,
 				27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */,
 				27DAFA6F29CB589000F32093 /* THHolePage.swift in Sources */,
+				27AF614B2BCD543C00754718 /* CurriculumNavigation.swift in Sources */,
 				F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */,
 				27BBBD0B2912C330007C2905 /* DXError.swift in Sources */,
 				271D1D5529F1A31700DDEEC9 /* THNotificationView.swift in Sources */,
@@ -931,6 +981,8 @@
 				27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */,
 				278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */,
 				27D7110828CA29B7001E9464 /* THReportSheet.swift in Sources */,
+				27F2F22C2BCC47810017CB5E /* ForumNavigation.swift in Sources */,
+				27F2F2302BCC49F30017CB5E /* ForumSection.swift in Sources */,
 				2778D62D2891D22D009F4DB1 /* THHoleView.swift in Sources */,
 				2725605929F8EAF300C8B27A /* DKTagView.swift in Sources */,
 				27DD20E1299FC16D00E9F833 /* DKStarRatingView.swift in Sources */,
@@ -1358,6 +1410,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		F15DD9EB2BCD6A2D000BA2E1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.2;
+			};
+		};
 		F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mattmassicotte/Queue";
@@ -1432,6 +1492,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		F15DD9EC2BCD6A2D000BA2E1 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F15DD9EB2BCD6A2D000BA2E1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		F1B1DF772BC19FC4005E8F87 /* Queue */ = {
 			isa = XCSwiftPackageProductDependency;

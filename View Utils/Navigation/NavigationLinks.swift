@@ -3,23 +3,27 @@ import SwiftUI
 /// A replacement for ``NavigationLink`` that pushes value into content column or
 /// simply the current stack, depending on the screen width.
 public struct ContentLink<Label: View, Value: Hashable>: View {
-    @EnvironmentObject private var organizer: NavigationOrganizer
+    @EnvironmentObject private var navigator: AppNavigator
     private let label: Label
+    private let action: () -> Void
     private let value: Value
     
     
     /// Creates a content link.
     /// - Parameters:
     ///   - value: The value for value-based navigation.
+    ///   - action: Logic to be executed before performing navigation.
     ///   - label: The label of link.
-    public init(value: Value, @ViewBuilder label: () -> Label) {
+    public init(value: Value, action: @escaping () -> Void = {}, @ViewBuilder label: () -> Label) {
         self.value = value
+        self.action = action
         self.label = label()
     }
     
     public var body: some View {
         Button {
-            organizer.pushContent(value: value)
+            action()
+            navigator.pushContent(value: value)
         } label: {
             label
         }
@@ -30,9 +34,10 @@ public struct ContentLink<Label: View, Value: Hashable>: View {
 /// A replacement for ``NavigationLink`` that pushes value into detail column or
 /// simply the current stack, depending on the screen width.
 public struct DetailLink<Label: View, Value: Hashable>: View {
-    @EnvironmentObject private var organizer: NavigationOrganizer
+    @EnvironmentObject private var navigator: AppNavigator
     private let label: Label
     private let value: Value
+    private let action: () -> Void
     private let replace: Bool
     
     
@@ -41,16 +46,19 @@ public struct DetailLink<Label: View, Value: Hashable>: View {
     ///   - value: The value for value-based navigation.
     ///   - replace: Whether to replace the detail navigation path, or simply append to it. This parameter
     ///              has no effect on smaller screen.
+    ///   - action: Logic to be executed before performing navigation.
     ///   - label: The label of link.
-    public init(value: Value, replace: Bool = true, @ViewBuilder label: () -> Label) {
+    public init(value: Value, replace: Bool = true, action: @escaping () -> Void = {}, @ViewBuilder label: () -> Label) {
         self.value = value
         self.replace = replace
+        self.action = action
         self.label = label()
     }
     
     public var body: some View {
         Button {
-            organizer.pushDetail(value: value, replace: replace)
+            action()
+            navigator.pushDetail(value: value, replace: replace)
         } label: {
             label
         }

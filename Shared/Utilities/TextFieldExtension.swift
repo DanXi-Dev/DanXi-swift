@@ -7,6 +7,7 @@
 
 import PhotosUI
 import SwiftUI
+import IQKeyboardManagerSwift
 
 /// This TextField is specifically designed for [THTagEditor]
 struct BackspaceDetectingTextField: UIViewRepresentable {
@@ -103,6 +104,7 @@ struct THTextEditor<Toolbar: View>: View {
 
     private func textDidChange(_ textView: UITextView) {
         height = max(textView.contentSize.height, minHeight)
+        Task { @MainActor in IQKeyboardManager.shared.reloadLayoutIfNeeded() }
     }
 }
 

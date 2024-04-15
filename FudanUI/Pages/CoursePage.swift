@@ -44,77 +44,75 @@ fileprivate struct CalendarContent: View {
     @State private var showExportSheet = false
     
     var body: some View {
-        NavigationStack {
-            ScrollViewReader { proxy in
-                List {
-                    EmptyView()
-                        .id("cal-top")
-                    
-                    Section {
-                        Picker("Select Semester", selection: $model.semester) {
-                            ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
-                                Text(semester.name).tag(semester)
-                            }
-                        }
-                        
-                        if !model.courses.isEmpty {
-                            Stepper(value: $model.week, in: model.weekRange) {
-                                Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
-                                    .labelStyle(.titleOnly)
-                            }
-                        }
-                    }
-#if targetEnvironment(macCatalyst)
-                    .listRowBackground(Color.clear)
-#endif
-                    
-                    Section {
-                        HStack {
-                            TimeslotsSidebar()
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                VStack {
-                                    DateHeader(model.weekStart)
-                                    CalendarEvents()
-                                }
-                            }
-                        }
-                    }
-#if targetEnvironment(macCatalyst)
-                    .listRowBackground(Color.clear)
-#endif
-                }
-                .onReceive(OnDoubleTapCalendarTabBarItem, perform: {
-                    withAnimation {
-                        proxy.scrollTo("cal-top")
-                    }
-                })
-            }
-            .refreshable {
-                await model.refresh(with: [:])
-            }
-            .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
-                model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
-            }
-            .toolbar {
-                Button {
-                    showExportSheet = true
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                }
-                .disabled(model.semester.startDate == nil)
-            }
-            .sheet(isPresented: $showExportSheet) {
-                ExportSheet()
-            }
-            .listStyle(.inset)
-            .alert("Error", isPresented: $showErrorAlert) {
+        ScrollViewReader { proxy in
+            List {
+                EmptyView()
+                    .id("cal-top")
                 
-            } message: {
-                Text(model.networkError?.localizedDescription ?? "")
+                Section {
+                    Picker("Select Semester", selection: $model.semester) {
+                        ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                            Text(semester.name).tag(semester)
+                        }
+                    }
+                    
+                    if !model.courses.isEmpty {
+                        Stepper(value: $model.week, in: model.weekRange) {
+                            Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
+                                .labelStyle(.titleOnly)
+                        }
+                    }
+                }
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
+                
+                Section {
+                    HStack {
+                        TimeslotsSidebar()
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            VStack {
+                                DateHeader(model.weekStart)
+                                CalendarEvents()
+                            }
+                        }
+                    }
+                }
+#if targetEnvironment(macCatalyst)
+                .listRowBackground(Color.clear)
+#endif
             }
-            .navigationTitle("Calendar")
-            .environmentObject(model)
+            .onReceive(OnDoubleTapCalendarTabBarItem, perform: {
+                withAnimation {
+                    proxy.scrollTo("cal-top")
+                }
+            })
         }
+        .refreshable {
+            await model.refresh(with: [:])
+        }
+        .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
+            model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
+        }
+        .toolbar {
+            Button {
+                showExportSheet = true
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+            }
+            .disabled(model.semester.startDate == nil)
+        }
+        .sheet(isPresented: $showExportSheet) {
+            ExportSheet()
+        }
+        .listStyle(.inset)
+        .alert("Error", isPresented: $showErrorAlert) {
+            
+        } message: {
+            Text(model.networkError?.localizedDescription ?? "")
+        }
+        .navigationTitle("Calendar")
+        .environmentObject(model)
     }
 }
 

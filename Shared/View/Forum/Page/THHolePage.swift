@@ -254,15 +254,12 @@ private struct THHoleToolbar: View {
 }
 
 struct THHoleTags: View {
-    @EnvironmentObject private var navigator: THNavigator
     let tags: [THTag]
     
     var body: some View {
         WrappingHStack(alignment: .leading) {
             ForEach(tags) { tag in
-                Button {
-                    navigator.path.append(tag)
-                } label: {
+                ContentLink(value: tag) {
                     THTagView(tag)
                 }
                 .buttonStyle(.borderless)
