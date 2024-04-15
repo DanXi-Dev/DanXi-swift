@@ -42,13 +42,6 @@ internal extension IQKeyboardManager {
             isEnabled = false
         } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
 
-            // If it is searchBar textField embedded in Navigation Bar
-            if textFieldViewInfo.textFieldView.iq.textFieldSearchBar() != nil,
-               let navController: UINavigationController = textFieldViewController as? UINavigationController,
-               let topController: UIViewController = navController.topViewController {
-                textFieldViewController = topController
-            }
-
             // If viewController is kind of enable viewController class, then assuming it's enabled.
             if !isEnabled, enabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {
                 isEnabled = true
