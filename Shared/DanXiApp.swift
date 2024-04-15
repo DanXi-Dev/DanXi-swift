@@ -10,7 +10,7 @@ struct DanXiApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplitNavigation()
                 .task(priority: .background) {
                     ConfigurationCenter.initialFetch()
                 }

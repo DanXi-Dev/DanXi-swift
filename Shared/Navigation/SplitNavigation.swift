@@ -48,10 +48,11 @@ struct SplitNavigation: View {
             }
             .navigationTitle("DanXi")
         } content: {
-            ForumContent()
+//            ForumContent()
+            CampusContent()
                 .environmentObject(navigator)
         } detail: {
-            ForumDetail()
+            CampusDetail()
                 .environmentObject(navigator)
         }
     }
