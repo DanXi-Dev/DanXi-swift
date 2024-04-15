@@ -29,9 +29,7 @@ public class IQTextFieldViewListener {
 
     private var textFieldViewObservers: [AnyHashable: TextFieldViewCompletion] = [:]
 
-#if swift(>=5.7)
     private(set) var lastTextFieldViewInfo: IQTextFieldViewInfo?
-#endif
 
     private(set) var textFieldViewInfo: IQTextFieldViewInfo?
 
@@ -58,8 +56,6 @@ public class IQTextFieldViewListener {
             return
         }
 
-#if swift(>=5.7)
-
         if #available(iOS 16.0, *),
            let lastTextFieldViewInfo = lastTextFieldViewInfo,
            let textView: UITextView = lastTextFieldViewInfo.textFieldView as? UITextView,
@@ -74,12 +70,6 @@ public class IQTextFieldViewListener {
         } else {
             lastTextFieldViewInfo = nil
         }
-#else
-        if textFieldViewInfo != info {
-            textFieldViewInfo = info
-            sendEvent(info: info)
-        }
-#endif
     }
 
     @objc private func didEndEditing(_ notification: Notification) {
@@ -88,7 +78,6 @@ public class IQTextFieldViewListener {
         }
 
         if textFieldViewInfo != info {
-#if swift(>=5.7)
             if #available(iOS 16.0, *),
                let textView: UITextView = info.textFieldView as? UITextView,
                 textView.isFindInteractionEnabled {
@@ -96,7 +85,6 @@ public class IQTextFieldViewListener {
             } else {
                 lastTextFieldViewInfo = nil
             }
-#endif
             textFieldViewInfo = info
             sendEvent(info: info)
             textFieldViewInfo = nil
