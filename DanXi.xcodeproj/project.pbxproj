@@ -125,7 +125,6 @@
 		27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */; };
 		27F2F22C2BCC47810017CB5E /* ForumNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */; };
 		27F2F2302BCC49F30017CB5E /* ForumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F22F2BCC49F30017CB5E /* ForumSection.swift */; };
-		27F2F2322BCD09930017CB5E /* ForumContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2312BCD09930017CB5E /* ForumContent.swift */; };
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
@@ -301,7 +300,6 @@
 		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
 		27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumNavigation.swift; sourceTree = "<group>"; };
 		27F2F22F2BCC49F30017CB5E /* ForumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumSection.swift; sourceTree = "<group>"; };
-		27F2F2312BCD09930017CB5E /* ForumContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumContent.swift; sourceTree = "<group>"; };
 		27FA5F48289955C3000391A3 /* THSearchTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSearchTagPage.swift; sourceTree = "<group>"; };
 		27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THBrowseModel.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
@@ -633,7 +631,6 @@
 			children = (
 				27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */,
 				27F2F22F2BCC49F30017CB5E /* ForumSection.swift */,
-				27F2F2312BCD09930017CB5E /* ForumContent.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -915,7 +912,6 @@
 				27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
 				27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */,
-				27F2F2322BCD09930017CB5E /* ForumContent.swift in Sources */,
 				27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */,
 				2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */,
 				2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */,

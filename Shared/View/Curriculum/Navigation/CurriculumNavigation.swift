@@ -21,6 +21,10 @@ struct CurriculumContent: View {
         path.append(value)
     }
     
+    func appendDetail(value: any Hashable) {
+        path.append(value)
+    }
+    
     var body: some View {
         NavigationStack(path: $path) {
             CurriculumNavigation {
@@ -29,6 +33,11 @@ struct CurriculumContent: View {
         }
         .onReceive(navigator.contentSubject) { value in
             appendContent(value: value)
+        }
+        .onReceive(navigator.detailSubject) { value, _ in
+            if navigator.isCompactMode {
+                appendDetail(value: value)
+            }
         }
     }
 }

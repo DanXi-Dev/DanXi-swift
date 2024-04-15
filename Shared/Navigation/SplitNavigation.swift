@@ -4,27 +4,35 @@ import FudanUI
 import ViewUtils
 
 struct SplitNavigation: View {
-    @Binding var screen: AppScreen?
+    @Binding var screen: AppScreen
     
     var body: some View {
         NavigationSplitView {
             AppSidebarList(screen: $screen)
         } content: {
-            screen?.content
+            screen.content
         } detail: {
-            screen?.detail
+            screen.detail
         }
     }
 }
 
 struct AppSidebarList: View {
-    @Binding var screen: AppScreen?
+    @Binding var screen: AppScreen
     @ObservedObject private var communityModel = DXModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
     
     var body: some View {
         NavigationStack {
-            List(selection: $screen) {
+            let screenBinding = Binding<AppScreen?>(
+            get: { screen },
+            set: {
+                if let newScreen = $0 {
+                    screen = newScreen
+                }
+            })
+            
+            List(selection: screenBinding) {
                 if campusModel.loggedIn {
                     AppScreen.campus.label
                         .tag(AppScreen.campus)

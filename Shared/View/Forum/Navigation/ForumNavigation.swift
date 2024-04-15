@@ -34,6 +34,10 @@ struct ForumContent: View {
         path.append(value)
     }
     
+    func appendDetail(value: any Hashable) {
+        path.append(value)
+    }
+    
     var body: some View {
         NavigationStack(path: $path) {
             ForumNavigation {
@@ -42,6 +46,11 @@ struct ForumContent: View {
         }
         .onReceive(navigator.contentSubject) { value in
             appendContent(value: value)
+        }
+        .onReceive(navigator.detailSubject) { value, _ in
+            if navigator.isCompactMode {
+                appendDetail(value: value)
+            }
         }
     }
 }
