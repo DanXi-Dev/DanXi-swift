@@ -136,7 +136,7 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         
         override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
             if action == #selector(paste(_:)) {
-                return UIPasteboard.general.hasImages
+                return true
             }
             return super.canPerformAction(action, withSender: sender)
         }
