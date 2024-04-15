@@ -142,11 +142,7 @@ public extension IQKeyboardManager {
             // Maintain keyboardDistanceFromTextField
             let specialKeyboardDistanceFromTextField: CGFloat
 
-            if let searchBar: UIView = textFieldView.iq.textFieldSearchBar() {
-                specialKeyboardDistanceFromTextField = searchBar.iq.distanceFromKeyboard
-            } else {
-                specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
-            }
+            specialKeyboardDistanceFromTextField = textFieldView.iq.distanceFromKeyboard
 
             if specialKeyboardDistanceFromTextField == UIView.defaultKeyboardDistance {
                 keyboardDistance = keyboardDistanceFromTextField
@@ -314,45 +310,6 @@ public extension IQKeyboardManager {
                 if moveUp > 0 {
                     isContinue = moveUp > (-scrollView.contentOffset.y - scrollView.contentInset.top)
 
-                } else if let tableView: UITableView = scrollView.iq.superviewOf(type: UITableView.self) {
-                    // Special treatment for UITableView due to their cell reusing logic
-
-                    isContinue = scrollView.contentOffset.y > 0
-
-                    if isContinue,
-                       let tableCell: UITableViewCell = textFieldView.iq.superviewOf(type: UITableViewCell.self),
-                       let indexPath: IndexPath = tableView.indexPath(for: tableCell),
-                       let previousIndexPath: IndexPath = tableView.previousIndexPath(of: indexPath) {
-
-                        let previousCellRect: CGRect = tableView.rectForRow(at: previousIndexPath)
-                        if !previousCellRect.isEmpty {
-                            let superview: UIView? = rootController.view.superview
-                            let previousCellRectInRootSuperview: CGRect = tableView.convert(previousCellRect,
-                                                                                            to: superview)
-
-                            moveUp = CGFloat.minimum(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
-                        }
-                    }
-                } else if let collectionView = scrollView.iq.superviewOf(type: UICollectionView.self) {
-                    // Special treatment for UICollectionView due to their cell reusing logic
-
-                    isContinue = scrollView.contentOffset.y > 0
-
-                    if isContinue,
-                       let collectionCell = textFieldView.iq.superviewOf(type: UICollectionViewCell.self),
-                       let indexPath: IndexPath = collectionView.indexPath(for: collectionCell),
-                       let previousIndexPath: IndexPath = collectionView.previousIndexPath(of: indexPath),
-                       let attributes = collectionView.layoutAttributesForItem(at: previousIndexPath) {
-
-                        let previousCellRect: CGRect = attributes.frame
-                        if !previousCellRect.isEmpty {
-                            let superview: UIView? = rootController.view.superview
-                            let previousCellRectInRootSuperview: CGRect = collectionView.convert(previousCellRect,
-                                                                                                 to: superview)
-
-                            moveUp = CGFloat.minimum(0, previousCellRectInRootSuperview.maxY - topLayoutGuide)
-                        }
-                    }
                 } else {
                     isContinue = textFieldViewRectInRootSuperview.minY < topLayoutGuide
 

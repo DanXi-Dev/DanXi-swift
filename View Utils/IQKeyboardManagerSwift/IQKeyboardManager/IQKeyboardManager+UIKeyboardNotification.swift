@@ -30,18 +30,6 @@ internal extension IQKeyboardManager {
     func handleKeyboardTextFieldViewVisible() {
         if self.activeConfiguration.rootControllerConfiguration == nil {    //  (Bug ID: #5)
 
-            let rootConfiguration: IQRootControllerConfiguration? = self.activeConfiguration.rootControllerConfiguration
-            if let gestureConfiguration = self.rootConfigurationWhilePopGestureActive,
-               gestureConfiguration.rootController == rootConfiguration?.rootController {
-                self.activeConfiguration.rootControllerConfiguration = gestureConfiguration
-            }
-
-            self.rootConfigurationWhilePopGestureActive = nil
-
-            if let configuration = self.activeConfiguration.rootControllerConfiguration {
-                let classNameString: String = "\(type(of: configuration.rootController.self))"
-                self.showLog("Saving \(classNameString) beginning origin: \(configuration.beginOrigin)")
-            }
         }
 
         setupTextFieldView()
@@ -68,11 +56,6 @@ internal extension IQKeyboardManager {
 
         self.restorePosition()
         self.banishTextFieldViewSetup()
-
-        if let configuration = self.activeConfiguration.rootControllerConfiguration,
-           configuration.rootController.navigationController?.interactivePopGestureRecognizer?.state == .began {
-            self.rootConfigurationWhilePopGestureActive = configuration
-        }
 
         self.lastScrollViewConfiguration = nil
     }

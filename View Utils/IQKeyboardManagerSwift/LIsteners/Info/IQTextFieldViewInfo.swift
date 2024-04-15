@@ -47,10 +47,6 @@ public struct IQTextFieldViewInfo: Equatable {
             return nil
         }
 
-        guard !view.iq.isAlertViewTextField() else {
-            return nil
-        }
-
         self.name = name
         textFieldView = view
     }
