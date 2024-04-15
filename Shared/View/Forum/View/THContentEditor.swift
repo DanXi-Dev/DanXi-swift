@@ -1,5 +1,5 @@
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct THContentEditor: View {
     @Binding var content: String
@@ -8,12 +8,19 @@ struct THContentEditor: View {
     @State private var showStickers = false
     @State private var showPreview = false
     
-    private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
+    private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
               let imageData = try await photo.loadTransferable(type: Data.self) else {
             return
         }
-        
+        try await uploadPhoto(imageData)
+    }
+    
+    func uploadPhoto(_ imageData: Data?) async throws {
+        guard let imageData = imageData else {
+            return
+        }
+
         let taskID = UUID().uuidString
         content.append("![Uploading \(taskID)...]")
         let imageURL = try await THRequests.uploadImage(imageData)
@@ -50,7 +57,7 @@ struct THContentEditor: View {
         .onChange(of: photo) { photo in
             Task {
                 do {
-                    try await uploadPhoto(photo)
+                    try await handlePickerResult(photo)
                 } catch {
                     showUploadError = true
                 }
@@ -71,7 +78,7 @@ struct THContentEditor: View {
                 toolbar
                     .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
 #endif
-                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200) {
+                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
                     toolbar
                         .padding()
                 }

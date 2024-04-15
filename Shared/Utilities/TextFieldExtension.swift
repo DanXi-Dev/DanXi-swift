@@ -5,6 +5,7 @@
 //  Created by Kavin Zhao on 2024-03-28.
 //
 
+import PhotosUI
 import SwiftUI
 
 /// This TextField is specifically designed for [THTagEditor]
@@ -83,16 +84,17 @@ struct THTextEditor<Toolbar: View>: View {
     @Binding var text: String
     let placeholder: String?
     let minHeight: CGFloat
+    let uploadImageAction: (Data?) async throws -> Void
     @ViewBuilder let toolbar: () -> Toolbar
     @State private var height: CGFloat?
 
     var body: some View {
-        THTextEditorUIView(placeholder: placeholder ?? "", textDidChange: self.textDidChange, text: $text, toolbar: toolbar)
+        THTextEditorUIView(placeholder: placeholder ?? "", textDidChange: textDidChange, uploadImageAction: uploadImageAction, text: $text, toolbar: toolbar)
             .frame(height: height ?? minHeight)
     }
 
     private func textDidChange(_ textView: UITextView) {
-        self.height = max(textView.contentSize.height, minHeight)
+        height = max(textView.contentSize.height, minHeight)
     }
 }
 
@@ -101,20 +103,48 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     
     let placeholder: String
     let textDidChange: (UITextView) -> Void
+    let uploadImageAction: (Data?) async throws -> Void
     @Binding var text: String
     @ViewBuilder let toolbar: () -> Toolbar
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, placeholder: placeholder, textDidChange: textDidChange)
+        return Coordinator(text: $text, placeholder: placeholder, textDidChange: textDidChange, parent: self)
+    }
+    
+    class TextViewWithImagePasting: UITextView {
+        let uploadImageAction: (Data?) async throws -> ()
+
+        init(uploadImageAction: @escaping (Data?) async throws -> ()) {
+            self.uploadImageAction = uploadImageAction
+            super.init(frame: .zero, textContainer: nil)
+        }
+
+        required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func paste(_ sender: Any?) {
+            if UIPasteboard.general.hasImages && !UIPasteboard.general.hasStrings && !UIPasteboard.general.hasURLs {
+                if let image = UIPasteboard.general.image {
+                    print("ssssssssss")
+                    Task {
+                        try await uploadImageAction(image.pngData())
+                    }
+                }
+            } else {
+                super.paste(sender)
+            }
+        }
     }
     
     func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView()
+        let textView = TextViewWithImagePasting(uploadImageAction: uploadImageAction)
         textView.isEditable = true
         textView.delegate = context.coordinator
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = .clear
-        
+        textView.allowsEditingTextAttributes = true
+
         let toolbarHostingVC = UIHostingController(rootView: toolbar())
         toolbarHostingVC.sizingOptions = [.intrinsicContentSize]
         toolbarHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +152,7 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         let inputView = UIInputView(frame: CGRect(origin: toolbarHostingVC.view.frame.origin, size: toolbarHostingVC.view.intrinsicContentSize))
         inputView.addSubview(toolbarHostingVC.view)
         textView.inputAccessoryView = inputView
-        
+
         return textView
     }
     
@@ -143,11 +173,13 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         @Binding var text: String
         let placeholder: String
         let textDidChange: (UITextView) -> Void
+        let parent: THTextEditorUIView
         
-        init(text: Binding<String>, placeholder: String, textDidChange: @escaping (UITextView) -> Void) {
+        init(text: Binding<String>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
             self._text = text
             self.placeholder = placeholder
             self.textDidChange = textDidChange
+            self.parent = parent
         }
         
         func textViewDidChange(_ textView: UITextView) {
@@ -155,6 +187,55 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
                 self?.text = textView.text
                 self?.textDidChange(textView)
             }
+        }
+        
+        // customize the menu of textfield
+        func textView(
+            _ textView: UITextView,
+            editMenuForTextIn range: NSRange,
+            suggestedActions: [UIMenuElement]
+        ) -> UIMenu? {
+            guard range.length > 0 else { return nil }
+            
+            var customActions: [UIMenuElement] = []
+            
+            if range.length > 0, let textRange = Range(range, in: textView.text) {
+                // example: a menu item that bold the selected text
+                let boldAction = UIAction(title: "Bold") { _ in
+                    let selectedText = textView.text[textRange]
+                    let boldedText = "**\(selectedText)**"
+                    
+                    let replacedText = textView.text.replacingCharacters(in: textRange, with: boldedText)
+                    
+                    textView.text = replacedText
+                    self.parent.text = replacedText
+                    
+                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + boldedText.count)
+                    if let newCursorPosition = newCursorPosition {
+                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
+                    }
+                }
+                
+                let italicAction = UIAction(title: "Italic") { _ in
+                    let selectedText = textView.text[textRange]
+                    let italicText = "*\(selectedText)*"
+                    
+                    let replacedText = textView.text.replacingCharacters(in: textRange, with: italicText)
+                    
+                    textView.text = replacedText
+                    self.parent.text = replacedText
+                    
+                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + italicText.count)
+                    if let newCursorPosition = newCursorPosition {
+                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
+                    }
+                }
+                
+                customActions.append(boldAction)
+                customActions.append(italicAction)
+            }
+            
+            return UIMenu(children: customActions + suggestedActions)
         }
 
         func textViewDidBeginEditing(_ textView: UITextView) {
