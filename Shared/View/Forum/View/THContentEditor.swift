@@ -13,18 +13,24 @@ struct THContentEditor: View {
               let imageData = try await photo.loadTransferable(type: Data.self) else {
             return
         }
-        try await uploadPhoto(imageData)
+        await uploadPhoto(imageData)
     }
     
-    func uploadPhoto(_ imageData: Data?) async throws {
+    func uploadPhoto(_ imageData: Data?) async {
         guard let imageData = imageData else {
             return
         }
 
         let taskID = UUID().uuidString
-        content.append("![Uploading \(taskID)...]")
-        let imageURL = try await THRequests.uploadImage(imageData)
-        content.replace("![Uploading \(taskID)...]", with: "![](\(imageURL.absoluteString))")
+        content.append("\n![Uploading \(taskID)...]")
+        do {
+            let imageURL = try await THRequests.uploadImage(imageData)
+            content.replace("\n![Uploading \(taskID)...]", with: "\n![](\(imageURL.absoluteString))")
+        } catch {
+            content = content.replacingOccurrences(of: "![Uploading \(taskID)...]", with: "")
+            showUploadError = true
+            return
+        }
     }
     
     private var toolbar: some View {

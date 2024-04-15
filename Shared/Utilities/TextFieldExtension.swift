@@ -112,21 +112,21 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     }
     
     class TextViewWithImagePasting: UITextView {
-        let uploadImageAction: (Data?) async throws -> ()
+        let uploadImageAction: (Data?) async throws -> Void
 
-        init(uploadImageAction: @escaping (Data?) async throws -> ()) {
+        init(uploadImageAction: @escaping (Data?) async throws -> Void) {
             self.uploadImageAction = uploadImageAction
             super.init(frame: .zero, textContainer: nil)
         }
 
+        @available(*, unavailable)
         required init?(coder: NSCoder) {
-                fatalError("init(coder:) has not been implemented")
+            fatalError("init(coder:) has not been implemented")
         }
         
         override func paste(_ sender: Any?) {
             if UIPasteboard.general.hasImages && !UIPasteboard.general.hasStrings && !UIPasteboard.general.hasURLs {
                 if let image = UIPasteboard.general.image {
-                    print("ssssssssss")
                     Task {
                         try await uploadImageAction(image.pngData())
                     }
@@ -195,47 +195,49 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
             editMenuForTextIn range: NSRange,
             suggestedActions: [UIMenuElement]
         ) -> UIMenu? {
-            guard range.length > 0 else { return nil }
+            return nil
             
-            var customActions: [UIMenuElement] = []
-            
-            if range.length > 0, let textRange = Range(range, in: textView.text) {
-                // example: a menu item that bold the selected text
-                let boldAction = UIAction(title: "Bold") { _ in
-                    let selectedText = textView.text[textRange]
-                    let boldedText = "**\(selectedText)**"
-                    
-                    let replacedText = textView.text.replacingCharacters(in: textRange, with: boldedText)
-                    
-                    textView.text = replacedText
-                    self.parent.text = replacedText
-                    
-                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + boldedText.count)
-                    if let newCursorPosition = newCursorPosition {
-                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
-                    }
-                }
-                
-                let italicAction = UIAction(title: "Italic") { _ in
-                    let selectedText = textView.text[textRange]
-                    let italicText = "*\(selectedText)*"
-                    
-                    let replacedText = textView.text.replacingCharacters(in: textRange, with: italicText)
-                    
-                    textView.text = replacedText
-                    self.parent.text = replacedText
-                    
-                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + italicText.count)
-                    if let newCursorPosition = newCursorPosition {
-                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
-                    }
-                }
-                
-                customActions.append(boldAction)
-                customActions.append(italicAction)
-            }
-            
-            return UIMenu(children: customActions + suggestedActions)
+            // todo I'll do this later
+//            guard range.length > 0 else { return nil }
+//            
+//            var customActions: [UIMenuElement] = []
+//            
+//            if range.length > 0, let textRange = Range(range, in: textView.text) {
+//                let boldAction = UIAction(title: "Bold") { _ in
+//                    let selectedText = textView.text[textRange]
+//                    let boldedText = "**\(selectedText)**"
+//                    
+//                    let replacedText = textView.text.replacingCharacters(in: textRange, with: boldedText)
+//                    
+//                    textView.text = replacedText
+//                    self.parent.text = replacedText
+//                    
+//                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + boldedText.count)
+//                    if let newCursorPosition = newCursorPosition {
+//                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
+//                    }
+//                }
+//                
+//                let italicAction = UIAction(title: "Italic") { _ in
+//                    let selectedText = textView.text[textRange]
+//                    let italicText = "*\(selectedText)*"
+//                    
+//                    let replacedText = textView.text.replacingCharacters(in: textRange, with: italicText)
+//                    
+//                    textView.text = replacedText
+//                    self.parent.text = replacedText
+//                    
+//                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + italicText.count)
+//                    if let newCursorPosition = newCursorPosition {
+//                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
+//                    }
+//                }
+//                
+//                customActions.append(boldAction)
+//                customActions.append(italicAction)
+//            }
+//            
+//            return UIMenu(children: customActions + suggestedActions)
         }
 
         func textViewDidBeginEditing(_ textView: UITextView) {
