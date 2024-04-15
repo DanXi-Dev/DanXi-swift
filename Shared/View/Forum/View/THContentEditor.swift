@@ -1,5 +1,6 @@
 import PhotosUI
 import SwiftUI
+import ViewUtils
 
 struct THContentEditor: View {
     @Binding var content: String
@@ -91,9 +92,15 @@ struct THContentEditor: View {
                 toolbar
                     .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
 #endif
-                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
+                THTextEditor(text: $content, cursorPosition: $cursorPosition, selectOffset: $selectOffset, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
                     toolbar
                         .padding()
+                }
+                .onAppear() {
+                    IQKeyboardManager.shared.enable = true // Prevent keyboard from obstructing editor
+                }
+                .onDisappear() {
+                    IQKeyboardManager.shared.enable = false // Disable to prevent side effects to other TextFields
                 }
                 
             } footer: {
