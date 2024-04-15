@@ -80,11 +80,6 @@ Code-less drop-in universal library allows to prevent issues of keyboard sliding
 
     internal var activeConfiguration: IQActiveConfiguration = .init()
 
-    /**
-    Configuration related to keyboard appearance
-    */
-    @objc public let keyboardConfiguration: IQKeyboardConfiguration = .init()
-
     /*******************************************/
 
     /**
