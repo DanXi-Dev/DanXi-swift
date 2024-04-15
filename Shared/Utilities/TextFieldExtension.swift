@@ -134,6 +134,13 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
             fatalError("init(coder:) has not been implemented")
         }
         
+        override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+            if action == #selector(paste(_:)) {
+                return UIPasteboard.general.hasImages
+            }
+            return super.canPerformAction(action, withSender: sender)
+        }
+        
         override func paste(_ sender: Any?) {
             if UIPasteboard.general.hasImages && !UIPasteboard.general.hasStrings && !UIPasteboard.general.hasURLs {
                 if let image = UIPasteboard.general.image {
