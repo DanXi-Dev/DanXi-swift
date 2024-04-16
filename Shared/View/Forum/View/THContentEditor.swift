@@ -36,30 +36,47 @@ struct THContentEditor: View {
             }
         } else {
             Section {
-                PhotosPicker(selection: $photo, matching: .images) {
-                    Label("Upload Image", systemImage: "photo")
-                }
-                .onChange(of: photo) { photo in
-                    Task {
-                        do {
-                            try await uploadPhoto(photo)
-                        } catch {
-                            showUploadError = true
+                HStack(alignment: .center, spacing: 16) {
+                    PhotosPicker(selection: $photo, matching: .images) {
+                        Label("Upload Image", systemImage: "photo")
+                    }
+                    .onChange(of: photo) { photo in
+                        Task {
+                            do {
+                                try await uploadPhoto(photo)
+                            } catch {
+                                showUploadError = true
+                            }
                         }
                     }
+                    .alert("Upload Image Failed", isPresented: $showUploadError) { }
+                    
+                    Button {
+                        showStickers = true
+                    } label: {
+                        Label("Stickers", systemImage: "smiley")
+                    }
+                    .sheet(isPresented: $showStickers) {
+                        stickerPicker
+                    }
+                    
+                    Spacer()
                 }
-                .alert("Upload Image Failed", isPresented: $showUploadError) { }
+                .buttonStyle(.borderless)
+                .labelStyle(.iconOnly)
+                .tint(.primary)
                 
-                Button {
-                    showStickers = true
-                } label: {
-                    Label("Stickers", systemImage: "smiley")
+                ZStack(alignment: .topLeading) {
+                    if content.isEmpty {
+                        Text("Enter post content")
+                            .foregroundColor(.primary.opacity(0.25))
+                            .padding(.top, 7)
+                            .padding(.leading, 4)
+                    }
+                    
+                    TextEditor(text: $content)
+                        .frame(height: 250)
                 }
-                .sheet(isPresented: $showStickers) {
-                    stickerPicker
-                }
-                
-                THTextEditor(text: $content, placeholder: String(localized: "Enter post content"), minHeight: 200)
                 
             } footer: {
                 Text("TH Edit Alert")

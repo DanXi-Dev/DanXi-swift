@@ -64,14 +64,6 @@ struct DKPostSheet: View {
                 }
             }
             
-            if !content.isEmpty {
-                Section {
-                    CustomMarkdown(content)
-                } header: {
-                    Text("Preview")
-                }
-            }
-            
             Section {
                 LabeledContent("Overall Rating") {
                     DKStarRatingView(rating: $overallRating, ratingType: .overall)
