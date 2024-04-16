@@ -34,12 +34,12 @@ struct THContentEditor: View {
         
         let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.endIndex
         
-        content.insert(contentsOf: "\n![Uploading \(taskID)...]\n", at: cursorPosition)
+        content.insert(contentsOf: "![Uploading \(taskID)]", at: cursorPosition)
         do {
             let imageURL = try await THRequests.uploadImage(imageData)
-            content.replace("\n![Uploading \(taskID)...]\n", with: "\n![](\(imageURL.absoluteString))\n")
+            content.replace("![Uploading \(taskID)]", with: "![](\(imageURL.absoluteString))")
         } catch {
-            content = content.replacingOccurrences(of: "![Uploading \(taskID)...]", with: "")
+            content = content.replacingOccurrences(of: "![Uploading \(taskID)]", with: "")
             uploadError = error.localizedDescription
             showUploadError = true
         }

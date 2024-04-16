@@ -228,7 +228,7 @@ struct THFloorContent: View {
                 switch item.type {
                 case .text(let content):
                     CustomMarkdown(content)
-                        .markdownInlineImageProvider(StickerImageProvider())
+                        .markdownInlineImageProvider(ImageProviderWithSticker())
                 case .local(let floor):
                     if interactable {
                         THLocalMentionView(floor)
@@ -328,10 +328,13 @@ enum THSticker: String, CaseIterable {
     }
 }
 
-struct StickerImageProvider: InlineImageProvider {
-    func image(with url: URL, label: String) throws -> Image {
+struct ImageProviderWithSticker: InlineImageProvider {
+    let defaultProvider = DefaultInlineImageProvider.default
+    
+    func image(with url: URL, label: String) async throws -> Image {
         guard let sticker = THSticker(rawValue: url.absoluteString) else {
-            throw URLError(.badURL)
+            // This is not a sticker
+            return try await defaultProvider.image(with: url, label: label)
         }
         return sticker.image
     }
