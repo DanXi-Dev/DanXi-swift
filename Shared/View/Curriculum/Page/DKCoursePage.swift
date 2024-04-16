@@ -125,7 +125,8 @@ fileprivate struct ReviewSection: View {
                         let semesterMatched = model.semester == DKSemester.empty || course.matchSemester(model.semester)
                         
                         if teacherMatched && semesterMatched {
-                            NavigationLink(destination: DKReviewPage(course: course, review: review)) {
+                            let item = CurriculumReviewItem(course: course, review: review)
+                            DetailLink(value: item) {
                                 DKReviewView(review: review, course: course)
                             }
                         }

@@ -5,8 +5,11 @@ import ViewUtils
 
 struct SplitNavigation: View {
     @Binding var screen: AppScreen
-    @State private var columnVisibility =
-    NavigationSplitViewVisibility.all
+    @State private var columnVisibility = NavigationSplitViewVisibility.all
+    
+    private var isSettings: Bool {
+        screen == .settings
+    }
     
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -16,6 +19,9 @@ struct SplitNavigation: View {
         } detail: {
             screen.detail
         }
+        // this is a hack, by forcing the view to redraw will clear the detail column empty
+        // otherwise I'll have to migrate settings to use value-based navigation
+        .id(isSettings)
     }
 }
 

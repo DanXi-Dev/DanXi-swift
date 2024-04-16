@@ -10,8 +10,17 @@ struct CurriculumNavigation<Label: View>: View {
             .navigationDestination(for: DKCourseGroup.self) { course in
                 DKCoursePage(courseGroup: course)
             }
+            .navigationDestination(for: CurriculumReviewItem.self) { item in
+                DKReviewPage(course: item.course, review: item.review)
+            }
     }
 }
+
+struct CurriculumReviewItem: Hashable, Codable {
+    let course: DKCourse
+    let review: DKReview
+}
+
 
 struct CurriculumContent: View {
     @EnvironmentObject private var navigator: AppNavigator
