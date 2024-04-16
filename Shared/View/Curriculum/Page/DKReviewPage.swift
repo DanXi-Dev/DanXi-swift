@@ -10,6 +10,44 @@ struct DKReviewPage: View {
         self._review = State(initialValue: review)
     }
     
+    @ViewBuilder private var likeButtons: some View {
+        AsyncButton {
+            prepareHaptic()
+            do {
+                let upvote = review.vote >= 0
+                self.review = try await DKRequests.voteReview(reviewId: review.id, upvote: upvote)
+                model.updateReview(self.review, forCourseId: course.id)
+                haptic(.success)
+            } catch {
+                haptic(.error)
+            }
+        } label: {
+            Image(systemName: "arrow.up")
+                .padding(.horizontal)
+                .foregroundColor(.primary)
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(review.vote == 1 ? .accentColor : .secondarySystemBackground)
+        
+        AsyncButton {
+            prepareHaptic()
+            do {
+                let upvote = review.vote <= 0
+                self.review = try await DKRequests.voteReview(reviewId: review.id, upvote: !upvote)
+                model.updateReview(self.review, forCourseId: course.id)
+                haptic(.success)
+            } catch {
+                haptic(.error)
+            }
+        } label: {
+            Image(systemName: "arrow.down")
+                .padding(.horizontal)
+                .foregroundColor(.primary)
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(review.vote == -1 ? .accentColor : .secondarySystemBackground)
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -25,48 +63,6 @@ struct DKReviewPage: View {
                     }
                     Spacer()
                     
-                    Group {
-                        AsyncButton {
-                            prepareHaptic()
-                            do {
-                                let upvote = review.vote >= 0
-                                self.review = try await DKRequests.voteReview(reviewId: review.id, upvote: upvote)
-                                model.updateReview(self.review, forCourseId: course.id)
-                                haptic(.success)
-                            } catch {
-                                haptic(.error)
-                            }
-                        } label: {
-                            HStack(alignment: .center, spacing: 3) {
-                                Image(systemName: "hand.thumbsup")
-                                    .symbolVariant(review.vote == 1 ? .fill : .none)
-                            }
-                            .foregroundColor(review.vote == 1 ? .pink : .secondary)
-                            .fixedSize()
-                        }
-                        
-                        AsyncButton {
-                            prepareHaptic()
-                            do {
-                                let upvote = review.vote <= 0
-                                self.review = try await DKRequests.voteReview(reviewId: review.id, upvote: !upvote)
-                                model.updateReview(self.review, forCourseId: course.id)
-                                haptic(.success)
-                            } catch {
-                                haptic(.error)
-                            }
-                        } label: {
-                            HStack(alignment: .center, spacing: 3) {
-                                Image(systemName: "hand.thumbsdown")
-                                    .symbolVariant(review.vote == -1 ? .fill : .none)
-                            }
-                            .foregroundColor(review.vote == -1 ? .green : .secondary)
-                            .fixedSize()
-                        }
-                    }
-                    .buttonStyle(.borderless)
-                    .font(.caption)
-                    
                     Label("\(String(review.remark))", systemImage: "arrow.up")
                         .font(.callout)
                         .foregroundColor(.secondary)
@@ -78,7 +74,10 @@ struct DKReviewPage: View {
                         .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 
                 HStack {
+                    likeButtons
+                    
                     Spacer()
+                    
                     VStack(alignment: .trailing) {
                         Text("Posted by: \(String(review.reviewerId))")
                         Text(review.updateTime.formatted(date: .abbreviated, time: .omitted))
@@ -92,22 +91,5 @@ struct DKReviewPage: View {
         .padding(.horizontal)
         .watermark()
         .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
-        /*
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
-                    // TODO: upvote
-                } label: {
-                    Image(systemName: "arrowtriangle.up")
-                }
-                
-                Button {
-                    // TODO: downvote
-                } label: {
-                    Image(systemName: "arrowtriangle.down")
-                }
-            }
-        }
-         */
     }
 }
