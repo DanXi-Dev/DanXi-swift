@@ -10,11 +10,13 @@ public struct AsyncContentView<Output, Content: View>: View {
     private let nestedView: AnyView
     
     public init(finished: Bool = false,
+                refreshable: Bool = true,
                 animation: Animation? = .none,
                 style: AsyncContentStyle = .page,
                 action: @escaping (Bool) async throws -> Void, // The bool value, when set to true, indicates the user is triggering a refresh action and prefers not to use cache
                 @ViewBuilder content: () -> Content) where Output == Void {
         nestedView = AnyView(AsyncTaskView(finished: finished,
+                                           refreshable: refreshable,
                                            style: style,
                                            animation: animation,
                                            action: action,
@@ -32,12 +34,13 @@ public struct AsyncContentView<Output, Content: View>: View {
     }
     
     public init(finished: Bool = false,
+                refreshable: Bool = true,
                 animation: Animation? = .none,
                 action: @escaping (Bool) async throws -> Void, // The bool value, when set to true, indicates the user is triggering a refresh action and prefers not to use cache
                 @ViewBuilder content: () -> Content,
                 loadingView: (() -> AnyView)?,
                 failureView: ((Error, @escaping () -> Void) -> AnyView)?) where Output == Void {
-        nestedView = AnyView(AsyncTaskView(finished: finished, animation: animation, action: action, content: content, loadingView: loadingView, failureView: failureView))
+        nestedView = AnyView(AsyncTaskView(finished: finished, refreshable: refreshable, animation: animation, action: action, content: content, loadingView: loadingView, failureView: failureView))
     }
     
     public init(animation: Animation? = .none,
@@ -57,10 +60,12 @@ struct AsyncTaskView<Content: View>: View {
     private let style: AsyncContentStyle
     @StateObject private var loader: AsyncLoader<Void>
     private let content: Content
+    private let canRefresh: Bool
     @ViewBuilder private let loadingView: (() -> (AnyView))?
     @ViewBuilder private let failureView: ((Error, @escaping () -> Void) -> (AnyView))?
     
     init(finished: Bool = false,
+         refreshable: Bool = true,
          style: AsyncContentStyle = .page,
          animation: Animation?,
          action: @escaping (Bool) async throws -> Void,
@@ -74,9 +79,11 @@ struct AsyncTaskView<Content: View>: View {
         self.content = content()
         self.loadingView = nil
         self.failureView = nil
+        self.canRefresh = refreshable
     }
     
     init(finished: Bool = false,
+         refreshable: Bool = true,
          animation: Animation?,
          action: @escaping (Bool) async throws -> Void,
          @ViewBuilder content: () -> Content,
@@ -91,6 +98,7 @@ struct AsyncTaskView<Content: View>: View {
         self.content = content()
         self.loadingView = loadingView
         self.failureView = failureView
+        self.canRefresh = refreshable
     }
     
     var body: some View {
@@ -124,10 +132,14 @@ struct AsyncTaskView<Content: View>: View {
                 }
             }
         case .loaded(_):
-            content
-                .refreshable { // This passes as an environment variable down to child. Child can call RefreshAction in environment to trigger refresh
-                    await loader.load(forceReload: true)
-                }
+            if canRefresh {
+                content
+                    .refreshable { // This passes as an environment variable down to child. Child can call RefreshAction in environment to trigger refresh
+                        await loader.load(forceReload: true)
+                    }
+            } else {
+                content
+            }
         }
     }
 }
