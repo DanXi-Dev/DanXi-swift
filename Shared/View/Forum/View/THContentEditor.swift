@@ -15,7 +15,7 @@ struct THContentEditor: View {
     
     private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
-              let imageData = try? await photo.loadTransferable(type: Data.self) else {
+              let imageData = try await photo.loadTransferable(type: Data.self) else {
             return
         }
         await uploadPhoto(imageData)
