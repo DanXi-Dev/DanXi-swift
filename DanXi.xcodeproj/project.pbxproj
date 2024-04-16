@@ -62,7 +62,6 @@
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
 		2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A72BC8645100D50D31 /* FudanUI */; };
 		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
-		278B291C2939D2D9008C29ED /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B291B2939D2D9008C29ED /* Navigation.swift */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
 		2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791030C29C7640F003B9FD9 /* THPosterView.swift */; };
 		2791031229C774F8003B9FD9 /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = 2791031129C774F8003B9FD9 /* Disk */; };
@@ -118,8 +117,6 @@
 		27E5E82D28BA69600074D295 /* DKReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5E82C28BA69600074D295 /* DKReviewView.swift */; };
 		27E70CA12AF136B300820933 /* DebugPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E70CA02AF136B300820933 /* DebugPage.swift */; };
 		27E8194E2A4C12F1009C87C6 /* THMessageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */; };
-		27E82FE929E88AB000F34B3B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E82FE829E88AB000F34B3B /* WebView.swift */; };
-		27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */; };
 		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2212BCBE8C80017CB5E /* AppScreen.swift */; };
 		27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */; };
@@ -249,7 +246,6 @@
 		27834AF629D6012E008DC0C2 /* THSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THSettingsModel.swift; sourceTree = "<group>"; };
 		27834AF829D6261E008DC0C2 /* THMyPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMyPostPage.swift; sourceTree = "<group>"; };
 		2785E2A62BC8641E00D50D31 /* FudanUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FudanUI; sourceTree = "<group>"; };
-		278B291B2939D2D9008C29ED /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		278E406928BA963A008D6514 /* DKRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKRatingView.swift; sourceTree = "<group>"; };
 		2791030C29C7640F003B9FD9 /* THPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THPosterView.swift; sourceTree = "<group>"; };
 		2791031529C82BC3003B9FD9 /* DXModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXModel.swift; sourceTree = "<group>"; };
@@ -294,8 +290,6 @@
 		27E5E82C28BA69600074D295 /* DKReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKReviewView.swift; sourceTree = "<group>"; };
 		27E70CA02AF136B300820933 /* DebugPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPage.swift; sourceTree = "<group>"; };
 		27E8194D2A4C12F1009C87C6 /* THMessageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THMessageSheet.swift; sourceTree = "<group>"; };
-		27E82FE829E88AB000F34B3B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorWrapper.swift; sourceTree = "<group>"; };
 		27F2F2212BCBE8C80017CB5E /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
 		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
 		27F2F22B2BCC47810017CB5E /* ForumNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumNavigation.swift; sourceTree = "<group>"; };
@@ -578,10 +572,7 @@
 				27C95B412A8B90FE000A614B /* FormTitle.swift */,
 				2764E5D7289840E1000C0A98 /* RandomColor.swift */,
 				27939FE828C26E0600E8D199 /* Haptics.swift */,
-				278B291B2939D2D9008C29ED /* Navigation.swift */,
-				27E8D04D29A495CD0001DC80 /* ListSeparatorWrapper.swift */,
 				27DE299729E5A83600B5B28A /* Sheet.swift */,
-				27E82FE829E88AB000F34B3B /* WebView.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -905,13 +896,11 @@
 				27D6F4542892C5D70059228F /* BundleResource.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */,
-				278B291C2939D2D9008C29ED /* Navigation.swift in Sources */,
 				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
 				27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
-				27E8D04E29A495CD0001DC80 /* ListSeparatorWrapper.swift in Sources */,
 				27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */,
 				2799979A2AC1734E00DE835A /* THSubscriptionPage.swift in Sources */,
 				2791031629C82BC3003B9FD9 /* DXModel.swift in Sources */,
@@ -966,7 +955,6 @@
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
-				27E82FE929E88AB000F34B3B /* WebView.swift in Sources */,
 				27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */,
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
 				27262AFE2B04A002000C3962 /* THMyReplyPage.swift in Sources */,
