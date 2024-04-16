@@ -64,3 +64,24 @@ public struct DetailLink<Label: View, Value: Hashable>: View {
         }
     }
 }
+
+struct NavigationModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        HStack {
+            content
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.tertiary)
+                .bold()
+                .font(.footnote)
+        }
+        .tint(.primary)
+    }
+}
+
+extension View {
+    /// Add a cheveron to button-based navigation link.
+    public func navigationStyle() -> some View {
+        self.modifier(NavigationModifier())
+    }
+}

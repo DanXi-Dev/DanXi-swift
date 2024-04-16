@@ -37,6 +37,7 @@ fileprivate struct HomePageContent: View {
                     ForEach(searchResults) { course in
                         DetailLink(value: course) {
                             DKCourseView(courseGroup: course)
+                                .navigationStyle()
                         }
                     }
                 }

@@ -39,8 +39,9 @@ struct PlaygroundContent: View {
             
             Section("Playground List") {
                 ForEach(model.filteredPlaygrounds) { playground in
-                    NavigationLink(value: playground) {
+                    DetailLink(value: playground) {
                         Label(playground.name, systemImage: model.categoryIcon(playground.category))
+                            .navigationStyle()
                     }
                 }
             }

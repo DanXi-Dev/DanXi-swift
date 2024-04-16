@@ -43,15 +43,14 @@ public struct CampusHome: View {
                 // on wide screen, do not use dedicated section for calendar. instead, we'll use home page as entry.
                 if !navigator.isCompactMode {
                     DetailLink(value: CampusSection.course) {
-                        CampusSection.course.label.tint(.primary)
+                        CampusSection.course.label.navigationStyle()
                     }
                 }
                 
                 ForEach(model.unpinned) { section in
                     if shouldDisplay(section: section) {
                         DetailLink(value: section) {
-                            section.label
-                                .tint(.primary)
+                            section.label.navigationStyle()
                         }
                         .swipeActions {
                             if CampusSection.pinnable.contains(section) {
