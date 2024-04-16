@@ -5,9 +5,11 @@ import ViewUtils
 
 struct SplitNavigation: View {
     @Binding var screen: AppScreen
+    @State private var columnVisibility =
+    NavigationSplitViewVisibility.all
     
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             AppSidebarList(screen: $screen)
         } content: {
             screen.content
@@ -23,34 +25,32 @@ struct AppSidebarList: View {
     @ObservedObject private var campusModel = CampusModel.shared
     
     var body: some View {
-        NavigationStack {
-            let screenBinding = Binding<AppScreen?>(
+        let screenBinding = Binding<AppScreen?>(
             get: { screen },
             set: {
                 if let newScreen = $0 {
                     screen = newScreen
                 }
             })
-            
-            List(selection: screenBinding) {
-                if campusModel.loggedIn {
-                    AppScreen.campus.label
-                        .tag(AppScreen.campus)
-                }
-                
-                if communityModel.isLogged {
-                    AppScreen.forum.label
-                        .tag(AppScreen.forum)
-                    
-                    AppScreen.curriculum.label
-                        .tag(AppScreen.curriculum)
-                }
-                
-                AppScreen.settings.label
-                    .tag(AppScreen.settings)
+        
+        List(selection: screenBinding) {
+            if campusModel.loggedIn {
+                AppScreen.campus.label
+                    .tag(AppScreen.campus)
             }
-            .navigationTitle("DanXi")
-            .navigationBarTitleDisplayMode(.large)
+            
+            if communityModel.isLogged {
+                AppScreen.forum.label
+                    .tag(AppScreen.forum)
+                
+                AppScreen.curriculum.label
+                    .tag(AppScreen.curriculum)
+            }
+            
+            AppScreen.settings.label
+                .tag(AppScreen.settings)
         }
+        .navigationTitle("DanXi")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
