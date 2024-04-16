@@ -12,6 +12,27 @@ struct TabNavigation: View {
     @StateObject private var forumNavigator = AppNavigator()
     @StateObject private var curriculumNavigator = AppNavigator()
     
+    private enum LoginStatus: Identifiable {
+        case none
+        case campus
+        case community
+        case both
+        
+        var id: LoginStatus { self }
+    }
+    
+    private var loginStatus: LoginStatus {
+        if campusModel.loggedIn && communityModel.isLogged {
+            return .both
+        } else if campusModel.loggedIn {
+            return .campus
+        } else if communityModel.isLogged {
+            return .community
+        } else {
+            return .none
+        }
+    }
+    
     var body: some View {
         TabView(selection: $screen) {
             if campusModel.loggedIn {
@@ -53,5 +74,6 @@ struct TabNavigation: View {
                     AppScreen.settings.label
                 }
         }
+        .id(loginStatus) // force the tabview to redraw after tab item changes. This is a workaround for a bug on iOS 17.
     }
 }
