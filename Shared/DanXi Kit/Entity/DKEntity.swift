@@ -4,7 +4,7 @@ import SwiftUI
 struct DKCourseGroup: Hashable, Codable, Identifiable {
     let id: Int
     let name, code, department, campus: String
-    let courses: [DKCourse]
+    var courses: [DKCourse]
     
     var reviews: [DKReview] {
         var reviewList: [DKReview] = []
@@ -38,7 +38,7 @@ struct DKCourse: Hashable, Codable, Identifiable {
     let credit: Double
     let name, code, codeId, department, campus, teachers: String
     let maxStudent, weekHour, year, semester: Int
-    let reviews: [DKReview]
+    var reviews: [DKReview]
     
     var formattedSemester: LocalizedStringResource {
         return DKSemester(year: year, semester: semester).formatted()

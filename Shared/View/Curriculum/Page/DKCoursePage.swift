@@ -125,8 +125,7 @@ fileprivate struct ReviewSection: View {
                         let semesterMatched = model.semester == DKSemester.empty || course.matchSemester(model.semester)
                         
                         if teacherMatched && semesterMatched {
-                            let item = CurriculumReviewItem(course: course, review: review)
-                            DetailLink(value: item) {
+                            NavigationLink(destination: DKReviewPage(course: course, review: review).environmentObject(model)) {
                                 DKReviewView(review: review, course: course)
                             }
                         }
@@ -219,7 +218,7 @@ fileprivate struct ReviewSummary: View {
 // MARK: - Model
 
 class DKCourseModel: ObservableObject {
-    let courseGroup: DKCourseGroup
+    @Published var courseGroup: DKCourseGroup
     @Published var teacher = ""
     @Published var semester = DKSemester.empty
     
@@ -255,6 +254,13 @@ class DKCourseModel: ObservableObject {
                       content: content / count,
                       workload: workload / count,
                       assessment: assessment / count)
+    }
+    
+    func updateReview(_ updatedReview: DKReview, forCourseId courseId: Int) {
+        if let courseIndex = self.courseGroup.courses.firstIndex(where: { $0.id == courseId }),
+           let reviewIndex = self.courseGroup.courses[courseIndex].reviews.firstIndex(where: { $0.id == updatedReview.id }) {
+            self.courseGroup.courses[courseIndex].reviews[reviewIndex] = updatedReview
+        }
     }
 }
 

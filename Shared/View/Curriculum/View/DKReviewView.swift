@@ -18,7 +18,7 @@ struct DKReviewView: View {
 
                 Spacer()
                 
-                Label("\(String(review.vote))", systemImage: "arrow.up")
+                Label("\(String(review.remark))", systemImage: "arrow.up")
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
