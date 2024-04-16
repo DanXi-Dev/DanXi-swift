@@ -258,13 +258,20 @@ class DKModel: ObservableObject {
         let hash: String
     }
     
-    func loadLocal() async {
+    func loadLocal() async throws {
         guard self.courses.isEmpty else { return }
+        
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         if let cached = try? Disk.retrieve("fduhole/courses.json", from: .applicationSupport, as: CourseCache.self) {
             self.courses = cached.courses
             self.hash = cached.hash
+            
+            Task(priority: .background) {
+                try? await loadRemote()
+            }
+        } else {
+            try await loadRemote()
         }
     }
     

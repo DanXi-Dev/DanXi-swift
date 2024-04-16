@@ -6,32 +6,26 @@ import ViewUtils
 struct DKHomePage: View {
     @ObservedObject private var model = DKModel.shared
     
-    @State private var showErrorAlert = false
-    @State private var errorAlertContent = ""
-    
     var body: some View {
-        if model.courses.isEmpty {
-            ProgressView()
-                .task {
-                    await model.loadLocal()
-                }
-        } else {
+        AsyncContentView (action: { forceRefresh in
+            if forceRefresh {
+                try await model.loadRemote()
+            } else {
+                try await model.loadLocal()
+            }
+        }, content: {
             HomePageContent(courses: model.courses)
-                .task(priority: .background) {
-                    try? await model.loadRemote()
-                }
-                .refreshable {
-                    do {
-                        try await model.loadRemote()
-                    } catch {
-                        errorAlertContent = error.localizedDescription
-                        showErrorAlert = true
-                    }
-                }
-                .alert("Error", isPresented: $showErrorAlert) {} message: {
-                    Text(errorAlertContent)
-                }
-        }
+                .id("DKHomePageContent-View")
+        }, loadingView: {
+            if model.courses.isEmpty {
+                ProgressView()
+                    .eraseToAnyView()
+            } else {
+                HomePageContent(courses: model.courses)
+                    .id("DKHomePageContent-View")
+                    .eraseToAnyView()
+            }
+        }, failureView: nil)
     }
 }
 
