@@ -165,7 +165,7 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         let toolbarHostingVC = UIHostingController(rootView: toolbar())
         toolbarHostingVC.sizingOptions = [.intrinsicContentSize]
         toolbarHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
-        toolbarHostingVC.view.backgroundColor = .secondarySystemBackground
+        toolbarHostingVC.view.backgroundColor = .tertiarySystemBackground
         textView.inputAccessoryView = toolbarHostingVC.view
 
         return textView
