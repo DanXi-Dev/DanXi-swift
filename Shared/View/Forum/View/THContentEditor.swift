@@ -7,7 +7,6 @@ struct THContentEditor: View {
     @State private var cursorPosition: Int = 0
     @State private var selectOffset: Int = 0
     @State private var photo: PhotosPickerItem? = nil
-    @State private var uploadError: String = ""
     @State private var showUploadError = false
     @State private var uploadError: String = ""
     @State private var showStickers = false
