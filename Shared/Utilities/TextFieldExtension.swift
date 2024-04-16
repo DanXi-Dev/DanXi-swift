@@ -166,8 +166,6 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         toolbarHostingVC.sizingOptions = [.intrinsicContentSize]
         toolbarHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
         toolbarHostingVC.view.backgroundColor = .secondarySystemBackground
-//        let inputView = UIInputView(frame: CGRect(origin: toolbarHostingVC.view.frame.origin, size: toolbarHostingVC.view.intrinsicContentSize))
-//        inputView.addSubview(toolbarHostingVC.view)
         textView.inputAccessoryView = toolbarHostingVC.view
 
         return textView
@@ -184,9 +182,6 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         DispatchQueue.main.async {
             self.textDidChange(textView)
         }
-//        if let selectStartPosition = textView.position(from: textView.beginningOfDocument, offset: cursorPosition), let selectEndPosition = textView.position(from: textView.beginningOfDocument, offset: cursorPosition + selectOffset) {
-//            textView.selectedTextRange = textView.textRange(from: selectStartPosition, to: selectEndPosition)
-//                }
     }
     
     class Coordinator: NSObject, UITextViewDelegate {
