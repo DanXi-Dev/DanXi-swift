@@ -5,14 +5,15 @@ struct THContentEditor: View {
     @Binding var content: String
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
+    @State private var uploadError: String = ""
     @State private var showStickers = false
     @State private var showPreview = false
     
-    private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
     @Binding var runningImageUploadTasks: Int
     
+    private func uploadPhoto(_ photo: PhotosPickerItem?) async {
         guard let photo = photo,
-              let imageData = try await photo.loadTransferable(type: Data.self) else {
+              let imageData = try? await photo.loadTransferable(type: Data.self) else {
             return
         }
         
@@ -21,8 +22,14 @@ struct THContentEditor: View {
         
         let taskID = UUID().uuidString
         content.append("![Uploading \(taskID)...]")
-        let imageURL = try await THRequests.uploadImage(imageData)
-        content.replace("![Uploading \(taskID)...]", with: "![](\(imageURL.absoluteString))")
+        do {
+            let imageURL = try await THRequests.uploadImage(imageData)
+            content.replace("![Uploading \(taskID)...]", with: "![](\(imageURL.absoluteString))")
+        } catch {
+            content.replace("![Uploading \(taskID)...]", with: "")
+            uploadError = error.localizedDescription
+            showUploadError = true
+        }
     }
     
     var body: some View {
@@ -47,14 +54,12 @@ struct THContentEditor: View {
                     }
                     .onChange(of: photo) { photo in
                         Task {
-                            do {
-                                try await uploadPhoto(photo)
-                            } catch {
-                                showUploadError = true
-                            }
+                            await uploadPhoto(photo)
                         }
                     }
-                    .alert("Upload Image Failed", isPresented: $showUploadError) { }
+                    .alert("Upload Image Failed", isPresented: $showUploadError) { 
+                        Text(uploadError)
+                    }
                     
                     Button {
                         showStickers = true
