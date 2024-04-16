@@ -11,6 +11,7 @@ struct THContentEditor: View {
     @State private var uploadError: String = ""
     @State private var showStickers = false
     @State private var showPreview = false
+    @FocusState private var textfieldFocus
     @Binding var runningImageUploadTasks: Int
     
     private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
@@ -28,11 +29,11 @@ struct THContentEditor: View {
         
         runningImageUploadTasks += 1
         defer { runningImageUploadTasks -= 1 }
-
+        
         let taskID = UUID().uuidString
-
+        
         let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition)
-
+        
         content.insert(contentsOf: "\n![Uploading \(taskID)...]\n", at: cursorPosition)
         do {
             let imageURL = try await THRequests.uploadImage(imageData)
@@ -45,7 +46,7 @@ struct THContentEditor: View {
     }
     
     private var toolbar: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: 16) {
             PhotosPicker(selection: $photo, matching: .images) {
                 Label("Upload Image", systemImage: "photo")
             }
@@ -57,6 +58,13 @@ struct THContentEditor: View {
             }
             
             Spacer()
+#if !targetEnvironment(macCatalyst)
+            Button {
+                textfieldFocus = false
+            } label: {
+                Text("Done")
+            }
+#endif
         }
         .labelStyle(.iconOnly)
         .tint(.primary)
@@ -98,9 +106,13 @@ struct THContentEditor: View {
                     .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
 #endif
                 THTextEditor(text: $content, cursorPosition: $cursorPosition, selectOffset: $selectOffset, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
+                    Divider()
                     toolbar
-                        .padding()
+                        .padding(.horizontal)
+                        .padding(.bottom, 12)
+                        .padding(.top, 4)
                 }
+                .focused($textfieldFocus)
                 .onAppear() {
                     IQKeyboardManager.shared.enable = true // Prevent keyboard from obstructing editor
                 }
