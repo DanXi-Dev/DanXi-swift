@@ -32,7 +32,7 @@ struct THContentEditor: View {
         
         let taskID = UUID().uuidString
         
-        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition)
+        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.endIndex
         
         content.insert(contentsOf: "\n![Uploading \(taskID)...]\n", at: cursorPosition)
         do {
