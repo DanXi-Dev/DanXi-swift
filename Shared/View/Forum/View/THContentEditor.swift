@@ -9,13 +9,14 @@ struct THContentEditor: View {
     @State private var photo: PhotosPickerItem? = nil
     @State private var uploadError: String = ""
     @State private var showUploadError = false
+    @State private var uploadError: String = ""
     @State private var showStickers = false
     @State private var showPreview = false
     @Binding var runningImageUploadTasks: Int
     
     private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
-              let imageData = try await photo.loadTransferable(type: Data.self) else {
+              let imageData = try? await photo.loadTransferable(type: Data.self) else {
             return
         }
         await uploadPhoto(imageData)
