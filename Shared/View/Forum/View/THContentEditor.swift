@@ -7,9 +7,11 @@ struct THContentEditor: View {
     @State private var cursorPosition: Int = 0
     @State private var selectOffset: Int = 0
     @State private var photo: PhotosPickerItem? = nil
+    @State private var uploadError: String = ""
     @State private var showUploadError = false
     @State private var showStickers = false
     @State private var showPreview = false
+    @Binding var runningImageUploadTasks: Int
     
     private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
@@ -23,21 +25,22 @@ struct THContentEditor: View {
         guard let imageData = imageData else {
             return
         }
+        
+        runningImageUploadTasks += 1
+        defer { runningImageUploadTasks -= 1 }
 
         let taskID = UUID().uuidString
-        // get cursor position
-//        print("outer cursor pos: \(cursorPosition)")
+
         let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition)
-//        print(cursorPosition)
-//        content.append("\n![Uploading \(taskID)...]")
+
         content.insert(contentsOf: "\n![Uploading \(taskID)...]\n", at: cursorPosition)
         do {
             let imageURL = try await THRequests.uploadImage(imageData)
             content.replace("\n![Uploading \(taskID)...]\n", with: "\n![](\(imageURL.absoluteString))\n")
         } catch {
             content = content.replacingOccurrences(of: "![Uploading \(taskID)...]", with: "")
+            uploadError = error.localizedDescription
             showUploadError = true
-            return
         }
     }
     
@@ -77,7 +80,9 @@ struct THContentEditor: View {
                 }
             }
         }
-        .alert("Upload Image Failed", isPresented: $showUploadError) { }
+        .alert("Upload Image Failed", isPresented: $showUploadError) { } message: {
+            Text(uploadError)
+        }
         .sheet(isPresented: $showStickers) {
             stickerPicker
         }
@@ -146,6 +151,6 @@ struct THContentEditor: View {
 
 #Preview {
     List {
-        THContentEditor(content: .constant("hello ![](dx_egg)"))
+        THContentEditor(content: .constant("hello ![](dx_egg)"), runningImageUploadTasks: .constant(0))
     }
 }

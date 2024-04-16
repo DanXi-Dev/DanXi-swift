@@ -4,6 +4,7 @@ struct THFloorEditSheet: View {
     @ObservedObject private var appModel = DXModel.shared
     @EnvironmentObject private var model: THFloorModel
     @State private var content: String
+    @State private var runningImageUploadTask = 0
     @State private var specialTag = ""
     @State private var foldReason = ""
     
@@ -22,10 +23,10 @@ struct THFloorEditSheet: View {
                 }
             }
             
-            THContentEditor(content: $content)
+            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask)
         }
-        .completed(!content.isEmpty)
-        .warnDiscard(!content.isEmpty)
+        .completed(!content.isEmpty && runningImageUploadTask <= 0)
+        .warnDiscard(!content.isEmpty || runningImageUploadTask > 0)
         .scrollDismissesKeyboard(.immediately)
     }
 }
