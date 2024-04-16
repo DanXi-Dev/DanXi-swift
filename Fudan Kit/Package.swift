@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.10
 
 import PackageDescription
 
@@ -19,22 +19,17 @@ let package = Package(
         .package(path: "../Utils"),
     ],
     targets: [
-        .target(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON", "Queue"], path: "."),
+        .regexTarget(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON", "Queue"], path: "."),
     ]
 )
 
-// allow usage of regex literal in FudanKit
-
-let swiftSettings: [SwiftSetting] = [
-    // -enable-bare-slash-regex becomes
-    .enableUpcomingFeature("BareSlashRegexLiterals"),
-    // -warn-concurrency becomes
-    .enableUpcomingFeature("StrictConcurrency"),
-    .unsafeFlags(["-enable-actor-data-race-checks"],
-        .when(configuration: .debug)),
-]
-
-for target in package.targets {
-    target.swiftSettings = target.swiftSettings ?? []
-    target.swiftSettings?.append(contentsOf: swiftSettings)
+extension Target {
+    static func regexTarget(name: String, dependencies: [Target.Dependency], path: String) -> Target {
+        let target = target(name: name, dependencies: dependencies, path: path)
+        if target.swiftSettings == nil {
+            target.swiftSettings = []
+        }
+        target.swiftSettings?.append(.enableUpcomingFeature("BareSlashRegexLiterals"))
+        return target
+    }
 }
