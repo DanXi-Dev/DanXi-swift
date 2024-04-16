@@ -6,6 +6,7 @@ struct THPostSheet: View {
     @State var divisionId: Int
     @State private var content = ""
     @State private var tags: [String] = []
+    @State private var runningImageUploadTask = 0
     
     var body: some View {
         Sheet("New Post") {
@@ -39,10 +40,10 @@ struct THPostSheet: View {
                 THTagEditor($tags, maxSize: 5)
             }
             
-            THContentEditor(content: $content)
+            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask)
         }
-        .completed(!tags.isEmpty && !content.isEmpty)
-        .warnDiscard(!tags.isEmpty || !content.isEmpty)
+        .completed(!tags.isEmpty && !content.isEmpty && runningImageUploadTask <= 0)
+        .warnDiscard(!tags.isEmpty || !content.isEmpty || runningImageUploadTask > 0)
         // FIXME: This modifier may cause hang during the first focus of tag editor, the reason is unknown
         .scrollDismissesKeyboard(.immediately)
     }

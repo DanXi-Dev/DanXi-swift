@@ -9,10 +9,15 @@ struct THContentEditor: View {
     @State private var showPreview = false
     
     private func uploadPhoto(_ photo: PhotosPickerItem?) async throws {
+    @Binding var runningImageUploadTasks: Int
+    
         guard let photo = photo,
               let imageData = try await photo.loadTransferable(type: Data.self) else {
             return
         }
+        
+        runningImageUploadTasks += 1
+        defer { runningImageUploadTasks -= 1 }
         
         let taskID = UUID().uuidString
         content.append("![Uploading \(taskID)...]")
@@ -121,6 +126,6 @@ struct THContentEditor: View {
 
 #Preview {
     List {
-        THContentEditor(content: .constant("hello ![](dx_egg)"))
+        THContentEditor(content: .constant("hello ![](dx_egg)"), runningImageUploadTasks: .constant(0))
     }
 }
