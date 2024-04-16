@@ -6,22 +6,8 @@ import FudanUI
 @MainActor
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @StateObject private var model: AppModel
+    @StateObject private var model = AppModel()
     @StateObject private var navigator = AppNavigator()
-    
-    init() {
-        let model = AppModel()
-        
-        if CampusModel.shared.loggedIn {
-            model.screen = .campus
-        } else if DXModel.shared.isLogged {
-            model.screen = .forum
-        } else {
-            model.screen = .settings
-        }
-        
-        self._model = StateObject(wrappedValue: model)
-    }
     
     var body: some View {
         Group {

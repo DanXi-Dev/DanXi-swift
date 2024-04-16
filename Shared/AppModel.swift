@@ -1,17 +1,17 @@
 import Foundation
 import UserNotifications
 import Combine
+import FudanKit
 import SwiftUI
 import Utils
 
-@MainActor
 class AppModel: ObservableObject {
     // publish event when user taps notification, UI should perform navigation
     static let notificationPublisher = PassthroughSubject<UNNotificationContent, Never>()
     static let notificationSettingsPublisher = PassthroughSubject<UNNotificationContent?, Never>()
     
     @AppStorage("intro-done") var showIntro = true // Shown once
-    @Published var screen: AppScreen = .campus {
+    @Published var screen: AppScreen {
         willSet {
             if screen == newValue {
                 switch(screen) {
@@ -27,6 +27,17 @@ class AppModel: ObservableObject {
                     OnDoubleTapSettingsTabBarItem.send()
                 }
             }
+        }
+    }
+    
+    @MainActor
+    init() {
+        if CampusModel.shared.loggedIn {
+            screen = .campus
+        } else if DXModel.shared.isLogged {
+            screen = .forum
+        } else {
+            screen = .settings
         }
     }
     
