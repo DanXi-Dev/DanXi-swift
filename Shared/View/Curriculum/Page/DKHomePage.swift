@@ -4,12 +4,33 @@ import Utils
 import ViewUtils
 
 struct DKHomePage: View {
+    @ObservedObject private var model = DKModel.shared
+    
+    @State private var showErrorAlert = false
+    @State private var errorAlertContent = ""
+    
     var body: some View {
-        AsyncContentView { (_) -> [DKCourseGroup] in
-            try await DKModel.shared.loadAll()
-            return DKModel.shared.courses.shuffled()
-        } content: { courses in
-            HomePageContent(courses: courses)
+        if model.courses.isEmpty {
+            ProgressView()
+                .task {
+                    await model.loadLocal()
+                }
+        } else {
+            HomePageContent(courses: model.courses)
+                .task(priority: .background) {
+                    try? await model.loadRemote()
+                }
+                .refreshable {
+                    do {
+                        try await model.loadRemote()
+                    } catch {
+                        errorAlertContent = error.localizedDescription
+                        showErrorAlert = true
+                    }
+                }
+                .alert("Error", isPresented: $showErrorAlert) {} message: {
+                    Text(errorAlertContent)
+                }
         }
     }
 }

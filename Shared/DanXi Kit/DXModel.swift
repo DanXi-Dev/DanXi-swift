@@ -251,21 +251,27 @@ class DKModel: ObservableObject {
     static var shared = DKModel()
     
     @Published var courses: [DKCourseGroup] = []
+    var hash: String?
     
     fileprivate struct CourseCache: Codable {
         let courses: [DKCourseGroup]
         let hash: String
     }
     
-    func loadAll() async throws {
+    func loadLocal() async {
         guard self.courses.isEmpty else { return }
-        
-        let hash = try await DKRequests.loadCourseHash()
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         if let cached = try? Disk.retrieve("fduhole/courses.json", from: .applicationSupport, as: CourseCache.self) {
-            if cached.hash == hash {
-                self.courses = cached.courses
+            self.courses = cached.courses
+            self.hash = cached.hash
+        }
+    }
+    
+    func loadRemote() async throws {
+        let remoteHash = try await DKRequests.loadCourseHash()
+        if let localHash = self.hash {
+            if localHash == remoteHash {
                 return
             }
         }
@@ -273,7 +279,7 @@ class DKModel: ObservableObject {
         let courses = try await DKRequests.loadCourseGroups()
         self.courses = courses
         Task {
-            let cache = CourseCache(courses: courses, hash: hash)
+            let cache = CourseCache(courses: courses, hash: remoteHash)
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
             try Disk.save(cache, to: .applicationSupport, as: "fduhole/courses.json", encoder: encoder)
