@@ -17,6 +17,5 @@ struct THReplySheet: View {
         }
         .completed(!content.isEmpty && runningImageUploadTask <= 0)
         .warnDiscard(!content.isEmpty || runningImageUploadTask > 0)
-        .scrollDismissesKeyboard(.immediately)
     }
 }

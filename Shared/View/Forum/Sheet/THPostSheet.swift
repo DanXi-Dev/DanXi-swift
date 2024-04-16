@@ -45,7 +45,5 @@ struct THPostSheet: View {
         }
         .completed(!tags.isEmpty && !content.isEmpty && runningImageUploadTask <= 0)
         .warnDiscard(!tags.isEmpty || !content.isEmpty || runningImageUploadTask > 0)
-        // FIXME: This modifier may cause hang during the first focus of tag editor, the reason is unknown
-        .scrollDismissesKeyboard(.immediately)
     }
 }
