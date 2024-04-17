@@ -6,6 +6,7 @@ struct THContentEditor: View {
     @Binding var content: String
     @State private var cursorPosition: Int = 0
     @State private var selectOffset: Int = 0
+    @State private var presentPhotoPicker = false
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
     @State private var uploadError: String = ""
@@ -47,9 +48,13 @@ struct THContentEditor: View {
     
     private var toolbar: some View {
         HStack(alignment: .center, spacing: 16) {
-            PhotosPicker(selection: $photo, matching: .images) {
+            Button(action: {
+                textfieldFocus = false
+                presentPhotoPicker = true
+            }, label: {
                 Label("Upload Image", systemImage: "photo")
-            }
+            })
+            .photosPicker(isPresented: $presentPhotoPicker, selection: $photo, matching: .images)
             
             Button {
                 showStickers = true
