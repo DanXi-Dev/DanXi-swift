@@ -68,7 +68,7 @@ struct THComplexFloor: View {
             }
         }
         .listRowInsets(.zero)
-        .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+        .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
         // highlight control
         .overlay(Color.accentColor.opacity(model.highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
         .environmentObject(model)
