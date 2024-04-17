@@ -37,6 +37,7 @@ public class AppNavigator: ObservableObject {
     /// This function pushes the value to the detail column on wide screen. On smaller screen,
     /// this function simply pushes value into the current navigation stack.
     public func pushDetail(value: any Hashable, replace: Bool) {
-        detailSubject.send((value, replace))
+        // FIXME: "replace" on navigation stack is being treated as a simple view update by SwiftUI, resulting in some subview not being correctly updated. As a workaround, we currently disable replace on all navigation pushes.
+        detailSubject.send((value, false))
     }
 }
