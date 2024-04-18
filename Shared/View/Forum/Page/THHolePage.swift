@@ -29,16 +29,12 @@ struct THHolePage: View {
                     }
                     
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                        if !floor.content.isEmpty {
-                            // If a floor has empty content, hide it
-                            // This is at the request of OpenTreehole backend
-                            Section {
-                                THComplexFloor(floor)
-                                    .tag(floor)
-                            } header: {
-                                if floor.id == model.floors.first?.id {
-                                    header
-                                }
+                        Section {
+                            THComplexFloor(floor)
+                                .tag(floor)
+                        } header: {
+                            if floor.id == model.floors.first?.id {
+                                header
                             }
                         }
                     }

@@ -1,22 +1,28 @@
+import MarkdownUI
 import SwiftUI
 import SwiftUIX
 import ViewUtils
-import MarkdownUI
 
 struct THSimpleFloor: View {
     let floor: THFloor
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5.0) {
-            THPosterView(name: floor.posterName, isPoster: false)
-            Text(floor.content.inlineAttributed())
-                .font(.callout)
-                .foregroundColor(floor.deleted ? .secondary : .primary)
-                .multilineTextAlignment(.leading)
-                .lineLimit(6)
-            bottom
+        // If a floor has empty content, hide it
+        // This is at the request of OpenTreehole backend
+        if floor.content.isEmpty {
+            EmptyView()
+        } else {
+            VStack(alignment: .leading, spacing: 5.0) {
+                THPosterView(name: floor.posterName, isPoster: false)
+                Text(floor.content.inlineAttributed())
+                    .font(.callout)
+                    .foregroundColor(floor.deleted ? .secondary : .primary)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(6)
+                bottom
+            }
+            .listRowInsets(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         }
-        .listRowInsets(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
     }
     
     var bottom: some View {
@@ -56,34 +62,40 @@ struct THComplexFloor: View {
     }
     
     var body: some View {
-        FoldedView(expand: !model.collapse) {
-            Text(model.collapsedContent)
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-        } content: {
-            VStack(alignment: .leading) {
-                headLine
-                content
-                bottomLine
+        // If a floor has empty content, hide it
+        // This is at the request of OpenTreehole backend
+        if floor.content.isEmpty {
+            EmptyView()
+        } else {
+            FoldedView(expand: !model.collapse) {
+                Text(model.collapsedContent)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            } content: {
+                VStack(alignment: .leading) {
+                    headLine
+                    content
+                    bottomLine
+                }
             }
-        }
-        .listRowInsets(.zero)
-        .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
-        // highlight control
-        .overlay(Color.accentColor.opacity(model.highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
-        .environmentObject(model)
-        // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
-        .disabled(editMode?.wrappedValue.isEditing ?? false)
-        .onReceive(holeModel.scrollControl) { id in
-            if id == model.floor.id {
-                model.highlight()
+            .listRowInsets(.zero)
+            .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+            // highlight control
+            .overlay(Color.accentColor.opacity(model.highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
+            .environmentObject(model)
+            // prevent interactions (like, scroll to, image popover, ...) in batch delete mode
+            .disabled(editMode?.wrappedValue.isEditing ?? false)
+            .onReceive(holeModel.scrollControl) { id in
+                if id == model.floor.id {
+                    model.highlight()
+                }
             }
-        }
-        // update floor when batch delete
-        .onReceive(holeModel.floorChangedBroadcast) { ids in
-            if ids.contains(floor.id) {
-                if let newFloor = holeModel.floors.first(where: { $0.id == floor.id }) {
-                    model.floor = newFloor
+            // update floor when batch delete
+            .onReceive(holeModel.floorChangedBroadcast) { ids in
+                if ids.contains(floor.id) {
+                    if let newFloor = holeModel.floors.first(where: { $0.id == floor.id }) {
+                        model.floor = newFloor
+                    }
                 }
             }
         }
@@ -468,7 +480,7 @@ private struct Actions: View {
     
     private var menu: some View {
         Menu {
-            Button  {
+            Button {
                 UIPasteboard.general.string = NSAttributedString(model.floor.content.inlineAttributed()).string
             } label: {
                 Label("Copy Full Text", systemImage: "doc.on.doc")

@@ -1,5 +1,5 @@
-import SwiftUI
 import Foundation
+import SwiftUI
 import ViewUtils
 
 // MARK: - Basic Mention View
@@ -42,41 +42,47 @@ struct THMentionView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Rectangle()
-                    .frame(width: 3, height: 15)
-                
-                Text(mention.posterName)
+        // If a floor has empty content, hide it
+        // This is at the request of OpenTreehole backend
+        if mention.content.isEmpty {
+            EmptyView()
+        } else {
+            VStack(alignment: .leading) {
+                HStack {
+                    Rectangle()
+                        .frame(width: 3, height: 15)
+                            
+                    Text(mention.posterName)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                            
+                    Spacer()
+                            
+                    Image(systemName: "quote.closing")
+                        .foregroundColor(.secondary)
+                }
+                .foregroundColor(randomColor(mention.posterName))
+                        
+                Text(mention.content.inlineAttributed())
+                    .foregroundColor(mention.deleted ? .secondary : .primary)
+                    .multilineTextAlignment(.leading)
                     .font(.subheadline)
-                    .fontWeight(.bold)
-                
-                Spacer()
-                
-                Image(systemName: "quote.closing")
-                    .foregroundColor(.secondary)
+                    .lineLimit(3)
+                        
+                HStack {
+                    Text("##\(String(mention.id))")
+                    Spacer()
+                    Text(mention.updateTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+                }
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.top, 1.0)
             }
-            .foregroundColor(randomColor(mention.posterName))
-            
-            Text(mention.content.inlineAttributed())
-                .foregroundColor(mention.deleted ? .secondary : .primary)
-                .multilineTextAlignment(.leading)
-                .font(.subheadline)
-                .lineLimit(3)
-            
-            HStack {
-                Text("##\(String(mention.id))")
-                Spacer()
-                Text(mention.updateTime.formatted(.relative(presentation: .named, unitsStyle: .wide)))
-            }
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .padding(.top, 1.0)
+            .padding(.horizontal, 12.0)
+            .padding(.vertical, 7.0)
+            .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
+            .cornerRadius(7.0)
         }
-        .padding(.horizontal, 12.0)
-        .padding(.vertical, 7.0)
-        .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
-        .cornerRadius(7.0)
     }
 }
 
