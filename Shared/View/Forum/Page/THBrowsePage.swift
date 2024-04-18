@@ -253,6 +253,10 @@ private struct BannedNotice: View {
             .foregroundColor(.red)
             .listRowBackground(Color.red.opacity(0.15))
         }
+        .environment(\.openURL, OpenURLAction { url in
+            UIApplication.shared.open(url)
+            return .handled
+        })
     }
 }
 
