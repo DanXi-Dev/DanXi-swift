@@ -847,6 +847,9 @@
         }
       }
     },
+    "Bus" : {
+
+    },
     "Bus Schedule" : {
       "comment" : "Fudan Bus Schedule",
       "extractionState" : "stale",
