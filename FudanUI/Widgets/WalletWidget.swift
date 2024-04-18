@@ -35,20 +35,20 @@ struct WalletWidgetProvier: TimelineProvider {
     }
 }
 
-struct WalletEntry: TimelineEntry {
-    let date: Date
-    let balance: String
-    let transactions: [FudanKit.Transaction]
-    var placeholder = false
-    var loadFailed = false
+public struct WalletEntry: TimelineEntry {
+    public let date: Date
+    public let balance: String
+    public let transactions: [FudanKit.Transaction]
+    public var placeholder = false
+    public var loadFailed = false
     
-    init() {
+    public init() {
         date = Date()
         balance = "100.0"
         transactions = []
     }
     
-    init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
+    public init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
         date = Date()
         self.balance = balance
         self.transactions = transactions
