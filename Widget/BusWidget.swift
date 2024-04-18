@@ -18,10 +18,13 @@ struct BusWidgetProvier: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         Task {
             do {
-                let balance = try await WalletAPI.getBalance()
-                let transactions = try await WalletAPI.getTransactions(page: 1)
-                let entry = BusEntry(balance, transactions)
-                let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
+                let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getRefreshedRoutes()
+                let currentDate = Date()
+                let calendar = Calendar.current
+                
+                let entry = BusEntry(calendar.isDateInWeekend(currentDate) ? holidayRoutes : workdayRoutes)
+                
+                let date = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
                 let timeline = Timeline(entries: [entry], policy: .after(date))
                 completion(timeline)
             } catch {
@@ -37,21 +40,26 @@ struct BusWidgetProvier: TimelineProvider {
 
 public struct BusEntry: TimelineEntry {
     public let date: Date
-    public let balance: String
-    public let transactions: [FudanKit.Transaction]
+    public let routes: [FudanKit.Route]
     public var placeholder = false
     public var loadFailed = false
     
     public init() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd HH:mm"
+        let date1 = formatter.date(from: "2024-04-19 2:00")!
+        let date2 = formatter.date(from: "2024-04-19 16:00")!
         date = Date()
-        balance = "100.0"
-        transactions = []
+        routes = [
+            Route(start: "邯郸", end: "枫林", schedules: [
+                Schedule(id: 0, time: date1, start: "邯郸", end: "枫林", holiday: false, bidirectional: false),
+                Schedule(id: 0, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)])
+        ]
     }
     
-    public init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
+    public init(_ routes: [FudanKit.Route]) {
         date = Date()
-        self.balance = balance
-        self.transactions = transactions
+        self.routes = routes
     }
 }
 
@@ -60,16 +68,91 @@ public struct BusWidget: Widget {
     
     public var body: some WidgetConfiguration {
         StaticConfiguration(kind: "ecard.fudan.edu.cn", provider: BusWidgetProvier()) { entry in
-            BusWidgetView(entry: entry)
+            if #available(iOS 17.0, *) {
+                BusWidgetView(entry: entry)
+                    .containerBackground(.fill.quinary, for: .widget)
+            } else {
+                BusWidgetView(entry: entry)
+                    .padding()
+                    .background()
+            }
         }
-        .configurationDisplayName("ECard")
-        .description("Check ECard balance and transactions.")
+        .configurationDisplayName("Bus")
+        .description("Check school bus.")
         .supportedFamilies([.systemSmall])
     }
 }
 
 struct BusWidgetView: View {
     let entry: BusEntry
+    
+    private var header: some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading) {
+                Text("邯郸")
+                Text("至 枫林")
+            }
+            .font(.callout)
+            .fontWeight(.bold)
+            Spacer()
+            Image(systemName: "bus.fill")
+                .foregroundColor(.cyan)
+                .font(.callout)
+                .fontWeight(.bold)
+        }
+    }
+    
+    private var followingBus: some View {
+        let route = entry.routes.filter { route in
+            let directMatch = route.start == "邯郸" && route.end == "枫林"
+            return directMatch
+        }.first
+        
+        guard let route = route else {
+            return AnyView(Text("No more bus"))
+        }
+            
+        let timeNow = Date.now
+        
+        let schedules = route.schedules.filter { schedule in
+            schedule.time > timeNow
+        }
+        
+        if let schedule = schedules.first {
+            // TODO: add 'if show nex day's bus' switch
+            let formatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            formatter.locale = Locale.current
+            // TODO: check if 12-hour format is working
+            
+            return AnyView(VStack(alignment: .leading, spacing: 2) {
+                Text(formatter.string(from: schedule.time))
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Group {
+                    Text("还有 ") + Text(schedule.time, style: .relative)
+                }
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.cyan)
+                
+                if let followingBus = schedules.dropFirst().first {
+                    Group {
+                        Text("下一班 ") + Text(formatter.string(from: followingBus.time))
+                    }
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+                } else {
+                    Text("今日无更多班次")
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                }
+            })
+        } else {
+            return AnyView(Text("No more bus"))
+        }
+    }
     
     var body: some View {
         if #available(iOS 17, *) {
@@ -87,42 +170,20 @@ struct BusWidgetView: View {
             Text("Load Failed")
                 .foregroundColor(.secondary)
         } else {
-            VStack(alignment: .leading, spacing: 5) {
-                HStack(alignment: .top) {
-                    VStack(alignment: .leading) {
-                        Text("Handan")
-                        Text("to Fenglin")
-                    }
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    Spacer()
-                    Image(systemName: "bus.fill")
-                        .foregroundColor(.green)
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                }
+            VStack(alignment: .leading) {
+                header
                 
                 Spacer()
-                Text("10:00")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Text("Due in 1 min")
-                    .font(.callout)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(.green)
-                
-                Text("next 11:30")
-                    .font(.footnote)
-                    .foregroundStyle(.gray)
-                
+        
+                followingBus
             }
         }
     }
 }
 
 @available(iOS 17, *)
-#Preview(as: .systemSmall) {
+#Preview("Bus", as: .systemSmall) {
     BusWidget()
 } timeline: {
-    return [BusEntry(), BusEntry()]
+    BusEntry()
 }
