@@ -1,6 +1,6 @@
-import WidgetKit
-import SwiftUI
 import FudanKit
+import SwiftUI
+import WidgetKit
 
 struct BusWidgetProvier: TimelineProvider {
     func placeholder(in context: Context) -> BusEntry {
@@ -15,7 +15,7 @@ struct BusWidgetProvier: TimelineProvider {
         completion(entry)
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         Task {
             do {
                 let balance = try await WalletAPI.getBalance()
@@ -35,20 +35,20 @@ struct BusWidgetProvier: TimelineProvider {
     }
 }
 
-struct BusEntry: TimelineEntry {
-    let date: Date
-    let balance: String
-    let transactions: [FudanKit.Transaction]
-    var placeholder = false
-    var loadFailed = false
+public struct BusEntry: TimelineEntry {
+    public let date: Date
+    public let balance: String
+    public let transactions: [FudanKit.Transaction]
+    public var placeholder = false
+    public var loadFailed = false
     
-    init() {
+    public init() {
         date = Date()
         balance = "100.0"
         transactions = []
     }
     
-    init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
+    public init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
         date = Date()
         self.balance = balance
         self.transactions = transactions
@@ -56,7 +56,7 @@ struct BusEntry: TimelineEntry {
 }
 
 public struct BusWidget: Widget {
-    public init() { }
+    public init() {}
     
     public var body: some WidgetConfiguration {
         StaticConfiguration(kind: "ecard.fudan.edu.cn", provider: BusWidgetProvier()) { entry in
@@ -88,43 +88,41 @@ struct BusWidgetView: View {
                 .foregroundColor(.secondary)
         } else {
             VStack(alignment: .leading, spacing: 5) {
-                HStack {
-                    Label("ECard", systemImage: "creditcard.fill")
-                        .bold()
-                        .font(.callout)
-                        .foregroundColor(.blue)
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading) {
+                        Text("Handan")
+                        Text("to Fenglin")
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.bold)
                     Spacer()
+                    Image(systemName: "bus.fill")
+                        .foregroundColor(.green)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
                 }
                 
-                if entry.placeholder {
-                    busContent.redacted(reason: .placeholder)
-                } else {
-                    busContent
-                }
+                Spacer()
+                Text("10:00")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Text("Due in 1 min")
+                    .font(.callout)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .foregroundStyle(.green)
+                
+                Text("next 11:30")
+                    .font(.footnote)
+                    .foregroundStyle(.gray)
+                
             }
-        }
-    }
-    
-    @ViewBuilder
-    private var busContent: some View {
-        Text("¥\(entry.balance)")
-            .bold()
-            .font(.title2)
-            .foregroundColor(.primary.opacity(0.7))
-
-        Spacer()
-        
-        if let transaction = entry.transactions.first {
-            Label("\(transaction.location) \(String(format:"%.2f",transaction.amount))", systemImage: "clock")
-                .bold()
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .padding(.top)
         }
     }
 }
 
-#Preview {
-    BusWidgetView(entry: .init())
-        .previewContext(WidgetPreviewContext(family: .systemSmall))
+@available(iOS 17, *)
+#Preview(as: .systemSmall) {
+    BusWidget()
+} timeline: {
+    return [BusEntry(), BusEntry()]
 }
