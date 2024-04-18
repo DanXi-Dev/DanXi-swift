@@ -76,28 +76,22 @@ class DXModel: ObservableObject {
     
     private let defaults = UserDefaults.standard
     
-    //    private func tokenDidChange(_ token: String) -> Bool {
-    //        guard let oldToken = defaults.string(forKey: "notification-token") else {
-    //            return true
-    //        }
-    //        return token != oldToken
-    //    }
-    
     private func uploadAPNSToken(token: String, deviceId: String) {
         Task(priority: .background) {
             try await DXRequests.uploadNotificationToken(deviceId: deviceId, token: token)
-            defaults.removeObject(forKey: "notification-token")
-            defaults.removeObject(forKey: "notification-token-device-id")
+            defaults.removeObject(forKey: "notification-token-device-id") // Only remove notification id because the token itself is needed for debug page display
         }
     }
     
     func receiveToken(_ tokenData: Data, _ deviceId: UUID) {
         let token: String = tokenData.map { String(format: "%.2hhx", $0) }.joined()
         
+        // Save token for uploading after login
+        defaults.set(token, forKey: "notification-token")
+        defaults.set(deviceId.uuidString, forKey: "notification-token-device-id")
+        
         guard isLogged else {
-            // Save token for uploading after login
-            defaults.set(token, forKey: "notification-token")
-            defaults.set(deviceId.uuidString, forKey: "notification-token-device-id")
+            // The token will be submitted on login
             return
         }
         

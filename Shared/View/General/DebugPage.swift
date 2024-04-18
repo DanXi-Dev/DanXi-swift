@@ -35,6 +35,25 @@ struct DebugPage: View {
                     model.showIntro.toggle()
                 }
             }
+            
+            Section("APNS Token") {
+                if let token = UserDefaults.standard.string(forKey: "notification-token") {
+                    LabeledContent("APNS Token") {
+                        Text(token)
+                    }
+                    .onPress {
+                        UIPasteboard.general.string = token
+                    }
+                }
+                if let deviceId = UserDefaults.standard.string(forKey: "notification-token-device-id") {
+                    LabeledContent("Device ID") {
+                        Text(deviceId)
+                    }
+                    .onPress {
+                        UIPasteboard.general.string = deviceId
+                    }
+                }
+            }
         }
         .navigationTitle("Debug")
         .sheet(isPresented: $showURLSheet) {
