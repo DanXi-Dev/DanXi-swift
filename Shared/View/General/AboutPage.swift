@@ -1,12 +1,26 @@
 import SwiftUI
+import CryptoKit
 
 struct AboutPage: View {
+    @AppStorage("debug-unlocked") private var debugUnlocked = false
+    @State private var tappedCount = 0
+    @State private var showPasswordAlert = false
+    @State private var password = ""
+    
     private var version: String {
         Bundle.main.releaseVersionNumber ?? ""
     }
     
     private var build: String {
         Bundle.main.buildVersionNumber ?? ""
+    }
+    
+    private func checkPassword() {
+        let hash = SHA256.hash(data: password.data(using: .utf8)!)
+        let hashString = hash.map { String(format: "%02hhx", $0) }.joined()
+        if hashString == "2a71f797c0c5b266e885fb8f9a137936aba75e9a9d9e9fca747f965452b35463" {
+            debugUnlocked = true
+        }
     }
     
     var body: some View {
@@ -26,9 +40,15 @@ struct AboutPage: View {
                     } header: {
                         appIcon
                             .textCase(.none)
+                            .onTapGesture {
+                                tappedCount += 1
+                                if tappedCount > 5 {
+                                    showPasswordAlert = true
+                                }
+                            }
                     }
                     
-                    if DXModel.shared.isAdmin {
+                    if debugUnlocked {
                         Section {
                             NavigationLink {
                                 DebugPage()
@@ -59,6 +79,12 @@ struct AboutPage: View {
         .navigationTitle("About")
         .navigationBarTitleDisplayMode(.inline)
         .background(.systemGroupedBackground)
+        .alert("Enter Password", isPresented: $showPasswordAlert) {
+            TextField("Enter Password", text: $password)
+            Button("Submit") {
+                checkPassword()
+            }
+        }
     }
     
     private var appIcon: some View {
