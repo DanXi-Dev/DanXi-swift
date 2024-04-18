@@ -43,5 +43,10 @@
         "name": "Queue",
         "link": "https://github.com/mattmassicotte/Queue",
         "license": "BSD-3-Clause license"
+    },
+    {
+        "name": "IQKeyboardManager",
+        "link": "https://github.com/hackiftekhar/IQKeyboardManager",
+        "license": "MIT license"
     }
 ]
