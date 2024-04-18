@@ -661,6 +661,9 @@
         }
       }
     },
+    "APNS Token" : {
+
+    },
     "Are your sure you want to discard your contents? Your messages will be lost." : {
       "localizations" : {
         "zh-Hans" : {
@@ -1703,6 +1706,9 @@
         }
       }
     },
+    "Device ID" : {
+
+    },
     "Disabled" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2208,6 +2214,9 @@
           }
         }
       }
+    },
+    "Enter Password" : {
+
     },
     "Enter Pinned Hole ID (Digits Only)" : {
       "localizations" : {
