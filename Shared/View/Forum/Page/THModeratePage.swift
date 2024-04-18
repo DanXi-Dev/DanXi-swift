@@ -49,22 +49,26 @@ struct THModeratePage: View {
             }
             .watermark()
             
-            HStack(spacing: 30) {
+            HStack(spacing: 40) {
                 if !model.selectedItems.isEmpty {
                     AsyncButton {
                         await model.setSelected(sensitive: false)
                         editMode?.wrappedValue = .inactive
                     } label: {
-                        Image(systemName: "checkmark.circle.fill")
+                        Label("正常", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(.green)
+                            .font(.title2)
+                            .fontWeight(.black)
                     }
                     
                     AsyncButton {
                         await model.setSelected(sensitive: true)
                         editMode?.wrappedValue = .inactive
                     } label: {
-                        Image(systemName: "xmark.circle.fill")
+                        Label("敏感", systemImage: "xmark.circle.fill")
                             .foregroundStyle(.red)
+                            .font(.title2)
+                            .fontWeight(.black)
                     }
                 }
             }
@@ -80,7 +84,7 @@ fileprivate struct SensitiveContentView: View {
     
     var body: some View {
         DetailLink(value: THHoleLoader(floorId: item.id)) {
-            HStack(alignment: .top) {
+            HStack(alignment: .center) {
                 if let sensitive = item.sensitive {
                     if sensitive {
                         Image(systemName: "xmark.circle.fill")
