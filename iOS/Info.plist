@@ -50,6 +50,14 @@
 	<string>DanXi needs to write to your calendar to save your courses events.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>DanXi needs to write to your photo library to save your images.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>BusScheduleIntent</string>
+		<string>BusSecheduleIntentIntent</string>
+		<string>IntentIntent</string>
+		<string>SelectBusScheduleIntent</string>
+		<string>SelectBusScheduleIntentIntent</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

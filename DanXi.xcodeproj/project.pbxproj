@@ -118,7 +118,10 @@
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
+		E55842382BD2495A00000510 /* WidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
+		E558423E2BD24CC100000510 /* WidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */; };
 		E5CC90602BD18CC700C01F91 /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CC905F2BD18CC700C01F91 /* BusWidget.swift */; };
+		E5F2559F2BD250D300D4B206 /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CC905F2BD18CC700C01F91 /* BusWidget.swift */; };
 		EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */; };
 		F13306D42BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D52BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
@@ -289,6 +292,7 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = WidgetIntent.intentdefinition; sourceTree = "<group>"; };
 		E5CC905F2BD18CC700C01F91 /* BusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidget.swift; sourceTree = "<group>"; };
 		EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkView.swift; sourceTree = "<group>"; };
 		F13306D32BA5766C005361D2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -357,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CC905F2BD18CC700C01F91 /* BusWidget.swift */,
+				E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */,
 				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
 				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
@@ -843,6 +848,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E558423E2BD24CC100000510 /* WidgetIntent.intentdefinition in Sources */,
 				E5CC90602BD18CC700C01F91 /* BusWidget.swift in Sources */,
 				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */,
@@ -868,6 +874,7 @@
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
 				27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */,
+				E55842382BD2495A00000510 /* WidgetIntent.intentdefinition in Sources */,
 				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */,
@@ -928,6 +935,7 @@
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
+				E5F2559F2BD250D300D4B206 /* BusWidget.swift in Sources */,
 				27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */,
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
 				27262AFE2B04A002000C3962 /* THMyReplyPage.swift in Sources */,
@@ -1147,6 +1155,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1206,6 +1215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1231,6 +1241,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1268,6 +1279,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
