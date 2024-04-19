@@ -40,7 +40,7 @@ internal extension IQKeyboardManager {
             isEnabled = true
         } else if enableMode == .disabled {
             isEnabled = false
-        } else if var textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
+        } else if let textFieldViewController = textFieldViewInfo.textFieldView.iq.viewContainingController() {
 
             // If viewController is kind of enable viewController class, then assuming it's enabled.
             if !isEnabled, enabledDistanceHandlingClasses.contains(where: { textFieldViewController.isKind(of: $0) }) {

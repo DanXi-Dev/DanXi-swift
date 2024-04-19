@@ -34,7 +34,7 @@ private struct AssociatedKeys {
 // swiftlint:disable identifier_name
 // swiftlint:disable unused_setter_value
 @available(iOSApplicationExtension, unavailable)
-extension UIScrollView: IQKeyboardManagerCompatible {
+extension UIScrollView {
 
     // This property is explicitly written otherwise we were having
     // compilation error when archiving
