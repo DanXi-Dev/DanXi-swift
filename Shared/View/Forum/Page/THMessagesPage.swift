@@ -35,5 +35,8 @@ fileprivate struct NotificationContent: View {
         .listStyle(.inset)
         .navigationTitle("Notifications")
         .navigationBarTitleDisplayMode(.inline)
+#if targetEnvironment(macCatalyst)
+        .listRowBackground(Color.clear)
+#endif
     }
 }
