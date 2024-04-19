@@ -8,6 +8,7 @@ struct THBrowsePage: View {
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var mainAppModel: AppModel
     @State private var showScreenshotAlert = false
+    @State private var showNotificationPage = false
     
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
@@ -74,6 +75,10 @@ struct THBrowsePage: View {
         .onReceive(ConfigurationCenter.bannerPublisher) { banner in
             appModel.banners = banner
         }
+        .onReceive(AppModel.notificationPublisher) { content in
+            showNotificationPage = true
+        }
+        .navigationDestination(isPresented: $showNotificationPage, destination: { THNotificationPage() })
         .onReceive(screenshotPublisher) { _ in
             if settings.screenshotAlert && mainAppModel.screen == .forum {
                 showScreenshotAlert = true
