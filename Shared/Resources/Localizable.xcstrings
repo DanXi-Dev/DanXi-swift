@@ -3643,6 +3643,16 @@
         }
       }
     },
+    "No Content" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有内容"
+          }
+        }
+      }
+    },
     "No Data" : {
       "extractionState" : "stale",
       "localizations" : {
