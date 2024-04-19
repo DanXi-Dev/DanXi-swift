@@ -5737,6 +5737,16 @@
         }
       }
     },
+    "Unknown" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知"
+          }
+        }
+      }
+    },
     "Unknown Error" : {
       "extractionState" : "manual",
       "localizations" : {
