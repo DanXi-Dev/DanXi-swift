@@ -69,7 +69,6 @@ struct THComplexFloor: View {
             }
         } content: {
             VStack(alignment: .leading) {
-                Text("Text is:") + Text(floor.content)
                 headLine
                 content
                 bottomLine
