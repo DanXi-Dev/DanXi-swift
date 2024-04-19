@@ -1008,6 +1008,9 @@
         }
       }
     },
+    "Check school bus." : {
+
+    },
     "Classroom Schedule" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3214,7 +3217,6 @@
       }
     },
     "Load Failed" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3647,6 +3649,9 @@
           }
         }
       }
+    },
+    "No more bus" : {
+
     },
     "No Review" : {
       "localizations" : {
@@ -6114,6 +6119,12 @@
         }
       }
     },
+    "下一班 " : {
+
+    },
+    "今日无更多班次" : {
+
+    },
     "光华楼东辅楼" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6244,6 +6255,15 @@
           }
         }
       }
+    },
+    "至 枫林" : {
+
+    },
+    "还有 " : {
+
+    },
+    "邯郸" : {
+
     }
   },
   "version" : "1.0"

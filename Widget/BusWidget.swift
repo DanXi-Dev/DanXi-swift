@@ -1,13 +1,17 @@
 import FudanKit
 import SwiftUI
 import WidgetKit
+import Intents
 
-struct BusWidgetProvier: TimelineProvider {
+struct BusWidgetProvier: IntentTimelineProvider {
+    typealias Entry = BusEntry
+    typealias Intent = BusScheduleIntent
+    
     func placeholder(in context: Context) -> BusEntry {
         BusEntry()
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (BusEntry) -> Void) {
+    func getSnapshot(for configuation: BusScheduleIntent, in context: Context, completion: @escaping (BusEntry) -> Void) {
         var entry = BusEntry()
         if !context.isPreview {
             entry.placeholder = true
@@ -15,7 +19,7 @@ struct BusWidgetProvier: TimelineProvider {
         completion(entry)
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+    func getTimeline(for configuration: BusScheduleIntent, in context: Context, completion: @escaping (Timeline<BusEntry>) -> Void) {
         Task {
             do {
                 let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getRefreshedRoutes()
@@ -63,11 +67,23 @@ public struct BusEntry: TimelineEntry {
     }
 }
 
+//struct BusScheduleSelector: Widget {
+//    let kind: String = "ecard.fudan.edu.cn"
+//    public var body: some WidgetConfiguration {
+//        IntentConfiguration(kind: kind, intent: BusScheduleIntent.self, provider: BusWidgetProvier()) { entry in
+//            BusWidgetView(entry: entry)
+//        }
+//        .configurationDisplayName("Bus")
+//        .description("Check school bus.")
+//        .supportedFamilies([.systemSmall])
+//    }
+//}
+
 public struct BusWidget: Widget {
     public init() {}
     
     public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "ecard.fudan.edu.cn", provider: BusWidgetProvier()) { entry in
+        IntentConfiguration(kind: "bus.fudan.edu.cn", intent: BusScheduleIntent.self, provider: BusWidgetProvier()) { entry in
             if #available(iOS 17.0, *) {
                 BusWidgetView(entry: entry)
                     .containerBackground(.fill.quinary, for: .widget)
