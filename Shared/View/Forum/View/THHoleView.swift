@@ -16,29 +16,23 @@ struct THHoleView: View {
     }
     
     var body: some View {
-        // If a floor has empty content, hide it
-        // This is at the request of OpenTreehole backend
-        if hole.firstFloor.content.isEmpty {
-            EmptyView()
-        } else {
-            FoldedView(expand: !fold) {
-                HStack(alignment: .center) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        tags
-                    }
-                    .allowsHitTesting(false)
-                    Spacer()
-                    Text("Folded")
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                        .fontWeight(.light)
-                        .fixedSize()
+        FoldedView(expand: !fold) {
+            HStack(alignment: .center) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    tags
                 }
-            } content: {
-                fullContent
+                .allowsHitTesting(false)
+                Spacer()
+                Text("Folded")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .fontWeight(.light)
+                    .fixedSize()
             }
-            .listRowInsets(EdgeInsets(top: 8, leading: 9, bottom: 8, trailing: 9))
+        } content: {
+            fullContent
         }
+        .listRowInsets(EdgeInsets(top: 8, leading: 9, bottom: 8, trailing: 9))
     }
     
     private var fullContent: some View {
@@ -186,61 +180,55 @@ private struct PreviewActions: View {
     let hole: THHole
     
     var body: some View {
-        // If a floor has empty content, hide it
-        // This is at the request of OpenTreehole backend
-        if hole.firstFloor.content.isEmpty {
-            EmptyView()
-        } else {
-            Group {
-                AsyncButton {
-                    prepareHaptic()
-                    do {
-                        try await appModel.toggleFavorite(hole.id)
-                        haptic(.success)
-                    } catch {
-                        haptic(.error)
-                    }
-                } label: {
-                    Group {
-                        if appModel.isFavorite(hole.id) {
-                            Label("Unfavorite", systemImage: "star.slash")
-                        } else {
-                            Label("Favorite", systemImage: "star")
-                        }
-                    }
+        Group {
+            AsyncButton {
+                prepareHaptic()
+                do {
+                    try await appModel.toggleFavorite(hole.id)
+                    haptic(.success)
+                } catch {
+                    haptic(.error)
                 }
-                
-                AsyncButton {
-                    prepareHaptic()
-                    do {
-                        if appModel.isSubscribed(hole.id) {
-                            try await appModel.deleteSubscription(hole.id)
-                        } else {
-                            try await appModel.addSubscription(hole.id)
-                        }
-                        haptic(.success)
-                    } catch {
-                        haptic(.error)
-                    }
-                } label: {
-                    if appModel.isSubscribed(hole.id) {
-                        Label("Unsubscribe", systemImage: "bell.slash")
+            } label: {
+                Group {
+                    if appModel.isFavorite(hole.id) {
+                        Label("Unfavorite", systemImage: "star.slash")
                     } else {
-                        Label("Subscribe", systemImage: "bell")
+                        Label("Favorite", systemImage: "star")
                     }
                 }
+            }
                 
-                Divider()
-                
-                Button(role: .destructive) {
-                    if !settings.blockedHoles.contains(hole.id) {
-                        withAnimation {
-                            settings.blockedHoles.append(hole.id)
-                        }
+            AsyncButton {
+                prepareHaptic()
+                do {
+                    if appModel.isSubscribed(hole.id) {
+                        try await appModel.deleteSubscription(hole.id)
+                    } else {
+                        try await appModel.addSubscription(hole.id)
                     }
-                } label: {
-                    Label("Don't Show This Hole", systemImage: "eye.slash")
+                    haptic(.success)
+                } catch {
+                    haptic(.error)
                 }
+            } label: {
+                if appModel.isSubscribed(hole.id) {
+                    Label("Unsubscribe", systemImage: "bell.slash")
+                } else {
+                    Label("Subscribe", systemImage: "bell")
+                }
+            }
+                
+            Divider()
+                
+            Button(role: .destructive) {
+                if !settings.blockedHoles.contains(hole.id) {
+                    withAnimation {
+                        settings.blockedHoles.append(hole.id)
+                    }
+                }
+            } label: {
+                Label("Don't Show This Hole", systemImage: "eye.slash")
             }
         }
     }
