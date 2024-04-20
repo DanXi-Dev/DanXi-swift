@@ -4,92 +4,81 @@ import Utils
 import ViewUtils
 
 struct SettingsPage: View {
+    @EnvironmentObject private var navigator: AppNavigator
     @ObservedObject private var forumModel = DXModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
-    @State private var path: NavigationPath
-    
-    public init() {
-        path = NavigationPath()
-    }
     
     @State private var campusLoginSheet = false
     @State private var campusUserSheet = false
     @State private var forumLoginSheet = false
     @State private var forumUserSheet = false
-    @State private var showPushSettings = false
     
     var showToolbar: Bool {
         campusModel.loggedIn || forumModel.isLogged
     }
     
     var body: some View {
-        NavigationStack(path: $path) {
-            ScrollViewReader { proxy in
-                List {
-                    EmptyView()
-                        .id("settings-top")
-                    
-                    Section("Accounts Management") {
-                        Button {
-                            if campusModel.loggedIn {
-                                campusUserSheet = true
-                            } else {
-                                campusLoginSheet = true
-                            }
-                        } label: {
-                            AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
+        ScrollViewReader { proxy in
+            List {
+                EmptyView()
+                    .id("settings-top")
+                
+                Section("Accounts Management") {
+                    Button {
+                        if campusModel.loggedIn {
+                            campusUserSheet = true
+                        } else {
+                            campusLoginSheet = true
                         }
-                        
-                        Button {
-                            if forumModel.isLogged {
-                                forumUserSheet = true
-                            } else {
-                                forumLoginSheet = true
-                            }
-                        } label: {
-                            AccountLabel(loggedIn: forumModel.isLogged, title: "FDU Hole Account")
-                        }
+                    } label: {
+                        AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
                     }
                     
-                    if campusModel.loggedIn {
-                        Section("Campus.Tab") {
-                            Picker(selection: $campusModel.studentType) {
-                                Text("Undergraduate").tag(StudentType.undergrad)
-                                Text("Graduate").tag(StudentType.grad)
-                                Text("Staff").tag(StudentType.staff)
-                            } label: {
-                                Label("Student Type", systemImage: "person.text.rectangle")
-                            }
+                    Button {
+                        if forumModel.isLogged {
+                            forumUserSheet = true
+                        } else {
+                            forumLoginSheet = true
                         }
+                    } label: {
+                        AccountLabel(loggedIn: forumModel.isLogged, title: "FDU Hole Account")
                     }
-                    
-                    if forumModel.isLogged {
-                        THSettingsView()
-                    }
-                    
-                    Section {
-                        NavigationLink {
-                            AboutPage()
+                }
+                
+                if campusModel.loggedIn {
+                    Section("Campus.Tab") {
+                        Picker(selection: $campusModel.studentType) {
+                            Text("Undergraduate").tag(StudentType.undergrad)
+                            Text("Graduate").tag(StudentType.grad)
+                            Text("Staff").tag(StudentType.staff)
                         } label: {
-                            Label("About", systemImage: "info.circle")
+                            Label("Student Type", systemImage: "person.text.rectangle")
                         }
                     }
                 }
-                .listStyle(.insetGrouped)
-                .onReceive(OnDoubleTapSettingsTabBarItem, perform: {
-                    print(path.count)
-                    if path.count > 0 {
-                        path.removeLast(path.count)
-                    } else {
-                        withAnimation {
-                            proxy.scrollTo("settings-top")
-                        }
+                
+                if forumModel.isLogged {
+                    THSettingsView()
+                }
+                
+                Section {
+                    DetailLink(value: SettingsSection.about) {
+                        Label("About", systemImage: "info.circle")
+                            .navigationStyle()
                     }
-                })
+                }
             }
-            .navigationTitle("Settings")
-            .navigationDestination(isPresented: $showPushSettings, destination: { NotificationSettingWrapper() })
+            .listStyle(.insetGrouped)
+            .onReceive(SettingsScrollToTop) { _ in
+                withAnimation {
+                    proxy.scrollTo("settings-top")
+                }
+            }
+            .onReceive(AppModel.notificationSettingsPublisher) { content in
+                navigator.pushDetail(value: ForumSettingsSection.notification, replace: true)
+            }
         }
+        .navigationTitle("Settings")
         .sheet(isPresented: $campusLoginSheet) {
             FDLoginSheet()
         }
@@ -101,9 +90,6 @@ struct SettingsPage: View {
         }
         .sheet(isPresented: $forumUserSheet) {
             DXUserSheet()
-        }
-        .onReceive(AppModel.notificationSettingsPublisher) { content in
-            showPushSettings = true
         }
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
     }

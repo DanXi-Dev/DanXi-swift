@@ -8,25 +8,44 @@ struct THSettingsView: View {
     
     var body: some View {
         Section("Forum") {
-            NavigationLink {
-                NotificationSettingWrapper()
-            } label: {
-                Label("Push Notification Settings", systemImage: "app.badge")
+            ForEach(ForumSettingsSection.allCases) { section in
+                DetailLink(value: section) {
+                    section.label.navigationStyle()
+                }
             }
-            
-            NavigationLink {
-                NSFWSettings()
-            } label: {
-                Label("NSFW Content", systemImage: "eye.square")
-            }
-            
-            NavigationLink {
-                BlockedContent()
-            } label: {
-                Label("Blocked Content", systemImage: "hand.raised.app")
-            }
-            
-            //            ImagePicker() // FDUHole background image
+        }
+    }
+}
+
+public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
+    case notification
+    case nsfw
+    case blocked
+    
+    public var id: ForumSettingsSection {
+        self
+    }
+    
+    public var label: some View {
+        switch self {
+        case .notification:
+            Label("Push Notification Settings", systemImage: "app.badge")
+        case .nsfw:
+            Label("NSFW Content", systemImage: "eye.square")
+        case .blocked:
+            Label("Blocked Content", systemImage: "hand.raised.app")
+        }
+    }
+    
+    @ViewBuilder
+    public var destination: some View {
+        switch self {
+        case .notification:
+            NotificationSettingWrapper()
+        case .nsfw:
+            NSFWSettings()
+        case .blocked:
+            BlockedContent()
         }
     }
 }

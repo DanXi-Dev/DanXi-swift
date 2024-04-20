@@ -37,7 +37,7 @@ extension AppScreen {
         case .calendar:
             CoursePageContent()
         case .settings:
-            SettingsPage()
+            SettingsContent()
         }
     }
     
@@ -50,6 +50,8 @@ extension AppScreen {
             ForumDetail()
         case .curriculum:
             CurriculumDetail()
+        case .settings:
+            SettingsDetail()
         default:
             EmptyView()
         }

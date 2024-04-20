@@ -1,26 +1,41 @@
 import SwiftUI
-import FudanKit
 import ViewUtils
 import Utils
 
-struct CampusNavigation<Label: View>: View {
+enum SettingsSection: Hashable {
+    case about
+    case credit
+    case debug
+    
+    @ViewBuilder
+    var destination: some View {
+        switch self {
+        case .about:
+            AboutPage()
+        case .credit:
+            CreditPage()
+        case .debug:
+            DebugPage()
+        }
+    }
+}
+
+struct SettingsNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
     let label: () -> Label
     
     var body: some View {
         label()
-            .navigationDestination(for: CampusSection.self) { section in
+            .navigationDestination(for: SettingsSection.self) { section in
                 section.destination
-                    .environmentObject(navigator)
             }
-            .navigationDestination(for: Playground.self) { playground in
-                PlaygroundPage(playground)
-                    .environmentObject(navigator)
+            .navigationDestination(for: ForumSettingsSection.self) { section in
+                section.destination
             }
     }
 }
 
-public struct CampusContent: View {
+struct SettingsContent: View {
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
@@ -32,14 +47,10 @@ public struct CampusContent: View {
         path.append(value)
     }
     
-    public init() {
-        
-    }
-    
-    public var body: some View {
+    var body: some View {
         NavigationStack(path: $path) {
-            CampusNavigation {
-                CampusHome()
+            SettingsNavigation {
+                SettingsPage()
             }
         }
         .onReceive(navigator.contentSubject) { value in
@@ -50,9 +61,9 @@ public struct CampusContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(OnDoubleTapCampusTabBarItem) { _ in
+        .onReceive(OnDoubleTapSettingsTabBarItem) { _ in
             if path.isEmpty {
-                CampusScrollToTop.send()
+                SettingsScrollToTop.send()
             } else {
                 path.removeLast(path.count)
             }
@@ -60,7 +71,7 @@ public struct CampusContent: View {
     }
 }
 
-public struct CampusDetail: View {
+struct SettingsDetail: View {
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
@@ -71,14 +82,10 @@ public struct CampusDetail: View {
         path.append(item)
     }
     
-    public init() {
-        
-    }
-    
-    public var body: some View {
+    var body: some View {
         NavigationStack(path: $path) {
-            CampusNavigation {
-                Image(systemName: "square.stack")
+            SettingsNavigation {
+                Image(systemName: "gearshape")
                     .symbolVariant(.fill)
                     .foregroundStyle(.tertiary)
                     .font(.system(size: 60))
@@ -89,4 +96,3 @@ public struct CampusDetail: View {
         }
     }
 }
-

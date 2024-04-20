@@ -1,5 +1,6 @@
 import SwiftUI
 import CryptoKit
+import ViewUtils
 
 struct AboutPage: View {
     @AppStorage("debug-unlocked") private var debugUnlocked = false
@@ -36,10 +37,9 @@ struct AboutPage: View {
                         LinkView(url: "https://danxi.fduhole.com/doc/app-terms-and-condition", text: "Terms and Conditions", icon: "info.circle")
                         LinkView(url: "https://apps.apple.com/app/id1568629997?action=write-review", text: "Write a Review", icon: "star")
                         
-                        NavigationLink {
-                            CreditPage()
-                        } label: {
+                        DetailLink(value: SettingsSection.credit, replace: false) {
                             Label("Acknowledgements", systemImage: "heart")
+                                .navigationStyle()
                         }
                     } header: {
                         appIcon
@@ -54,10 +54,9 @@ struct AboutPage: View {
                     
                     if debugUnlocked {
                         Section {
-                            NavigationLink {
-                                DebugPage()
-                            } label: {
+                            DetailLink(value: SettingsSection.debug, replace: false) {
                                 Label("Debug", systemImage: "ant.circle.fill")
+                                    .navigationStyle()
                             }
                         }
                     }
