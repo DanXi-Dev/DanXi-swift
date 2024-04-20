@@ -336,12 +336,10 @@ enum THSticker: String, CaseIterable {
 }
 
 struct ImageProviderWithSticker: InlineImageProvider {
-    let defaultProvider = DefaultInlineImageProvider.default
-    
     func image(with url: URL, label: String) async throws -> Image {
         guard let sticker = THSticker(rawValue: url.absoluteString) else {
             // This is not a sticker
-            return try await defaultProvider.image(with: url, label: label)
+            throw URLError(.badURL)
         }
         return sticker.image
     }
