@@ -82,11 +82,11 @@ fileprivate struct CalendarContent: View {
                 .listRowBackground(Color.clear)
 #endif
             }
-            .onReceive(CalendarScrollToTop, perform: {
+            .onReceive(OnDoubleTapCalendarTabBarItem) {
                 withAnimation {
                     proxy.scrollTo("cal-top")
                 }
-            })
+            }
         }
         .refreshable {
             await model.refresh(with: [:])
