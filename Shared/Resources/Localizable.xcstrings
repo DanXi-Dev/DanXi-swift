@@ -1706,9 +1706,6 @@
         }
       }
     },
-    "Device ID" : {
-
-    },
     "Disabled" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2214,9 +2211,6 @@
           }
         }
       }
-    },
-    "Enter Password" : {
-
     },
     "Enter Pinned Hole ID (Digits Only)" : {
       "localizations" : {
