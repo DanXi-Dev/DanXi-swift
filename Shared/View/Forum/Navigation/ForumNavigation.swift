@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtils
+import Utils
 
 struct ForumNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
@@ -52,6 +53,13 @@ struct ForumContent: View {
                 appendDetail(value: value)
             }
         }
+        .onReceive(OnDoubleTapForumTabBarItem, perform: { _ in
+            if path.isEmpty {
+                ForumScrollToTop.send()
+            } else {
+                path.removeLast(path.count)
+            }
+        })
     }
 }
 

@@ -1,6 +1,7 @@
 import SwiftUI
 import FudanKit
 import ViewUtils
+import Utils
 
 struct CampusNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
@@ -49,6 +50,13 @@ public struct CampusContent: View {
                 appendDetail(value: value)
             }
         }
+        .onReceive(OnDoubleTapCampusTabBarItem, perform: { _ in
+            if path.isEmpty {
+                CampusScrollToTop.send()
+            } else {
+                path.removeLast(path.count)
+            }
+        })
     }
 }
 

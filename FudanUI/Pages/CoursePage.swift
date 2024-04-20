@@ -82,7 +82,7 @@ fileprivate struct CalendarContent: View {
                 .listRowBackground(Color.clear)
 #endif
             }
-            .onReceive(OnDoubleTapCalendarTabBarItem, perform: {
+            .onReceive(CalendarScrollToTop, perform: {
                 withAnimation {
                     proxy.scrollTo("cal-top")
                 }

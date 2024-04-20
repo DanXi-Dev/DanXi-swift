@@ -35,9 +35,7 @@ extension AppScreen {
         case .curriculum:
             CurriculumContent()
         case .calendar:
-            NavigationStack {
-                CoursePage()
-            }
+            CoursePageContent()
         case .settings:
             SettingsPage()
         }

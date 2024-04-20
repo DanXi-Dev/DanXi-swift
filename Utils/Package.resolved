@@ -1,0 +1,15 @@
+{
+  "originHash" : "928b0cff1189e639c762bf972039beeb78a04e0f0ecf834662500de455499946",
+  "pins" : [
+    {
+      "identity" : "disk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/saoudrizwan/Disk.git",
+      "state" : {
+        "revision" : "b0cb4fdf23e51849cc2460bdc6de795c3bcca99d",
+        "version" : "0.6.4"
+      }
+    }
+  ],
+  "version" : 3
+}

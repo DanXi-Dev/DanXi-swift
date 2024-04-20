@@ -54,7 +54,7 @@ struct THBrowsePage: View {
                 .id(model.configId) // stop old loading task when config change
             }
             .listStyle(.insetGrouped)
-            .onReceive(OnDoubleTapForumTabBarItem) {
+            .onReceive(ForumScrollToTop) {
                 withAnimation {
                     proxy.scrollTo("th-top")
                 }

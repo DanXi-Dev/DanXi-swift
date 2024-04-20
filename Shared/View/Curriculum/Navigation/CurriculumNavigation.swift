@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtils
+import Utils
 
 struct CurriculumNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
@@ -48,6 +49,13 @@ struct CurriculumContent: View {
                 appendDetail(value: value)
             }
         }
+        .onReceive(OnDoubleTapCurriculumTabBarItem, perform: { _ in
+            if path.isEmpty {
+                CurriculumScrollToTop.send()
+            } else {
+                path.removeLast(path.count)
+            }
+        })
     }
 }
 

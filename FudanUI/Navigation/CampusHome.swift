@@ -1,6 +1,7 @@
 import SwiftUI
 import FudanKit
 import ViewUtils
+import Utils
 
 public struct CampusHome: View {
     @EnvironmentObject private var navigator: AppNavigator
@@ -16,55 +17,63 @@ public struct CampusHome: View {
         }
     }
     
-    public init() {
-        
-    }
+    public init() {}
     
     public var body: some View {
-        List {
-            ForEach(model.pinned) { section in
-                Section {
-                    DetailLink(value: section) {
-                        section.card
-                            .tint(.primary)
-                            .frame(height: 85)
-                    }
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            model.unpin(section: section)
-                        } label: {
-                            Image(systemName: "pin.slash.fill")
+        ScrollViewReader { proxy in
+            List {
+                EmptyView()
+                    .id("campus-top")
+                
+                ForEach(model.pinned) { section in
+                    Section {
+                        DetailLink(value: section) {
+                            section.card
+                                .tint(.primary)
+                                .frame(height: 85)
                         }
-                    }
-                }
-            }
-            
-            Section {
-                // on wide screen, do not use dedicated section for calendar. instead, we'll use home page as entry.
-                if !navigator.isCompactMode {
-                    DetailLink(value: CampusSection.course) {
-                        CampusSection.course.label.navigationStyle()
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                model.unpin(section: section)
+                            } label: {
+                                Image(systemName: "pin.slash.fill")
+                            }
+                        }
                     }
                 }
                 
-                ForEach(model.unpinned) { section in
-                    if shouldDisplay(section: section) {
-                        DetailLink(value: section) {
-                            section.label.navigationStyle()
+                Section {
+                    // on wide screen, do not use dedicated section for calendar. instead, we'll use home page as entry.
+                    if !navigator.isCompactMode {
+                        DetailLink(value: CampusSection.course) {
+                            CampusSection.course.label.navigationStyle()
                         }
-                        .swipeActions {
-                            if CampusSection.pinnable.contains(section) {
-                                Button {
-                                    model.pin(section: section)
-                                } label: {
-                                    Image(systemName: "pin.fill")
+                    }
+                    
+                    ForEach(model.unpinned) { section in
+                        if shouldDisplay(section: section) {
+                            DetailLink(value: section) {
+                                section.label.navigationStyle()
+                            }
+                            .swipeActions {
+                                if CampusSection.pinnable.contains(section) {
+                                    Button {
+                                        model.pin(section: section)
+                                    } label: {
+                                        Image(systemName: "pin.fill")
+                                    }
+                                    .tint(.orange)
                                 }
-                                .tint(.orange)
                             }
                         }
                     }
                 }
             }
+            .onReceive(CampusScrollToTop, perform: { _ in
+                withAnimation {
+                    proxy.scrollTo("campus-top")
+                }
+            })
         }
         .listStyle(.insetGrouped)
         .compactSectionSpacing()

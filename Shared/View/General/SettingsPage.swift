@@ -6,7 +6,11 @@ import ViewUtils
 struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
-    @StateObject private var navigator = SettingsNavigator()
+    @State private var path: NavigationPath
+    
+    public init() {
+        path = NavigationPath()
+    }
     
     @State private var campusLoginSheet = false
     @State private var campusUserSheet = false
@@ -19,7 +23,7 @@ struct SettingsPage: View {
     }
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
+        NavigationStack(path: $path) {
             ScrollViewReader { proxy in
                 List {
                     EmptyView()
@@ -73,8 +77,9 @@ struct SettingsPage: View {
                 }
                 .listStyle(.insetGrouped)
                 .onReceive(OnDoubleTapSettingsTabBarItem, perform: {
-                    if navigator.path.count > 0 {
-                        navigator.path.removeLast(navigator.path.count)
+                    print(path.count)
+                    if path.count > 0 {
+                        path.removeLast(path.count)
                     } else {
                         withAnimation {
                             proxy.scrollTo("settings-top")
@@ -247,8 +252,4 @@ fileprivate struct AccountLabel: View {
             }
         }
     }
-}
-
-class SettingsNavigator: ObservableObject {
-    @Published var path = NavigationPath()
 }
