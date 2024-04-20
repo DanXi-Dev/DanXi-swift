@@ -167,11 +167,12 @@ class THModel: ObservableObject {
         divisions = []
         tags = []
         loaded = false
+        browseHistory = []
         
         // remove stored tags on disk
         Task {
-            try Disk.remove("fduhole/tags.json", from: .applicationSupport)
-            try Disk.remove("fduhole/history.json", from: .applicationSupport)
+            try? Disk.remove("fduhole/tags.json", from: .applicationSupport)
+            try? Disk.remove("fduhole/history.json", from: .applicationSupport)
         }
     }
     
