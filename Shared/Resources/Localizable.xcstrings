@@ -552,6 +552,16 @@
         }
       }
     },
+    "Administrative Info" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理信息"
+          }
+        }
+      }
+    },
     "All" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4945,6 +4955,22 @@
         }
       }
     },
+    "Sensitive Detail" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensitive Reason"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感原因"
+          }
+        }
+      }
+    },
     "Sensitive.Closed" : {
       "localizations" : {
         "en" : {
@@ -5061,6 +5087,16 @@
         }
       }
     },
+    "Show Administrative Info" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示管理信息"
+          }
+        }
+      }
+    },
     "Show All" : {
       "localizations" : {
         "zh-Hans" : {
@@ -5104,6 +5140,7 @@
       }
     },
     "Show Edit History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

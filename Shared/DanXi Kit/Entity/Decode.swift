@@ -109,6 +109,7 @@ extension THFloor {
         case modified, storey, content, spetialTag = "special_tag"
         case posterName = "anonyname"
         case mention
+        case sensitiveDetail = "sensitive_detail"
     }
     
     init(from decoder: Decoder) throws {
@@ -131,6 +132,7 @@ extension THFloor {
         self.createTime = try decodeDate(values, key: .createTime)
         self.updateTime = try decodeDate(values, key: .updateTime)
         mention = try values.decodeIfPresent([THMention].self, forKey: .mention) ?? []
+        sensitiveDetail = try values.decodeIfPresent(String.self, forKey: .sensitiveDetail)
     }
 }
 

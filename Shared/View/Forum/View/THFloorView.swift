@@ -561,7 +561,7 @@ private struct Actions: View {
                     Button {
                         showHistorySheet = true
                     } label: {
-                        Label("Show Edit History", systemImage: "clock.arrow.circlepath")
+                        Label("Show Administrative Info", systemImage: "info.circle")
                     }
                 } label: {
                     Label("Admin Actions", systemImage: "person.badge.key")

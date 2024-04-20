@@ -8,16 +8,24 @@ struct THHistorySheet: View {
     
     var body: some View {
         NavigationView {
-            AsyncContentView { _ in
-                return try await model.loadHistory()
-            } content: { histories in
-                List {
-                    ForEach(histories) { history in
-                        THHistorySheetItem(history: history)
+            List {
+                if let sd = model.floor.sensitiveDetail {
+                    Section("Sensitive Detail") {
+                        Text(sd)
                     }
                 }
-                .listStyle(.insetGrouped)
+                
+                Section("Edit History") {
+                    AsyncContentView(animation: .default) { _ in
+                        return try await model.loadHistory()
+                    } content: { histories in
+                        ForEach(histories) { history in
+                            THHistorySheetItem(history: history)
+                        }
+                    }
+                }
             }
+            .listStyle(.insetGrouped)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -27,7 +35,7 @@ struct THHistorySheet: View {
                     }
                 }
             }
-            .navigationTitle("Edit History")
+            .navigationTitle("Administrative Info")
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.visible)
         }

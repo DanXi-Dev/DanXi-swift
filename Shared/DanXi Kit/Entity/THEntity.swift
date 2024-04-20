@@ -75,6 +75,7 @@ struct THFloor: Hashable, Codable, Identifiable {
     var content: String
     let posterName, spetialTag: String
     var mention: [THMention]
+    let sensitiveDetail: String?
     
     func firstMention() -> Int? {
         let pattern = #/
