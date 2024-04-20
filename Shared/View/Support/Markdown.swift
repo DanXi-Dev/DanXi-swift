@@ -1,6 +1,7 @@
 import SwiftUI
 import MarkdownUI
 import LaTeXSwiftUI
+import ViewUtils
 
 public struct CustomMarkdown: View {
     let content: String
@@ -31,11 +32,15 @@ public struct CustomMarkdown: View {
     }
 }
 
-struct CustomImageProvider: ImageProvider {
-    func makeImage(url: URL?) -> some View {
+public struct CustomImageProvider: ImageProvider {
+    public func makeImage(url: URL?) -> some View {
         Group {
             if let url = url {
-                ImageView(url)
+                if let sticker = THSticker(rawValue: url.absoluteString) {
+                    sticker.image
+                } else {
+                    ImageView(url)
+                }
             } else {
                 EmptyView()
             }

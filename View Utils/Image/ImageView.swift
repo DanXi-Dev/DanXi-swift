@@ -2,7 +2,7 @@ import SwiftUI
 import SensitiveContentAnalysis
 import Disk
 
-struct ImageView: View {
+public struct ImageView: View {
     enum LoadingStatus {
         case loading
         case error(error: Error)
@@ -13,7 +13,7 @@ struct ImageView: View {
     @State private var loadingStatus: LoadingStatus = .loading
     private let url: URL
     
-    init(_ url: URL) {
+    public init(_ url: URL) {
         self.url = url
     }
     
@@ -29,7 +29,7 @@ struct ImageView: View {
         }
     }
     
-    var body: some View {
+    public var body: some View {
         HStack {
             Spacer()
             switch loadingStatus {
