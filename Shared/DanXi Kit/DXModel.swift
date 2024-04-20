@@ -140,12 +140,10 @@ class THModel: ObservableObject {
     
     func loadAll() async throws {
         // use async-let to parallel load
-        async let favoriteIds = try await THRequests.loadFavoritesIds()
-        async let subscriptionIds = try await THRequests.loadSubscriptionIds()
-        async let divisions = try await THRequests.loadDivisions()
-        self.favoriteIds = try await favoriteIds
-        self.subscriptionIds = try await subscriptionIds
-        self.divisions = try await divisions
+        async let favoriteIds = try THRequests.loadFavoritesIds()
+        async let subscriptionIds = try THRequests.loadSubscriptionIds()
+        async let divisions = try THRequests.loadDivisions()
+        (self.favoriteIds, self.subscriptionIds, self.divisions) = try await (favoriteIds, subscriptionIds, divisions)
         
         // load tags takes a lot of time, load in the background
         Task {
