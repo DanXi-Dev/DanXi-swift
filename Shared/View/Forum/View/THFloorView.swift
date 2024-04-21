@@ -181,6 +181,16 @@ struct THFloorContent: View {
         case remote(mention: THMention)
     }
     
+    /// Convert all inline images to separate images
+    func convertImages(content: String) -> String {
+        var modifiedContent = content
+        let pattern = /!\[[^\]]*\]\((?<filename>https?:\/\/.*?)(?=\"|\))(?<optionalpart>\".*\")?\)/
+        modifiedContent.replace(pattern) { match in
+            "\n\n\(content[match.range])\n\n"
+        }
+        return modifiedContent
+    }
+    
     func parse() -> [ReferenceItem] {
         let floors = holeModel?.floors ?? []
         let mentions = floorModel?.floor.mention ?? []
@@ -194,7 +204,7 @@ struct THFloorContent: View {
             let previous = String(partialContent[partialContent.startIndex..<match.range.lowerBound])
             if !previous.isEmpty {
                 count += 1
-                parsedElements.append(ReferenceItem(type: .text(content: previous), id: count))
+                parsedElements.append(ReferenceItem(type: .text(content: convertImages(content: previous)), id: count))
             }
             
             // match
@@ -221,7 +231,7 @@ struct THFloorContent: View {
         
         if !partialContent.isEmpty {
             count += 1
-            parsedElements.append(ReferenceItem(type: .text(content: partialContent), id: count))
+            parsedElements.append(ReferenceItem(type: .text(content: convertImages(content: partialContent)), id: count))
         }
         
         return parsedElements
