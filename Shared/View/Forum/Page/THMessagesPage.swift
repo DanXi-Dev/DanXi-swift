@@ -9,6 +9,8 @@ struct THNotificationPage: View {
             NotificationContent(messages: messages)
                 .watermark()
         }
+        .navigationTitle("Notifications")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -42,7 +44,5 @@ fileprivate struct NotificationContent: View {
 #endif
             }
         }
-        .navigationTitle("Notifications")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
