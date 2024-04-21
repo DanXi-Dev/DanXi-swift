@@ -14,7 +14,7 @@ struct THHomePage: View {
         } content: {
             THBrowseWrapper()
         }
-        .navigationTitle("树洞")
+        .navigationTitle("Forum")
         #if !targetEnvironment(macCatalyst)
         .environment(\.openURL, OpenURLAction { url in
             openURL = url
