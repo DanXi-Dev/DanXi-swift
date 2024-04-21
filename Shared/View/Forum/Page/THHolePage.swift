@@ -36,6 +36,13 @@ struct THHolePage: View {
                         }
                     }
                 }
+                .refreshable {
+                    do {
+                        try await model.refreshAll()
+                    } catch {
+                        haptic(.error)
+                    }
+                }
                 .environment(\.allImageURL, model.imageURLs)
                 .watermark()
                 // put the onAppear modifier outside, to prevent initial scroll to be performed multiple times
@@ -70,7 +77,7 @@ struct THHolePage: View {
                 .environmentObject(model)
             }
             
-            if model.loadingAll {
+            if model.showLoadingAllDialog {
                 HStack(spacing: 20) {
                     ProgressView()
                     Text("Loading")

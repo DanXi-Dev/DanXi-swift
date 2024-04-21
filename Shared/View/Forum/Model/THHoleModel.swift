@@ -186,7 +186,7 @@ class THHoleModel: ObservableObject {
     // MARK: - Page Scrolling
     
     let initialScroll: Int?
-    @Published var loadingAll = false
+    @Published var showLoadingAllDialog = false
     let scrollControl = PassthroughSubject<Int, Never>()
     
     func loadAllFloors() async throws {
@@ -197,12 +197,16 @@ class THHoleModel: ObservableObject {
             return
         }
         
-        loadingAll = true
-        defer { loadingAll = false }
+        showLoadingAllDialog = true
+        defer { showLoadingAllDialog = false }
+        try await refreshAll()
+        // sending value to publisher is moved to view
+    }
+    
+    func refreshAll() async throws {
         let floors = try await THRequests.loadAllFloors(holeId: hole.id)
         insertFloors(floors)
         endReached = true
-        // sending value to publisher is moved to view
     }
     
     // MARK: - Subscription
