@@ -16,6 +16,8 @@ struct ScorePage: View {
         } content: { info in
             ScorePageContent(info.semesters, current: info.currentSemester)
         }
+        .navigationTitle("Exams & Score")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -33,8 +35,6 @@ fileprivate struct ScorePageContent: View {
             SemesterPicker(semesters: semesters.sorted(), semester: $semester)
             ScoreList(semester: semester)
         }
-        .navigationTitle("Exams & Score")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

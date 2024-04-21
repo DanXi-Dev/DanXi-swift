@@ -35,6 +35,7 @@ public struct CoursePage: View {
             CalendarContent(model: model)
         }
         .id(campusModel.studentType) // ensure the page will refresh when student type changes
+        .navigationTitle("Calendar")
     }
 }
 
@@ -111,7 +112,6 @@ fileprivate struct CalendarContent: View {
         } message: {
             Text(model.networkError?.localizedDescription ?? "")
         }
-        .navigationTitle("Calendar")
         .environmentObject(model)
     }
 }

@@ -47,9 +47,9 @@ struct ElectricityPage: View {
                     ElectricityPageChart(data: transactions)
                 }
             }
-            .navigationTitle("Dorm Electricity")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Dorm Electricity")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

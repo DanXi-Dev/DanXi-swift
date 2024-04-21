@@ -10,6 +10,8 @@ struct ReservationPage: View {
         } content: { model in
             PlaygroundContent(model)
         }
+        .navigationTitle("Playground Reservation")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -46,8 +48,6 @@ struct PlaygroundContent: View {
                 }
             }
         }
-        .navigationTitle("Playground Reservation")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: Playground.self) { playground in
             PlaygroundPage(playground)
         }

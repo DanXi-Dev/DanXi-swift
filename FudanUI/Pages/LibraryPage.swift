@@ -28,9 +28,9 @@ struct LibraryPage: View {
                     }
                 }
             }
-            .navigationTitle("Library Popularity")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Library Popularity")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

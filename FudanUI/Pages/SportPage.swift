@@ -57,8 +57,6 @@ struct SportPage: View {
                     }
                 }
             }
-            .navigationTitle("PE Curriculum")
-            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showExerciseSheet) {
                 NavigationStack {
                     Form {
@@ -114,6 +112,8 @@ struct SportPage: View {
                 }
             }
         }
+        .navigationTitle("PE Curriculum")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

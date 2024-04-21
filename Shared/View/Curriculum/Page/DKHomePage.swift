@@ -26,6 +26,7 @@ struct DKHomePage: View {
                     .eraseToAnyView()
             }
         }, failureView: nil)
+        .navigationTitle("Curriculum Board")
     }
 }
 
@@ -63,7 +64,6 @@ fileprivate struct HomePageContent: View {
         }
         .listStyle(.plain)
         .searchable(text: $searchText)
-        .navigationTitle("Curriculum Board")
 #if !targetEnvironment(macCatalyst)
         .environment(\.openURL, OpenURLAction { url in
             openURL = url

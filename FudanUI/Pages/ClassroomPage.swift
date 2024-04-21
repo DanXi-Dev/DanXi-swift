@@ -196,9 +196,9 @@ fileprivate struct ScheduleDetailSheet: View {
                     }
                 }
             }
-            .navigationTitle("Course Detail")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Course Detail")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

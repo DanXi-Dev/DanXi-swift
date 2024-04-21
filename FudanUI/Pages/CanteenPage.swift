@@ -18,9 +18,9 @@ struct CanteenPage: View {
                 .headerProminence(.increased)
             }
             .listStyle(SidebarListStyle()) // support fold section
-            .navigationTitle("Canteen Popularity")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Canteen Popularity")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

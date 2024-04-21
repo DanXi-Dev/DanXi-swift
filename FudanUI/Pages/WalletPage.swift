@@ -18,6 +18,8 @@ struct WalletPage: View {
         } content: { balance, history in
             ECardPageContent(balance: balance, history: history)
         }
+        .navigationTitle("ECard Information")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -53,8 +55,6 @@ private struct ECardPageContent: View {
                 }
             }
         }
-        .navigationTitle("ECard Information")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -131,6 +131,8 @@ struct NotificationSettingWrapper: View {
         } content: { (userInfo: DXUser, authorizationStatus: UNAuthorizationStatus) in
             NotificationSetting(userInfo, authorizationStatus)
         }
+        .navigationTitle("Push Notification Settings")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -228,8 +230,6 @@ fileprivate struct NotificationSetting: View {
         }
         .alert("Update Notification Config Failed", isPresented: $showAlert) {}
         .labelStyle(.titleOnly)
-        .navigationTitle("Push Notification Settings")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

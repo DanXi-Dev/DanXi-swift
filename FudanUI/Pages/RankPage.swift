@@ -45,8 +45,6 @@ struct RankPage: View {
                 }
                 
             }
-            .navigationTitle("GPA Rank")
-            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showSheet) {
                 NavigationStack {
                     Form {
@@ -70,6 +68,8 @@ struct RankPage: View {
                 }
             }
         }
+        .navigationTitle("GPA Rank")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -10,6 +10,8 @@ struct BusPage: View {
         } content: { model in
             BusPageContent(model)
         }
+        .navigationTitle("Bus Schedule")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -100,8 +102,6 @@ fileprivate struct BusPageContent: View {
             }
             .environmentObject(model)
         }
-        .navigationTitle("Bus Schedule")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
