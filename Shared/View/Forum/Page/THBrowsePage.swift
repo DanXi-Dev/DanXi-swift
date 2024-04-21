@@ -7,7 +7,6 @@ struct THBrowsePage: View {
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var mainAppModel: AppModel
-    @State private var showNotificationPage = false
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -72,10 +71,6 @@ struct THBrowsePage: View {
         .onReceive(ConfigurationCenter.bannerPublisher) { banner in
             appModel.banners = banner
         }
-        .onReceive(AppModel.notificationPublisher) { content in
-            showNotificationPage = true
-        }
-        .navigationDestination(isPresented: $showNotificationPage, destination: { THNotificationPage() })
         .screenshotAlert()
         .onAppear {
             withAnimation {

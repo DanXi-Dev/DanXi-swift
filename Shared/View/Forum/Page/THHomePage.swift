@@ -5,6 +5,7 @@ import BetterSafariView
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
     @ObservedObject private var forumModel = THModel.shared
+    @EnvironmentObject private var navigator: AppNavigator
     @State private var openURL: URL? = nil
     
     var body: some View {
@@ -13,6 +14,9 @@ struct THHomePage: View {
             try await forumModel.loadAll()
         } content: {
             THBrowseWrapper()
+        }
+        .onReceive(AppModel.notificationPublisher) { _ in
+            navigator.pushContent(value: ForumSection.notifications)
         }
         .navigationTitle("Forum")
         #if !targetEnvironment(macCatalyst)
