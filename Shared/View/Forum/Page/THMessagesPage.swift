@@ -37,11 +37,11 @@ fileprivate struct NotificationContent: View {
                             THNotificationView(message: message)
                         }
                     }
+#if targetEnvironment(macCatalyst)
+                    .listRowBackground(Color.clear)
+#endif
                 }
                 .listStyle(.inset)
-#if targetEnvironment(macCatalyst)
-                .listRowBackground(Color.clear)
-#endif
             }
         }
     }
