@@ -11,75 +11,44 @@ struct THModeratePage: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            List(selection: $model.selectedItems) {
-                Section {
-                    Picker(selection: $filter, label: Text("Picker")) {
-                        Text("Sensitive.Open").tag(FilterOption.open)
-                        Text("Sensitive.Closed").tag(FilterOption.closed)
-                    }
-                    .pickerStyle(.segmented)
-                    .listRowSeparator(.hidden)
+        List(selection: $model.selectedItems) {
+            Section {
+                Picker(selection: $filter, label: Text("Picker")) {
+                    Text("Sensitive.Open").tag(FilterOption.open)
+                    Text("Sensitive.Closed").tag(FilterOption.closed)
                 }
-                
-                Section {
-                    if filter == .closed {
-                        AsyncCollection { items in
-                            return try await THRequests.listSensitive(startTime: items.last?.createTime.ISO8601Format(), open: false)
-                        } content: { item in
-                            SensitiveContentView(item: item)
-                        }
-                    } else {
-                        AsyncCollection(model.items,
-                                        endReached: model.endReached,
-                                        action: model.loadMore) { item in
-                            SensitiveContentView(item: item)
-                                .tag(item)
-                        }
-                    }
-                }
+                .pickerStyle(.segmented)
+                .listRowSeparator(.hidden)
             }
-            .listStyle(.inset)
-            .navigationTitle("Moderate")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                if filter == .open {
-                    EditButton()
-                }
-            }
-            .watermark()
             
-            HStack(spacing: 40) {
-                if !model.selectedItems.isEmpty {
-                    AsyncButton {
-                        await model.setSelected(sensitive: false)
-                        editMode?.wrappedValue = .inactive
-                    } label: {
-                        Label("正常", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .font(.title2)
-                            .fontWeight(.black)
+            Section {
+                if filter == .closed {
+                    AsyncCollection { items in
+                        return try await THRequests.listSensitive(startTime: items.last?.createTime.ISO8601Format(), open: false)
+                    } content: { item in
+                        SensitiveContentView(item: item)
                     }
-                    
-                    AsyncButton {
-                        await model.setSelected(sensitive: true)
-                        editMode?.wrappedValue = .inactive
-                    } label: {
-                        Label("敏感", systemImage: "xmark.circle.fill")
-                            .foregroundStyle(.red)
-                            .font(.title2)
-                            .fontWeight(.black)
+                } else {
+                    AsyncCollection(model.items,
+                                    endReached: model.endReached,
+                                    action: model.loadMore) { item in
+                        SensitiveContentView(item: item)
+                            .tag(item)
                     }
                 }
             }
-            .padding(.init(top: 0, leading: 0, bottom: 45, trailing: 30))
-            .font(.largeTitle)
+            .environmentObject(model)
         }
+        .listStyle(.inset)
+        .navigationTitle("Moderate")
+        .navigationBarTitleDisplayMode(.inline)
+        .watermark()
     }
 }
 
 
 fileprivate struct SensitiveContentView: View {
+    @EnvironmentObject var model: THModerateModel
     let item: THSensitiveEntry
     
     var body: some View {
@@ -93,9 +62,6 @@ fileprivate struct SensitiveContentView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundStyle(.green)
                     }
-                } else {
-                    Image(systemName: "questionmark.circle.fill")
-                        .foregroundStyle(.secondary)
                 }
                 VStack(alignment: .leading) {
                     Text(item.content)
@@ -108,6 +74,37 @@ fileprivate struct SensitiveContentView: View {
                     .font(.caption)
                 }
             }
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button("Sensitive", role: .destructive) {
+                Task {
+                    prepareHaptic()
+                    do {
+                        try await THRequests.setSensitive(id: item.id, sensitive: true)
+                        haptic(.success)
+                        model.items.removeAll(where: { $0.id == item.id })
+                    } catch {
+                        haptic(.error)
+                        model.objectWillChange.send() // Cause item to reappear
+                    }
+                }
+            }
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+            Button("Normal", role: .destructive) {
+                Task {
+                    prepareHaptic()
+                    do {
+                        try await THRequests.setSensitive(id: item.id, sensitive: false)
+                        haptic(.success)
+                        model.items.removeAll(where: { $0.id == item.id })
+                    } catch {
+                        haptic(.error)
+                        model.objectWillChange.send() // Cause item to reappear
+                    }
+                }
+            }
+            .tint(.green)
         }
     }
 }
@@ -125,30 +122,6 @@ class THModerateModel: ObservableObject {
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
         items += inserteditems
         endReached = inserteditems.isEmpty
-    }
-    
-    func removeSelected() {
-        let ids = selectedItems.map(\.id)
-        withAnimation {
-            items = items.filter { !ids.contains($0.id) }
-        }
-    }
-    
-    func setSelected(sensitive: Bool) async {
-        let ids = selectedItems.map(\.id)
-        var successIds: [Int] = []
-        for id in ids {
-            do {
-                try await THRequests.setSensitive(id: id, sensitive: sensitive)
-                successIds.append(id)
-            } catch {
-                // print(error)
-            }
-        }
-        
-        withAnimation {
-            items = items.filter { !successIds.contains($0.id) }
-        }
     }
 }
 

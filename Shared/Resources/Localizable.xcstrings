@@ -3711,6 +3711,16 @@
         }
       }
     },
+    "Normal" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正常"
+          }
+        }
+      }
+    },
     "Not Dealt" : {
       "localizations" : {
         "zh-Hans" : {
@@ -4920,6 +4930,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在发送回复..."
+          }
+        }
+      }
+    },
+    "Sensitive" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感"
           }
         }
       }
@@ -6214,9 +6234,6 @@
         }
       }
     },
-    "敏感" : {
-
-    },
     "新闻学院" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6238,9 +6255,6 @@
           }
         }
       }
-    },
-    "正常" : {
-
     },
     "江湾校区" : {
       "extractionState" : "stale",
