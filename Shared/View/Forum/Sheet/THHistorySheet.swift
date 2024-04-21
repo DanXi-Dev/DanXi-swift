@@ -56,6 +56,11 @@ struct THHistorySheetItem: View {
                     .foregroundColor(.secondary)
                     .font(.caption)
             }
+            if let sd = history.sensitiveDetail {
+                Text("Sensitive Reason: \(sd)")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            }
             
             CustomMarkdown(history.content)
                 .foregroundColor(.primary)

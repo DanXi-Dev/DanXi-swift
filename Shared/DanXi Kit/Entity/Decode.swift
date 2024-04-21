@@ -190,6 +190,7 @@ extension THHistory {
         case userId = "user_id"
         case createTime = "time_created"
         case updateTime = "time_updated"
+        case sensitiveDetail = "sensitive_detail"
     }
     
     init(from decoder: Decoder) throws {
@@ -201,6 +202,7 @@ extension THHistory {
         reason = try values.decode(String.self, forKey: .reason)
         createTime = try decodeDate(values, key: .createTime)
         updateTime = try decodeDate(values, key: .updateTime)
+        sensitiveDetail = try values.decodeIfPresent(String.self, forKey: .sensitiveDetail)
     }
 }
 

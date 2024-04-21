@@ -123,6 +123,7 @@ struct THHistory: Hashable, Codable, Identifiable {
     let content: String
     let reason: String
     let createTime, updateTime: Date
+    let sensitiveDetail: String?
 }
 
 struct THReport: Hashable, Codable, Identifiable {

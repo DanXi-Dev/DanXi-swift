@@ -4971,6 +4971,16 @@
         }
       }
     },
+    "Sensitive Reason: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感原因：%@"
+          }
+        }
+      }
+    },
     "Sensitive.Closed" : {
       "localizations" : {
         "en" : {
