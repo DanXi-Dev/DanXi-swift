@@ -7,10 +7,7 @@ struct THBrowsePage: View {
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var mainAppModel: AppModel
-    @State private var showScreenshotAlert = false
     @State private var showNotificationPage = false
-    
-    private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -79,14 +76,7 @@ struct THBrowsePage: View {
             showNotificationPage = true
         }
         .navigationDestination(isPresented: $showNotificationPage, destination: { THNotificationPage() })
-        .onReceive(screenshotPublisher) { _ in
-            if settings.screenshotAlert && mainAppModel.screen == .forum {
-                showScreenshotAlert = true
-            }
-        }
-        .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {} message: {
-            Text("Screenshot Alert Content")
-        }
+        .screenshotAlert()
         .onAppear {
             withAnimation {
                 appModel.banners = ConfigurationCenter.configuration.banners

@@ -17,6 +17,9 @@
     "Loading Failed" : {
 
     },
+    "OK" : {
+
+    },
     "Photo" : {
       "localizations" : {
         "zh-Hans" : {
@@ -39,6 +42,12 @@
           }
         }
       }
+    },
+    "Screenshot Alert Content" : {
+
+    },
+    "Screenshot Detected" : {
+
     }
   },
   "version" : "1.0"

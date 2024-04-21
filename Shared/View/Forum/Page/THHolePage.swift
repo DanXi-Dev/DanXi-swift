@@ -5,9 +5,6 @@ import ViewUtils
 struct THHolePage: View {
     @ObservedObject private var settings = THSettings.shared
     @StateObject private var model: THHoleModel
-    @State private var showScreenshotAlert = false
-    
-    private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     init(_ hole: THHole) {
         self._model = StateObject(wrappedValue: THHoleModel(hole: hole, floors: hole.floors, loadMore: true))
@@ -69,14 +66,7 @@ struct THHolePage: View {
                         THModel.shared.appendHistory(hole: model.hole)
                     } catch {}
                 }
-                .onReceive(screenshotPublisher) { _ in
-                    if settings.screenshotAlert {
-                        showScreenshotAlert = true
-                    }
-                }
-                .alert("Screenshot Detected", isPresented: $showScreenshotAlert) {} message: {
-                    Text("Screenshot Alert Content")
-                }
+                .screenshotAlert()
                 .environmentObject(model)
             }
             

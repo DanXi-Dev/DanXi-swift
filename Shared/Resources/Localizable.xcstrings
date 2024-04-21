@@ -3149,6 +3149,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "kWh" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3839,7 +3842,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "确认"
+            "value" : "好"
           }
         }
       }
@@ -4633,22 +4636,24 @@
       }
     },
     "Screenshot Alert Content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), please do not share screenshots with non-FDUHole users. Thank you for your cooperation."
+            "value" : "According to the community guidelines, please do not share screenshots with non-FDUHole users. Thank you for your cooperation."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，请勿将截图分享给非本树洞用户，感谢您的配合。"
+            "state" : "needs_review",
+            "value" : "根据社区公约，请勿将截图分享给非本树洞用户，感谢您的配合。"
           }
         }
       }
     },
     "Screenshot Detected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
