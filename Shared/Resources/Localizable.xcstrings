@@ -3120,6 +3120,9 @@
         }
       }
     },
+    "Italic" : {
+
+    },
     "Join Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3228,6 +3231,12 @@
           }
         }
       }
+    },
+    "Link" : {
+
+    },
+    "List" : {
+
     },
     "Load Failed" : {
       "extractionState" : "stale",
@@ -3396,6 +3405,9 @@
           }
         }
       }
+    },
+    "Math" : {
+
     },
     "Mention" : {
       "extractionState" : "manual",
@@ -3839,6 +3851,9 @@
         }
       }
     },
+    "Numbered List" : {
+
+    },
     "OK" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4199,6 +4214,9 @@
           }
         }
       }
+    },
+    "Quote" : {
+
     },
     "Rank" : {
       "extractionState" : "stale",

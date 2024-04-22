@@ -55,31 +55,87 @@ struct THContentEditor: View {
         }
     }
     
+    func addToBeginningOfLine(_ newContent: String) {
+        let cursorPosition = selection?.lowerBound ?? content.endIndex
+        let lineBreak = content[..<(cursorPosition)].lastIndex(of: "\n")
+        guard let lineBreak else {
+            self.content.insert(contentsOf: newContent, at: content.startIndex)
+            return
+        }
+        let lineStart = content.index(after: lineBreak)
+        self.content.insert(contentsOf: newContent, at: lineStart)
+    }
+    
     private var toolbar: some View {
         HStack(alignment: .center, spacing: 16) {
-            Button(action: {
-                textfieldFocus = false
-                presentPhotoPicker = true
-            }, label: {
-                Label("Upload Image", systemImage: "photo")
-            })
-            .photosPicker(isPresented: $presentPhotoPicker, selection: $photo, matching: .images)
-            
-            Button {
-                showStickers = true
-            } label: {
-                Label("Stickers", systemImage: "smiley")
+            ScrollView(.horizontal) {
+                HStack(alignment: .center, spacing: 16) {
+                    Button(action: {
+                        textfieldFocus = false
+                        presentPhotoPicker = true
+                    }, label: {
+                        Label("Upload Image", systemImage: "photo")
+                    })
+                    .photosPicker(isPresented: $presentPhotoPicker, selection: $photo, matching: .images)
+                    
+                    Button {
+                        showStickers = true
+                    } label: {
+                        Label("Stickers", systemImage: "smiley")
+                    }
+                    
+                    Divider()
+                    
+                    Button {
+                        addMarkdownModifier(beginning: "**", end: "**")
+                    } label: {
+                        Label("Bold", systemImage: "bold")
+                    }
+                    
+                    Button {
+                        addMarkdownModifier(beginning: "_", end: "_")
+                    } label: {
+                        Label("Italic", systemImage: "italic")
+                    }
+                    
+                    Button {
+                        addMarkdownModifier(beginning: "`", end: "`")
+                    } label: {
+                        Label("Code", systemImage: "curlybraces")
+                    }
+                    
+                    Button {
+                        addMarkdownModifier(beginning: "$", end: "$")
+                    } label: {
+                        Label("Math", systemImage: "x.squareroot")
+                    }
+                    
+                    Button {
+                        addToBeginningOfLine("> ")
+                    } label: {
+                        Label("Quote", systemImage: "increase.quotelevel")
+                    }
+                    
+                    Button {
+                        addToBeginningOfLine("- ")
+                    } label: {
+                        Label("List", systemImage: "list.bullet")
+                    }
+                    
+                    Button {
+                        addToBeginningOfLine("1. ")
+                    } label: {
+                        Label("Numbered List", systemImage: "list.number")
+                    }
+                    
+                    Button {
+                        addMarkdownModifier(beginning: "[", end: "](https://)")
+                    } label: {
+                        Label("Link", systemImage: "link")
+                    }
+                }
             }
             
-            Divider()
-            
-            Button {
-                addMarkdownModifier(beginning: "**", end: "**")
-            } label: {
-                Label("Bold", systemImage: "bold")
-            }
-            
-            Spacer()
 #if !targetEnvironment(macCatalyst)
             Button {
                 textfieldFocus = false
