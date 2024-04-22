@@ -17,8 +17,12 @@ public struct CustomMarkdown: View {
             }
         }
         .text {
+            ForegroundColor(.primary)
             BackgroundColor(.clear)
             FontSize(UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
+        }
+        .link {
+            ForegroundColor(Color.link)
         }
     
     
