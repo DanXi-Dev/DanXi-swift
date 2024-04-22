@@ -1,10 +1,9 @@
 import Foundation
 import SwiftUI
 
-
 /// Pick a random color based on a name, used in tags & username color rendering.
-func randomColor(_ name: String) -> Color {
-    let randomColorList = [
+public func hashColorForTreehole(_ name: String) -> Color {
+    let hashColorList = [
         Color.red,
         Color.pink,
         Color.purple,
@@ -34,6 +33,23 @@ func randomColor(_ name: String) -> Color {
     for c in name.utf16 {
         sum += Int(c)
     }
-    sum %= randomColorList.count
-    return randomColorList[sum]
+    sum %= hashColorList.count
+    return hashColorList[sum]
+}
+
+public func hashColorForCalendar(_ name: String) -> Color {
+    let hashColorList = [
+        Color.red,
+        Color.pink,
+        Color.purple,
+        Color.blue,
+        Color.cyan,
+        Color.teal,
+        Color.green,
+        Color.orange,
+        Color.brown,
+    ]
+    
+    let hash = name.hash % hashColorList.count
+    return hashColorList[hash]
 }

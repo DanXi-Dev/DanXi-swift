@@ -1,5 +1,6 @@
 import SwiftUI
 import FudanKit
+import ViewUtils
 
 // MARK: Courses
 
@@ -11,29 +12,8 @@ struct CourseView: View {
     @ScaledMetric private var titleSize = 15
     @ScaledMetric private var subtitleSize = 10
     
-    func randomColor(_ name: String) -> Color {
-        let randomColorList = [
-            Color.red,
-            Color.pink,
-            Color.purple,
-            Color.blue,
-            Color.cyan,
-            Color.teal,
-            Color.green,
-            Color.orange,
-            Color.brown,
-        ]
-        
-        var sum = 0
-        for c in name.utf16 {
-            sum += Int(c)
-        }
-        sum %= randomColorList.count
-        return randomColorList[sum]
-    }
-    
     var body: some View {
-        let color = randomColor(title)
+        let color = hashColorForCalendar(title)
         
         CalDimensionReader { dim in
             HStack {

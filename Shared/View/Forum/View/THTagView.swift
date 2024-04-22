@@ -8,13 +8,13 @@ struct THTagView: View {
     
     init(_ tag: THTag, deletable: Bool = false) {
         self.name = tag.name
-        self.color = randomColor(tag.name)
+        self.color = hashColorForTreehole(tag.name)
         self.deletable = deletable
     }
     
     init(_ name: String, color: Color? = nil, deletable: Bool = false) {
         self.name = name
-        self.color = color ?? randomColor(name)
+        self.color = color ?? hashColorForTreehole(name)
         self.deletable = deletable
     }
     

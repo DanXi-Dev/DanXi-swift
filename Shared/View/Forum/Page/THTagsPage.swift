@@ -24,7 +24,7 @@ struct THTagsPage: View {
                     ContentLink(value: tag) {
                         HStack {
                             Label(tag.name, systemImage: "tag")
-                                .foregroundColor(randomColor(tag.name))
+                                .foregroundColor(hashColorForTreehole(tag.name))
                             Label(String(tag.temperature), systemImage: "flame")
                                 .font(.footnote)
                                 .foregroundColor(.separator)

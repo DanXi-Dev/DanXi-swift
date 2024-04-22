@@ -56,7 +56,7 @@ struct THMentionView: View {
                 Image(systemName: "quote.closing")
                     .foregroundColor(.secondary)
             }
-            .foregroundColor(randomColor(mention.posterName))
+            .foregroundColor(hashColorForTreehole(mention.posterName))
                         
             Text(mention.content.inlineAttributed())
                 .foregroundColor(mention.deleted ? .secondary : .primary)

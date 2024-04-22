@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct THPosterView: View {
     let name: String
@@ -18,7 +19,7 @@ struct THPosterView: View {
                     .bold()
                     .foregroundColor(.white)
                     .padding(.horizontal, posterPadding)
-                    .background(randomColor(name))
+                    .background(hashColorForTreehole(name))
                     .cornerRadius(corner)
             }
             
@@ -26,12 +27,12 @@ struct THPosterView: View {
                 .font(.subheadline)
                 .bold()
         }
-        .foregroundColor(randomColor(name))
+        .foregroundColor(hashColorForTreehole(name))
         .padding(.leading, barPadding)
         .overlay(
             Rectangle()
                 .frame(width: barWidth, height: nil, alignment: .leading)
-                .foregroundColor(randomColor(name))
+                .foregroundColor(hashColorForTreehole(name))
                 .padding(.vertical, 1), alignment: .leading)
     }
 }
