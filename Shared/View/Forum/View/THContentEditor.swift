@@ -48,6 +48,10 @@ struct THContentEditor: View {
     
     func addMarkdownModifier(beginning: String, end: String) {
         if let selection {
+            guard selection.upperBound <= content.endIndex else {
+                content.append(beginning + end)
+                return
+            }
             let selectedContent = content[selection]
             content.replaceSubrange(selection, with: beginning + selectedContent + end)
         } else {
