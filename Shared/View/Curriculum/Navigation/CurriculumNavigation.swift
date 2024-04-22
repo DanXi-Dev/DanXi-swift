@@ -1,6 +1,7 @@
 import SwiftUI
 import ViewUtils
 import Utils
+import BetterSafariView
 
 struct CurriculumNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
@@ -26,6 +27,8 @@ struct CurriculumReviewItem: Hashable, Codable {
 struct CurriculumContent: View {
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
+    
+    @State private var openURL: URL? = nil
     
     func appendContent(value: any Hashable) {
         path.append(value)
@@ -56,6 +59,15 @@ struct CurriculumContent: View {
                 path.removeLast(path.count)
             }
         })
+#if !targetEnvironment(macCatalyst)
+        .environment(\.openURL, OpenURLAction { url in
+            openURL = url
+            return .handled
+        })
+        .safariView(item: $openURL) { link in
+            SafariView(url: link)
+        }
+#endif
     }
 }
 

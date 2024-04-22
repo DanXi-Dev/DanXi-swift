@@ -33,7 +33,6 @@ struct DKHomePage: View {
 fileprivate struct HomePageContent: View {
     let courses: [DKCourseGroup]
     @State private var searchText = ""
-    @State private var openURL: URL? = nil
     
     private var searchResults: [DKCourseGroup] {
         if searchText.isEmpty {
@@ -64,14 +63,5 @@ fileprivate struct HomePageContent: View {
         }
         .listStyle(.plain)
         .searchable(text: $searchText)
-#if !targetEnvironment(macCatalyst)
-        .environment(\.openURL, OpenURLAction { url in
-            openURL = url
-            return .handled
-        })
-        .safariView(item: $openURL) { link in
-            SafariView(url: link)
-        }
-#endif
     }
 }

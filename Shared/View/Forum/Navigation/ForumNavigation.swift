@@ -1,6 +1,7 @@
 import SwiftUI
 import ViewUtils
 import Utils
+import BetterSafariView
 
 struct ForumNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
@@ -31,6 +32,8 @@ struct ForumContent: View {
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
+    @State private var openURL: URL? = nil
+    
     func appendContent(value: any Hashable) {
         path.append(value)
     }
@@ -60,6 +63,15 @@ struct ForumContent: View {
                 path.removeLast(path.count)
             }
         })
+#if !targetEnvironment(macCatalyst)
+        .environment(\.openURL, OpenURLAction { url in
+            openURL = url
+            return .handled
+        })
+        .safariView(item: $openURL) { link in
+            SafariView(url: link)
+        }
+#endif
     }
 }
 
@@ -69,9 +81,9 @@ struct ForumDetail: View {
     
     func appendDetail(item: any Hashable, replace: Bool) {
         // FIXME: this code block should exist, but it will cause bug. I'll investigate it later.
-//        if replace {
-//            path.removeLast(path.count)
-//        }
+        //        if replace {
+        //            path.removeLast(path.count)
+        //        }
         path.append(item)
     }
     

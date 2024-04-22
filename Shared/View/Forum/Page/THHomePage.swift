@@ -1,12 +1,10 @@
 import SwiftUI
 import ViewUtils
-import BetterSafariView
 
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
     @ObservedObject private var forumModel = THModel.shared
     @EnvironmentObject private var navigator: AppNavigator
-    @State private var openURL: URL? = nil
     
     var body: some View {
         AsyncContentView(finished: forumModel.loaded, refreshable: false) { _ in
@@ -19,14 +17,5 @@ struct THHomePage: View {
             navigator.pushContent(value: ForumSection.notifications)
         }
         .navigationTitle("Forum")
-        #if !targetEnvironment(macCatalyst)
-        .environment(\.openURL, OpenURLAction { url in
-            openURL = url
-            return .handled
-        })
-        .safariView(item: $openURL) { link in
-            SafariView(url: link)
-        }
-        #endif
     }
 }
