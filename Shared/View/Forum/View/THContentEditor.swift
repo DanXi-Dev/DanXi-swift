@@ -139,6 +139,7 @@ struct THContentEditor: View {
                     }
                 }
             }
+            .scrollIndicators(.hidden)
             
 #if !targetEnvironment(macCatalyst)
             Button {
