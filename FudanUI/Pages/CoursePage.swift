@@ -89,9 +89,6 @@ fileprivate struct CalendarContent: View {
                 }
             }
         }
-        .refreshable {
-            await model.refresh(with: [:])
-        }
         .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
@@ -105,6 +102,7 @@ fileprivate struct CalendarContent: View {
         }
         .sheet(isPresented: $showExportSheet) {
             ExportSheet()
+                .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil) // FIXME: a hacky way to disable .refreshable for child
         }
         .listStyle(.inset)
         .alert("Error", isPresented: $showErrorAlert) {
