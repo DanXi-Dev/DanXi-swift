@@ -135,7 +135,6 @@ class THModel: ObservableObject {
     @Published var divisions: [THDivision] = []
     @Published var tags: [THTag] = []
     @Published var loaded = false
-    @Published var banners: [Banner] = []
     @Published var browseHistory: [THBrowseHistory] = []
     
     func loadAll() async throws {

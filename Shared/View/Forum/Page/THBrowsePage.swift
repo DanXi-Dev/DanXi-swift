@@ -7,6 +7,7 @@ struct THBrowsePage: View {
     @ObservedObject private var appModel = THModel.shared
     @EnvironmentObject private var model: THBrowseModel
     @EnvironmentObject private var mainAppModel: AppModel
+    @State private var banners: [Banner] = ConfigurationCenter.configuration.banners
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -18,10 +19,13 @@ struct THBrowsePage: View {
                     .listRowInsets(EdgeInsets(.all, 0))
                     .listRowBackground(Color.clear)
                 
-                if settings.showBanners && !appModel.banners.isEmpty {
+                if settings.showBanners && !banners.isEmpty {
                     Section {
-                        BannerCarousel(banners: appModel.banners)
+                        BannerCarousel(banners: banners)
                             .listRowInsets(EdgeInsets(.all, 0))
+                    }
+                    .onReceive(ConfigurationCenter.bannerPublisher) { banners in
+                        self.banners = banners
                     }
                 }
                 
@@ -68,15 +72,7 @@ struct THBrowsePage: View {
                     .environmentObject(model)
             }
         }
-        .onReceive(ConfigurationCenter.bannerPublisher) { banner in
-            appModel.banners = banner
-        }
         .screenshotAlert()
-        .onAppear {
-            withAnimation {
-                appModel.banners = ConfigurationCenter.configuration.banners
-            }
-        }
     }
 }
 
