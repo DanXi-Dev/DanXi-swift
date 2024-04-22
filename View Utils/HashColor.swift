@@ -50,6 +50,7 @@ public func hashColorForCalendar(_ name: String) -> Color {
         Color.brown,
     ]
     
-    let hash = name.hash % hashColorList.count
-    return hashColorList[hash]
+    let hash = name.hash
+    let idx = hash * hash.signum() % hashColorList.count
+    return hashColorList[idx]
 }
