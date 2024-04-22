@@ -18,6 +18,7 @@ public struct CustomMarkdown: View {
         }
         .text {
             BackgroundColor(.clear)
+            FontSize(UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
         }
     
     
