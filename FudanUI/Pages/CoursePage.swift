@@ -281,8 +281,7 @@ fileprivate struct ExportSheet: View {
                         Button {
                             dismiss()
                         } label: {
-                            Text("Done")
-                                .bold()
+                            Text("Cancel")
                         }
                     } else {
                         Button {
