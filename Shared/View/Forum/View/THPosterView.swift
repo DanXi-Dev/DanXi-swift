@@ -15,7 +15,6 @@ struct THPosterView: View {
             if isPoster {
                 Text(verbatim: "DZ")
                     .font(.footnote)
-                    .font(.footnote)
                     .bold()
                     .foregroundColor(.white)
                     .padding(.horizontal, posterPadding)
