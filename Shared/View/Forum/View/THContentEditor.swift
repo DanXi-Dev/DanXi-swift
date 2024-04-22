@@ -5,7 +5,7 @@ import ViewUtils
 struct THContentEditor: View {
     @Binding var content: String
     @State private var cursorPosition: Int = 0
-    @State private var selectOffset: Int = 0
+    @State private var selection: Range<String.Index>?
     @State private var presentPhotoPicker = false
     @State private var photo: PhotosPickerItem? = nil
     @State private var showUploadError = false
@@ -46,6 +46,15 @@ struct THContentEditor: View {
         }
     }
     
+    func addMarkdownModifier(beginning: String, end: String) {
+        if let selection {
+            let selectedContent = content[selection]
+            content.replaceSubrange(selection, with: beginning + selectedContent + end)
+        } else {
+            content.append(beginning + end)
+        }
+    }
+    
     private var toolbar: some View {
         HStack(alignment: .center, spacing: 16) {
             Button(action: {
@@ -60,6 +69,14 @@ struct THContentEditor: View {
                 showStickers = true
             } label: {
                 Label("Stickers", systemImage: "smiley")
+            }
+            
+            Divider()
+            
+            Button {
+                addMarkdownModifier(beginning: "**", end: "**")
+            } label: {
+                Label("Bold", systemImage: "bold")
             }
             
             Spacer()
@@ -110,7 +127,7 @@ struct THContentEditor: View {
                 toolbar
                     .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
 #endif
-                THTextEditor(text: $content, cursorPosition: $cursorPosition, selectOffset: $selectOffset, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
+                THTextEditor(text: $content, cursorPosition: $cursorPosition, selection: $selection, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
                     Divider()
                     toolbar
                         .padding(.horizontal)

@@ -821,6 +821,9 @@
         }
       }
     },
+    "Bold" : {
+
+    },
     "Building" : {
       "extractionState" : "stale",
       "localizations" : {

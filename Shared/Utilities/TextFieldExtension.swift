@@ -84,7 +84,7 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
 struct THTextEditor<Toolbar: View>: View {
     @Binding var text: String
     @Binding var cursorPosition: Int
-    @Binding var selectOffset: Int
+    @Binding var selection: Range<String.Index>?
     let placeholder: String?
     let minHeight: CGFloat
     let uploadImageAction: (Data?) async throws -> Void
@@ -97,7 +97,7 @@ struct THTextEditor<Toolbar: View>: View {
                            uploadImageAction: uploadImageAction,
                            text: $text,
                            cursorPosition: $cursorPosition,
-                           selectOffset: $selectOffset,
+                           selection: $selection,
                            toolbar: toolbar)
             .frame(height: height ?? minHeight)
     }
@@ -116,11 +116,11 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     let uploadImageAction: (Data?) async throws -> Void
     @Binding var text: String
     @Binding var cursorPosition: Int
-    @Binding var selectOffset: Int
+    @Binding var selection: Range<String.Index>?
     @ViewBuilder let toolbar: () -> Toolbar
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, cursorPosition: $cursorPosition, selectOffset: $selectOffset, placeholder: placeholder, textDidChange: textDidChange, parent: self)
+        return Coordinator(text: $text, cursorPosition: $cursorPosition, selection: $selection, placeholder: placeholder, textDidChange: textDidChange, parent: self)
     }
     
     class TextViewWithImagePasting: UITextView {
@@ -189,15 +189,15 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     class Coordinator: NSObject, UITextViewDelegate {
         @Binding var text: String
         @Binding var cursorPosition: Int
-        @Binding var selectOffset: Int
+        @Binding var selection: Range<String.Index>?
         let placeholder: String
         let textDidChange: (UITextView) -> Void
         let parent: THTextEditorUIView
         
-        init(text: Binding<String>, cursorPosition: Binding<Int>, selectOffset: Binding<Int>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
+        init(text: Binding<String>, cursorPosition: Binding<Int>, selection: Binding<Range<String.Index>?>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
             self._text = text
             self._cursorPosition = cursorPosition
-            self._selectOffset = selectOffset
+            self._selection = selection
             self.placeholder = placeholder
             self.textDidChange = textDidChange
             self.parent = parent
@@ -271,21 +271,12 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         }
         
         func textViewDidChangeSelection(_ textView: UITextView) {
+            self.selection = Range(textView.selectedRange, in: textView.text)
             if let selectedRange = textView.selectedTextRange {
                 let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
-                let selectOffset = textView.offset(from: selectedRange.start, to: selectedRange.end)
                 self.cursorPosition = cursorPosition
-                self.selectOffset = selectOffset
             }
         }
-        
-//        func textCursorDidChange(_ textView: UITextView) {
-//            print("I love SwiftUI Cursor")
-//            if let selectedRange = textView.selectedTextRange {
-//                let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
-//                self.cursorPosition = cursorPosition
-//            }
-//        }
 
         func textViewDidEndEditing(_ textView: UITextView) {
             // Add placeholder text if the user ends editing with an empty field
