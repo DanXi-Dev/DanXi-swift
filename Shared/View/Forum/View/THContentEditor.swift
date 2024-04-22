@@ -33,7 +33,7 @@ struct THContentEditor: View {
         
         let taskID = UUID().uuidString
         
-        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.endIndex
+        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.startIndex
         
         content.insert(contentsOf: "![Uploading \(taskID)]", at: cursorPosition)
         do {
@@ -60,7 +60,7 @@ struct THContentEditor: View {
     }
     
     func addToBeginningOfLine(_ newContent: String) {
-        let cursorPosition = selection?.lowerBound ?? content.endIndex
+        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.startIndex
         let lineBreak = content[..<(cursorPosition)].lastIndex(of: "\n")
         guard let lineBreak else {
             self.content.insert(contentsOf: newContent, at: content.startIndex)
