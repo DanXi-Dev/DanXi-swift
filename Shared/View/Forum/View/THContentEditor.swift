@@ -32,10 +32,7 @@ struct THContentEditor: View {
         defer { runningImageUploadTasks -= 1 }
         
         let taskID = UUID().uuidString
-        
-        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.startIndex
-        
-        content.insert(contentsOf: "![Uploading \(taskID)]", at: cursorPosition)
+        addAtCursorPosition("![Uploading \(taskID)]")
         do {
             let imageURL = try await THRequests.uploadImage(imageData)
             content.replace("![Uploading \(taskID)]", with: "![](\(imageURL.absoluteString))")
@@ -44,6 +41,11 @@ struct THContentEditor: View {
             uploadError = error.localizedDescription
             showUploadError = true
         }
+    }
+    
+    func addAtCursorPosition(_ newContent: String) {
+        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.startIndex
+        content.insert(contentsOf: newContent, at: cursorPosition)
     }
     
     func addMarkdownModifier(beginning: String, end: String) {
@@ -219,7 +221,7 @@ struct THContentEditor: View {
                                         GridItem(.flexible())]) {
                         ForEach(THSticker.allCases, id: \.self.rawValue) { sticker in
                             Button {
-                                content += " ![](\(sticker.rawValue))"
+                                addAtCursorPosition("![](\(sticker.rawValue))")
                                 showStickers = false
                             } label: {
                                 sticker.image
