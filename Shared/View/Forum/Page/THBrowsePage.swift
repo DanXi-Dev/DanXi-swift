@@ -338,7 +338,7 @@ private struct BannerView: View {
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
             Image(systemName: "bell.fill")
-                .foregroundStyle(Color(hexadecimal6: 0xF9A647))
+                .foregroundColor(.accentColor)
             Text(banner.title)
                 .multilineTextAlignment(.leading)
                 .lineLimit(3)
