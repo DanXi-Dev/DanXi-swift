@@ -14,12 +14,14 @@ public struct CustomMarkdown: View {
                 LaTeX(plaintext)
             } else {
                 blockConfiguration.label
+                    .relativeLineSpacing(.em(0.28))
             }
         }
         .text {
             ForegroundColor(.primary)
             BackgroundColor(.clear)
-            FontSize(UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
+            FontSize(UIFont.preferredFont(forTextStyle: .callout).pointSize)
+        
         }
         .link {
             ForegroundColor(Color.link)

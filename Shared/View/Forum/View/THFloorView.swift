@@ -130,14 +130,12 @@ struct THComplexFloor: View {
     }
     
     private var bottomLine: some View {
-        HStack {
+        HStack(alignment: .bottom) {
             Text("\(String(floor.storey))F")
-                .font(.subheadline)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
             
             Text("(##\(String(floor.id)))")
-                .font(.caption2)
             
             Spacer()
             
@@ -151,9 +149,9 @@ struct THComplexFloor: View {
             
             Text(floor.createTime.autoFormatted())
         }
-        .font(.caption)
+        .font(.footnote)
         .foregroundColor(Color.secondary.opacity(0.7))
-        .padding(.top, 2.0)
+        .padding(.top, 0.8)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -343,6 +341,7 @@ enum THSticker: String, CaseIterable {
         case .twin: Image("Twin")
         }
     }
+    
 }
 
 struct ImageProviderWithSticker: InlineImageProvider {

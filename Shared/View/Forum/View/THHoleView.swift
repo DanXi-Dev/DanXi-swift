@@ -39,7 +39,7 @@ struct THHoleView: View {
         DetailLink(value: hole) {
             VStack(alignment: .leading) {
                 tags
-                    .padding(.bottom, 3)
+                    .padding(.bottom, 3.6)
                 holeContent
             }
         }
@@ -55,11 +55,13 @@ struct THHoleView: View {
             let firstFloorContent = hole.firstFloor.fold.isEmpty ? hole.firstFloor.content : hole.firstFloor.fold
             
             Text(firstFloorContent.inlineAttributed())
-                .font(.subheadline)
+                .font(.callout)
+                .relativeLineSpacing(.em(0.28))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
                 .padding(.leading, 3)
+                .padding(.trailing, 1)
             
             if hole.firstFloor.id != hole.lastFloor.id {
                 lastFloor
@@ -126,16 +128,16 @@ struct THHoleView: View {
     
     private var lastFloor: some View {
         HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 3) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("\(hole.lastFloor.posterName) replied \(hole.lastFloor.createTime.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
-                    .font(.custom("", size: 12))
+                    .font(.caption)
                     .fixedSize(horizontal: false, vertical: true)
                 
                 let lastFloorContent = hole.lastFloor.fold.isEmpty ? hole.lastFloor.content : hole.lastFloor.fold
                 
                 Text(lastFloorContent.inlineAttributed())
                     .lineLimit(1)
-                    .font(.custom("", size: 14))
+                    .font(.subheadline)
                     .fixedSize(horizontal: false, vertical: true)
                     .foregroundColor(.secondary)
             }
@@ -145,7 +147,7 @@ struct THHoleView: View {
         .padding(.leading, 8)
         .overlay(alignment: .leading) {
             Rectangle()
-                .frame(width: 3, height: nil)
+                .frame(width: 2.8, height: nil)
                 .padding(.top, 2)
                 .foregroundStyle(.secondary.opacity(0.5))
                 .tint(.primary)
