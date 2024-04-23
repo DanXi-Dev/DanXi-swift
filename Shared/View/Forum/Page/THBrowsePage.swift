@@ -250,7 +250,7 @@ private struct BannerCarousel: View {
     let banners: [Banner]
     @State private var showSheet = false
     @State private var currentBanner: Int = 0
-    @ScaledMetric private var containerHeight: CGFloat = 70
+    @ScaledMetric private var containerHeight: CGFloat = 54
     private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
     
     private func updateBanner() {
@@ -308,7 +308,6 @@ private struct BannerView: View {
     @Environment(\.openURL) private var openURL
     @EnvironmentObject private var navigator: AppNavigator
     @ScaledMetric private var height: CGFloat = 20
-    @ScaledMetric private var fontSize: CGFloat = 15
     
     init(banner: Banner, navigationTapCallback: (() -> Void)? = nil) {
         self.banner = banner
@@ -336,9 +335,9 @@ private struct BannerView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .firstTextBaseline) {
             Image(systemName: "bell.fill")
-                .foregroundColor(.accentColor)
+                .foregroundStyle(Color(hexadecimal6: 0xF9A647))
             Text(banner.title)
                 .multilineTextAlignment(.leading)
                 .lineLimit(3)
@@ -347,7 +346,7 @@ private struct BannerView: View {
                 actionButton(banner.action)
             }
         }
-        .font(.system(size: fontSize))
+        .font(.subheadline)
         .frame(height: height)
         .padding()
     }
