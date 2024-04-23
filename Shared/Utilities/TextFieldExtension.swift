@@ -271,10 +271,12 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         }
         
         func textViewDidChangeSelection(_ textView: UITextView) {
-            self.selection = Range(textView.selectedRange, in: textView.text)
             if let selectedRange = textView.selectedTextRange {
-                let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
-                self.cursorPosition = cursorPosition
+                DispatchQueue.main.async { @MainActor [weak self] in
+                    self?.selection = Range(textView.selectedRange, in: textView.text)
+                    let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
+                    self?.cursorPosition = cursorPosition
+                }
             }
         }
 
