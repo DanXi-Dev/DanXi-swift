@@ -283,6 +283,7 @@ private struct BannerCarousel: View {
                         BannerView(banner: banner) {
                             showSheet = false // dismiss sheet when navigate to a hole page
                         }
+                        .listRowInsets(.init(top: 0, leading: 2, bottom: 0, trailing: 2))
                     }
                 }
                 .toolbar {
