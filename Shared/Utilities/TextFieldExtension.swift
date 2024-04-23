@@ -178,6 +178,9 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
             textView.text = text
             textView.textColor = .label
         }
+        if let selection {
+            textView.selectedRange = NSRange(selection, in: textView.text)
+        }
         DispatchQueue.main.async {
             self.textDidChange(textView)
         }

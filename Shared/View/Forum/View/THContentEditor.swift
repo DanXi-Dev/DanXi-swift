@@ -54,8 +54,14 @@ struct THContentEditor: View {
         if let selection, selection.upperBound <= content.endIndex {
             let selectedContent = content[selection]
             content.replaceSubrange(selection, with: beginning + selectedContent + end)
+            if selection.isEmpty {
+                let position = content.index(selection.lowerBound, offsetBy: beginning.count)
+                self.selection = position..<position
+            }
         } else {
             content.append(beginning + end)
+            let position = content.index(content.endIndex, offsetBy: -end.count)
+            self.selection = position..<position
         }
     }
     
