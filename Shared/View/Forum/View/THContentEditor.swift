@@ -4,7 +4,6 @@ import ViewUtils
 
 struct THContentEditor: View {
     @Binding var content: String
-    @State private var cursorPosition: Int = 0
     @State private var selection: Range<String.Index>?
     @State private var presentPhotoPicker = false
     @State private var photo: PhotosPickerItem? = nil
@@ -44,16 +43,15 @@ struct THContentEditor: View {
     }
     
     func addAtCursorPosition(_ newContent: String) {
-        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.startIndex
-        content.insert(contentsOf: newContent, at: cursorPosition)
+        if let selection, selection.upperBound <= content.endIndex {
+            content.insert(contentsOf: newContent, at: selection.lowerBound)
+        } else {
+            content.append(newContent)
+        }
     }
     
     func addMarkdownModifier(beginning: String, end: String) {
-        if let selection {
-            guard selection.upperBound <= content.endIndex else {
-                content.append(beginning + end)
-                return
-            }
+        if let selection, selection.upperBound <= content.endIndex {
             let selectedContent = content[selection]
             content.replaceSubrange(selection, with: beginning + selectedContent + end)
         } else {
@@ -62,14 +60,18 @@ struct THContentEditor: View {
     }
     
     func addToBeginningOfLine(_ newContent: String) {
-        let cursorPosition = content.index(content.startIndex, offsetBy: cursorPosition, limitedBy: content.endIndex) ?? content.startIndex
-        let lineBreak = content[..<(cursorPosition)].lastIndex(of: "\n")
-        guard let lineBreak else {
+        if let selection, selection.upperBound <= content.endIndex {
+            let cursorPosition = selection.lowerBound
+            let lineBreak = content[..<(cursorPosition)].lastIndex(of: "\n")
+            guard let lineBreak else {
+                self.content.insert(contentsOf: newContent, at: content.startIndex)
+                return
+            }
+            let lineStart = content.index(after: lineBreak)
+            self.content.insert(contentsOf: newContent, at: lineStart)
+        } else {
             self.content.insert(contentsOf: newContent, at: content.startIndex)
-            return
         }
-        let lineStart = content.index(after: lineBreak)
-        self.content.insert(contentsOf: newContent, at: lineStart)
     }
     
     private var toolbar: some View {
@@ -190,7 +192,7 @@ struct THContentEditor: View {
                 toolbar
                     .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
 #endif
-                THTextEditor(text: $content, cursorPosition: $cursorPosition, selection: $selection, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
+                THTextEditor(text: $content, selection: $selection, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
                     Divider()
                     toolbar
                         .padding(.horizontal)

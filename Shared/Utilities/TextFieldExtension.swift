@@ -83,25 +83,23 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
 /// This TextField is specifically designed as a Text Editor for Tree Hole
 struct THTextEditor<Toolbar: View>: View {
     @Binding var text: String
-    @Binding var cursorPosition: Int
     @Binding var selection: Range<String.Index>?
     let placeholder: String?
     let minHeight: CGFloat
     let uploadImageAction: (Data?) async throws -> Void
     @ViewBuilder let toolbar: () -> Toolbar
     @State private var height: CGFloat?
-
+    
     var body: some View {
-        THTextEditorUIView(placeholder: placeholder ?? "", 
+        THTextEditorUIView(placeholder: placeholder ?? "",
                            textDidChange: textDidChange,
                            uploadImageAction: uploadImageAction,
                            text: $text,
-                           cursorPosition: $cursorPosition,
                            selection: $selection,
                            toolbar: toolbar)
-            .frame(height: height ?? minHeight)
+        .frame(height: height ?? minHeight)
     }
-
+    
     private func textDidChange(_ textView: UITextView) {
         height = max(textView.contentSize.height, minHeight)
         DispatchQueue.main.async { IQKeyboardManager.shared.reloadLayoutIfNeeded() }
@@ -115,22 +113,21 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     let textDidChange: (UITextView) -> Void
     let uploadImageAction: (Data?) async throws -> Void
     @Binding var text: String
-    @Binding var cursorPosition: Int
     @Binding var selection: Range<String.Index>?
     @ViewBuilder let toolbar: () -> Toolbar
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, cursorPosition: $cursorPosition, selection: $selection, placeholder: placeholder, textDidChange: textDidChange, parent: self)
+        return Coordinator(text: $text, selection: $selection, placeholder: placeholder, textDidChange: textDidChange, parent: self)
     }
     
     class TextViewWithImagePasting: UITextView {
         let uploadImageAction: (Data?) async throws -> Void
-
+        
         init(uploadImageAction: @escaping (Data?) async throws -> Void) {
             self.uploadImageAction = uploadImageAction
             super.init(frame: .zero, textContainer: nil)
         }
-
+        
         @available(*, unavailable)
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
@@ -163,13 +160,13 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = .clear
         textView.allowsEditingTextAttributes = false
-
+        
         let toolbarHostingVC = UIHostingController(rootView: toolbar())
         toolbarHostingVC.sizingOptions = [.intrinsicContentSize]
         toolbarHostingVC.view.translatesAutoresizingMaskIntoConstraints = false
         toolbarHostingVC.view.backgroundColor = .tertiarySystemBackground
         textView.inputAccessoryView = toolbarHostingVC.view
-
+        
         return textView
     }
     
@@ -188,15 +185,13 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     
     class Coordinator: NSObject, UITextViewDelegate {
         @Binding var text: String
-        @Binding var cursorPosition: Int
         @Binding var selection: Range<String.Index>?
         let placeholder: String
         let textDidChange: (UITextView) -> Void
         let parent: THTextEditorUIView
         
-        init(text: Binding<String>, cursorPosition: Binding<Int>, selection: Binding<Range<String.Index>?>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
+        init(text: Binding<String>, selection: Binding<Range<String.Index>?>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
             self._text = text
-            self._cursorPosition = cursorPosition
             self._selection = selection
             self.placeholder = placeholder
             self.textDidChange = textDidChange
@@ -219,49 +214,49 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
             return nil
             
             // todo I'll do this later
-
-//            guard range.length > 0 else { return nil }
-//            
-//            var customActions: [UIMenuElement] = []
-//            
-//            if range.length > 0, let textRange = Range(range, in: textView.text) {
-//                let boldAction = UIAction(title: "Bold") { _ in
-//                    let selectedText = textView.text[textRange]
-//                    let boldedText = "**\(selectedText)**"
-//                    
-//                    let replacedText = textView.text.replacingCharacters(in: textRange, with: boldedText)
-//                    
-//                    textView.text = replacedText
-//                    self.parent.text = replacedText
-//                    
-//                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + boldedText.count)
-//                    if let newCursorPosition = newCursorPosition {
-//                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
-//                    }
-//                }
-//                
-//                let italicAction = UIAction(title: "Italic") { _ in
-//                    let selectedText = textView.text[textRange]
-//                    let italicText = "*\(selectedText)*"
-//                    
-//                    let replacedText = textView.text.replacingCharacters(in: textRange, with: italicText)
-//                    
-//                    textView.text = replacedText
-//                    self.parent.text = replacedText
-//                    
-//                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + italicText.count)
-//                    if let newCursorPosition = newCursorPosition {
-//                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
-//                    }
-//                }
-//                
-//                customActions.append(boldAction)
-//                customActions.append(italicAction)
-//            }
-//            
-//            return UIMenu(children: customActions + suggestedActions)
+            
+            //            guard range.length > 0 else { return nil }
+            //
+            //            var customActions: [UIMenuElement] = []
+            //
+            //            if range.length > 0, let textRange = Range(range, in: textView.text) {
+            //                let boldAction = UIAction(title: "Bold") { _ in
+            //                    let selectedText = textView.text[textRange]
+            //                    let boldedText = "**\(selectedText)**"
+            //
+            //                    let replacedText = textView.text.replacingCharacters(in: textRange, with: boldedText)
+            //
+            //                    textView.text = replacedText
+            //                    self.parent.text = replacedText
+            //
+            //                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + boldedText.count)
+            //                    if let newCursorPosition = newCursorPosition {
+            //                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
+            //                    }
+            //                }
+            //
+            //                let italicAction = UIAction(title: "Italic") { _ in
+            //                    let selectedText = textView.text[textRange]
+            //                    let italicText = "*\(selectedText)*"
+            //
+            //                    let replacedText = textView.text.replacingCharacters(in: textRange, with: italicText)
+            //
+            //                    textView.text = replacedText
+            //                    self.parent.text = replacedText
+            //
+            //                    let newCursorPosition = textView.position(from: textView.beginningOfDocument, offset: range.location + italicText.count)
+            //                    if let newCursorPosition = newCursorPosition {
+            //                        textView.selectedTextRange = textView.textRange(from: newCursorPosition, to: newCursorPosition)
+            //                    }
+            //                }
+            //
+            //                customActions.append(boldAction)
+            //                customActions.append(italicAction)
+            //            }
+            //
+            //            return UIMenu(children: customActions + suggestedActions)
         }
-
+        
         func textViewDidBeginEditing(_ textView: UITextView) {
             // Remove placeholder text when the user starts editing
             if textView.textColor == .placeholderText {
@@ -271,15 +266,11 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
         }
         
         func textViewDidChangeSelection(_ textView: UITextView) {
-            if let selectedRange = textView.selectedTextRange {
-                DispatchQueue.main.async { @MainActor [weak self] in
-                    self?.selection = Range(textView.selectedRange, in: textView.text)
-                    let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
-                    self?.cursorPosition = cursorPosition
-                }
+            DispatchQueue.main.async { @MainActor [weak self] in
+                self?.selection = Range(textView.selectedRange, in: textView.text)
             }
         }
-
+        
         func textViewDidEndEditing(_ textView: UITextView) {
             // Add placeholder text if the user ends editing with an empty field
             if textView.text.isEmpty {
