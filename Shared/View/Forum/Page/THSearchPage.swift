@@ -32,6 +32,9 @@ struct THSearchPage: View {
                     Label(tag.name, systemImage: "tag")
                 }
             }
+#if targetEnvironment(macCatalyst)
+            .listRowBackground(Color.clear)
+#endif
         }
         .onChange(of: model.navLoader) { loader in
             if let loader = loader {
@@ -57,17 +60,14 @@ struct THSearchPage: View {
         .font(.callout)
         .bold()
         .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
         
         ForEach(model.history, id: \.self) { history in
             Button {
                 model.searchText = history
             } label: {
-                Label {
-                    Text(history)
-                        .foregroundColor(.primary)
-                } icon: {
-                    Image(systemName: "clock")
-                }
+                Text(history)
+                    .foregroundColor(.primary)
             }
             .swipeActions {
                 Button(role: .destructive) {
@@ -77,6 +77,7 @@ struct THSearchPage: View {
                 }
             }
         }
+        .listRowBackground(Color.clear)
     }
 }
 

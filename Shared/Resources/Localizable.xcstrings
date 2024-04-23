@@ -4255,12 +4255,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "History"
+            "value" : "Recently Browsed"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "最近浏览"
           }
         }
@@ -4271,12 +4271,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "History"
+            "value" : "Recently Searched"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "最近搜索"
           }
         }
