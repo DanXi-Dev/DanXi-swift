@@ -64,24 +64,24 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
-#if targetEnvironment(macCatalyst)
+                #if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-#endif
+                #endif
                 
                 Section {
                     HStack {
                         TimeslotsSidebar()
                         ScrollView(.horizontal, showsIndicators: false) {
-                            VStack {
+                            VStack(spacing: 0) {
                                 DateHeader(model.weekStart)
                                 CalendarEvents()
                             }
                         }
                     }
                 }
-#if targetEnvironment(macCatalyst)
+                #if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-#endif
+                #endif
             }
             .onReceive(OnDoubleTapCalendarTabBarItem) {
                 withAnimation {
@@ -351,5 +351,11 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
         func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
             parent.dismiss()
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        CoursePage()
     }
 }

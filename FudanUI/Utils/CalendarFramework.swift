@@ -87,6 +87,7 @@ struct DateHeader: View {
                     .position(point)
                 }
             }
+            .frame(height: dim.y)
         }
     }
 }
@@ -228,4 +229,10 @@ struct CalendarConfig {
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
     static let h = ClassTimeSlot.list.count
+}
+
+#Preview {
+    HStack {
+        
+    }
 }

@@ -52,19 +52,16 @@ struct ClassroomPage: View {
                         })
                     })
                     if filteredClassrooms.count > 0 {
-                        CalDimensionReader { dim in
-                            HStack {
-                                TimeslotsSidebar()
-                                    .offset(x: 0, y: dim.dy / 2)
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    VStack(alignment: .leading) {
-                                        ClassroomHeader(classrooms: filteredClassrooms)
-                                        CalendarEvents(classrooms: filteredClassrooms)
-                                    }
+                        HStack(alignment: .top) {
+                            TimeslotsSidebar()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    ClassroomHeader(classrooms: filteredClassrooms)
+                                    CalendarEvents(classrooms: filteredClassrooms)
                                 }
                             }
                         }
-                        .environment(\.calDimension, CalDimension(dx: 80))
+                        .environment(\.calDimension, CalDimension(y: 80, dx: 80))
                     } else {
                         Text("No Data")
                     }
@@ -93,7 +90,7 @@ fileprivate struct ClassroomHeader: View {
             ZStack {
                 ForEach(Array(classrooms.enumerated()), id: \.offset) { i, classroom in
                     let point = CGPoint(x: dim.dx / 2 + CGFloat(i) * dim.dx,
-                                        y: dim.y)
+                                        y: dim.y / 2)
                     VStack(alignment: .center) {
                         Spacer()
                         Text(classroom.name)
@@ -103,11 +100,11 @@ fileprivate struct ClassroomHeader: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
-                    .frame(height: 2 * dim.y)
+                    .frame(height: dim.y)
                     .position(point)
                 }
             }
-            .frame(width: CGFloat(classrooms.count) * dim.dx, height: 2 * dim.y)
+            .frame(width: CGFloat(classrooms.count) * dim.dx, height: dim.y)
         }
     }
 }
