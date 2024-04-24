@@ -1,3 +1,4 @@
+import MarkdownUI
 import SwiftUI
 
 struct DKReviewView: View {
@@ -26,6 +27,7 @@ struct DKReviewView: View {
             Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                     .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 .multilineTextAlignment(.leading)
+                .relativeLineSpacing(.em(0.18))
                 .lineLimit(10)
 
             HStack {

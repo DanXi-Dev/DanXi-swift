@@ -1,3 +1,4 @@
+import MarkdownUI
 import SwiftUI
 
 struct DKReviewPage: View {
@@ -72,6 +73,7 @@ struct DKReviewPage: View {
                 
                 Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                         .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
+                    .relativeLineSpacing(.em(0.18))
                 
                 HStack {
                     likeButtons

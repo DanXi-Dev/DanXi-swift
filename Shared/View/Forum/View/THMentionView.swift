@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import MarkdownUI
 import ViewUtils
 
 // MARK: - Basic Mention View

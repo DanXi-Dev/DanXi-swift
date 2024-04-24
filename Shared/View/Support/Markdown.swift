@@ -1,6 +1,6 @@
 import SwiftUI
-import MarkdownUI
 import LaTeXSwiftUI
+import MarkdownUI
 import ViewUtils
 
 public struct CustomMarkdown: View {
@@ -14,7 +14,7 @@ public struct CustomMarkdown: View {
                 LaTeX(plaintext)
             } else {
                 blockConfiguration.label
-                    .relativeLineSpacing(.em(0.28))
+                    .relativeLineSpacing(.em(0.18))
             }
         }
         .text {
