@@ -130,7 +130,7 @@ struct THComplexFloor: View {
     }
     
     private var bottomLine: some View {
-        HStack(alignment: .bottom) {
+        HStack(alignment: .firstTextBaseline) {
             Text("\(String(floor.storey))F")
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
