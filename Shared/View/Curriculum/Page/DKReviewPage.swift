@@ -72,7 +72,7 @@ struct DKReviewPage: View {
                 DKRatingView(rank: review.rank)
                 
                 Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                        .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
+                    .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                     .relativeLineSpacing(.em(0.18))
                 
                 HStack {

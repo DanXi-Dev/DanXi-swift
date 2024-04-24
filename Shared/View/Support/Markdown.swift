@@ -1,6 +1,6 @@
-import SwiftUI
 import LaTeXSwiftUI
 import MarkdownUI
+import SwiftUI
 import ViewUtils
 
 public struct CustomMarkdown: View {
@@ -21,12 +21,10 @@ public struct CustomMarkdown: View {
             ForegroundColor(.primary)
             BackgroundColor(.clear)
             FontSize(UIFont.preferredFont(forTextStyle: .callout).pointSize)
-        
         }
         .link {
             ForegroundColor(Color.link)
         }
-    
     
     public init(_ content: String) {
         self.content = content

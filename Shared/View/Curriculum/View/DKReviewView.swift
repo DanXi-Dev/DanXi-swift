@@ -4,7 +4,7 @@ import SwiftUI
 struct DKReviewView: View {
     let review: DKReview
     let course: DKCourse
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
@@ -18,14 +18,14 @@ struct DKReviewView: View {
                 }
 
                 Spacer()
-                
+
                 Label("\(String(review.remark))", systemImage: "arrow.up")
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
 
             Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                    .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
+                .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 .multilineTextAlignment(.leading)
                 .relativeLineSpacing(.em(0.18))
                 .lineLimit(10)
