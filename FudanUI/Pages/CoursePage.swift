@@ -8,9 +8,7 @@ import EventKitUI
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
     
-    public init() {
-        
-    }
+    public init() { }
     
     public var body: some View {
         AsyncContentView { forceReload in
@@ -44,6 +42,8 @@ fileprivate struct CalendarContent: View {
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
     
+    @ScaledMetric var minWidth = CalendarConfig.dx * 7
+    
     var body: some View {
         ScrollViewReader { proxy in
             List {
@@ -71,10 +71,22 @@ fileprivate struct CalendarContent: View {
                 Section {
                     HStack {
                         TimeslotsSidebar()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            VStack(spacing: 0) {
-                                DateHeader(model.weekStart)
-                                CalendarEvents()
+                        
+                        ViewThatFits(in: .horizontal) {
+                            GeometryReader { geometry in
+                                VStack(alignment: .leading, spacing: 0) {
+                                    DateHeader(model.weekStart)
+                                    CalendarEvents()
+                                }
+                                .environment(\.calDimension, CalDimension(dx: geometry.size.width / 7))
+                            }
+                            .frame(minWidth: minWidth)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                VStack(spacing: 0) {
+                                    DateHeader(model.weekStart)
+                                    CalendarEvents()
+                                }
                             }
                         }
                     }
@@ -118,7 +130,7 @@ fileprivate struct CalendarEvents: View {
     @EnvironmentObject private var model: CourseModel
     @State private var selectedCourse: Course?
     
-    private let h = CalendarConfig.h
+    private let h = ClassTimeSlot.list.count
     @ScaledMetric private var courseTitle = 15
     @ScaledMetric private var courseLocation = 10
     
@@ -351,11 +363,5 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
         func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
             parent.dismiss()
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        CoursePage()
     }
 }

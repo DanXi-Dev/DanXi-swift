@@ -176,10 +176,10 @@ struct CalDimension {
     let dx: CGFloat
     let dy: CGFloat
     
-    init(x: CGFloat = 40,
-         y: CGFloat = 40,
-         dx: CGFloat = 60,
-         dy: CGFloat = 50) {
+    init(x: CGFloat = CalendarConfig.x,
+         y: CGFloat = CalendarConfig.y,
+         dx: CGFloat = CalendarConfig.dx,
+         dy: CGFloat = CalendarConfig.dy) {
         self.x = x
         self.y = y
         self.dx = dx
@@ -228,11 +228,4 @@ struct CalendarConfig {
     static let y: CGFloat = 40
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
-    static let h = ClassTimeSlot.list.count
-}
-
-#Preview {
-    HStack {
-        
-    }
 }

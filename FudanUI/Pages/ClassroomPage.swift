@@ -3,7 +3,6 @@ import ViewUtils
 import FudanKit
 
 struct ClassroomPage: View {
-    @ScaledMetric private var dy = CalendarConfig.dy
     @AppStorage("campus-building-selection") private var building: Building = .empty
     var vpnLogged = false
     @State private var searchText: String = ""
