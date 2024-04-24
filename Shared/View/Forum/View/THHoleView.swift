@@ -57,7 +57,7 @@ struct THHoleView: View {
             
             Text(firstFloorContent.inlineAttributed())
                 .font(.callout)
-                .relativeLineSpacing(.em(0.28))
+                .relativeLineSpacing(.em(0.18))
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(6)
