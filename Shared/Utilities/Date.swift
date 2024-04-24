@@ -2,15 +2,13 @@ import Foundation
 
 extension Date {
     func autoFormatted() -> String {
-        let calendar = Calendar.current
-        let now = Date()
-
-        if calendar.isDate(self, equalTo: now, toGranularity: .hour) {
-            return formatted(.relative(presentation: .named, unitsStyle: .wide))
-        } else if calendar.isDate(self, inSameDayAs: now) {
-            return formatted(date: .omitted, time: .shortened)
+        let now = Date.now
+        let oneWeekAgo = now.addingTimeInterval(-7 * 24 * 60 * 60)
+        
+        if self > oneWeekAgo {
+            return formatted(.relative(presentation: .named))
         } else {
-            return formatted(date: .numeric, time: .omitted)
+            return formatted(date: .abbreviated, time: .omitted)
         }
     }
 }
