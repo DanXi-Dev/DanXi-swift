@@ -78,14 +78,14 @@ fileprivate struct SensitiveContentView: View {
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button("Sensitive", role: .destructive) {
                 Task {
-                    prepareHaptic()
-                    do {
-                        try await THRequests.setSensitive(id: item.id, sensitive: true)
-                        haptic(.success)
-                        model.items.removeAll(where: { $0.id == item.id })
-                    } catch {
-                        haptic(.error)
-                        model.objectWillChange.send() // Cause item to reappear
+                    try await withHaptics {
+                        do {
+                            try await THRequests.setSensitive(id: item.id, sensitive: true)
+                            model.items.removeAll(where: { $0.id == item.id })
+                        } catch {
+                            model.objectWillChange.send() // Cause item to reappear
+                            throw error
+                        }
                     }
                 }
             }
@@ -93,14 +93,14 @@ fileprivate struct SensitiveContentView: View {
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             Button("Normal", role: .destructive) {
                 Task {
-                    prepareHaptic()
-                    do {
-                        try await THRequests.setSensitive(id: item.id, sensitive: false)
-                        haptic(.success)
-                        model.items.removeAll(where: { $0.id == item.id })
-                    } catch {
-                        haptic(.error)
-                        model.objectWillChange.send() // Cause item to reappear
+                    try await withHaptics {
+                        do {
+                            try await THRequests.setSensitive(id: item.id, sensitive: false)
+                            model.items.removeAll(where: { $0.id == item.id })
+                        } catch {
+                            model.objectWillChange.send() // Cause item to reappear
+                            throw error
+                        }
                     }
                 }
             }

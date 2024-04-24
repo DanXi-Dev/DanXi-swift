@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import ViewUtils
+import ViewUtils
 
 struct THHolePage: View {
     @ObservedObject private var settings = THSettings.shared
@@ -37,10 +38,8 @@ struct THHolePage: View {
                     }
                 }
                 .refreshable {
-                    do {
+                    try? await withHaptics(success: false) {
                         try await model.refreshAll()
-                    } catch {
-                        haptic(.error)
                     }
                 }
                 .environment(\.allImageURL, model.imageURLs)
@@ -186,12 +185,8 @@ private struct THHoleToolbar: View {
             }
             
             AsyncButton {
-                prepareHaptic()
-                do {
+                try await withHaptics {
                     try await model.loadAllFloors()
-                    haptic(.success)
-                } catch {
-                    haptic(.error)
                 }
             } label: {
                 Label("Navigate to Bottom", systemImage: "arrow.down.to.line")

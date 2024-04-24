@@ -185,12 +185,8 @@ private struct PreviewActions: View {
     var body: some View {
         Group {
             AsyncButton {
-                prepareHaptic()
-                do {
+                try await withHaptics {
                     try await appModel.toggleFavorite(hole.id)
-                    haptic(.success)
-                } catch {
-                    haptic(.error)
                 }
             } label: {
                 Group {
@@ -203,16 +199,12 @@ private struct PreviewActions: View {
             }
                 
             AsyncButton {
-                prepareHaptic()
-                do {
+                try await withHaptics {
                     if appModel.isSubscribed(hole.id) {
                         try await appModel.deleteSubscription(hole.id)
                     } else {
                         try await appModel.addSubscription(hole.id)
                     }
-                    haptic(.success)
-                } catch {
-                    haptic(.error)
                 }
             } label: {
                 if appModel.isSubscribed(hole.id) {

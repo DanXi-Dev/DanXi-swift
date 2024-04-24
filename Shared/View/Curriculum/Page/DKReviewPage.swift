@@ -1,5 +1,6 @@
 import MarkdownUI
 import SwiftUI
+import ViewUtils
 
 struct DKReviewPage: View {
     let course: DKCourse
@@ -13,14 +14,10 @@ struct DKReviewPage: View {
     
     @ViewBuilder private var likeButtons: some View {
         AsyncButton {
-            prepareHaptic()
-            do {
+            try await withHaptics {
                 let upvote = review.vote >= 0
                 self.review = try await DKRequests.voteReview(reviewId: review.id, upvote: upvote)
                 model.updateReview(self.review, forCourseId: course.id)
-                haptic(.success)
-            } catch {
-                haptic(.error)
             }
         } label: {
             Image(systemName: "arrow.up")
@@ -31,14 +28,10 @@ struct DKReviewPage: View {
         .tint(review.vote == 1 ? .accentColor : .secondarySystemBackground)
         
         AsyncButton {
-            prepareHaptic()
-            do {
+            try await withHaptics {
                 let upvote = review.vote <= 0
                 self.review = try await DKRequests.voteReview(reviewId: review.id, upvote: !upvote)
                 model.updateReview(self.review, forCourseId: course.id)
-                haptic(.success)
-            } catch {
-                haptic(.error)
             }
         } label: {
             Image(systemName: "arrow.down")

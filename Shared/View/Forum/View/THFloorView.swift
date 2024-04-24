@@ -417,12 +417,8 @@ private struct Actions: View {
         Group {
             let floor = model.floor
             AsyncButton {
-                prepareHaptic()
-                do {
+                try await withHaptics {
                     try await model.like()
-                    haptic(.success)
-                } catch {
-                    haptic(.error)
                 }
             } label: {
                 HStack(alignment: .center, spacing: 3) {
@@ -439,12 +435,8 @@ private struct Actions: View {
             Spacer()
             
             AsyncButton {
-                prepareHaptic()
-                do {
+                try await withHaptics {
                     try await model.dislike()
-                    haptic(.success)
-                } catch {
-                    haptic(.error)
                 }
             } label: {
                 HStack(alignment: .center, spacing: 3) {
