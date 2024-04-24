@@ -251,7 +251,7 @@ private struct BannerCarousel: View {
     @State private var showSheet = false
     @State private var currentBanner: Int = 0
     @ScaledMetric private var containerHeight: CGFloat = 54
-    private let timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
+    @State private var timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
     
     private func updateBanner() {
         withAnimation {
@@ -269,6 +269,11 @@ private struct BannerCarousel: View {
                         showSheet = true
                     }
             }
+        }
+        .onChange(of: currentBanner) { _ in
+            // reset timer after swipe
+            timer.upstream.connect().cancel()
+            timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: containerHeight)
