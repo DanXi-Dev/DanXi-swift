@@ -30,7 +30,11 @@ actor Authenticator {
         } else if token.access == CredentialStore.shared.token?.access {
             // no refreshing task is in place, create a new one
             let refreshTask = Task {
-                CredentialStore.shared.token = try await GeneralAPI.refreshToken()
+                if let token = try? await GeneralAPI.refreshToken() {
+                    CredentialStore.shared.token = token
+                } else {
+                    throw URLError(.userAuthenticationRequired)
+                }
             }
             self.refreshTask = refreshTask
             try await refreshTask.value

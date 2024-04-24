@@ -1,10 +1,10 @@
 import UIKit
 import UserNotifications
-import WatchConnectivity
 import CoreTelephony
 import Utils
+import DanXiUI
 
-class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNotificationCenterDelegate, ObservableObject {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, ObservableObject {
     // MARK: - App Delegate
     
     func application(
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                      didRegisterForRemoteNotificationsWithDeviceToken
                      deviceToken: Data) {
         if let deviceId = UIDevice.current.identifierForVendor {
-            DXModel.shared.receiveToken(deviceToken, deviceId)
+            NotificationManager.shared.receiveToken(deviceToken, deviceId)
         } else {
             // According to https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
             // > If the value is nil, wait and get the value again later. This happens, for example, after the device has been restarted but before the user has unlocked the device.
@@ -55,7 +55,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                 try await Task.sleep(for: .seconds(120))
                 // We shall only retry once. If it still fails, we'll simply ignore this
                 if let deviceId = UIDevice.current.identifierForVendor {
-                    DXModel.shared.receiveToken(deviceToken, deviceId)
+                    NotificationManager.shared.receiveToken(deviceToken, deviceId)
                 }
             }
         }
@@ -97,33 +97,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
         let content = notification?.request.content
         Task { @MainActor in
             AppEvents.notificationSettings.send(content)
-        }
-    }
-    
-    
-    // MARK: - Watch Connectivity
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    }
-    
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-    }
-    
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-    }
-    
-    func sessionDidBecomeInactive(_ session: WCSession) {
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-    }
-    
-    func sendString(text: String) {
-        let session = WCSession.default;
-        if (WCSession.isSupported()) {
-            DispatchQueue.main.async {
-                session.sendMessage(["token": text], replyHandler: nil)
-            }
         }
     }
 }

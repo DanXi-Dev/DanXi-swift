@@ -6,6 +6,7 @@ class FavoriteStore: ObservableObject {
     static let shared = FavoriteStore()
     
     @Published var favoritedIds: [Int]
+    var initialized = false
     
     init() {
         if let favoritedIds = try? Disk.retrieve("fduhole/favorites.json", from: .applicationSupport, as: [Int].self) {
@@ -28,6 +29,7 @@ class FavoriteStore: ObservableObject {
         let ids = try await ForumAPI.listFavoriteHoleIds()
         try Disk.save(ids, to: .applicationSupport, as: "fduhole/favorites.json")
         await set(favoritedIds: ids)
+        initialized = true
     }
     
     func toggleFavorite(_ id: Int) async throws {
@@ -38,6 +40,7 @@ class FavoriteStore: ObservableObject {
     
     func clear() async {
         await set(favoritedIds: [])
+        initialized = false
         try? Disk.remove("fduhole/favorites.json", from: .applicationSupport)
     }
 }

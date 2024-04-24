@@ -2,15 +2,21 @@ import SwiftUI
 import DanXiKit
 
 class FloorModel: ObservableObject {
-    init(floor: Floor) {
+    @MainActor
+    init(presentation: FloorPresentation) {
+        let floor = presentation.floor
         self.floor = floor
+        self.presentation = presentation
         self.liked = floor.liked
         self.disliked = floor.disliked
+        self.likeCount = floor.like
+        self.dislikeCount = floor.dislike
     }
     
     @Published var floor: Floor
+    @Published var presentation: FloorPresentation
     var shouldFold: Bool {
-        floor.deleted || floor.fold.isEmpty
+        floor.deleted || !floor.fold.isEmpty
     }
     var foldContent: String {
         floor.fold.isEmpty ? floor.content : floor.fold
@@ -19,7 +25,7 @@ class FloorModel: ObservableObject {
     @Published var highlighted = false
     
     func highlight() {
-        Task {
+        Task { @MainActor in
             withAnimation {
                 highlighted = true
             }
@@ -39,12 +45,16 @@ class FloorModel: ObservableObject {
     }
     
     @Published var liked: Bool
+    @Published var likeCount: Int
     @Published var disliked: Bool
+    @Published var dislikeCount: Int
     
     @MainActor
     private func updateLiked(floor: Floor) {
         self.liked = floor.liked
+        self.likeCount = floor.like
         self.disliked = floor.disliked
+        self.dislikeCount = floor.dislike
     }
     
     func like() async throws {

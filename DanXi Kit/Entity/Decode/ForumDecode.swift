@@ -87,6 +87,7 @@ extension Sensitive {
     enum CodingKeys: String, CodingKey {
         case id
         case holeId
+        case content
         case timeCreated
         case timeUpdated
         case deleted
@@ -99,6 +100,7 @@ extension Sensitive {
         
         id = try container.decode(Int.self, forKey: .id)
         holeId = try container.decode(Int.self, forKey: .holeId)
+        content = try container.decode(String.self, forKey: .content)
         timeCreated = try container.decode(Date.self, forKey: .timeCreated)
         timeUpdated = try container.decode(Date.self, forKey: .timeUpdated)
         deleted = try container.decode(Bool.self, forKey: .deleted)

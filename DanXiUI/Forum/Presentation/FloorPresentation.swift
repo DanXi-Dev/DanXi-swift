@@ -26,8 +26,17 @@ enum FloorSection {
     case text(MarkdownContent)
 }
 
+func convertInlineImages(content: String) -> String {
+    var modifiedContent = content
+    let pattern = /!\[[^\]]*\]\((?<filename>https?:\/\/.*?)(?=\"|\))(?<optionalpart>\".*\")?\)/
+    modifiedContent.replace(pattern) { match in
+        "\n\n\(content[match.range])\n\n"
+    }
+    return modifiedContent
+}
+
 func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) -> [FloorSection] {
-    var partialContent = content
+    var partialContent = convertInlineImages(content: content)
     var sections: [FloorSection] = []
     var count = 0
     
@@ -37,7 +46,7 @@ func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) ->
         if !previous.isEmpty {
             count += 1
             let markdown = MarkdownContent(previous)
-            sections.append(FloorSection.text(markdown))
+            sections.append(.text(markdown))
         }
         
         // match
@@ -50,8 +59,7 @@ func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) ->
                 count += 1
                 sections.append(.remoteMention(mention))
             }
-        } else {
-            let holeId = Int(match.id)
+        } else if let holeId = Int(match.id) { // hole match
             if let mention = mentions.filter({ $0.holeId == holeId }).first {
                 count += 1
                 sections.append(.remoteMention(mention))
@@ -62,6 +70,7 @@ func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) ->
         partialContent = String(partialContent[match.range.upperBound..<partialContent.endIndex])
     }
     
+    sections.append(.text(MarkdownContent(partialContent)))
     return sections
 }
 

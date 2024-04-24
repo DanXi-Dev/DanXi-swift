@@ -51,6 +51,7 @@
       }
     },
     "(##%@)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -61,6 +62,7 @@
       }
     },
     "##%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -71,6 +73,7 @@
       }
     },
     "#%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -81,6 +84,7 @@
       }
     },
     "#%lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -91,6 +95,7 @@
       }
     },
     "%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -101,6 +106,7 @@
       }
     },
     "%@ - %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -117,6 +123,7 @@
       }
     },
     "%@ - %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -150,6 +157,7 @@
       }
     },
     "%@ %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -177,6 +185,7 @@
       }
     },
     "%@ Credit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -187,6 +196,7 @@
       }
     },
     "%@ Fall Semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -208,6 +218,7 @@
       }
     },
     "%@ replied %@:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -229,6 +240,7 @@
       }
     },
     "%@ Spring Semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -239,6 +251,7 @@
       }
     },
     "%@ Summer Vacation" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -249,6 +262,7 @@
       }
     },
     "%@ Winter Vacation" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -259,6 +273,7 @@
       }
     },
     "%@: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -275,6 +290,7 @@
       }
     },
     "%@F" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -313,6 +329,7 @@
       }
     },
     "%lf" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -323,6 +340,7 @@
       }
     },
     "%lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -377,6 +395,7 @@
       }
     },
     "%lld Reviews" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -480,6 +499,7 @@
       }
     },
     "Account Info" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -511,6 +531,7 @@
       }
     },
     "Add Ban" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -521,6 +542,7 @@
       }
     },
     "Add Tag" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -543,6 +565,7 @@
       }
     },
     "Admin Actions" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -553,6 +576,7 @@
       }
     },
     "Admin Privilege" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -563,6 +587,7 @@
       }
     },
     "Administrative Info" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -584,6 +609,7 @@
       }
     },
     "All Banners" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -605,6 +631,7 @@
       }
     },
     "All Professors" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -621,6 +648,7 @@
       }
     },
     "All Replies" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -631,6 +659,7 @@
       }
     },
     "All Reports" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -642,6 +671,7 @@
     },
     "All Semesters" : {
       "comment" : "Semesters",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -652,6 +682,7 @@
       }
     },
     "All Tags" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -662,6 +693,7 @@
       }
     },
     "Answer all questions before submit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -672,6 +704,7 @@
       }
     },
     "Answer incorrect, please review and re-submit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -710,6 +743,7 @@
       }
     },
     "Average" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -737,6 +771,7 @@
       }
     },
     "Ban notice" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -758,6 +793,7 @@
       }
     },
     "Banned by admin" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -778,10 +814,8 @@
         }
       }
     },
-    "Base URL" : {
-
-    },
     "Batch Delete" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -803,6 +837,7 @@
       }
     },
     "Blocked Content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -813,6 +848,7 @@
       }
     },
     "Blocked Holes" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -823,6 +859,7 @@
       }
     },
     "Blocked Tags" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -831,9 +868,6 @@
           }
         }
       }
-    },
-    "Bold" : {
-
     },
     "Building" : {
       "extractionState" : "stale",
@@ -903,6 +937,7 @@
       }
     },
     "Campus" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -950,6 +985,7 @@
       }
     },
     "Cannot parse HTML response" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -960,6 +996,7 @@
       }
     },
     "Cannot parse JSON response" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -970,6 +1007,7 @@
       }
     },
     "Cannot parse server response" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1002,6 +1040,7 @@
       }
     },
     "Challenging" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1023,6 +1062,7 @@
       }
     },
     "Check email inbox for verification code, notice that it may be filtered by junk mail" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1044,6 +1084,7 @@
       }
     },
     "Clear Browse History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1054,6 +1095,7 @@
       }
     },
     "Clear Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1064,6 +1106,7 @@
       }
     },
     "Clear History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1073,10 +1116,8 @@
         }
       }
     },
-    "Code" : {
-
-    },
     "Confirm" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1087,6 +1128,7 @@
       }
     },
     "Confirm Delete Post" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1119,6 +1161,7 @@
       }
     },
     "Content to Delete" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1129,6 +1172,7 @@
       }
     },
     "Content to Report" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1187,6 +1231,7 @@
       }
     },
     "Copy Full Text" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1206,6 +1251,7 @@
 
     },
     "Course Assessment" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1244,6 +1290,7 @@
       }
     },
     "Course Content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1271,6 +1318,7 @@
       }
     },
     "Course Evaluation" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1293,6 +1341,7 @@
     },
     "Course Information" : {
       "comment" : "Course Detail",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1315,6 +1364,7 @@
     },
     "Course Review" : {
       "comment" : "Course",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1325,6 +1375,7 @@
       }
     },
     "Course Workload" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1341,6 +1392,7 @@
       }
     },
     "Credit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1383,6 +1435,7 @@
       }
     },
     "Curriculum Board" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1391,9 +1444,6 @@
           }
         }
       }
-    },
-    "Custom" : {
-
     },
     "Daily Spending" : {
       "extractionState" : "stale",
@@ -1409,9 +1459,6 @@
     "danke" : {
 
     },
-    "DanKe" : {
-
-    },
     "DanXi" : {
       "comment" : "Navigation",
       "localizations" : {
@@ -1424,6 +1471,7 @@
       }
     },
     "DanXi Account" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1434,6 +1482,7 @@
       }
     },
     "DanXi account is used to access community services such as Treehole and DanKe." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1476,6 +1525,7 @@
       }
     },
     "DanXi Qualification" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1486,6 +1536,7 @@
       }
     },
     "DanXi Question Prompt" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1572,6 +1623,7 @@
       }
     },
     "Dealt" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1582,6 +1634,7 @@
       }
     },
     "Dealt by %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1604,10 +1657,8 @@
     "Debug Base URL" : {
 
     },
-    "Debug HTTP Request" : {
-
-    },
     "Delete" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1618,6 +1669,7 @@
       }
     },
     "Delete Browse History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1639,6 +1691,7 @@
       }
     },
     "Delete Floor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1649,6 +1702,7 @@
       }
     },
     "Delete Post" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1659,6 +1713,7 @@
       }
     },
     "Delete Selected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1680,6 +1735,7 @@
       }
     },
     "Deleted" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1701,6 +1757,7 @@
       }
     },
     "Department" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1732,6 +1789,7 @@
       }
     },
     "Disabled" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1753,6 +1811,7 @@
       }
     },
     "Division Description" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1763,6 +1822,7 @@
       }
     },
     "Division Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1771,9 +1831,6 @@
           }
         }
       }
-    },
-    "Division Selector" : {
-
     },
     "DK Detail 1" : {
       "extractionState" : "manual",
@@ -1879,6 +1936,7 @@
       }
     },
     "Don't Show This Hole" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1895,6 +1953,7 @@
       }
     },
     "Done" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1927,6 +1986,7 @@
       }
     },
     "Earlier" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1937,6 +1997,7 @@
       }
     },
     "Easy" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1993,6 +2054,7 @@
     },
     "Edit Division" : {
       "comment" : "Division Edit",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2003,6 +2065,7 @@
       }
     },
     "Edit Division Info" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2013,6 +2076,7 @@
       }
     },
     "Edit History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2034,6 +2098,7 @@
       }
     },
     "Edit Post Info" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2055,6 +2120,7 @@
       }
     },
     "Edit reason: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2065,6 +2131,7 @@
       }
     },
     "Edit Reply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2086,6 +2153,7 @@
       }
     },
     "Edited" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2141,6 +2209,7 @@
     },
     "Email" : {
       "comment" : "Login Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2173,6 +2242,7 @@
       }
     },
     "Empty Favorites List" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2183,6 +2253,7 @@
       }
     },
     "Empty Subscription List" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2209,6 +2280,7 @@
       }
     },
     "Enabled" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2219,6 +2291,7 @@
       }
     },
     "Enter delete reason" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2229,6 +2302,7 @@
       }
     },
     "Enter Delete Reason" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2239,6 +2313,7 @@
       }
     },
     "Enter Pinned Hole ID (Digits Only)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2249,6 +2324,7 @@
       }
     },
     "Enter post content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2270,6 +2346,7 @@
       }
     },
     "Enter report reason" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2280,6 +2357,7 @@
       }
     },
     "Enter review content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2313,6 +2391,7 @@
       }
     },
     "Error %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2346,6 +2425,7 @@
       }
     },
     "Excellent" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2429,6 +2509,7 @@
       }
     },
     "Favorite" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2439,6 +2520,7 @@
       }
     },
     "Favorites" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2468,6 +2550,7 @@
 
     },
     "FDUHole" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2478,6 +2561,7 @@
       }
     },
     "Filter Options" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2488,6 +2572,7 @@
       }
     },
     "Filter Report" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2509,6 +2594,7 @@
       }
     },
     "Filter Semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2519,6 +2605,7 @@
       }
     },
     "Filter Teacher" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2529,6 +2616,7 @@
       }
     },
     "Floor ##%@ not exist" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2550,6 +2638,7 @@
       }
     },
     "Fold" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2571,6 +2660,7 @@
       }
     },
     "Fold Reason" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2581,6 +2671,7 @@
       }
     },
     "Folded" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2608,6 +2699,7 @@
       }
     },
     "Forget Password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2619,6 +2711,7 @@
     },
     "formula_tag" : {
       "comment" : "Formula Tag",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2673,6 +2766,7 @@
       }
     },
     "Fudan Campus Email" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2767,6 +2861,7 @@
       }
     },
     "Get Code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2799,6 +2894,7 @@
       }
     },
     "Good" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2882,6 +2978,7 @@
       }
     },
     "Hardcore" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2903,6 +3000,7 @@
       }
     },
     "Hide" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2913,6 +3011,7 @@
       }
     },
     "Hide Hole" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2923,6 +3022,7 @@
       }
     },
     "High" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2955,6 +3055,7 @@
       }
     },
     "If you have any question, you may contact admin@fduhole.com" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2966,6 +3067,7 @@
     },
     "image_tag" : {
       "comment" : "Image Tag",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3002,6 +3104,7 @@
       }
     },
     "Incident ID: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3023,6 +3126,7 @@
       }
     },
     "Incorrect username or password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3066,6 +3170,7 @@
       }
     },
     "Invalid date format" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3076,6 +3181,7 @@
       }
     },
     "Invalid encoding" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3086,6 +3192,7 @@
       }
     },
     "Invalid HTTP response" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3096,6 +3203,7 @@
       }
     },
     "Invalid Recipients Format" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3138,10 +3246,8 @@
         }
       }
     },
-    "Italic" : {
-
-    },
     "Join Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3188,6 +3294,7 @@
       }
     },
     "Last Created" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3198,6 +3305,7 @@
       }
     },
     "Last Updated" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3219,6 +3327,7 @@
       }
     },
     "Lenient" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3250,12 +3359,6 @@
         }
       }
     },
-    "Link" : {
-
-    },
-    "List" : {
-
-    },
     "Load Failed" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3279,6 +3382,7 @@
       }
     },
     "Loading" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3322,6 +3426,7 @@
       }
     },
     "Lock Post" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3332,6 +3437,7 @@
       }
     },
     "Logged in" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3374,6 +3480,7 @@
       }
     },
     "Logout" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3384,6 +3491,7 @@
       }
     },
     "Low" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3426,9 +3534,6 @@
         }
       }
     },
-    "Math" : {
-
-    },
     "Mention" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3441,6 +3546,7 @@
       }
     },
     "Mentioned" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3451,6 +3557,7 @@
       }
     },
     "Message Content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3471,10 +3578,8 @@
         }
       }
     },
-    "Method (Default GET)" : {
-
-    },
     "Moderate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3485,6 +3590,7 @@
       }
     },
     "Modify Floor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3506,6 +3612,7 @@
       }
     },
     "Multiple Selection" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3538,6 +3645,7 @@
       }
     },
     "My Post" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3565,6 +3673,7 @@
       }
     },
     "My Reply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3592,6 +3701,7 @@
       }
     },
     "Navigate to Bottom" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3603,6 +3713,7 @@
     },
     "New Post" : {
       "comment" : "Treehole Edit Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3613,6 +3724,7 @@
       }
     },
     "New reply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3624,6 +3736,7 @@
     },
     "New reply in favorites" : {
       "comment" : "Notifications",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3634,6 +3747,7 @@
       }
     },
     "New Report" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3644,6 +3758,7 @@
       }
     },
     "New Review" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3687,6 +3802,7 @@
       }
     },
     "No Content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3708,6 +3824,7 @@
       }
     },
     "No Review" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3751,6 +3868,7 @@
       }
     },
     "Normal" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3761,6 +3879,7 @@
       }
     },
     "Not Dealt" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3793,6 +3912,7 @@
       }
     },
     "Not Logged in" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3814,6 +3934,7 @@
       }
     },
     "Not Selected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3824,6 +3945,7 @@
       }
     },
     "Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3834,6 +3956,7 @@
       }
     },
     "Notify when favorited hole gets reply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3850,6 +3973,7 @@
       }
     },
     "Notify when my post is mentioned" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3866,6 +3990,7 @@
       }
     },
     "Notify when my report is dealt" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3882,6 +4007,7 @@
       }
     },
     "NSFW Content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3890,9 +4016,6 @@
           }
         }
       }
-    },
-    "Numbered List" : {
-
     },
     "OK" : {
       "extractionState" : "manual",
@@ -3917,6 +4040,7 @@
       }
     },
     "Open Notification Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3948,6 +4072,7 @@
       }
     },
     "Out of %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3958,6 +4083,7 @@
       }
     },
     "Overall Rating" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3974,6 +4100,7 @@
       }
     },
     "Password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4039,6 +4166,7 @@
       }
     },
     "Penalty Duration: %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4049,6 +4177,7 @@
       }
     },
     "Pick a Background Photo" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4057,9 +4186,6 @@
           }
         }
       }
-    },
-    "Picker" : {
-
     },
     "Pinned" : {
       "comment" : "Treehole Page",
@@ -4119,6 +4245,7 @@
       }
     },
     "Poor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4129,6 +4256,7 @@
       }
     },
     "Post locked, reply is forbidden" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4139,6 +4267,7 @@
       }
     },
     "Posted by: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4160,6 +4289,7 @@
       }
     },
     "Preview" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4170,6 +4300,7 @@
       }
     },
     "Professors" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4186,6 +4317,7 @@
       }
     },
     "Punishment History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4196,6 +4328,7 @@
       }
     },
     "Push Notification Not Authorized" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4206,6 +4339,7 @@
       }
     },
     "Push Notification Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4255,9 +4389,6 @@
         }
       }
     },
-    "Quote" : {
-
-    },
     "Rank" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4291,6 +4422,7 @@
       }
     },
     "Recent Browsed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4307,6 +4439,7 @@
       }
     },
     "Recent Search" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4323,6 +4456,7 @@
       }
     },
     "Recipients" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4355,6 +4489,7 @@
     },
     "Register" : {
       "comment" : "Register Page",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4365,6 +4500,7 @@
       }
     },
     "Register DanXi Account" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4375,6 +4511,7 @@
       }
     },
     "Register failed: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4385,6 +4522,7 @@
       }
     },
     "Register Prompt" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4401,6 +4539,7 @@
       }
     },
     "Remove Background Photo" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4411,6 +4550,7 @@
       }
     },
     "Remove Floor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4432,6 +4572,7 @@
       }
     },
     "Remove Subscription Error" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4448,6 +4589,7 @@
       }
     },
     "Repeat" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4459,6 +4601,7 @@
     },
     "Reply" : {
       "comment" : "Forms",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4470,6 +4613,7 @@
     },
     "Report" : {
       "comment" : "Treehole floor",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4491,6 +4635,7 @@
       }
     },
     "Report feedback" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4501,6 +4646,7 @@
       }
     },
     "Report reason: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4512,6 +4658,7 @@
     },
     "Reports Management" : {
       "comment" : "Management",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4520,9 +4667,6 @@
           }
         }
       }
-    },
-    "Request Body" : {
-
     },
     "Request invalid, contact developer for help. message: %@" : {
       "extractionState" : "manual",
@@ -4547,6 +4691,7 @@
       }
     },
     "Required" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4611,10 +4756,8 @@
         }
       }
     },
-    "Response" : {
-
-    },
     "Restore" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4636,6 +4779,7 @@
       }
     },
     "Restore History" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4646,6 +4790,7 @@
       }
     },
     "Restore reason" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4667,6 +4812,7 @@
       }
     },
     "Review Title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4752,6 +4898,7 @@
       }
     },
     "Search in Tags" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4796,6 +4943,7 @@
       }
     },
     "Select Course" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4812,6 +4960,7 @@
       }
     },
     "Select Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4828,6 +4977,7 @@
       }
     },
     "Select Division" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4889,6 +5039,7 @@
       }
     },
     "Select Text" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4899,6 +5050,7 @@
       }
     },
     "Semester" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4931,6 +5083,7 @@
       }
     },
     "Send Message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5002,6 +5155,7 @@
       }
     },
     "Sensitive" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5012,6 +5166,7 @@
       }
     },
     "Sensitive Content Analysis" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5033,6 +5188,7 @@
       }
     },
     "Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in System Privacy Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5043,6 +5199,7 @@
       }
     },
     "Sensitive Detail" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5059,6 +5216,7 @@
       }
     },
     "Sensitive Reason: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5069,6 +5227,7 @@
       }
     },
     "Sensitive.Closed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5085,6 +5244,7 @@
       }
     },
     "Sensitive.Open" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5145,6 +5305,7 @@
       }
     },
     "Set Visibility" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5165,6 +5326,7 @@
       }
     },
     "Show" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5185,6 +5347,7 @@
       }
     },
     "Show Administrative Info" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5195,6 +5358,7 @@
       }
     },
     "Show All" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5205,6 +5369,7 @@
       }
     },
     "Show All Floors" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5248,6 +5413,7 @@
       }
     },
     "Show OP Only" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5281,6 +5447,7 @@
       }
     },
     "Show This Person" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5302,6 +5469,7 @@
       }
     },
     "Single Selection" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5349,6 +5517,7 @@
       }
     },
     "Special Tag" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5370,6 +5539,7 @@
       }
     },
     "Start Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5380,6 +5550,7 @@
       }
     },
     "Stickers" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5390,6 +5561,7 @@
       }
     },
     "Strict" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5438,6 +5610,7 @@
       }
     },
     "Subscribe" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5448,6 +5621,7 @@
       }
     },
     "Subscription List" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5475,6 +5649,7 @@
       }
     },
     "System mail" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5580,6 +5755,7 @@
     },
     "TH Edit Alert" : {
       "comment" : "Treehole floor",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5648,6 +5824,7 @@
       }
     },
     "This floor will be deleted" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5658,6 +5835,7 @@
       }
     },
     "This user has been warned with permenant ban notice" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5668,6 +5846,7 @@
       }
     },
     "This user has multiple offence record" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5678,6 +5857,7 @@
       }
     },
     "This will affect all replies of this post" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5710,6 +5890,7 @@
       }
     },
     "Today" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5720,6 +5901,7 @@
       }
     },
     "Toggle Favorite Failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5730,6 +5912,7 @@
       }
     },
     "Token expired, login again" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5740,6 +5923,7 @@
       }
     },
     "Token not initialized, contact developer for help" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5772,6 +5956,7 @@
       }
     },
     "Treehole #%@ not exist" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5794,6 +5979,7 @@
     },
     "True or False" : {
       "comment" : "Register Questions",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5815,6 +6001,7 @@
       }
     },
     "Unanswered Questions" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5869,6 +6056,7 @@
       }
     },
     "Unfavorite" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5879,6 +6067,7 @@
       }
     },
     "Unknown" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5911,6 +6100,7 @@
       }
     },
     "Unsubscribe" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5921,6 +6111,7 @@
       }
     },
     "Update Notification Config Failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5931,6 +6122,7 @@
       }
     },
     "Upload Image" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5941,6 +6133,7 @@
       }
     },
     "Upload Image Failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5949,9 +6142,6 @@
           }
         }
       }
-    },
-    "URL" : {
-
     },
     "Use campus email to login" : {
       "extractionState" : "stale",
@@ -5965,6 +6155,7 @@
       }
     },
     "Use campus email to register DanXi account." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5975,6 +6166,7 @@
       }
     },
     "Use campus email to reset password." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6006,6 +6198,7 @@
       }
     },
     "User ID" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6016,6 +6209,7 @@
       }
     },
     "User IDs, separated by ASCII comma." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6026,6 +6220,7 @@
       }
     },
     "User: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6036,6 +6231,7 @@
       }
     },
     "Verification Email Sent" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6046,6 +6242,7 @@
       }
     },
     "Verify" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6066,6 +6263,7 @@
       }
     },
     "Very Easy" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6076,6 +6274,7 @@
       }
     },
     "Very High" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6086,6 +6285,7 @@
       }
     },
     "Very Lenient" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6096,6 +6296,7 @@
       }
     },
     "Very Low" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6106,6 +6307,7 @@
       }
     },
     "Very Poor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6116,6 +6318,7 @@
       }
     },
     "Very Strict" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6136,6 +6339,7 @@
       }
     },
     "View Conversation" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6157,6 +6361,7 @@
       }
     },
     "Violation notice" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6232,6 +6437,7 @@
       }
     },
     "Yesterday" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6242,6 +6448,7 @@
       }
     },
     "You are banned in this division until %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6252,6 +6459,7 @@
       }
     },
     "You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

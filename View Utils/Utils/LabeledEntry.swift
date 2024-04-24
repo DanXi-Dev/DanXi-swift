@@ -11,7 +11,7 @@ public struct LabeledEntry<Content: View>: View {
         self.content = content()
     }
     
-    private func showAlert(_ showAlert: Bool) -> LabeledEntry {
+    public func showAlert(_ showAlert: Bool) -> LabeledEntry {
         var entry = self
         entry.showAlert = showAlert
         return entry

@@ -131,13 +131,18 @@ public enum ForumAPI {
         return try await requestWithResponse("/floors", base: forumURL, params: params)
     }
     
+    public static func listMyFloors(offset: Int) async throws -> [Floor] {
+        let params = ["offset": String(offset)]
+        return try await requestWithResponse("/users/me/floors", base: forumURL, params: params)
+    }
+    
     public static func createFloor(content: String, holeId: Int, specialTag: String = "") async throws -> Floor {
         let payload = ["content": content, "specialTag": specialTag]
         return try await requestWithResponse("/holes/\(holeId)/floors", base: forumURL, payload: payload)
     }
     
-    public static func searchFloor(keyword: String, accurate: Bool?, offset: Int) async throws -> [Floor] {
-        var params = ["keyword": keyword, "offset": String(offset)]
+    public static func searchFloor(keyword: String, accurate: Bool? = nil, offset: Int) async throws -> [Floor] {
+        var params = ["search": keyword, "offset": String(offset)]
         if let accurate {
             params["accurate"] = accurate ? "true" : "false"
         }
@@ -204,7 +209,7 @@ public enum ForumAPI {
     public static func toggleFavorite(holeId: Int, add: Bool) async throws -> [Int] {
         let method = add ? "POST" : "DELETE"
         let payload = ["hole_id": holeId]
-        let response: ServerResponse = try await requestWithResponse("/user/favorites/\(holeId)", base: forumURL, payload: payload, method: method)
+        let response: ServerResponse = try await requestWithResponse("/user/favorites", base: forumURL, payload: payload, method: method)
         return response.data
     }
     
@@ -227,7 +232,7 @@ public enum ForumAPI {
     
     public static func deleteSubscription(holeId: Int) async throws -> [Int] {
         let payload = ["hole_id": holeId]
-        let response: ServerResponse = try await requestWithResponse("/users/subscriptions/\(holeId)", base: forumURL, payload: payload, method: "DELETE")
+        let response: ServerResponse = try await requestWithResponse("/users/subscription", base: forumURL, payload: payload, method: "DELETE")
         return response.data
     }
     
@@ -258,6 +263,17 @@ public enum ForumAPI {
         }
         let payload: [String: Any] = ["config": configuration]
         return try await requestWithResponse("/users/\(userId)", base: forumURL, payload: payload, method: "PUT")
+    }
+    
+    public static func uploadNotificationToken(deviceId: String, token: String) async throws {
+        guard let packageName = Bundle.main.bundleIdentifier else { return }
+        let payload = ["service": "apns", "deviceId": deviceId, "token": token, "package_name": packageName]
+        try await requestWithoutResponse("/users/push-tokens", base: forumURL, payload: payload)
+    }
+    
+    public static func deleteNotificationToken(deviceId: String) async throws {
+        let payload = ["deviceId": deviceId]
+        try await requestWithoutResponse("/users/push-tokens", base: forumURL, payload: payload, method: "DELETE")
     }
     
     // MARK: - Sensitive Content

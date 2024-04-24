@@ -1,9 +1,16 @@
 import Foundation
 
-let authURL = URL(string: "https://auth.fduhole.jingyijun.xyz:9443/api")!
-//let authURL = URL(string: "https://auth.fduhole.com/api")!
-let forumURL = URL(string: "https://www.fduhole.jingyijun.xyz:9443/api")!
-let curriculumnURL = URL(string: "https://danke.fduhole.com/api")!
+public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "https://auth.fduhole.com/api")
+public var forumURL = constructBaseURL(key: "fduhole_base_url", defaultURL: "https://www.fduhole.com/api")
+public var curriculumURL = constructBaseURL(key: "danke_base_url", defaultURL: "https://danke.fduhole.com/api")
+
+private func constructBaseURL(key: String, defaultURL: String) -> URL {
+    if let stored = UserDefaults.standard.string(forKey: key) {
+        URL(string: stored)!
+    } else {
+        URL(string: defaultURL)!
+    }
+}
 
 func requestWithData(_ path: String, base: URL, protected: Bool = true, params: [String: String]? = nil, payload: [String: Any]? = nil, method: String? = nil) async throws -> Data {
     var url = base.appendingPathComponent(path)

@@ -2,9 +2,10 @@ import SwiftUI
 import FudanKit
 import FudanUI
 import ViewUtils
+import DanXiUI
 
 struct TabNavigation: View {
-    @ObservedObject private var communityModel = DXModel.shared
+    @ObservedObject private var communityModel = CommunityModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
     @Binding var screen: AppScreen
     
@@ -22,11 +23,11 @@ struct TabNavigation: View {
     }
     
     private var loginStatus: LoginStatus {
-        if campusModel.loggedIn && communityModel.isLogged {
+        if campusModel.loggedIn && communityModel.loggedIn {
             return .both
         } else if campusModel.loggedIn {
             return .campus
-        } else if communityModel.isLogged {
+        } else if communityModel.loggedIn {
             return .community
         } else {
             return .none
@@ -44,7 +45,7 @@ struct TabNavigation: View {
                     }
             }
             
-            if communityModel.isLogged {
+            if communityModel.loggedIn {
                 AppScreen.forum.content
                     .environmentObject(forumNavigator)
                     .tag(AppScreen.forum)
