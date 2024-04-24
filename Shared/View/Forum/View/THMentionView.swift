@@ -61,6 +61,7 @@ struct THMentionView: View {
                         
             Text(mention.content.inlineAttributed())
                 .foregroundColor(mention.deleted ? .secondary : .primary)
+                .relativeLineSpacing(.em(0.18))
                 .multilineTextAlignment(.leading)
                 .font(.subheadline)
                 .lineLimit(3)
