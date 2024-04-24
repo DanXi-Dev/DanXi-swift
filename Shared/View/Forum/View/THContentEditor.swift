@@ -71,12 +71,18 @@ struct THContentEditor: View {
             let lineBreak = content[..<(cursorPosition)].lastIndex(of: "\n")
             guard let lineBreak else {
                 self.content.insert(contentsOf: newContent, at: content.startIndex)
+                let newCursorPosition = content.index(cursorPosition, offsetBy: newContent.count)
+                self.selection = newCursorPosition..<newCursorPosition
                 return
             }
             let lineStart = content.index(after: lineBreak)
             self.content.insert(contentsOf: newContent, at: lineStart)
+            let newCursorPosition = content.index(cursorPosition, offsetBy: newContent.count)
+            self.selection = newCursorPosition..<newCursorPosition
         } else {
             self.content.insert(contentsOf: newContent, at: content.startIndex)
+            let newCursorPosition = content.index(content.startIndex, offsetBy: newContent.count)
+            self.selection = newCursorPosition..<newCursorPosition
         }
     }
     
