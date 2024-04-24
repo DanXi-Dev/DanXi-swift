@@ -14,7 +14,7 @@ struct DKReviewView: View {
                         .lineLimit(1)
                     DKStarsView(rating: CGFloat(review.rank.overall))
                         .frame(width: 60)
-                        .offset(x: 0, y: -6)
+                        .offset(x: 0, y: -4)
                 }
 
                 Spacer()
