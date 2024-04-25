@@ -366,6 +366,16 @@
         }
       }
     },
+    "%lld hidden items" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld个隐藏内容"
+          }
+        }
+      }
+    },
     "%lld Reviews" : {
       "localizations" : {
         "zh-Hans" : {
@@ -675,6 +685,7 @@
 
     },
     "Are your sure you want to discard your contents? Your messages will be lost." : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1730,6 +1741,7 @@
       }
     },
     "Discard" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2289,6 +2301,7 @@
     },
     "Error" : {
       "comment" : "Error",
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2692,6 +2705,7 @@
       }
     },
     "Fudan UIS ID" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2702,6 +2716,7 @@
       }
     },
     "Fudan UIS Password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2712,6 +2727,7 @@
       }
     },
     "Fudan.ID" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2848,6 +2864,7 @@
       }
     },
     "Graduate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3345,6 +3362,7 @@
       }
     },
     "Login with Fudan campus account (UIS) to access various campus services" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3386,6 +3404,7 @@
       }
     },
     "Major" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3561,6 +3580,7 @@
       }
     },
     "Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4260,7 +4280,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "最近浏览"
           }
         }
@@ -4276,7 +4296,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "最近搜索"
           }
         }
@@ -4616,6 +4636,7 @@
       }
     },
     "Retry" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5318,6 +5339,7 @@
       }
     },
     "Staff" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5358,6 +5380,7 @@
       }
     },
     "Student Type" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5804,6 +5827,7 @@
       }
     },
     "Undergraduate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5856,6 +5880,7 @@
       }
     },
     "Unsaved Changes" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

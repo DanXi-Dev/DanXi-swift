@@ -99,24 +99,45 @@ class THHoleModel: ObservableObject {
         }
     }
     
-    @Published var filteredFloors: [THFloor] = []
+    @Published var filteredFloors: [THFloorSegment] = []
     
     private func filterFloors() {
+        var filtered: [THFloor] = []
         switch filterOption {
         case .all:
-            filteredFloors = self.floors
+            filtered = self.floors
         case .posterOnly:
-            let posterName = floors.first?.posterName ?? ""
-            filteredFloors = self.floors.filter { floor in
+            let posterName = self.floors.first?.posterName ?? ""
+            filtered = self.floors.filter { floor in
                 floor.posterName == posterName
             }
         case .user(let name):
-            filteredFloors = self.floors.filter { $0.posterName == name }
+            filtered = self.floors.filter { $0.posterName == name }
         case .conversation(let starting):
-            filteredFloors = traceConversation(starting)
+            filtered = traceConversation(starting)
         case .reply(let floorId):
-            filteredFloors = findReply(floorId)
+            filtered = findReply(floorId)
         }
+        
+        // Merge folded floors
+        var floorSegments: [THFloorSegment] = []
+        var currentFoldedFloors: [THFloor] = []
+        for floor in filtered {
+            if floor.collapse {
+                currentFoldedFloors.append(floor)
+            } else {
+                if !currentFoldedFloors.isEmpty {
+                    floorSegments.append(.folded(currentFoldedFloors))
+                    currentFoldedFloors = []
+                }
+                floorSegments.append(.floor(floor))
+            }
+        }
+        if !currentFoldedFloors.isEmpty {
+            floorSegments.append(.folded(currentFoldedFloors))
+        }
+
+        filteredFloors = floorSegments
     }
     
     
@@ -191,7 +212,7 @@ class THHoleModel: ObservableObject {
     
     func loadAllFloors() async throws {
         if endReached {
-            if let lastFloorId = filteredFloors.last?.id {
+            if let lastFloorId = self.floors.last?.id {
                 scrollControl.send(lastFloorId)
             }
             return

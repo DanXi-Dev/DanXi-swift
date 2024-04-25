@@ -1,6 +1,15 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "Are your sure you want to discard your contents? Your messages will be lost." : {
+
+    },
+    "Cancel" : {
+
+    },
     "Copy" : {
       "localizations" : {
         "zh-Hans" : {
@@ -10,6 +19,12 @@
           }
         }
       }
+    },
+    "Discard" : {
+
+    },
+    "Error" : {
+
     },
     "Loading" : {
 
@@ -47,6 +62,12 @@
 
     },
     "Screenshot Detected" : {
+
+    },
+    "Submit" : {
+
+    },
+    "Unsaved Changes" : {
 
     }
   },
