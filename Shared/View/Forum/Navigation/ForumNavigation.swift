@@ -56,13 +56,13 @@ struct ForumContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(OnDoubleTapForumTabBarItem, perform: { _ in
+        .onReceive(AppEvents.TabBarTapped.forum) { _ in
             if path.isEmpty {
-                ForumScrollToTop.send()
+                AppEvents.ScrollToTop.forum.send()
             } else {
                 path.removeLast(path.count)
             }
-        })
+        }
 #if !targetEnvironment(macCatalyst)
         .environment(\.openURL, OpenURLAction { url in
             openURL = url

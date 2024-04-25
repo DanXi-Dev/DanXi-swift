@@ -55,7 +55,7 @@ fileprivate struct HomePageContent: View {
                     }
                 }
             }
-            .onReceive(CurriculumScrollToTop) {
+            .onReceive(AppEvents.ScrollToTop.curriculum) {
                 withAnimation {
                     proxy.scrollTo("dk-top")
                 }

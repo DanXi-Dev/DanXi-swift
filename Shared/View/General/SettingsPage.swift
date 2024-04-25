@@ -50,12 +50,12 @@ struct SettingsPage: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .onReceive(SettingsScrollToTop) { _ in
+            .onReceive(AppEvents.ScrollToTop.settings) { _ in
                 withAnimation {
                     proxy.scrollTo("settings-top")
                 }
             }
-            .onReceive(AppModel.notificationSettingsPublisher) { content in
+            .onReceive(AppEvents.notification) { content in
                 navigator.pushDetail(value: ForumSettingsSection.notification, replace: true)
             }
         }

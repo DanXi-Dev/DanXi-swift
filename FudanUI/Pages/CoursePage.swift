@@ -95,7 +95,7 @@ fileprivate struct CalendarContent: View {
                 .listRowBackground(Color.clear)
                 #endif
             }
-            .onReceive(OnDoubleTapCalendarTabBarItem) {
+            .onReceive(AppEvents.TabBarTapped.calendar) {
                 withAnimation {
                     proxy.scrollTo("cal-top")
                 }

@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtils
+import Utils
 
 struct THHomePage: View {
     @ObservedObject private var appModel = DXModel.shared
@@ -13,7 +14,7 @@ struct THHomePage: View {
         } content: {
             THBrowseWrapper()
         }
-        .onReceive(AppModel.notificationPublisher) { _ in
+        .onReceive(AppEvents.notification) { _ in
             navigator.pushContent(value: ForumSection.notifications)
         }
         .navigationTitle("Forum")

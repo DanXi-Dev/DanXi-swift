@@ -6,25 +6,21 @@ import SwiftUI
 import Utils
 
 class AppModel: ObservableObject {
-    // publish event when user taps notification, UI should perform navigation
-    static let notificationPublisher = PassthroughSubject<UNNotificationContent, Never>()
-    static let notificationSettingsPublisher = PassthroughSubject<UNNotificationContent?, Never>()
-    
     @AppStorage("intro-done") var showIntro = true // Shown once
     @Published var screen: AppScreen {
         willSet {
             if screen == newValue {
                 switch(screen) {
                 case .campus:
-                    OnDoubleTapCampusTabBarItem.send()
+                    AppEvents.TabBarTapped.campus.send()
                 case .forum:
-                    OnDoubleTapForumTabBarItem.send()
+                    AppEvents.TabBarTapped.forum.send()
                 case .curriculum:
-                    OnDoubleTapCurriculumTabBarItem.send()
+                    AppEvents.TabBarTapped.curriculum.send()
                 case .calendar:
-                    OnDoubleTapCalendarTabBarItem.send()
+                    AppEvents.TabBarTapped.calendar.send()
                 case .settings:
-                    OnDoubleTapSettingsTabBarItem.send()
+                    AppEvents.TabBarTapped.settings.send()
                 }
             }
         }

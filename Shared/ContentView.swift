@@ -2,6 +2,7 @@ import SwiftUI
 import ViewUtils
 import FudanKit
 import FudanUI
+import Utils
 
 @MainActor
 struct ContentView: View {
@@ -23,10 +24,10 @@ struct ContentView: View {
         .onOpenURL { url in
             model.openURL(url)
         }
-        .onReceive(AppModel.notificationPublisher) { content in
+        .onReceive(AppEvents.notification) { content in
             model.screen = .forum
         }
-        .onReceive(AppModel.notificationSettingsPublisher) { content in
+        .onReceive(AppEvents.notificationSettings) { content in
             model.screen = .settings
         }
         .onAppear {

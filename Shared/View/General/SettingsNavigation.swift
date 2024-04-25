@@ -61,9 +61,9 @@ struct SettingsContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(OnDoubleTapSettingsTabBarItem) { _ in
+        .onReceive(AppEvents.TabBarTapped.settings) { _ in
             if path.isEmpty {
-                SettingsScrollToTop.send()
+                AppEvents.ScrollToTop.settings.send()
             } else {
                 path.removeLast(path.count)
             }

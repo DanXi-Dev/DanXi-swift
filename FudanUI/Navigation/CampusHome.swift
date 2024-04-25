@@ -69,11 +69,11 @@ public struct CampusHome: View {
                     }
                 }
             }
-            .onReceive(CampusScrollToTop, perform: { _ in
+            .onReceive(AppEvents.ScrollToTop.campus) { _ in
                 withAnimation {
                     proxy.scrollTo("campus-top")
                 }
-            })
+            }
         }
         .listStyle(.insetGrouped)
         .compactSectionSpacing()

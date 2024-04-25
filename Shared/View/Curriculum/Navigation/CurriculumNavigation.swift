@@ -52,14 +52,14 @@ struct CurriculumContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(OnDoubleTapCurriculumTabBarItem, perform: { _ in
+        .onReceive(AppEvents.TabBarTapped.curriculum) { _ in
             if path.isEmpty {
-                CurriculumScrollToTop.send()
+                AppEvents.ScrollToTop.curriculum.send()
             } else {
                 path.removeLast(path.count)
             }
-        })
-#if !targetEnvironment(macCatalyst)
+        }
+        #if !targetEnvironment(macCatalyst)
         .environment(\.openURL, OpenURLAction { url in
             openURL = url
             return .handled
@@ -67,7 +67,7 @@ struct CurriculumContent: View {
         .safariView(item: $openURL) { link in
             SafariView(url: link)
         }
-#endif
+        #endif
     }
 }
 

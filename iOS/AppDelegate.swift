@@ -2,6 +2,7 @@ import UIKit
 import UserNotifications
 import WatchConnectivity
 import CoreTelephony
+import Utils
 
 class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNotificationCenterDelegate, ObservableObject {
     // MARK: - App Delegate
@@ -23,7 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
             application.registerForRemoteNotifications()
         }
         
-#if !targetEnvironment(macCatalyst)
+        #if !targetEnvironment(macCatalyst)
         // Activate internet connection
         let cellular = CTCellularData()
         if cellular.restrictedState != .notRestricted {
@@ -35,7 +36,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
                 }
             }
         }
-#endif
+        #endif
         
         return true
     }
@@ -85,7 +86,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let content = response.notification.request.content
         Task { @MainActor in
-            AppModel.notificationPublisher.send(content) // publish event for UI to handle
+            AppEvents.notification.send(content)
         }
         completionHandler()
     }
@@ -95,7 +96,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, WCSessionDelegate, UNUserNot
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
         let content = notification?.request.content
         Task { @MainActor in
-            AppModel.notificationSettingsPublisher.send(content)
+            AppEvents.notificationSettings.send(content)
         }
     }
     

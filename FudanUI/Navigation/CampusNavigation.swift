@@ -50,9 +50,9 @@ public struct CampusContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(OnDoubleTapCampusTabBarItem) { _ in
+        .onReceive(AppEvents.TabBarTapped.campus) { _ in
             if path.isEmpty {
-                CampusScrollToTop.send()
+                AppEvents.ScrollToTop.campus.send()
             } else {
                 path.removeLast(path.count)
             }
