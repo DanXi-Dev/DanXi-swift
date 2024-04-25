@@ -11,6 +11,7 @@ struct DKStarsView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .padding(.trailing, 4.8)
         }
 
         stars.overlay(
@@ -31,6 +32,6 @@ struct DKStarsView: View {
 struct DKStarsView_Previews: PreviewProvider {
     static var previews: some View {
         DKStarsView(rating: 3.4)
-            .frame(width: 70)
+            .frame(height: 13)
     }
 }

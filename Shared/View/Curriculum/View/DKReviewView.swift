@@ -13,8 +13,8 @@ struct DKReviewView: View {
                         .font(.headline)
                         .lineLimit(1)
                     DKStarsView(rating: CGFloat(review.rank.overall))
-                        .frame(width: 60)
-                        .offset(x: 0, y: -4)
+                        .frame(height: 14)
+                        .offset(x: 0, y: -4.4)
                 }
 
                 Spacer()
@@ -23,12 +23,13 @@ struct DKReviewView: View {
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
+            .padding(.bottom, 2)
 
             Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                 .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 .multilineTextAlignment(.leading)
-                .relativeLineSpacing(.em(0.18))
-                .lineLimit(10)
+                .font(.body.leading(.standard))
+                .lineLimit(6)
 
             HStack {
                 DKTagView {

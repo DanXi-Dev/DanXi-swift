@@ -63,10 +63,11 @@ struct DKReviewPage: View {
                 }
                 
                 DKRatingView(rank: review.rank)
+                    .padding(.bottom, 6)
                 
                 Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                     .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
-                    .relativeLineSpacing(.em(0.18))
+                .font(.callout.leading(.loose))
                 
                 HStack {
                     likeButtons
