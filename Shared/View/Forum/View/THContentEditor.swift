@@ -14,6 +14,8 @@ struct THContentEditor: View {
     @FocusState private var textfieldFocus
     @Binding var runningImageUploadTasks: Int
     
+    let initiallyFocused: Bool
+    
     private func handlePickerResult(_ photo: PhotosPickerItem?) async throws {
         guard let photo = photo,
               let imageData = try await photo.loadTransferable(type: Data.self) else {
@@ -214,6 +216,9 @@ struct THContentEditor: View {
                 .focused($textfieldFocus)
                 .onAppear() {
                     IQKeyboardManager.shared.enable = true // Prevent keyboard from obstructing editor
+                    if initiallyFocused {
+                        textfieldFocus = true
+                    }
                 }
                 .onDisappear() {
                     IQKeyboardManager.shared.enable = false // Disable to prevent side effects to other TextFields
@@ -262,6 +267,6 @@ struct THContentEditor: View {
 
 #Preview {
     List {
-        THContentEditor(content: .constant("hello ![](dx_egg)"), runningImageUploadTasks: .constant(0))
+        THContentEditor(content: .constant("hello ![](dx_egg)"), runningImageUploadTasks: .constant(0), initiallyFocused: false)
     }
 }

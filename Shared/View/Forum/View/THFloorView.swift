@@ -468,7 +468,7 @@ private struct Actions: View {
         .foregroundColor(.secondary)
         .font(.caption)
         .sheet(isPresented: $showReplySheet) {
-            THReplySheet("##\(String(model.floor.id))")
+            THReplySheet("##\(String(model.floor.id))\n")
         }
     }
     

@@ -41,7 +41,7 @@ struct THPostSheet: View {
                 THTagEditor($tags, maxSize: 5)
             }
             
-            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask)
+            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: false)
         }
         .completed(!tags.isEmpty && !content.isEmpty && runningImageUploadTask <= 0)
         .warnDiscard(!tags.isEmpty || !content.isEmpty || runningImageUploadTask > 0)

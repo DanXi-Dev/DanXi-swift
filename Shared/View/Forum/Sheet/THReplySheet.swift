@@ -13,7 +13,7 @@ struct THReplySheet: View {
         Sheet("Reply") {
             try await model.reply(content)
         } content: {
-            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask)
+            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: true)
         }
         .completed(!content.isEmpty && runningImageUploadTask <= 0)
         .warnDiscard(!content.isEmpty || runningImageUploadTask > 0)

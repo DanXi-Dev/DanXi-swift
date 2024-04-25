@@ -23,7 +23,7 @@ struct THFloorEditSheet: View {
                 }
             }
             
-            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask)
+            THContentEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: !appModel.isAdmin)
         }
         .completed(!content.isEmpty && runningImageUploadTask <= 0)
         .warnDiscard(!content.isEmpty || runningImageUploadTask > 0)
