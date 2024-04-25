@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FudanKit
+import ViewUtils
 
 struct IntroSheet: View {
     var body: some View {

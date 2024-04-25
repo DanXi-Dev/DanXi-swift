@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct DXAuthSheet: View {
     @StateObject private var model = DXAuthModel()

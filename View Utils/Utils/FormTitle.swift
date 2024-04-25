@@ -1,10 +1,15 @@
 import SwiftUI
 
-struct FormTitle: View {
-    let title: LocalizedStringKey
-    let description: LocalizedStringKey
+public struct FormTitle: View {
+    public let title: LocalizedStringKey
+    public let description: LocalizedStringKey
     
-    var body: some View {
+    public init(title: LocalizedStringKey, description: LocalizedStringKey) {
+        self.title = title
+        self.description = description
+    }
+    
+    public var body: some View {
         Section {
             HStack {
                 Spacer()

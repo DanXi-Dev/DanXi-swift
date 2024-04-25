@@ -1,31 +1,31 @@
 import SwiftUI
 
 // ref: https://www.swiftbysundell.com/articles/building-an-async-swiftui-button/
-struct AsyncButton<Label: View>: View {
-    var actionOptions: Set<ActionOption> = [.disableButton]
-    var action: () async throws -> Void
-    @ViewBuilder var label: () -> Label
+public struct AsyncButton<Label: View>: View {
+    private var actionOptions: Set<ActionOption> = [.disableButton]
+    private var action: () async throws -> Void
+    @ViewBuilder private var label: () -> Label
     
-    init(actionOptions: Set<ActionOption> = [.disableButton],
-         action: @escaping () async throws -> Void,
-         label: @escaping () -> Label) {
+    public init(actionOptions: Set<ActionOption> = [.disableButton],
+                action: @escaping () async throws -> Void,
+                label: @escaping () -> Label) {
         self.actionOptions = actionOptions
         self.action = action
         self.label = label
     }
-
+    
     @State private var isDisabled = false
     @State private var showProgressView = false
     @State private var alertMessage = ""
     @State private var showAlert = false
-
-    var body: some View {
+    
+    public var body: some View {
         Button(
             action: {
                 if actionOptions.contains(.disableButton) {
                     isDisabled = true
                 }
-            
+                
                 Task {
                     do {
                         defer {
@@ -53,7 +53,7 @@ struct AsyncButton<Label: View>: View {
             label: {
                 ZStack {
                     label().opacity(showProgressView ? 0 : 1)
-
+                    
                     if showProgressView {
                         ProgressView()
                     }
@@ -66,16 +66,16 @@ struct AsyncButton<Label: View>: View {
 }
 
 extension AsyncButton {
-    enum ActionOption: CaseIterable {
+    public enum ActionOption: CaseIterable {
         case disableButton
         case showProgressView
     }
 }
 
 extension AsyncButton where Label == Text {
-    init(_ label: String,
-         actionOptions: Set<ActionOption> = [.disableButton],
-         action: @escaping () async throws -> Void) {
+    public init(_ label: String,
+                actionOptions: Set<ActionOption> = [.disableButton],
+                action: @escaping () async throws -> Void) {
         self.init(action: action) {
             Text(label)
         }

@@ -1,10 +1,10 @@
 import SwiftUI
 
-enum SheetStyle {
+public enum SheetStyle {
     case independent, subpage
 }
 
-struct Sheet<Content: View>: View {
+public struct Sheet<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var loading = false
@@ -20,7 +20,7 @@ struct Sheet<Content: View>: View {
     var style: SheetStyle = .independent
     var discardWarningNeeded: Bool = false
     
-    init(_ titleText: LocalizedStringKey = "",
+    public init(_ titleText: LocalizedStringKey = "",
          action: @escaping () async throws -> Void,
          @ViewBuilder content: () -> Content) {
         self.titleText = titleText
@@ -28,37 +28,37 @@ struct Sheet<Content: View>: View {
         self.content = content()
     }
     
-    func title(_ titleText: LocalizedStringKey) -> Sheet {
+    public func title(_ titleText: LocalizedStringKey) -> Sheet {
         var sheet = self
         sheet.titleText = titleText
         return sheet
     }
     
-    func submitText(_ submitText: LocalizedStringKey) -> Sheet {
+    public func submitText(_ submitText: LocalizedStringKey) -> Sheet {
         var sheet = self
         sheet.submitText = submitText
         return sheet
     }
     
-    func completed(_ completed: Bool) -> Sheet {
+    public func completed(_ completed: Bool) -> Sheet {
         var sheet = self
         sheet.completed = completed
         return sheet
     }
     
-    func sheetStyle(_ style: SheetStyle = .independent) -> Sheet {
+    public func sheetStyle(_ style: SheetStyle = .independent) -> Sheet {
         var sheet = self
         sheet.style = style
         return sheet
     }
     
-    func warnDiscard(_ warn: Bool) -> Sheet {
+    public func warnDiscard(_ warn: Bool) -> Sheet {
         var sheet = self
         sheet.discardWarningNeeded = warn
         return sheet
     }
     
-    func submit() {
+    private func submit() {
         Task {
             do {
                 loading = true
@@ -74,7 +74,7 @@ struct Sheet<Content: View>: View {
         }
     }
     
-    var body: some View {
+    public var body: some View {
         NavigationStack {
             Form {
                 content

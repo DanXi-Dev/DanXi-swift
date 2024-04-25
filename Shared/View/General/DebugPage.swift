@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtils
 
 struct DebugPage: View {
     @EnvironmentObject private var model: AppModel
