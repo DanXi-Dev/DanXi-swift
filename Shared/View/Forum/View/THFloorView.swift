@@ -58,14 +58,14 @@ struct THComplexFloor: View {
     var body: some View {
         FoldedView(expand: !model.collapse) {
             VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
-                Spacer()
+                Spacer(minLength: 0)
                 HStack {
                     Text(model.collapsedContent)
                         .foregroundColor(.secondary)
                         .font(.subheadline)
-                    Spacer()
+                    Spacer(minLength: 0)
                 }
-                Spacer()
+                Spacer(minLength: 0)
             }
         } content: {
             VStack(alignment: .leading) {
