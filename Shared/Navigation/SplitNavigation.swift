@@ -19,9 +19,6 @@ struct SplitNavigation: View {
         } detail: {
             screen.detail
         }
-        // this is a hack, by forcing the view to redraw will clear the detail column empty
-        // otherwise I'll have to migrate settings to use value-based navigation
-        .id(isSettings)
     }
 }
 
