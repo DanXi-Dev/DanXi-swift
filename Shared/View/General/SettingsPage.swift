@@ -1,5 +1,6 @@
 import SwiftUI
 import FudanKit
+import FudanUI
 import Utils
 import ViewUtils
 
@@ -8,8 +9,6 @@ struct SettingsPage: View {
     @ObservedObject private var forumModel = DXModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
     
-    @State private var campusLoginSheet = false
-    @State private var campusUserSheet = false
     @State private var forumLoginSheet = false
     @State private var forumUserSheet = false
     
@@ -24,15 +23,7 @@ struct SettingsPage: View {
                     .id("settings-top")
                 
                 Section("Accounts Management") {
-                    Button {
-                        if campusModel.loggedIn {
-                            campusUserSheet = true
-                        } else {
-                            campusLoginSheet = true
-                        }
-                    } label: {
-                        AccountLabel(loggedIn: campusModel.loggedIn, title: "Fudan Campus Account")
-                    }
+                    CampusAccountButton()
                     
                     Button {
                         if forumModel.isLogged {
@@ -45,17 +36,7 @@ struct SettingsPage: View {
                     }
                 }
                 
-                if campusModel.loggedIn {
-                    Section("Campus.Tab") {
-                        Picker(selection: $campusModel.studentType) {
-                            Text("Undergraduate").tag(StudentType.undergrad)
-                            Text("Graduate").tag(StudentType.grad)
-                            Text("Staff").tag(StudentType.staff)
-                        } label: {
-                            Label("Student Type", systemImage: "person.text.rectangle")
-                        }
-                    }
-                }
+                CampusSettingsView()
                 
                 if forumModel.isLogged {
                     THSettingsView()
@@ -79,12 +60,6 @@ struct SettingsPage: View {
             }
         }
         .navigationTitle("Settings")
-        .sheet(isPresented: $campusLoginSheet) {
-            FDLoginSheet()
-        }
-        .sheet(isPresented: $campusUserSheet) {
-            FDUserSheet()
-        }
         .sheet(isPresented: $forumLoginSheet) {
             DXAuthSheet()
         }
@@ -92,55 +67,6 @@ struct SettingsPage: View {
             DXUserSheet()
         }
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
-    }
-}
-
-fileprivate struct FDUserSheet: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        NavigationStack {
-            Form {
-                List {
-                    AsyncContentView(style: .widget, animation: .default) { forceReload in
-                        return try? await forceReload ? ProfileStore.shared.getRefreshedProfile() : ProfileStore.shared.getCachedProfile()
-                    } content: { profile in
-                        if let profile = profile {
-                            Section {
-                                LabeledContent("Name", value: profile.name)
-                                LabeledContent("Fudan.ID", value: profile.campusId)
-                                LabeledContent("Department", value: profile.department)
-                                LabeledContent("Major", value: profile.major)
-                            }
-                        }
-                    }
-                    
-                    Section {
-                        Button(role: .destructive) {
-                            CampusModel.shared.logout()
-                            dismiss()
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Text("Logout")
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-                .navigationTitle("Account Info")
-                .navigationBarTitleDisplayMode(.inline)
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Done")
-                    }
-                }
-            }
-        }
     }
 }
 

@@ -2,17 +2,17 @@ import SwiftUI
 import FudanKit
 import ViewUtils
 
-struct FDLoginSheet: View {
-    let style: SheetStyle
+public struct LoginSheet: View {
+    private let style: SheetStyle
     @ObservedObject private var model = CampusModel.shared
     @State private var username = ""
     @State private var password = ""
     
-    init(style: SheetStyle = .independent) {
+    public init(style: SheetStyle = .independent) {
         self.style = style
     }
     
-    var body: some View {
+    public var body: some View {
         Sheet {
             try await model.login(username: username, password: password)
         } content: {
@@ -38,8 +38,4 @@ struct FDLoginSheet: View {
         .submitText("Login")
         .sheetStyle(style)
     }
-}
-
-#Preview {
-    FDLoginSheet()
 }

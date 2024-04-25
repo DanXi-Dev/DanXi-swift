@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FudanKit
+import FudanUI
 import ViewUtils
 
 struct IntroSheet: View {
@@ -100,7 +101,7 @@ struct IntroLoginSheet: View {
             FormTitle(title: "Login", description: "danxi-app-account-system-description")
             
             Section(content: {
-                NavigationLink(destination: FDLoginSheet(style: .subpage), label: {
+                NavigationLink(destination: LoginSheet(style: .subpage), label: {
                     LabeledContent("Fudan Campus Account") {
                         if campusModel.loggedIn {
                             Image(systemName: "checkmark.circle")
