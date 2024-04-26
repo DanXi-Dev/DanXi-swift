@@ -67,7 +67,7 @@ struct DKReviewPage: View {
                 
                 Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                     .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
-                .font(.callout.leading(.loose))
+                .font(.body.leading(.loose))
                 
                 HStack {
                     likeButtons
