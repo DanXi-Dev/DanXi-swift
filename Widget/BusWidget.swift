@@ -25,36 +25,31 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
     func timeline(for configuration: BusScheduleIntent, in context: Context) async -> Timeline<BusEntry> {
         do {
             let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getRefreshedRoutes()
-            let currentDate = Date()
+            let currentTime = Date()
             let currentCalendar = Calendar.current
             let startPoint = configuration.startPoint
             let endPoint = configuration.endPoint
+            var entryList: [BusEntry] = [BusEntry(nil, currentTime, startPoint.rawValue, endPoint.rawValue)]
             
-            let routes = currentCalendar.isDateInWeekend(currentDate) ? holidayRoutes : workdayRoutes
-            let filteredRoutes = routes.filter { $0.start == startPoint.rawValue && $0.end == endPoint.rawValue }.first
+            let routes = currentCalendar.isDateInWeekend(currentTime) ? holidayRoutes : workdayRoutes
             
-            for var schedule in filteredRoutes!.schedules {
-                let dateComponents = currentCalendar.dateComponents([.year, .month, .day], from: .now)
-                let busTimeComponents = currentCalendar.dateComponents([.hour, .minute, .second], from: schedule.time)
-    
-                var combinedComponents = DateComponents()
-                combinedComponents.year = dateComponents.year
-                combinedComponents.month = dateComponents.month
-                combinedComponents.day = dateComponents.day
-                combinedComponents.hour = busTimeComponents.hour
-                combinedComponents.minute = busTimeComponents.minute
-                combinedComponents.second = busTimeComponents.second
-
-                schedule.time = currentCalendar.date(from: combinedComponents)!
+            // the routes.start/end from server only has one direction, for example only 邯郸->江湾 but not 江湾->邯郸.
+            // so we need to filter the routes by both directions now.
+            if let filteredRoutes = routes.filter({ ($0.start == startPoint.rawValue && $0.end == endPoint.rawValue) ||
+                ($0.start == endPoint.rawValue && $0.end == startPoint.rawValue)
+            }).first {
+                // use the route time as render time
+                let route = filteredRoutes.setSchedulesToBaseDate(date: currentTime)
+                entryList = route.schedules.map { schedule in
+                    BusEntry(route, schedule.time, startPoint.rawValue, endPoint.rawValue)
+                }
             }
                 
-            let entry = BusEntry(filteredRoutes)
-                
-            let date = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
-            let timeline = Timeline(entries: [entry], policy: .after(date))
+            let refreshDate = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
+            let timeline = Timeline(entries: entryList, policy: .after(refreshDate))
             return timeline
         } catch {
-            var entry = BusEntry()
+            var entry = BusEntry(nil, Date(), configuration.startPoint.rawValue, configuration.endPoint.rawValue)
             entry.loadFailed = true
             let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
             let timeline = Timeline(entries: [entry], policy: .after(date))
@@ -67,7 +62,7 @@ extension Schedule {
     func setBaseDate(date: Date) -> Schedule {
         let currentCalendar = Calendar.current
         let dateComponents = currentCalendar.dateComponents([.year, .month, .day], from: .now)
-        let busTimeComponents = currentCalendar.dateComponents([.hour, .minute, .second], from: time)
+        let busTimeComponents = currentCalendar.dateComponents([.hour, .minute, .second], from: self.time)
         var combinedComponents = DateComponents()
         combinedComponents.year = dateComponents.year
         combinedComponents.month = dateComponents.month
@@ -96,26 +91,28 @@ extension Route {
 public struct BusEntry: TimelineEntry {
     public let date: Date
     public let route: FudanKit.Route?
+    public let start, end: String
     public var placeholder = false
     public var loadFailed = false
     
     public init() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-dd HH:mm"
-        let date1 = formatter.date(from: "2024-04-19 2:00")!
-        let date2 = formatter.date(from: "2024-04-19 16:00")!
-        date = Date()
-        route = Route(start: "邯郸", end: "枫林", schedules: [
+        let date1 = Calendar.current.date(byAdding: .minute, value: 15, to: Date.now)!
+        let date2 = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
+        self.date = Date()
+        self.route = Route(start: "邯郸", end: "枫林", schedules: [
             Schedule(id: 0, time: date1, start: "邯郸", end: "枫林", holiday: false, bidirectional: false),
-            Schedule(id: 0, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)])
+            Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)])
+        self.start = "邯郸"
+        self.end = "枫林"
     }
     
-    public init(_ route: FudanKit.Route?) {
-        date = Date()
+    public init(_ route: FudanKit.Route?, _ renderTime: Date, _ start: String, _ end: String) {
+        self.date = renderTime
         self.route = route
+        self.start = start
+        self.end = end
     }
 }
-
 
 public struct BusWidget: Widget {
     public init() {}
@@ -143,8 +140,8 @@ struct BusWidgetView: View {
     private var header: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                Text("邯郸")
-                Text("至 枫林")
+                Text(self.entry.start)
+                Text("至 ") + Text(self.entry.end)
             }
             .font(.callout)
             .fontWeight(.bold)
@@ -157,50 +154,55 @@ struct BusWidgetView: View {
     }
     
     private var followingBus: some View {
+        let timeNow = Date()
         
-        guard entry.route != nil else {
-            return AnyView(Text("No more bussss"))
-        }
+        if let route = entry.route {
+            let schedules: [Schedule] = route.schedules.filter { schedule in
+                schedule.time > timeNow && schedule.start == entry.start && schedule.end == entry.end
+            }
             
-        let timeNow = Date.now
-        
-        let schedules = entry.route?.schedules.filter { schedule in
-            schedule.time > timeNow
-        }
-        
-        if let schedule = schedules?.first {
-            // TODO: add 'if show nex day's bus' switch
-            let formatter = DateFormatter()
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
-            formatter.locale = Locale.current
-            // TODO: check if 12-hour format is working
-            
-            return AnyView(VStack(alignment: .leading, spacing: 2) {
-                Text(formatter.string(from: schedule.time))
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Group {
-                    Text("还有 ") + Text(schedule.time, style: .relative)
-                }
-                .font(.footnote)
-                .fontWeight(.semibold)
-                .foregroundColor(.cyan)
-                
-                if let followingBus = schedules?.dropFirst().first {
+            if let schedule = schedules.first {
+                // TODO: add 'if show nex day's bus' switch
+                let formatter = DateFormatter()
+                formatter.dateStyle = .none
+                formatter.timeStyle = .short
+                formatter.locale = Locale.current
+                // TODO: check if 12-hour format is working
+                        
+                return AnyView(VStack(alignment: .leading, spacing: 2) {
+                    Text(formatter.string(from: schedule.time))
+                        .font(.title2)
+                        .fontWeight(.bold)
                     Group {
-                        Text("下一班 ") + Text(formatter.string(from: followingBus.time))
+                        Text("还有 ") + Text(schedule.time, style: .relative)
                     }
-                    .font(.caption2)
-                    .foregroundColor(.gray)
-                } else {
-                    Text("今日无更多班次")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.cyan)
+                            
+                    if let followingBus = schedules.dropFirst().first {
+                        Group {
+                            Text("下一班 ") + Text(formatter.string(from: followingBus.time))
+                        }
                         .font(.caption2)
                         .foregroundColor(.gray)
-                }
-            })
+                    } else {
+                        Text("今日无更多班次")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .padding(.top, 1)
+                    }
+                })
+            } else {
+                return AnyView(Text("今日无更多班次")
+                    .font(.footnote)
+                    .foregroundColor(.gray))
+            }
+            
         } else {
-            return AnyView(Text("No more"))
+            return AnyView(Text("无班次信息")
+                            .font(.footnote)
+                            .foregroundColor(.gray))
         }
     }
     
@@ -209,23 +211,23 @@ struct BusWidgetView: View {
             widgetContent
                 .containerBackground(.fill, for: .widget)
         } else {
-            widgetContent
+            self.widgetContent
                 .padding()
         }
     }
     
     @ViewBuilder
     private var widgetContent: some View {
-        if entry.loadFailed {
+        if self.entry.loadFailed {
             Text("Load Failed")
                 .foregroundColor(.secondary)
         } else {
             VStack(alignment: .leading) {
-                header
+                self.header
                 
                 Spacer()
         
-                followingBus
+                self.followingBus
             }
         }
     }
