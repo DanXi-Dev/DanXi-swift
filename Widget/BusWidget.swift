@@ -29,19 +29,24 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
             let currentCalendar = Calendar.current
             let startPoint = configuration.startPoint
             let endPoint = configuration.endPoint
-            var entryList: [BusEntry] = [BusEntry(nil, currentTime, startPoint.rawValue, endPoint.rawValue)]
+            var entryList: [BusEntry] = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue)]
             
             let routes = currentCalendar.isDateInWeekend(currentTime) ? holidayRoutes : workdayRoutes
             
             // the routes.start/end from server only has one direction, for example only 邯郸->江湾 but not 江湾->邯郸.
             // so we need to filter the routes by both directions now.
             if let filteredRoutes = routes.filter({ ($0.start == startPoint.rawValue && $0.end == endPoint.rawValue) ||
-                ($0.start == endPoint.rawValue && $0.end == startPoint.rawValue)
+                    ($0.start == endPoint.rawValue && $0.end == startPoint.rawValue)
             }).first {
                 // use the route time as render time
                 let route = filteredRoutes.setSchedulesToBaseDate(date: currentTime)
                 entryList = route.schedules.map { schedule in
-                    BusEntry(route, schedule.time, startPoint.rawValue, endPoint.rawValue)
+                    let timeFilteredSchedules = route.schedules.filter { $0.time >= schedule.time }
+                    if timeFilteredSchedules.isEmpty {
+                        return BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, "未找到班次信息")
+                    } else {
+                        return BusEntry(timeFilteredSchedules, schedule.time, startPoint.rawValue, endPoint.rawValue)
+                    }
                 }
             }
                 
@@ -49,7 +54,8 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
             let timeline = Timeline(entries: entryList, policy: .after(refreshDate))
             return timeline
         } catch {
-            var entry = BusEntry(nil, Date(), configuration.startPoint.rawValue, configuration.endPoint.rawValue)
+            // TODO: handle error and return error message to entry
+            var entry = BusEntry([], Date(), configuration.startPoint.rawValue, configuration.endPoint.rawValue)
             entry.loadFailed = true
             let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
             let timeline = Timeline(entries: [entry], policy: .after(date))
@@ -90,27 +96,31 @@ extension Route {
 
 public struct BusEntry: TimelineEntry {
     public let date: Date
-    public let route: FudanKit.Route?
+    public let schedules: [Schedule]
     public let start, end: String
+    public let errorMessage: String?
     public var placeholder = false
     public var loadFailed = false
     
     public init() {
-        let date1 = Calendar.current.date(byAdding: .minute, value: 15, to: Date.now)!
-        let date2 = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
+        let date1 = Calendar.current.date(byAdding: .second, value: 30, to: Date.now)!
+        let date2 = Calendar.current.date(byAdding: .minute, value: 1, to: Date.now)!
         self.date = Date()
-        self.route = Route(start: "邯郸", end: "枫林", schedules: [
+        self.schedules = [
             Schedule(id: 0, time: date1, start: "邯郸", end: "枫林", holiday: false, bidirectional: false),
-            Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)])
+            Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false),
+        ]
         self.start = "邯郸"
         self.end = "枫林"
+        self.errorMessage = nil
     }
     
-    public init(_ route: FudanKit.Route?, _ renderTime: Date, _ start: String, _ end: String) {
+    public init(_ schedules: [Schedule], _ renderTime: Date, _ start: String, _ end: String, _ errorMessage: String? = nil) {
         self.date = renderTime
-        self.route = route
+        self.schedules = schedules
         self.start = start
         self.end = end
+        self.errorMessage = errorMessage
     }
 }
 
@@ -156,9 +166,13 @@ struct BusWidgetView: View {
     private var followingBus: some View {
         let timeNow = Date()
         
-        if let route = entry.route {
-            let schedules: [Schedule] = route.schedules.filter { schedule in
-                schedule.time > timeNow && schedule.start == entry.start && schedule.end == entry.end
+        if let errorMessage = entry.errorMessage {
+            return AnyView(Text(errorMessage)
+                .font(.footnote)
+                .foregroundColor(.gray))
+        } else {
+            let schedules: [Schedule] = self.entry.schedules.filter { schedule in
+                schedule.start == self.entry.start && schedule.end == self.entry.end
             }
             
             if let schedule = schedules.first {
@@ -168,7 +182,7 @@ struct BusWidgetView: View {
                 formatter.timeStyle = .short
                 formatter.locale = Locale.current
                 // TODO: check if 12-hour format is working
-                        
+                
                 return AnyView(VStack(alignment: .leading, spacing: 2) {
                     Text(formatter.string(from: schedule.time))
                         .font(.title2)
@@ -179,7 +193,7 @@ struct BusWidgetView: View {
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.cyan)
-                            
+                    
                     if let followingBus = schedules.dropFirst().first {
                         Group {
                             Text("下一班 ") + Text(formatter.string(from: followingBus.time))
@@ -198,11 +212,6 @@ struct BusWidgetView: View {
                     .font(.footnote)
                     .foregroundColor(.gray))
             }
-            
-        } else {
-            return AnyView(Text("无班次信息")
-                            .font(.footnote)
-                            .foregroundColor(.gray))
         }
     }
     
@@ -237,5 +246,11 @@ struct BusWidgetView: View {
 #Preview("Bus", as: .systemSmall) {
     BusWidget()
 } timeline: {
-    BusEntry()
+    let date1 = Calendar.current.date(byAdding: .minute, value: 1, to: Date.now)!
+    let date2 = Calendar.current.date(byAdding: .minute, value: 2, to: Date.now)!
+    let myroute1 = [Schedule(id: 0, time: date1, start: "邯郸", end: "枫林", holiday: false, bidirectional: false), Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)]
+    let myroute2 = [Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)]
+    let myroute3: [Schedule] = []
+    return [BusEntry(myroute1, Date.now, "邯郸", "枫林"), BusEntry(myroute2, date1, "邯郸", "枫林"), BusEntry(myroute3, date2, "邯郸", "枫林"),
+    BusEntry(myroute2, date1, "邯郸", "枫林", "未找到班次信息")]
 }
