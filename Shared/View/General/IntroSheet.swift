@@ -184,6 +184,9 @@ struct IntroNotificationSheet: View {
             Spacer()
             Spacer()
             Button(action: {
+                #if targetEnvironment(macCatalyst)
+                nextPage = true
+                #endif
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound, .providesAppNotificationSettings]) { granted, error in
                     // Next page
                     nextPage = true
