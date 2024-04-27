@@ -63,6 +63,36 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
     }
 }
 
+extension Schedule {
+    func setBaseDate(date: Date) -> Schedule {
+        let currentCalendar = Calendar.current
+        let dateComponents = currentCalendar.dateComponents([.year, .month, .day], from: .now)
+        let busTimeComponents = currentCalendar.dateComponents([.hour, .minute, .second], from: time)
+        var combinedComponents = DateComponents()
+        combinedComponents.year = dateComponents.year
+        combinedComponents.month = dateComponents.month
+        combinedComponents.day = dateComponents.day
+        combinedComponents.hour = busTimeComponents.hour
+        combinedComponents.minute = busTimeComponents.minute
+        combinedComponents.second = busTimeComponents.second
+
+        if let currentScheduleTime = currentCalendar.date(from: combinedComponents) {
+            return Schedule(id: self.id, time: currentScheduleTime, start: self.start, end: self.end, holiday: self.holiday, bidirectional: self.bidirectional, missed: self.missed)
+        }
+        
+        print("Error: Failed to set base date for schedule.")
+        return self
+    }
+}
+
+extension Route {
+    func setSchedulesToBaseDate(date: Date) -> Route {
+        let start = self.start, end = self.end
+        let schedules = self.schedules.map { $0.setBaseDate(date: date) }
+        return Route(start: start, end: end, schedules: schedules)
+    }
+}
+
 public struct BusEntry: TimelineEntry {
     public let date: Date
     public let route: FudanKit.Route?
