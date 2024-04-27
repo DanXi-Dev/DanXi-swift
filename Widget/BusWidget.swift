@@ -206,6 +206,7 @@ struct BusWidgetView: View {
                             Text("Next shift at")
                             Text(formatter.string(from: followingBus.time))
                                 .padding(.leading, 2)
+                                .padding(.top, 1)
                         }
                         .font(.caption2)
                         .foregroundColor(.gray)
@@ -213,7 +214,7 @@ struct BusWidgetView: View {
                         Text("No more shifts today")
                             .font(.caption2)
                             .foregroundColor(.gray)
-                            .padding(.top, 2)
+                            .padding(.top, 1)
                     }
                 })
             } else {
