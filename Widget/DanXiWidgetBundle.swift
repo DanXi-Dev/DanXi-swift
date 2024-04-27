@@ -1,25 +1,27 @@
-import WidgetKit
-import SwiftUI
 import FudanUI
+import SwiftUI
+import WidgetKit
 
 @main
 struct DanXiWigdetBundle: WidgetBundle {
     var body: some Widget {
         WalletWidget()
-        BusWidget()
+        if #available(iOS 17.0, *) {
+            BusWidget()
+        }
     }
 }
 
 @available(iOS 17, *)
 #Preview("Wallet", as: .systemSmall) {
-   WalletWidget()
+    WalletWidget()
 } timeline: {
-   WalletEntry()
+    WalletEntry()
 }
 
 @available(iOS 17, *)
 #Preview("Bus", as: .systemSmall) {
-   BusWidget()
+    BusWidget()
 } timeline: {
-   BusEntry()
+    BusEntry()
 }

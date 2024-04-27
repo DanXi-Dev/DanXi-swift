@@ -3,6 +3,7 @@ import Intents
 import SwiftUI
 import WidgetKit
 
+@available(iOS 17.0, *)
 struct BusWidgetProvier: AppIntentTimelineProvider {
     typealias Entry = BusEntry
     
@@ -124,6 +125,7 @@ public struct BusEntry: TimelineEntry {
     }
 }
 
+@available(iOS 17.0, *)
 public struct BusWidget: Widget {
     public init() {}
     
@@ -144,6 +146,7 @@ public struct BusWidget: Widget {
     }
 }
 
+@available(iOS 17.0, *)
 struct BusWidgetView: View {
     let entry: BusEntry
     
