@@ -709,9 +709,6 @@
         }
       }
     },
-    "Backyard" : {
-
-    },
     "Balance" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -865,6 +862,25 @@
         }
       }
     },
+    "Bus Schedule.widget.bus" : {
+
+    },
+    "Bus.widget.bus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bus"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "校车"
+          }
+        }
+      }
+    },
     "Calendar" : {
       "comment" : "Fudan Calandar",
       "localizations" : {
@@ -907,6 +923,9 @@
           }
         }
       }
+    },
+    "Campus list" : {
+
     },
     "Campus Services" : {
       "extractionState" : "stale",
@@ -1027,9 +1046,6 @@
           }
         }
       }
-    },
-    "Check school bus." : {
-
     },
     "Classroom Schedule" : {
       "extractionState" : "stale",
@@ -1925,6 +1941,16 @@
         }
       }
     },
+    "Due in" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还有"
+          }
+        }
+      }
+    },
     "Earlier" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2656,6 +2682,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "始发"
+          }
+        }
+      }
+    },
+    "From.widget.bus" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "始发地"
           }
         }
       }
@@ -3651,6 +3687,17 @@
         }
       }
     },
+    "Next shift at" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一班"
+          }
+        }
+      }
+    },
     "Nickname" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3674,7 +3721,6 @@
       }
     },
     "No available schedule" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3704,6 +3750,9 @@
           }
         }
       }
+    },
+    "No more shifts today" : {
+
     },
     "No Review" : {
       "localizations" : {
@@ -5445,6 +5494,22 @@
         }
       }
     },
+    "Subscribe bus schedule." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe bus schedule."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "订阅校车班次。"
+          }
+        }
+      }
+    },
     "Subscription List" : {
       "localizations" : {
         "en" : {
@@ -5703,6 +5768,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "需要在网页中接受条款与条件后方可使用复活码"
+          }
+        }
+      }
+    },
+    "to.widget.bus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "至"
+          }
+        }
+      }
+    },
+    "To.widget.busScheduleIntent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目的地"
           }
         }
       }
@@ -6270,11 +6367,22 @@
         }
       }
     },
-    "下一班 " : {
-
-    },
     "今日无更多班次" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No more shifts today"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "今日无更多班次"
+          }
+        }
+      }
     },
     "光华楼东辅楼" : {
       "extractionState" : "stale",
@@ -6298,11 +6406,15 @@
         }
       }
     },
-    "始发地" : {
-
-    },
     "张江" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "张江"
+          }
+        }
+      }
     },
     "张江校区" : {
       "extractionState" : "stale",
@@ -6326,6 +6438,23 @@
         }
       }
     },
+    "未找到班次信息" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No available schedule"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "未找到班次信息"
+          }
+        }
+      }
+    },
     "枫林" : {
 
     },
@@ -6340,11 +6469,15 @@
         }
       }
     },
-    "校区列表" : {
-
-    },
     "江湾" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "江湾"
+          }
+        }
+      }
     },
     "江湾校区" : {
       "extractionState" : "stale",
@@ -6368,7 +6501,21 @@
       }
     },
     "目的地" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目的地"
+          }
+        }
+      }
     },
     "第三教学楼" : {
       "extractionState" : "stale",
@@ -6426,13 +6573,21 @@
       }
     },
     "至 " : {
-
-    },
-    "订阅校车时刻表" : {
-
-    },
-    "还有" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "至"
+          }
+        }
+      }
     },
     "邯郸" : {
 

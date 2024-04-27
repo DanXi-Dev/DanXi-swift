@@ -8,15 +8,16 @@
 import AppIntents
 import WidgetKit
 
+@available(iOS 17.0, *)
 struct BusScheduleIntent: WidgetConfigurationIntent {
     
-    static let title: LocalizedStringResource = "Backyard"
-    static let description: LocalizedStringResource  = "订阅校车时刻表"
+    static let title: LocalizedStringResource = "Bus Schedule.widget.bus"
+    static let description: LocalizedStringResource  = "Subscribe bus schedule."
 
-    @Parameter(title: "始发地", default: .handan)
+    @Parameter(title: "From.widget.bus", default: .handan)
     var startPoint: CampusEnum
 
-    @Parameter(title: "目的地", default: .fenglin)
+    @Parameter(title: "To.widget.busScheduleIntent", default: .fenglin)
     var endPoint: CampusEnum
 
     init(startPoint: CampusEnum = .handan, endPoint: CampusEnum = .fenglin) {
@@ -34,7 +35,7 @@ enum CampusEnum: String, AppEnum {
     case jiangwan = "江湾"
     case zhangjiang = "张江"
 
-    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "校区列表")
+    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Campus list")
 
     static let caseDisplayRepresentations: [CampusEnum: DisplayRepresentation] = [
         .handan: DisplayRepresentation(title: "邯郸"),

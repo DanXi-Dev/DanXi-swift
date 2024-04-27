@@ -43,7 +43,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
                 entryList = route.schedules.map { schedule in
                     let timeFilteredSchedules = route.schedules.filter { $0.time >= schedule.time }
                     if timeFilteredSchedules.isEmpty {
-                        return BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, "未找到班次信息")
+                        return BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule"))
                     } else {
                         return BusEntry(timeFilteredSchedules, schedule.time, startPoint.rawValue, endPoint.rawValue)
                     }
@@ -138,8 +138,8 @@ public struct BusWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Bus")
-        .description("Check school bus.")
+        .configurationDisplayName("Bus.widget.bus")
+        .description("Subscribe bus schedule.")
         .supportedFamilies([.systemSmall])
     }
 }
@@ -151,7 +151,11 @@ struct BusWidgetView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 Text(self.entry.start)
-                Text("至 ") + Text(self.entry.end)
+                HStack(spacing: 0) {
+                    Text("to.widget.bus")
+                    Text(self.entry.end)
+                        .padding(.leading, 3)
+                }
             }
             .font(.callout)
             .fontWeight(.bold)
@@ -185,28 +189,32 @@ struct BusWidgetView: View {
                     Text(formatter.string(from: schedule.time))
                         .font(.title2)
                         .fontWeight(.bold)
-                    Group {
-                        Text("还有") + Text(schedule.time, style: .relative)
+                    HStack(spacing: 0) {
+                        Text("Due in")
+                        Text(schedule.time, style: .relative)
+                            .padding(.leading, 2.5)
                     }
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.cyan)
                     
                     if let followingBus = schedules.dropFirst().first {
-                        Group {
-                            Text("下一班 ") + Text(formatter.string(from: followingBus.time))
+                        HStack(spacing: 0) {
+                            Text("Next shift at")
+                            Text(formatter.string(from: followingBus.time))
+                                .padding(.leading, 2)
                         }
                         .font(.caption2)
                         .foregroundColor(.gray)
                     } else {
-                        Text("今日无更多班次")
+                        Text("No more shifts today")
                             .font(.caption2)
                             .foregroundColor(.gray)
-                            .padding(.top, 1)
+                            .padding(.top, 2)
                     }
                 })
             } else {
-                return AnyView(Text("今日无更多班次")
+                return AnyView(Text("No more shifts today")
                     .font(.footnote)
                     .foregroundColor(.gray))
             }
