@@ -125,8 +125,8 @@
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
-		E55842382BD2495A00000510 /* WidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */; settings = {ATTRIBUTES = (codegen, ); }; };
-		E558423E2BD24CC100000510 /* WidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */; };
+		E5150BD02BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */; };
+		E5150BD12BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */; };
 		E5CC90602BD18CC700C01F91 /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CC905F2BD18CC700C01F91 /* BusWidget.swift */; };
 		E5F2559F2BD250D300D4B206 /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CC905F2BD18CC700C01F91 /* BusWidget.swift */; };
 		EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */; };
@@ -304,7 +304,7 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = WidgetIntent.intentdefinition; sourceTree = "<group>"; };
+		E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidgetIntent.swift; sourceTree = "<group>"; };
 		E5CC905F2BD18CC700C01F91 /* BusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidget.swift; sourceTree = "<group>"; };
 		EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkView.swift; sourceTree = "<group>"; };
 		F13306D32BA5766C005361D2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -373,7 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CC905F2BD18CC700C01F91 /* BusWidget.swift */,
-				E55842372BD2495A00000510 /* WidgetIntent.intentdefinition */,
+				E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */,
 				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
 				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
@@ -873,9 +873,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E558423E2BD24CC100000510 /* WidgetIntent.intentdefinition in Sources */,
 				E5CC90602BD18CC700C01F91 /* BusWidget.swift in Sources */,
 				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
+				E5150BD12BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -900,7 +900,6 @@
 				272AC8DA2896BE2500092B0C /* THFavoritesPage.swift in Sources */,
 				27BBBD1F2912C33D007C2905 /* DXEntity.swift in Sources */,
 				27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */,
-				E55842382BD2495A00000510 /* WidgetIntent.intentdefinition in Sources */,
 				F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */,
 				27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */,
 				27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */,
@@ -924,6 +923,7 @@
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
 				F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */,
+				E5150BD02BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */,
 				EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
 				27DE299829E5A83600B5B28A /* Sheet.swift in Sources */,
@@ -1077,7 +1077,7 @@
 				INFOPLIST_FILE = Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1111,7 +1111,7 @@
 				INFOPLIST_FILE = Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1272,7 +1272,7 @@
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INTENTS_CODEGEN_LANGUAGE = Swift;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1310,7 +1310,7 @@
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INTENTS_CODEGEN_LANGUAGE = Swift;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
