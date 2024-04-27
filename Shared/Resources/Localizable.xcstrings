@@ -863,7 +863,20 @@
       }
     },
     "Bus Schedule.widget.bus" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bus Schedule"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "校车班次"
+          }
+        }
+      }
     },
     "Bus.widget.bus" : {
       "localizations" : {
@@ -2688,9 +2701,15 @@
     },
     "From.widget.bus" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "From"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "始发地"
           }
         }
@@ -3721,11 +3740,28 @@
       }
     },
     "No available schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "没有符合条件的校车班次"
+          }
+        }
+      }
+    },
+    "No available schedule.widget.bus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No available schedule"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "未找到班次信息"
           }
         }
       }
@@ -3752,7 +3788,14 @@
       }
     },
     "No more shifts today" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日无更多班次"
+          }
+        }
+      }
     },
     "No Review" : {
       "localizations" : {
@@ -6363,23 +6406,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "元"
-          }
-        }
-      }
-    },
-    "今日无更多班次" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No more shifts today"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "今日无更多班次"
           }
         }
       }
