@@ -42,13 +42,17 @@ struct THHolePage: View {
                                 VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
                                     Spacer(minLength: 0)
                                     HStack {
-                                        Text("\(floors.count) hidden items")
-                                            .foregroundColor(.secondary)
-                                            .font(.subheadline)
+                                        if floors.count == 1, let first = floors.first {
+                                            Text(first.fold)
+                                        } else {
+                                            Text("\(floors.count) hidden items")
+                                        }
                                         Spacer(minLength: 0)
                                     }
                                     Spacer(minLength: 0)
                                 }
+                                .foregroundColor(.secondary)
+                                .font(.subheadline)
                                 .padding(.horizontal, 12)
                             } content: {
                                 ForEach(floors) { floor in
