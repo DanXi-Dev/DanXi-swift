@@ -103,8 +103,8 @@ public struct BusEntry: TimelineEntry {
     public var loadFailed = false
     
     public init() {
-        let date1 = Calendar.current.date(byAdding: .second, value: 30, to: Date.now)!
-        let date2 = Calendar.current.date(byAdding: .minute, value: 1, to: Date.now)!
+        let date1 = Calendar.current.date(byAdding: .hour, value: 5, to: Date.now)!
+        let date2 = Calendar.current.date(byAdding: .hour, value: 15, to: Date.now)!
         self.date = Date()
         self.schedules = [
             Schedule(id: 0, time: date1, start: "邯郸", end: "枫林", holiday: false, bidirectional: false),
@@ -164,8 +164,6 @@ struct BusWidgetView: View {
     }
     
     private var followingBus: some View {
-        let timeNow = Date()
-        
         if let errorMessage = entry.errorMessage {
             return AnyView(Text(errorMessage)
                 .font(.footnote)
