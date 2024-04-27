@@ -32,7 +32,12 @@ class ScreenshotAlertModel: ObservableObject {
             // do nothing
         }
         alertController.addAction(defaultAction)
-        uiView?.window?.farthestPresentedViewController?.present(alertController, animated: true)
+        
+        guard let rootViewController = uiView?.window?.rootViewController,
+              rootViewController.presentedViewController == nil else {
+            return
+        }
+        rootViewController.present(alertController, animated: true)
     }
 }
 
