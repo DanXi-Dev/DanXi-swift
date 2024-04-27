@@ -91,8 +91,7 @@ struct THTextEditor<Toolbar: View>: View {
     @State private var height: CGFloat?
     
     var body: some View {
-        THTextEditorUIView(placeholder: placeholder ?? "",
-                           textDidChange: textDidChange,
+        THTextEditorUIView(textDidChange: textDidChange,
                            uploadImageAction: uploadImageAction,
                            text: $text,
                            selection: $selection,
@@ -109,7 +108,6 @@ struct THTextEditor<Toolbar: View>: View {
 struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     typealias UIViewType = UITextView
     
-    let placeholder: String
     let textDidChange: (UITextView) -> Void
     let uploadImageAction: (Data?) async throws -> Void
     @Binding var text: String
@@ -117,7 +115,7 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     @ViewBuilder let toolbar: () -> Toolbar
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, selection: $selection, placeholder: placeholder, textDidChange: textDidChange, parent: self)
+        return Coordinator(text: $text, selection: $selection, textDidChange: textDidChange)
     }
     
     class TextViewWithImagePasting: UITextView {
@@ -171,13 +169,7 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     }
     
     func updateUIView(_ textView: UITextView, context: Context) {
-        if text.isEmpty && !textView.isFirstResponder {
-            textView.text = placeholder
-            textView.textColor = .placeholderText
-        } else {
-            textView.text = text
-            textView.textColor = .label
-        }
+        textView.text = text
         if let selection {
             textView.selectedRange = NSRange(selection, in: textView.text)
         }
@@ -189,16 +181,12 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     class Coordinator: NSObject, UITextViewDelegate {
         @Binding var text: String
         @Binding var selection: Range<String.Index>?
-        let placeholder: String
         let textDidChange: (UITextView) -> Void
-        let parent: THTextEditorUIView
         
-        init(text: Binding<String>, selection: Binding<Range<String.Index>?>, placeholder: String, textDidChange: @escaping (UITextView) -> Void, parent: THTextEditorUIView) {
+        init(text: Binding<String>, selection: Binding<Range<String.Index>?>, textDidChange: @escaping (UITextView) -> Void) {
             self._text = text
             self._selection = selection
-            self.placeholder = placeholder
             self.textDidChange = textDidChange
-            self.parent = parent
         }
         
         func textViewDidChange(_ textView: UITextView) {
@@ -260,25 +248,9 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
             //            return UIMenu(children: customActions + suggestedActions)
         }
         
-        func textViewDidBeginEditing(_ textView: UITextView) {
-            // Remove placeholder text when the user starts editing
-            if textView.textColor == .placeholderText {
-                textView.text = nil
-                textView.textColor = .label
-            }
-        }
-        
         func textViewDidChangeSelection(_ textView: UITextView) {
             DispatchQueue.main.async { @MainActor [weak self] in
                 self?.selection = Range(textView.selectedRange, in: textView.text)
-            }
-        }
-        
-        func textViewDidEndEditing(_ textView: UITextView) {
-            // Add placeholder text if the user ends editing with an empty field
-            if textView.text.isEmpty {
-                textView.text = placeholder
-                textView.textColor = .placeholderText
             }
         }
     }

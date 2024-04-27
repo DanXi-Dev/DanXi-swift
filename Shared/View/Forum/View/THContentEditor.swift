@@ -45,7 +45,7 @@ struct THContentEditor: View {
     }
     
     func addAtCursorPosition(_ newContent: String) {
-        if let selection, selection.upperBound <= content.endIndex {
+        if let selection {
             content.insert(contentsOf: newContent, at: selection.lowerBound)
             // Set cursor position to the end of the inserted content
             let newCursorPosition = content.index(selection.lowerBound, offsetBy: newContent.count)
@@ -56,7 +56,7 @@ struct THContentEditor: View {
     }
     
     func addMarkdownModifier(beginning: String, end: String) {
-        if let selection, selection.upperBound <= content.endIndex {
+        if let selection {
             let selectedContent = content[selection]
             content.replaceSubrange(selection, with: beginning + selectedContent + end)
             if selection.isEmpty {
@@ -71,7 +71,7 @@ struct THContentEditor: View {
     }
     
     func addToBeginningOfLine(_ newContent: String) {
-        if let selection, selection.upperBound <= content.endIndex {
+        if let selection {
             let cursorPosition = selection.lowerBound
             let lineBreak = content[..<(cursorPosition)].lastIndex(of: "\n")
             guard let lineBreak else {
