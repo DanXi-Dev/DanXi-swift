@@ -47,6 +47,9 @@ struct THContentEditor: View {
     func addAtCursorPosition(_ newContent: String) {
         if let selection, selection.upperBound <= content.endIndex {
             content.insert(contentsOf: newContent, at: selection.lowerBound)
+            // Set cursor position to the end of the inserted content
+            let newCursorPosition = content.index(selection.lowerBound, offsetBy: newContent.count)
+            self.selection = newCursorPosition..<newCursorPosition
         } else {
             content.append(newContent)
         }
