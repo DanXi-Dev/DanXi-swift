@@ -97,6 +97,22 @@ struct THTextEditor<Toolbar: View>: View {
                            selection: $selection,
                            toolbar: toolbar)
         .frame(height: height ?? minHeight)
+        .overlay(alignment: .topLeading) {
+            if let placeholder, text.isEmpty {
+                Group {
+                    if #available(iOS 17, *) {
+                        Text(placeholder)
+                            .foregroundStyle(.placeholder)
+                    } else {
+                        Text(placeholder)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.top, 9)
+                .padding(.leading, 6)
+                .allowsHitTesting(false)
+            }
+        }
     }
     
     private func textDidChange(_ textView: UITextView) {
