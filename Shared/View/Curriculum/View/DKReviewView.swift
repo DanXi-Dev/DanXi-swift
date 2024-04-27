@@ -28,7 +28,7 @@ struct DKReviewView: View {
             Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                 .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 .multilineTextAlignment(.leading)
-                .font(.body.leading(.standard))
+                .font(.body.leading(.loose))
                 .lineLimit(6)
 
             HStack {

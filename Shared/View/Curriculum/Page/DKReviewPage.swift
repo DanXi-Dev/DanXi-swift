@@ -46,7 +46,7 @@ struct DKReviewPage: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text(review.title)
-                    .font(.title2)
+                    .font(.title)
                     .bold()
                 HStack {
                     DKTagView {
