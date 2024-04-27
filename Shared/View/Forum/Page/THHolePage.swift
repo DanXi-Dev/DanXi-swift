@@ -27,13 +27,36 @@ struct THHolePage: View {
                     }
                     
                     AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { floor in
-                        Section {
-                            THComplexFloor(floor)
-                                .tag(floor)
-                        } header: {
-                            if floor.id == model.floors.first?.id {
-                                header
+                        switch floor {
+                        case let .floor(floor):
+                            Section {
+                                THComplexFloor(floor)
+                                    .tag(floor)
+                            } header: {
+                                if floor.id == model.floors.first?.id {
+                                    header
+                                }
                             }
+                        case let .folded(floors):
+                            FoldedView {
+                                VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
+                                    Spacer(minLength: 0)
+                                    HStack {
+                                        Text("\(floors.count) hidden items")
+                                            .foregroundColor(.secondary)
+                                            .font(.subheadline)
+                                        Spacer(minLength: 0)
+                                    }
+                                    Spacer(minLength: 0)
+                                }
+                                .padding(.horizontal, 12)
+                            } content: {
+                                ForEach(floors) { floor in
+                                    THComplexFloor(floor)
+                                        .tag(floor)
+                                }
+                            }
+                            .listRowInsets(.zero)
                         }
                     }
                 }
@@ -338,4 +361,18 @@ private struct BottomBarLabel: View {
                 .labelStyle(.titleAndIcon)
         }
     }
+}
+
+enum THFloorSegment: Identifiable {
+    var id: Int {
+        switch self {
+        case let .floor(floor):
+            floor.id
+        case let .folded(floors):
+            floors.first?.id ?? 0
+        }
+    }
+    
+    case floor(THFloor)
+    case folded([THFloor])
 }

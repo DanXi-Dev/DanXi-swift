@@ -10,7 +10,7 @@ class THFloorModel: ObservableObject {
     @Published var floor: THFloor
     @Published var highlighted = false
     var collapse: Bool {
-        floor.deleted || !floor.fold.isEmpty
+        floor.collapse
     }
     var collapsedContent: String {
         floor.fold.isEmpty ? floor.content : floor.fold

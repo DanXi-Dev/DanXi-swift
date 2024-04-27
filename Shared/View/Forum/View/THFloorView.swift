@@ -56,23 +56,10 @@ struct THComplexFloor: View {
     }
     
     var body: some View {
-        FoldedView(expand: !model.collapse) {
-            VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
-                Spacer(minLength: 0)
-                HStack {
-                    Text(model.collapsedContent)
-                        .foregroundColor(.secondary)
-                        .font(.subheadline)
-                    Spacer(minLength: 0)
-                }
-                Spacer(minLength: 0)
-            }
-        } content: {
-            VStack(alignment: .leading) {
-                headLine
-                content
-                bottomLine
-            }
+        VStack(alignment: .leading) {
+            headLine
+            content
+            bottomLine
         }
         .listRowInsets(.zero)
         .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
@@ -480,11 +467,11 @@ private struct Actions: View {
                 Label("Copy Full Text", systemImage: "doc.on.doc")
             }
             
-//            Button {
-//                UIPasteboard.general.string = "##\(model.floor.id)"
-//            } label: {
-//                Label("Copy Floor ID", systemImage: "number")
-//            }
+            //            Button {
+            //                UIPasteboard.general.string = "##\(model.floor.id)"
+            //            } label: {
+            //                Label("Copy Floor ID", systemImage: "number")
+            //            }
             
             Button {
                 showSelectionSheet = true

@@ -76,6 +76,10 @@ struct THFloor: Hashable, Codable, Identifiable {
     let posterName, spetialTag: String
     var mention: [THMention]
     let sensitiveDetail: String?
+
+    var collapse: Bool {
+        self.deleted || !self.fold.isEmpty
+    }
     
     func firstMention() -> Int? {
         let pattern = #/

@@ -366,6 +366,16 @@
         }
       }
     },
+    "%lld hidden items" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld个隐藏内容"
+          }
+        }
+      }
+    },
     "%lld Reviews" : {
       "localizations" : {
         "zh-Hans" : {
