@@ -6,7 +6,7 @@ struct DKReviewView: View {
     let course: DKCourse
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text(review.title)
@@ -23,13 +23,13 @@ struct DKReviewView: View {
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
-            .padding(.bottom, 2)
 
             Text((try? AttributedString(markdown: review.content, options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                 .inlineOnlyPreservingWhitespace))) ?? AttributedString(review.content))
                 .multilineTextAlignment(.leading)
-                .font(.body.leading(.loose))
+                .font(.callout.leading(.loose))
                 .lineLimit(6)
+                .padding(.bottom, 4)
 
             HStack {
                 DKTagView {
