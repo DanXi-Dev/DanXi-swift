@@ -11,6 +11,8 @@ struct SettingsPage: View {
     
     @State private var forumLoginSheet = false
     @State private var forumUserSheet = false
+    @State private var campusLoginSheet = false
+    @State private var campusUserSheet = false
     
     var showToolbar: Bool {
         campusModel.loggedIn || forumModel.isLogged
@@ -23,7 +25,7 @@ struct SettingsPage: View {
                     .id("settings-top")
                 
                 Section("Accounts Management") {
-                    CampusAccountButton()
+                    CampusAccountButton(showLoginSheet: $campusLoginSheet, showUserSheet: $campusUserSheet)
                     
                     Button {
                         if forumModel.isLogged {
@@ -65,6 +67,12 @@ struct SettingsPage: View {
         }
         .sheet(isPresented: $forumUserSheet) {
             DXUserSheet()
+        }
+        .sheet(isPresented: $campusUserSheet) {
+            FudanUI.AccountSheet()
+        }
+        .sheet(isPresented: $campusLoginSheet) {
+            FudanUI.LoginSheet()
         }
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
     }

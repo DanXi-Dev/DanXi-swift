@@ -5,10 +5,13 @@ import ViewUtils
 public struct CampusAccountButton: View {
     @ObservedObject private var model = CampusModel.shared
     
-    @State private var showLoginSheet = false
-    @State private var showUserSheet = false
+    @Binding private var showLoginSheet: Bool
+    @Binding private var showUserSheet: Bool
     
-    public init() { }
+    public init(showLoginSheet: Binding<Bool>, showUserSheet: Binding<Bool>) {
+        self._showLoginSheet = showLoginSheet
+        self._showUserSheet = showUserSheet
+    }
     
     public var body: some View {
         Button {
@@ -36,19 +39,17 @@ public struct CampusAccountButton: View {
                 }
             }
         }
-        .sheet(isPresented: $showUserSheet) {
-            AccountSheet()
-        }
-        .sheet(isPresented: $showLoginSheet) {
-            LoginSheet()
-        }
     }
 }
 
-struct AccountSheet: View {
+public struct AccountSheet: View {
     @Environment(\.dismiss) private var dismiss
     
-    var body: some View {
+    public init() {
+        
+    }
+    
+    public var body: some View {
         NavigationStack {
             Form {
                 List {
