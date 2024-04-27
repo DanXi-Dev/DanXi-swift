@@ -62,6 +62,10 @@ struct THContentEditor: View {
             if selection.isEmpty {
                 let position = content.index(selection.lowerBound, offsetBy: beginning.count)
                 self.selection = position..<position
+            } else {
+                let newBegin = selection.lowerBound
+                let newEnd = content.index(selection.upperBound, offsetBy: beginning.count + end.count)
+                self.selection = newBegin..<newEnd
             }
         } else {
             content.append(beginning + end)
