@@ -174,7 +174,7 @@ struct BusWidgetView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                     Group {
-                        Text("还有 ") + Text(schedule.time, style: .relative)
+                        Text("还有") + Text(schedule.time, style: .relative)
                     }
                     .font(.footnote)
                     .fontWeight(.semibold)
