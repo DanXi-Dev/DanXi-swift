@@ -87,13 +87,14 @@ struct IntroLoginSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: AppModel
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var dxModel = DXModel.shared
     
     private var noAccountLogined: Bool {
-        get { !DXModel.shared.isLogged && !campusModel.loggedIn }
+        get { !dxModel.isLogged && !campusModel.loggedIn }
     }
     
     private var allAccountLogined: Bool {
-        get { DXModel.shared.isLogged && campusModel.loggedIn }
+        get { dxModel.isLogged && campusModel.loggedIn }
     }
     
     var body: some View {
@@ -116,12 +117,12 @@ struct IntroLoginSheet: View {
             Section {
                 NavigationLink(destination: DXAuthSheet(style: .subpage), label: {
                     LabeledContent("FDU Hole Account") {
-                        if DXModel.shared.isLogged {
+                        if dxModel.isLogged {
                             Image(systemName: "checkmark.circle")
                         }
                     }
                 })
-                .disabled(DXModel.shared.isLogged)
+                .disabled(dxModel.isLogged)
             } footer: {
                 Text("danxi-app-account-system-footer-danxi")
             }
@@ -130,7 +131,7 @@ struct IntroLoginSheet: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    if DXModel.shared.isLogged {
+                    if dxModel.isLogged {
                         model.screen = .forum
                     } else if campusModel.loggedIn {
                         model.screen = .campus
