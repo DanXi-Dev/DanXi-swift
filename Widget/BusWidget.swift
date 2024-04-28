@@ -42,12 +42,8 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
                 // use the route time as render time
                 let route = filteredRoutes.setSchedulesToBaseDate(date: currentTime)
                 entryList = route.schedules.map { schedule in
-                    let timeFilteredSchedules = route.schedules.filter { $0.time >= schedule.time }
-                    if timeFilteredSchedules.isEmpty {
-                        return BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule.widget.bus"))
-                    } else {
-                        return BusEntry(timeFilteredSchedules, schedule.time, startPoint.rawValue, endPoint.rawValue)
-                    }
+                    let timeFilteredSchedules = route.schedules.filter { $0.time > schedule.time }
+                    return BusEntry(timeFilteredSchedules, schedule.time, startPoint.rawValue, endPoint.rawValue)
                 }
             } else {
                 entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule.widget.bus"))]
