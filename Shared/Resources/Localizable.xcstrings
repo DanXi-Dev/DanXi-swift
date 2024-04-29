@@ -385,6 +385,7 @@
       }
     },
     "%lld hidden items" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

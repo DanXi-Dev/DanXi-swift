@@ -19,16 +19,12 @@ struct FloorView: View {
         presentation.floor
     }
     
-    private var fold: Bool {
-        floor.deleted || !floor.fold.isEmpty
-    }
-    
     private var isPoster: Bool {
         floor.anonyname == holeModel.floors.first?.floor.anonyname
     }
     
     var body: some View {
-        FoldedView(expand: !model.shouldFold) {
+        FoldedView(expand: !floor.collapse) {
             VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
                 Spacer(minLength: 0)
                 HStack {

@@ -30,12 +30,50 @@ struct HolePage: View {
                             .listRowBackground(Color.clear)
                     }
                     
-                    AsyncCollection(model.filteredFloors, endReached: model.endReached, action: model.loadMoreFloors) { presentation in
-                        Section {
-                            FloorView(presentation: presentation)
-                        } header: {
-                            if presentation.id == model.floors.first?.id {
-                                header
+                    AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
+                        switch segment {
+                        case .floor(let presentation):
+                            Section {
+                                FloorView(presentation: presentation)
+                            } header: {
+                                if presentation.id == model.floors.first?.id {
+                                    header
+                                }
+                            }
+                        case .folded(let presentations):
+                            if presentations.count == 1, let first = presentations.first {
+                                Section {
+                                    FloorView(presentation: first)
+                                } header: {
+                                    if first.id == model.floors.first?.id {
+                                        header
+                                    }
+                                }
+                            } else {
+                                FoldedView {
+                                    Section {
+                                        VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
+                                            Spacer(minLength: 0)
+                                            HStack {
+                                                Text("\(presentations.count) hidden items")
+                                                    .foregroundColor(.secondary)
+                                                    .font(.subheadline)
+                                                Spacer(minLength: 0)
+                                            }
+                                            Spacer(minLength: 0)
+                                        }
+                                        .foregroundColor(.secondary)
+                                        .font(.subheadline)
+                                        .padding(.horizontal, 12)
+                                    }
+                                } content: {
+                                    ForEach(presentations) { presentation in
+                                        Section {
+                                            FloorView(presentation: presentation)
+                                        }
+                                    }
+                                }
+                                .listRowInsets(.zero)
                             }
                         }
                     }

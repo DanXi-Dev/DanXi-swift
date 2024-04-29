@@ -97,3 +97,9 @@ func parseFirstMention(content: String) -> Int? {
     }
     return nil
 }
+
+extension Floor {
+    var collapse: Bool {
+        deleted || !fold.isEmpty
+    }
+}

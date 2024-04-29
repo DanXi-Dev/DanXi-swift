@@ -161,6 +161,42 @@ class HoleModel: ObservableObject {
     
     @Published var filteredFloors: [FloorPresentation] = []
     
+    var filteredSegments: [HoleSegment] {
+        guard !filteredFloors.isEmpty else { return [] }
+        
+        var segments: [HoleSegment] = [.floor(filteredFloors[0])]
+        let presentations = filteredFloors[1...]
+        var accumulatedFoldedFloors: [FloorPresentation] = []
+        
+        for presentation in presentations {
+            if presentation.floor.collapse {
+                accumulatedFoldedFloors.append(presentation)
+            } else {
+                if !accumulatedFoldedFloors.isEmpty {
+                    let item: HoleSegment = if accumulatedFoldedFloors.count == 1 {
+                        .floor(accumulatedFoldedFloors[0])
+                    } else {
+                        .folded(accumulatedFoldedFloors)
+                    }
+                    segments.append(item)
+                    accumulatedFoldedFloors = []
+                }
+                segments.append(.floor(presentation))
+            }
+        }
+        
+        if !accumulatedFoldedFloors.isEmpty {
+            let item: HoleSegment = if accumulatedFoldedFloors.count == 1 {
+                .floor(accumulatedFoldedFloors[0])
+            } else {
+                .folded(accumulatedFoldedFloors)
+            }
+            segments.append(item)
+        }
+        
+        return segments
+    }
+    
     private func filterFloors() {
         switch filterOption {
         case .all:
