@@ -27,6 +27,8 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
         do {
             let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getRefreshedRoutes()
             let currentTime = Date()
+            let startOfDay = Calendar.current.startOfDay(for: currentTime)
+            let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
             let currentCalendar = Calendar.current
             let startPoint = configuration.startPoint
             let endPoint = configuration.endPoint
@@ -48,8 +50,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
             } else {
                 entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule.widget.bus"))]
             }
-            let refreshDate = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
-            let timeline = Timeline(entries: entryList, policy: .after(refreshDate))
+            let timeline = Timeline(entries: entryList, policy: .after(endOfDay))
             return timeline
         } catch {
             // TODO: handle error and return error message to entry
@@ -259,5 +260,5 @@ struct BusWidgetView: View {
     let myroute2 = [Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)]
     let myroute3: [Schedule] = []
     return [BusEntry(myroute1, Date.now, "邯郸", "枫林"), BusEntry(myroute2, date1, "邯郸", "枫林"), BusEntry(myroute3, date2, "邯郸", "枫林"),
-    BusEntry(myroute2, date1, "邯郸", "枫林", "No available schedule.widget.bus")]
+            BusEntry(myroute2, date1, "邯郸", "枫林", "No available schedule.widget.bus")]
 }
