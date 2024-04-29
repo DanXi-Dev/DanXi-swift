@@ -35,7 +35,7 @@ private struct ECardPageContent: View {
                 LabeledContent("ECard Balance", value: "¥ \(balance)")
             }
             
-            if #available(iOS 17, *) {
+            if #available(iOS 17, *), !history.isEmpty {
                 FDEcardPageChart(data: history)
             }
             
