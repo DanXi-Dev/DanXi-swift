@@ -5,7 +5,7 @@ import ViewUtils
 import DanXiKit
 
 struct ForumEditor: View {
-    @EnvironmentObject private var holeModel: HoleModel
+    @EnvironmentObject.Optional private var holeModel: HoleModel?
     
     @Binding var content: String
     @State private var selection: Range<String.Index>?
@@ -209,7 +209,7 @@ struct ForumEditor: View {
         
         if showPreview {
             Section {
-                ForumContentPreview(content: content, contextFloors: holeModel.floors.map({ $0.floor }))
+                ForumContentPreview(content: content, contextFloors: holeModel?.floors.map({ $0.floor }) ?? [])
             }
         } else {
             Section {
