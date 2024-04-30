@@ -50,7 +50,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
             } else {
                 entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule.widget.bus"))]
             }
-            let timeline = Timeline(entries: entryList, policy: .after(endOfDay))
+            let timeline = Timeline(entries: entryList, policy: .after(Calendar.current.date(byAdding: .second, value: 30, to: endOfDay)!))
             return timeline
         } catch {
             // TODO: handle error and return error message to entry
