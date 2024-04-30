@@ -24,6 +24,7 @@ class FloorModel: ObservableObject {
     
     @Published var highlighted = false
     
+    // FIXME: duplicate code
     func highlight() {
         Task { @MainActor in
             withAnimation {

@@ -281,3 +281,52 @@ private struct FloorActions: View {
         }
     }
 }
+
+struct MultipleFoldedFloorView: View {
+    @EnvironmentObject private var holeModel: HoleModel
+    @State var highlighted = false
+    let presentations: [FloorPresentation]
+    
+    //FIXME: duplicate code
+    func highlight() {
+        Task { @MainActor in
+            withAnimation {
+                highlighted = true
+            }
+            try await Task.sleep(for: .seconds(0.1))
+            withAnimation {
+                highlighted = false
+            }
+            try await Task.sleep(for: .seconds(0.2))
+            withAnimation {
+                highlighted = true
+            }
+            try await Task.sleep(for: .seconds(0.1))
+            withAnimation {
+                highlighted = false
+            }
+        }
+    }
+    
+    var body: some View {
+        VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
+            Spacer(minLength: 0)
+            HStack {
+                Text("\(presentations.count) hidden items")
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+                Spacer(minLength: 0)
+            }
+            Spacer(minLength: 0)
+        }
+        .foregroundColor(.secondary)
+        .font(.subheadline)
+        .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+        .overlay(Color.accentColor.opacity(highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
+        .onReceive(holeModel.scrollControl) { id in
+            if presentations.contains(where: { $0.id == id }) {
+                highlight()
+            }
+        }
+    }
+}

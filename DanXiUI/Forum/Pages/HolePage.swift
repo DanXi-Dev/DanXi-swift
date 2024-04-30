@@ -52,19 +52,7 @@ struct HolePage: View {
                             } else {
                                 FoldedView {
                                     Section {
-                                        VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
-                                            Spacer(minLength: 0)
-                                            HStack {
-                                                Text("\(presentations.count) hidden items")
-                                                    .foregroundColor(.secondary)
-                                                    .font(.subheadline)
-                                                Spacer(minLength: 0)
-                                            }
-                                            Spacer(minLength: 0)
-                                        }
-                                        .foregroundColor(.secondary)
-                                        .font(.subheadline)
-                                        .padding(.horizontal, 12)
+                                        MultipleFoldedFloorView(presentations: presentations)
                                     }
                                 } content: {
                                     ForEach(presentations) { presentation in
