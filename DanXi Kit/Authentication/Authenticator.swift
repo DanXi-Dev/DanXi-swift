@@ -41,7 +41,10 @@ actor Authenticator {
             self.refreshTask = nil
         }
         
-        // retry request after token refresh
+        // reset token and retry
+        if let token = CredentialStore.shared.token {
+            authenticatedRequest.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
+        }
         return try await URLSession.shared.data(for: authenticatedRequest)
     }
 }

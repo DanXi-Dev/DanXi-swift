@@ -22,7 +22,7 @@ public enum GeneralAPI {
         let refreshURL = authURL.appending(path: "/refresh")
         var refreshRequest = URLRequest(url: refreshURL)
         refreshRequest.httpMethod = "POST"
-        refreshRequest.setValue(token.refresh, forHTTPHeaderField: "Authorization")
+        refreshRequest.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
         let (data, _) = try await URLSession.shared.data(for: refreshRequest)
         return try JSONDecoder().decode(Token.self, from: data)
     }
