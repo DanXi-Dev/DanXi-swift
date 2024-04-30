@@ -4,6 +4,7 @@ enum Sticker: String, CaseIterable {
     case angry = "dx_angry"
     case call = "dx_call"
     case cate = "dx_cate"
+    case dying = "dx_dying"
     case egg = "dx_egg"
     case fright = "dx_fright"
     case heart = "dx_heart"
@@ -19,21 +20,22 @@ enum Sticker: String, CaseIterable {
     
     var image: Image {
         switch self {
-        case .angry: Image("Angry")
-        case .call: Image("Call")
-        case .cate: Image("Cate")
-        case .egg: Image("Egg")
-        case .fright: Image("Fright")
-        case .heart: Image("Heart")
-        case .hug: Image("Hug")
-        case .overwhelm: Image("Overwhelm")
-        case .roll: Image("Roll")
-        case .roped: Image("Roped")
-        case .sleep: Image("Sleep")
-        case .swim: Image("Swim")
-        case .thrill: Image("Thrill")
-        case .touchFish: Image("Touch Fish")
-        case .twin: Image("Twin")
+        case .angry: Image("angry", bundle: .module)
+        case .call: Image("alarm", bundle: .module)
+        case .cate: Image("cat", bundle: .module)
+        case .dying: Image("dying", bundle: .module)
+        case .egg: Image("shield", bundle: .module)
+        case .fright: Image("scared", bundle: .module)
+        case .heart: Image("flipped", bundle: .module)
+        case .hug: Image("hug", bundle: .module)
+        case .overwhelm: Image("broken", bundle: .module)
+        case .roll: Image("roll", bundle: .module)
+        case .roped: Image("hung", bundle: .module)
+        case .sleep: Image("asleep", bundle: .module)
+        case .swim: Image("swimming", bundle: .module)
+        case .thrill: Image("happy", bundle: .module)
+        case .touchFish: Image("slacking", bundle: .module)
+        case .twin: Image("dd", bundle: .module)
         }
     }
 }
