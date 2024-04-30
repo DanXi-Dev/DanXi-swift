@@ -4,17 +4,32 @@ import DanXiKit
 import MarkdownUI
 
 struct FloorHistorySheet: View {
+    struct AdministritiveInformation {
+        let punishments: [Int: Date]
+        let histories: [FloorHistory]
+    }
+    
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var divisionStore = DivisionStore.shared
     let floorId: Int
     
     var body: some View {
         NavigationStack {
             AsyncContentView { _ in
-                return try await ForumAPI.listFloorHistory(id: floorId)
-            } content: { histories in
+                let punishments = try await ForumAPI.listFloorPunishmentStatus(id: floorId)
+                let histories = try await ForumAPI.listFloorHistory(id: floorId)
+                let information = AdministritiveInformation(punishments: punishments, histories: histories)
+                return information
+            } content: { (information: AdministritiveInformation) in
                 List {
-                    ForEach(histories) { history in
-                        HistorySheetItem(history: history)
+                    PunishmentView(punishments: information.punishments)
+                    
+                    if !information.histories.isEmpty {
+                        Section("Edit History") {
+                            ForEach(information.histories) { history in
+                                HistorySheetItem(history: history)
+                            }
+                        }
                     }
                 }
                 .listStyle(.insetGrouped)
@@ -34,7 +49,37 @@ struct FloorHistorySheet: View {
     }
 }
 
-struct HistorySheetItem: View {
+private struct PunishmentView: View {
+    private let entries: [Entry]
+    
+    struct Entry: Identifiable {
+        let id = UUID()
+        let division: String
+        let date: Date
+    }
+    
+    init(punishments: [Int: Date]) {
+        entries = DivisionStore.shared.divisions.compactMap { division in
+            if let date = punishments[division.id] {
+                Entry(division: division.name, date: date)
+            } else {
+                nil
+            }
+        }
+    }
+    
+    var body: some View {
+        if !entries.isEmpty {
+            Section("Punishment Status") {
+                ForEach(entries) { entry in
+                    LabeledContent(entry.division, value: entry.date, format: .dateTime)
+                }
+            }
+        }
+    }
+}
+
+private struct HistorySheetItem: View {
     @EnvironmentObject private var model: HoleModel
     let history: FloorHistory
     

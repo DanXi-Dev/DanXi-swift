@@ -3280,9 +3280,6 @@
         }
       }
     },
-    "Key" : {
-      "extractionState" : "manual"
-    },
     "kWh" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4324,6 +4321,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "违规记录"
+          }
+        }
+      }
+    },
+    "Punishment Status" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "封禁状态"
           }
         }
       }

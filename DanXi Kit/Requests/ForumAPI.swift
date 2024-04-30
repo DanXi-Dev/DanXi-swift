@@ -109,6 +109,10 @@ public enum ForumAPI {
         return try await requestWithResponse("/floors/\(id)/history", base: forumURL)
     }
     
+    public static func listFloorPunishmentStatus(id: Int) async throws -> [Int: Date] {
+        return try await requestWithResponse("/floors/\(id)/user_silence", base: forumURL)
+    }
+    
     public static func likeFloor(id: Int, like: Int) async throws -> Floor {
         return try await requestWithResponse("/floors/\(id)/like/\(like)", base: forumURL, method: "POST")
     }
