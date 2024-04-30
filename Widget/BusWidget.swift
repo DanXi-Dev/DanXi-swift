@@ -15,8 +15,6 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
     
     func snapshot(for configuration: BusScheduleIntent, in context: Context) async -> BusEntry {
         var entry = BusEntry()
-        let startPoint = configuration.startPoint
-        print(startPoint.rawValue)
         if !context.isPreview {
             entry.placeholder = true
         }
