@@ -51,9 +51,7 @@ struct HolePage: View {
                                 }
                             } else {
                                 FoldedView {
-                                    Section {
-                                        MultipleFoldedFloorView(presentations: presentations)
-                                    }
+                                    MultipleFoldedFloorView(presentations: presentations)
                                 } content: {
                                     ForEach(presentations) { presentation in
                                         Section {
