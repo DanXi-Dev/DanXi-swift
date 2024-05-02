@@ -118,10 +118,6 @@
 		27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA5F48289955C3000391A3 /* THSearchTagPage.swift */; };
 		27FD626228FD8AC500B8ACDB /* THBrowseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD626128FD8AC500B8ACDB /* THBrowseModel.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
-		E5150BD02BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */; };
-		E5150BD12BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */; };
-		E5CC90602BD18CC700C01F91 /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CC905F2BD18CC700C01F91 /* BusWidget.swift */; };
-		E5F2559F2BD250D300D4B206 /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CC905F2BD18CC700C01F91 /* BusWidget.swift */; };
 		EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */; };
 		F13306D42BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D52BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
@@ -292,8 +288,6 @@
 		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidgetIntent.swift; sourceTree = "<group>"; };
-		E5CC905F2BD18CC700C01F91 /* BusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidget.swift; sourceTree = "<group>"; };
 		EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkView.swift; sourceTree = "<group>"; };
 		F13306D32BA5766C005361D2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -360,8 +354,6 @@
 		27536EC029DC9A8100894A98 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				E5CC905F2BD18CC700C01F91 /* BusWidget.swift */,
-				E5150BCF2BD25D3100F2E064 /* BusWidgetIntent.swift */,
 				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
 				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
@@ -848,9 +840,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5CC90602BD18CC700C01F91 /* BusWidget.swift in Sources */,
 				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
-				E5150BD12BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,8 +871,6 @@
 				273B11E72BD3B37A001F7757 /* SettingsNavigation.swift in Sources */,
 				8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */,
 				27013BD229D022B7004A5D2F /* THBrowsePage.swift in Sources */,
-				2764E5D8289840E1000C0A98 /* RandomColor.swift in Sources */,
-				27C95B422A8B90FF000A614B /* FormTitle.swift in Sources */,
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				27173F1F2A0EBC2C00A570E1 /* THBackgroundList.swift in Sources */,
 				2729071128B0B3DE0087ACC0 /* RichTextProcess.swift in Sources */,
@@ -896,8 +884,6 @@
 				272AC8E62896F30E00092B0C /* THFloorEditSheet.swift in Sources */,
 				27FA5F49289955C3000391A3 /* THSearchTagPage.swift in Sources */,
 				275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */,
-				F1728E342BB1661C00483F09 /* SheetExtension.swift in Sources */,
-				E5150BD02BD25D3100F2E064 /* BusWidgetIntent.swift in Sources */,
 				EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */,
 				27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */,
 				27013BD829D062FA004A5D2F /* THReportModel.swift in Sources */,
@@ -936,7 +922,6 @@
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
 				272AC8E12896F27300092B0C /* THPostSheet.swift in Sources */,
 				271D1D5129F178C600DDEEC9 /* Decode.swift in Sources */,
-				E5F2559F2BD250D300D4B206 /* BusWidget.swift in Sources */,
 				27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */,
 				27DAFA7129CB5B4500F32093 /* THFloorModel.swift in Sources */,
 				27262AFE2B04A002000C3962 /* THMyReplyPage.swift in Sources */,
