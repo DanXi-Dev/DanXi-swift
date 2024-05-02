@@ -75,7 +75,7 @@ extension Schedule {
         combinedComponents.second = busTimeComponents.second
 
         if let currentScheduleTime = currentCalendar.date(from: combinedComponents) {
-            return Schedule(id: self.id, time: currentScheduleTime, start: self.start, end: self.end, holiday: self.holiday, bidirectional: self.bidirectional, missed: self.missed)
+            return Schedule(id: self.id, time: currentScheduleTime, start: self.start, end: self.end, holiday: self.holiday, bidirectional: self.bidirectional)
         }
         
         print("Error: Failed to set base date for schedule.")

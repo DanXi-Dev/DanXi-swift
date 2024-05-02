@@ -176,20 +176,6 @@ fileprivate class FDBusModel: ObservableObject {
             schedule.start == start
         }
         
-        let current = Date.now
-        let calendar = Calendar.current
-        matchedSchedule = matchedSchedule.map {
-            var schedule = $0
-            let components = calendar.dateComponents([.hour, .minute, .second], from: current)
-            // the `current` date part is not the same with `schedule.time` date part
-            // `current` need to be normalized before comparing
-            if let normalizedCurrent = calendar.date(bySettingHour: components.hour ?? 0, minute: components.minute ?? 0, second: components.second ?? 0, of: schedule.time) {
-                schedule.missed = schedule.time < normalizedCurrent
-                return schedule
-            }
-            return schedule
-        }
-        
         if filterSchedule {
             matchedSchedule = matchedSchedule.filter { schedule in
                 !schedule.missed
