@@ -27,24 +27,16 @@
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
 		2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A72BC8645100D50D31 /* FudanUI */; };
 		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
-		2791031229C774F8003B9FD9 /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = 2791031129C774F8003B9FD9 /* Disk */; };
-		27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27A308C629A6753B00E8F646 /* SwiftyJSON */; };
 		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
 		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
-		27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49B2BBC9E0900350D21 /* SwiftyJSON */; };
-		27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49D2BBC9E1A00350D21 /* KeychainAccess */; };
 		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
-		27D3A4AA2BBCFA6E00350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */; };
-		27D3A4AC2BBCFB0D00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
-		27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27DAFA6129CAF1BC00F32093 /* KeychainAccess */; };
 		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
 		27E1178C2A782BC90006EE20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52C29D09CF700B333BA /* AppModel.swift */; };
 		27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */; };
 		27E70CA12AF136B300820933 /* DebugPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E70CA02AF136B300820933 /* DebugPage.swift */; };
-		27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDD624293B6DFD0028CCE4 /* SwiftUIX */; };
 		27F2F2222BCBE8C80017CB5E /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2212BCBE8C80017CB5E /* AppScreen.swift */; };
 		27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */; };
 		8AC7A5D126872C3E00C9CD98 /* DanXiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */; };
@@ -55,7 +47,6 @@
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
-		F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */ = {isa = PBXBuildFile; productRef = F1B1DF772BC19FC4005E8F87 /* Queue */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,9 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D3A4AA2BBCFA6E00350D21 /* SwiftyJSON in Frameworks */,
 				27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */,
-				27D3A4AC2BBCFB0D00350D21 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,10 +157,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */,
-				27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */,
 				2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */,
 				27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */,
-				27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,17 +166,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1B1DF782BC19FC4005E8F87 /* Queue in Frameworks */,
-				27A308C729A6753B00E8F646 /* SwiftyJSON in Frameworks */,
 				270CD1942BAD697600881ABA /* ViewUtils in Frameworks */,
 				27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */,
-				27DAFA6229CAF1BC00F32093 /* KeychainAccess in Frameworks */,
-				27EDD625293B6DFD0028CCE4 /* SwiftUIX in Frameworks */,
 				273D53332BD94AC200801B77 /* DanXiKit in Frameworks */,
 				2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */,
 				273D53352BD94AC200801B77 /* DanXiUI in Frameworks */,
 				27C68CB32BB563EE00037D52 /* Utils in Frameworks */,
-				2791031229C774F8003B9FD9 /* Disk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,8 +314,6 @@
 			name = "DanXi Watch";
 			packageProductDependencies = (
 				27D3A4A72BBCFA3D00350D21 /* FudanKit */,
-				27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */,
-				27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */,
 			);
 			productName = "DanXi-watch Watch App";
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
@@ -353,8 +333,6 @@
 			);
 			name = "DanXi Widget";
 			packageProductDependencies = (
-				27D3A49B2BBC9E0900350D21 /* SwiftyJSON */,
-				27D3A49D2BBC9E1A00350D21 /* KeychainAccess */,
 				2785E2A72BC8645100D50D31 /* FudanUI */,
 			);
 			productName = DanXi_WigdetExtension;
@@ -380,14 +358,9 @@
 			);
 			name = DanXi;
 			packageProductDependencies = (
-				27EDD624293B6DFD0028CCE4 /* SwiftUIX */,
-				27A308C629A6753B00E8F646 /* SwiftyJSON */,
-				2791031129C774F8003B9FD9 /* Disk */,
-				27DAFA6129CAF1BC00F32093 /* KeychainAccess */,
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
 				27C68CB22BB563EE00037D52 /* Utils */,
-				F1B1DF772BC19FC4005E8F87 /* Queue */,
 				2785E2A92BC8645900D50D31 /* FudanUI */,
 				273D53322BD94AC200801B77 /* DanXiKit */,
 				273D53342BD94AC200801B77 /* DanXiUI */,
@@ -428,11 +401,6 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
-				27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
-				27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */,
-				27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -909,49 +877,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/saoudrizwan/Disk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.4;
-			};
-		};
-		27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
-			};
-		};
-		F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mattmassicotte/Queue";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.4;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
 		270CD1932BAD697600881ABA /* ViewUtils */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -973,62 +898,17 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = FudanUI;
 		};
-		2791031129C774F8003B9FD9 /* Disk */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2791031029C774F8003B9FD9 /* XCRemoteSwiftPackageReference "Disk" */;
-			productName = Disk;
-		};
-		27A308C629A6753B00E8F646 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
 		27C68CB22BB563EE00037D52 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utils;
-		};
-		27D3A49B2BBC9E0900350D21 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		27D3A49D2BBC9E1A00350D21 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
 		};
 		27D3A4A72BBCFA3D00350D21 /* FudanKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FudanKit;
 		};
-		27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
-		};
-		27DAFA6129CAF1BC00F32093 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
-		};
 		27DD19B32BA5CCA400B75643 /* FudanKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FudanKit;
-		};
-		27EDD624293B6DFD0028CCE4 /* SwiftUIX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27EDD623293B6DFD0028CCE4 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
-			productName = SwiftUIX;
-		};
-		F1B1DF772BC19FC4005E8F87 /* Queue */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F1B1DF762BC19FC4005E8F87 /* XCRemoteSwiftPackageReference "Queue" */;
-			productName = Queue;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
