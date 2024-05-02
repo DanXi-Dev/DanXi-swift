@@ -1,3 +1,4 @@
+import Disk
 
 /// App-wide cache for bus schedule. The cache is invalidated between app launches.
 public actor BusStore {
@@ -17,6 +18,15 @@ public actor BusStore {
         return try await getRefreshedRoutes()
     }
     
+    /// Get bus routes if it is cached on disk
+    /// Return nil otherwise
+    /// This is supposed to be used by widgets
+    public func getDiskCachedRoutes() -> ([Route], [Route])? {
+        if let routes = try? Disk.retrieve("fdutools/bus.json", from: .applicationSupport, as: BusRoutes.self) {
+            return (routes.workday, routes.weekend)
+        }
+        return nil
+    }
     
     /// Invalidate cache and reload routes from server.
     /// - Returns: A tuple of `(workdayRoutes, holidayRoutes)`
@@ -24,6 +34,11 @@ public actor BusStore {
         let (workdayRoutes, holidayRoutes) = try await (BusAPI.getRoutes(type: .workday), BusAPI.getRoutes(type: .holiday))
         self.workdayRoutes = workdayRoutes
         self.holidayRoutes = holidayRoutes
+        
+        // Save to disk for widget
+        let routes = BusRoutes(workday: workdayRoutes, weekend: holidayRoutes)
+        try Disk.save(routes, to: .applicationSupport, as: "fdutools/bus.json")
+        
         return (workdayRoutes, holidayRoutes)
     }
 }

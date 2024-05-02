@@ -1,7 +1,12 @@
 import Foundation
 
+public struct BusRoutes: Codable {
+    public let workday: [Route]
+    public let weekend: [Route]
+}
+
 /// Campus bus route, e.g., 邯郸-江湾
-public struct Route {
+public struct Route: Codable {
     public let start: String
     public let end: String
     public let schedules: [Schedule]
@@ -14,7 +19,7 @@ public struct Route {
 }
 
 /// Campus bus schedule, e.g., 邯郸->江湾 13:00
-public struct Schedule: Identifiable {
+public struct Schedule: Identifiable, Codable {
     public let id: Int
     public let time: Date
     public let start, end: String

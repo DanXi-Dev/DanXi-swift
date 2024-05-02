@@ -22,8 +22,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: BusScheduleIntent, in context: Context) async -> Timeline<BusEntry> {
-        do {
-            let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getRefreshedRoutes()
+        if let (workdayRoutes, holidayRoutes) = await BusStore.shared.getDiskCachedRoutes() {
             let currentTime = Date()
             let startOfDay = Calendar.current.startOfDay(for: currentTime)
             let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
@@ -50,8 +49,8 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
             }
             let timeline = Timeline(entries: entryList, policy: .after(Calendar.current.date(byAdding: .second, value: 30, to: endOfDay)!))
             return timeline
-        } catch {
-            // TODO: handle error and return error message to entry
+        } else {
+            // TODO: bus schedule is not stored on disk, tell user about this
             var entry = BusEntry([], Date(), configuration.startPoint.rawValue, configuration.endPoint.rawValue)
             entry.loadFailed = true
             let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
