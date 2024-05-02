@@ -3,6 +3,8 @@ import Foundation
 /// API collection for eCard functionality.
 public enum WalletAPI {
     
+    static let loginURL = URL(string: "https://ecard.fudan.edu.cn/epay/")!
+    
     /// Get the QR code for eCard spending.
     /// - Returns: A QR code string representation
     ///
@@ -14,7 +16,7 @@ public enum WalletAPI {
     /// app should redirect user to proper webpage to agree.
     public static func getQRCode() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
-        let data = try await Authenticator.shared.authenticate(url)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         
         do {
             let element = try decodeHTMLElement(data, selector: "#myText")
@@ -35,7 +37,7 @@ public enum WalletAPI {
     /// This API is slower than ``MyAPI.getUserInfo()``, which should be preferred.
     public static func getBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let responseData = try await Authenticator.shared.authenticate(url)
+        let responseData = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         let cashElement = try decodeHTMLElement(responseData, selector: ".payway-box-bottom-item > p")
         return try cashElement.html()
     }
@@ -83,7 +85,7 @@ public enum WalletAPI {
                 }
                 
                 let url = URL(string: "https://ecard.fudan.edu.cn/epay/consume/index")!
-                let responseData = try await Authenticator.shared.authenticate(url)
+                let responseData = try await Authenticator.shared.authenticate(url, manualLoginURL: WalletAPI.loginURL)
                 let element = try decodeHTMLElement(responseData, selector: "meta[name=\"_csrf\"]")
                 let csrf = try element.attr("content")
                 self.csrf = csrf
@@ -96,7 +98,7 @@ public enum WalletAPI {
         let form = ["pageNo": String(page), "_csrf": csrf]
         let request = constructFormRequest(url, form: form)
         
-        let data = try await Authenticator.shared.authenticate(request)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         
         let table = try decodeHTMLElement(data, selector: "#all tbody")
         var transactions: [Transaction] = []
