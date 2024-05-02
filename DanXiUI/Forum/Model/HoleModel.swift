@@ -3,6 +3,7 @@ import SwiftUI
 import DanXiKit
 
 class HoleModel: ObservableObject {
+    @MainActor
     init(hole: Hole) {
         self.hole = hole
         self.floors = []
@@ -11,6 +12,7 @@ class HoleModel: ObservableObject {
         self.subscribed = SubscriptionStore.shared.isSubscribed(hole.id)
     }
     
+    @MainActor
     init(hole: Hole, floors: [Floor], scrollTo: Int? = nil, refreshPrefetch: Bool = false) {
         self.hole = hole
         var floorPresentations: [FloorPresentation] = []
@@ -22,6 +24,8 @@ class HoleModel: ObservableObject {
         self.initialScroll = scrollTo
         self.isFavorite = FavoriteStore.shared.isFavorite(hole.id)
         self.subscribed = SubscriptionStore.shared.isSubscribed(hole.id)
+        
+        filterFloors()
     }
     
     @Published var hole: Hole
@@ -58,6 +62,21 @@ class HoleModel: ObservableObject {
         self.floors += floors.filter { !ids.contains($0.floor.id) }
     }
     
+    @MainActor
+    func replaceAllFloors(floors: [FloorPresentation]) {
+        self.floors = floors
+    }
+    
+    @MainActor
+    func setEndReached(_ value: Bool) {
+        self.endReached = value
+    }
+    
+    @MainActor
+    func setLoadingAll(_ value: Bool) {
+        self.loadingAll = value
+    }
+    
     func loadMoreFloors() async throws {
         if endReached { return }
         
@@ -65,7 +84,7 @@ class HoleModel: ObservableObject {
         while previousCount == filteredFloors.count {
             let newFloors = try await ForumAPI.listFloorsInHole(holeId: hole.id, startFloor: floors.count)
             if newFloors.isEmpty {
-                endReached = true
+                await setEndReached(true)
                 return
             }
             let contextFloors = floors.map { $0.floor } + newFloors
@@ -92,9 +111,28 @@ class HoleModel: ObservableObject {
         }
     }
     
+    func refreshAllFloors() async throws {
+        let hole = try await ForumAPI.getHole(id: hole.id)
+        let floors = try await ForumAPI.listAllFloors(holeId: hole.id)
+        var presentations: [FloorPresentation] = []
+        for (index, floor) in floors.enumerated() {
+            let presentation = FloorPresentation(floor: floor, storey: index + 1, floors: floors)
+            presentations.append(presentation)
+        }
+        await replaceAllFloors(floors: presentations)
+        await setEndReached(true)
+        await MainActor.run {
+            self.hole = hole
+        }
+    }
+    
     func loadAllFloors() async throws {
-        loadingAll = true
-        defer { loadingAll = false }
+        await setLoadingAll(true)
+        defer {
+            Task { @MainActor in
+                loadingAll = false
+            }
+        }
         let floors = try await ForumAPI.listAllFloors(holeId: hole.id)
         var presentations: [FloorPresentation] = []
         for (index, floor) in floors.enumerated() {
@@ -102,6 +140,7 @@ class HoleModel: ObservableObject {
             presentations.append(presentation)
         }
         await insertFloors(floors: presentations)
+        await setEndReached(true)
     }
     
     // MARK: - Floor Filtering
@@ -121,6 +160,42 @@ class HoleModel: ObservableObject {
     }
     
     @Published var filteredFloors: [FloorPresentation] = []
+    
+    var filteredSegments: [HoleSegment] {
+        guard !filteredFloors.isEmpty else { return [] }
+        
+        var segments: [HoleSegment] = [.floor(filteredFloors[0])]
+        let presentations = filteredFloors[1...]
+        var accumulatedFoldedFloors: [FloorPresentation] = []
+        
+        for presentation in presentations {
+            if presentation.floor.collapse {
+                accumulatedFoldedFloors.append(presentation)
+            } else {
+                if !accumulatedFoldedFloors.isEmpty {
+                    let item: HoleSegment = if accumulatedFoldedFloors.count == 1 {
+                        .floor(accumulatedFoldedFloors[0])
+                    } else {
+                        .folded(accumulatedFoldedFloors)
+                    }
+                    segments.append(item)
+                    accumulatedFoldedFloors = []
+                }
+                segments.append(.floor(presentation))
+            }
+        }
+        
+        if !accumulatedFoldedFloors.isEmpty {
+            let item: HoleSegment = if accumulatedFoldedFloors.count == 1 {
+                .floor(accumulatedFoldedFloors[0])
+            } else {
+                .folded(accumulatedFoldedFloors)
+            }
+            segments.append(item)
+        }
+        
+        return segments
+    }
     
     private func filterFloors() {
         switch filterOption {
@@ -171,10 +246,11 @@ class HoleModel: ObservableObject {
     // MARK: - Reply
     
     func reply(content: String) async throws {
-        _ = try await ForumAPI.createFloor(content: content, holeId: hole.id)
-        self.endReached = false
+        let floor = try await ForumAPI.createFloor(content: content, holeId: hole.id)
+        await setEndReached(false)
         Task {
             try? await self.loadAllFloors()
+            await scrollTo(floorId: floor.id)
         }
     }
     
@@ -188,6 +264,13 @@ class HoleModel: ObservableObject {
     func scrollTo(floorId: Int) {
         if let presentation = floors.filter({ $0.floor.id == floorId }).first {
             scrollControl.send(presentation.id)
+        }
+    }
+    
+    @MainActor
+    func scrollToBottom() {
+        if let lastId = floors.last?.id {
+            scrollControl.send(lastId)
         }
     }
     
@@ -209,5 +292,63 @@ class HoleModel: ObservableObject {
     func toggleFavorite() async throws {
         try await FavoriteStore.shared.toggleFavorite(hole.id)
         isFavorite.toggle()
+    }
+    
+    // MARK: - Floor Editing
+    
+    @MainActor
+    private func replaceFloor(floor: Floor) {
+        let idx = floors.firstIndex { $0.floor.id == floor.id }
+        if let idx {
+            let presentation = FloorPresentation(floor: floor, storey: floors[idx].storey, floors: floors.map(\.floor))
+            floors[idx] = presentation
+        }
+    }
+    
+    func modifyFloor(floorId: Int, content: String, specialTag: String, fold: String) async throws {
+        let floor = try await ForumAPI.modifyFloor(id: floorId, content: content, specialTag: specialTag, fold: fold)
+        await replaceFloor(floor: floor)
+    }
+    
+    func deleteFloor(floorId: Int) async throws {
+        let floor = try await ForumAPI.deleteFloor(id: floorId)
+        await replaceFloor(floor: floor)
+    }
+    
+    func restoreFloor(floorId: Int, historyId: Int, reason: String) async throws {
+        let floor = try await ForumAPI.restoreFloor(id: floorId, historyId: historyId, reason: reason)
+        await replaceFloor(floor: floor)
+    }
+    
+    func punish(floorId: Int, reason: String, days: Int) async throws {
+        let floor = try await ForumAPI.deleteFloor(id: floorId)
+        await replaceFloor(floor: floor)
+        if days > 0 {
+            try await ForumAPI.penaltyForFloor(id: floorId, reason: reason, days: days)
+        }
+    }
+    
+    // MARK: Sheets
+    
+    @Published var showReplySheet = false
+    @Published var showQuestionSheet = false
+    @Published var showHoleEditSheet = false
+    @Published var showHideAlert = false
+    
+    @Published var replySheet: Floor? = nil
+    @Published var editSheet: Floor? = nil
+    @Published var reportSheet: FloorPresentation? = nil
+    @Published var deleteSheet: FloorPresentation? = nil
+    @Published var historySheet: Floor? = nil
+    @Published var textSelectionSheet: Floor? = nil
+    
+    @Published var deleteAlertItem: Floor?
+    var showDeleteAlert: Bool {
+        get { deleteAlertItem != nil }
+        set {
+            if newValue == false {
+                deleteAlertItem = nil
+            }
+        }
     }
 }

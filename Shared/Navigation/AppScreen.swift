@@ -1,5 +1,6 @@
 import SwiftUI
 import FudanUI
+import DanXiUI
 
 enum AppScreen: Codable, Hashable, Identifiable, CaseIterable {
     case campus, forum, curriculum, calendar, settings
@@ -31,9 +32,9 @@ extension AppScreen {
         case .campus:
             CampusContent()
         case .forum:
-            ForumContent()
+            DanXiUI.ForumContent()
         case .curriculum:
-            CurriculumContent()
+            DanXiUI.CurriculumContent()
         case .calendar:
             NavigationStack {
                 CoursePage()
@@ -49,9 +50,9 @@ extension AppScreen {
         case .campus:
             CampusDetail()
         case .forum:
-            ForumDetail()
+            DanXiUI.ForumDetail()
         case .curriculum:
-            CurriculumDetail()
+            DanXiUI.CurriculumDetail()
         case .settings:
             SettingsDetail()
         default:

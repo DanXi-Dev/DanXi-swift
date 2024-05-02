@@ -43,7 +43,7 @@ struct ElectricityPage: View {
                     Text("Electricity Used")
                 }
                 
-                if #available(iOS 17, *), let transactions {
+                if #available(iOS 17, *), let transactions, !transactions.isEmpty {
                     ElectricityPageChart(data: transactions)
                 }
             }

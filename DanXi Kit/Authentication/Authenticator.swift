@@ -30,14 +30,21 @@ actor Authenticator {
         } else if token.access == CredentialStore.shared.token?.access {
             // no refreshing task is in place, create a new one
             let refreshTask = Task {
-                CredentialStore.shared.token = try await GeneralAPI.refreshToken()
+                if let token = try? await GeneralAPI.refreshToken() {
+                    CredentialStore.shared.token = token
+                } else {
+                    throw URLError(.userAuthenticationRequired)
+                }
             }
             self.refreshTask = refreshTask
             try await refreshTask.value
             self.refreshTask = nil
         }
         
-        // retry request after token refresh
+        // reset token and retry
+        if let token = CredentialStore.shared.token {
+            authenticatedRequest.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
+        }
         return try await URLSession.shared.data(for: authenticatedRequest)
     }
 }

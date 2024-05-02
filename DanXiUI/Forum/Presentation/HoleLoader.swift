@@ -1,4 +1,5 @@
-import Foundation
+import SwiftUI
+import ViewUtils
 import DanXiKit
 
 struct HoleLoader: Hashable {
@@ -73,9 +74,21 @@ struct HoleLoader: Hashable {
         
         if loadFloors {
             let floors = try await ForumAPI.listAllFloors(holeId: holeId)
-            return HoleModel(hole: hole, floors: floors, scrollTo: scrollTo)
+            return await HoleModel(hole: hole, floors: floors, scrollTo: scrollTo)
         } else {
-            return HoleModel(hole: hole)
+            return await HoleModel(hole: hole)
+        }
+    }
+}
+
+struct HoleLoaderPage: View {
+    let loader: HoleLoader
+    
+    var body: some View {
+        AsyncContentView { _ in
+            return try await loader.load()
+        } content: { model in
+            HolePage(model)
         }
     }
 }

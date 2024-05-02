@@ -2,6 +2,7 @@ import Foundation
 import UserNotifications
 import Combine
 import FudanKit
+import DanXiUI
 import SwiftUI
 import Utils
 
@@ -30,7 +31,7 @@ class AppModel: ObservableObject {
     init() {
         if CampusModel.shared.loggedIn {
             screen = .campus
-        } else if DXModel.shared.isLogged {
+        } else if CommunityModel.shared.loggedIn {
             screen = .forum
         } else {
             screen = .settings

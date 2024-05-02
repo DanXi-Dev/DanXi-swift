@@ -69,6 +69,7 @@ public struct Report: Identifiable, Hashable, Decodable {
 public struct Sensitive: Identifiable, Hashable, Decodable {
     public let id: Int
     public let holeId: Int
+    public let content: String
     public let timeCreated, timeUpdated: Date
     public let deleted: Bool
     public let modified: Bool

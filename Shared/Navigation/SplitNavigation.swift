@@ -1,6 +1,7 @@
 import SwiftUI
 import FudanKit
 import FudanUI
+import DanXiUI
 import ViewUtils
 
 struct SplitNavigation: View {
@@ -24,7 +25,7 @@ struct SplitNavigation: View {
 
 struct AppSidebarList: View {
     @Binding var screen: AppScreen
-    @ObservedObject private var communityModel = DXModel.shared
+    @ObservedObject private var communityModel = CommunityModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
     
     var body: some View {
@@ -42,7 +43,7 @@ struct AppSidebarList: View {
                     .tag(AppScreen.campus)
             }
             
-            if communityModel.isLogged {
+            if communityModel.loggedIn {
                 AppScreen.forum.label
                     .tag(AppScreen.forum)
                 

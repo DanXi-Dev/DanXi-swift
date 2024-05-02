@@ -6,6 +6,7 @@ class TagStore: ObservableObject {
     static let shared = TagStore()
     
     @Published var tags: [Tag]
+    var initialized = false
     
     init() {
         if let tags = try? Disk.retrieve("fduhole/tags.json", from: .applicationSupport, as: [Tag].self) {
@@ -24,10 +25,12 @@ class TagStore: ObservableObject {
         let tags = try await ForumAPI.listAllTags()
         try Disk.save(tags, to: .applicationSupport, as: "fduhole/tags.json")
         await set(tags: tags)
+        initialized = true
     }
     
     func clear() async {
         await set(tags: [])
         try? Disk.remove("fduhole/tags.json", from: .applicationSupport)
+        initialized = false
     }
 }

@@ -1,0 +1,242 @@
+import SwiftUI
+import ViewUtils
+import DanXiKit
+
+public struct AuthenticationSheet: View {
+    @StateObject private var model = AuthenticationModel()
+    @Environment(\.dismiss) private var dismiss
+    let style: SheetStyle
+    
+    public init(style: SheetStyle = .independent) {
+        self.style = style
+    }
+    
+    public var body: some View {
+        NavigationStack {
+            LoginSheet(style: style)
+        }
+        .onChange(of: model.done) { done in
+            if done {
+                dismiss()
+            }
+        }
+        .environmentObject(model)
+    }
+}
+
+class AuthenticationModel: ObservableObject {
+    @Published var done = false
+}
+
+// MARK: - Login
+
+private struct LoginSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var authModel: AuthenticationModel
+    @StateObject private var model = LoginModel()
+    @FocusState private var usernameFocus: Bool
+    let style: SheetStyle
+    
+    init(style: SheetStyle = .independent) {
+        self.style = style
+    }
+    
+    var body: some View {
+        Form {
+            FormTitle(title: "DanXi Account",
+                      description: "DanXi account is used to access community services such as Treehole and DanKe.")
+            
+            Section {
+                LabeledEntry("Email") {
+                    TextField("Required", text: $model.username)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
+                        .focused($usernameFocus)
+                }
+                .showAlert(!usernameFocus && !model.usernameValid)
+                
+                LabeledEntry("Password") {
+                    SecureField("Required", text: $model.password)
+                }
+            } footer: {
+                HStack(spacing: 20) {
+                    Spacer()
+                    NavigationLink("Register") {
+                        RegisterSheet(type: .register)
+                    }
+                    NavigationLink("Forget Password") {
+                        RegisterSheet(type: .forgetPassword)
+                    }
+                }
+                .padding(.top)
+            }
+        }
+        .toolbar {
+            if style == .independent {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                AsyncButton {
+                    try await model.login()
+                    authModel.done = true
+                } label: {
+                    Text("Login")
+                }
+                .disabled(!model.completed)
+            }
+        }
+    }
+}
+
+private class LoginModel: ObservableObject {
+    @Published var username = ""
+    @Published var password = ""
+    
+    var usernameValid: Bool {
+        username.hasSuffix("fudan.edu.cn") || username.isEmpty
+    }
+    
+    var completed: Bool {
+        if username.isEmpty || password.isEmpty { return false }
+        
+        return usernameValid
+    }
+    
+    func login() async throws {
+        try await CommunityModel.shared.login(email: username, password: password)
+    }
+}
+
+// MARK: - Register
+
+private struct RegisterSheet: View {
+    @EnvironmentObject private var authModel: AuthenticationModel
+    @StateObject private var model = RegisterModel()
+    @State private var showVerificationAlert = false
+    @FocusState private var emailFocus: Bool
+    @FocusState private var passwordFocus: Bool
+    @FocusState private var repeatFocus: Bool
+    
+    enum SheetType {
+        case register, forgetPassword
+    }
+    
+    let type: SheetType
+    
+    var body: some View {
+        Form {
+            if type == .register {
+                FormTitle(title: "Register DanXi Account",
+                          description: "Use campus email to register DanXi account.")
+            } else {
+                FormTitle(title: "Forget Password",
+                          description: "Use campus email to reset password.")
+            }
+            
+            Section {
+                LabeledEntry("Email") {
+                    TextField("Fudan Campus Email", text: $model.email)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
+                        .focused($emailFocus)
+                }
+                .showAlert(!emailFocus && !model.emailValid)
+                
+                LabeledEntry("Password") {
+                    SecureField("Required", text: $model.password)
+                        .focused($passwordFocus)
+                }
+                .showAlert(!passwordFocus && !model.passwordValid)
+                
+                LabeledEntry("Repeat") {
+                    SecureField("Required", text: $model.repeatPassword)
+                        .focused($repeatFocus)
+                }
+                .showAlert(!repeatFocus && !model.repeatValid)
+                
+                LabeledEntry("Verify") {
+                    TextField("Required", text: $model.verificationCode)
+                        .keyboardType(.decimalPad)
+                    AsyncButton {
+                        try await model.sendVerificationCode()
+                        showVerificationAlert = true
+                    } label: {
+                        Text("Get Code")
+                    }
+                    .buttonStyle(.borderless)
+                    .disabled(!model.emailValid || model.email.isEmpty)
+                }
+            } footer: {
+                if type == .register {
+                    Text("Register Prompt")
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                AsyncButton {
+                    try await model.register(create: type == .register)
+                    authModel.done = true
+                } label: {
+                    Text(type == .register ? "Register" : "Submit")
+                }
+                .disabled(!model.completed)
+            }
+        }
+        .alert("Verification Email Sent", isPresented: $showVerificationAlert) {
+            
+        } message: {
+            Text("Check email inbox for verification code, notice that it may be filtered by junk mail")
+        }
+    }
+}
+
+private class RegisterModel: ObservableObject {
+    @Published var email = ""
+    @Published var password = ""
+    @Published var repeatPassword = ""
+    @Published var verificationCode = ""
+    
+    var emailValid: Bool {
+        email.hasSuffix("fudan.edu.cn") || email.isEmpty
+    }
+    
+    var passwordValid: Bool {
+        password.count >= 8 || password.isEmpty
+    }
+    
+    var repeatValid: Bool {
+        repeatPassword == password || repeatPassword.isEmpty
+    }
+    
+    var completed: Bool {
+        if email.isEmpty || password.isEmpty || repeatPassword.isEmpty || verificationCode.isEmpty {
+            return false
+        }
+        
+        return emailValid && passwordValid && repeatValid
+    }
+    
+    func sendVerificationCode() async throws {
+        try await GeneralAPI.sendVerificationEmail(email: email)
+    }
+    
+    func register(create: Bool) async throws {
+        let token = if create {
+            try await GeneralAPI.register(email: email, password: password, verification: verificationCode)
+        } else {
+            try await GeneralAPI.resetPassword(email: email, password: password, verification: verificationCode)
+        }
+        await CommunityModel.shared.setToken(token: token)
+    }
+}

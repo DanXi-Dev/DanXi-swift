@@ -17,12 +17,14 @@ public struct FoldedView<Label: View, Content: View>: View {
         if expand {
             content
         } else {
-            Button {
-                withAnimation {
-                    expand = true
+            Section { // We must wrap the section outside the button to fix #2 of #133
+                Button {
+                    withAnimation {
+                        expand = true
+                    }
+                } label: {
+                    label
                 }
-            } label: {
-                label
             }
         }
     }
