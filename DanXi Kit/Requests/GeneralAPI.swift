@@ -16,7 +16,7 @@ public enum GeneralAPI {
     
     public static func refreshToken() async throws -> Token {
         guard let token = CredentialStore.shared.token else {
-            throw URLError(.userAuthenticationRequired)
+            throw TokenError.none
         }
         
         let refreshURL = authURL.appending(path: "/refresh")

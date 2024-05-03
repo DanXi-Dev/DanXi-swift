@@ -97,3 +97,20 @@ extension HTTPError: LocalizedError {
         return localizedCodeDescription
     }
 }
+
+enum TokenError: Error {
+    case none
+    case expired
+}
+
+extension TokenError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .none:
+            String(localized: "Token not found.", bundle: .module)
+        case .expired:
+            String(localized: "Token has expired, please login again.", bundle: .module)
+        }
+    }
+}
+

@@ -1,0 +1,26 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Token has expired, please login again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录凭据失效，请重新登录"
+          }
+        }
+      }
+    },
+    "Token not found." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未找到登录凭据"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -9,7 +9,7 @@ actor Authenticator {
         // prepare request
         var authenticatedRequest = request
         guard let token = CredentialStore.shared.token else {
-            throw URLError(.userAuthenticationRequired)
+            throw TokenError.none
         }
         authenticatedRequest.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
         
@@ -33,7 +33,7 @@ actor Authenticator {
                 if let token = try? await GeneralAPI.refreshToken() {
                     CredentialStore.shared.token = token
                 } else {
-                    throw URLError(.userAuthenticationRequired)
+                    throw TokenError.expired
                 }
             }
             self.refreshTask = refreshTask
