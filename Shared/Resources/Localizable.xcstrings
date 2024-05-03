@@ -908,7 +908,6 @@
       }
     },
     "Bus Schedule.widget.bus" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -925,7 +924,6 @@
       }
     },
     "Bus.widget.bus" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -984,6 +982,9 @@
           }
         }
       }
+    },
+    "Campus list" : {
+
     },
     "Campus Services" : {
       "extractionState" : "stale",
@@ -2024,7 +2025,6 @@
       }
     },
     "Due in" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2804,7 +2804,6 @@
       }
     },
     "From.widget.bus" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3423,7 +3422,6 @@
       }
     },
     "Load Failed" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3876,7 +3874,6 @@
       }
     },
     "No available schedule.widget.bus" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3915,7 +3912,6 @@
       }
     },
     "No more shifts today" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5734,7 +5730,6 @@
       }
     },
     "Subscribe bus schedule." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6020,7 +6015,6 @@
       }
     },
     "to.widget.bus" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6037,7 +6031,6 @@
       }
     },
     "To.widget.busScheduleIntent" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -6667,7 +6660,6 @@
       }
     },
     "张江" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6716,6 +6708,9 @@
         }
       }
     },
+    "枫林" : {
+
+    },
     "枫林校区" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6728,7 +6723,6 @@
       }
     },
     "江湾" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -6847,6 +6841,9 @@
           }
         }
       }
+    },
+    "邯郸" : {
+
     }
   },
   "version" : "1.0"
