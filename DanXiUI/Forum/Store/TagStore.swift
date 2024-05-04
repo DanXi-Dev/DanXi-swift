@@ -9,7 +9,7 @@ class TagStore: ObservableObject {
     var initialized = false
     
     init() {
-        if let tags = try? Disk.retrieve("fduhole/tags.json", from: .applicationSupport, as: [Tag].self) {
+        if let tags = try? Disk.retrieve("fduhole/tags.json", from: .appGroup, as: [Tag].self) {
             self.tags = tags
         } else {
             self.tags = []
@@ -23,14 +23,14 @@ class TagStore: ObservableObject {
     
     func refreshTags() async throws {
         let tags = try await ForumAPI.listAllTags()
-        try Disk.save(tags, to: .applicationSupport, as: "fduhole/tags.json")
+        try Disk.save(tags, to: .appGroup, as: "fduhole/tags.json")
         await set(tags: tags)
         initialized = true
     }
     
     func clear() async {
         await set(tags: [])
-        try? Disk.remove("fduhole/tags.json", from: .applicationSupport)
+        try? Disk.remove("fduhole/tags.json", from: .appGroup)
         initialized = false
     }
 }

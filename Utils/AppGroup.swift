@@ -5,4 +5,10 @@
 //  Created by Kavin Zhao on 2024-05-02.
 //
 
-public let APP_GROUP_NAME = "group.com.fduhole.danxi"
+import Disk
+
+public let AppGroupName = "group.com.fduhole.danxi"
+
+public extension Disk.Directory {
+    static let appGroup = Disk.Directory.sharedContainer(appGroupName: AppGroupName)
+}

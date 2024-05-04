@@ -22,7 +22,7 @@ class SearchModel: ObservableObject {
     @Published var history: [String]
     
     init() {
-        if let cachedHistory = try? Disk.retrieve("fduhole/search-history.json", from: .applicationSupport, as: [String].self) {
+        if let cachedHistory = try? Disk.retrieve("fduhole/search-history.json", from: .appGroup, as: [String].self) {
             history = cachedHistory
         } else {
             history = []
@@ -84,7 +84,7 @@ class SearchModel: ObservableObject {
     
     private func persistHistory() {
         Task {
-            try Disk.save(self.history, to: .applicationSupport, as: "fduhole/search-history.json")
+            try Disk.save(self.history, to: .appGroup, as: "fduhole/search-history.json")
         }
     }
 }

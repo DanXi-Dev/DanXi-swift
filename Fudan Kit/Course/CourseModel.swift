@@ -47,13 +47,13 @@ public class CourseModel: ObservableObject {
     /// - Parameter studentType: the type of the student. If it's not matched with cache, it will return `nil` and invalidate cache.
     /// - Returns: A model recreated from local cache
     public static func loadCache(for studentType: StudentType) throws -> CourseModel? {
-        guard let cache = try? Disk.retrieve("fdutools/course-model.json", from: .applicationSupport, as: CourseModelCache.self) else {
+        guard let cache = try? Disk.retrieve("fdutools/course-model.json", from: .appGroup, as: CourseModelCache.self) else {
             return nil
         }
         
         guard cache.studentType == studentType else {
             Task(priority: .background) {
-                try Disk.remove("fdutools/course-model.json", from: .applicationSupport)
+                try Disk.remove("fdutools/course-model.json", from: .appGroup)
             }
             return nil
         }
@@ -193,7 +193,7 @@ public class CourseModel: ObservableObject {
     func refreshCache() {
         Task(priority: .background) {
             let cache = CourseModelCache(studentType: studentType, courses: courses, semester: semester, semesters: semesters)
-            try Disk.save(cache, to: .applicationSupport, as: "fdutools/course-model.json")
+            try Disk.save(cache, to: .appGroup, as: "fdutools/course-model.json")
         }
     }
     

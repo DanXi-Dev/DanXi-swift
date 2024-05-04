@@ -9,7 +9,7 @@ class HistoryStore: ObservableObject {
     @Published var browseHistory: [ForumBrowseHistory]
     
     init() {
-        if let browseHistory = try? Disk.retrieve("fduhole/history.json", from: .applicationSupport, as: [ForumBrowseHistory].self) {
+        if let browseHistory = try? Disk.retrieve("fduhole/history.json", from: .appGroup, as: [ForumBrowseHistory].self) {
             self.browseHistory = browseHistory
         } else {
             self.browseHistory = []
@@ -29,12 +29,12 @@ class HistoryStore: ObservableObject {
         
         Task {
             // save to disk, perform on background task
-            try Disk.save(browseHistory, to: .applicationSupport, as: "fduhole/history.json")
+            try Disk.save(browseHistory, to: .appGroup, as: "fduhole/history.json")
         }
     }
     
     func clearHistory() {
         browseHistory = []
-        try? Disk.save(browseHistory, to: .applicationSupport, as: "fduhole/history.json")
+        try? Disk.save(browseHistory, to: .appGroup, as: "fduhole/history.json")
     }
 }

@@ -16,13 +16,13 @@ public actor UndergraduateCourseStore {
     
     /// Initialize information from local cache
     init() {
-        if let semesters = try? Disk.retrieve("fdutools/undergrad-semesters.json", from: .applicationSupport, as: [Semester].self) {
+        if let semesters = try? Disk.retrieve("fdutools/undergrad-semesters.json", from: .appGroup, as: [Semester].self) {
             self.semesters = semesters
         } else {
             self.semesters = []
         }
         
-        if let courseMap = try? Disk.retrieve("fdutools/undergrad-course-map.json", from: .applicationSupport, as: [Semester: [Course]].self) {
+        if let courseMap = try? Disk.retrieve("fdutools/undergrad-course-map.json", from: .appGroup, as: [Semester: [Course]].self) {
             self.courseMap = courseMap
         } else {
             self.courseMap = [:]
@@ -65,7 +65,7 @@ public actor UndergraduateCourseStore {
         let (currentSemesterId, _) = try await getNecessaryParams()
         let currentSemester = semesters.filter({ $0.semesterId == currentSemesterId }).first
         self.semesters = semesters
-        try Disk.save(semesters, to: .applicationSupport, as: "fdutools/undergrad-semesters.json")
+        try Disk.save(semesters, to: .appGroup, as: "fdutools/undergrad-semesters.json")
         return (semesters, currentSemester)
     }
     
@@ -83,7 +83,7 @@ public actor UndergraduateCourseStore {
         let (_, ids) = try await getNecessaryParams()
         let courses = try await UndergraduateCourseAPI.getCourses(semesterId: semester.semesterId, ids: ids)
         self.courseMap[semester] = courses
-        try Disk.save(self.courseMap, to: .applicationSupport, as: "fdutools/undergrad-course-map.json")
+        try Disk.save(self.courseMap, to: .appGroup, as: "fdutools/undergrad-course-map.json")
         return courses
     }
 }

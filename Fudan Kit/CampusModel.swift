@@ -59,7 +59,7 @@ public class CampusModel: ObservableObject {
             }
             
             // remove contents on disk
-            try Disk.remove("fdutools", from: .applicationSupport)
+            try Disk.remove("fdutools", from: .appGroup)
         }
     }
 }

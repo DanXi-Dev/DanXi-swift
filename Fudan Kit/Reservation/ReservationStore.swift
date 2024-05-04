@@ -14,7 +14,7 @@ public actor ReservationStore {
     var playgrounds: [Playground]?
     
     init() {
-        playgrounds = try? Disk.retrieve("fdutools/playgrounds.json", from: .applicationSupport, as: [Playground].self)
+        playgrounds = try? Disk.retrieve("fdutools/playgrounds.json", from: .appGroup, as: [Playground].self)
     }
     
     /// Get cached playgrounds
@@ -31,7 +31,7 @@ public actor ReservationStore {
     public func getRefreshedPlayground() async throws -> [Playground] {
         let playgrounds = try await ReservationAPI.getPlaygrounds()
         self.playgrounds = playgrounds
-        try Disk.save(playgrounds, to: .applicationSupport, as: "fdutools/playgrounds.json")
+        try Disk.save(playgrounds, to: .appGroup, as: "fdutools/playgrounds.json")
         return playgrounds
     }
     

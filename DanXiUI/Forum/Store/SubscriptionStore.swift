@@ -9,7 +9,7 @@ class SubscriptionStore: ObservableObject {
     var initialized = false
     
     init() {
-        if let subscriptionIds = try? Disk.retrieve("fduhole/subscriptions.json", from: .applicationSupport, as: [Int].self) {
+        if let subscriptionIds = try? Disk.retrieve("fduhole/subscriptions.json", from: .appGroup, as: [Int].self) {
             self.subscriptionIds = subscriptionIds
         } else {
             self.subscriptionIds = []
@@ -38,12 +38,12 @@ class SubscriptionStore: ObservableObject {
             try await ForumAPI.addSubscription(holeId: id)
         }
         await set(subscriptionIds: ids)
-        try? Disk.save(ids, to: .applicationSupport, as: "fduhole/subscriptions.json")
+        try? Disk.save(ids, to: .appGroup, as: "fduhole/subscriptions.json")
     }
     
     func clear() async {
         await set(subscriptionIds: [])
         initialized = false
-        try? Disk.remove("fduhole/subscriptions.json", from: .applicationSupport)
+        try? Disk.remove("fduhole/subscriptions.json", from: .appGroup)
     }
 }

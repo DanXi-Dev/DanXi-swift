@@ -23,7 +23,7 @@ public actor BusStore {
     /// Return nil otherwise
     /// This is supposed to be used by widgets
     public func getDiskCachedRoutes() -> ([Route], [Route])? {
-        if let routes = try? Disk.retrieve("fdutools/bus.json", from: .sharedContainer(appGroupName: APP_GROUP_NAME), as: BusRoutes.self) {
+        if let routes = try? Disk.retrieve("fdutools/bus.json", from: .appGroup, as: BusRoutes.self) {
             return (routes.workday, routes.weekend)
         }
         return nil
@@ -38,7 +38,7 @@ public actor BusStore {
         
         // Save to disk for widget
         let routes = BusRoutes(workday: workdayRoutes, weekend: holidayRoutes)
-        try Disk.save(routes, to: .sharedContainer(appGroupName: APP_GROUP_NAME), as: "fdutools/bus.json")
+        try Disk.save(routes, to: .appGroup, as: "fdutools/bus.json")
         
         return (workdayRoutes, holidayRoutes)
     }

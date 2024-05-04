@@ -14,7 +14,7 @@ public actor ProfileStore {
     var profile: Profile?
     
     init() {
-        if let profile = try? Disk.retrieve("fdutools/profile.json", from: .applicationSupport, as: Profile.self) {
+        if let profile = try? Disk.retrieve("fdutools/profile.json", from: .appGroup, as: Profile.self) {
             self.profile = profile
             return
         }
@@ -30,24 +30,24 @@ public actor ProfileStore {
         
         let profile = try await ProfileAPI.getStudentProfile()
         self.profile = profile
-        try Disk.save(profile, to: .applicationSupport, as: "fdutools/profile.json")
+        try Disk.save(profile, to: .appGroup, as: "fdutools/profile.json")
         return profile
     }
     
     /// Invalidate cache and return new data froms erver
     public func getRefreshedProfile() async throws -> Profile {
         profile = nil
-        try Disk.remove("fdutools/profile.json", from: .applicationSupport)
+        try Disk.remove("fdutools/profile.json", from: .appGroup)
         
         let profile = try await ProfileAPI.getStudentProfile()
         self.profile = profile
-        try Disk.save(profile, to: .applicationSupport, as: "fdutools/profile.json")
+        try Disk.save(profile, to: .appGroup, as: "fdutools/profile.json")
         return profile
     }
     
     
     public func clearCache() throws {
         profile = nil
-        try Disk.remove("fdutools/profile.json", from: .applicationSupport)
+        try Disk.remove("fdutools/profile.json", from: .appGroup)
     }
 }

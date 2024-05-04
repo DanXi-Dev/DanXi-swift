@@ -12,13 +12,13 @@ public actor GraduateCourseStore {
     var courseMap: [Semester: [Course]]
     
     init() {
-        if let semesters = try? Disk.retrieve("fdutools/grad-semesters.json", from: .applicationSupport, as: [Semester].self) {
+        if let semesters = try? Disk.retrieve("fdutools/grad-semesters.json", from: .appGroup, as: [Semester].self) {
             self.semesters = semesters
         } else {
             self.semesters = []
         }
         
-        if let courseMap = try? Disk.retrieve("fdutools/grad-course-map.json", from: .applicationSupport, as: [Semester: [Course]].self) {
+        if let courseMap = try? Disk.retrieve("fdutools/grad-course-map.json", from: .appGroup, as: [Semester: [Course]].self) {
             self.courseMap = courseMap
         } else {
             self.courseMap = [:]
@@ -36,7 +36,7 @@ public actor GraduateCourseStore {
     func getRefreshedCourses(semester: Semester) async throws -> [Course] {        
         let courses = try await GraduateCourseAPI.getCourses(semester: semester)
         courseMap[semester] = courses
-        try Disk.save(courses, to: .applicationSupport, as: "fdutools/grad-course-map.json")
+        try Disk.save(courses, to: .appGroup, as: "fdutools/grad-course-map.json")
         return courses
     }
     
@@ -53,7 +53,7 @@ public actor GraduateCourseStore {
         let (semesters, currentSemester) = try await GraduateCourseAPI.getSemesters()
         self.semesters = semesters
         self.currentSemester = currentSemester
-        try Disk.save(semesters, to: .applicationSupport, as: "fdutools/grad-semesters.json")
+        try Disk.save(semesters, to: .appGroup, as: "fdutools/grad-semesters.json")
         return (semesters, currentSemester)
     }
 }

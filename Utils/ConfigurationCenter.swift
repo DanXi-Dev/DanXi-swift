@@ -13,7 +13,7 @@ public enum ConfigurationCenter {
     public static let bannerPublisher = PassthroughSubject<[Banner], Never>()
     
     public static func initialFetch() {
-        if let configuration = try? Disk.retrieve("configuration.json", from: .applicationSupport, as: AppConfiguration.self) {
+        if let configuration = try? Disk.retrieve("configuration.json", from: .appGroup, as: AppConfiguration.self) {
             self.configuration = configuration
         }
         
@@ -71,7 +71,7 @@ public enum ConfigurationCenter {
         self.configuration = configuration
         
         Task(priority: .background) {
-            try Disk.save(configuration, to: .applicationSupport, as: "configuration.json")
+            try Disk.save(configuration, to: .appGroup, as: "configuration.json")
         }
     }
 }

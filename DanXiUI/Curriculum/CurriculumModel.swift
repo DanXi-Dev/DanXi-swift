@@ -1,6 +1,7 @@
 import SwiftUI
 import Disk
 import DanXiKit
+import Utils
 
 @MainActor
 class CurriculumModel: ObservableObject {
@@ -19,7 +20,7 @@ class CurriculumModel: ObservableObject {
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        if let cached = try? Disk.retrieve("fduhole/courses.json", from: .applicationSupport, as: CourseCache.self) {
+        if let cached = try? Disk.retrieve("fduhole/courses.json", from: .appGroup, as: CourseCache.self) {
             self.courses = cached.courses
             self.hash = cached.hash
             
@@ -45,14 +46,14 @@ class CurriculumModel: ObservableObject {
             let cache = CourseCache(courses: courses, hash: remoteHash)
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
-            try Disk.save(cache, to: .applicationSupport, as: "fduhole/courses.json", encoder: encoder)
+            try Disk.save(cache, to: .appGroup, as: "fduhole/courses.json", encoder: encoder)
         }
     }
     
     func clearAll() {
         self.courses = []
         Task {
-            try Disk.remove("fduhole/courses.json", from: .applicationSupport)
+            try Disk.remove("fduhole/courses.json", from: .appGroup)
         }
     }
 }
