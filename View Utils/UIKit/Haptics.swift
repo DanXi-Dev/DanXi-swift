@@ -4,17 +4,20 @@ import UIKit
 /// Perform an asynchronous operation, and provide a haptic feedback.
 /// - Parameters:
 ///   - success: Whether to provide haptics when the operation succeed.
-///   - error: Whether to provide haptics when the operation fails.
+///   - fail: Whether to provide haptics when the operation fails.
 ///   - action: The asynchronous operation to perform.
-/// - Throws: The original error thrown by the operation.
-public func withHaptics(success: Bool = true, error: Bool = true, action: () async throws -> Void) async throws {
+public func withHaptics(success: Bool = true, fail: Bool = true, action: () async throws -> Void) async rethrows {
     let notificationHaptic = UINotificationFeedbackGenerator()
     notificationHaptic.prepare()
     do {
         try await action()
-        notificationHaptic.notificationOccurred(.success)
+        if success {
+            notificationHaptic.notificationOccurred(.success)
+        }
     } catch {
-        notificationHaptic.notificationOccurred(.error)
+        if fail {
+            notificationHaptic.notificationOccurred(.error)
+        }
         throw error
     }
 }
