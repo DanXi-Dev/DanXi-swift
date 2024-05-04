@@ -42,10 +42,6 @@
 		274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197229D1BF9B000DE221 /* WatchApp.swift */; };
 		274C197529D1BF9B000DE221 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197429D1BF9B000DE221 /* ContentView.swift */; };
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
-		27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50728D1882C0000DB6F /* WidgetKit.framework */; };
-		27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F165C50928D1882C0000DB6F /* SwiftUI.framework */; };
-		27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */; };
-		27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27536EC529DC9A8300894A98 /* Assets.xcassets */; };
 		275B71CD28C5249800475BA3 /* THReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B71CC28C5249800475BA3 /* THReportPage.swift */; };
 		275F745F2A8BDFDC0024B19B /* THDivisionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */; };
 		27719AA128A3E4DF00C661BD /* DKCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719AA028A3E4DF00C661BD /* DKCourseView.swift */; };
@@ -59,7 +55,6 @@
 		27834AF529D600E1008DC0C2 /* THSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF429D600E1008DC0C2 /* THSettingsView.swift */; };
 		27834AF729D6012E008DC0C2 /* THSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF629D6012E008DC0C2 /* THSettingsModel.swift */; };
 		27834AF929D6261E008DC0C2 /* THMyPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27834AF829D6261E008DC0C2 /* THMyPostPage.swift */; };
-		2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A72BC8645100D50D31 /* FudanUI */; };
 		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
 		278E406A28BA963A008D6514 /* DKRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E406928BA963A008D6514 /* DKRatingView.swift */; };
 		2791030D29C7640F003B9FD9 /* THPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791030C29C7640F003B9FD9 /* THPosterView.swift */; };
@@ -72,7 +67,6 @@
 		27A5DA2029D6EF010042D28D /* THTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5DA1F29D6EF010042D28D /* THTagsPage.swift */; };
 		27AF614B2BCD543C00754718 /* CurriculumNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614A2BCD543C00754718 /* CurriculumNavigation.swift */; };
 		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
-		27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27BBBD0B2912C330007C2905 /* DXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0A2912C330007C2905 /* DXError.swift */; };
 		27BBBD1D2912C33D007C2905 /* DKEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0D2912C33C007C2905 /* DKEntity.swift */; };
 		27BBBD1E2912C33D007C2905 /* THEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BBBD0E2912C33C007C2905 /* THEntity.swift */; };
@@ -86,9 +80,6 @@
 		27C95B3C2A8B63DC000A614B /* DXQuestionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C95B3B2A8B63DC000A614B /* DXQuestionSheet.swift */; };
 		27CBA0772951C01E00F422DB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBA0762951C01E00F422DB /* Network.swift */; };
 		27CC00EC28E203A400F0B026 /* THDeleteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC00EB28E203A400F0B026 /* THDeleteSheet.swift */; };
-		27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49B2BBC9E0900350D21 /* SwiftyJSON */; };
-		27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A49D2BBC9E1A00350D21 /* KeychainAccess */; };
-		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
 		27D3A4AA2BBCFA6E00350D21 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A92BBCFA6E00350D21 /* SwiftyJSON */; };
 		27D3A4AC2BBCFB0D00350D21 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4AB2BBCFB0D00350D21 /* KeychainAccess */; };
@@ -121,7 +112,6 @@
 		EDA1ECD72BB5C762000DDE37 /* WatermarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1ECD62BB5C762000DDE37 /* WatermarkView.swift */; };
 		F13306D42BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D52BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
-		F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D32BA5766C005361D2 /* Localizable.xcstrings */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F15059F22BB58DCB00EA62E3 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15059F12BB58DCB00EA62E3 /* TextFieldExtension.swift */; };
@@ -132,13 +122,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
-			remoteInfo = "DanXi Wigdet";
-		};
 		27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
@@ -165,7 +148,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,11 +201,6 @@
 		274C197229D1BF9B000DE221 /* WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchApp.swift; sourceTree = "<group>"; };
 		274C197429D1BF9B000DE221 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		274C197629D1BF9C000DE221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		27536EBD29DC9A8100894A98 /* DanXi Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWidgetBundle.swift; sourceTree = "<group>"; };
-		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WigdetExtension.entitlements; sourceTree = "<group>"; };
 		275B71CC28C5249800475BA3 /* THReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THReportPage.swift; sourceTree = "<group>"; };
 		275F745E2A8BDFDC0024B19B /* THDivisionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDivisionSheet.swift; sourceTree = "<group>"; };
 		27719AA028A3E4DF00C661BD /* DKCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKCourseView.swift; sourceTree = "<group>"; };
@@ -308,18 +285,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		27536EBA29DC9A8100894A98 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				27536EBF29DC9A8100894A98 /* SwiftUI.framework in Frameworks */,
-				27D3A49C2BBC9E0900350D21 /* SwiftyJSON in Frameworks */,
-				2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */,
-				27536EBE29DC9A8100894A98 /* WidgetKit.framework in Frameworks */,
-				27D3A49E2BBC9E1A00350D21 /* KeychainAccess in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8AC7A5CA26872C3E00C9CD98 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -347,17 +312,6 @@
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
 			);
 			path = watchOS;
-			sourceTree = "<group>";
-		};
-		27536EC029DC9A8100894A98 /* Widget */ = {
-			isa = PBXGroup;
-			children = (
-				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
-				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
-				27536EC529DC9A8300894A98 /* Assets.xcassets */,
-				27536EC729DC9A8300894A98 /* Info.plist */,
-			);
-			path = Widget;
 			sourceTree = "<group>";
 		};
 		2778D6342891D316009F4DB1 /* Resources */ = {
@@ -627,7 +581,6 @@
 				8AA9F876269D97BE0085D93D /* Shared */,
 				8AC7A5CF26872C3E00C9CD98 /* iOS */,
 				274C197129D1BF9B000DE221 /* watchOS */,
-				27536EC029DC9A8100894A98 /* Widget */,
 				8AC7A5CE26872C3E00C9CD98 /* Products */,
 				7795D21A27D82B1C00840D02 /* Frameworks */,
 				2785E2A62BC8641E00D50D31 /* FudanUI */,
@@ -642,7 +595,6 @@
 			children = (
 				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
 				274C197029D1BF9B000DE221 /* DanXi Watch.app */,
-				27536EBD29DC9A8100894A98 /* DanXi Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -682,28 +634,6 @@
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		27536EBC29DC9A8100894A98 /* DanXi Widget */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Widget" */;
-			buildPhases = (
-				27536EB929DC9A8100894A98 /* Sources */,
-				27536EBA29DC9A8100894A98 /* Frameworks */,
-				27536EBB29DC9A8100894A98 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DanXi Widget";
-			packageProductDependencies = (
-				27D3A49B2BBC9E0900350D21 /* SwiftyJSON */,
-				27D3A49D2BBC9E1A00350D21 /* KeychainAccess */,
-				2785E2A72BC8645100D50D31 /* FudanUI */,
-			);
-			productName = DanXi_WigdetExtension;
-			productReference = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */;
@@ -718,7 +648,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
 				27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */,
 			);
 			name = DanXi;
@@ -750,9 +679,6 @@
 					274C196F29D1BF9B000DE221 = {
 						CreatedOnToolsVersion = 14.2;
 					};
-					27536EBC29DC9A8100894A98 = {
-						CreatedOnToolsVersion = 14.3;
-					};
 					8AC7A5CC26872C3E00C9CD98 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
@@ -781,7 +707,6 @@
 			targets = (
 				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
 				274C196F29D1BF9B000DE221 /* DanXi Watch */,
-				27536EBC29DC9A8100894A98 /* DanXi Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -795,15 +720,6 @@
 				274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */,
 				F13306D52BA5766C005361D2 /* Localizable.xcstrings in Resources */,
 				27E1178C2A782BC90006EE20 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		27536EBB29DC9A8100894A98 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				27536EC629DC9A8300894A98 /* Assets.xcassets in Resources */,
-				F13306D62BA5766C005361D2 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,15 +745,6 @@
 			files = (
 				274C197529D1BF9B000DE221 /* ContentView.swift in Sources */,
 				274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		27536EB929DC9A8100894A98 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				27B7AC0F29DEB28500DAE0C5 /* Network.swift in Sources */,
-				27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -939,14 +846,8 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
-			targetProxy = 27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */;
-		};
 		27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
 			targetProxy = 27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1010,75 +911,6 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
-		27536ECC29DC9A8300894A98 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Widget/WigdetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 466;
-				DEVELOPMENT_TEAM = KF7M99CN68;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		27536ECD29DC9A8300894A98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Widget/WigdetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 466;
-				DEVELOPMENT_TEAM = KF7M99CN68;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1292,15 +1124,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Widget" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27536ECC29DC9A8300894A98 /* Debug */,
-				27536ECD29DC9A8300894A98 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8AC7A5C826872C3E00C9CD98 /* Build configuration list for PBXProject "DanXi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1369,10 +1192,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewUtils;
 		};
-		2785E2A72BC8645100D50D31 /* FudanUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FudanUI;
-		};
 		2785E2A92BC8645900D50D31 /* FudanUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FudanUI;
@@ -1390,16 +1209,6 @@
 		27C68CB22BB563EE00037D52 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utils;
-		};
-		27D3A49B2BBC9E0900350D21 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A308C529A6753B00E8F646 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		27D3A49D2BBC9E1A00350D21 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27DAFA6029CAF1BC00F32093 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
 		};
 		27D3A4A72BBCFA3D00350D21 /* FudanKit */ = {
 			isa = XCSwiftPackageProductDependency;
