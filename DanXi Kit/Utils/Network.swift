@@ -90,11 +90,11 @@ struct HTTPError: Error {
 
 extension HTTPError: LocalizedError {
     var errorDescription: String? {
-        let localizedCodeDescription = HTTPURLResponse.localizedString(forStatusCode: code)
         if let message {
-            return localizedCodeDescription + " " + message
+            return message
         }
-        return localizedCodeDescription
+        let localizedCodeDescription = HTTPURLResponse.localizedString(forStatusCode: code)
+        return "Error \(code): \(localizedCodeDescription)"
     }
 }
 
