@@ -309,6 +309,7 @@ enum THSticker: String, CaseIterable {
     case angry = "dx_angry"
     case call = "dx_call"
     case cate = "dx_cate"
+    case dying = "dx_dying"
     case egg = "dx_egg"
     case fright = "dx_fright"
     case heart = "dx_heart"
@@ -324,21 +325,22 @@ enum THSticker: String, CaseIterable {
     
     var image: Image {
         switch self {
-        case .angry: Image("Angry")
-        case .call: Image("Call")
-        case .cate: Image("Cate")
-        case .egg: Image("Egg")
-        case .fright: Image("Fright")
-        case .heart: Image("Heart")
-        case .hug: Image("Hug")
-        case .overwhelm: Image("Overwhelm")
-        case .roll: Image("Roll")
-        case .roped: Image("Roped")
-        case .sleep: Image("Sleep")
-        case .swim: Image("Swim")
-        case .thrill: Image("Thrill")
-        case .touchFish: Image("Touch Fish")
-        case .twin: Image("Twin")
+        case .angry: Image("angry")
+        case .call: Image("alarm")
+        case .cate: Image("cat")
+        case .dying: Image("dying")
+        case .egg: Image("shield")
+        case .fright: Image("scared")
+        case .heart: Image("flipped")
+        case .hug: Image("hug")
+        case .overwhelm: Image("broken")
+        case .roll: Image("roll")
+        case .roped: Image("hung")
+        case .sleep: Image("asleep")
+        case .swim: Image("swimming")
+        case .thrill: Image("happy")
+        case .touchFish: Image("slacking")
+        case .twin: Image("dd")
         }
     }
     
