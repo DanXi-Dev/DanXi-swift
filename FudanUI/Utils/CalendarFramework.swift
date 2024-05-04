@@ -74,7 +74,7 @@ struct DateHeader: View {
                     let point = CGPoint(x: dim.dx / 2 + CGFloat(i) * dim.dx, y: dim.y / 2)
                     let date = calendar.date(byAdding: .day, value: i, to: start)!
                     let isToday = calendar.isDateInToday(date)
-                    VStack(alignment: .center, spacing: 10) {
+                    VStack(alignment: .center, spacing: 2) {
                         if dateProvided {
                             Text(date.formatted(.dateTime.month(.defaultDigits).day()))
                                 .foregroundColor(isToday ? .accentColor : .primary)
