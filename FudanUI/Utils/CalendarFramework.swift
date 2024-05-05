@@ -234,7 +234,7 @@ struct CalDimensionReader<Content: View>: View {
 
 struct CalendarConfig {
     static let x: CGFloat = 40
-    static let y: CGFloat = 40
+    static let y: CGFloat = 50
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
 }
