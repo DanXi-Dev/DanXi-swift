@@ -94,6 +94,13 @@ struct DateHeader: View {
 
 struct TimeslotsSidebar: View {
     private let h = ClassTimeSlot.list.count
+    private let formatter: DateFormatter
+    
+    init() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        self.formatter = formatter
+    }
     
     var body: some View {
         CalDimensionReader { dim in
@@ -101,7 +108,7 @@ struct TimeslotsSidebar: View {
                 ForEach(ClassTimeSlot.list) { timeSlot in
                     let point = CGPoint(x: dim.x / 2 + 5,
                                         y: dim.y - (dim.dy / 2) + CGFloat(timeSlot.id) * dim.dy)
-                    TimeSlotView(timeSlot: timeSlot)
+                    TimeSlotView(id: timeSlot.id, start: formatter.string(from: timeSlot.start), end: formatter.string(from: timeSlot.end))
                         .position(point)
                 }
             }
@@ -112,19 +119,21 @@ struct TimeslotsSidebar: View {
 }
 
 fileprivate struct TimeSlotView: View {
-    let timeSlot: ClassTimeSlot
-    
     @ScaledMetric private var courseSize = 14
     @ScaledMetric private var timeSize = 9
     
+    let id: Int
+    let start: String
+    let end: String
+
     var body: some View {
         VStack {
-            Text(String(timeSlot.id))
+            Text(String(id))
                 .font(.system(size: courseSize))
                 .bold()
             Group {
-                Text(timeSlot.start.formatted(date: .omitted, time: .shortened))
-                Text(timeSlot.end.formatted(date: .omitted, time: .shortened))
+                Text(start)
+                Text(end)
             }
             .font(.system(size: timeSize))
         }
