@@ -5,6 +5,7 @@
 //  Created by Kavin Zhao on 2024-04-09.
 //
 
+/*
 import WeatherKit
 import CoreLocation
 
@@ -46,3 +47,5 @@ public class CampusWeather {
 enum WeatherError: Error {
     case noMatchingLocation
 }
+
+*/
