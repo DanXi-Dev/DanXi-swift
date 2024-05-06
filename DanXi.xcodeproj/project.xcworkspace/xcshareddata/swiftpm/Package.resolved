@@ -1,10 +1,10 @@
 {
-  "originHash" : "0d39d3aa59e0478837721e4de820825ba6d13d5d70325701ccfef770654a9e4a",
+  "originHash" : "c9fe06a595d404dcadfb2e2e67bbf6492a163177aea609f110eb3582d509e2eb",
   "pins" : [
     {
       "identity" : "bettersafariview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/stleamist/BetterSafariView.git",
+      "location" : "https://github.com/stleamist/BetterSafariView",
       "state" : {
         "revision" : "884533749e55949b2566030948c6fdbe2873ed0c",
         "version" : "2.4.2"
@@ -107,15 +107,6 @@
       "state" : {
         "revision" : "121c146fe591b1320238d054ae35c81ffa45f45a",
         "version" : "0.12.0"
-      }
-    },
-    {
-      "identity" : "swiftuix",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftUIX/SwiftUIX",
-      "state" : {
-        "revision" : "a5a22a1aaca885c229f475af049d75a6d9144de8",
-        "version" : "0.1.9"
       }
     },
     {
