@@ -98,6 +98,7 @@ fileprivate struct ClassroomHeader: View {
                         Text("\(classroom.capacity) seats")
                             .font(.caption)
                             .foregroundColor(.secondary)
+                            .padding(.bottom, 8)
                     }
                     .frame(height: dim.y)
                     .position(point)
