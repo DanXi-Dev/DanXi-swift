@@ -48,53 +48,53 @@ class BrowseModel: ObservableObject {
         }
     }
     
-    @Published var holes: [Hole] = []
+    @Published var holes: [HolePresentation] = []
     
-    var filteredHoles: [Hole] {
-        return holes.filter { hole in
+    @MainActor
+    private func insertHoles(holes: [HolePresentation]) {
+        let currentIds = self.holes.map(\.id)
+        let filtered = holes.filter { !currentIds.contains($0.id) }
+        self.holes += filtered
+    }
+    
+    private func filterAndConstructHoles(holes: [Hole]) -> [HolePresentation] {
+        holes.compactMap { hole in
             let settings = ForumSettings.shared
             
             // filter for blocked tags
             let tagsSet = Set(hole.tags.map(\.name))
             let blockedSet = Set(settings.blockedTags)
             if !blockedSet.intersection(tagsSet).isEmpty {
-                return false
+                return nil
             }
             
             // filter pinned hole
             if division.pinned.map(\.id).contains(hole.id) {
-                return false
+                return nil
             }
             
             // filter NSFW tag
             let hasSensitiveTag = hole.tags.contains(where: { $0.name.starts(with: "*") })
             if hasSensitiveTag && settings.sensitiveContent == .hide {
-                return false
+                return nil
             }
                         
             // filter locally blocked holes
             if settings.blockedHoles.contains(hole.id) {
-                return false
+                return nil
             }
             
-            return true
+            return HolePresentation(hole: hole)
         }
     }
     
-    @MainActor
-    private func insertHoles(holes: [Hole]) {
-        let currentIds = self.holes.map(\.id)
-        let filtered = holes.filter { !currentIds.contains($0.id) }
-        self.holes += filtered
-    }
-    
     func loadMoreHoles() async throws {
-        let previousCount = filteredHoles.count
+        let previousCount = holes.count
         let configurationId = self.configurationId
         
         repeat {
             let startTime: Date? = if !holes.isEmpty {
-                sortOption == .replyTime ? holes.last?.timeUpdated : holes.last?.timeCreated
+                sortOption == .replyTime ? holes.last?.hole.timeUpdated : holes.last?.hole.timeCreated
             } else if let baseDate {
                 baseDate
             } else {
@@ -103,7 +103,8 @@ class BrowseModel: ObservableObject {
             
             let newHoles = try await ForumAPI.listHolesInDivision(divisionId: division.id, startTime: startTime, order: sortOption == .replyTime ? "time_updated" : "time_created")
             guard configurationId == self.configurationId else { return }
-            await insertHoles(holes: newHoles)
-        } while filteredHoles.count == previousCount
+            let filteredHoles = filterAndConstructHoles(holes: newHoles)
+            await insertHoles(holes: filteredHoles)
+        } while holes.count == previousCount
     }
 }

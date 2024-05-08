@@ -31,15 +31,15 @@ struct BrowsePage: View {
                 if !model.division.pinned.isEmpty {
                     ForEach(model.division.pinned) { hole in
                         Section {
-                            HoleView(hole: hole, pinned: true)
+                            HoleView(presentation: HolePresentation(hole: hole), pinned: true)
                         }
                     }
                 }
                 
-                AsyncCollection(model.filteredHoles, endReached: false, action: model.loadMoreHoles) { hole in
+                AsyncCollection(model.holes, endReached: false, action: model.loadMoreHoles) { hole in
                     let fold = settings.sensitiveContent == .fold && hole.sensitive
                     Section {
-                        HoleView(hole: hole, fold: fold)
+                        HoleView(presentation: hole, fold: fold)
                     }
                 }
                 .id(model.configurationId) // stop old loading task when config change
@@ -47,6 +47,11 @@ struct BrowsePage: View {
             .onReceive(AppEvents.ScrollToTop.forum) {
                 withAnimation {
                     proxy.scrollTo("forum-top")
+                }
+            }
+            .onChange(of: settings.blockedHoles) { blockedIds in
+                withAnimation {
+                    model.holes = model.holes.filter { !blockedIds.contains($0.id) }
                 }
             }
         }

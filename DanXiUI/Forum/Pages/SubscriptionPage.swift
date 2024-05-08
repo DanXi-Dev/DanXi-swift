@@ -5,7 +5,8 @@ import DanXiKit
 struct SubscriptionPage: View {
     var body: some View {
         AsyncContentView { _ in
-            try await ForumAPI.listSubscriptions()
+            let holes = try await ForumAPI.listSubscriptions()
+            return holes.map { HolePresentation(hole: $0) }
         } content: { subscriptions in
             SubscriptionContent(subscriptions)
                 .watermark()
@@ -15,19 +16,20 @@ struct SubscriptionPage: View {
 
 private struct SubscriptionContent: View {
     @ObservedObject private var subscriptionStore = SubscriptionStore.shared
-    @State private var subscriptions: [Hole]
+    @State private var subscriptions: [HolePresentation]
     @State private var showAlert = false
     @State private var deleteError = ""
 
-    init(_ subscriptions: [Hole]) {
+    init(_ subscriptions: [HolePresentation]) {
         self._subscriptions = State(initialValue: subscriptions)
     }
 
-    private func unsubscribe(_ hole: Hole) {
+    private func unsubscribe(_ presentation: HolePresentation) {
         Task { @MainActor in
             do {
-                try await subscriptionStore.toggleSubscription(hole.id)
-                if let idx = subscriptions.firstIndex(of: hole) {
+                try await subscriptionStore.toggleSubscription(presentation.id)
+                let idx = subscriptions.firstIndex(where: { $0.id == presentation.id })
+                if let idx {
                     subscriptions.remove(at: idx)
                 }
             } catch {
@@ -44,12 +46,12 @@ private struct SubscriptionContent: View {
                     .foregroundColor(.secondary)
             } else {
                 ForumList {
-                    ForEach(subscriptions) { hole in
+                    ForEach(subscriptions) { presentation in
                         Section {
-                            HoleView(hole: hole)
+                            HoleView(presentation: presentation)
                                 .swipeActions {
                                     Button(role: .destructive) {
-                                        unsubscribe(hole)
+                                        unsubscribe(presentation)
                                     } label: {
                                         Image(systemName: "trash")
                                     }

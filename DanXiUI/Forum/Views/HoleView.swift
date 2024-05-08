@@ -8,12 +8,16 @@ struct HoleView: View {
     @ObservedObject private var subscriptionStore = SubscriptionStore.shared
     @ObservedObject private var settings = ForumSettings.shared
     
-    private let hole: Hole
+    private let presentation: HolePresentation
     private let fold: Bool
     private let pinned: Bool
     
-    init(hole: Hole, fold: Bool = false, pinned: Bool = false) {
-        self.hole = hole
+    private var hole: Hole {
+        presentation.hole
+    }
+    
+    init(presentation: HolePresentation, fold: Bool = false, pinned: Bool = false) {
+        self.presentation = presentation
         self.fold = fold
         self.pinned = pinned
     }
@@ -49,7 +53,7 @@ struct HoleView: View {
         .contextMenu {
             previewActions
         } preview: {
-            HolePreview(hole, hole.prefetch)
+            HolePreview(hole, presentation.prefetch, hole.prefetch)
         }
     }
     
@@ -96,9 +100,7 @@ struct HoleView: View {
     
     private var holeContent: some View {
         Group {
-            let firstFloorContent = hole.firstFloor.fold.isEmpty ? hole.firstFloor.content : hole.firstFloor.fold
-            
-            Text(firstFloorContent.inlineAttributed())
+            Text(presentation.firstFloorContent)
                 .font(.callout)
                 .relativeLineSpacing(.em(0.18))
                 .foregroundColor(.primary)
@@ -107,12 +109,7 @@ struct HoleView: View {
                 .padding(.leading, 3)
                 .padding(.trailing, 1)
             
-            if hole.firstFloor.id != hole.lastFloor.id {
-                lastFloor
-                    .padding(.vertical, 1)
-                    .padding(.leading, 8)
-            }
-            
+            lastFloor
             info
         }
     }
@@ -170,51 +167,57 @@ struct HoleView: View {
         .foregroundColor(.secondary)
     }
     
+    @ViewBuilder
     private var lastFloor: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("\(hole.lastFloor.anonyname) replied \(hole.lastFloor.timeCreated.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
-                    .font(.caption)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                let lastFloorContent = hole.lastFloor.fold.isEmpty ? hole.lastFloor.content : hole.lastFloor.fold
-                
-                Text(lastFloorContent.inlineAttributed())
-                    .lineLimit(1)
-                    .font(.subheadline)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .foregroundColor(.secondary)
+        if let lastFloorContent = presentation.lastFloorContent {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("\(hole.lastFloor.anonyname) replied \(hole.lastFloor.timeCreated.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
+                        .font(.caption)
+                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    Text(lastFloorContent)
+                        .lineLimit(1)
+                        .font(.subheadline)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
             }
-            Spacer()
-        }
-        .foregroundColor(.secondary)
-        .padding(.leading, 8)
-        .overlay(alignment: .leading) {
-            Rectangle()
-                .frame(width: 2.8, height: nil)
-                .padding(.top, 2)
-                .foregroundStyle(.secondary.opacity(0.5))
-                .tint(.primary)
+            .foregroundColor(.secondary)
+            .padding(.leading, 8)
+            .overlay(alignment: .leading) {
+                Rectangle()
+                    .frame(width: 2.8, height: nil)
+                    .padding(.top, 2)
+                    .foregroundStyle(.secondary.opacity(0.5))
+                    .tint(.primary)
+            }
+            .padding(.vertical, 1)
+            .padding(.leading, 8)
         }
     }
 }
 
 private struct HolePreview: View {
     @StateObject private var model: HoleModel
+    private let floorPresentations: [FloorPresentation]
     
-    init(_ hole: Hole, _ floors: [Floor]) {
-        let model = HoleModel(hole: hole, floors: floors)
+    init(_ hole: Hole, _ floorPresentations: [FloorPresentation], _ floors: [Floor]) {
+        let model = HoleModel(hole: hole)
         model.endReached = true
+        self.floorPresentations = floorPresentations
         self._model = StateObject(wrappedValue: model)
     }
     
     var body: some View {
         List {
-            ForEach(model.floors) { floor in
+            ForEach(floorPresentations) { floor in
                 FloorView(presentation: floor)
             }
         }
         .listStyle(.inset)
+        .disabled(true)
         .environmentObject(model)
     }
 }

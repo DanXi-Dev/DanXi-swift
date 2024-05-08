@@ -5,30 +5,31 @@ import DanXiKit
 struct FavoritePage: View {
     var body: some View {
         AsyncContentView { _ in
-            try await ForumAPI.listFavorites()
+            let holes = try await ForumAPI.listFavorites()
+            return holes.map { HolePresentation(hole: $0) }
         } content: { favorites in
             FavoritePageContent(favorites)
                 .watermark()
         }
-
     }
 }
 
 private struct FavoritePageContent: View {
     @ObservedObject private var favoriteStore = FavoriteStore.shared
-    @State private var favorites: [Hole]
+    @State private var favorites: [HolePresentation]
     @State private var showAlert = false
     @State private var deleteError = ""
     
-    init(_ favorites: [Hole]) {
+    init(_ favorites: [HolePresentation]) {
         self._favorites = State(initialValue: favorites)
     }
     
-    private func removeFavorite(_ hole: Hole) {
+    private func removeFavorite(_ presentation: HolePresentation) {
         Task { @MainActor in
             do {
-                try await favoriteStore.toggleFavorite(hole.id)
-                if let idx = favorites.firstIndex(of: hole) {
+                try await favoriteStore.toggleFavorite(presentation.id)
+                let idx = favorites.firstIndex(where: { $0.id == presentation.id })
+                if let idx {
                     favorites.remove(at: idx)
                 }
             } catch {
@@ -46,12 +47,12 @@ private struct FavoritePageContent: View {
                     .foregroundColor(.secondary)
             } else {
                 ForumList {
-                    ForEach(favorites) { hole in
+                    ForEach(favorites) { presentation in
                         Section {
-                            HoleView(hole: hole)
+                            HoleView(presentation: presentation)
                                 .swipeActions {
                                     Button(role: .destructive) {
-                                        removeFavorite(hole)
+                                        removeFavorite(presentation)
                                     } label: {
                                         Image(systemName: "trash")
                                     }
