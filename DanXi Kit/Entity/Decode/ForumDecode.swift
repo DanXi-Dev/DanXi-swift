@@ -108,7 +108,7 @@ extension Sensitive {
         let modified = try container.decode(Int.self, forKey: .modified)
         self.modified = !(modified == 0)
         sensitive = try container.decodeIfPresent(Bool.self, forKey: .isActualSensitive)
-        self.sensitiveDetail = try container.decode(String.self, forKey: .sensitiveDetail)
+        self.sensitiveDetail = try container.decodeIfPresent(String.self, forKey: .sensitiveDetail)
     }
 }
 
