@@ -282,8 +282,10 @@ public enum ForumAPI {
     
     // MARK: - Sensitive Content
     
-    public static func listSensitive(startTime: Date = Date.now, open: Bool = true) async throws -> [Sensitive] {
-        let params = ["open": open ? "true" : "false", "offset": startTime.ISO8601Format()]
+    public static func listSensitive(startTime: Date = Date.now, open: Bool = true, order: String = "time_created") async throws -> [Sensitive] {
+        let params = ["open": open ? "true" : "false",
+                      "offset": startTime.ISO8601Format(),
+                      "order_by": order]
         return try await requestWithResponse("/floors/_sensitive", base: forumURL, params: params)
     }
     

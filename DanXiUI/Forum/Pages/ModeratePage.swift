@@ -11,7 +11,7 @@ struct ModeratePage: View {
     }
     
     var body: some View {
-        List(selection: $model.selectedItems) {
+        List {
             Section {
                 Picker(selection: $filter, label: Text("Picker")) {
                     Text("Sensitive.Open").tag(FilterOption.open)
@@ -23,15 +23,11 @@ struct ModeratePage: View {
             
             Section {
                 if filter == .closed {
-                    AsyncCollection { items in
-                        try await ForumAPI.listSensitive(startTime: items.last?.timeUpdated ?? Date.now, open: false)
-                    } content: { item in
+                    AsyncCollection(model.closedItems, endReached: model.closedEndReached, action: model.loadMoreClosed) { item in
                         SensitiveContentView(item: item)
                     }
                 } else {
-                    AsyncCollection(model.items,
-                                    endReached: model.endReached,
-                                    action: model.loadMore) { item in
+                    AsyncCollection(model.openItems, endReached: model.openEndReached, action: model.loadMoreOpen) { item in
                         SensitiveContentView(item: item)
                             .tag(item)
                     }
@@ -40,6 +36,21 @@ struct ModeratePage: View {
             .environmentObject(model)
         }
         .listStyle(.inset)
+        .toolbar {
+            Menu {
+                Picker(selection: $model.sortOption) {
+                    Text("Last Updated")
+                        .tag(ModerateModel.SortOption.replyTime)
+                    Text("Last Created")
+                        .tag(ModerateModel.SortOption.createTime)
+                } label: {
+                    Label("Sort By", systemImage: "arrow.up.arrow.down")
+                }
+            } label: {
+                Image(systemName: "arrow.up.arrow.down")
+            }
+            
+        }
         .navigationTitle("Moderate")
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
@@ -108,7 +119,7 @@ private struct SensitiveContentView: View {
                     try await withHaptics {
                         do {
                             try await ForumAPI.setFloorSensitive(floorId: item.id, sensitive: true)
-                            model.items.removeAll(where: { $0.id == item.id })
+                            model.openItems.removeAll(where: { $0.id == item.id })
                         } catch {
                             model.objectWillChange.send() // Cause item to reappear
                             throw error
@@ -123,7 +134,7 @@ private struct SensitiveContentView: View {
                     try await withHaptics {
                         do {
                             try await ForumAPI.setFloorSensitive(floorId: item.id, sensitive: false)
-                            model.items.removeAll(where: { $0.id == item.id })
+                            model.openItems.removeAll(where: { $0.id == item.id })
                         } catch {
                             model.objectWillChange.send() // Cause item to reappear
                             throw error
@@ -137,16 +148,68 @@ private struct SensitiveContentView: View {
 }
 
 @MainActor
-private class ModerateModel: ObservableObject {
-    @Published var items: [Sensitive] = []
-    @Published var selectedItems: Set<Sensitive> = []
-    @Published var endReached = false
+class ModerateModel: ObservableObject {
+    @Published var sortOption: SortOption = .createTime {
+        didSet {
+            closedItems = []
+            openItems = []
+        }
+    }
+    @Published var closedItems: [Sensitive] = []
+    @Published var closedEndReached = false
+    @Published var openItems: [Sensitive] = []
+    @Published var openEndReached = false
     
-    func loadMore() async throws {
-        let newItems = try await ForumAPI.listSensitive(startTime: items.last?.timeUpdated ?? Date.now)
-        let currentIds = items.map(\.id)
+    enum SortOption {
+        case replyTime
+        case createTime
+    }
+    
+    func loadMoreClosed() async throws {
+        let startTime = if let last = closedItems.last {
+            switch sortOption {
+            case .replyTime:
+                last.timeUpdated
+            case .createTime:
+                last.timeCreated
+            }
+        } else {
+            Date.now
+        }
+        let order = switch sortOption {
+        case .replyTime:
+            "time_updated"
+        case .createTime:
+            "time_created"
+        }
+        let newItems = try await ForumAPI.listSensitive(startTime: startTime, open: false, order: order)
+        let currentIds = closedItems.map(\.id)
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
-        items += inserteditems
-        endReached = inserteditems.isEmpty
+        closedEndReached = inserteditems.isEmpty
+        closedItems += inserteditems
+    }
+    
+    func loadMoreOpen() async throws {
+        let startTime = if let last = openItems.last {
+            switch sortOption {
+            case .replyTime:
+                last.timeUpdated
+            case .createTime:
+                last.timeCreated
+            }
+        } else {
+            Date.now
+        }
+        let order = switch sortOption {
+        case .replyTime:
+            "time_updated"
+        case .createTime:
+            "time_created"
+        }
+        let newItems = try await ForumAPI.listSensitive(startTime: startTime, open: true, order: order)
+        let currentIds = openItems.map(\.id)
+        let inserteditems = newItems.filter { !currentIds.contains($0.id) }
+        openEndReached = inserteditems.isEmpty
+        openItems += inserteditems
     }
 }
