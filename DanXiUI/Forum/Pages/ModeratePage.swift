@@ -58,10 +58,13 @@ private struct SensitiveContentView: View {
         var detail: String? = nil
         // match sensitive detail in content, and highlight it
         if let sensitiveDetail = item.sensitiveDetail {
-            if let range = content.range(of: sensitiveDetail) {
-                content[range].backgroundColor = .yellow.opacity(0.3)
-            } else {
-                detail = sensitiveDetail
+            let details = sensitiveDetail.split(separator: "\n")
+            for part in details {
+                if let range = content.range(of: part) {
+                    content[range].backgroundColor = .yellow.opacity(0.3)
+                } else {
+                    detail = (detail ?? "") + sensitiveDetail
+                }
             }
         }
         
