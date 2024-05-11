@@ -74,6 +74,7 @@ public struct Sensitive: Identifiable, Hashable, Decodable {
     public let deleted: Bool
     public let modified: Bool
     public let sensitive: Bool?
+    public let sensitiveDetail: String?
 }
 
 public struct Message: Identifiable, Hashable, Decodable {

@@ -93,6 +93,7 @@ extension Sensitive {
         case deleted
         case modified
         case isActualSensitive
+        case sensitiveDetail
     }
     
     public init(from decoder: any Decoder) throws {
@@ -107,6 +108,7 @@ extension Sensitive {
         let modified = try container.decode(Int.self, forKey: .modified)
         self.modified = !(modified == 0)
         sensitive = try container.decodeIfPresent(Bool.self, forKey: .isActualSensitive)
+        self.sensitiveDetail = try container.decode(String.self, forKey: .sensitiveDetail)
     }
 }
 

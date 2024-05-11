@@ -3,7 +3,6 @@ import ViewUtils
 import DanXiKit
 
 struct ModeratePage: View {
-    @Environment(\.editMode) private var editMode
     @StateObject private var model = ModerateModel()
     @State private var filter = FilterOption.open
     
@@ -25,7 +24,7 @@ struct ModeratePage: View {
             Section {
                 if filter == .closed {
                     AsyncCollection { items in
-                        try await ForumAPI.listSensitive(startTime: items.last?.timeCreated ?? Date.now, open: false)
+                        try await ForumAPI.listSensitive(startTime: items.last?.timeUpdated ?? Date.now, open: false)
                     } content: { item in
                         SensitiveContentView(item: item)
                     }
@@ -51,6 +50,25 @@ struct ModeratePage: View {
 private struct SensitiveContentView: View {
     @EnvironmentObject var model: ModerateModel
     let item: Sensitive
+    let content: AttributedString
+    let detail: String?
+    
+    init(item: Sensitive) {
+        var content = AttributedString(item.content)
+        var detail: String? = nil
+        // match sensitive detail in content, and highlight it
+        if let sensitiveDetail = item.sensitiveDetail {
+            if let range = content.range(of: sensitiveDetail) {
+                content[range].backgroundColor = .yellow.opacity(0.3)
+            } else {
+                detail = sensitiveDetail
+            }
+        }
+        
+        self.item = item
+        self.content = content
+        self.detail = detail
+    }
     
     var body: some View {
         DetailLink(value: HoleLoader(floorId: item.id)) {
@@ -65,7 +83,12 @@ private struct SensitiveContentView: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text(item.content)
+                    if let detail {
+                        Text(detail)
+                            .bold()
+                            .foregroundStyle(.red)
+                    }
+                    Text(content)
                     HStack {
                         Text("##\(String(item.id))")
                         Spacer()
@@ -117,7 +140,7 @@ private class ModerateModel: ObservableObject {
     @Published var endReached = false
     
     func loadMore() async throws {
-        let newItems = try await ForumAPI.listSensitive(startTime: items.last?.timeCreated ?? Date.now)
+        let newItems = try await ForumAPI.listSensitive(startTime: items.last?.timeUpdated ?? Date.now)
         let currentIds = items.map(\.id)
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
         items += inserteditems
