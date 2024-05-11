@@ -5,6 +5,7 @@ import DanXiKit
 struct ModeratePage: View {
     @StateObject private var model = ModerateModel()
     @State private var filter = FilterOption.open
+    @State private var showDatePicker = false
     
     private enum FilterOption {
         case open, closed
@@ -35,6 +36,10 @@ struct ModeratePage: View {
             }
             .environmentObject(model)
         }
+        .refreshable {
+            model.closedItems = []
+            model.openItems = []
+        }
         .listStyle(.inset)
         .toolbar {
             Menu {
@@ -46,14 +51,55 @@ struct ModeratePage: View {
                 } label: {
                     Label("Sort By", systemImage: "arrow.up.arrow.down")
                 }
+                
+                Button {
+                    showDatePicker = true
+                } label: {
+                    Label("Select Date", systemImage: "clock.arrow.circlepath")
+                }
             } label: {
-                Image(systemName: "arrow.up.arrow.down")
+                Image(systemName: "ellipsis.circle")
             }
             
+        }
+        .sheet(isPresented: $showDatePicker) {
+            datePicker
         }
         .navigationTitle("Moderate")
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
+    }
+    
+    private var datePicker: some View {
+        NavigationStack {
+            Form {
+                let dateBinding = Binding<Date>(
+                    get: { model.baseDate ?? Date() },
+                    set: { model.baseDate = $0 }
+                )
+                
+                DatePicker("Start Date", selection: dateBinding, in: ...Date.now, displayedComponents: [.date])
+                    .datePickerStyle(.graphical)
+                
+                if model.baseDate != nil {
+                    Button("Clear Date", role: .destructive) {
+                        model.baseDate = nil
+                        showDatePicker = false
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showDatePicker = false
+                    } label: {
+                        Text("Done")
+                    }
+                }
+            }
+        }
+        .navigationTitle("Select Date")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -159,6 +205,11 @@ class ModerateModel: ObservableObject {
     @Published var closedEndReached = false
     @Published var openItems: [Sensitive] = []
     @Published var openEndReached = false
+    @Published var baseDate: Date? = nil {
+        didSet {
+            openItems = []
+        }
+    }
     
     enum SortOption {
         case replyTime
@@ -197,6 +248,8 @@ class ModerateModel: ObservableObject {
             case .createTime:
                 last.timeCreated
             }
+        } else if let baseDate {
+            baseDate
         } else {
             Date.now
         }
