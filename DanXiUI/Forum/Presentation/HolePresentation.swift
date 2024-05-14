@@ -21,7 +21,7 @@ struct HolePresentation: Identifiable {
         } else {
             nil
         }
-        self.sensitive = hole.tags.filter { $0.name.hasPrefix("sensitive") }.count > 0
+        self.sensitive = hole.tags.filter { $0.name.hasPrefix("*") }.count > 0
         self.prefetch = hole.prefetch.enumerated().map { FloorPresentation(floor: $1, storey: $0 + 1, floors: hole.prefetch)}
     }
 }
