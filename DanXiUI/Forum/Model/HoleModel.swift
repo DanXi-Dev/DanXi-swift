@@ -26,6 +26,12 @@ class HoleModel: ObservableObject {
         self.subscribed = SubscriptionStore.shared.isSubscribed(hole.id)
         
         filterFloors()
+        
+        if refreshPrefetch {
+            Task {
+                try await refreshPrefetched(count: floors.count)
+            }
+        }
     }
     
     @Published var hole: Hole
