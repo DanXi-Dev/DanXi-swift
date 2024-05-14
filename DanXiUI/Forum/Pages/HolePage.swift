@@ -40,27 +40,19 @@ struct HolePage: View {
                                     header
                                 }
                             }
+                            .id(presentation.id)
                         case .folded(let presentations):
-                            if presentations.count == 1, let first = presentations.first {
-                                Section {
-                                    FloorView(presentation: first)
-                                } header: {
-                                    if first.id == model.floors.first?.id {
-                                        header
+                            FoldedView {
+                                MultipleFoldedFloorView(presentations: presentations)
+                            } content: {
+                                ForEach(presentations) { presentation in
+                                    Section {
+                                        FloorView(presentation: presentation)
                                     }
+                                    .id(presentation.id)
                                 }
-                            } else {
-                                FoldedView {
-                                    MultipleFoldedFloorView(presentations: presentations)
-                                } content: {
-                                    ForEach(presentations) { presentation in
-                                        Section {
-                                            FloorView(presentation: presentation)
-                                        }
-                                    }
-                                }
-                                .listRowInsets(.zero)
                             }
+                            .listRowInsets(.zero)
                         }
                     }
                 }

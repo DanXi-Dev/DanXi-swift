@@ -165,12 +165,37 @@ class HoleModel: ObservableObject {
         }
     }
     
-    @Published var filteredFloors: [FloorPresentation] = []
+    @Published var filteredFloors: [FloorPresentation] = [] {
+        didSet {
+            groupHoleSegments()
+        }
+    }
     
-    var filteredSegments: [HoleSegment] {
-        guard !filteredFloors.isEmpty else { return [] }
+    @Published var filteredSegments: [HoleSegment] = []
+    
+    private func filterFloors() {
+        switch filterOption {
+        case .all:
+            filteredFloors = floors
+        case .posterOnly:
+            let poster = floors.first?.floor.anonyname
+            filteredFloors = floors.filter { $0.floor.anonyname == poster }
+        case .user(let name):
+            filteredFloors = floors.filter { $0.floor.anonyname == name }
+        case .conversation(let starting):
+            filteredFloors = traceConversation(startId: starting)
+        case .reply(let floorId):
+            filteredFloors = floors.filter { $0.replyTo == floorId }
+        }
+    }
+    
+    private func groupHoleSegments() {
+        guard !filteredFloors.isEmpty else {
+            filteredSegments = []
+            return
+        }
         
-        var segments: [HoleSegment] = [.floor(filteredFloors[0])]
+        var segments: [HoleSegment] = [.floor(filteredFloors[0])] // first floor is not folded, in order to display tags properly
         let presentations = filteredFloors[1...]
         var accumulatedFoldedFloors: [FloorPresentation] = []
         
@@ -200,23 +225,7 @@ class HoleModel: ObservableObject {
             segments.append(item)
         }
         
-        return segments
-    }
-    
-    private func filterFloors() {
-        switch filterOption {
-        case .all:
-            filteredFloors = floors
-        case .posterOnly:
-            let poster = floors.first?.floor.anonyname
-            filteredFloors = floors.filter { $0.floor.anonyname == poster }
-        case .user(let name):
-            filteredFloors = floors.filter { $0.floor.anonyname == name }
-        case .conversation(let starting):
-            filteredFloors = traceConversation(startId: starting)
-        case .reply(let floorId):
-            filteredFloors = floors.filter { $0.replyTo == floorId }
-        }
+        self.filteredSegments = segments
     }
     
     private func traceConversation(startId: Int) -> [FloorPresentation] {

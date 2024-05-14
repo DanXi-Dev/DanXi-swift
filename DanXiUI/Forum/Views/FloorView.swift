@@ -286,8 +286,9 @@ struct MultipleFoldedFloorView: View {
     @EnvironmentObject private var holeModel: HoleModel
     @State var highlighted = false
     let presentations: [FloorPresentation]
+    private let id = UUID()
     
-    //FIXME: duplicate code
+    // FIXME: duplicate code
     func highlight() {
         Task { @MainActor in
             withAnimation {
@@ -309,23 +310,29 @@ struct MultipleFoldedFloorView: View {
     }
     
     var body: some View {
-        VStack { // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
-            Spacer(minLength: 0)
-            HStack {
-                Text("\(presentations.count) hidden items")
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
+        Section {
+            VStack {
+                // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
+                Spacer(minLength: 0)
+                HStack {
+                    Text("\(presentations.count) hidden items")
+                        .foregroundColor(.secondary)
+                        .font(.subheadline)
+                    Spacer(minLength: 0)
+                }
                 Spacer(minLength: 0)
             }
-            Spacer(minLength: 0)
+            .foregroundColor(.secondary)
+            .font(.subheadline)
+            .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+            .overlay(Color.accentColor.opacity(highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
         }
-        .foregroundColor(.secondary)
-        .font(.subheadline)
-        .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
-        .overlay(Color.accentColor.opacity(highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
+        // FIXME: This ID modifier don't seems to have effect when scrolling
+        .id(id)
         .onReceive(holeModel.scrollControl) { id in
             if presentations.contains(where: { $0.id == id }) {
                 highlight()
+                // FIXME: holeModel.scrollControl.send(self.id)
             }
         }
     }
