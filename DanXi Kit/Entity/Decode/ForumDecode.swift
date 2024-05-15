@@ -38,6 +38,25 @@ extension Hole {
         lastFloor = try nestedContainer.decode(Floor.self, forKey: .lastFloor)
         prefetch = try nestedContainer.decode([Floor].self, forKey: .prefetch)
     }
+    
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(timeCreated, forKey: .timeCreated)
+        try container.encode(timeUpdated, forKey: .timeUpdated)
+        try container.encode(divisionId, forKey: .divisionId)
+        try container.encode(view, forKey: .view)
+        try container.encode(reply, forKey: .reply)
+        try container.encode(hidden, forKey: .hidden)
+        try container.encode(locked, forKey: .locked)
+        try container.encode(tags, forKey: .tags)
+        
+        var nestedContainer = container.nestedContainer(keyedBy: NestedKeys.self, forKey: .floors)
+        try nestedContainer.encode(firstFloor, forKey: .firstFloor)
+        try nestedContainer.encode(lastFloor, forKey: .lastFloor)
+        try nestedContainer.encode(prefetch, forKey: .prefetch)
+    }
 }
 
 extension Floor {
@@ -81,6 +100,27 @@ extension Floor {
         fold = try container.decode(String.self, forKey: .foldV2)
         mentions = try container.decode([Mention].self, forKey: .mention)
     }
+    
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(holeId, forKey: .holeId)
+        try container.encode(timeCreated, forKey: .timeCreated)
+        try container.encode(timeUpdated, forKey: .timeUpdated)
+        try container.encode(anonyname, forKey: .anonyname)
+        try container.encode(specialTag, forKey: .specialTag)
+        try container.encode(content, forKey: .content)
+        try container.encode(like, forKey: .like)
+        try container.encode(dislike, forKey: .dislike)
+        try container.encode(liked, forKey: .liked)
+        try container.encode(disliked, forKey: .disliked)
+        try container.encode(isMe, forKey: .isMe)
+        try container.encode(modified ? 1 : 0, forKey: .modified)
+        try container.encode(deleted, forKey: .deleted)
+        try container.encode(fold, forKey: .foldV2)
+        try container.encode(mentions, forKey: .mention)
+    }
 }
 
 extension Sensitive {
@@ -110,6 +150,20 @@ extension Sensitive {
         sensitive = try container.decodeIfPresent(Bool.self, forKey: .isActualSensitive)
         self.sensitiveDetail = try container.decodeIfPresent(String.self, forKey: .sensitiveDetail)
     }
+    
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(holeId, forKey: .holeId)
+        try container.encode(content, forKey: .content)
+        try container.encode(timeCreated, forKey: .timeCreated)
+        try container.encode(timeUpdated, forKey: .timeUpdated)
+        try container.encode(deleted, forKey: .deleted)
+        try container.encode(modified ? 1 : 0, forKey: .modified)
+        try container.encode(sensitive, forKey: .isActualSensitive)
+        try container.encode(sensitiveDetail, forKey: .sensitiveDetail)
+    }
 }
 
 extension Message {
@@ -133,6 +187,18 @@ extension Message {
         type = (try? container.decode(MessageType.self, forKey: .code)) ?? .mail
         floor = try container.decodeIfPresent(Floor.self, forKey: .floor)
         report = try container.decodeIfPresent(Report.self, forKey: .report)
+    }
+    
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(id, forKey: .id)
+        try container.encode(timeCreated, forKey: .timeCreated)
+        try container.encode(timeUpdated, forKey: .timeUpdated)
+        try container.encode(description, forKey: .description)
+        try container.encode(type, forKey: .code)
+        try container.encode(floor, forKey: .floor)
+        try container.encode(report, forKey: .report)
     }
 }
 

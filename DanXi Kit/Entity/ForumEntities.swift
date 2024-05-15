@@ -1,12 +1,12 @@
 import Foundation
 
-public struct Division: Identifiable, Decodable, Hashable {
+public struct Division: Identifiable, Codable, Hashable {
     public let id: Int
     public let name, description: String
     public let pinned: [Hole]
 }
 
-public struct Hole: Identifiable, Decodable, Hashable {
+public struct Hole: Identifiable, Codable, Hashable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
     public let divisionId: Int
@@ -18,7 +18,7 @@ public struct Hole: Identifiable, Decodable, Hashable {
     public let prefetch: [Floor]
 }
 
-public struct Floor: Identifiable, Decodable, Hashable {
+public struct Floor: Identifiable, Codable, Hashable {
     public let id: Int
     public let holeId: Int
     public let timeCreated, timeUpdated: Date
@@ -56,7 +56,7 @@ public struct Tag: Identifiable, Codable, Hashable {
     public let name: String
 }
 
-public struct Report: Identifiable, Hashable, Decodable {
+public struct Report: Identifiable, Hashable, Codable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
     public let holeId: Int
@@ -66,7 +66,7 @@ public struct Report: Identifiable, Hashable, Decodable {
     public let dealtBy: Int?
 }
 
-public struct Sensitive: Identifiable, Hashable, Decodable {
+public struct Sensitive: Identifiable, Hashable, Codable {
     public let id: Int
     public let holeId: Int
     public let content: String
@@ -77,7 +77,7 @@ public struct Sensitive: Identifiable, Hashable, Decodable {
     public let sensitiveDetail: String?
 }
 
-public struct Message: Identifiable, Hashable, Decodable {
+public struct Message: Identifiable, Hashable, Codable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
     public let description: String
