@@ -186,7 +186,9 @@ struct THTextEditorUIView<Toolbar: View>: UIViewRepresentable {
     
     func updateUIView(_ textView: UITextView, context: Context) {
         textView.text = text
-        if let selection {
+        if let selection,
+           selection.lowerBound >= text.startIndex,
+           selection.upperBound <= text.endIndex {
             textView.selectedRange = NSRange(selection, in: textView.text)
         }
         DispatchQueue.main.async {
