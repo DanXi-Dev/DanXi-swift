@@ -250,6 +250,7 @@ class DKCourseModel: ObservableObject {
             assessment += rank.assessment
         }
         let count = Double(filteredReviews.count)
+        if count == 0 { return DKRank(overall: 0, content: 0, workload: 0, assessment: 0) }
         return DKRank(overall: overall / count,
                       content: content / count,
                       workload: workload / count,
