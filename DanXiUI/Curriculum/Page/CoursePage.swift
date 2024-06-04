@@ -250,6 +250,7 @@ class CourseModel: ObservableObject {
             assessment += rank.assessment
         }
         let count = Double(filteredReviews.count)
+        if count == 0 { return Rank(overall: 0, content: 0, workload: 0, assessment: 0) }
         return Rank(overall: overall / count, content: content / count, workload: workload / count, assessment: assessment / count)
     }
     
