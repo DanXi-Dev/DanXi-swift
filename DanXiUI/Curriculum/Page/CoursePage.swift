@@ -132,10 +132,14 @@ fileprivate struct ReviewSection: View {
                     }
                 }
             } else {
-                Spacer()
-                Text("No Review")
-                    .font(.callout)
-                    .foregroundColor(.secondary)
+                Spacer(minLength: 8)
+                HStack {
+                    Spacer()
+                    Text("No Review")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
                 Spacer()
             }
         }
