@@ -11,7 +11,7 @@ class BrowseModel: ObservableObject {
     
     @Published var division: Division {
         didSet {
-            configurationId = UUID()
+            resetHoleList()
         }
     }
     
@@ -26,7 +26,7 @@ class BrowseModel: ObservableObject {
             if let currentDivision = DivisionStore.shared.divisions.filter({ $0.id == self.division.id }).first {
                 self.division = currentDivision
             }
-            self.holes = []
+            resetHoleList()
         }
     }
     
@@ -36,19 +36,31 @@ class BrowseModel: ObservableObject {
     
     @Published var sortOption = SortOption.replyTime {
         didSet {
-            holes = []
-            configurationId = UUID()
+            resetHoleList()
         }
     }
     
     @Published var baseDate: Date? {
         didSet {
-            holes = []
-            configurationId = UUID()
+            resetHoleList()
         }
     }
     
     @Published var holes: [HolePresentation] = []
+    @Published var endReached = false
+    
+    private func resetHoleList() {
+        Task { @MainActor in
+            holes = []
+            configurationId = UUID()
+            endReached = false
+        }
+    }
+    
+    @MainActor
+    private func setEndReached(_ endReached: Bool) {
+        self.endReached = endReached
+    }
     
     @MainActor
     private func insertHoles(holes: [HolePresentation]) {
@@ -91,18 +103,16 @@ class BrowseModel: ObservableObject {
     func loadMoreHoles() async throws {
         let previousCount = holes.count
         let configurationId = self.configurationId
+        var startTime: Date? = baseDate
         
         repeat {
-            let startTime: Date? = if !holes.isEmpty {
-                sortOption == .replyTime ? holes.last?.hole.timeUpdated : holes.last?.hole.timeCreated
-            } else if let baseDate {
-                baseDate
-            } else {
-                nil
-            }
-            
             let newHoles = try await ForumAPI.listHolesInDivision(divisionId: division.id, startTime: startTime, order: sortOption == .replyTime ? "time_updated" : "time_created")
+            if newHoles.isEmpty {
+                await setEndReached(true)
+                return
+            }
             guard configurationId == self.configurationId else { return }
+            startTime = sortOption == .replyTime ? newHoles.last?.timeUpdated : newHoles.last?.timeCreated
             let filteredHoles = filterAndConstructHoles(holes: newHoles)
             await insertHoles(holes: filteredHoles)
         } while holes.count == previousCount
