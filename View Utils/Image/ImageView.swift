@@ -1,5 +1,4 @@
 import SwiftUI
-import SensitiveContentAnalysis
 import Disk
 
 public struct ImageView: View {
@@ -48,29 +47,8 @@ public struct ImageView: View {
                         .background(Color.gray.opacity(0.2))
                 }
             case .loaded(let loadedImage):
-                if loadedImage.isSensitive && !showSensitive {
-                    Button {
-                        withAnimation {
-                            showSensitive = true
-                        }
-                    } label: {
-                        ZStack(alignment: .center) {
-                            loadedImage.image
-                                .scaledToFit()
-                                .overlay(.ultraThickMaterial)
-                                .clipped()
-                                .allowsHitTesting(false)
-                            
-                            Image(systemName: "eye.trianglebadge.exclamationmark")
-                                .font(.largeTitle)
-                                .foregroundColor(.primary)
-                                .symbolRenderingMode(.multicolor)
-                        }
-                    }
-                } else {
-                    ImageBrowser(image: loadedImage.uiImage, fileURL: loadedImage.fileURL, remoteURL: url)
-                        .scaledToFit()
-                }
+                ImageBrowser(image: loadedImage.uiImage, fileURL: loadedImage.fileURL, remoteURL: url)
+                    .scaledToFit()
             }
             Spacer()
         }

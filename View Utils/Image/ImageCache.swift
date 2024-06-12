@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import Disk
-import SensitiveContentAnalysis
 import CryptoKit
 
 struct LoadedImage {
@@ -35,14 +34,8 @@ func loadImage(_ url: URL) async throws -> LoadedImage {
 }
 
 func analyzeSensitive(_ image: UIImage) async -> Bool {
-    guard #available(iOS 17, *) else { return false }
-    let analyzer = SCSensitivityAnalyzer()
-    let policy = analyzer.analysisPolicy
-    if policy == .disabled { return false }
-    guard let cgImage = image.cgImage else { return false }
-    let response = try? await analyzer.analyzeImage(cgImage)
-    guard let response else { return false }
-    return response.isSensitive
+    // this is a temporary solution, we should remove this function completely after the app get approved by app store.
+    return false
 }
 
 func makeImageKey(_ url: URL) -> String {

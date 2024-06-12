@@ -1722,6 +1722,7 @@
       }
     },
     "Disabled" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5002,6 +5003,7 @@
       }
     },
     "Sensitive Content Analysis" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -5023,6 +5025,7 @@
       }
     },
     "Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in System Privacy Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
