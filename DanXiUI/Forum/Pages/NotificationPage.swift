@@ -4,7 +4,7 @@ import DanXiKit
 
 struct NotificationPage: View {
     var body: some View {
-        AsyncContentView { _ in
+        AsyncContentView {
             try await ForumAPI.listMessages()
         } content: { messages in
             NotificationContent(messages: messages)

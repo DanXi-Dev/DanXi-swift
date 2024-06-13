@@ -7,8 +7,8 @@ struct RankPage: View {
     @State private var showSheet = false
     
     var body: some View {
-        AsyncContentView { _ in
-            return try await UndergraduateCourseAPI.getRanks()
+        AsyncContentView {
+            try await UndergraduateCourseAPI.getRanks()
         } content: { ranks in
             List {
                 let myRank = ranks.first(where: { $0.isMe })

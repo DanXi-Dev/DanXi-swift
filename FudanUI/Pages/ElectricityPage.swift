@@ -5,10 +5,21 @@ import SwiftUI
 
 struct ElectricityPage: View {
     var body: some View {
-        AsyncContentView(animation: .default) { forceReload in
-            async let usage = forceReload ? ElectricityStore.shared.getRefreshedEletricityUsage() : ElectricityStore.shared.getCachedElectricityUsage()
-            async let dateValues = try? (forceReload ? MyStore.shared.getRefreshedElectricityLogs() : MyStore.shared.getCachedElectricityLogs()).map { DateValueChartData(date: $0.date, value: $0.usage) }
+        AsyncContentView(animation: .default) {
+            async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+            async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map { DateValueChartData(date: $0.date, value: $0.usage) }
+            let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
             
+            if let dateValuesLoaded {
+                let filteredDateValues = Array(DateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
+                return (usageLoaded, filteredDateValues)
+            } else {
+                return (usageLoaded, dateValuesLoaded)
+            }
+        } refreshAction: {
+            async let usage = ElectricityStore.shared.getRefreshedEletricityUsage()
+            async let dateValues = try? MyStore.shared.getRefreshedElectricityLogs()
+                .map { DateValueChartData(date: $0.date, value: $0.usage) }
             let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
             
             if let dateValuesLoaded {

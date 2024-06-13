@@ -4,7 +4,7 @@ import DanXiKit
 
 struct FavoritePage: View {
     var body: some View {
-        AsyncContentView { _ in
+        AsyncContentView {
             let holes = try await ForumAPI.listFavorites()
             return holes.map { HolePresentation(hole: $0) }
         } content: { favorites in

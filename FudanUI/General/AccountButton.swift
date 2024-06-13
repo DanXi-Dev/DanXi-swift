@@ -53,16 +53,16 @@ public struct AccountSheet: View {
         NavigationStack {
             Form {
                 List {
-                    AsyncContentView(style: .widget, animation: .default) { forceReload in
-                        return try? await forceReload ? ProfileStore.shared.getRefreshedProfile() : ProfileStore.shared.getCachedProfile()
+                    AsyncContentView(style: .widget, animation: .default) {
+                        return try await ProfileStore.shared.getCachedProfile()
+                    } refreshAction: {
+                        return try await ProfileStore.shared.getRefreshedProfile()
                     } content: { profile in
-                        if let profile = profile {
-                            Section {
-                                LabeledContent("Name", value: profile.name)
-                                LabeledContent("Fudan.ID", value: profile.campusId)
-                                LabeledContent("Department", value: profile.department)
-                                LabeledContent("Major", value: profile.major)
-                            }
+                        Section {
+                            LabeledContent("Name", value: profile.name)
+                            LabeledContent("Fudan.ID", value: profile.campusId)
+                            LabeledContent("Department", value: profile.department)
+                            LabeledContent("Major", value: profile.major)
                         }
                     }
                     

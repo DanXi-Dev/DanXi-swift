@@ -4,9 +4,12 @@ import ViewUtils
 
 struct BusPage: View {
     var body: some View {
-        AsyncContentView { forceReload in
-            let (workdayRoutes, holidayRoutes) = try await forceReload ? BusStore.shared.getRefreshedRoutes() : BusStore.shared.getCachedRoutes()
-            return FDBusModel(workdayRoutes, holidayRoutes)
+        AsyncContentView {
+            let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getCachedRoutes()
+            return BusModel(workdayRoutes, holidayRoutes)
+        } refreshAction: {
+            let (workdayRoutes, holidayRoutes) = try await BusStore.shared.getRefreshedRoutes()
+            return BusModel(workdayRoutes, holidayRoutes)
         } content: { model in
             BusPageContent(model)
         }
@@ -16,9 +19,9 @@ struct BusPage: View {
 }
 
 fileprivate struct BusPageContent: View {
-    @StateObject private var model: FDBusModel
+    @StateObject private var model: BusModel
     
-    init(_ model: FDBusModel) {
+    init(_ model: BusModel) {
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -107,7 +110,7 @@ fileprivate struct BusPageContent: View {
 
 
 fileprivate struct BusRow: View {
-    @EnvironmentObject private var model: FDBusModel
+    @EnvironmentObject private var model: BusModel
     let schedule: Schedule
     
     init(_ schedual: Schedule) {
@@ -138,7 +141,7 @@ fileprivate enum FDBusType {
     case workday, holiday
 }
 
-fileprivate class FDBusModel: ObservableObject {
+fileprivate class BusModel: ObservableObject {
     let workdayRoutes: [Route]
     let holidayRoutes: [Route]
     let campusList = ["邯郸", "江湾", "枫林", "张江"]
@@ -156,7 +159,7 @@ fileprivate class FDBusModel: ObservableObject {
     init(_ workdayRoutes: [Route], _ holidayRoutes: [Route]) {
         self.workdayRoutes = workdayRoutes
         self.holidayRoutes = holidayRoutes
-        self.type = FDBusModel.isWeekend() ? .holiday : .workday
+        self.type = BusModel.isWeekend() ? .holiday : .workday
     }
     
     var filteredSchedules: [Schedule] {

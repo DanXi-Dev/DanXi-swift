@@ -4,7 +4,7 @@ import DanXiKit
 
 struct SubscriptionPage: View {
     var body: some View {
-        AsyncContentView { _ in
+        AsyncContentView {
             let holes = try await ForumAPI.listSubscriptions()
             return holes.map { HolePresentation(hole: $0) }
         } content: { subscriptions in

@@ -85,8 +85,8 @@ struct HoleLoaderPage: View {
     let loader: HoleLoader
     
     var body: some View {
-        AsyncContentView { _ in
-            return try await loader.load()
+        AsyncContentView {
+            try await loader.load()
         } content: { model in
             HolePage(model)
         }

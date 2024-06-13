@@ -42,7 +42,7 @@ struct ForumHomePage: View {
     }
     
     var body: some View {
-        AsyncContentView { _ in
+        AsyncContentView {
             try await loadAll()
             guard let division = DivisionStore.shared.divisions.first else {
                 throw URLError(.badServerResponse)

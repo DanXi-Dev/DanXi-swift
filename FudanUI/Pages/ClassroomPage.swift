@@ -42,14 +42,17 @@ struct ClassroomPage: View {
                 .listRowBackground(Color.clear)
 #endif
             } else {
-                AsyncContentView(style: .widget) { forceReload in
-                    return try await forceReload ? ClassroomStore.shared.getRefreshedClassroom(building: building) : ClassroomStore.shared.getCachedClassroom(building: building)
-                } content: { (classrooms: [Classroom]) in
+                AsyncContentView(style: .widget) {
+                    try await ClassroomStore.shared.getCachedClassroom(building: building)
+                } refreshAction: {
+                    try await ClassroomStore.shared.getRefreshedClassroom(building: building)
+                } content: { classrooms in
                     let filteredClassrooms = searchText.isEmpty ? classrooms : classrooms.filter({
                         $0.name.localizedCaseInsensitiveContains(searchText) || $0.schedules.contains(where: {
                             $0.courseId.localizedCaseInsensitiveContains(searchText) || $0.name.localizedCaseInsensitiveContains(searchText)
                         })
                     })
+                    
                     if filteredClassrooms.count > 0 {
                         HStack(alignment: .top) {
                             TimeslotsSidebar()
@@ -121,7 +124,7 @@ fileprivate struct CalendarEvents: View {
                 ForEach(Array(classrooms.enumerated()), id: \.offset) { i, classroom in
                     ForEach(classroom.schedules) { schedule in
                         CourseView(title: schedule.name, subtitle: schedule.teacher ?? "",
-                                     span: schedule.end + 1 - schedule.start)
+                                   span: schedule.end + 1 - schedule.start)
                         .position(x: (CGFloat(i) * dim.dx) + (dim.dx / 2),
                                   y: CGFloat(schedule.start + schedule.end) * dim.dy / 2 + dim.dy / 2)
                         .onTapGesture {

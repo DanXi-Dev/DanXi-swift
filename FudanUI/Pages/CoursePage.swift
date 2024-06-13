@@ -8,17 +8,17 @@ import EventKitUI
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
     
+    private var context: [Int: Date] {
+        ConfigurationCenter.configuration.semesterStartDate
+    }
+    
     public init() { }
     
     public var body: some View {
-        AsyncContentView { forceReload in
-            let context = ConfigurationCenter.configuration.semesterStartDate
-            
-            if !forceReload {
-                if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
-                    cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
-                    return cachedModel
-                }
+        AsyncContentView {
+            if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
+                cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
+                return cachedModel
             }
             
             switch campusModel.studentType {
@@ -29,6 +29,16 @@ public struct CoursePage: View {
             case .staff:
                 throw URLError(.unknown) // calendar for staff is not supported
             }
+        } refreshAction: {
+            switch campusModel.studentType {
+            case .undergrad:
+                return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
+            case .grad:
+                return try await CourseModel.freshLoadForGraduate()
+            case .staff:
+                throw URLError(.unknown) // calendar for staff is not supported
+            }
+            
         } content: { model in
             CalendarContent(model: model)
         }

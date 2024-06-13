@@ -29,6 +29,13 @@ class ProfileStore: ObservableObject {
         self.profile = profile
     }
     
+    func getRefreshedProfile() async throws -> Profile {
+        let profile = try await ForumAPI.getProfile()
+        await set(profile: profile)
+        initialized = true
+        return profile
+    }
+    
     func refreshProfile() async throws {
         let profile = try await ForumAPI.getProfile()
         await set(profile: profile)

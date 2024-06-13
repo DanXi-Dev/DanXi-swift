@@ -6,8 +6,8 @@ struct CanteenPage: View {
     init() { }
     
     var body: some View {
-        AsyncContentView { _ in
-            return try await CanteenAPI.getCanteenQueuing()
+        AsyncContentView {
+            try await CanteenAPI.getCanteenQueuing()
         } content: { canteens in
             List(canteens) { canteen in
                 Section(canteen.campus) {

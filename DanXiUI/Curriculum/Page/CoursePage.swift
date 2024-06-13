@@ -25,8 +25,8 @@ struct CoursePage: View {
                 
                 Divider()
                 
-                AsyncContentView(style: .widget) { _ in
-                    return try await CurriculumAPI.getCourseGroup(id: courseGroup.id)
+                AsyncContentView(style: .widget) {
+                    try await CurriculumAPI.getCourseGroup(id: courseGroup.id)
                 } content: { courseGroup in
                     ReviewSection(courseGroup)
                 }

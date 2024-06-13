@@ -15,7 +15,7 @@ struct FloorHistorySheet: View {
     
     var body: some View {
         NavigationStack {
-            AsyncContentView { _ in
+            AsyncContentView {
                 let punishments = try await ForumAPI.listFloorPunishmentStatus(id: floorId)
                 let histories = try await ForumAPI.listFloorHistory(id: floorId)
                 let information = AdministritiveInformation(punishments: punishments, histories: histories)

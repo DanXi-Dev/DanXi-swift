@@ -105,7 +105,7 @@ fileprivate struct BlockedContent: View {
 
 struct NotificationSettingWrapper: View {
     var body: some View {
-        AsyncContentView { _ in
+        AsyncContentView {
             async let profile = ForumAPI.getProfile()
             async let authorizationStatus = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
             return try await (profile, authorizationStatus)

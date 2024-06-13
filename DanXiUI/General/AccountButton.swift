@@ -51,37 +51,33 @@ public struct CommunityAccountSheet: View {
         NavigationStack {
             Form {
                 List {
-                    AsyncContentView(style: .widget, animation: .default) { (forceReload: Bool) -> Profile? in
-                        if !forceReload {
-                            if let profile = ProfileStore.shared.profile {
-                                return profile
-                            }
+                    AsyncContentView(style: .widget, animation: .default) {
+                        if let profile = ProfileStore.shared.profile {
+                            return profile
                         }
-                        // return nil when error
-                        // this is to allow user to logout even when some error occurs and cannot connect to backend server
-                        try? await ProfileStore.shared.refreshProfile()
-                        return ProfileStore.shared.profile
+
+                        return try await ProfileStore.shared.getRefreshedProfile()
+                    } refreshAction: {
+                        try await ProfileStore.shared.getRefreshedProfile()
                     } content: { user in
-                        if let user = user {
-                            Section {
+                        Section {
+                            LabeledContent {
+                                Text(String(user.id))
+                            } label: {
+                                Label("User ID", systemImage: "person.text.rectangle")
+                            }
+                            
+                            LabeledContent {
+                                Text(user.joinTime.formatted(date: .long, time: .omitted))
+                            } label: {
+                                Label("Join Date", systemImage: "calendar.badge.clock")
+                            }
+                            
+                            if user.isAdmin {
                                 LabeledContent {
-                                    Text(String(user.id))
+                                    Text("Enabled")
                                 } label: {
-                                    Label("User ID", systemImage: "person.text.rectangle")
-                                }
-                                
-                                LabeledContent {
-                                    Text(user.joinTime.formatted(date: .long, time: .omitted))
-                                } label: {
-                                    Label("Join Date", systemImage: "calendar.badge.clock")
-                                }
-                                
-                                if user.isAdmin {
-                                    LabeledContent {
-                                        Text("Enabled")
-                                    } label: {
-                                        Label("Admin Privilege", systemImage: "person.badge.key.fill")
-                                    }
+                                    Label("Admin Privilege", systemImage: "person.badge.key.fill")
                                 }
                             }
                         }

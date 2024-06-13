@@ -3,6 +3,44 @@ import FudanKit
 import ViewUtils
 
 struct WalletCard: View {
+    private let style = AsyncContentStyle {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Balance")
+                    .foregroundColor(.secondary)
+                    .bold()
+                    .font(.caption)
+                    .redacted(reason: .placeholder)
+                
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    Text(verbatim: "00.00")
+                        .bold()
+                        .font(.system(size: 25, design: .rounded))
+                        .redacted(reason: .placeholder)
+                    
+                    Text(verbatim: " ")
+                    Text(verbatim: "Yuan")
+                        .foregroundColor(.secondary)
+                        .bold()
+                        .font(.caption2)
+                        .redacted(reason: .placeholder)
+                    
+                    Spacer()
+                }
+            }
+            Spacer()
+        }
+    } errorView: { error, retry in
+        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
+        
+        Button(action: retry) {
+            Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
+                .foregroundColor(.secondary)
+                .font(.system(size: 15))
+        }
+        .padding(.bottom, 15)
+    }
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center) {
@@ -18,11 +56,15 @@ struct WalletCard: View {
                 Spacer()
                 
                 HStack(alignment: .bottom) {
-                    AsyncContentView(animation: .default) { forceReload in
-                        async let balance = (forceReload ? MyStore.shared.getRefreshedUserInfo() : MyStore.shared.getCachedUserInfo()).balance
-                        async let dateValues = (forceReload ? MyStore.shared.getRefreshedWalletLogs() : MyStore.shared.getCachedWalletLogs()).map({ DateValueChartData(date: $0.date, value: $0.amount) })
+                    AsyncContentView(style: style, animation: .default) {
+                        async let balance = MyStore.shared.getCachedUserInfo().balance
+                        async let dateValues = MyStore.shared.getCachedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
                         return try await (balance, dateValues)
-                    } content: {(balance: String, transactions: [DateValueChartData]) in
+                    } refreshAction: {
+                        async let balance = MyStore.shared.getRefreshedUserInfo().balance
+                        async let dateValues = MyStore.shared.getRefreshedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
+                        return try await (balance, dateValues)
+                    } content: { (balance: String, transactions: [DateValueChartData]) in
                         VStack(alignment: .leading) {
                             Text("Balance")
                                 .foregroundColor(.secondary)
@@ -49,46 +91,6 @@ struct WalletCard: View {
                             .frame(width: 100, height: 40)
                         
                         Spacer(minLength: 10)
-                    } loadingView: {
-                        AnyView(
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("Balance")
-                                        .foregroundColor(.secondary)
-                                        .bold()
-                                        .font(.caption)
-                                        .redacted(reason: .placeholder)
-                                    
-                                    HStack(alignment: .firstTextBaseline, spacing: 0) {
-                                        Text("99.99")
-                                            .bold()
-                                            .font(.system(size: 25, design: .rounded))
-                                            .redacted(reason: .placeholder)
-                                        
-                                        Text(" ")
-                                        Text("Yuan")
-                                            .foregroundColor(.secondary)
-                                            .bold()
-                                            .font(.caption2)
-                                            .redacted(reason: .placeholder)
-                                        
-                                        Spacer()
-                                    }
-                                }
-                                Spacer()
-                            }
-                        )
-                    } failureView: { error, retryHandler in
-                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
-                        return AnyView(
-                            Button(action: retryHandler) {
-                                Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
-                                    .foregroundColor(.secondary)
-                                    .font(.system(size: 15))
-                            }
-                                .padding(.bottom, 15)
-                        )
-                        
                     }
                 }
             }

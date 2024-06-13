@@ -3,6 +3,41 @@ import FudanKit
 import ViewUtils
 
 struct ElectricityCard: View {
+    private let style = AsyncContentStyle {
+        VStack(alignment: .leading) {
+            Text(verbatim: "*******")
+                .foregroundColor(.secondary)
+                .bold()
+                .font(.caption)
+                .redacted(reason: .placeholder)
+            
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                Text(verbatim: "99.99")
+                    .bold()
+                    .font(.system(size: 25, design: .rounded))
+                    .redacted(reason: .placeholder)
+                
+                Text(verbatim: " ")
+                Text(verbatim: "kWh")
+                    .foregroundColor(.secondary)
+                    .bold()
+                    .font(.caption2)
+                    .redacted(reason: .placeholder)
+                
+                Spacer()
+            }
+        }
+    } errorView: { error, retry in
+        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
+        
+        Button(action: retry) {
+            Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
+                .foregroundColor(.secondary)
+                .font(.system(size: 15))
+        }
+        .padding(.bottom, 15)
+    }
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack {
@@ -18,9 +53,13 @@ struct ElectricityCard: View {
                 Spacer()
                 
                 HStack(alignment: .bottom) {
-                    AsyncContentView(animation: .default) { forceReload in
-                        async let usage = forceReload ? ElectricityStore.shared.getRefreshedEletricityUsage() : ElectricityStore.shared.getCachedElectricityUsage()
-                        async let dateValues = try? (forceReload ? MyStore.shared.getRefreshedElectricityLogs() : MyStore.shared.getCachedElectricityLogs()).map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                    AsyncContentView(style: style, animation: .default) {
+                        async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+                        async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                        return try await (usage, dateValues)
+                    } refreshAction: {
+                        async let usage = ElectricityStore.shared.getRefreshedEletricityUsage()
+                        async let dateValues = try? MyStore.shared.getRefreshedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
                         return try await (usage, dateValues)
                     } content: {(info: ElectricityUsage, transactions: [DateValueChartData]?) in
                         VStack(alignment: .leading) {
@@ -52,42 +91,6 @@ struct ElectricityCard: View {
                             
                             Spacer(minLength: 10)
                         }
-                    } loadingView: {
-                        AnyView(
-                            VStack(alignment: .leading) {
-                                Text("光华楼101室")
-                                    .foregroundColor(.secondary)
-                                    .bold()
-                                    .font(.caption)
-                                    .redacted(reason: .placeholder)
-                                
-                                HStack(alignment: .firstTextBaseline, spacing: 0) {
-                                    Text("99.99")
-                                        .bold()
-                                        .font(.system(size: 25, design: .rounded))
-                                        .redacted(reason: .placeholder)
-                                    
-                                    Text(" ")
-                                    Text("kWh")
-                                        .foregroundColor(.secondary)
-                                        .bold()
-                                        .font(.caption2)
-                                        .redacted(reason: .placeholder)
-                                    
-                                    Spacer()
-                                }
-                            }
-                        )
-                    } failureView: { error, retryHandler in
-                        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
-                        return AnyView(
-                            Button(action: retryHandler) {
-                                Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
-                                    .foregroundColor(.secondary)
-                                    .font(.system(size: 15))
-                            }
-                                .padding(.bottom, 15)
-                        )
                     }
                 }
             }

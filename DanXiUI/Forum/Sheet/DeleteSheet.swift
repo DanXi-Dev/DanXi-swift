@@ -109,8 +109,8 @@ private struct PunishmentHistory: View {
     let floorId: Int
     
     var body: some View {
-        AsyncContentView { _ in
-            return try await ForumAPI.listFloorPunishmentHistory(id: floorId)
+        AsyncContentView {
+            try await ForumAPI.listFloorPunishmentHistory(id: floorId)
         } content: { histories in
             List(Array(histories.enumerated()), id: \.offset) { _, history in
                 Text(history)

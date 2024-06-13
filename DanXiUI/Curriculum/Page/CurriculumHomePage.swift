@@ -8,25 +8,16 @@ struct CurriculumHomePage: View {
     @ObservedObject private var model = CurriculumModel.shared
     
     var body: some View {
-        AsyncContentView (action: { forceRefresh in
-            if forceRefresh {
-                try await model.loadRemote()
-            } else {
-                try await model.loadLocal()
-            }
-        }, content: {
-            HomePageContent(courses: model.courses)
+        AsyncContentView {
+            try await model.loadLocal()
+            return model.courses
+        } refreshAction: {
+            try await model.loadRemote()
+            return model.courses
+        } content: { courses in
+            HomePageContent(courses: courses)
                 .id("DKHomePageContent-View")
-        }, loadingView: {
-            if model.courses.isEmpty {
-                ProgressView()
-                    .eraseToAnyView()
-            } else {
-                HomePageContent(courses: model.courses)
-                    .id("DKHomePageContent-View")
-                    .eraseToAnyView()
-            }
-        }, failureView: nil)
+        }
         .navigationTitle("Curriculum Board")
     }
 }

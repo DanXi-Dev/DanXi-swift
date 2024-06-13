@@ -7,8 +7,8 @@ public struct QuestionSheet: View {
     public init() { }
     
     public var body: some View {
-        AsyncContentView { _ in
-            return try await GeneralAPI.getQuestions()
+        AsyncContentView {
+            try await GeneralAPI.getQuestions()
         } content: { questions in
             QuestionPage(questions)
         }

@@ -9,7 +9,7 @@ struct ScorePage: View {
     }
     
     var body: some View {
-        AsyncContentView { _ in
+        AsyncContentView { 
             let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
             let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
             return info
@@ -42,7 +42,7 @@ fileprivate struct ScoreList: View {
     let semester: Semester
     
     var body: some View {
-        AsyncContentView(style: .widget) { _ in
+        AsyncContentView(style: .widget) {
             return try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
         } content: { scores in
             Section {
