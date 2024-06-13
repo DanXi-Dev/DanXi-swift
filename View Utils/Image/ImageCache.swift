@@ -1,14 +1,12 @@
 import Foundation
 import SwiftUI
 import Disk
-import SensitiveContentAnalysis
 import CryptoKit
 
 struct LoadedImage {
     let image: Image
     let uiImage: UIImage
     let fileURL: URL
-    let isSensitive: Bool
 }
 
 func loadImage(_ url: URL) async throws -> LoadedImage {
@@ -23,26 +21,14 @@ func loadImage(_ url: URL) async throws -> LoadedImage {
     let (data, _) = try await URLSession.shared.data(from: url)
     guard let uiImage = UIImage(data: data) else { throw URLError(.badServerResponse) }
     let image = Image(uiImage: uiImage)
-    let isSensitive = await analyzeSensitive(uiImage)
     let key = makeImageKey(url)
     let filename = "cachedimages/\(key).jpg"
     let fileURL = try Disk.url(for: filename, in: .caches)
     
-    let loadedImage = LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL, isSensitive: isSensitive)
+    let loadedImage = LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
     await MemoryImageCache.shared.setImage(url, loadedImage)
     try await DiskImageCache.shared.setImage(url, loadedImage)
     return loadedImage
-}
-
-func analyzeSensitive(_ image: UIImage) async -> Bool {
-    guard #available(iOS 17, *) else { return false }
-    let analyzer = SCSensitivityAnalyzer()
-    let policy = analyzer.analysisPolicy
-    if policy == .disabled { return false }
-    guard let cgImage = image.cgImage else { return false }
-    let response = try? await analyzer.analyzeImage(cgImage)
-    guard let response else { return false }
-    return response.isSensitive
 }
 
 func makeImageKey(_ url: URL) -> String {
@@ -62,7 +48,6 @@ actor DiskImageCache {
     func getImage(_ url: URL) -> LoadedImage? {
         let key = makeImageKey(url)
         let filename = "cachedimages/\(key).jpg"
-        let sensitiveMarker = "cachedimages/\(key).sensitive"
         
         guard let fileURL = try? Disk.url(for: filename, in: .caches),
               let uiImage = try? Disk.retrieve(filename, from: .caches, as: UIImage.self) else {
@@ -70,8 +55,7 @@ actor DiskImageCache {
         }
         
         let image = Image(uiImage: uiImage)
-        let isSensitive = Disk.exists(sensitiveMarker, in: .caches)
-        return LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL, isSensitive: isSensitive)
+        return LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
     }
     
     nonisolated func getImageURL(_ url: URL) -> URL? {
@@ -86,12 +70,8 @@ actor DiskImageCache {
     func setImage(_ url: URL, _ value: LoadedImage) throws {
         let key = makeImageKey(url)
         let filename = "cachedimages/\(key).jpg"
-        let sensitiveMarker = "cachedimages/\(key).sensitive"
         
         try Disk.save(value.uiImage, to: .caches, as: filename)
-        if value.isSensitive {
-            try Disk.save("", to: .caches, as: sensitiveMarker)
-        }
     }
     
     func evict(before days: Int = 7) {

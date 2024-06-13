@@ -1,6 +1,5 @@
 import SwiftUI
 import ViewUtils
-import SensitiveContentAnalysis
 import DanXiKit
 
 public struct ForumSettingsView: View {
@@ -61,24 +60,6 @@ fileprivate struct NSFWSettings: View {
                 Text("Hide").tag(ForumSettings.SensitiveContentSetting.hide)
             }
             .pickerStyle(.inline)
-            
-            if #available(iOS 17, *) {
-                let policy = SCSensitivityAnalyzer().analysisPolicy
-                Section {
-                    LabeledContent {
-                        switch(policy) {
-                        case .disabled:
-                            Text("Disabled")
-                        default:
-                            Text("Enabled")
-                        }
-                    } label: {
-                        Text("Sensitive Content Analysis")
-                    }
-                } footer: {
-                    Text("Sensitive Content Analysis detects and warns you about nudity in images. This feature is powered by on-device intelligence and can be toggled in System Privacy Settings")
-                }
-            }
         }
         .navigationTitle("NSFW Content")
         .navigationBarTitleDisplayMode(.inline)
