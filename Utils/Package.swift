@@ -1,5 +1,4 @@
 // swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -17,6 +16,7 @@ let package = Package(
     targets: [
         .target(name: "Utils", 
                 dependencies: [.product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst]))],
-                path: "."),
+                path: ".",
+                resources: [.copy("secrets.json")]),
     ]
 )
