@@ -36,7 +36,7 @@ func constructFormRequest(_ url: URL, method: String = "POST", form: [String: St
     // convert [String: String] to [URLQueryItem]
     var queryItems: [URLQueryItem] = []
     for (key, value) in form {
-        queryItems.append(URLQueryItem(name: key, value: value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+        queryItems.append(URLQueryItem(name: key, value: value.addingPercentEncoding(withAllowedCharacters: .alphanumerics)))
     }
     
     var requestBodyComponents = URLComponents()
