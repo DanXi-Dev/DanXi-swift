@@ -1,7 +1,7 @@
 import SwiftUI
 
 public enum CampusSection: String, Identifiable, Codable, CaseIterable {
-    case wallet, electricity, announcenemnt, pay, bus, classroom, library, canteen, sport, score, rank, playground
+    case wallet, electricity, announcenemnt, pay, bus, classroom, library, canteen, sport, score, rank, playground, exam
     case course
     
     public var id: CampusSection {
@@ -44,6 +44,8 @@ extension CampusSection {
             Label("Canteen Popularity", systemImage: "fork.knife")
         case .course:
             Label("Calendar", systemImage: "calendar")
+        case .exam:
+            Label("Exam", systemImage: "star")
         }
     }
     
@@ -88,6 +90,8 @@ extension CampusSection {
             LibraryPage()
         case .canteen:
             CanteenPage()
+        case .exam:
+            ExamPage()
         case .course:
             CoursePage()
         }

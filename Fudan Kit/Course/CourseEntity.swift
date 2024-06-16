@@ -112,6 +112,20 @@ extension ClassTimeSlot {
     }
 }
 
+// MARK: - Exam
+
+public struct Exam: Identifiable {
+    public let id: UUID
+    public let courseId: String
+    public let course: String
+    public let type: String
+    public let method: String
+    public let date: String
+    public let time: String
+    public let location: String
+    public let note: String
+}
+
 // MARK: - GPA and Score
 
 /// The score of a course
