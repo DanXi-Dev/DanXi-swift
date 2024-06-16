@@ -2324,6 +2324,61 @@
         }
       }
     },
+    "Exam Detail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考试详情"
+          }
+        }
+      }
+    },
+    "Exam Location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考试地点"
+          }
+        }
+      }
+    },
+    "Exam Time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考试时间"
+          }
+        }
+      }
+    },
+    "Exam Type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考核方式"
+          }
+        }
+      }
+    },
+    "Exams" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考试安排"
+          }
+        }
+      }
+    },
     "Exams & Score" : {
       "comment" : "Fudan Score",
       "extractionState" : "stale",
