@@ -9,8 +9,8 @@ public enum CampusSection: String, Identifiable, Codable, CaseIterable {
     }
     
     static let allHidden: Set<CampusSection> = [.course]
-    static let gradHidden: Set<CampusSection> = [.sport, .rank, .score]
-    static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity]
+    static let gradHidden: Set<CampusSection> = [.sport, .rank, .score, .exam]
+    static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity, .exam]
     static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt]
 }
 
@@ -24,6 +24,8 @@ extension CampusSection {
             Label("Fudan QR Code", systemImage: "qrcode")
         case .bus:
             Label("Bus Schedule", systemImage: "bus.fill")
+        case .exam:
+            Label("Exams", systemImage: "book.pages")
         case .wallet:
             Label("ECard Information", systemImage: "creditcard")
         case .score:
@@ -44,8 +46,6 @@ extension CampusSection {
             Label("Canteen Popularity", systemImage: "fork.knife")
         case .course:
             Label("Calendar", systemImage: "calendar")
-        case .exam:
-            Label("Exam", systemImage: "star")
         }
     }
     
