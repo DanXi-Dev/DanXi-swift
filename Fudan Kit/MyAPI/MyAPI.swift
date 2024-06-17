@@ -71,8 +71,17 @@ public enum MyAPI {
         let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_xx.json")!
         let request = constructRequest(url, method: "POST")
         let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
-        let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-        let userData = (dictionary["data"] as! [[String]])[0]
+        
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+              let userDataList = (dictionary["data"] as? [[String]]), !userDataList.isEmpty else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let userData = userDataList[0]
+        guard userData.count >= 6 else {
+            throw URLError(.badServerResponse)
+        }
+        
         return UserInfo(userId: userData[0], userName: userData[1], cardStatus: userData[2], entryPermission: userData[3], expirationDate: userData[4], balance: userData[5])
     }
     
