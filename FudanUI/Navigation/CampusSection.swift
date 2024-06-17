@@ -25,7 +25,7 @@ extension CampusSection {
         case .bus:
             Label("Bus Schedule", systemImage: "bus.fill")
         case .exam:
-            Label("Exams", systemImage: "book.pages")
+            Label("Exams", systemImage: "book.closed")
         case .wallet:
             Label("ECard Information", systemImage: "creditcard")
         case .score:
