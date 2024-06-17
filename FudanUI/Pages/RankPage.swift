@@ -156,7 +156,7 @@ private struct RankChart: View {
             }
         }
         .overlay(alignment: .bottomLeading, content: {
-            if let selected = chartSelection {
+            if !ranks.isEmpty, let selected = chartSelection {
                 let x = max(1, selected)
                 let value = ranks[ranks.count - x]
                 Grid(alignment: .leading) {
