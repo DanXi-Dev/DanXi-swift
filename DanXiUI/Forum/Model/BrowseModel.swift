@@ -85,9 +85,9 @@ class BrowseModel: ObservableObject {
                 return nil
             }
             
-            // filter NSFW tag
+            // filter tags with "*"
             let hasSensitiveTag = hole.tags.contains(where: { $0.name.starts(with: "*") })
-            if hasSensitiveTag && settings.sensitiveContent == .hide {
+            if hasSensitiveTag && settings.foldedContent == .hide {
                 return nil
             }
                         

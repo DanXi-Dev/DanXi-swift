@@ -37,7 +37,7 @@ struct BrowsePage: View {
                 }
                 
                 AsyncCollection(model.holes, endReached: model.endReached, action: model.loadMoreHoles) { hole in
-                    let fold = settings.sensitiveContent == .fold && hole.sensitive
+                    let fold = settings.foldedContent == .fold && hole.sensitive
                     Section {
                         HoleView(presentation: hole, fold: fold)
                     }
