@@ -86,10 +86,24 @@ extension ClassTimeSlot {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         self.id = id
+        
+        /*
         // start and end are specified in below, it cannot in incorrect format
         // it's safe to use force unwrap
         self.start = formatter.date(from: start)!
         self.end = formatter.date(from: end)!
+         */
+        
+        // The original version causes crash, and I don't know why.
+        // This is a temporary fix.
+        if let start = formatter.date(from: start), let end = formatter.date(from: end) {
+            self.start = start
+            self.end = end
+        } else {
+            // instead of crashing the app, this will set incorrect time data
+            self.start = Date()
+            self.end = Date()
+        }
     }
     
     public static let list = [ClassTimeSlot(1, "08:00", "08:45"),
