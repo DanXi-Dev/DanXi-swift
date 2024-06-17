@@ -11,6 +11,9 @@ struct ScorePage: View {
     var body: some View {
         AsyncContentView { 
             let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+            if semesters.isEmpty {
+                throw URLError(.badServerResponse)
+            }
             let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
             return info
         } content: { info in
