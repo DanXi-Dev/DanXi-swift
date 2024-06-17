@@ -1,9 +1,9 @@
+import DanXiKit
 import SwiftUI
 import ViewUtils
-import DanXiKit
 
 public struct ForumSettingsView: View {
-    public init() { }
+    public init() {}
     
     public var body: some View {
         Section("Forum") {
@@ -18,8 +18,8 @@ public struct ForumSettingsView: View {
 
 public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
     case notification
-    case nsfw
-    case blocked
+    case foldedContent
+    case blockedContent
     
     public var id: ForumSettingsSection {
         self
@@ -29,9 +29,9 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
         switch self {
         case .notification:
             Label("Push Notification Settings", systemImage: "app.badge")
-        case .nsfw:
-            Label("NSFW Content", systemImage: "eye.square")
-        case .blocked:
+        case .foldedContent:
+            Label("Folded Content", systemImage: "eye.square")
+        case .blockedContent:
             Label("Blocked Content", systemImage: "hand.raised.app")
         }
     }
@@ -41,27 +41,27 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
         switch self {
         case .notification:
             NotificationSettingWrapper()
-        case .nsfw:
-            NSFWSettings()
-        case .blocked:
+        case .foldedContent:
+            FoldedContentSettings()
+        case .blockedContent:
             BlockedContent()
         }
     }
 }
 
-fileprivate struct NSFWSettings: View {
+fileprivate struct FoldedContentSettings: View {
     @ObservedObject private var settings = ForumSettings.shared
     
     var body: some View {
         Form {
-            Picker(selection: $settings.sensitiveContent) {
+            Picker(selection: $settings.foldedContent) {
                 Text("Show").tag(ForumSettings.SensitiveContentSetting.show)
                 Text("Fold").tag(ForumSettings.SensitiveContentSetting.fold)
                 Text("Hide").tag(ForumSettings.SensitiveContentSetting.hide)
             }
             .pickerStyle(.inline)
         }
-        .navigationTitle("NSFW Content")
+        .navigationTitle("Folded Content")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -88,7 +88,6 @@ fileprivate struct BlockedContent: View {
                             } label: {
                                 Image(systemName: "trash")
                             }
-                            
                         }
                 }
             }
@@ -135,9 +134,9 @@ fileprivate struct NotificationSetting: View {
         self._report = State(initialValue: notify.contains("report"))
         
         if let url = URL(string: UIApplication.openNotificationSettingsURLString), UIApplication.shared.canOpenURL(url) {
-            notificationSettingsURL = url
+            self.notificationSettingsURL = url
         } else {
-            notificationSettingsURL = nil
+            self.notificationSettingsURL = nil
         }
     }
     

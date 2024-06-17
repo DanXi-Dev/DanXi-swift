@@ -2791,6 +2791,17 @@
         }
       }
     },
+    "Folded Content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "折叠的内容"
+          }
+        }
+      }
+    },
     "Forbidden" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4155,17 +4166,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "举报被处理时"
-          }
-        }
-      }
-    },
-    "NSFW Content" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "引起不适的内容"
           }
         }
       }

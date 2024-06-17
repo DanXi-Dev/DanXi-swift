@@ -17,6 +17,6 @@ let package = Package(
         .target(name: "Utils", 
                 dependencies: [.product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst]))],
                 path: ".",
-                resources: [.copy("secrets.json")]),
+                resources: [.copy("demo.json")]),
     ]
 )

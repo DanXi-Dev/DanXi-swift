@@ -1,6 +1,8 @@
-import SwiftUI
-import ViewUtils
+import CryptoKit
 import DanXiKit
+import SwiftUI
+import Utils
+import ViewUtils
 
 public struct AuthenticationSheet: View {
     @StateObject private var model = AuthenticationModel()
@@ -96,6 +98,7 @@ private struct LoginSheet: View {
     }
 }
 
+@MainActor
 private class LoginModel: ObservableObject {
     @Published var username = ""
     @Published var password = ""
@@ -111,6 +114,21 @@ private class LoginModel: ObservableObject {
     }
     
     func login() async throws {
+        let demoHash = "8c42a34a033fcbfaf9af135ff41c415b55ef444c3f38fb385bbbcba3a07b07b1"
+        let usernameHash = SHA256.hash(data: username.data(using: String.Encoding.utf8)!)
+        let hashString = usernameHash.map { String(format: "%02hhx", $0) }.joined()
+        if hashString == demoHash {
+            if let (authTestURL, forumTestURL, curriculumTestURL) = Demo.getDemoURLs() {
+                UserDefaults.standard.set(authTestURL.absoluteString, forKey: "fduhole_auth_url")
+                UserDefaults.standard.set(forumTestURL.absoluteString, forKey: "fduhole_base_url")
+                UserDefaults.standard.set(curriculumTestURL.absoluteString, forKey: "danke_base_url")
+                            
+                authURL = authTestURL
+                forumURL = forumTestURL
+                curriculumURL = curriculumTestURL
+            }
+        }
+                
         try await CommunityModel.shared.login(email: username, password: password)
     }
 }
@@ -193,9 +211,7 @@ private struct RegisterSheet: View {
                 .disabled(!model.completed)
             }
         }
-        .alert("Verification Email Sent", isPresented: $showVerificationAlert) {
-            
-        } message: {
+        .alert("Verification Email Sent", isPresented: $showVerificationAlert) {} message: {
             Text("Check email inbox for verification code, notice that it may be filtered by junk mail")
         }
     }
