@@ -17,7 +17,6 @@ public enum Secrets {
     /// - Returns: Tuple of 3 URLs for testing purposes, which are for auth, forum and curriculum. `nil` if failed to decode.
     public static func getSecretURLs() -> (URL, URL, URL)? {
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         guard let path = Bundle.module.url(forResource: "secrets", withExtension: "json"),
               let data = try? Data(contentsOf: path),

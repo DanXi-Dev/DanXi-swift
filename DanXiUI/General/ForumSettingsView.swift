@@ -1,13 +1,18 @@
+import DanXiKit
 import SwiftUI
 import ViewUtils
-import DanXiKit
 
 public struct ForumSettingsView: View {
-    public init() { }
+    public init() {}
+    @ObservedObject private var settings = ForumSettings.shared
+    
+    private var settingsItems: [ForumSettingsSection] {
+        !settings.isReviewer ? [.notification, .nsfw, .blocked] : [.notification, .blocked]
+    }
     
     public var body: some View {
         Section("Forum") {
-            ForEach(ForumSettingsSection.allCases) { section in
+            ForEach(settingsItems) { section in
                 DetailLink(value: section) {
                     section.label.navigationStyle()
                 }
@@ -88,7 +93,6 @@ fileprivate struct BlockedContent: View {
                             } label: {
                                 Image(systemName: "trash")
                             }
-                            
                         }
                 }
             }
@@ -135,9 +139,9 @@ fileprivate struct NotificationSetting: View {
         self._report = State(initialValue: notify.contains("report"))
         
         if let url = URL(string: UIApplication.openNotificationSettingsURLString), UIApplication.shared.canOpenURL(url) {
-            notificationSettingsURL = url
+            self.notificationSettingsURL = url
         } else {
-            notificationSettingsURL = nil
+            self.notificationSettingsURL = nil
         }
     }
     
