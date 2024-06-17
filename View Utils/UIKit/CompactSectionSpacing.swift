@@ -26,7 +26,7 @@ struct CompactSectionSpacing: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 17, *) {
             content.listSectionSpacing(sectionSpacing)
-        } else {
+        } else if #available(iOS 16.1, *) {
             content
                 .introspect(.list(style: .insetGrouped), on: .iOS(.v16)) { collectionView in
                     let layout = UICollectionViewCompositionalLayout() { sectionIndex, environment in
@@ -57,6 +57,8 @@ struct CompactSectionSpacing: ViewModifier {
                     }
                     collectionView.collectionViewLayout = layout
                 }
+        } else {
+            content
         }
     }
 }

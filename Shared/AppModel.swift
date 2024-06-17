@@ -27,7 +27,6 @@ class AppModel: ObservableObject {
         }
     }
     
-    @MainActor
     init() {
         if CampusModel.shared.loggedIn {
             screen = .campus

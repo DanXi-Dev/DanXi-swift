@@ -25,19 +25,40 @@ public struct CampusHome: View {
                 EmptyView()
                     .id("campus-top")
                 
-                ForEach(model.pinned) { section in
-                    Section {
-                        DetailLink(value: section) {
-                            section.card
-                                .tint(.primary)
-                                .frame(height: 85)
-                        }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                model.unpin(section: section)
-                            } label: {
-                                Image(systemName: "pin.slash.fill")
+                if #available(iOS 16.1, *) {
+                    ForEach(model.pinned) { section in
+                        Section {
+                            DetailLink(value: section) {
+                                section.card
+                                    .tint(.primary)
+                                    .frame(height: 85)
                             }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    model.unpin(section: section)
+                                } label: {
+                                    Image(systemName: "pin.slash.fill")
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Section {
+                        ForEach(model.pinned) { section in
+                            DetailLink(value: section) {
+                                section.card
+                                    .tint(.primary)
+                                    .frame(height: 85)
+                            }
+                            .padding(13)
+                            .listRowBackground(EmptyView())
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .background {
+                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                    .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                            }
+                            .padding(.bottom, 8)
                         }
                     }
                 }
