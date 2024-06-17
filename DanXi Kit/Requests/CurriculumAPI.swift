@@ -37,12 +37,14 @@ public enum CurriculumAPI {
     }
     
     public static func createReview(courseId: Int, title: String, content: String, rank: Rank) async throws -> Review {
-        let payload: [String: Any] = ["title": title, "content": content, "rank": rank]
+        let rankMap = ["overall": rank.overall, "content": rank.content, "workload": rank.workload, "assessment": rank.assessment]
+        let payload: [String: Any] = ["title": title, "content": content, "rank": rankMap]
         return try await requestWithResponse("/courses/\(courseId)/reviews", base: curriculumURL, payload: payload, method: "POST")
     }
     
     public static func modifyReview(courseId: Int, title: String, content: String, rank: Rank) async throws -> Review {
-        let payload: [String: Any] = ["title": title, "content": content, "rank": rank]
+        let rankMap = ["overall": rank.overall, "content": rank.content, "workload": rank.workload, "assessment": rank.assessment]
+        let payload: [String: Any] = ["title": title, "content": content, "rank": rankMap]
         return try await requestWithResponse("/courses/\(courseId)/reviews", base: curriculumURL, payload: payload, method: "PUT")
     }
     
