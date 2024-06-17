@@ -3,13 +3,13 @@ import Foundation
 /// Struct for decoding secret URLs from `secrets.json`.
 ///
 /// These fields are decoded from `secrets.json`, which is injected by CI using the following environment values:
-/// - `AUTH_URL`
-/// - `FORUM_URL`
-/// - `CURRICULUM_URL`
+/// - `AUTH_TEST_URL`
+/// - `FORUM_TEST_URL`
+/// - `CURRICULUM_TEST_URL`
 struct SecretURLs: Codable {
-    let authURL: String
-    let forumURL: String
-    let curriculumURL: String
+    let authTestURL: String
+    let forumTestURL: String
+    let curriculumTestURL: String
 }
 
 public enum Secrets {
@@ -25,9 +25,9 @@ public enum Secrets {
             return nil
         }
         
-        guard let authURL = URL(string: secret.authURL),
-              let forumURL = URL(string: secret.forumURL),
-              let curriculumURL = URL(string: secret.curriculumURL) else {
+        guard let authURL = URL(string: secret.authTestURL),
+              let forumURL = URL(string: secret.forumTestURL),
+              let curriculumURL = URL(string: secret.curriculumTestURL) else {
             return nil
         }
         
