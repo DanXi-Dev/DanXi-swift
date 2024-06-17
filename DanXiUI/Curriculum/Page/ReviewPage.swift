@@ -17,7 +17,7 @@ struct ReviewPage: View {
         AsyncButton {
             try await withHaptics {
                 let upvote = review.vote >= 0
-                self.review = try await CurriculumAPI.voteReview(id: review.id, upvote: !upvote)
+                self.review = try await CurriculumAPI.voteReview(id: review.id, upvote: upvote)
                 model.updateReview(self.review, forCourseId: course.id)
             }
         } label: {
