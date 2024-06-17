@@ -181,6 +181,7 @@ struct HomePageEditor: View {
     }
 }
 
+@MainActor
 class CampusHomeModel: ObservableObject {
     @AppStorage("campus-pinned") var pinned: [CampusSection] = []
     @AppStorage("campus-unpinned") var unpinned: [CampusSection] = []

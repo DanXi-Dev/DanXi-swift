@@ -6,6 +6,7 @@ import DanXiUI
 import SwiftUI
 import Utils
 
+@MainActor
 class AppModel: ObservableObject {
     @AppStorage("intro-done") var showIntro = true // Shown once
     @Published var screen: AppScreen {
