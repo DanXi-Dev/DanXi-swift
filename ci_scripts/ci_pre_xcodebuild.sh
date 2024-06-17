@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd $CI_PRIMARY_REPOSITORY_PATH/Utils || exit 1
-printf "{\"authTestURL\":\"%s\",\"forumTestURL\":\"%s\",\"curriculumTestURL\":\"%s\"}" "$AUTH_URL" "$FORUM_URL" "$CURRICULUM_URL" > demo.json
+printf "{\"authTestURL\":\"%s\",\"forumTestURL\":\"%s\",\"curriculumTestURL\":\"%s\"}" "$AUTH_TEST_URL" "$FORUM_TEST_URL" "$CURRICULUM_TEST_URL" > demo.json
