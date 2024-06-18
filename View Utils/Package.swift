@@ -14,7 +14,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.10.0"),
         .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4"),
-        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.0.2"),
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.3.1"),
         .package(url: "https://github.com/colinc86/LaTeXSwiftUI", from: "1.3.2")
     ],
     targets: [
