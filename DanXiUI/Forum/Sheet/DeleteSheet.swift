@@ -22,6 +22,8 @@ struct DeleteSheet: View {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
                     ForumContentPreview(sections: presentation.sections)
+                        // to fix the top padding caused by ScrollView position
+                        .padding(.top, 7)
                 }
                 .frame(maxHeight: 200)
             } header: {
