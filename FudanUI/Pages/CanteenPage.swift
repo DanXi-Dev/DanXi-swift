@@ -19,7 +19,7 @@ struct CanteenPage: View {
             }
             .listStyle(SidebarListStyle()) // support fold section
         }
-        .navigationTitle("Canteen Popularity")
+        .navigationTitle(String(localized: "Canteen Popularity", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

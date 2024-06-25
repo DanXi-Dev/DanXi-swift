@@ -16,7 +16,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "错误%@"
+            "value" : "错误：%@"
           }
         }
       }

@@ -19,33 +19,33 @@ extension CampusSection {
     var label: some View {
         switch self {
         case .sport:
-            Label("PE Curriculum", systemImage: "figure.disc.sports")
+            Label(String(localized: "PE Curriculum", bundle: .module), systemImage: "figure.disc.sports")
         case .pay:
-            Label("Fudan QR Code", systemImage: "qrcode")
+            Label(String(localized: "Fudan QR Code", bundle: .module), systemImage: "qrcode")
         case .bus:
-            Label("Bus Schedule", systemImage: "bus.fill")
+            Label(String(localized: "Bus Schedule", bundle: .module), systemImage: "bus.fill")
         case .exam:
-            Label("Exams", systemImage: "book.closed")
+            Label(String(localized: "Exams", bundle: .module), systemImage: "book.closed")
         case .wallet:
-            Label("ECard Information", systemImage: "creditcard")
+            Label(String(localized: "ECard Information", bundle: .module), systemImage: "creditcard")
         case .score:
-            Label("Exams & Score", systemImage: "graduationcap.circle")
+            Label(String(localized: "Exams & Score", bundle: .module), systemImage: "graduationcap.circle")
         case .rank:
-            Label("GPA Rank", systemImage: "chart.bar.xaxis")
+            Label(String(localized: "GPA Rank", bundle: .module), systemImage: "chart.bar.xaxis")
         case .playground:
-            Label("Playground Reservation", systemImage: "sportscourt")
+            Label(String(localized: "Playground Reservation", bundle: .module), systemImage: "sportscourt")
         case .classroom:
-            Label("Classroom Schedule", systemImage: "building.2")
+            Label(String(localized: "Classroom Schedule", bundle: .module), systemImage: "building.2")
         case .electricity:
-            Label("Dorm Electricity", systemImage: "bolt.fill")
+            Label(String(localized: "Dorm Electricity", bundle: .module), systemImage: "bolt.fill")
         case .announcenemnt:
-            Label("Academic Office Announcements", systemImage: "bell")
+            Label(String(localized: "Academic Office Announcements", bundle: .module), systemImage: "bell")
         case .library:
-            Label("Library Popularity", systemImage: "building.columns.fill")
+            Label(String(localized: "Library Popularity", bundle: .module), systemImage: "building.columns.fill")
         case .canteen:
-            Label("Canteen Popularity", systemImage: "fork.knife")
+            Label(String(localized: "Canteen Popularity", bundle: .module), systemImage: "fork.knife")
         case .course:
-            Label("Calendar", systemImage: "calendar")
+            Label(String(localized: "Calendar", bundle: .module), systemImage: "calendar")
         }
     }
     

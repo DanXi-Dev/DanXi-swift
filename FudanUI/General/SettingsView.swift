@@ -8,14 +8,16 @@ public struct CampusSettingsView: View {
     
     public var body: some View {
         if model.loggedIn {
-            Section("Campus.Tab") {
+            Section {
                 Picker(selection: $model.studentType) {
-                    Text("Undergraduate").tag(StudentType.undergrad)
-                    Text("Graduate").tag(StudentType.grad)
-                    Text("Staff").tag(StudentType.staff)
+                    Text("Undergraduate", bundle: .module).tag(StudentType.undergrad)
+                    Text("Graduate", bundle: .module).tag(StudentType.grad)
+                    Text("Staff", bundle: .module).tag(StudentType.staff)
                 } label: {
-                    Label("Student Type", systemImage: "person.text.rectangle")
+                    Label(String(localized: "Student Type", bundle: .module), systemImage: "person.text.rectangle")
                 }
+            } header: {
+                Text("Campus.Tab", bundle: .module)
             }
         }
     }

@@ -20,12 +20,12 @@ struct SportPage: View {
                 Section {
                     ForEach(sportData.exercises) { exercise in
                         LabeledContent(exercise.category) {
-                            Text("\(exercise.count)")
+                            Text(verbatim: "\(exercise.count)")
                         }
                     }
                 } header: {
                     HStack {
-                        Text("Extracurricular Activities")
+                        Text("Extracurricular Activities", bundle: .module)
                         Spacer()
                         Button {
                             showExerciseSheet = true
@@ -38,8 +38,10 @@ struct SportPage: View {
                 
                 if let exam = sportData.exam {
                     Section {
-                        LabeledContent("Total Score") {
+                        LabeledContent {
                             Text("\(Int(exam.total)) (\(exam.evaluation))")
+                        } label: {
+                            Text("Total Score", bundle: .module)
                         }
                         
                         ForEach(exam.items) { item in
@@ -49,7 +51,7 @@ struct SportPage: View {
                         }
                     } header: {
                         HStack {
-                            Text("PE Exam")
+                            Text("PE Exam", bundle: .module)
                             Spacer()
                             Button {
                                 showExamSheet = true
@@ -78,11 +80,11 @@ struct SportPage: View {
                             Button {
                                 showExerciseSheet = false
                             } label: {
-                                Text("Done")
+                                Text("Done", bundle: .module)
                             }
                         }
                     }
-                    .navigationTitle("Exercise Logs")
+                    .navigationTitle(String(localized: "Exercise Logs", bundle: .module))
                     .navigationBarTitleDisplayMode(.inline)
                 }
             }
@@ -99,7 +101,7 @@ struct SportPage: View {
                                 }
                             }
                         } else {
-                            Text("No Data")
+                            Text("No Data", bundle: .module)
                         }
                     }
                     .toolbar {
@@ -107,16 +109,16 @@ struct SportPage: View {
                             Button {
                                 showExamSheet = false
                             } label: {
-                                Text("Done")
+                                Text("Done", bundle: .module)
                             }
                         }
                     }
-                    .navigationTitle("PE Exam Logs")
+                    .navigationTitle(String(localized: "PE Exam Logs", bundle: .module))
                     .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }
-        .navigationTitle("PE Curriculum")
+        .navigationTitle(String(localized: "PE Curriculum", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

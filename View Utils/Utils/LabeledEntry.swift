@@ -1,11 +1,11 @@
 import SwiftUI
 
 public struct LabeledEntry<Content: View>: View {
-    private let label: LocalizedStringKey
+    private let label: String
     private var showAlert = false
     private let content: Content
     
-    public init(_ label: LocalizedStringKey,
+    public init(_ label: String,
          @ViewBuilder content: @escaping () -> Content) {
         self.label = label
         self.content = content()

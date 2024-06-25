@@ -9,21 +9,21 @@ struct ClassroomPage: View {
     
     var body: some View {
         List {
-            Picker("Building", selection: $building) {
+            Picker(String(localized: "Building", bundle: .module), selection: $building) {
                 if building == .empty {
                     Text("Not Selected").tag(Building.empty)
                 }
-                Text("第二教学楼").tag(Building.h2)
-                Text("第三教学楼").tag(Building.h3)
-                Text("第四教学楼").tag(Building.h4)
-                Text("第五教学楼").tag(Building.h5)
-                Text("第六教学楼").tag(Building.h6)
-                Text("光华楼西辅楼").tag(Building.hgx)
-                Text("光华楼东辅楼").tag(Building.hgd)
-                Text("新闻学院").tag(Building.hq)
-                Text("江湾校区").tag(Building.j)
-                Text("张江校区").tag(Building.z)
-                Text("枫林校区").tag(Building.f)
+                Text(verbatim: "第二教学楼").tag(Building.h2)
+                Text(verbatim: "第三教学楼").tag(Building.h3)
+                Text(verbatim: "第四教学楼").tag(Building.h4)
+                Text(verbatim: "第五教学楼").tag(Building.h5)
+                Text(verbatim: "第六教学楼").tag(Building.h6)
+                Text(verbatim: "光华楼西辅楼").tag(Building.hgx)
+                Text(verbatim: "光华楼东辅楼").tag(Building.hgd)
+                Text(verbatim: "新闻学院").tag(Building.hq)
+                Text(verbatim: "江湾校区").tag(Building.j)
+                Text(verbatim: "张江校区").tag(Building.z)
+                Text(verbatim: "枫林校区").tag(Building.f)
             }
 #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
@@ -32,15 +32,15 @@ struct ClassroomPage: View {
             if building == .empty {
                 HStack {
                     Spacer()
-                    Text("Building not selected")
+                    Text("Building not selected", bundle: .module)
                         .foregroundColor(.secondary)
                     Spacer()
                 }
                 .padding(50)
                 .listRowSeparator(.hidden, edges: .bottom)
-#if targetEnvironment(macCatalyst)
+                #if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-#endif
+                #endif
             } else {
                 AsyncContentView(style: .widget) {
                     try await ClassroomStore.shared.getCachedClassroom(building: building)
@@ -65,7 +65,7 @@ struct ClassroomPage: View {
                         }
                         .environment(\.calDimension, CalDimension(y: 80, dx: 80))
                     } else {
-                        Text("No Data")
+                        Text("No Data", bundle: .module)
                     }
                 }
                 .id(building)
@@ -77,7 +77,7 @@ struct ClassroomPage: View {
         }
         .searchable(text: $searchText)
         .listStyle(.inset)
-        .navigationTitle("Classroom Schedule")
+        .navigationTitle(String(localized: "Classroom Schedule", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -98,7 +98,7 @@ fileprivate struct ClassroomHeader: View {
                         Text(classroom.name)
                             .font(.system(size: classroomFont))
                             .frame(width: dim.dx)
-                        Text("\(classroom.capacity) seats")
+                        Text("\(classroom.capacity) seats", bundle: .module)
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .padding(.bottom, 8)
@@ -153,35 +153,36 @@ fileprivate struct ScheduleDetailSheet: View {
                 LabeledContent {
                     Text(schedule.name)
                 } label: {
-                    Label("Course Name", systemImage: "magazine")
+                    Label(String(localized: "Course Name", bundle: .module), systemImage: "magazine")
                 }
-                
+
                 if let teacher = schedule.teacher {
                     LabeledContent {
                         Text(teacher)
                     } label: {
-                        Label("Instructor", systemImage: "person")
+                        Label(String(localized: "Instructor", bundle: .module), systemImage: "person")
                     }
                 }
+
                 LabeledContent {
                     Text(schedule.courseId)
                 } label: {
-                    Label("Course ID", systemImage: "number")
+                    Label(String(localized: "Course ID", bundle: .module), systemImage: "number")
                 }
-                
+
                 if let category = schedule.category {
                     LabeledContent {
                         Text(category)
                     } label: {
-                        Label("Course Category", systemImage: "square.grid.3x3.middle.filled")
+                        Label(String(localized: "Course Category", bundle: .module), systemImage: "square.grid.3x3.middle.filled")
                     }
                 }
-                
+
                 if let count = schedule.capacity {
                     LabeledContent {
                         Text(count)
                     } label: {
-                        Label("Course Capacity", systemImage: "person.3.fill")
+                        Label(String(localized: "Course Capacity", bundle: .module), systemImage: "person.3.fill")
                     }
                 }
             }
@@ -192,12 +193,12 @@ fileprivate struct ScheduleDetailSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
         }
-        .navigationTitle("Course Detail")
+        .navigationTitle(String(localized: "Course Detail", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

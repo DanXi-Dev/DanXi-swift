@@ -43,7 +43,7 @@ public struct CoursePage: View {
             CalendarContent(model: model)
         }
         .id(campusModel.studentType) // ensure the page will refresh when student type changes
-        .navigationTitle("Calendar")
+        .navigationTitle(String(localized: "Calendar", bundle: .module))
     }
 }
 
@@ -61,7 +61,7 @@ fileprivate struct CalendarContent: View {
                     .id("cal-top")
                 
                 Section {
-                    Picker("Select Semester", selection: $model.semester) {
+                    Picker(String(localized: "Select Semester", bundle: .module), selection: $model.semester) {
                         ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
                             Text(semester.name).tag(semester)
                         }
@@ -69,7 +69,7 @@ fileprivate struct CalendarContent: View {
                     
                     if !model.courses.isEmpty {
                         Stepper(value: $model.week, in: model.weekRange) {
-                            Label("Week \(String(model.week))", systemImage: "calendar.badge.clock")
+                            Label(String(localized: "Week \(String(model.week))", bundle: .module), systemImage: "calendar.badge.clock")
                                 .labelStyle(.titleOnly)
                         }
                     }
@@ -127,10 +127,10 @@ fileprivate struct CalendarContent: View {
                 .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil) // FIXME: a hacky way to disable .refreshable for child
         }
         .listStyle(.inset)
-        .alert("Error", isPresented: $showErrorAlert) {
+        .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
             
         } message: {
-            Text(model.networkError?.localizedDescription ?? "")
+            Text(verbatim: model.networkError?.localizedDescription ?? "")
         }
         .environmentObject(model)
     }
@@ -181,22 +181,25 @@ fileprivate struct CourseDetailSheet: View {
                 LabeledContent {
                     Text(course.name)
                 } label: {
-                    Label("Course Name", systemImage: "magazine")
+                    Label(String(localized: "Course Name", bundle: .module), systemImage: "magazine")
                 }
+
                 LabeledContent {
                     Text(course.teacher)
                 } label: {
-                    Label("Instructor", systemImage: "person")
+                    Label(String(localized: "Instructor", bundle: .module), systemImage: "person")
                 }
+
                 LabeledContent {
                     Text(course.code)
                 } label: {
-                    Label("Course ID", systemImage: "number")
+                    Label(String(localized: "Course ID", bundle: .module), systemImage: "number")
                 }
+                
                 LabeledContent {
                     Text(course.location)
                 } label: {
-                    Label("Location", systemImage: "mappin.and.ellipse")
+                    Label(String(localized: "Location", bundle: .module), systemImage: "mappin.and.ellipse")
                 }
             }
             .labelStyle(.titleOnly)
@@ -206,11 +209,11 @@ fileprivate struct CourseDetailSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Course Detail")
+            .navigationTitle(String(localized: "Course Detail", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
     }
@@ -274,7 +277,7 @@ fileprivate struct ExportSheet: View {
                 .tag(courseKey)
             }
             .environment(\.editMode, .constant(.active))
-            .navigationTitle("Export to Calendar")
+            .navigationTitle(String(localized: "Export to Calendar", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 withAnimation {
@@ -287,13 +290,13 @@ fileprivate struct ExportSheet: View {
                         Button {
                             selectedKeys = []
                         } label: {
-                            Text("Deselect All")
+                            Text("Deselect All", bundle: .module)
                         }
                     } else {
                         Button {
                             selectedKeys = Set(allKeys)
                         } label: {
-                            Text("Select All")
+                            Text("Select All", bundle: .module)
                         }
                     }
                 }
@@ -303,7 +306,7 @@ fileprivate struct ExportSheet: View {
                         Button {
                             dismiss()
                         } label: {
-                            Text("Cancel")
+                            Text("Cancel", bundle: .module)
                         }
                     } else {
                         Button {
@@ -311,16 +314,16 @@ fileprivate struct ExportSheet: View {
                                 try await presentCalendarChooser()
                             }
                         } label: {
-                            Text("Export")
+                            Text("Export", bundle: .module)
                         }
                     }
                 }
             }
-            .alert("Calendar Access not Granted", isPresented: $showPermissionDeniedAlert) { }
-            .alert("Error", isPresented: $showExportError) {
+            .alert(String(localized: "Calendar Access not Granted", bundle: .module), isPresented: $showPermissionDeniedAlert) { }
+            .alert(String(localized: "Error", bundle: .module), isPresented: $showExportError) {
                 
             } message: {
-                Text(exportError?.localizedDescription ?? "")
+                Text(verbatim: exportError?.localizedDescription ?? "")
             }
             .sheet(isPresented: $showCalendarChooser) {
                 CalendarChooserSheet(selectedCalendar: $selectedCalendar, eventStore: eventStore)

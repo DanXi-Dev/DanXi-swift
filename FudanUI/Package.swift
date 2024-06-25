@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "FudanUI",
+    defaultLocalization: "en", 
     platforms: [.iOS(.v16)],
     products: [
         .library(name: "FudanUI", targets: ["FudanUI"]),

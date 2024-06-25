@@ -13,7 +13,7 @@ struct BusPage: View {
         } content: { model in
             BusPageContent(model)
         }
-        .navigationTitle("Bus Schedule")
+        .navigationTitle(String(localized: "Bus Schedule", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -35,14 +35,14 @@ fileprivate struct BusPageContent: View {
     var body: some View {
         List {
             Section {
-                Picker(selection: $model.type, label: Text("Type")) {
-                    Text("Workday").tag(FDBusType.workday)
-                    Text("Holiday").tag(FDBusType.holiday)
+                Picker(selection: $model.type, label: Text("Type", bundle: .module)) {
+                    Text("Workday", bundle: .module).tag(FDBusType.workday)
+                    Text("Holiday", bundle: .module).tag(FDBusType.holiday)
                 }
                 .pickerStyle(.segmented)
                 
                 HStack {
-                    Text("From")
+                    Text("From", bundle: .module)
                     Spacer()
                     
                     let startBinding = Binding<String>(
@@ -66,7 +66,7 @@ fileprivate struct BusPageContent: View {
                 }
                 
                 HStack {
-                    Text("To")
+                    Text("To", bundle: .module)
                     Spacer()
                     
                     let endBinding = Binding<String>(
@@ -90,7 +90,7 @@ fileprivate struct BusPageContent: View {
                 }
                 
                 Toggle(isOn: $model.filterSchedule.animation()) {
-                    Text("Show schedule after \(getTime())")
+                    Text("Show schedule after \(getTime())", bundle: .module)
                 }
             }
             
@@ -100,7 +100,7 @@ fileprivate struct BusPageContent: View {
                 }
             } footer: {
                 if model.filteredSchedules.isEmpty {
-                    Text("No available schedule")
+                    Text("No available schedule", bundle: .module)
                 }
             }
             .environmentObject(model)

@@ -14,13 +14,13 @@ public struct Sheet<Content: View>: View {
     
     let content: Content
     let action: () async throws -> Void
-    var titleText: LocalizedStringKey = ""
-    var submitText: LocalizedStringKey = "Submit"
+    var titleText: String = ""
+    var submitText: String = String(localized: "Submit", bundle: .module)
     var completed: Bool = true
     var style: SheetStyle = .independent
     var discardWarningNeeded: Bool = false
     
-    public init(_ titleText: LocalizedStringKey = "",
+    public init(_ titleText: String = "",
          action: @escaping () async throws -> Void,
          @ViewBuilder content: () -> Content) {
         self.titleText = titleText
@@ -28,13 +28,13 @@ public struct Sheet<Content: View>: View {
         self.content = content()
     }
     
-    public func title(_ titleText: LocalizedStringKey) -> Sheet {
+    public func title(_ titleText: String) -> Sheet {
         var sheet = self
         sheet.titleText = titleText
         return sheet
     }
     
-    public func submitText(_ submitText: LocalizedStringKey) -> Sheet {
+    public func submitText(_ submitText: String) -> Sheet {
         var sheet = self
         sheet.submitText = submitText
         return sheet

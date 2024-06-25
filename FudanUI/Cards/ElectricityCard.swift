@@ -43,7 +43,7 @@ struct ElectricityCard: View {
             VStack {
                 HStack {
                     Image(systemName: "bolt.fill")
-                    Text("Dorm Electricity")
+                    Text("Dorm Electricity", bundle: .module)
                     Spacer()
                 }
                 .bold()
@@ -75,8 +75,8 @@ struct ElectricityCard: View {
                                     .font(.system(size: 25, design: .rounded))
                                     .privacySensitive()
                                 
-                                Text(" ")
-                                Text("kWh")
+                                Text(verbatim: " ")
+                                Text(verbatim: "kWh")
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption2)

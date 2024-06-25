@@ -13,7 +13,7 @@ struct ReservationPage: View {
         } content: { model in
             PlaygroundContent(model)
         }
-        .navigationTitle("Playground Reservation")
+        .navigationTitle(String(localized: "Playground Reservation", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -28,27 +28,29 @@ struct PlaygroundContent: View {
     var body: some View {
         List {
             Section {
-                Picker(selection: $model.campus, label: Text("Campus")) {
-                    Text("All").tag("")
+                Picker(selection: $model.campus, label: Text("Campus", bundle: .module)) {
+                    Text("All", bundle: .module).tag("")
                     ForEach(model.campusList, id: \.self) { campus in
                         Text(campus).tag(campus)
                     }
                 }
-                Picker(selection: $model.category, label: Text("Playground Type")) {
-                    Text("All").tag("")
+                Picker(selection: $model.category, label: Text("Playground Type", bundle: .module)) {
+                    Text("All", bundle: .module).tag("")
                     ForEach(model.categoriesList, id: \.self) { category in
                         Text(category).tag(category)
                     }
                 }
             }
             
-            Section("Playground List") {
+            Section {
                 ForEach(model.filteredPlaygrounds) { playground in
                     DetailLink(value: playground) {
                         Label(playground.name, systemImage: model.categoryIcon(playground.category))
                             .navigationStyle()
                     }
                 }
+            } header: {
+                Text("Playground List", bundle: .module)
             }
         }
         .navigationDestination(for: Playground.self) { playground in
@@ -69,8 +71,8 @@ struct PlaygroundPage: View {
     var body: some View {
         List {
             Section {
-                DatePicker("Date", selection: $date, displayedComponents: [.date])
-                Toggle("Available Time Slots Only", isOn: $showAvailable)
+                DatePicker(String(localized: "Date", bundle: .module), selection: $date, displayedComponents: [.date])
+                Toggle(String(localized: "Available Time Slots Only", bundle: .module), isOn: $showAvailable)
             }
             
             AsyncContentView(style: .widget) {
@@ -79,7 +81,7 @@ struct PlaygroundPage: View {
                 let filteredReservations = reservations.filter { $0.available || !showAvailable }
                 
                 if filteredReservations.isEmpty {
-                    Text("No Time Slots Available")
+                    Text("No Time Slots Available", bundle: .module)
                 } else {
                     ForEach(filteredReservations) { reservation in
                         ReservationView(reservation: reservation)
@@ -99,22 +101,22 @@ fileprivate struct ReservationView: View {
     
     var body: some View {
         HStack {
-            Text("\(reservation.begin.formatted(date: .omitted, time: .shortened)) - \(reservation.end.formatted(date: .omitted, time: .shortened))")
+            Text(verbatim: "\(reservation.begin.formatted(date: .omitted, time: .shortened)) - \(reservation.end.formatted(date: .omitted, time: .shortened))")
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text("\(reservation.reserved) / \(reservation.total)")
+            Text(verbatim: "\(reservation.reserved) / \(reservation.total)")
                 .frame(maxWidth: .infinity, alignment: .center)
             Group {
                 if reservation.available {
                     Button {
                         showSheet = true
                     } label: {
-                        Text("Reserve")
+                        Text("Reserve", bundle: .module)
                     }
                 } else if reservation.reserved == reservation.total {
-                    Text("Full")
+                    Text("Full", bundle: .module)
                         .foregroundColor(.secondary)
                 } else {
-                    Text("Unavailable")
+                    Text("Unavailable", bundle: .module)
                         .foregroundColor(.secondary)
                 }
             }
@@ -146,7 +148,7 @@ fileprivate struct ReservationSheet: View {
                 if let request = request {
                     WebViewWrapper(request)
                 } else {
-                    Text("Cannot Reserve")
+                    Text("Cannot Reserve", bundle: .module)
                         .font(.title3)
                         .foregroundColor(.secondary)
                 }
@@ -156,11 +158,11 @@ fileprivate struct ReservationSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Reserve Page")
+            .navigationTitle(String(localized: "Reserve Page", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
     }

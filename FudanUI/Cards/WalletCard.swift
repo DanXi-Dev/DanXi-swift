@@ -6,7 +6,7 @@ struct WalletCard: View {
     private let style = AsyncContentStyle {
         HStack {
             VStack(alignment: .leading) {
-                Text("Balance")
+                Text("Balance", bundle: .module)
                     .foregroundColor(.secondary)
                     .bold()
                     .font(.caption)
@@ -19,7 +19,7 @@ struct WalletCard: View {
                         .redacted(reason: .placeholder)
                     
                     Text(verbatim: " ")
-                    Text(verbatim: "Yuan")
+                    Text("Yuan", bundle: .module)
                         .foregroundColor(.secondary)
                         .bold()
                         .font(.caption2)
@@ -31,7 +31,7 @@ struct WalletCard: View {
             Spacer()
         }
     } errorView: { error, retry in
-        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
+        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed", bundle: .module)
         
         Button(action: retry) {
             Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
@@ -66,7 +66,7 @@ struct WalletCard: View {
                         return try await (balance, dateValues)
                     } content: { (balance: String, transactions: [DateValueChartData]) in
                         VStack(alignment: .leading) {
-                            Text("Balance")
+                            Text("Balance", bundle: .module)
                                 .foregroundColor(.secondary)
                                 .bold()
                                 .font(.caption)
@@ -77,8 +77,8 @@ struct WalletCard: View {
                                     .font(.system(size: 25, design: .rounded))
                                     .privacySensitive()
                                 
-                                Text(" ")
-                                Text("Yuan")
+                                Text(verbatim: " ")
+                                Text("Yuan", bundle: .module)
                                     .foregroundColor(.secondary)
                                     .bold()
                                     .font(.caption2)

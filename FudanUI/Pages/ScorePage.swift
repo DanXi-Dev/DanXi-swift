@@ -19,7 +19,7 @@ struct ScorePage: View {
         } content: { info in
             ScorePageContent(info.semesters, current: info.currentSemester)
         }
-        .navigationTitle("Exams & Score")
+        .navigationTitle(String(localized: "Exams & Score", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -56,7 +56,7 @@ fileprivate struct ScoreList: View {
                 if scores.isEmpty {
                     HStack {
                         Spacer()
-                        Text("No Score Entry")
+                        Text("No Score Entry", bundle: .module)
                         Spacer()
                     }
                 }

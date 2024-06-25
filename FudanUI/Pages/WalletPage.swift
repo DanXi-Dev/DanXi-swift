@@ -26,7 +26,7 @@ struct WalletPage: View {
         } content: { balance, history in
             ECardPageContent(balance: balance, history: history)
         }
-        .navigationTitle("ECard Information")
+        .navigationTitle(String(localized: "ECard Information", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -40,7 +40,11 @@ private struct ECardPageContent: View {
     var body: some View {
         List {
             Section {
-                LabeledContent("ECard Balance", value: "¥ \(balance)")
+                LabeledContent {
+                    Text(verbatim: "¥ \(balance)")
+                } label: {
+                    Text("ECard Balance", bundle: .module)
+                }
             }
             
             if #available(iOS 17, *), !history.isEmpty {
@@ -55,11 +59,11 @@ private struct ECardPageContent: View {
                 }
             } else {
                 Section {
-                    Button(action: {
+                    Button {
                         showDetailedTransactionHistory = true
-                    }, label: {
-                        Text("Show Transaction History")
-                    })
+                    } label: {
+                        Text("Show Transaction History", bundle: .module)
+                    }
                 }
             }
         }
@@ -71,7 +75,7 @@ private struct TransactionView: View {
     
     var body: some View {
         LabeledContent {
-            Text("¥\(String(format: "%.2f", transaction.amount))")
+            Text(verbatim: "¥\(String(format: "%.2f", transaction.amount))")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
@@ -96,16 +100,16 @@ private struct FDEcardPageChart: View {
     }
     
     var body: some View {
-        Section("Daily Spending") {
+        Section {
             Chart {
                 ForEach(data) { d in
                     LineMark(
-                        x: .value("Date", d.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
                         y: .value("¥", d.value)
                     )
                     
                     AreaMark(
-                        x: .value("Date", d.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
                         y: .value("", d.value)
                     )
                     .foregroundStyle(areaBackground)
@@ -114,7 +118,7 @@ private struct FDEcardPageChart: View {
                 if let selectedDate = chartSelection,
                    let selectedData = data.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) })
                 {
-                    RuleMark(x: .value("Date", selectedDate, unit: .day))
+                    RuleMark(x: .value(String(localized: "Date", bundle: .module), selectedDate, unit: .day))
                         .lineStyle(StrokeStyle(lineWidth: 3))
                         .foregroundStyle(.secondary)
                         .annotation(
@@ -127,7 +131,7 @@ private struct FDEcardPageChart: View {
                             VStack {
                                 Text("\(selectedData.date, format: .dateTime.day().month())")
                                     .foregroundStyle(.secondary)
-                                Text("¥ \(String(format: "%.2f", selectedData.value))")
+                                Text(verbatim: "¥ \(String(format: "%.2f", selectedData.value))")
                                     .font(.headline)
                             }
                             .fixedSize()
@@ -135,14 +139,14 @@ private struct FDEcardPageChart: View {
                             .padding(.bottom, 1)
                         }
                     PointMark(
-                        x: .value("Date", selectedData.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(70)
                     .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
                     PointMark(
-                        x: .value("Date", selectedData.date, unit: .day),
-                        y: .value("Yuan", selectedData.value)
+                        x: .value(String(localized: "Date", bundle: .module), selectedData.date, unit: .day),
+                        y: .value(String(localized: "Yuan", bundle: .module), selectedData.value)
                     )
                     .symbolSize(40)
                 }
@@ -152,10 +156,12 @@ private struct FDEcardPageChart: View {
                     AxisValueLabel(format: .dateTime.day(), centered: true)
                 }
             }
-            .chartYAxisLabel(String(localized: "Yuan"))
+            .chartYAxisLabel(String(localized: "Yuan", bundle: .module))
             .frame(height: 200)
             .chartXSelection(value: $chartSelection)
             .foregroundColor(.orange)
+        } header: {
+            Text("Daily Spending", bundle: .module)
         }
         .padding(.top, 8) // Leave space for annotation
     }

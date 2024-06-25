@@ -33,25 +33,25 @@ struct ElectricityPage: View {
                 LabeledContent {
                     Text(info.campus)
                 } label: {
-                    Text("Campus")
+                    Text("Campus", bundle: .module)
                 }
                 
                 LabeledContent {
                     Text(info.building + info.room)
                 } label: {
-                    Text("Dorm")
+                    Text("Dorm", bundle: .module)
                 }
                 
                 LabeledContent {
                     Text(ElectricityUsage.convertEnergyToMeasuredString(info.electricityAvailable))
                 } label: {
-                    Text("Electricity Available")
+                    Text("Electricity Available", bundle: .module)
                 }
                 
                 LabeledContent {
                     Text(ElectricityUsage.convertEnergyToMeasuredString(info.electricityUsed))
                 } label: {
-                    Text("Electricity Used")
+                    Text("Electricity Used", bundle: .module)
                 }
                 
                 if #available(iOS 17, *), let transactions, !transactions.isEmpty {
@@ -59,7 +59,7 @@ struct ElectricityPage: View {
                 }
             }
         }
-        .navigationTitle("Dorm Electricity")
+        .navigationTitle(String(localized: "Dorm Electricity", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -74,16 +74,16 @@ private struct ElectricityPageChart: View {
     }
     
     var body: some View {
-        Section("Electricity Usage History") {
+        Section {
             Chart {
                 ForEach(data) { d in
                     LineMark(
-                        x: .value("Date", d.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
                         y: .value("kWh", d.value)
                     )
                     
                     AreaMark(
-                        x: .value("Date", d.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
                         y: .value("", d.value)
                     )
                     .foregroundStyle(areaBackground)
@@ -92,7 +92,7 @@ private struct ElectricityPageChart: View {
                 if let selectedDate = chartSelection,
                    let selectedData = data.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) })
                 {
-                    RuleMark(x: .value("Date", selectedDate, unit: .day))
+                    RuleMark(x: .value(String(localized: "Date", bundle: .module), selectedDate, unit: .day))
                         .lineStyle(StrokeStyle(lineWidth: 3))
                         .foregroundStyle(.secondary)
                         .annotation(
@@ -114,13 +114,13 @@ private struct ElectricityPageChart: View {
                             .padding(.bottom, 1)
                         }
                     PointMark(
-                        x: .value("Date", selectedData.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(70)
                     .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
                     PointMark(
-                        x: .value("Date", selectedData.date, unit: .day),
+                        x: .value(String(localized: "Date", bundle: .module), selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(40)
@@ -131,10 +131,12 @@ private struct ElectricityPageChart: View {
                     AxisValueLabel(format: .dateTime.day(), centered: true)
                 }
             }
-            .chartYAxisLabel(String(localized: "kWh"))
+            .chartYAxisLabel(String(localized: "kWh", bundle: .module))
             .frame(height: 200)
             .chartXSelection(value: $chartSelection)
             .foregroundColor(.green)
+        } header: {
+            Text("Electricity Usage History", bundle: .module)
         }
         .padding(.top, 8) // Leave space for annotation
     }

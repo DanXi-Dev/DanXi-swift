@@ -17,30 +17,32 @@ struct RankPage: View {
                         LabeledContent {
                             Text(String(myRank.gradePoint))
                         } label: {
-                            Text("My GPA")
+                            Text("My GPA", bundle: .module)
                         }
                         LabeledContent {
                             Text(String(myRank.rank))
                         } label: {
-                            Text("My Rank")
+                            Text("My Rank", bundle: .module)
                         }
                         LabeledContent {
                             Text(String(format: "%.1f", myRank.credit))
                         } label: {
-                            Text("My Credit")
+                            Text("My Credit", bundle: .module)
                         }
                     }
                     
                     Button {
                         showSheet = true
                     } label: {
-                        Text("Show all GPA rank")
+                        Text("Show all GPA rank", bundle: .module)
                     }
                 }
                 
                 if #available(iOS 17, *) {
-                    Section("GPA Distribution") {
+                    Section {
                         RankChart(ranks, myRank: myRank)
+                    } header: {
+                        Text("GPA Distribution", bundle: .module)
                     }
                 }
                 
@@ -59,16 +61,16 @@ struct RankPage: View {
                             Button {
                                 showSheet = false
                             } label: {
-                                Text("Done")
+                                Text("Done", bundle: .module)
                             }
                         }
                     }
-                    .navigationTitle("GPA Rank")
+                    .navigationTitle(String(localized: "GPA Rank", bundle: .module))
                     .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }
-        .navigationTitle("GPA Rank")
+        .navigationTitle(String(localized: "GPA Rank", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -78,7 +80,7 @@ fileprivate struct RankView: View {
     
     var body: some View {
         HStack {
-            Text("#\(String(rank.rank))")
+            Text(verbatim: "#\(String(rank.rank))")
                 .font(.system(.title2, design: .rounded))
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
@@ -94,7 +96,7 @@ fileprivate struct RankView: View {
                 Text(rank.major)
                     .font(.callout)
                     .foregroundColor(.secondary)
-                Text("\(String(format: "%.1f", rank.credit)) Credit")
+                Text("\(String(format: "%.1f", rank.credit)) Credit", bundle: .module)
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
@@ -125,32 +127,32 @@ private struct RankChart: View {
     var body: some View {
         Chart(Array(ranks.enumerated()), id: \.offset) { (index, rank) in
             LineMark(
-                x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
-                y: .value("GPA", rank.gradePoint)
+                x: .value(String(localized: "Rank", bundle: .module), ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
+                y: .value(String(localized: "GPA", bundle: .module), rank.gradePoint)
             )
             .foregroundStyle(color)
             
             AreaMark(
-                x: .value("Rank", ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
-                y: .value("GPA", rank.gradePoint)
+                x: .value(String(localized: "Rank", bundle: .module), ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
+                y: .value(String(localized: "GPA", bundle: .module), rank.gradePoint)
             )
             .foregroundStyle(areaBackground)
             
             if let selected = chartSelection, selected > 0 && selected <= ranks.count {
                 let x = max(1, selected)
                 let value = ranks[ranks.count - x]
-                RuleMark(x: .value("Rank", x))
+                RuleMark(x: .value(String(localized: "Rank", bundle: .module), x))
                     .lineStyle(StrokeStyle(lineWidth: 1))
                     .foregroundStyle(.secondary)
                 PointMark(
-                    x: .value("Rank", x),
-                    y: .value("GPA", value.gradePoint)
+                    x: .value(String(localized: "Rank", bundle: .module), x),
+                    y: .value(String(localized: "GPA", bundle: .module), value.gradePoint)
                 )
                 .symbolSize(70)
                 .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
                 PointMark(
-                    x: .value("Rank", x),
-                    y: .value("GPA", value.gradePoint)
+                    x: .value(String(localized: "Rank", bundle: .module), x),
+                    y: .value(String(localized: "GPA", bundle: .module), value.gradePoint)
                 )
                 .symbolSize(40)
             }
@@ -161,12 +163,12 @@ private struct RankChart: View {
                 let value = ranks[ranks.count - x]
                 Grid(alignment: .leading) {
                     GridRow {
-                        Text("GPA: ")
+                        Text("GPA: ", bundle: .module)
                         Text(String(format: "%.2f", value.gradePoint))
                     }
                     GridRow {
-                        Text("Rank: ")
-                        Text("\(value.rank)")
+                        Text("Rank: ", bundle: .module)
+                        Text(verbatim: "\(value.rank)")
                     }
                 }
                 .padding(8)
@@ -178,8 +180,8 @@ private struct RankChart: View {
             }
         })
         .chartXScale(domain: 0 ... ranks.count)
-        .chartXAxisLabel(String(localized:"Rank"))
-        .chartYAxisLabel(String(localized:"GPA"))
+        .chartXAxisLabel(String(localized: "Rank", bundle: .module))
+        .chartYAxisLabel(String(localized: "GPA", bundle: .module))
         .chartXSelection(value: $chartSelection)
         .frame(height: 300)
         .padding(.top, 8)

@@ -16,26 +16,26 @@ public struct LoginSheet: View {
         Sheet {
             try await model.login(username: username, password: password)
         } content: {
-            FormTitle(title: "Fudan Campus Account", description: "Login with Fudan campus account (UIS) to access various campus services")
+            FormTitle(title: String(localized: "Fudan Campus Account", bundle: .module), description: String(localized: "Login with Fudan campus account (UIS) to access various campus services", bundle: .module))
             
             Section {
-                LabeledEntry("Student Type") {
+                LabeledEntry(String(localized: "Student Type", bundle: .module)) {
                     Picker("", selection: $model.studentType) {
-                        Text("Undergraduate").tag(StudentType.undergrad)
-                        Text("Graduate").tag(StudentType.grad)
-                        Text("Staff").tag(StudentType.staff)
+                        Text("Undergraduate", bundle: .module).tag(StudentType.undergrad)
+                        Text("Graduate", bundle: .module).tag(StudentType.grad)
+                        Text("Staff", bundle: .module).tag(StudentType.staff)
                     }
                 }
-                LabeledEntry("Fudan.ID") {
-                    TextField("Fudan UIS ID", text: $username)
+                LabeledEntry(String(localized: "Fudan.ID", bundle: .module)) {
+                    TextField(String(localized: "Fudan UIS ID", bundle: .module), text: $username)
                 }
-                LabeledEntry("Password") {
-                    SecureField("Fudan UIS Password", text: $password)
+                LabeledEntry(String(localized: "Password", bundle: .module)) {
+                    SecureField(String(localized: "Fudan UIS Password", bundle: .module), text: $password)
                 }
             }
         }
         .completed(!username.isEmpty && !password.isEmpty)
-        .submitText("Login")
+        .submitText(String(localized: "Login", bundle: .module))
         .sheetStyle(style)
     }
 }

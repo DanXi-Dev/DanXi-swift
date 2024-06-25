@@ -7,14 +7,14 @@ struct AnnouncementCard: View {
     
     private let style = AsyncContentStyle {
         HStack {
-            Text(verbatim: "关于2024年上海交通大学暑期学校面向C9成员高校学生开放选课的通知，关于2024年上海交通大学暑期学校面向C9成员高校学生开放选课的通知")
+            Text(verbatim: String(repeating: "*", count: 25))
                 .font(.callout)
                 .lineLimit(3)
                 .redacted(reason: .placeholder)
             Spacer()
         }
     } errorView: { error, retry in
-        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
+        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed", bundle: .module)
         
         Button(action: retry) {
             Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
@@ -31,7 +31,7 @@ struct AnnouncementCard: View {
                 HStack {
                     Image(systemName: "bell.fill")
                     
-                    Text(campusModel.studentType == .undergrad ? "Undergraduate Academic Announcements" : "Postgraduate Academic Announcements")
+                    Text(campusModel.studentType == .undergrad ? "Undergraduate Academic Announcements" : "Postgraduate Academic Announcements", bundle: .module)
                     Spacer()
                 }
                 .bold()

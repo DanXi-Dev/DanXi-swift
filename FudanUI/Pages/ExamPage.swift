@@ -34,13 +34,13 @@ struct ExamPage: View {
                     }
                 }
             }
-            .navigationTitle("Exams")
+            .navigationTitle(String(localized: "Exams", bundle: .module))
             .sheet(item: $selectedExam) { exam in
                 ExamDetailSheet(exam: exam)
                     .presentationDetents([.medium])
             }
         }
-        .navigationTitle("Exams")
+        .navigationTitle(String(localized: "Exams", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -61,19 +61,19 @@ fileprivate struct ExamDetailSheet: View {
                     Text(exam.type)
                 }
                 HStack {
-                    Text("Exam Type")
+                    Text("Exam Type", bundle: .module)
                     Spacer()
                     Text(exam.method)
                         .foregroundColor(.secondary)
                 }
                 HStack {
-                    Text("Exam Time")
+                    Text("Exam Time", bundle: .module)
                     Spacer()
                     Text(exam.time)
                         .foregroundColor(.secondary)
                 }
                 HStack {
-                    Text("Exam Location")
+                    Text("Exam Location", bundle: .module)
                     Spacer()
                     Text(exam.location)
                         .foregroundColor(.secondary)
@@ -86,11 +86,11 @@ fileprivate struct ExamDetailSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Exam Detail")
+            .navigationTitle(String(localized: "Exam Detail", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
     }

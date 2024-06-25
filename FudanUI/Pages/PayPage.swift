@@ -46,7 +46,7 @@ struct PayPage: View {
                     Image(uiImage: UIImage(data: data)!)
                         .resizable()
                 } else {
-                    Text("Error")
+                    Text("Error", bundle: .module)
                 }
             }
             .frame(width: 300, height: 300)
@@ -55,25 +55,25 @@ struct PayPage: View {
             Button {
                 loadCodeData()
             } label: {
-                Label("Refresh QR Code", systemImage: "arrow.clockwise")
+                Label(String(localized: "Refresh QR Code", bundle: .module), systemImage: "arrow.clockwise")
             }
         }
-        .alert("Terms not Agreed", isPresented: $showTermsAlert) {
+        .alert(String(localized: "Terms not Agreed", bundle: .module), isPresented: $showTermsAlert) {
             Button {
                 openURL(URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!)
             } label: {
-                Text("Go to Browser")
+                Text("Go to Browser", bundle: .module)
             }
             
             Button {
                 
             } label: {
-                Text("Cancel")
+                Text("Cancel", bundle: .module)
             }
         } message: {
-            Text("To use QRCode, you must accept terms and conditions in webpage")
+            Text("To use QRCode, you must accept terms and conditions in webpage", bundle: .module)
         }
-        .navigationTitle("Fudan QR Code")
+        .navigationTitle(String(localized: "Fudan QR Code", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .task {
             loadCodeData()

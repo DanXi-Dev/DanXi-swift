@@ -1,10 +1,10 @@
 import SwiftUI
 
 public struct FormTitle: View {
-    public let title: LocalizedStringKey
-    public let description: LocalizedStringKey
+    public let title: String
+    public let description: String
     
-    public init(title: LocalizedStringKey, description: LocalizedStringKey) {
+    public init(title: String, description: String) {
         self.title = title
         self.description = description
     }

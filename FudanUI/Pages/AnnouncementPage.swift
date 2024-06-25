@@ -21,11 +21,11 @@ struct AnnouncementPage: View {
     
     private func openLink(announcement: Announcement, needAuthenticate: Bool) async {
         func present(url: URL) {
-#if targetEnvironment(macCatalyst)
+            #if targetEnvironment(macCatalyst)
             openURL(url)
-#else
+            #else
             presentLink = AuthenticatedLink(url: url)
-#endif
+            #endif
         }
         
         if authenticated || !needAuthenticate {
@@ -80,7 +80,7 @@ struct AnnouncementPage: View {
 #endif
         }
         .listStyle(.inset)
-        .navigationTitle(campusModel.studentType == .undergrad ? "Undergraduate Academic Announcements" : "Postgraduate Academic Announcements")
+        .navigationTitle(campusModel.studentType == .undergrad ? String(localized: "Undergraduate Academic Announcements", bundle: .module) : String(localized: "Postgraduate Academic Announcements", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .safariView(item: $presentLink) { link in
             SafariView(url: link.url, configuration: configuration)

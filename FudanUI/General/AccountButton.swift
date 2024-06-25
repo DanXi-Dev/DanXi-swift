@@ -79,7 +79,7 @@ public struct AccountSheet: View {
                         }
                     }
                 }
-                .navigationTitle("Account Info")
+                .navigationTitle(String(localized: "Account Info", bundle: .module))
                 .navigationBarTitleDisplayMode(.inline)
             }
             .toolbar {

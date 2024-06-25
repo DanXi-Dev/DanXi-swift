@@ -29,7 +29,7 @@ struct LibraryPage: View {
                 }
             }
         }
-        .navigationTitle("Library Popularity")
+        .navigationTitle(String(localized: "Library Popularity", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

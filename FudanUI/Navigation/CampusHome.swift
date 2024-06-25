@@ -98,12 +98,12 @@ public struct CampusHome: View {
         }
         .listStyle(.insetGrouped)
         .compactSectionSpacing()
-        .navigationTitle("Campus Services")
+        .navigationTitle(String(localized: "Campus Services", bundle: .module))
         .toolbar {
             Button {
                 showSheet = true
             } label: {
-                Text("Edit")
+                Text("Edit", bundle: .module)
             }
         }
         .sheet(isPresented: $showSheet) {
@@ -122,7 +122,7 @@ struct HomePageEditor: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Pinned Features") {
+                Section {
                     ForEach(model.pinned) { section in
                         section.label
                     }
@@ -137,9 +137,11 @@ struct HomePageEditor: View {
                             }
                         }
                     }
+                } header: {
+                    Text("Pinned Features", bundle: .module)
                 }
                 
-                Section("All Features") {
+                Section {
                     ForEach(model.unpinned) { section in
                         HStack {
                             section.label
@@ -166,11 +168,13 @@ struct HomePageEditor: View {
                             }
                         }
                     }
+                } header: {
+                    Text("All Features", bundle: .module)
                 }
                 .id(id) // a display bug, the remove button won't show if I don't force it to redraw
                 
                 if !model.hidden.isEmpty {
-                    Section("Hidden Features") {
+                    Section {
                         ForEach(model.hidden) { section in
                             HStack {
                                 Button {
@@ -184,6 +188,8 @@ struct HomePageEditor: View {
                                 section.label
                             }
                         }
+                    } header: {
+                        Text("Hidden Features", bundle: .module)
                     }
                 }
             }
@@ -191,12 +197,12 @@ struct HomePageEditor: View {
                 Button {
                     dismiss()
                 } label: {
-                    Text("Done")
+                    Text("Done", bundle: .module)
                         .bold()
                 }
             }
             .environment(\.editMode, .constant(.active))
-            .navigationTitle("Edit Home Page Features")
+            .navigationTitle(String(localized: "Edit Home Page Features", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
     }

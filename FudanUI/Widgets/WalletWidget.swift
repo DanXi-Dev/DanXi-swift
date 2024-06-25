@@ -62,8 +62,8 @@ public struct WalletWidget: Widget {
         StaticConfiguration(kind: "ecard.fudan.edu.cn", provider: WalletWidgetProvier()) { entry in
             WalletWidgetView(entry: entry)
         }
-        .configurationDisplayName("ECard")
-        .description("Check ECard balance and transactions.")
+        .configurationDisplayName(String(localized: "ECard", bundle: .module))
+        .description(String(localized: "Check ECard balance and transactions.", bundle: .module))
         .supportedFamilies([.systemSmall])
     }
 }
@@ -84,12 +84,12 @@ struct WalletWidgetView: View {
     @ViewBuilder
     private var widgetContent: some View {
         if entry.loadFailed {
-            Text("Load Failed")
+            Text("Load Failed", bundle: .module)
                 .foregroundColor(.secondary)
         } else {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
-                    Label("ECard", systemImage: "creditcard.fill")
+                    Label(String(localized: "ECard", bundle: .module), systemImage: "creditcard.fill")
                         .bold()
                         .font(.callout)
                         .foregroundColor(.blue)
@@ -107,7 +107,7 @@ struct WalletWidgetView: View {
     
     @ViewBuilder
     private var walletContent: some View {
-        Text("¥\(entry.balance)")
+        Text(verbatim: "¥\(entry.balance)")
             .bold()
             .font(.title2)
             .foregroundColor(.primary.opacity(0.7))
