@@ -93,7 +93,7 @@ public struct Sheet<Content: View>: View {
                                 dismiss()
                             }
                         } label: {
-                            Text("Cancel")
+                            Text("Cancel", bundle: .module)
                         }
                     }
                 }
@@ -112,21 +112,21 @@ public struct Sheet<Content: View>: View {
                 }
             }
         }
-        .alert("Error", isPresented: $showAlert) {
+        .alert(String(localized: "Error", bundle: .module), isPresented: $showAlert) {
             
         } message: {
             Text(alertMessage)
         }
-        .alert("Unsaved Changes", isPresented: $showDiscardWarning, actions: {
-            Button("Cancel", role: .cancel) {
+        .alert(String(localized: "Unsaved Changes", bundle: .module), isPresented: $showDiscardWarning) {
+            Button(String(localized: "Cancel", bundle: .module), role: .cancel) {
                 showDiscardWarning = false
             }
-            Button("Discard", role: .destructive) {
+            Button(String(localized: "Discard", bundle: .module), role: .destructive) {
                 dismiss()
             }
-        }, message: {
-            Text("Are your sure you want to discard your contents? Your messages will be lost.")
-        })
+        } message: {
+            Text("Are your sure you want to discard your contents? Your messages will be lost.", bundle: .module)
+        }
         .interactiveDismiss(canDismissSheet: !discardWarningNeeded) {
             showDiscardWarning = true
         }

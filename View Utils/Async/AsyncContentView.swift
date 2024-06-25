@@ -100,13 +100,13 @@ extension AsyncContentStyle {
     public static let paged = AsyncContentStyle {
         VStack {
             ProgressView()
-            Text("Loading")
+            Text("Loading", bundle: .module)
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
     } errorView: { error, retry in
         VStack {
-            Text("Loading Failed")
+            Text("Loading Failed", bundle: .module)
                 .font(.title)
                 .fontWeight(.bold)
             
@@ -119,7 +119,7 @@ extension AsyncContentStyle {
             Button {
                 retry()
             } label: {
-                Text("Retry")
+                Text("Retry", bundle: .module)
             }
             .foregroundStyle(Color.accentColor)
         }
@@ -141,14 +141,14 @@ extension AsyncContentStyle {
                     Text(errorDescription)
                         .foregroundStyle(.secondary)
                 } else {
-                    Text("Loading Failed")
+                    Text("Loading Failed", bundle: .module)
                         .foregroundStyle(.secondary)
                 }
                 
                 Button {
                     retry()
                 } label: {
-                    Text("Retry")
+                    Text("Retry", bundle: .module)
                 }
                 .foregroundStyle(Color.accentColor)
             }

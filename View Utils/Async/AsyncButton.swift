@@ -20,46 +20,43 @@ public struct AsyncButton<Label: View>: View {
     @State private var showAlert = false
     
     public var body: some View {
-        Button(
-            action: {
-                if actionOptions.contains(.disableButton) {
-                    isDisabled = true
-                }
-                
-                Task {
-                    do {
-                        defer {
-                            isDisabled = false
-                            showProgressView = false
-                        }
-                        
-                        var progressViewTask: Task<Void, Error>?
-                        
-                        if actionOptions.contains(.showProgressView) {
-                            progressViewTask = Task {
-                                try await Task.sleep(nanoseconds: 150_000_000)
-                                showProgressView = true
-                            }
-                        }
-                        
-                        try await action()
-                        progressViewTask?.cancel()
-                    } catch {
-                        alertMessage = error.localizedDescription
-                        showAlert = true
+        Button {
+            if actionOptions.contains(.disableButton) {
+                isDisabled = true
+            }
+            
+            Task {
+                do {
+                    defer {
+                        isDisabled = false
+                        showProgressView = false
                     }
-                }
-            },
-            label: {
-                ZStack {
-                    label().opacity(showProgressView ? 0 : 1)
                     
-                    if showProgressView {
-                        ProgressView()
+                    var progressViewTask: Task<Void, Error>?
+                    
+                    if actionOptions.contains(.showProgressView) {
+                        progressViewTask = Task {
+                            try await Task.sleep(nanoseconds: 150_000_000)
+                            showProgressView = true
+                        }
                     }
+                    
+                    try await action()
+                    progressViewTask?.cancel()
+                } catch {
+                    alertMessage = error.localizedDescription
+                    showAlert = true
                 }
             }
-        )
+        } label: {
+            ZStack {
+                label().opacity(showProgressView ? 0 : 1)
+                
+                if showProgressView {
+                    ProgressView()
+                }
+            }
+        }
         .disabled(isDisabled)
         .alert(alertMessage, isPresented: $showAlert) { }
     }

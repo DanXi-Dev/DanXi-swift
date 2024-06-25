@@ -226,7 +226,7 @@ fileprivate struct ErrorView: View {
                     await action()
                 }
             } label: {
-                Text("Retry")
+                Text("Retry", bundle: .module)
                     .foregroundColor(.accentColor)
             }
         }
