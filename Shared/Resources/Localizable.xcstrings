@@ -202,6 +202,22 @@
         }
       }
     },
+    "danxi-app-account-system-description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DanXi uses a dual-account system, including the Fudan Campus account and the DanXi account."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕 app 使用双账户系统，包括复旦校园账户和旦夕账户。"
+          }
+        }
+      }
+    },
     "danxi-app-account-system-footer-danxi" : {
       "localizations" : {
         "en" : {
@@ -379,6 +395,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加载失败"
+          }
+        }
+      }
+    },
+    "Login" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录"
           }
         }
       }

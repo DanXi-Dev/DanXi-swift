@@ -100,7 +100,7 @@ struct IntroLoginSheet: View {
     
     var body: some View {
         Form {
-            FormTitle(title: "Login", description: "danxi-app-account-system-description")
+            FormTitle(title: String(localized: "Login"), description: String(localized: "danxi-app-account-system-description"))
             
             Section(content: {
                 NavigationLink(destination: LoginSheet(style: .subpage), label: {
