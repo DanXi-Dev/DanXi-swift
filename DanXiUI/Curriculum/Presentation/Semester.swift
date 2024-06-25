@@ -6,18 +6,18 @@ struct Semester: Identifiable, Hashable {
     }
     let year, semester: Int
     
-    func formatted() -> LocalizedStringResource {
+    func formatted() -> String {
         switch semester {
         case 1:
-            return LocalizedStringResource("\(String(year)) Fall Semester")
+            return String(localized: "\(String(year)) Fall Semester", bundle: .module)
         case 2:
-            return LocalizedStringResource("\(String(year)) Winter Vacation")
+            return String(localized: "\(String(year)) Winter Vacation", bundle: .module)
         case 3:
-            return LocalizedStringResource("\(String(year)) Spring Semester")
+            return String(localized: "\(String(year)) Spring Semester", bundle: .module)
         case 4:
-            return LocalizedStringResource("\(String(year)) Summer Vacation")
+            return String(localized: "\(String(year)) Summer Vacation", bundle: .module)
         default:
-            return LocalizedStringResource("\(String(year)) - \(semester)")
+            return "\(String(year)) - \(semester)"
         }
     }
     

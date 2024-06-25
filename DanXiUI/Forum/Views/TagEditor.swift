@@ -60,7 +60,7 @@ struct TagEditor: View {
                     }
                     
                     if allowAppend {
-                        BackspaceDetectingTextField(placeholder: tags.isEmpty ? String(localized: "Add Tag") : "", text: $text) { isEmpty in
+                        BackspaceDetectingTextField(placeholder: tags.isEmpty ? String(localized: "Add Tag", bundle: .module) : "", text: $text) { isEmpty in
                             if isEmpty {
                                 if let last = tags.last {
                                     withAnimation {

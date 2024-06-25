@@ -45,12 +45,12 @@ private struct LoginSheet: View {
     
     var body: some View {
         Form {
-            FormTitle(title: "DanXi Account",
-                      description: "DanXi account is used to access community services such as Treehole and DanKe.")
+            FormTitle(title: String(localized: "DanXi Account", bundle: .module),
+                      description: String(localized: "DanXi account is used to access community services such as Treehole and DanKe.", bundle: .module))
             
             Section {
-                LabeledEntry("Email") {
-                    TextField("Required", text: $model.username)
+                LabeledEntry(String(localized: "Email", bundle: .module)) {
+                    TextField(String(localized: "Required", bundle: .module), text: $model.username)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
@@ -59,16 +59,16 @@ private struct LoginSheet: View {
                 }
                 .showAlert(!usernameFocus && !model.usernameValid)
                 
-                LabeledEntry("Password") {
-                    SecureField("Required", text: $model.password)
+                LabeledEntry(String(localized: "Password", bundle: .module)) {
+                    SecureField(String(localized: "Required", bundle: .module), text: $model.password)
                 }
             } footer: {
                 HStack(spacing: 20) {
                     Spacer()
-                    NavigationLink("Register") {
+                    NavigationLink(String(localized: "Register", bundle: .module)) {
                         RegisterSheet(type: .register)
                     }
-                    NavigationLink("Forget Password") {
+                    NavigationLink(String(localized: "Forget Password", bundle: .module)) {
                         RegisterSheet(type: .forgetPassword)
                     }
                 }
@@ -81,7 +81,7 @@ private struct LoginSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel")
+                        Text("Cancel", bundle: .module)
                     }
                 }
             }
@@ -90,7 +90,7 @@ private struct LoginSheet: View {
                     try await model.login()
                     authModel.done = true
                 } label: {
-                    Text("Login")
+                    Text("Login", bundle: .module)
                 }
                 .disabled(!model.completed)
             }
@@ -152,16 +152,16 @@ private struct RegisterSheet: View {
     var body: some View {
         Form {
             if type == .register {
-                FormTitle(title: "Register DanXi Account",
-                          description: "Use campus email to register DanXi account.")
+                FormTitle(title: String(localized: "Register DanXi Account", bundle: .module),
+                          description: String(localized: "Use campus email to register DanXi account.", bundle: .module))
             } else {
-                FormTitle(title: "Forget Password",
-                          description: "Use campus email to reset password.")
+                FormTitle(title: String(localized: "Forget Password", bundle: .module),
+                          description: String(localized: "Use campus email to reset password.", bundle: .module))
             }
             
             Section {
-                LabeledEntry("Email") {
-                    TextField("Fudan Campus Email", text: $model.email)
+                LabeledEntry(String(localized: "Email", bundle: .module)) {
+                    TextField(String(localized: "Fudan Campus Email", bundle: .module), text: $model.email)
                         .keyboardType(.emailAddress)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
@@ -170,33 +170,33 @@ private struct RegisterSheet: View {
                 }
                 .showAlert(!emailFocus && !model.emailValid)
                 
-                LabeledEntry("Password") {
-                    SecureField("Required", text: $model.password)
+                LabeledEntry(String(localized: "Password", bundle: .module)) {
+                    SecureField(String(localized: "Required", bundle: .module), text: $model.password)
                         .focused($passwordFocus)
                 }
                 .showAlert(!passwordFocus && !model.passwordValid)
                 
-                LabeledEntry("Repeat") {
-                    SecureField("Required", text: $model.repeatPassword)
+                LabeledEntry(String(localized: "Repeat", bundle: .module)) {
+                    SecureField(String(localized: "Required", bundle: .module), text: $model.repeatPassword)
                         .focused($repeatFocus)
                 }
                 .showAlert(!repeatFocus && !model.repeatValid)
                 
-                LabeledEntry("Verify") {
-                    TextField("Required", text: $model.verificationCode)
+                LabeledEntry(String(localized: "Verify", bundle: .module)) {
+                    TextField(String(localized: "Required", bundle: .module), text: $model.verificationCode)
                         .keyboardType(.decimalPad)
                     AsyncButton {
                         try await model.sendVerificationCode()
                         showVerificationAlert = true
                     } label: {
-                        Text("Get Code")
+                        Text("Get Code", bundle: .module)
                     }
                     .buttonStyle(.borderless)
                     .disabled(!model.emailValid || model.email.isEmpty)
                 }
             } footer: {
                 if type == .register {
-                    Text("Register Prompt")
+                    Text("Register Prompt", bundle: .module)
                 }
             }
         }
@@ -206,13 +206,13 @@ private struct RegisterSheet: View {
                     try await model.register(create: type == .register)
                     authModel.done = true
                 } label: {
-                    Text(type == .register ? "Register" : "Submit")
+                    Text(type == .register ? "Register" : "Submit", bundle: .module)
                 }
                 .disabled(!model.completed)
             }
         }
-        .alert("Verification Email Sent", isPresented: $showVerificationAlert) {} message: {
-            Text("Check email inbox for verification code, notice that it may be filtered by junk mail")
+        .alert(String(localized: "Verification Email Sent", bundle: .module), isPresented: $showVerificationAlert) {} message: {
+            Text("Check email inbox for verification code, notice that it may be filtered by junk mail", bundle: .module)
         }
     }
 }

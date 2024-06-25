@@ -31,8 +31,8 @@ struct TagsPage: View {
                 }
             }
         }
-        .navigationTitle("All Tags")
+        .navigationTitle(String(localized: "All Tags", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
-        .searchable(text: $searchText, prompt: Text("Search in Tags"))
+        .searchable(text: $searchText, prompt: Text("Search in Tags", bundle: .module))
     }
 }

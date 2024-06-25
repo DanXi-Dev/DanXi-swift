@@ -42,7 +42,7 @@ private struct SubscriptionContent: View {
     var body: some View {
         Group {
             if subscriptions.isEmpty {
-                Text("Empty Subscription List")
+                Text("Empty Subscription List", bundle: .module)
                     .foregroundColor(.secondary)
             } else {
                 ForumList {
@@ -59,13 +59,13 @@ private struct SubscriptionContent: View {
                                 .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                         }
                     }
-                    .alert("Remove Subscription Error", isPresented: $showAlert) {} message: {
+                    .alert(String(localized: "Remove Subscription Error", bundle: .module), isPresented: $showAlert) {} message: {
                         Text(deleteError)
                     }
                 }
             }
         }
-        .navigationTitle("Subscription List")
+        .navigationTitle(String(localized: "Subscription List", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -20,7 +20,7 @@ struct ReviewView: View {
 
                 Spacer()
 
-                Label("\(String(review.remark))", systemImage: "arrow.up")
+                Label(String(localized: "\(String(review.remark))", bundle: .module), systemImage: "arrow.up")
                     .font(.callout)
                     .foregroundColor(.secondary)
             }

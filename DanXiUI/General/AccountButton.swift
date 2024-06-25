@@ -30,10 +30,10 @@ public struct CommunityAccountButton: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                 VStack(alignment: .leading, spacing: 3.0) {
-                    Text("FDU Hole Account")
+                    Text("FDU Hole Account", bundle: .module)
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
-                    Text(model.loggedIn ? "Logged in" : "Not Logged in")
+                    Text(model.loggedIn ? "Logged in" : "Not Logged in", bundle: .module)
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
@@ -64,20 +64,20 @@ public struct CommunityAccountSheet: View {
                             LabeledContent {
                                 Text(String(user.id))
                             } label: {
-                                Label("User ID", systemImage: "person.text.rectangle")
+                                Label(String(localized: "User ID", bundle: .module), systemImage: "person.text.rectangle")
                             }
                             
                             LabeledContent {
                                 Text(user.joinTime.formatted(date: .long, time: .omitted))
                             } label: {
-                                Label("Join Date", systemImage: "calendar.badge.clock")
+                                Label(String(localized: "Join Date", bundle: .module), systemImage: "calendar.badge.clock")
                             }
                             
                             if user.isAdmin {
                                 LabeledContent {
-                                    Text("Enabled")
+                                    Text("Enabled", bundle: .module)
                                 } label: {
-                                    Label("Admin Privilege", systemImage: "person.badge.key.fill")
+                                    Label(String(localized: "Admin Privilege", bundle: .module), systemImage: "person.badge.key.fill")
                                 }
                             }
                         }
@@ -92,7 +92,7 @@ public struct CommunityAccountSheet: View {
                         } label: {
                             HStack {
                                 Spacer()
-                                Text("Logout")
+                                Text("Logout", bundle: .module)
                                 Spacer()
                             }
                         }
@@ -104,11 +104,11 @@ public struct CommunityAccountSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Account Info")
+            .navigationTitle(String(localized: "Account Info", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
     }

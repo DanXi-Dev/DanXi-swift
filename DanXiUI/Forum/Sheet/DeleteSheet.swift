@@ -15,7 +15,7 @@ struct DeleteSheet: View {
     }
     
     var body: some View {
-        Sheet("Delete Post") {
+        Sheet(String(localized: "Delete Post", bundle: .module)) {
             let banDays = ban ? days : 0
             try await model.punish(floorId: floorId, reason: reason, days: banDays)
         } content: {
@@ -27,28 +27,28 @@ struct DeleteSheet: View {
                 }
                 .frame(maxHeight: 200)
             } header: {
-                Label("Content to Delete", systemImage: "text.alignleft")
+                Label(String(localized: "Content to Delete", bundle: .module), systemImage: "text.alignleft")
             }
             .labelStyle(.titleOnly)
             
             Section {
-                TextField("Enter delete reason", text: $reason)
+                TextField(String(localized: "Enter delete reason", bundle: .module), text: $reason)
             }
             
             Section {
                 Toggle(isOn: $ban.animation()) {
-                    Label("Add Ban", systemImage: "nosign")
+                    Label(String(localized: "Add Ban", bundle: .module), systemImage: "nosign")
                 }
                 
                 if ban {
                     Stepper(value: $days, in: 1...3600) {
-                        Label("Penalty Duration: \(days)", systemImage: "chevron.up.chevron.down")
+                        Label(String(localized: "Penalty Duration: \(days)", bundle: .module), systemImage: "chevron.up.chevron.down")
                     }
                     
                     NavigationLink {
                         PunishmentHistory(floorId: floorId)
                     } label: {
-                        Label("Punishment History", systemImage: "person.badge.clock")
+                        Label(String(localized: "Punishment History", bundle: .module), systemImage: "person.badge.clock")
                     }
                 }
             }
@@ -85,15 +85,15 @@ private struct PunishmentNotice: View {
     var body: some View {
         Section {
             if permanentBan {
-                Label("This user has been warned with permenant ban notice", systemImage: "exclamationmark.circle.fill")
+                Label(String(localized: "This user has been warned with permenant ban notice", bundle: .module), systemImage: "exclamationmark.circle.fill")
                     .foregroundColor(.red)
                 
             } else if multipleOffence {
-                Label("This user has multiple offence record", systemImage: "exclamationmark.circle.fill")
+                Label(String(localized: "This user has multiple offence record", bundle: .module), systemImage: "exclamationmark.circle.fill")
                     .foregroundColor(.yellow)
             } else {
                 // This is equivalent as EmptyView, but to trigger `task` modifier. Othewise it won't be executed.
-                Text("").listRowBackground(Color.clear)
+                Text("", bundle: .module).listRowBackground(Color.clear)
             }
         }
         .task {
@@ -118,7 +118,7 @@ private struct PunishmentHistory: View {
                 Text(history)
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Punishment History")
+            .navigationTitle(String(localized: "Punishment History", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
     }

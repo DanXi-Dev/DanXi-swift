@@ -15,7 +15,7 @@ struct MyPostPage: View {
                 }
             }
         }
-        .navigationTitle("My Post")
+        .navigationTitle(String(localized: "My Post", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
     }

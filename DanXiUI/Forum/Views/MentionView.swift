@@ -52,7 +52,7 @@ struct MentionView: View {
                 .lineLimit(3)
                         
             HStack {
-                Text("##\(String(id))")
+                Text(verbatim: "##\(String(id))")
                 Spacer()
                 Text(timeUpdated.formatted(.relative(presentation: .named, unitsStyle: .wide)))
             }

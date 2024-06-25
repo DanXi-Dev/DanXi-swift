@@ -10,7 +10,7 @@ struct NotificationPage: View {
             NotificationContent(messages: messages)
                 .watermark()
         }
-        .navigationTitle("Notifications")
+        .navigationTitle(String(localized: "Notifications", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -21,7 +21,7 @@ private struct NotificationContent: View {
     var body: some View {
         Group {
             if messages.isEmpty {
-                Text("No Content")
+                Text("No Content", bundle: .module)
             } else {
                 ForumList {
                     ForEach(messages) { message in

@@ -58,7 +58,7 @@ struct ReviewPage: View {
                     }
                     Spacer()
                     
-                    Label("\(String(review.remark))", systemImage: "arrow.up")
+                    Label(String(localized: "\(String(review.remark))", bundle: .module), systemImage: "arrow.up")
                         .font(.callout)
                         .foregroundColor(.secondary)
                 }
@@ -76,7 +76,7 @@ struct ReviewPage: View {
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text("Posted by: \(String(review.reviewerId))")
+                        Text("Posted by: \(String(review.reviewerId))", bundle: .module)
                         Text(review.timeUpdated.formatted(date: .abbreviated, time: .omitted))
                     }
                 }

@@ -99,7 +99,7 @@ struct HolePage: View {
         VStack(alignment: .leading) {
             if hole.locked {
                 HStack {
-                    Label("Post locked, reply is forbidden", systemImage: "lock.fill")
+                    Label(String(localized: "Post locked, reply is forbidden", bundle: .module), systemImage: "lock.fill")
                         .textCase(.none)
                         .font(.callout)
                         .foregroundColor(.secondary)
@@ -142,9 +142,9 @@ struct HolePage: View {
                 try await model.toggleFavorite()
             } label: {
                 if model.isFavorite {
-                    Label("Unfavorite", systemImage: "star.slash")
+                    Label(String(localized: "Unfavorite", bundle: .module), systemImage: "star.slash")
                 } else {
-                    Label("Favorite", systemImage: "star")
+                    Label(String(localized: "Favorite", bundle: .module), systemImage: "star")
                 }
             }
             
@@ -152,18 +152,20 @@ struct HolePage: View {
                 try await model.toggleSubscribe()
             } label: {
                 if model.subscribed {
-                    Label("Unsubscribe", systemImage: "bell.slash")
+                    Label(String(localized: "Unsubscribe", bundle: .module), systemImage: "bell.slash")
                 } else {
-                    Label("Subscribe", systemImage: "bell")
+                    Label(String(localized: "Subscribe", bundle: .module), systemImage: "bell")
                 }
             }
             
-            Picker("Filter Options", selection: $model.filterOption) {
-                Label("Show All", systemImage: "list.bullet")
+            Picker(selection: $model.filterOption) {
+                Label(String(localized: "Show All", bundle: .module), systemImage: "list.bullet")
                     .tag(HoleModel.FilterOptions.all)
                 
-                Label("Show OP Only", systemImage: "person.fill")
+                Label(String(localized: "Show OP Only", bundle: .module), systemImage: "person.fill")
                     .tag(HoleModel.FilterOptions.posterOnly)
+            } label: {
+                Text("Filter Options", bundle: .module)
             }
             
             AsyncButton {
@@ -174,7 +176,7 @@ struct HolePage: View {
                     model.scrollToBottom()
                 }
             } label: {
-                Label("Navigate to Bottom", systemImage: "arrow.down.to.line")
+                Label(String(localized: "Navigate to Bottom", bundle: .module), systemImage: "arrow.down.to.line")
             }
             
             if profileStore.isAdmin {
@@ -185,17 +187,17 @@ struct HolePage: View {
                         Button {
                             model.showHideAlert = true
                         } label: {
-                            Label("Hide Hole", systemImage: "eye.slash.fill")
+                            Label(String(localized: "Hide Hole", bundle: .module), systemImage: "eye.slash.fill")
                         }
                     }
                     
                     Button {
                         model.showHoleEditSheet = true
                     } label: {
-                        Label("Edit Post Info", systemImage: "info.circle")
+                        Label(String(localized: "Edit Post Info", bundle: .module), systemImage: "info.circle")
                     }
                 } label: {
-                    Label("Admin Actions", systemImage: "person.badge.key")
+                    Label(String(localized: "Admin Actions", bundle: .module), systemImage: "person.badge.key")
                 }
             }
         } label: {
@@ -216,10 +218,10 @@ struct HolePage: View {
                 if #available(iOS 17.0, *) {
                     HStack {
                         Image(systemName: "bubble.left.and.bubble.right")
-                        Text("Show All Floors")
+                        Text("Show All Floors", bundle: .module)
                     }
                 } else {
-                    Label("Show All Floors", systemImage: "bubble.left.and.bubble.right")
+                    Label(String(localized: "Show All Floors", bundle: .module), systemImage: "bubble.left.and.bubble.right")
                         .labelStyle(.titleAndIcon)
                 }
             }
@@ -260,33 +262,42 @@ private struct HolePageSheets<Label: View>: View {
             .sheet(item: $model.textSelectionSheet) { floor in
                 TextSelectionSheet(text: floor.content)
             }
-            .alert("Confirm Delete Post", isPresented: $model.showHideAlert) {
-                Button("Confirm", role: .destructive) {
+            .alert(String(localized: "Confirm Delete Post", bundle: .module), isPresented: $model.showHideAlert) {
+                Button(role: .destructive) {
                     Task {
                         try await ForumAPI.deleteHole(id: model.hole.id)
                         model.hole = try await ForumAPI.getHole(id: model.hole.id)
                     }
+                } label: {
+                    Text("Confirm", bundle: .module)
                 }
-                Button("Cancel", role: .cancel) {}
+                
+                Button(role: .cancel) {
+                    
+                } label: {
+                    Text("Cancel", bundle: .module)
+                }
             } message: {
-                Text("This will affect all replies of this post")
+                Text("This will affect all replies of this post", bundle: .module)
             }
-            .alert("Delete Floor", isPresented: $model.showDeleteAlert) {
-                Button("Delete", role: .destructive) {
+            .alert(String(localized: "Delete Floor", bundle: .module), isPresented: $model.showDeleteAlert) {
+                Button(role: .destructive) {
                     Task {
                         if let floor = model.deleteAlertItem {
                             try await model.deleteFloor(floorId: floor.id)
                         }
                     }
+                } label: {
+                    Text("Delete", bundle: .module)
                 }
             } message: {
-                Text("This floor will be deleted")
+                Text("This floor will be deleted", bundle: .module)
             }
             .overlay {
                 if model.loadingAll {
                     HStack(spacing: 20) {
                         ProgressView()
-                        Text("Loading")
+                        Text("Loading", bundle: .module)
                             .foregroundStyle(.secondary)
                     }
                     .padding(.horizontal, 45)

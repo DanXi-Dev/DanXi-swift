@@ -18,13 +18,15 @@ struct FloorEditSheet: View {
     }
     
     var body: some View {
-        Sheet("Edit Reply") {
+        Sheet(String(localized: "Edit Reply", bundle: .module)) {
             try await model.modifyFloor(floorId: floorId, content: content, specialTag: specialTag, fold: foldReason)
         } content: {
             if profileStore.isAdmin {
-                Section("Admin Actions") {
-                    TextField("Special Tag", text: $specialTag)
-                    TextField("Fold Reason", text: $foldReason)
+                Section {
+                    TextField(String(localized: "Special Tag", bundle: .module), text: $specialTag)
+                    TextField(String(localized: "Fold Reason", bundle: .module), text: $foldReason)
+                } header: {
+                    Text("Admin Actions", bundle: .module)
                 }
             }
             

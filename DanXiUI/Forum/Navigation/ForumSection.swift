@@ -16,23 +16,23 @@ extension ForumSection {
     var label: some View {
         switch self {
         case .notifications:
-            Label("Notifications", systemImage: "bell")
+            Label(String(localized: "Notifications", bundle: .module), systemImage: "bell")
         case .favorite:
-            Label("Favorites", systemImage: "star")
+            Label(String(localized: "Favorites", bundle: .module), systemImage: "star")
         case .subscription:
-            Label("Subscription List", systemImage: "eye")
+            Label(String(localized: "Subscription List", bundle: .module), systemImage: "eye")
         case .mypost:
-            Label("My Post", systemImage: "person")
+            Label(String(localized: "My Post", bundle: .module), systemImage: "person")
         case .myreply:
-            Label("My Reply", systemImage: "arrowshape.turn.up.left")
+            Label(String(localized: "My Reply", bundle: .module), systemImage: "arrowshape.turn.up.left")
         case .history:
-            Label("Recent Browsed", systemImage: "clock.arrow.circlepath")
+            Label(String(localized: "Recent Browsed", bundle: .module), systemImage: "clock.arrow.circlepath")
         case .tags:
-            Label("All Tags", systemImage: "tag")
+            Label(String(localized: "All Tags", bundle: .module), systemImage: "tag")
         case .report:
-            Label("Report", systemImage: "exclamationmark.triangle")
+            Label(String(localized: "Report", bundle: .module), systemImage: "exclamationmark.triangle")
         case .moderate:
-            Label("Moderate", systemImage: "video")
+            Label(String(localized: "Moderate", bundle: .module), systemImage: "video")
         }
     }
     

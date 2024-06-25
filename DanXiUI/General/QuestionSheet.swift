@@ -31,8 +31,8 @@ private struct QuestionPage: View {
         NavigationStack {
             ScrollViewReader { scrollView in
                 Form {
-                    FormTitle(title: "DanXi Qualification",
-                              description: "DanXi Question Prompt")
+                    FormTitle(title: String(localized: "DanXi Qualification", bundle: .module),
+                              description: String(localized: "DanXi Question Prompt", bundle: .module))
                     
                     ForEach(model.questions) { question in
                         Group {
@@ -57,10 +57,10 @@ private struct QuestionPage: View {
                     scrollTarget = nil
                 }
             }
-            .alert("Unanswered Questions", isPresented: $showSubmitAlert, actions: { }, message: {
-                Text("Answer all questions before submit")
+            .alert(String(localized: "Unanswered Questions", bundle: .module), isPresented: $showSubmitAlert, actions: { }, message: {
+                Text("Answer all questions before submit", bundle: .module)
             })
-            .alert("Answer incorrect, please review and re-submit", isPresented: $showIncorrectAlert, actions: { })
+            .alert(String(localized: "Answer incorrect, please review and re-submit", bundle: .module), isPresented: $showIncorrectAlert, actions: { })
             .environmentObject(model)
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
@@ -69,14 +69,14 @@ private struct QuestionPage: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel")
+                        Text("Cancel", bundle: .module)
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     AsyncButton {
                         try await submit()
                     } label: {
-                        Text("Submit")
+                        Text("Submit", bundle: .module)
                     }
                 }
             }
@@ -111,7 +111,7 @@ private struct QuestionPage: View {
         } label: {
             HStack {
                 Spacer()
-                Text("Submit")
+                Text("Submit", bundle: .module)
                     .bold()
                     .foregroundStyle(.white)
                 Spacer()
@@ -131,9 +131,9 @@ fileprivate struct QuestionLabel: View {
             HStack {
                 Group {
                     switch question.type {
-                    case .trueOrFalse: Text("True or False")
-                    case .singleSelection: Text("Single Selection")
-                    case .multipleSelection: Text("Multiple Selection")
+                    case .trueOrFalse: Text("True or False", bundle: .module)
+                    case .singleSelection: Text("Single Selection", bundle: .module)
+                    case .multipleSelection: Text("Multiple Selection", bundle: .module)
                     }
                 }
                 .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))

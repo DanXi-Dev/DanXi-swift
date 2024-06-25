@@ -52,7 +52,7 @@ struct ForumHomePage: View {
         } content: { model in
             BrowseWrpper(model)
         }
-        .navigationTitle("Forum")
+        .navigationTitle(String(localized: "Forum", bundle: .module))
     }
 }
 

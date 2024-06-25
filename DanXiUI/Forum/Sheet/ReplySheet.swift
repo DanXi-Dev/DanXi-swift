@@ -12,7 +12,7 @@ struct ReplySheet: View {
     }
     
     var body: some View {
-        Sheet("Reply") {
+        Sheet(String(localized: "Reply", bundle: .module)) {
             try await model.reply(content: content)
         } content: {
             ForumEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: true)

@@ -45,12 +45,12 @@ struct SearchPage: View {
     @ViewBuilder
     private var searchHistory: some View {
         HStack {
-            Text("Recent Search")
+            Text("Recent Search", bundle: .module)
             Spacer()
             Button {
                 model.clearHistory()
             } label: {
-                Text("Clear History")
+                Text("Clear History", bundle: .module)
             }
             .buttonStyle(.borderless)
             .foregroundColor(.accentColor)

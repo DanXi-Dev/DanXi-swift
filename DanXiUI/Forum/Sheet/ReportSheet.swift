@@ -7,7 +7,7 @@ struct ReportSheet: View {
     @State private var reason = ""
     
     var body: some View {
-        Sheet("Report") {
+        Sheet(String(localized: "Report", bundle: .module)) {
             try await ForumAPI.createReport(floorId: presentation.floor.id, reason: reason)
         } content: {
             Section {
@@ -16,11 +16,11 @@ struct ReportSheet: View {
                 }
                 .frame(maxHeight: 200)
             } header: {
-                Label("Content to Report", systemImage: "text.alignleft")
+                Label(String(localized: "Content to Report", bundle: .module), systemImage: "text.alignleft")
             }
             
             Section {
-                TextField("Enter report reason", text: $reason)
+                TextField(String(localized: "Enter report reason", bundle: .module), text: $reason)
             }
         }
         .completed(!reason.isEmpty)

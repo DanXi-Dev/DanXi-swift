@@ -7,7 +7,7 @@ struct MessageSheet: View {
     @State private var recipients = ""
     
     var body: some View {
-        Sheet("Send Message") {
+        Sheet(String(localized: "Send Message", bundle: .module)) {
             guard let recipientsJSON = "[\(recipients)]".data(using: String.Encoding.utf8),
                   let parsedRecipients = try? JSONDecoder().decode([Int].self, from: recipientsJSON)else {
                 throw URLError(.badURL)
@@ -17,13 +17,13 @@ struct MessageSheet: View {
             Section {
                 TextEditor(text: $message)
             } header: {
-                Text("Message Content")
+                Text("Message Content", bundle: .module)
             }
             
             Section {
-                TextField("Recipients", text: $recipients)
+                TextField(String(localized: "Recipients", bundle: .module), text: $recipients)
             } footer: {
-                Text("User IDs, separated by ASCII comma.")
+                Text("User IDs, separated by ASCII comma.", bundle: .module)
             }
         }
         .completed(!message.isEmpty)

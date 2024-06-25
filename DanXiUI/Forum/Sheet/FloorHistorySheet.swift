@@ -25,10 +25,12 @@ struct FloorHistorySheet: View {
                     PunishmentView(punishments: information.punishments)
                     
                     if !information.histories.isEmpty {
-                        Section("Edit History") {
+                        Section {
                             ForEach(information.histories) { history in
                                 HistorySheetItem(history: history)
                             }
+                        } header: {
+                            Text("Edit History", bundle: .module)
                         }
                     }
                 }
@@ -38,11 +40,11 @@ struct FloorHistorySheet: View {
                         Button {
                             dismiss()
                         } label: {
-                            Text("Done")
+                            Text("Done", bundle: .module)
                         }
                     }
                 }
-                .navigationTitle("Administrative Info")
+                .navigationTitle(String(localized: "Administrative Info", bundle: .module))
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
@@ -70,10 +72,12 @@ private struct PunishmentView: View {
     
     var body: some View {
         if !entries.isEmpty {
-            Section("Punishment Status") {
+            Section {
                 ForEach(entries) { entry in
                     LabeledContent(entry.division, value: entry.date, format: .dateTime)
                 }
+            } header: {
+                Text("Punishment Status", bundle: .module)
             }
         }
     }
@@ -89,7 +93,7 @@ private struct HistorySheetItem: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             if !history.reason.isEmpty {
-                Text("Edit reason: \(history.reason)")
+                Text("Edit reason: \(history.reason)", bundle: .module)
                     .foregroundColor(.secondary)
                     .font(.caption)
             }
@@ -102,31 +106,35 @@ private struct HistorySheetItem: View {
             HStack {
                 Text(history.timeUpdated.formatted())
                 Spacer()
-                Text("User: \(String(history.userId))")
+                Text("User: \(String(history.userId))", bundle: .module)
             }
             .foregroundColor(.secondary)
             .font(.caption)
         }
-        .alert("Restore History", isPresented: $showAlert) {
-            TextField("Restore reason", text: $restoreReason)
+        .alert(String(localized: "Restore History", bundle: .module), isPresented: $showAlert) {
+            TextField(String(localized: "Restore reason", bundle: .module), text: $restoreReason)
             AsyncButton {
                 try await model.restoreFloor(floorId: history.floorId, historyId: history.id, reason: restoreReason)
             } label: {
-                Text("Submit")
+                Text("Submit", bundle: .module)
             }
-            Button("Cancel", role: .cancel) { }
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("Cancel", bundle: .module)
+            }
         }
         .swipeActions {
             Button {
                 showAlert = true
             } label: {
-                Label("Restore", systemImage: "arrow.uturn.backward")
+                Label(String(localized: "Restore", bundle: .module), systemImage: "arrow.uturn.backward")
             }
             
             Button {
                 UIPasteboard.general.string = history.content
             } label: {
-                Label("Copy Full Text", systemImage: "doc.on.doc")
+                Label(String(localized: "Copy Full Text", bundle: .module), systemImage: "doc.on.doc")
             }
             .tint(.yellow)
         }

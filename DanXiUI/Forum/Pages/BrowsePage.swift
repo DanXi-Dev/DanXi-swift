@@ -84,11 +84,13 @@ struct BrowsePage: View {
     }
     
     private var divisionPicker: some View {
-        Picker("Division Selector", selection: $model.division) {
+        Picker(selection: $model.division) {
             ForEach(divisionStore.divisions) { division in
                 Text(division.name)
                     .tag(division)
             }
+        } label: {
+            Text("Division Selector", bundle: .module)
         }
         .pickerStyle(.segmented)
         .listRowInsets(EdgeInsets(.all, 0))
@@ -102,8 +104,8 @@ struct BrowsePage: View {
                 HStack(alignment: .top) {
                     Image(systemName: "exclamationmark.circle.fill")
                     VStack(alignment: .leading) {
-                        Text("You are banned in this division until \(date.formatted())")
-                        Text("If you have any question, you may contact admin@fduhole.com")
+                        Text("You are banned in this division until \(date.formatted())", bundle: .module)
+                        Text("If you have any question, you may contact admin@fduhole.com", bundle: .module)
                             .font(.footnote)
                     }
                 }
@@ -140,19 +142,19 @@ struct BrowsePage: View {
             Divider()
             
             Picker(selection: $model.sortOption) {
-                Text("Last Updated")
+                Text("Last Updated", bundle: .module)
                     .tag(BrowseModel.SortOption.replyTime)
-                Text("Last Created")
+                Text("Last Created", bundle: .module)
                     .tag(BrowseModel.SortOption.createTime)
             } label: {
-                Label("Sort By", systemImage: "arrow.up.arrow.down")
+                Label(String(localized: "Sort By", bundle: .module), systemImage: "arrow.up.arrow.down")
             }
             .pickerStyle(.menu)
             
             Button {
                 showDatePicker = true
             } label: {
-                Label("Select Date", systemImage: "clock.arrow.circlepath")
+                Label(String(localized: "Select Date", bundle: .module), systemImage: "clock.arrow.circlepath")
             }
             
             if profileStore.isAdmin {
@@ -162,7 +164,7 @@ struct BrowsePage: View {
                     Button {
                         showDivisionSheet = true
                     } label: {
-                        Label("Edit Division Info", systemImage: "rectangle.3.group")
+                        Label(String(localized: "Edit Division Info", bundle: .module), systemImage: "rectangle.3.group")
                     }
                     
                     ForEach(ForumSection.adminFeatures) { section in
@@ -171,7 +173,7 @@ struct BrowsePage: View {
                         }
                     }
                 } label: {
-                    Label("Admin Actions", systemImage: "person.badge.key")
+                    Label(String(localized: "Admin Actions", bundle: .module), systemImage: "person.badge.key")
                 }
             }
         } label: {
@@ -187,13 +189,17 @@ struct BrowsePage: View {
                     set: { model.baseDate = $0 }
                 )
                 
-                DatePicker("Start Date", selection: dateBinding, in: ...Date.now, displayedComponents: [.date])
-                    .datePickerStyle(.graphical)
+                DatePicker(selection: dateBinding, in: ...Date.now, displayedComponents: [.date]) {
+                    Text("Start Date", bundle: .module)
+                }
+                .datePickerStyle(.graphical)
                 
                 if model.baseDate != nil {
-                    Button("Clear Date", role: .destructive) {
+                    Button(role: .destructive) {
                         model.baseDate = nil
                         showDatePicker = false
+                    } label: {
+                        Text("Clear Date", bundle: .module)
                     }
                 }
             }
@@ -202,12 +208,12 @@ struct BrowsePage: View {
                     Button {
                         showDatePicker = false
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
         }
-        .navigationTitle("Select Date")
+        .navigationTitle(String(localized: "Select Date", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -263,11 +269,11 @@ private struct BannerCarousel: View {
                             Button {
                                 showSheet = false
                             } label: {
-                                Text("Done")
+                                Text("Done", bundle: .module)
                             }
                         }
                     }
-                    .navigationTitle("All Banners")
+                    .navigationTitle(String(localized: "All Banners", bundle: .module))
                     .navigationBarTitleDisplayMode(.inline)
                 }
                 .presentationDetents([.medium, .large])

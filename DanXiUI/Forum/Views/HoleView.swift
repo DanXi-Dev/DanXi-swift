@@ -30,7 +30,7 @@ struct HoleView: View {
                 }
                 .allowsHitTesting(false)
                 Spacer()
-                Text("Folded")
+                Text("Folded", bundle: .module)
                     .foregroundColor(.secondary)
                     .font(.caption)
                     .fontWeight(.light)
@@ -66,9 +66,9 @@ struct HoleView: View {
         } label: {
             Group {
                 if favoriteStore.isFavorite(hole.id) {
-                    Label("Unfavorite", systemImage: "star.slash")
+                    Label(String(localized: "Unfavorite", bundle: .module), systemImage: "star.slash")
                 } else {
-                    Label("Favorite", systemImage: "star")
+                    Label(String(localized: "Favorite", bundle: .module), systemImage: "star")
                 }
             }
         }
@@ -79,9 +79,9 @@ struct HoleView: View {
             }
         } label: {
             if subscriptionStore.isSubscribed(hole.id) {
-                Label("Unsubscribe", systemImage: "bell.slash")
+                Label(String(localized: "Unsubscribe", bundle: .module), systemImage: "bell.slash")
             } else {
-                Label("Subscribe", systemImage: "bell")
+                Label(String(localized: "Subscribe", bundle: .module), systemImage: "bell")
             }
         }
             
@@ -94,7 +94,7 @@ struct HoleView: View {
                 }
             }
         } label: {
-            Label("Don't Show This Hole", systemImage: "eye.slash")
+            Label(String(localized: "Don't Show This Hole", bundle: .module), systemImage: "eye.slash")
         }
     }
     
@@ -137,7 +137,7 @@ struct HoleView: View {
     
     private var info: some View {
         HStack {
-            Text("#\(String(hole.id))")
+            Text(verbatim: "#\(String(hole.id))")
             if hole.hidden {
                 Image(systemName: "eye.slash")
             }
@@ -172,7 +172,7 @@ struct HoleView: View {
         if let lastFloorContent = presentation.lastFloorContent {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("\(hole.lastFloor.anonyname) replied \(hole.lastFloor.timeCreated.formatted(.relative(presentation: .named, unitsStyle: .wide))):")
+                    Text("\(hole.lastFloor.anonyname) replied \(hole.lastFloor.timeCreated.formatted(.relative(presentation: .named, unitsStyle: .wide))):", bundle: .module)
                         .font(.caption)
                         .fixedSize(horizontal: false, vertical: true)
                     

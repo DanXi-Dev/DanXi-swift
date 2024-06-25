@@ -13,7 +13,7 @@ struct ReportPage: View {
         }
         .environmentObject(model)
         .listStyle(.inset)
-        .navigationTitle("Reports Management")
+        .navigationTitle(String(localized: "Reports Management", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -26,10 +26,12 @@ struct ReportPage: View {
     
     private var filter: some View {
         Menu {
-            Picker("Filter Report", selection: $model.filterOption) {
-                Text("Not Dealt").tag(ReportModel.FilterOption.notDealt)
-                Text("Dealt").tag(ReportModel.FilterOption.dealt)
-                Text("All Reports").tag(ReportModel.FilterOption.all)
+            Picker(selection: $model.filterOption) {
+                Text("Not Dealt", bundle: .module).tag(ReportModel.FilterOption.notDealt)
+                Text("Dealt", bundle: .module).tag(ReportModel.FilterOption.dealt)
+                Text("All Reports", bundle: .module).tag(ReportModel.FilterOption.all)
+            } label: {
+                Text("Filter Report", bundle: .module)
             }
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
@@ -46,14 +48,14 @@ private struct ReportView: View {
         DetailLink(value: HoleLoader(report.floor)) {
             VStack(alignment: .leading, spacing: 7) {
                 HStack {
-                    Text("Incident ID: \(String(report.id))")
+                    Text("Incident ID: \(String(report.id))", bundle: .module)
                     Spacer()
                     Text(report.timeCreated.formatted())
                 }
                 .font(.caption)
                 .foregroundColor(.secondary)
                 
-                Text("Report reason: ") + Text(report.reason)
+                Text("Report reason: ", bundle: .module) + Text(report.reason)
                     .bold()
                     .foregroundColor(.red)
                 
@@ -65,9 +67,9 @@ private struct ReportView: View {
                 if report.dealt {
                     Group {
                         if let dealtBy = report.dealtBy {
-                            Text("Dealt by \(String(dealtBy))")
+                            Text("Dealt by \(String(dealtBy))", bundle: .module)
                         } else {
-                            Text("Dealt")
+                            Text("Dealt", bundle: .module)
                         }
                     }
                     .font(.caption)

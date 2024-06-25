@@ -25,12 +25,12 @@ struct DivisionSheet: View {
     }
     
     var body: some View {
-        Sheet("Edit Division") {
+        Sheet(String(localized: "Edit Division", bundle: .module)) {
             _ = try await ForumAPI.modifyDivision(id: divisionId, description: divisionDescription, name: divisionName, pinned: pinned)
         } content: {
             Section {
                 Picker(selection: $divisionId,
-                       label: Label("Select Division", systemImage: "rectangle.3.group")) {
+                       label: Label(String(localized: "Select Division", bundle: .module), systemImage: "rectangle.3.group")) {
                     ForEach(divisionStore.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
@@ -46,13 +46,13 @@ struct DivisionSheet: View {
             }
             
             Section {
-                TextField("Division Name", text: $divisionName)
-                TextField("Division Description", text: $divisionDescription)
+                TextField(String(localized: "Division Name", bundle: .module), text: $divisionName)
+                TextField(String(localized: "Division Description", bundle: .module), text: $divisionDescription)
             }
             
             Section {
                 ForEach(Array(pinned.enumerated()), id: \.offset) { (idx, hole) in
-                    Text("#\(String(hole))")
+                    Text(verbatim: "#\(String(hole))")
                         .swipeActions {
                             Button(role: .destructive) {
                                 pinned.remove(at: idx)
@@ -63,7 +63,7 @@ struct DivisionSheet: View {
                 }
                 
                 HStack {
-                    TextField("Enter Pinned Hole ID (Digits Only)", text: $pinnedText)
+                    TextField(String(localized: "Enter Pinned Hole ID (Digits Only)", bundle: .module), text: $pinnedText)
                         .keyboardType(.decimalPad)
                     
                     Button {

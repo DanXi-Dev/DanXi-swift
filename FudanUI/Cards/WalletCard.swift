@@ -46,7 +46,7 @@ struct WalletCard: View {
             VStack(alignment: .center) {
                 HStack {
                     Image(systemName: "creditcard.fill")
-                    Text("ECard")
+                    Text("ECard", bundle: .module)
                     Spacer()
                 }
                 .bold()

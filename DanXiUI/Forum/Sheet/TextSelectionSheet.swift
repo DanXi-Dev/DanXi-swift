@@ -8,7 +8,7 @@ struct TextSelectionSheet: View {
         NavigationStack {
             SelectableText(text: text)
                 .padding(.horizontal)
-                .navigationTitle("Select Text")
+                .navigationTitle(String(localized: "Select Text", bundle: .module))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .status) {
@@ -17,7 +17,7 @@ struct TextSelectionSheet: View {
                             dismiss()
                         } label: {
                             Label {
-                                Text("Copy Full Text")
+                                Text("Copy Full Text", bundle: .module)
                                     .bold()
                             } icon: {
                                 Image(systemName: "doc.on.doc")
@@ -29,7 +29,7 @@ struct TextSelectionSheet: View {
                         Button {
                             dismiss()
                         } label: {
-                            Text("Cancel")
+                            Text("Cancel", bundle: .module)
                         }
                     }
                 }

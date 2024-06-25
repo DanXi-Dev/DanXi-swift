@@ -12,7 +12,7 @@ struct PostSheet: View {
     @State private var runningImageUploadTask = 0
     
     var body: some View {
-        Sheet("New Post") {
+        Sheet(String(localized: "New Post", bundle: .module)) {
             let hole = try await ForumAPI.createHole(content: content, divisionId: divisionId, tags: tags)
             navigator.pushDetail(value: hole, replace: true) // navigate to hole page
             
@@ -23,7 +23,7 @@ struct PostSheet: View {
         } content: {
             Section {
                 Picker(selection: $divisionId,
-                       label: Label("Select Division", systemImage: "rectangle.3.group")) {
+                       label: Label(String(localized: "Select Division", bundle: .module), systemImage: "rectangle.3.group")) {
                     ForEach(divisionStore.divisions) { division in
                         Text(division.name).tag(division.id)
                     }
@@ -31,8 +31,10 @@ struct PostSheet: View {
                 .labelStyle(.titleOnly)
             }
             
-            Section("Tags") {
+            Section {
                 TagEditor($tags, maxSize: 5)
+            } header: {
+                Text("Tags", bundle: .module)
             }
             
             ForumEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: false)

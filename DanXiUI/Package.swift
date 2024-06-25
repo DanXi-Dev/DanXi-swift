@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "DanXiUI",
+    defaultLocalization: "en",
     platforms: [.iOS(.v16)],
     products: [
         .library(name: "DanXiUI", targets: ["DanXiUI"]),

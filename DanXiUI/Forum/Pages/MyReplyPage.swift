@@ -16,7 +16,7 @@ struct MyReplyPage: View {
                 }
             }
         }
-        .navigationTitle("My Reply")
+        .navigationTitle(String(localized: "My Reply", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
     }

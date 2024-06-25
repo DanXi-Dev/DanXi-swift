@@ -58,25 +58,25 @@ fileprivate struct CourseInfo: View {
     var body: some View {
         DisclosureGroup(isExpanded: $expand) {
             VStack(alignment: .leading) {
-                Label("Professors", systemImage: "person.fill")
+                Label(String(localized: "Professors", bundle: .module), systemImage: "person.fill")
                 Text(courseGroup.teachers.formatted())
                     .foregroundColor(.secondary)
                     .padding(.leading, 25.0)
                     .padding(.bottom, 6.0)
                 
-                Label("Credit", systemImage: "a.square.fill")
-                Text("\(String(courseGroup.courses.first?.credit ?? 0)) Credit")
+                Label(String(localized: "Credit", bundle: .module), systemImage: "a.square.fill")
+                Text("\(String(courseGroup.courses.first?.credit ?? 0)) Credit", bundle: .module)
                     .foregroundColor(.secondary)
                     .padding(.leading, 25.0)
                     .padding(.bottom, 6.0)
                 
-                Label("Campus", systemImage: "building.fill")
+                Label(String(localized: "Campus", bundle: .module), systemImage: "building.fill")
                 Text(courseGroup.campus)
                     .foregroundColor(.secondary)
                     .padding(.leading, 25.0)
                     .padding(.bottom, 6.0)
                 
-                Label("Department", systemImage: "building.columns.fill")
+                Label(String(localized: "Department", bundle: .module), systemImage: "building.columns.fill")
                 Text(courseGroup.department)
                     .foregroundColor(.secondary)
                     .padding(.leading, 25.0)
@@ -92,7 +92,7 @@ fileprivate struct CourseInfo: View {
             .font(.callout)
             .padding(.top, 15)
         } label: {
-            Text("Course Information")
+            Text("Course Information", bundle: .module)
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
@@ -110,7 +110,7 @@ fileprivate struct ReviewSection: View {
     
     var body: some View {
         Group {
-            Text("Course Review")
+            Text("Course Review", bundle: .module)
                 .font(.title3)
                 .fontWeight(.bold)
             
@@ -135,7 +135,7 @@ fileprivate struct ReviewSection: View {
                 Spacer(minLength: 8)
                 HStack {
                     Spacer()
-                    Text("No Review")
+                    Text("No Review", bundle: .module)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     Spacer()
@@ -153,8 +153,8 @@ fileprivate struct ReviewFilter: View {
     var body: some View {
         Group {
             LabeledContent {
-                Picker(selection: $model.teacher, label: Text("Filter Teacher")) {
-                    Text("All Professors")
+                Picker(selection: $model.teacher, label: Text("Filter Teacher", bundle: .module)) {
+                    Text("All Professors", bundle: .module)
                         .tag("")
                     
                     ForEach(model.courseGroup.teachers, id: \.self) { teacher in
@@ -163,13 +163,13 @@ fileprivate struct ReviewFilter: View {
                     }
                 }
             } label: {
-                Label("Professors", systemImage: "line.3.horizontal.decrease.circle")
+                Label(String(localized: "Professors", bundle: .module), systemImage: "line.3.horizontal.decrease.circle")
                     .foregroundColor(.secondary)
             }
             
             LabeledContent {
-                Picker(selection: $model.semester, label: Text("Filter Semester")) {
-                    Text("All Semesters")
+                Picker(selection: $model.semester, label: Text("Filter Semester", bundle: .module)) {
+                    Text("All Semesters", bundle: .module)
                         .tag(Semester.empty)
                     
                     ForEach(model.courseGroup.semesters) { semester in
@@ -178,7 +178,7 @@ fileprivate struct ReviewFilter: View {
                     }
                 }
             } label: {
-                Label("Semester", systemImage: "line.3.horizontal.decrease.circle")
+                Label(String(localized: "Semester", bundle: .module), systemImage: "line.3.horizontal.decrease.circle")
                     .foregroundColor(.secondary)
             }
         }
@@ -196,7 +196,7 @@ fileprivate struct ReviewSummary: View {
                     .fontWeight(.bold)
                     .foregroundColor(.primary.opacity(0.7))
                 
-                Text("Out of \(5)")
+                Text("Out of \(5)", bundle: .module)
                     .foregroundColor(.secondary)
                     .font(.caption)
                     .fontWeight(.bold)
@@ -208,7 +208,7 @@ fileprivate struct ReviewSummary: View {
             VStack(alignment: .trailing) {
                 RatingView(rank: model.filteredRank)
                 
-                Text("\(model.filteredReviews.count) Reviews")
+                Text("\(model.filteredReviews.count) Reviews", bundle: .module)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fontWeight(.bold)

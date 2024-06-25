@@ -98,9 +98,9 @@ struct FloorView: View {
             Spacer()
             
             if floor.deleted {
-                Text("Deleted")
+                Text("Deleted", bundle: .module)
             } else if floor.modified {
-                Text("Edited")
+                Text("Edited", bundle: .module)
             }
             
             Spacer()
@@ -191,13 +191,13 @@ private struct FloorActions: View {
             Button {
                 UIPasteboard.general.string = NSAttributedString(floor.content.inlineAttributed()).string
             } label: {
-                Label("Copy Full Text", systemImage: "doc.on.doc")
+                Label(String(localized: "Copy Full Text", bundle: .module), systemImage: "doc.on.doc")
             }
             
             Button {
                 holeModel.textSelectionSheet = floor
             } label: {
-                Label("Select Text", systemImage: "character.cursor.ibeam")
+                Label(String(localized: "Select Text", bundle: .module), systemImage: "character.cursor.ibeam")
             }
             
             Button {
@@ -205,7 +205,7 @@ private struct FloorActions: View {
                     holeModel.filterOption = .user(floor.anonyname)
                 }
             } label: {
-                Label("Show This Person", systemImage: "message")
+                Label(String(localized: "Show This Person", bundle: .module), systemImage: "message")
             }
             
             Button {
@@ -213,7 +213,7 @@ private struct FloorActions: View {
                     holeModel.filterOption = .reply(floor.id)
                 }
             } label: {
-                Label("All Replies", systemImage: "arrowshape.turn.up.left.2")
+                Label(String(localized: "All Replies", bundle: .module), systemImage: "arrowshape.turn.up.left.2")
             }
             
             Button {
@@ -221,7 +221,7 @@ private struct FloorActions: View {
                     holeModel.filterOption = .conversation(floor.id)
                 }
             } label: {
-                Label("View Conversation", systemImage: "bubble.left.and.bubble.right")
+                Label(String(localized: "View Conversation", bundle: .module), systemImage: "bubble.left.and.bubble.right")
             }
             .disabled(floorModel.presentation.replyTo == nil)
             
@@ -231,19 +231,19 @@ private struct FloorActions: View {
                 Button {
                     holeModel.editSheet = floor
                 } label: {
-                    Label("Edit Reply", systemImage: "square.and.pencil")
+                    Label(String(localized: "Edit Reply", bundle: .module), systemImage: "square.and.pencil")
                 }
                 
                 Button(role: .destructive) {
                     holeModel.deleteAlertItem = floor
                 } label: {
-                    Label("Delete", systemImage: "trash")
+                    Label(String(localized: "Delete", bundle: .module), systemImage: "trash")
                 }
             } else {
                 Button(role: .destructive) {
                     holeModel.reportSheet = floorModel.presentation
                 } label: {
-                    Label("Report", systemImage: "exclamationmark.triangle")
+                    Label(String(localized: "Report", bundle: .module), systemImage: "exclamationmark.triangle")
                 }
             }
             
@@ -254,22 +254,22 @@ private struct FloorActions: View {
                     Button {
                         holeModel.editSheet = floor
                     } label: {
-                        Label("Modify Floor", systemImage: "pencil")
+                        Label(String(localized: "Modify Floor", bundle: .module), systemImage: "pencil")
                     }
                     
                     Button(role: .destructive) {
                         holeModel.deleteSheet = floorModel.presentation
                     } label: {
-                        Label("Remove Floor", systemImage: "xmark.square")
+                        Label(String(localized: "Remove Floor", bundle: .module), systemImage: "xmark.square")
                     }
                     
                     Button {
                         holeModel.historySheet = floor
                     } label: {
-                        Label("Show Administrative Info", systemImage: "info.circle")
+                        Label(String(localized: "Show Administrative Info", bundle: .module), systemImage: "info.circle")
                     }
                 } label: {
-                    Label("Admin Actions", systemImage: "person.badge.key")
+                    Label(String(localized: "Admin Actions", bundle: .module), systemImage: "person.badge.key")
                 }
             }
         } label: {
@@ -315,7 +315,7 @@ struct MultipleFoldedFloorView: View {
                 // These stacks expand the text to fill list row so that hightlight function correctly highlights the entire row, not just the text frame.
                 Spacer(minLength: 0)
                 HStack {
-                    Text("\(presentations.count) hidden items")
+                    Text("\(presentations.count) hidden items", bundle: .module)
                         .foregroundColor(.secondary)
                         .font(.subheadline)
                     Spacer(minLength: 0)

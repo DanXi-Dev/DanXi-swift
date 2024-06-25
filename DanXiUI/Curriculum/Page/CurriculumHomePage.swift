@@ -18,7 +18,7 @@ struct CurriculumHomePage: View {
             HomePageContent(courses: courses)
                 .id("DKHomePageContent-View")
         }
-        .navigationTitle("Curriculum Board")
+        .navigationTitle(String(localized: "Curriculum Board", bundle: .module))
     }
 }
 

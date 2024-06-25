@@ -21,14 +21,14 @@ struct HoleEditSheet: View {
     }
     
     var body: some View {
-        Sheet("Edit Post Info") {
+        Sheet(String(localized: "Edit Post Info", bundle: .module)) {
             let hole = try await ForumAPI.modifyHole(id: hole.id, lock: lock, tags: tags, hidden: hidden)
             await MainActor.run {
                 model.hole = hole
             }
         } content: {
             Section {
-                Picker(selection: $divisionId, label: Label("Select Division", systemImage: "rectangle.3.group")) {
+                Picker(selection: $divisionId, label: Label(String(localized: "Select Division", bundle: .module), systemImage: "rectangle.3.group")) {
                     ForEach(divisionStore.divisions) { division in
                         Text(division.name)
                             .tag(division.id)
@@ -40,11 +40,11 @@ struct HoleEditSheet: View {
             
             Section {
                 Toggle(isOn: $hidden) {
-                    Label("Set Hidden", systemImage: "eye")
+                    Label(String(localized: "Set Hidden", bundle: .module), systemImage: "eye")
                 }
                 
                 Toggle(isOn: $lock) {
-                    Label("Lock Post", systemImage: "lock.fill")
+                    Label(String(localized: "Lock Post", bundle: .module), systemImage: "lock.fill")
                 }
             }
         }

@@ -9,22 +9,22 @@ struct RatingView: View {
             RatingEntryView(
                 rating: rank.overall,
                 ratingType: .overall,
-                label: "Overall Rating")
+                label: String(localized: "Overall Rating", bundle: .module))
             
             RatingEntryView(
                 rating: rank.content,
                 ratingType: .content,
-                label: "Course Content")
+                label: String(localized: "Course Content", bundle: .module))
             
             RatingEntryView(
                 rating: rank.workload,
                 ratingType: .workload,
-                label: "Course Workload")
+                label: String(localized: "Course Workload", bundle: .module))
             
             RatingEntryView(
                 rating: rank.assessment,
                 ratingType: .assessment,
-                label: "Course Assessment")
+                label: String(localized: "Course Assessment", bundle: .module))
         }
     }
 }
@@ -32,7 +32,7 @@ struct RatingView: View {
 struct RatingEntryView: View {
     let rating: Double
     let ratingType: RatingType
-    let label: LocalizedStringKey
+    let label: String
     
     var body: some View {
         GridRow {

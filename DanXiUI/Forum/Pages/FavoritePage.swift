@@ -43,7 +43,7 @@ private struct FavoritePageContent: View {
     var body: some View {
         Group {
             if favorites.isEmpty {
-                Text("Empty Favorites List")
+                Text("Empty Favorites List", bundle: .module)
                     .foregroundColor(.secondary)
             } else {
                 ForumList {
@@ -61,12 +61,12 @@ private struct FavoritePageContent: View {
                         }
                     }
                 }
-                .alert("Toggle Favorite Failed", isPresented: $showAlert) {} message: {
+                .alert(String(localized: "Toggle Favorite Failed", bundle: .module), isPresented: $showAlert) {} message: {
                     Text(deleteError)
                 }
             }
         }
-        .navigationTitle("Favorites")
+        .navigationTitle(String(localized: "Favorites", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

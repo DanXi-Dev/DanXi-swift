@@ -29,7 +29,7 @@ extension CourseGroup {
 }
 
 extension Course {
-    var formattedSemester: LocalizedStringResource {
+    var formattedSemester: String {
         return Semester(year: year, semester: semester).formatted()
     }
     

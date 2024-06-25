@@ -107,14 +107,14 @@ struct ForumEditor: View {
                         textfieldFocus = false
                         presentPhotoPicker = true
                     }, label: {
-                        Label("Upload Image", systemImage: "photo")
+                        Label(String(localized: "Upload Image", bundle: .module), systemImage: "photo")
                     })
                     .photosPicker(isPresented: $presentPhotoPicker, selection: $photo, matching: .images)
                     
                     Button {
                         showStickers = true
                     } label: {
-                        Label("Stickers", systemImage: "smiley")
+                        Label(String(localized: "Stickers", bundle: .module), systemImage: "smiley")
                     }
                     
                     Divider()
@@ -122,49 +122,49 @@ struct ForumEditor: View {
                     Button {
                         addMarkdownModifier(beginning: "**", end: "**")
                     } label: {
-                        Label("Bold", systemImage: "bold")
+                        Label(String(localized: "Bold", bundle: .module), systemImage: "bold")
                     }
                     
                     Button {
                         addMarkdownModifier(beginning: "_", end: "_")
                     } label: {
-                        Label("Italic", systemImage: "italic")
+                        Label(String(localized: "Italic", bundle: .module), systemImage: "italic")
                     }
                     
                     Button {
                         addMarkdownModifier(beginning: "`", end: "`")
                     } label: {
-                        Label("Code", systemImage: "curlybraces")
+                        Label(String(localized: "Code", bundle: .module), systemImage: "curlybraces")
                     }
                     
                     Button {
                         addMarkdownModifier(beginning: "$", end: "$")
                     } label: {
-                        Label("Math", systemImage: "x.squareroot")
+                        Label(String(localized: "Math", bundle: .module), systemImage: "x.squareroot")
                     }
                     
                     Button {
                         addToBeginningOfLine("> ")
                     } label: {
-                        Label("Quote", systemImage: "increase.quotelevel")
+                        Label(String(localized: "Quote", bundle: .module), systemImage: "increase.quotelevel")
                     }
                     
                     Button {
                         addToBeginningOfLine("- ")
                     } label: {
-                        Label("List", systemImage: "list.bullet")
+                        Label(String(localized: "List", bundle: .module), systemImage: "list.bullet")
                     }
                     
                     Button {
                         addToBeginningOfLine("1. ")
                     } label: {
-                        Label("Numbered List", systemImage: "list.number")
+                        Label(String(localized: "Numbered List", bundle: .module), systemImage: "list.number")
                     }
                     
                     Button {
                         addMarkdownModifier(beginning: "[", end: "](https://)")
                     } label: {
-                        Label("Link", systemImage: "link")
+                        Label(String(localized: "Link", bundle: .module), systemImage: "link")
                     }
                 }
             }
@@ -174,7 +174,7 @@ struct ForumEditor: View {
             Button {
                 textfieldFocus = false
             } label: {
-                Text("Done")
+                Text("Done", bundle: .module)
             }
 #endif
         }
@@ -184,8 +184,8 @@ struct ForumEditor: View {
     
     var body: some View {
         Picker(selection: $showPreview) {
-            Text("Edit").tag(false)
-            Text("Preview").tag(true)
+            Text("Edit", bundle: .module).tag(false)
+            Text("Preview", bundle: .module).tag(true)
         }
         .pickerStyle(.segmented)
         .listRowSeparator(.hidden)
@@ -200,7 +200,7 @@ struct ForumEditor: View {
                 }
             }
         }
-        .alert("Upload Image Failed", isPresented: $showUploadError) { } message: {
+        .alert(String(localized: "Upload Image Failed", bundle: .module), isPresented: $showUploadError) { } message: {
             Text(uploadError)
         }
         .sheet(isPresented: $showStickers) {
@@ -213,11 +213,11 @@ struct ForumEditor: View {
             }
         } else {
             Section {
-#if targetEnvironment(macCatalyst)
+            #if targetEnvironment(macCatalyst)
                 toolbar
                     .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
-#endif
-                THTextEditor(text: $content, selection: $selection, placeholder: String(localized: "Enter post content"), minHeight: 200, uploadImageAction: uploadPhoto) {
+            #endif
+                THTextEditor(text: $content, selection: $selection, placeholder: String(localized: "Enter post content", bundle: .module), minHeight: 200, uploadImageAction: uploadPhoto) {
                     Divider()
                     toolbar
                         .padding(.horizontal)
@@ -236,7 +236,7 @@ struct ForumEditor: View {
                 }
                 
             } footer: {
-                Text("TH Edit Alert")
+                Text("TH Edit Alert", bundle: .module)
             }
         }
     }
@@ -265,11 +265,11 @@ struct ForumEditor: View {
                     Button {
                         showStickers = false
                     } label: {
-                        Text("Cancel")
+                        Text("Cancel", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Stickers")
+            .navigationTitle(String(localized: "Stickers", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }
         .presentationDetents([.medium])

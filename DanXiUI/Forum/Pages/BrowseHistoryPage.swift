@@ -30,9 +30,11 @@ struct BrowseHistoryPage: View {
             if !todayHistory.isEmpty {
                 ForEach(Array(todayHistory.enumerated()), id: \.offset) { index, history in
                     if index == 0 {
-                        Section("Today") {
+                        Section {
                             BrowseHistoryView(history: history)
                                 .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        } header: {
+                            Text("Today", bundle: .module)
                         }
                     } else {
                         Section {
@@ -46,9 +48,11 @@ struct BrowseHistoryPage: View {
             if !yesterdayHistory.isEmpty {
                 ForEach(Array(yesterdayHistory.enumerated()), id: \.offset) { index, history in
                     if index == 0 {
-                        Section("Yesterday") {
+                        Section {
                             BrowseHistoryView(history: history)
                                 .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        } header: {
+                            Text("Yesterday", bundle: .module)
                         }
                     } else {
                         Section {
@@ -62,9 +66,11 @@ struct BrowseHistoryPage: View {
             if !furtherHistory.isEmpty {
                 ForEach(Array(furtherHistory.enumerated()), id: \.offset) { index, history in
                     if index == 0 {
-                        Section("Earlier") {
+                        Section {
                             BrowseHistoryView(history: history)
                                 .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+                        } header: {
+                            Text("Earlier", bundle: .module)
                         }
                     } else {
                         Section {
@@ -76,7 +82,7 @@ struct BrowseHistoryPage: View {
             }
         }
         .compactSectionSpacing(spacing: 8)
-        .navigationTitle("Recent Browsed")
+        .navigationTitle(String(localized: "Recent Browsed", bundle: .module))
         .tint(.primary)
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
@@ -89,11 +95,13 @@ struct BrowseHistoryPage: View {
                 }
             }
         }
-        .confirmationDialog("Delete Browse History", isPresented: $showConfirmation) {
-            Button("Clear Browse History", role: .destructive) {
+        .confirmationDialog(String(localized: "Delete Browse History", bundle: .module), isPresented: $showConfirmation) {
+            Button(role: .destructive) {
                 withAnimation {
                     historyStore.clearHistory()
                 }
+            } label: {
+                Text("Clear Browse History", bundle: .module)
             }
         }
     }
@@ -117,7 +125,7 @@ private struct BrowseHistoryView: View {
                     .lineLimit(6)
                 
                 HStack {
-                    Text("#\(String(history.id))")
+                    Text(verbatim: "#\(String(history.id))")
                     Spacer()
                     time
                     Spacer()

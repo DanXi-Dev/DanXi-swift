@@ -14,9 +14,9 @@ struct ModeratePage: View {
     var body: some View {
         List {
             Section {
-                Picker(selection: $filter, label: Text("Picker")) {
-                    Text("Sensitive.Open").tag(FilterOption.open)
-                    Text("Sensitive.Closed").tag(FilterOption.closed)
+                Picker(selection: $filter, label: Text("Picker", bundle: .module)) {
+                    Text("Sensitive.Open", bundle: .module).tag(FilterOption.open)
+                    Text("Sensitive.Closed", bundle: .module).tag(FilterOption.closed)
                 }
                 .pickerStyle(.segmented)
                 .listRowSeparator(.hidden)
@@ -44,18 +44,18 @@ struct ModeratePage: View {
         .toolbar {
             Menu {
                 Picker(selection: $model.sortOption) {
-                    Text("Last Updated")
+                    Text("Last Updated", bundle: .module)
                         .tag(ModerateModel.SortOption.replyTime)
-                    Text("Last Created")
+                    Text("Last Created", bundle: .module)
                         .tag(ModerateModel.SortOption.createTime)
                 } label: {
-                    Label("Sort By", systemImage: "arrow.up.arrow.down")
+                    Label(String(localized: "Sort By", bundle: .module), systemImage: "arrow.up.arrow.down")
                 }
                 
                 Button {
                     showDatePicker = true
                 } label: {
-                    Label("Select Date", systemImage: "clock.arrow.circlepath")
+                    Label(String(localized: "Select Date", bundle: .module), systemImage: "clock.arrow.circlepath")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
@@ -65,7 +65,7 @@ struct ModeratePage: View {
         .sheet(isPresented: $showDatePicker) {
             datePicker
         }
-        .navigationTitle("Moderate")
+        .navigationTitle(String(localized: "Moderate", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .watermark()
     }
@@ -78,13 +78,17 @@ struct ModeratePage: View {
                     set: { model.baseDate = $0 }
                 )
                 
-                DatePicker("Start Date", selection: dateBinding, in: ...Date.now, displayedComponents: [.date])
+                DatePicker(selection: dateBinding, in: ...Date.now, displayedComponents: [.date]) {
+                    Text("Start Date", bundle: .module)
+                }
                     .datePickerStyle(.graphical)
                 
                 if model.baseDate != nil {
-                    Button("Clear Date", role: .destructive) {
+                    Button(role: .destructive) {
                         model.baseDate = nil
                         showDatePicker = false
+                    } label: {
+                        Text("Clear Date", bundle: .module)
                     }
                 }
             }
@@ -93,12 +97,12 @@ struct ModeratePage: View {
                     Button {
                         showDatePicker = false
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }
         }
-        .navigationTitle("Select Date")
+        .navigationTitle(String(localized: "Select Date", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -150,7 +154,7 @@ private struct SensitiveContentView: View {
                     }
                     Text(content)
                     HStack {
-                        Text("##\(String(item.id))")
+                        Text(verbatim: "##\(String(item.id))")
                         Spacer()
                         Text(item.timeCreated.formatted())
                     }
@@ -160,7 +164,7 @@ private struct SensitiveContentView: View {
             }
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            Button("Sensitive", role: .destructive) {
+            Button(role: .destructive) {
                 Task {
                     try await withHaptics {
                         do {
@@ -172,10 +176,12 @@ private struct SensitiveContentView: View {
                         }
                     }
                 }
+            } label: {
+                Text("Sensitive", bundle: .module)
             }
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button("Normal", role: .destructive) {
+            Button(role: .destructive) {
                 Task {
                     try await withHaptics {
                         do {
@@ -187,6 +193,8 @@ private struct SensitiveContentView: View {
                         }
                     }
                 }
+            } label: {
+                Text("Normal", bundle: .module)
             }
             .tint(.green)
         }

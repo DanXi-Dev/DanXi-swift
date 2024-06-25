@@ -30,10 +30,10 @@ public struct CampusAccountButton: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                 VStack(alignment: .leading, spacing: 3.0) {
-                    Text("Fudan Campus Account")
+                    Text("Fudan Campus Account", bundle: .module)
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
-                    Text(model.loggedIn ? "Logged in" : "Not Logged in")
+                    Text(model.loggedIn ? "Logged in" : "Not Logged in", bundle: .module)
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
@@ -59,10 +59,29 @@ public struct AccountSheet: View {
                         return try await ProfileStore.shared.getRefreshedProfile()
                     } content: { profile in
                         Section {
-                            LabeledContent("Name", value: profile.name)
-                            LabeledContent("Fudan.ID", value: profile.campusId)
-                            LabeledContent("Department", value: profile.department)
-                            LabeledContent("Major", value: profile.major)
+                            LabeledContent {
+                                Text(profile.name)
+                            } label: {
+                                Text("Name", bundle: .module)
+                            }
+                            
+                            LabeledContent {
+                                Text(profile.campusId)
+                            } label: {
+                                Text("Fudan.ID", bundle: .module)
+                            }
+                            
+                            LabeledContent {
+                                Text(profile.department)
+                            } label: {
+                                Text("Department", bundle: .module)
+                            }
+                            
+                            LabeledContent {
+                                Text(profile.major)
+                            } label: {
+                                Text("Major", bundle: .module)
+                            }
                         }
                     }
                     
@@ -73,7 +92,7 @@ public struct AccountSheet: View {
                         } label: {
                             HStack {
                                 Spacer()
-                                Text("Logout")
+                                Text("Logout", bundle: .module)
                                 Spacer()
                             }
                         }
@@ -87,7 +106,7 @@ public struct AccountSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Done")
+                        Text("Done", bundle: .module)
                     }
                 }
             }

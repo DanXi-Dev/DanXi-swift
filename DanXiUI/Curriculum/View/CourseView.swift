@@ -7,7 +7,7 @@ struct CourseView: View {
     var body: some View {
         VStack(alignment: .leading) {
             CourseTagView {
-                Text("\(String(format: "%.1f", courseGroup.courses[0].credit)) Credit")
+                Text("\(String(format: "%.1f", courseGroup.courses[0].credit)) Credit", bundle: .module)
             }
             
             Text(courseGroup.name)
@@ -15,7 +15,7 @@ struct CourseView: View {
                 .font(.title2)
                 .padding(.bottom, 1.0)
             
-            Text("\(courseGroup.department) - \(courseGroup.code)")
+            Text("\(courseGroup.department) - \(courseGroup.code)", bundle: .module)
                 .font(.caption)
                 .foregroundColor(.secondary)
         }

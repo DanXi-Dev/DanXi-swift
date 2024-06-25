@@ -19,7 +19,7 @@ struct SimpleFloorView: View {
     
     private var bottom: some View {
         HStack {
-            Text("##\(String(floor.id))")
+            Text(verbatim: "##\(String(floor.id))")
             Spacer()
             Text(floor.timeCreated.autoFormatted())
         }

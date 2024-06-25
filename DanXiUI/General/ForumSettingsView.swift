@@ -6,12 +6,14 @@ public struct ForumSettingsView: View {
     public init() {}
     
     public var body: some View {
-        Section("Forum") {
+        Section {
             ForEach(ForumSettingsSection.allCases) { section in
                 DetailLink(value: section) {
                     section.label.navigationStyle()
                 }
             }
+        } header: {
+            Text("Forum", bundle: .module)
         }
     }
 }
@@ -28,11 +30,11 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
     public var label: some View {
         switch self {
         case .notification:
-            Label("Push Notification Settings", systemImage: "app.badge")
+            Label(String(localized: "Push Notification Settings", bundle: .module), systemImage: "app.badge")
         case .foldedContent:
-            Label("Folded Content", systemImage: "eye.square")
+            Label(String(localized: "Folded Content", bundle: .module), systemImage: "eye.square")
         case .blockedContent:
-            Label("Blocked Content", systemImage: "hand.raised.app")
+            Label(String(localized: "Blocked Content", bundle: .module), systemImage: "hand.raised.app")
         }
     }
     
@@ -55,13 +57,13 @@ fileprivate struct FoldedContentSettings: View {
     var body: some View {
         Form {
             Picker(selection: $settings.foldedContent) {
-                Text("Show").tag(ForumSettings.SensitiveContentSetting.show)
-                Text("Fold").tag(ForumSettings.SensitiveContentSetting.fold)
-                Text("Hide").tag(ForumSettings.SensitiveContentSetting.hide)
+                Text("Show", bundle: .module).tag(ForumSettings.SensitiveContentSetting.show)
+                Text("Fold", bundle: .module).tag(ForumSettings.SensitiveContentSetting.fold)
+                Text("Hide", bundle: .module).tag(ForumSettings.SensitiveContentSetting.hide)
             }
             .pickerStyle(.inline)
         }
-        .navigationTitle("Folded Content")
+        .navigationTitle(String(localized: "Folded Content", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -71,13 +73,15 @@ fileprivate struct BlockedContent: View {
     
     var body: some View {
         Form {
-            Section("Blocked Tags") {
+            Section {
                 TagEditor($settings.blockedTags)
+            } header: {
+                Text("Blocked Tags", bundle: .module)
             }
             
-            Section("Blocked Holes") {
+            Section {
                 ForEach(settings.blockedHoles, id: \.self) { holeId in
-                    Text("#\(String(holeId))")
+                    Text("#\(String(holeId))", bundle: .module)
                         .swipeActions {
                             Button(role: .destructive) {
                                 if let idx = settings.blockedHoles.firstIndex(of: holeId) {
@@ -90,14 +94,16 @@ fileprivate struct BlockedContent: View {
                             }
                         }
                 }
+            } header: {
+                Text("Blocked Holes", bundle: .module)
             }
             
             if settings.blockedHoles.isEmpty {
-                Section("You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu.") {}
+                Section(String(localized: "You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu.", bundle: .module)) {}
                     .textCase(.none)
             }
         }
-        .navigationTitle("Blocked Content")
+        .navigationTitle(String(localized: "Blocked Content", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -111,7 +117,7 @@ struct NotificationSettingWrapper: View {
         } content: { (profile: Profile, authorizationStatus: UNAuthorizationStatus) in
             NotificationSetting(profile, authorizationStatus)
         }
-        .navigationTitle("Push Notification Settings")
+        .navigationTitle(String(localized: "Push Notification Settings", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -170,7 +176,7 @@ fileprivate struct NotificationSetting: View {
                             UIApplication.shared.open(url)
                         }
                     } label: {
-                        Label("Push Notification Not Authorized", systemImage: "exclamationmark.triangle.fill")
+                        Label(String(localized: "Push Notification Not Authorized", bundle: .module), systemImage: "exclamationmark.triangle.fill")
                             .foregroundStyle(.red)
                             .labelStyle(.titleAndIcon)
                     }
@@ -179,21 +185,21 @@ fileprivate struct NotificationSetting: View {
             
             Section {
                 Toggle(isOn: $mention) {
-                    Label("Notify when my post is mentioned", systemImage: "arrowshape.turn.up.left")
+                    Label(String(localized: "Notify when my post is mentioned", bundle: .module), systemImage: "arrowshape.turn.up.left")
                 }
                 .onChange(of: mention) { _ in
                     Task { await updateConfig() }
                 }
                 
                 Toggle(isOn: $favorite) {
-                    Label("Notify when favorited hole gets reply", systemImage: "star")
+                    Label(String(localized: "Notify when favorited hole gets reply", bundle: .module), systemImage: "star")
                 }
                 .onChange(of: favorite) { _ in
                     Task { await updateConfig() }
                 }
                 
                 Toggle(isOn: $report) {
-                    Label("Notify when my report is dealt", systemImage: "exclamationmark.triangle")
+                    Label(String(localized: "Notify when my report is dealt", bundle: .module), systemImage: "exclamationmark.triangle")
                 }
                 .onChange(of: report) { _ in
                     Task { await updateConfig() }
@@ -206,12 +212,12 @@ fileprivate struct NotificationSetting: View {
                     Button {
                         UIApplication.shared.open(url)
                     } label: {
-                        Text("Open Notification Settings")
+                        Text("Open Notification Settings", bundle: .module)
                     }
                 }
             }
         }
-        .alert("Update Notification Config Failed", isPresented: $showAlert) {}
+        .alert(String(localized: "Update Notification Config Failed", bundle: .module), isPresented: $showAlert) {}
         .labelStyle(.titleOnly)
     }
 }
