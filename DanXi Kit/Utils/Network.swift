@@ -94,7 +94,7 @@ extension HTTPError: LocalizedError {
             return message
         }
         let localizedCodeDescription = HTTPURLResponse.localizedString(forStatusCode: code)
-        return "Error \(code): \(localizedCodeDescription)"
+        return String(localized: "Error \(code): \(localizedCodeDescription)", bundle: .module)
     }
 }
 
