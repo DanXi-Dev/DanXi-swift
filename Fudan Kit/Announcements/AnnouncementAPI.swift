@@ -71,12 +71,12 @@ public enum AnnouncementAPI {
         for element in elements {
             do {
                 let firstChild = try element.select("a")
-                let title = try firstChild.html()
+                let title = try firstChild.text()
                 var path = try firstChild.attr("href")
                 path = path.replacing(".htm", with: ".psp") // replace .htm with .psp to allow safari controller to directly login
                 guard let link = URL(string: path, relativeTo: undergraduateAnnouncementURL) else { continue }
                 let secondChild = try element.select("td.ti")
-                guard let date = dateFormatter.date(from: try secondChild.html()) else { continue }
+                guard let date = dateFormatter.date(from: try secondChild.text()) else { continue }
                 let announcement = Announcement(id: UUID(), title: title, date: date, link: link)
                 announcements.append(announcement)
             } catch {
@@ -97,11 +97,11 @@ public enum AnnouncementAPI {
         for element in elements {
             do {
                 let firstChild = try element.select("a")
-                let title = try firstChild.html()
+                let title = try firstChild.text()
                 let path = try firstChild.attr("href")
                 guard let link = URL(string: path, relativeTo: postgraduateAnnouncementURL) else { continue }
                 let secondChild = try element.select("div.fields.ex_fields > span")
-                guard let date = dateFormatter.date(from: try secondChild.html()) else { continue }
+                guard let date = dateFormatter.date(from: try secondChild.text()) else { continue }
                 let announcement = Announcement(id: UUID(), title: title, date: date, link: link)
                 announcements.append(announcement)
             } catch {
