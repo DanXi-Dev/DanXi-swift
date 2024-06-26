@@ -12,8 +12,9 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.0.0"),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
+        .package(name: "FudanKit", path: "../Fudan Kit"),
     ],
     targets: [
-        .target(name: "DanXiKit", dependencies: ["KeychainAccess", "SwiftyJSON"], path: "."),
+        .target(name: "DanXiKit", dependencies: ["KeychainAccess", "SwiftyJSON", "FudanKit"], path: "."),
     ]
 )

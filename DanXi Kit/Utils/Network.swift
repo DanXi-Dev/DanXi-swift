@@ -32,7 +32,7 @@ func requestWithData(_ path: String, base: URL, protected: Bool = true, params: 
     let (data, response) = if protected {
         try await Authenticator.shared.authenticate(request: request)
     } else {
-        try await URLSession.shared.data(for: request)
+        try await Proxy.data(for: request)
     }
     
     guard let httpResponse = response as? HTTPURLResponse else {

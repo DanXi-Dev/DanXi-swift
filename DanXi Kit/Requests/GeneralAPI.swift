@@ -23,7 +23,7 @@ public enum GeneralAPI {
         var refreshRequest = URLRequest(url: refreshURL)
         refreshRequest.httpMethod = "POST"
         refreshRequest.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
-        let (data, _) = try await URLSession.shared.data(for: refreshRequest)
+        let (data, _) = try await Proxy.data(for: refreshRequest)
         return try JSONDecoder().decode(Token.self, from: data)
     }
     

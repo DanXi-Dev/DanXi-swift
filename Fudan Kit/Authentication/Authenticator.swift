@@ -5,8 +5,8 @@ import Queue
 /// A central object that handle all UIS login requests.
 ///
 /// Use this object to authenticate for all services to prevent duplicated authentication requests and concurrency issues.
-actor Authenticator {
-    static let shared = Authenticator()
+public actor Authenticator {
+    public static let shared = Authenticator()
     
     let authenticationQueue = AsyncQueue(attributes: [.concurrent])
     var hostLastLoggedInDate: [String: Date] = [:]
@@ -42,15 +42,7 @@ actor Authenticator {
     }
     
     
-    /// Authenticate a request and return the data required.
-    /// - Parameters:
-    ///   - request: The `URLRequest`
-    ///   - manualLoginURL: Some service require specific URL to login, set this optional parameter to provide one.
-    /// - Returns: The business data.
-    ///
-    /// This function requests data from server, and perform authentication to services when necessary.
-    /// Use this function to prevent duplicated UIS requests and concurrency issues.
-    func authenticate(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> Data {
+    public func authenticateWithResponse(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> (Data, URLResponse) {
         guard let host = request.url?.host(), let method = request.httpMethod else { throw URLError(.badURL) }
         
         // GET request is redirected to UIS. If the request is not GET, we should manually login once.
@@ -76,13 +68,13 @@ actor Authenticator {
         // try login once, mutex
         
         if !self.isLoggedIn(host: host) {
-            let tryLoginTask = authenticationQueue.addBarrierOperation { () -> Data? in
+            let tryLoginTask = authenticationQueue.addBarrierOperation { () -> (Data, URLResponse)? in
                 if self.isLoggedIn(host: host) { // more check inside barrier to prevent duplicated requests
                     return nil
                 }
                 let (data, response) = try await URLSession.campusSession.data(for: request)
                 if response.url?.host() != "uis.fudan.edu.cn" {
-                    return data
+                    return (data, response)
                 }
                 
                 guard let username = CredentialStore.shared.username,
@@ -96,11 +88,11 @@ actor Authenticator {
                     throw CampusError.loginFailed
                 }
                 self.hostLastLoggedInDate[host] = Date() // refresh isLogged status
-                return reloadedData
+                return (reloadedData, reloadedResponse)
             }
             
-            if let data = try await tryLoginTask.value {
-                return data
+            if let result = try await tryLoginTask.value {
+                return result
             }
         }
         
@@ -109,7 +101,7 @@ actor Authenticator {
         let directRequestTask = authenticationQueue.addOperation {
             let (data, response) = try await URLSession.campusSession.data(for: request)
             if response.url?.host() != "uis.fudan.edu.cn" {
-                return data
+                return (data, response)
             }
             
             // retry once
@@ -124,9 +116,23 @@ actor Authenticator {
                 throw CampusError.loginFailed
             }
             self.hostLastLoggedInDate[host] = Date() // refresh isLogged status
-            return reloadedData
+            return (reloadedData, reloadedResponse)
         }
         
         return try await directRequestTask.value
+    }
+    
+    
+    /// Authenticate a request and return the data required.
+    /// - Parameters:
+    ///   - request: The `URLRequest`
+    ///   - manualLoginURL: Some service require specific URL to login, set this optional parameter to provide one.
+    /// - Returns: The business data.
+    ///
+    /// This function requests data from server, and perform authentication to services when necessary.
+    /// Use this function to prevent duplicated UIS requests and concurrency issues.
+    func authenticate(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> Data {
+        let (data, _) = try await authenticateWithResponse(request, manualLoginURL: manualLoginURL)
+        return data
     }
 }

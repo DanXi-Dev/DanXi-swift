@@ -14,7 +14,7 @@ actor Authenticator {
         authenticatedRequest.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
         
         // send request to server
-        let (data, response) = try await URLSession.shared.data(for: authenticatedRequest)
+        let (data, response) = try await Proxy.data(for: authenticatedRequest)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw URLError(.badServerResponse)
         }
@@ -45,6 +45,6 @@ actor Authenticator {
         if let token = CredentialStore.shared.token {
             authenticatedRequest.setValue("Bearer \(token.access)", forHTTPHeaderField: "Authorization")
         }
-        return try await URLSession.shared.data(for: authenticatedRequest)
+        return try await Proxy.data(for: authenticatedRequest)
     }
 }
