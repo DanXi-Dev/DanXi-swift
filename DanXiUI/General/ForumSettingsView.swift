@@ -12,6 +12,7 @@ public struct ForumSettingsView: View {
                     section.label.navigationStyle()
                 }
             }
+            ProxyToggle()
         } header: {
             Text("Forum", bundle: .module)
         }

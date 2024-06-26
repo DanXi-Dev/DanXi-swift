@@ -917,6 +917,16 @@
         }
       }
     },
+    "Enable Campus Proxy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "启用校园网代理"
+          }
+        }
+      }
+    },
     "Enabled" : {
       "localizations" : {
         "zh-Hans" : {

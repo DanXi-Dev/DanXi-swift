@@ -36,7 +36,7 @@ public actor Authenticator {
     ///
     /// This function requests data from server, and perform authentication to services when necessary.
     /// Use this function to prevent duplicated UIS requests and concurrency issues.
-    func authenticate(_ url: URL, manualLoginURL: URL? = nil) async throws -> Data {
+    public func authenticate(_ url: URL, manualLoginURL: URL? = nil) async throws -> Data {
         let request = constructRequest(url)
         return try await authenticate(request, manualLoginURL: manualLoginURL)
     }

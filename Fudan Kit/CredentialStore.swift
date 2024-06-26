@@ -1,8 +1,8 @@
 import Foundation
 import KeychainAccess
 
-class CredentialStore {
-    static let shared = CredentialStore()
+public class CredentialStore {
+    public static let shared = CredentialStore()
     
     private let keychain: Keychain
     var username: String? {
@@ -10,6 +10,10 @@ class CredentialStore {
     }
     var password: String? {
         didSet { keychain["password"] = password }
+    }
+    
+    public var credentialPresent: Bool {
+        username != nil && password != nil
     }
     
     init() {
