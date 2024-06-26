@@ -29,7 +29,6 @@ class Proxy {
             // Create a URLSession with short timeout for connection test
             let config = URLSessionConfiguration.default
             config.timeoutIntervalForRequest = 2.0
-            config.timeoutIntervalForResource = 4.0
             let session = URLSession(configuration: config)
             return try await session.data(for: request)
         } catch URLError.timedOut where !ProxySettings.shared.enableProxy {
