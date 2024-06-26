@@ -19,7 +19,7 @@ struct ExamPage: View {
                             VStack(alignment: .leading) {
                                 Text(exam.course)
                                     .fontWeight(.bold)
-                                Text("\(exam.date)  \(exam.time)")
+                                Text(verbatim: "\(exam.date)  \(exam.time)")
                                     .foregroundColor(.secondary)
                                     .font(.footnote)
                             }
