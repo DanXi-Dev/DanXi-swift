@@ -213,6 +213,16 @@
         }
       }
     },
+    "Advanced Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高级设置"
+          }
+        }
+      }
+    },
     "All Banners" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2567,6 +2577,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用校园邮箱找回密码"
+          }
+        }
+      }
+    },
+    "Use Fudan University WebVPN service to access Forum and DanKe from off-campus.\n\nWhen this is off, most features will only be available within the campus intranet. Campus Assistant automatically adjusts this setting based on your network condition. You do not have to change this in most occasions." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用复旦大学WebVPN服务，允许您在校外访问论坛和蛋壳。\n\n当该设置关闭时，多数功能将只能在校园网环境下使用。校园助手会根据您的网络情况自动调节该设置，一般情况下，您无须手动干预。"
           }
         }
       }

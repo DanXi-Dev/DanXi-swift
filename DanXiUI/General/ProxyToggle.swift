@@ -7,18 +7,22 @@ struct ProxyToggle: View {
     @ObservedObject private var proxySettings = ProxySettings.shared
     
     var body: some View {
-        Toggle(isOn: $proxySettings.enableProxy) {
-            Label {
-                Text("Enable Campus Proxy", bundle: .module)
-            } icon: {
-                Image(systemName: "network")
+        Form {
+            Section {
+                Toggle(isOn: $proxySettings.enableProxy) {
+                    Text("Enable Campus Proxy", bundle: .module)
+                }
+                .disabled(!campusModel.loggedIn)
+                .onAppear {
+                    if !campusModel.loggedIn {
+                        proxySettings.enableProxy = false
+                    }
+                }
+            } footer: {
+                Text("Use Fudan University WebVPN service to access Forum and DanKe from off-campus.\n\nWhen this is off, most features will only be available within the campus intranet. Campus Assistant automatically adjusts this setting based on your network condition. You do not have to change this in most occasions.", bundle: .module)
             }
         }
-        .disabled(!campusModel.loggedIn)
-        .onAppear {
-            if !campusModel.loggedIn {
-                proxySettings.enableProxy = false
-            }
-        }
+        .navigationTitle(String(localized: "Advanced Settings", bundle: .module))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

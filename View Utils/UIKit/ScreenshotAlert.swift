@@ -27,8 +27,8 @@ class ScreenshotAlertModel: ObservableObject {
     weak var uiView: UIView? = nil
     
     func presentAlert() {
-        let alertController = UIAlertController(title: String(localized: "Screenshot Detected"), message: String(localized: "Screenshot Alert Content"), preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: String(localized: "OK"), style: .default) { _ in
+        let alertController = UIAlertController(title: String(localized: "Screenshot Detected", bundle: .module), message: String(localized: "Screenshot Alert Content", bundle: .module), preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: String(localized: "OK", bundle: .module), style: .default) { _ in
             // do nothing
         }
         alertController.addAction(defaultAction)

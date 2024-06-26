@@ -12,7 +12,6 @@ public struct ForumSettingsView: View {
                     section.label.navigationStyle()
                 }
             }
-            ProxyToggle()
         } header: {
             Text("Forum", bundle: .module)
         }
@@ -23,6 +22,7 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
     case notification
     case foldedContent
     case blockedContent
+    case advancedSettings
     
     public var id: ForumSettingsSection {
         self
@@ -36,6 +36,8 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
             Label(String(localized: "Folded Content", bundle: .module), systemImage: "eye.square")
         case .blockedContent:
             Label(String(localized: "Blocked Content", bundle: .module), systemImage: "hand.raised.app")
+        case .advancedSettings:
+            Label(String(localized: "Advanced Settings", bundle: .module), systemImage: "gearshape.circle.fill")
         }
     }
     
@@ -48,6 +50,8 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
             FoldedContentSettings()
         case .blockedContent:
             BlockedContent()
+        case .advancedSettings:
+            ProxyToggle()
         }
     }
 }
