@@ -28,7 +28,7 @@ struct ElectricityCard: View {
             }
         }
     } errorView: { error, retry in
-        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed")
+        let errorDescription = (error as? LocalizedError)?.errorDescription ?? String(localized: "Loading Failed", bundle: .module)
         
         Button(action: retry) {
             Label(errorDescription, systemImage: "exclamationmark.triangle.fill")
