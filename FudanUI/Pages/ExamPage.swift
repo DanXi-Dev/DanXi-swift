@@ -19,19 +19,26 @@ struct ExamPage: View {
                             VStack(alignment: .leading) {
                                 Text(exam.course)
                                     .fontWeight(.bold)
-                                Text(exam.type)
+                                Text("\(exam.date)  \(exam.time)")
                                     .foregroundColor(.secondary)
-                                    .font(.subheadline)
+                                    .font(.footnote)
                             }
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Text(exam.time)
-                                    .foregroundColor(.secondary)
-                                Text(exam.location)
-                                    .foregroundColor(.secondary)
+                                if !exam.type.contains("无") {
+                                    Text(exam.type)
+                                        .foregroundColor(.secondary)
+                                        .font(.footnote)
+                                }
+                                if !exam.location.contains("无") {
+                                    Text(exam.location)
+                                        .foregroundColor(.secondary)
+                                        .font(.footnote)
+                                }
                             }
                         }
                     }
+                    .tint(.primary)
                 }
             }
             .navigationTitle(String(localized: "Exams", bundle: .module))
@@ -64,6 +71,12 @@ fileprivate struct ExamDetailSheet: View {
                     Text("Exam Type", bundle: .module)
                     Spacer()
                     Text(exam.method)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("Exam Date", bundle: .module)
+                    Spacer()
+                    Text(exam.date)
                         .foregroundColor(.secondary)
                 }
                 HStack {

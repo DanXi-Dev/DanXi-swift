@@ -21,6 +21,16 @@
         }
       }
     },
+    "%@  %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@  %2$@"
+          }
+        }
+      }
+    },
     "%@ / %@" : {
       "localizations" : {
         "en" : {
@@ -523,6 +533,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "错误"
+          }
+        }
+      }
+    },
+    "Exam Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考试日期"
           }
         }
       }
