@@ -3,6 +3,7 @@ import UserNotifications
 import CoreTelephony
 import Utils
 import DanXiUI
+import DanXiKit
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, ObservableObject {
     // MARK: - App Delegate
@@ -39,6 +40,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         #endif
         
         return true
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        ProxySettings.shared.enableProxy = false
     }
     
     // MARK: - Notification
