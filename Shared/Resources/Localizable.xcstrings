@@ -280,16 +280,6 @@
         }
       }
     },
-    "Due in" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "还有"
-          }
-        }
-      }
-    },
     "Enable Notifications" : {
       "localizations" : {
         "zh-Hans" : {
@@ -385,6 +375,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "将课程表直接导入系统日历。"
+          }
+        }
+      }
+    },
+    "In" : {
+      "comment" : "Due in",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还有"
           }
         }
       }

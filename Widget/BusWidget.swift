@@ -176,7 +176,7 @@ struct BusWidgetView: View {
             }
             
             if let schedule = schedules.first {
-                // TODO: add 'if show nex day's bus' switch
+                // TODO: add 'if show next day's bus' switch
                 let formatter = DateFormatter()
                 formatter.dateStyle = .none
                 formatter.timeStyle = .short
@@ -188,7 +188,7 @@ struct BusWidgetView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                     HStack(spacing: 0) {
-                        Text("Due in")
+                        Text("In")
                         Text(schedule.time, style: .relative)
                             .padding(.leading, 2.5)
                     }
