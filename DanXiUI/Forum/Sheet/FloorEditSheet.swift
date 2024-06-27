@@ -8,7 +8,6 @@ struct FloorEditSheet: View {
     
     private let floorId: Int
     @State private var content: String
-    @State private var runningImageUploadTask = 0
     @State private var specialTag = ""
     @State private var foldReason = ""
     
@@ -30,10 +29,10 @@ struct FloorEditSheet: View {
                 }
             }
             
-            ForumEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: !profileStore.isAdmin)
+            ForumEditor(content: $content, initiallyFocused: !profileStore.isAdmin)
         }
-        .completed(!content.isEmpty && runningImageUploadTask <= 0)
-        .warnDiscard(!content.isEmpty || runningImageUploadTask > 0)
+        .completed(!content.isEmpty)
+        .warnDiscard(!content.isEmpty)
         .scrollDismissesKeyboard(.immediately)
     }
 }

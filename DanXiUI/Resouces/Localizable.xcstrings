@@ -360,16 +360,6 @@
         }
       }
     },
-    "Bold" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "加粗"
-          }
-        }
-      }
-    },
     "Campus" : {
       "localizations" : {
         "zh-Hans" : {
@@ -436,16 +426,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除历史"
-          }
-        }
-      }
-    },
-    "Code" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "代码"
           }
         }
       }
@@ -1280,16 +1260,6 @@
         }
       }
     },
-    "Italic" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "斜体"
-          }
-        }
-      }
-    },
     "Join Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1326,26 +1296,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "宽松"
-          }
-        }
-      }
-    },
-    "Link" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "链接"
-          }
-        }
-      }
-    },
-    "List" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "列表"
           }
         }
       }
@@ -1406,16 +1356,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "较小"
-          }
-        }
-      }
-    },
-    "Math" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "公式"
           }
         }
       }
@@ -1682,16 +1622,6 @@
         }
       }
     },
-    "Numbered List" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "编号列表"
-          }
-        }
-      }
-    },
     "Open Notification Settings" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1857,16 +1787,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "推送通知"
-          }
-        }
-      }
-    },
-    "Quote" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "引用"
           }
         }
       }
@@ -2541,22 +2461,22 @@
         }
       }
     },
-    "Upload Image" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上传图片"
-          }
-        }
-      }
-    },
     "Upload Image Failed" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "上传图片失败"
+          }
+        }
+      }
+    },
+    "Uploading Image" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在上传图片"
           }
         }
       }

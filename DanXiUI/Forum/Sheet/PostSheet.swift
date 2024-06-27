@@ -9,7 +9,6 @@ struct PostSheet: View {
     @State var divisionId: Int
     @State private var content = ""
     @State private var tags: [String] = []
-    @State private var runningImageUploadTask = 0
     
     var body: some View {
         Sheet(String(localized: "New Post", bundle: .module)) {
@@ -37,9 +36,9 @@ struct PostSheet: View {
                 Text("Tags", bundle: .module)
             }
             
-            ForumEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: false)
+            ForumEditor(content: $content, initiallyFocused: false)
         }
-        .completed(!tags.isEmpty && !content.isEmpty && runningImageUploadTask <= 0)
-        .warnDiscard(!tags.isEmpty || !content.isEmpty || runningImageUploadTask > 0)
+        .completed(!tags.isEmpty && !content.isEmpty)
+        .warnDiscard(!tags.isEmpty || !content.isEmpty)
     }
 }

@@ -5,7 +5,6 @@ import DanXiKit
 struct ReplySheet: View {
     @EnvironmentObject private var model: HoleModel
     @State private var content: String
-    @State private var runningImageUploadTask = 0
     
     init(content: String = "") {
         self._content = State(initialValue: content)
@@ -15,9 +14,9 @@ struct ReplySheet: View {
         Sheet(String(localized: "Reply", bundle: .module)) {
             try await model.reply(content: content)
         } content: {
-            ForumEditor(content: $content, runningImageUploadTasks: $runningImageUploadTask, initiallyFocused: true)
+            ForumEditor(content: $content, initiallyFocused: true)
         }
-        .completed(!content.isEmpty && runningImageUploadTask <= 0)
-        .warnDiscard(!content.isEmpty || runningImageUploadTask > 0)
+        .completed(!content.isEmpty)
+        .warnDiscard(!content.isEmpty)
     }
 }
