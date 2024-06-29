@@ -6,36 +6,33 @@ class Proxy {
     static let shared = Proxy()
     
     func data(for request: URLRequest) async throws -> (Data, URLResponse) {
-        guard ProxySettings.shared.enableProxy,
-              FudanKit.CredentialStore.shared.credentialPresent else {
-            return try await tryDirectRequest(request: request)
+        guard FudanKit.CredentialStore.shared.credentialPresent else {
+            return try await URLSession.shared.data(for: request)
         }
         
+        // try direct request once
+        if !ProxySettings.shared.enableProxy {
+            do {
+                let config = URLSessionConfiguration.default
+                config.timeoutIntervalForRequest = 2.0
+                let session = URLSession(configuration: config)
+                return try await session.data(for: request)
+            } catch URLError.timedOut {
+                ProxySettings.shared.enableProxy = true
+            }
+        }
+        
+        // use proxy
         let proxiedRequest = createProxiedRequest(request: request)
         let (data, response) = try await FudanKit.Authenticator.shared.authenticateWithResponse(proxiedRequest, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
         if let responseURL = response.url,
               !responseURL.absoluteString.hasPrefix("https://webvpn.fudan.edu.cn/login") {
-            return (data, response)
+            return (data, response) // successful return
         }
         
+        // unauthorized, try login WebVPN
         _ = try await FudanKit.Authenticator.shared.authenticate(URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
         return try await FudanKit.Authenticator.shared.authenticateWithResponse(proxiedRequest, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
-    }
-    
-    /// Try direct connection to the server
-    /// Enable proxy if timeout
-    private func tryDirectRequest(request: URLRequest) async throws -> (Data, URLResponse) {
-        do {
-            // Create a URLSession with short timeout for connection test
-            let config = URLSessionConfiguration.default
-            config.timeoutIntervalForRequest = 2.0
-            let session = URLSession(configuration: config)
-            return try await session.data(for: request)
-        } catch URLError.timedOut where !ProxySettings.shared.enableProxy {
-            ProxySettings.shared.enableProxy = true
-            print("WebVPN enabled.")
-            return try await data(for: request)
-        }
     }
     
     private func createProxiedRequest(request: URLRequest) -> URLRequest {
