@@ -37,7 +37,7 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
         case .blockedContent:
             Label(String(localized: "Blocked Content", bundle: .module), systemImage: "hand.raised.app")
         case .advancedSettings:
-            Label(String(localized: "Advanced Settings", bundle: .module), systemImage: "gearshape.circle.fill")
+            Label(String(localized: "Advanced Settings", bundle: .module), systemImage: "gearshape.circle")
         }
     }
     
