@@ -16,7 +16,7 @@ extension AppScreen {
         case .campus:
             Label("Campus.Tab", systemImage: "square.stack")
         case .forum:
-            Label("Forum", systemImage: "text.bubble")
+            Label("Forum", systemImage: "leaf")
         case .curriculum:
             Label("Curriculum", systemImage: "books.vertical")
         case .calendar:
