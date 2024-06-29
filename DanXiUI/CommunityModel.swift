@@ -32,7 +32,7 @@ public class CommunityModel: ObservableObject {
     public func logout() async {
         await setLogin(loggedIn: false)
         Task {
-            try? await GeneralAPI.logout()
+            // try? await GeneralAPI.logout()
             if let deviceId = await UIDevice.current.identifierForVendor?.uuidString {
                 try? await ForumAPI.deleteNotificationToken(deviceId: deviceId)
             }
