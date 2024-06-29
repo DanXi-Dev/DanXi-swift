@@ -223,13 +223,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi account is used to log into various services provided by DanXi, including FDUHole and DanKe Course Review. This account is not affiliated with Fudan University, but registration must be done using a Fudan University email."
+            "value" : "DanXi account is used to log into various services provided by DanXi, including Forum and DanKe Course Review. This account is not affiliated with Fudan University, but registration must be done using a Fudan University email."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "旦夕账户由旦夕团队提供，用于访问树洞、蛋壳课评等社区服务。旦夕账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
+            "state" : "needs_review",
+            "value" : "旦夕账户由旦夕团队提供，用于访问茶楼、蛋壳课评等社区服务。旦夕账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
           }
         }
       }
@@ -305,12 +305,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FDUHole Account"
+            "value" : "DanXi Account"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "旦夕账户"
           }
         }
@@ -318,26 +318,26 @@
     },
     "fduhole" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "树洞"
+            "value" : "forum"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "茶楼"
           }
         }
       }
     },
     "Forum" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FDUHole"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "树洞"
+            "state" : "needs_review",
+            "value" : "茶楼"
           }
         }
       }
@@ -501,13 +501,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), users shall not share screenshots of content from FDUHole. Anyone who cause severe consequences by sharing screenshots may have their accounts permanently suspended, and may be held accountable."
+            "value" : "According to the [community guidelines](https://danxi.fduhole.com/doc/fduhole-community-convention), users shall not share screenshots of content from Forum. Anyone who cause severe consequences by sharing screenshots may have their accounts permanently suspended, and may be held accountable."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，用户不得外传树洞截图。因此造成恶劣影响者，管理团队有权永久停用其账户并追究责任。"
+            "state" : "needs_review",
+            "value" : "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，用户不得外传截图。因此造成恶劣影响者，管理团队有权永久停用其账户并追究责任。"
           }
         }
       }

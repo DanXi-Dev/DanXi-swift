@@ -345,7 +345,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "屏蔽的树洞"
+            "value" : "屏蔽的帖子"
           }
         }
       }
@@ -445,7 +445,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "确认删除此树洞"
+            "value" : "确认删除此帖"
           }
         }
       }
@@ -598,10 +598,16 @@
     },
     "DanXi account is used to access community services such as Treehole and DanKe." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕账户用于访问树洞、蛋壳等社区服务"
+            "value" : "DanXi account is used to access community services such as Forum and DanKe."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "旦夕账户用于访问茶楼、蛋壳等社区服务"
           }
         }
       }
@@ -621,13 +627,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Users should pass qualification before accessing FDUHole. Please refer to [terms and conditions](https://danxi.fduhole.com/doc) when answering the following questions."
+            "value" : "Users should pass qualification before accessing Forum. Please refer to [terms and conditions](https://danxi.fduhole.com/doc) when answering the following questions."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "用户在使用旦夕树洞前均需完成入站答题。答题时请参考 [常见问题和协议条款](https://danxi.fduhole.com/doc)。"
+            "state" : "needs_review",
+            "value" : "用户在使用茶楼前均需完成入站答题。答题时请参考 [常见问题和协议条款](https://danxi.fduhole.com/doc)。"
           }
         }
       }
@@ -835,7 +841,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "修改本洞信息"
+            "value" : "修改本帖信息"
           }
         }
       }
@@ -902,7 +908,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无关注的贴子"
+            "value" : "无关注的帖子"
           }
         }
       }
@@ -939,9 +945,15 @@
     },
     "Enter Pinned Hole ID (Digits Only)" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Enter Pinned Post ID (Digits Only)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "输入置顶帖编号（仅数字）"
           }
         }
@@ -1012,12 +1024,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FDUHole Account"
+            "value" : "DanXi Account"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "旦夕账户"
           }
         }
@@ -1139,16 +1151,10 @@
     },
     "Forum" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FDUHole"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "树洞"
+            "state" : "needs_review",
+            "value" : "茶楼"
           }
         }
       }
@@ -1205,10 +1211,16 @@
     },
     "Hide Hole" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "隐藏此树洞"
+            "value" : "Hide Post"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "隐藏此帖"
           }
         }
       }
@@ -1315,7 +1327,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "锁定此洞"
+            "value" : "锁定此帖"
           }
         }
       }
@@ -1412,16 +1424,10 @@
     },
     "My Post" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "My Holes"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "我的树洞"
+            "state" : "needs_review",
+            "value" : "我的帖子"
           }
         }
       }
@@ -1458,7 +1464,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新建主题贴"
+            "value" : "新建主题帖"
           }
         }
       }
@@ -1579,13 +1585,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "New Replies to Subscribed Holes"
+            "value" : "New Replies to Subscribed Posts"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "关注的树洞有新回复时"
+            "state" : "needs_review",
+            "value" : "关注的帖子有新回复时"
           }
         }
       }
@@ -1703,7 +1709,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "本洞已被锁定，禁止回复"
+            "value" : "本帖已被锁定，禁止回复"
           }
         }
       }
@@ -2174,7 +2180,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "全部回贴"
+            "value" : "全部回帖"
           }
         }
       }
@@ -2200,7 +2206,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "只看洞主"
+            "value" : "只看楼主"
           }
         }
       }
@@ -2355,7 +2361,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "该回复贴将被删除"
+            "value" : "该回复帖将被删除"
           }
         }
       }
@@ -2385,7 +2391,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "将影响该贴下全部回复贴"
+            "value" : "将影响该帖下全部回复帖"
           }
         }
       }
@@ -2663,10 +2669,16 @@
     },
     "You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "您没有屏蔽任何树洞。若要屏蔽树洞，可以长按它并选择屏蔽。"
+            "value" : "You haven't blocked any posts. You can a block post by pressing and holding it and select \"Block Post\" in the menu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "您没有屏蔽任何帖子。若要屏蔽帖子，可以长按它并选择屏蔽。"
           }
         }
       }

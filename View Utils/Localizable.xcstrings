@@ -123,10 +123,16 @@
     },
     "Screenshot Alert Content" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "根据社区公约，请勿将截图分享给非本树洞用户，感谢您的配合。"
+            "value" : "According to community guidelines, please do not share this screenshot on the Internet."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "根据社区公约，请勿将截图分享给非本校用户，感谢您的配合。"
           }
         }
       }
