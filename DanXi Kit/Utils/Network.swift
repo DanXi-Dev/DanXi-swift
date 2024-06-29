@@ -1,7 +1,7 @@
 import Foundation
 
 public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "https://auth.fduhole.com/api")
-public var forumURL = constructBaseURL(key: "fduhole_base_url", defaultURL: "https://www.fduhole.com/api")
+public var forumURL = constructBaseURL(key: "fduhole_base_url", defaultURL: "https://forum.fduhole.com/api")
 public var curriculumURL = constructBaseURL(key: "danke_base_url", defaultURL: "https://danke.fduhole.com/api")
 
 private func constructBaseURL(key: String, defaultURL: String) -> URL {
