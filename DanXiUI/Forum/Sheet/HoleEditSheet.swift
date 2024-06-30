@@ -22,7 +22,7 @@ struct HoleEditSheet: View {
     
     var body: some View {
         Sheet(String(localized: "Edit Post Info", bundle: .module)) {
-            let hole = try await ForumAPI.modifyHole(id: hole.id, lock: lock, tags: tags, hidden: hidden)
+            let hole = try await ForumAPI.modifyHole(id: hole.id, divisionId: divisionId, lock: lock, tags: tags, hidden: hidden)
             await MainActor.run {
                 model.hole = hole
             }
