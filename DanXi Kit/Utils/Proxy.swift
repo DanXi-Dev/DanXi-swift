@@ -42,12 +42,10 @@ class Proxy {
 
         let proxiedURLString: String
         switch host {
-        case "www.fduhole.com":
-            let path = url.absoluteString.trimmingPrefix("https://www.fduhole.com")
-            proxiedURLString = "https://webvpn.fudan.edu.cn/https/77726476706e69737468656265737421e7e056d221347d5871048ce29b5a2e" + path
-        case "fduhole-admin.fduhole.com":
-            let path = url.absoluteString.trimmingPrefix("https://fduhole-admin.fduhole.com")
-            proxiedURLString = "https://webvpn.fudan.edu.cn/http/77726476706e69737468656265737421f6f35494283c6d1d7f0c84a5961b2531922257750cb3fc25b0" + path
+            
+        case "forum.fduhole.com":
+            let path = url.absoluteString.trimmingPrefix("https://forum.fduhole.com")
+            proxiedURLString = "https://webvpn.fudan.edu.cn/https/77726476706e69737468656265737421f6f853892a7e6e546b0086a09d1b203a46" + path
         case "auth.fduhole.com":
             let path = url.absoluteString.trimmingPrefix("https://auth.fduhole.com")
             proxiedURLString = "https://webvpn.fudan.edu.cn/https/77726476706e69737468656265737421f1e2559469366c45760785a9d6562c38" + path
