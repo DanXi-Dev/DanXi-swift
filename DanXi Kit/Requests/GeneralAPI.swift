@@ -40,7 +40,7 @@ public enum GeneralAPI {
     }
     
     public static func sendVerificationEmail(email: String) async throws {
-        try await requestWithoutResponse("/verify/email", base: authURL, protected: false, payload: ["email": email])
+        try await requestWithoutResponse("/verify/email", base: authURL, protected: false, params: ["email": email], method: "GET")
     }
     
     // MARK: Question
