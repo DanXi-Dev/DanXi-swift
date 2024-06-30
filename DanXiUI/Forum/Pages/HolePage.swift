@@ -282,10 +282,10 @@ private struct HolePageSheets<Label: View>: View {
             }
             .alert(String(localized: "Delete Floor", bundle: .module), isPresented: $model.showDeleteAlert) {
                 Button(role: .destructive) {
+                    guard let floor = model.deleteAlertItem else { return }
+                    model.deleteAlertItem = nil
                     Task {
-                        if let floor = model.deleteAlertItem {
-                            try await model.deleteFloor(floorId: floor.id)
-                        }
+                        try await model.deleteFloor(floorId: floor.id)
                     }
                 } label: {
                     Text("Delete", bundle: .module)

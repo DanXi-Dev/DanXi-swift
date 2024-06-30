@@ -361,9 +361,7 @@ class HoleModel: ObservableObject {
     var showDeleteAlert: Bool {
         get { deleteAlertItem != nil }
         set {
-            if newValue == false {
-                deleteAlertItem = nil
-            }
+            // do nothing
         }
     }
 }
