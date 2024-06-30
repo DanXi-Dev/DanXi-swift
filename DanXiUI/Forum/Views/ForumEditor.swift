@@ -1,9 +1,9 @@
+import Combine
 import PhotosUI
 import SwiftUI
 import SwiftUIX
 import ViewUtils
 import DanXiKit
-
 
 public struct ForumEditor: View {
     @EnvironmentObject.Optional private var holeModel: HoleModel?
@@ -14,7 +14,8 @@ public struct ForumEditor: View {
     public init(content: Binding<String>, initiallyFocused: Bool = false) {
         _content = content
         self.initiallyFocused = initiallyFocused
-        let model = ForumEditorModel(content: content.wrappedValue)
+//        let model = ForumEditorModel(content: content.wrappedValue)
+        let model = ForumEditorModel()
         self._model = StateObject(wrappedValue: model)
     }
     
@@ -29,8 +30,11 @@ public struct ForumEditor: View {
     
     public var body: some View {
         previewSelector
-            .onChange(of: model.content) { content = $0 }
-            .onChange(of: content) { model.content = $0 }
+            .onReceive(model.contentPublisher) {
+                content = $0
+            }
+//            .onChange(of: model.content) { content = $0 }
+//            .onChange(of: content) { model.content = $0 }
             .photosPicker(isPresented: $presentPhotoPicker, selection: $model.photo, matching: .images)
             .sheet(isPresented: $showStickers) {
                 stickerPicker
@@ -69,7 +73,7 @@ public struct ForumEditor: View {
     
     private var preview: some View {
         Section {
-            ForumContentPreview(content: model.content, contextFloors: holeModel?.floors.map({ $0.floor }) ?? [])
+            ForumContentPreview(content: content, contextFloors: holeModel?.floors.map({ $0.floor }) ?? [])
         }
     }
     
@@ -80,7 +84,7 @@ public struct ForumEditor: View {
                 .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
             #endif
             
-            TextEditor {
+            TextEditor(initialContent: content) {
                 Divider()
                 toolbar
                     .padding(.horizontal)
@@ -98,9 +102,9 @@ public struct ForumEditor: View {
                 IQKeyboardManager.shared.enable = false // Disable to prevent side effects to other TextFields
             }
             .environmentObject(model)
-            .frame(height: model.height ?? model.minHeight)
+            .frame(height: 300)
             .overlay(alignment: .topLeading) {
-                if model.content.isEmpty {
+                if content.isEmpty {
                     Group {
                         if #available(iOS 17, *) {
                             Text("Enter post content", bundle: .module)
@@ -219,10 +223,9 @@ public struct ForumEditor: View {
 
 @MainActor
 private class ForumEditorModel: ObservableObject {
-    @Published var content: String
-    @Published var selection: Range<String.Index>?
-    @Published var height: CGFloat?
-    let minHeight: CGFloat = 200
+    let contentPublisher = PassthroughSubject<String, Never>()
+    // TODO: auto adjust height
+    weak var textView: UITextView?
     
     @Published var photo: PhotosPickerItem? {
         didSet {
@@ -236,37 +239,54 @@ private class ForumEditorModel: ObservableObject {
     @Published var showUploadError = false
     @Published var uploadError: Error?
     
-    init(content: String) {
-        self.content = content
-    }
-    
-    func insertModifier(before: String, after: String) {
-        if let selection {
-            let selectedContent = content[selection]
-            content.replaceSubrange(selection, with: before + selectedContent + after)
-            
-            if selection.isEmpty {
-                let position = content.index(selection.lowerBound, offsetBy: before.count)
-                self.selection = position..<position
-            } else {
-                let newBefore = selection.lowerBound
-                let newAfter = content.index(selection.upperBound, offsetBy: before.count + after.count)
-                self.selection = newBefore..<newAfter
-            }
-        } else {
-            content.append(before + after)
-            let position = content.index(content.endIndex, offsetBy: -after.count)
-            self.selection = position..<position
+    private func updateSelection(selection: Range<String.Index>?) {
+        if let selection, let textView, selection.lowerBound < textView.text.endIndex {
+            textView.selectedRange = NSRange(selection, in: textView.text)
         }
     }
     
-    func insertTextAtCursor(_ text: String) {
-        if let selection {
-            content.insert(contentsOf: text, at: selection.lowerBound)
-            let newCursorPosition = content.index(selection.lowerBound, offsetBy: text.count)
-            self.selection = newCursorPosition..<newCursorPosition
+    func insertModifier(before: String, after: String) {
+        guard let textView else { return }
+        guard var text = textView.text else { return }
+        var selection = Range(textView.selectedRange, in: textView.text)
+        
+        if var selection {
+            let selectedContent = text[selection]
+            text.replaceSubrange(selection, with: before + selectedContent + after)
+            textView.text = text
+            
+            if selection.isEmpty {
+                let position = text.index(selection.lowerBound, offsetBy: before.count)
+                selection = position..<position
+                updateSelection(selection: selection)
+            } else {
+                let newBefore = selection.lowerBound
+                let newAfter = text.index(selection.upperBound, offsetBy: before.count + after.count)
+                selection = newBefore..<newAfter
+                updateSelection(selection: selection)
+            }
         } else {
-            content.append(text)
+            text.append(before + after)
+            let position = text.index(text.endIndex, offsetBy: -after.count)
+            selection = position..<position
+            updateSelection(selection: selection)
+        }
+    }
+    
+    func insertTextAtCursor(_ insertedContent: String) {
+        guard let textView else { return }
+        guard var text = textView.text else { return }
+        let selection = Range(textView.selectedRange, in: textView.text)
+        
+        if let selection {
+            text.insert(contentsOf: insertedContent, at: selection.lowerBound)
+            let newCursorPosition = text.index(selection.lowerBound, offsetBy: insertedContent.count)
+            let newSelection = newCursorPosition..<newCursorPosition
+            textView.text = text
+            updateSelection(selection: newSelection)
+        } else {
+            text.append(insertedContent)
+            textView.text = text
         }
     }
     
@@ -281,8 +301,8 @@ private class ForumEditorModel: ObservableObject {
     
     func uploadImageData(data: Data) {
         uploadingTask = Task {
-            uploading = true
-            defer { uploading = false }
+            // TODO: show alert, there are concurrent bugs, should be fixed in next release
+//            uploading = true
             
             do {
                 let imageURL = try await GeneralAPI.uploadImage(data)
@@ -302,6 +322,7 @@ private class ForumEditorModel: ObservableObject {
 private struct TextEditor<Toolbar: View>: UIViewRepresentable {
     @EnvironmentObject private var model: ForumEditorModel
     
+    let initialContent: String
     @ViewBuilder let toolbar: () -> Toolbar
     
     class Coordinator: NSObject, UITextViewDelegate {
@@ -313,13 +334,7 @@ private struct TextEditor<Toolbar: View>: UIViewRepresentable {
         
         func textViewDidChange(_ textView: UITextView) {
             DispatchQueue.main.async {
-                self.model.content = textView.text
-            }
-        }
-        
-        func textViewDidChangeSelection(_ textView: UITextView) {
-            DispatchQueue.main.async {
-                self.model.selection = Range(textView.selectedRange, in: textView.text)
+                self.model.contentPublisher.send(textView.text)
             }
         }
     }
@@ -332,6 +347,7 @@ private struct TextEditor<Toolbar: View>: UIViewRepresentable {
         let textView = UITextViewWithImagePasting { data in
             model.uploadImageData(data: data)
         }
+        textView.text = initialContent
         textView.isEditable = true
         textView.delegate = context.coordinator
         textView.font = UIFont.preferredFont(forTextStyle: .body)
@@ -344,23 +360,13 @@ private struct TextEditor<Toolbar: View>: UIViewRepresentable {
         toolbarHostingVC.view.backgroundColor = .tertiarySystemBackground
         textView.inputAccessoryView = toolbarHostingVC.view
         
+        model.textView = textView
+        
         return textView
     }
     
     func updateUIView(_ textView: UITextView, context: Context) {
-        textView.text = model.content
-        if let selection = model.selection, selection.lowerBound < model.content.endIndex {
-            textView.selectedRange = NSRange(selection, in: textView.text)
-        }
-        
-        DispatchQueue.main.async { IQKeyboardManager.shared.reloadLayoutIfNeeded() }
-        
-        let newHeight = max(textView.contentSize.height, model.minHeight)
-        if model.height != newHeight { // prevent circular update, without this, picker will not function properly
-            DispatchQueue.main.async {
-                model.height = newHeight
-            }
-        }
+        // do nothing
     }
 }
 
