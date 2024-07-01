@@ -30,7 +30,7 @@ struct CurriculumPostSheet: View {
     var body: some View {
         Sheet(String(localized: "New Review", bundle: .module)) {
             let rank = Rank(overall: Double(overallRating), content: Double(contentRating), workload: Double(workloadRating), assessment: Double(assessmentRating))
-            _ = try await CurriculumAPI.createReview(courseId: courseId, title: content, content: title, rank: rank)
+            _ = try await CurriculumAPI.createReview(courseId: courseId, title: title, content: content, rank: rank)
         } content: {
             Section {
                 Picker(selection: $courseId) {
