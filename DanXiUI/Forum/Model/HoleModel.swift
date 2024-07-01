@@ -336,7 +336,7 @@ class HoleModel: ObservableObject {
     }
     
     func punish(floorId: Int, reason: String, days: Int) async throws {
-        let floor = try await ForumAPI.deleteFloor(id: floorId)
+        let floor = try await ForumAPI.deleteFloor(id: floorId, reason: reason)
         await replaceFloor(floor: floor)
         if days > 0 {
             try await ForumAPI.penaltyForFloor(id: floorId, reason: reason, days: days)
