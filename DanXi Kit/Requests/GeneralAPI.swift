@@ -108,7 +108,7 @@ public enum GeneralAPI {
         data.append("\r\n--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
         
         // request and process response
-        let (responseData, _) = try await URLSession.shared.upload(for: request, from: data)
+        let (responseData, _) = try await Proxy.shared.upload(for: request, from: data)
         guard let responseObject = try? JSON(data: responseData),
               let urlString = responseObject["image", "url"].string,
               let url = URL(string: urlString) else {

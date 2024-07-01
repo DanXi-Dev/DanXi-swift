@@ -1,9 +1,23 @@
 import Foundation
-import KeychainAccess
 import FudanKit
+import KeychainAccess
 
-class Proxy {
-    static let shared = Proxy()
+public class Proxy {
+    public static let shared = Proxy()
+    
+    public var shouldUseProxy: Bool {
+        ProxySettings.shared.enableProxy && FudanKit.CredentialStore.shared.credentialPresent
+    }
+    
+    func upload(for request: URLRequest, from bodyData: Data) async throws -> (Data, URLResponse) {
+        guard ProxySettings.shared.enableProxy, FudanKit.CredentialStore.shared.credentialPresent else {
+            return try await URLSession.shared.upload(for: request, from: bodyData)
+        }
+        
+        let proxiedRequest = createProxiedRequest(request: request)
+        // we do not try to relogin here, because it's highly unlikely to fail
+        return try await URLSession.shared.upload(for: proxiedRequest, from: bodyData)
+    }
     
     func data(for request: URLRequest) async throws -> (Data, URLResponse) {
         guard FudanKit.CredentialStore.shared.credentialPresent else {
@@ -26,7 +40,7 @@ class Proxy {
         let proxiedRequest = createProxiedRequest(request: request)
         let (data, response) = try await FudanKit.Authenticator.shared.authenticateWithResponse(proxiedRequest, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
         if let responseURL = response.url,
-              !responseURL.absoluteString.hasPrefix("https://webvpn.fudan.edu.cn/login") {
+           !responseURL.absoluteString.hasPrefix("https://webvpn.fudan.edu.cn/login") {
             return (data, response) // successful return
         }
         
@@ -35,14 +49,13 @@ class Proxy {
         return try await FudanKit.Authenticator.shared.authenticateWithResponse(proxiedRequest, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
     }
     
-    private func createProxiedRequest(request: URLRequest) -> URLRequest {
-        guard let url = request.url, let host = url.host else {
-            return request
+    public func createProxiedURL(url: URL) -> URL {
+        guard let host = url.host else {
+            return url
         }
-
+        
         let proxiedURLString: String
         switch host {
-            
         case "forum.fduhole.com":
             let path = url.absoluteString.trimmingPrefix("https://forum.fduhole.com")
             proxiedURLString = "https://webvpn.fudan.edu.cn/https/77726476706e69737468656265737421f6f853892a7e6e546b0086a09d1b203a46" + path
@@ -52,13 +65,26 @@ class Proxy {
         case "danke.fduhole.com":
             let path = url.absoluteString.trimmingPrefix("https://danke.fduhole.com")
             proxiedURLString = "https://webvpn.fudan.edu.cn/https/77726476706e69737468656265737421f4f64f97227e6e546b0086a09d1b203a73" + path
+        case "image.fduhole.com":
+            let path = url.absoluteString.trimmingPrefix("https://image.fduhole.com")
+            proxiedURLString = "https://webvpn.fudan.edu.cn/https/77726476706e69737468656265737421f9fa409b227e6e546b0086a09d1b203ab8" + path
         default:
+            return url
+        }
+            
+        guard let proxiedURL = URL(string: proxiedURLString) else {
+            return url
+        }
+        
+        return proxiedURL
+    }
+    
+    private func createProxiedRequest(request: URLRequest) -> URLRequest {
+        guard let url = request.url else {
             return request
         }
 
-        guard let proxiedURL = URL(string: proxiedURLString) else {
-            return request
-        }
+        let proxiedURL = createProxiedURL(url: url)
 
         var proxiedRequest = URLRequest(url: proxiedURL)
         proxiedRequest.allHTTPHeaderFields = request.allHTTPHeaderFields

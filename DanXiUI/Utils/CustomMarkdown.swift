@@ -1,3 +1,4 @@
+import DanXiKit
 import LaTeXSwiftUI
 import MarkdownUI
 import SwiftUI
@@ -31,8 +32,8 @@ public struct CustomMarkdown: View {
     }
     
     public var body: some View {
-        Markdown(content)
-            .markdownTheme(theme)
+        Markdown(self.content)
+            .markdownTheme(self.theme)
             .markdownImageProvider(CustomImageProvider())
             .markdownInlineImageProvider(ImageProviderWithSticker())
     }
@@ -48,20 +49,27 @@ struct ImageProviderWithSticker: InlineImageProvider {
     }
 }
 
-
 struct CustomImageProvider: ImageProvider {
     func makeImage(url: URL?) -> some View {
         Group {
-            if let url = url {
+            if let url {
                 if let sticker = Sticker(rawValue: url.absoluteString) {
                     sticker.image
                 } else {
-                    ImageView(url)
+                    ImageView(proxiedImageURL(url: url))
                 }
             } else {
                 EmptyView()
             }
         }
+    }
+    
+    private func proxiedImageURL(url: URL) -> URL {
+        guard Proxy.shared.shouldUseProxy else {
+            return url
+        }
+        
+        return Proxy.shared.createProxiedURL(url: url)
     }
 }
 
@@ -70,7 +78,7 @@ extension String {
     func stripToBasicMarkdown() -> String {
         let text = NSMutableString(string: self)
         
-        _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: String(localized:"formula_tag", bundle: .module))
+        _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: String(localized: "formula_tag", bundle: .module))
         _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: String(localized: "image_tag", bundle: .module))
 //        _ = try? NSRegularExpression(pattern: #"#{1,2}[0-9]+\s*"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: "")
         
