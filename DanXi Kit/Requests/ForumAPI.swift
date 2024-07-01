@@ -94,14 +94,14 @@ public enum ForumAPI {
         return try await requestWithResponse("/floors/\(id)", base: forumURL)
     }
     
-    public static func modifyFloor(id: Int, content: String, specialTag: String? = nil, fold: String? = nil) async throws -> Floor {
+    public static func modifyFloor(id: Int, content: String, specialTag: String?, fold: String?) async throws -> Floor {
         var payload: [String: Any] = ["content": content]
         
-        if let specialTag = specialTag {
+        if let specialTag {
             payload["special_tag"] = specialTag
         }
         
-        if let fold = fold {
+        if let fold {
             payload["fold_v2"] = fold
         }
         

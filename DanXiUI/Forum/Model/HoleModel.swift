@@ -320,7 +320,7 @@ class HoleModel: ObservableObject {
         }
     }
     
-    func modifyFloor(floorId: Int, content: String, specialTag: String?, fold: String?) async throws {
+    func modifyFloor(floorId: Int, content: String, specialTag: String? = nil, fold: String? = nil) async throws {
         let floor = try await ForumAPI.modifyFloor(id: floorId, content: content, specialTag: specialTag, fold: fold)
         await replaceFloor(floor: floor)
     }
