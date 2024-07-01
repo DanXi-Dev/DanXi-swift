@@ -92,9 +92,6 @@ extension ImageBrowserCoordinator: QLPreviewControllerDataSource {
     }
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> any QLPreviewItem {
-        if allRemoteURL.isEmpty {
-            return PreviewItem(fileURL)
-        }
         let remoteURL = allRemoteURL[index]
         if let previewItem = localURLMap[remoteURL] {
             return previewItem
