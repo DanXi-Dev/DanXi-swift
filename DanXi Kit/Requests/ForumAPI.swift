@@ -1,7 +1,6 @@
 import Foundation
 
 public enum ForumAPI {
-    
     private struct ServerResponse: Codable {
         let data: [Int]
     }
@@ -95,8 +94,17 @@ public enum ForumAPI {
         return try await requestWithResponse("/floors/\(id)", base: forumURL)
     }
     
-    public static func modifyFloor(id: Int, content: String, specialTag: String = "", fold: String = "") async throws -> Floor {
-        let payload: [String: Any] = ["content": content, "special_tag": specialTag, "fold_v2": fold]
+    public static func modifyFloor(id: Int, content: String, specialTag: String? = nil, fold: String? = nil) async throws -> Floor {
+        var payload: [String: Any] = ["content": content]
+        
+        if let specialTag = specialTag {
+            payload["special_tag"] = specialTag
+        }
+        
+        if let fold = fold {
+            payload["fold_v2"] = fold
+        }
+        
         return try await requestWithResponse("/floors/\(id)", base: forumURL, payload: payload, method: "PUT")
     }
     

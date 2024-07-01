@@ -8,8 +8,8 @@ struct FloorEditSheet: View {
     
     private let floorId: Int
     @State private var content: String
-    @State private var specialTag: String
-    @State private var foldReason: String
+    @State private var specialTag: String?
+    @State private var foldReason: String?
     
     init(floor: Floor) {
         self.floorId = floor.id
@@ -20,6 +20,10 @@ struct FloorEditSheet: View {
     
     var body: some View {
         Sheet(String(localized: "Edit Reply", bundle: .module)) {
+            if !profileStore.isAdmin {
+                specialTag = nil
+                foldReason = nil
+            }
             try await model.modifyFloor(floorId: floorId, content: content, specialTag: specialTag, fold: foldReason)
         } content: {
             if profileStore.isAdmin {
