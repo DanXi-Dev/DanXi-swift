@@ -1,6 +1,6 @@
+import DanXiKit
 import SwiftUI
 import ViewUtils
-import DanXiKit
 
 struct FloorEditSheet: View {
     @ObservedObject private var profileStore = ProfileStore.shared
@@ -20,7 +20,11 @@ struct FloorEditSheet: View {
     
     var body: some View {
         Sheet(String(localized: "Edit Reply", bundle: .module)) {
-            try await model.modifyFloor(floorId: floorId, content: content, specialTag: specialTag, fold: foldReason)
+            if !profileStore.isAdmin {
+                try await model.modifyFloor(floorId: floorId, content: content)
+            } else {
+                try await model.modifyFloor(floorId: floorId, content: content, specialTag: specialTag, fold: foldReason)
+            }
         } content: {
             if profileStore.isAdmin {
                 Section {
