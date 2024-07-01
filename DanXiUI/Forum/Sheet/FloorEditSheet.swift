@@ -8,12 +8,14 @@ struct FloorEditSheet: View {
     
     private let floorId: Int
     @State private var content: String
-    @State private var specialTag = ""
-    @State private var foldReason = ""
+    @State private var specialTag: String
+    @State private var foldReason: String
     
     init(floor: Floor) {
         self.floorId = floor.id
         self._content = State(initialValue: floor.content)
+        self._specialTag = State(initialValue: floor.specialTag)
+        self._foldReason = State(initialValue: floor.fold)
     }
     
     var body: some View {
