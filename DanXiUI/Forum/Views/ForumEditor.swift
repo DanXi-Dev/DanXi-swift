@@ -245,6 +245,11 @@ private class ForumEditorModel: ObservableObject {
         }
     }
     
+    private func uopdateText(text: String) {
+        textView?.text = text
+        contentPublisher.send(text)
+    }
+    
     func insertModifier(before: String, after: String) {
         guard let textView else { return }
         guard var text = textView.text else { return }
@@ -253,7 +258,8 @@ private class ForumEditorModel: ObservableObject {
         if var selection {
             let selectedContent = text[selection]
             text.replaceSubrange(selection, with: before + selectedContent + after)
-            textView.text = text
+            uopdateText(text: text)
+            contentPublisher.send(text)
             
             if selection.isEmpty {
                 let position = text.index(selection.lowerBound, offsetBy: before.count)
@@ -282,11 +288,11 @@ private class ForumEditorModel: ObservableObject {
             text.insert(contentsOf: insertedContent, at: selection.lowerBound)
             let newCursorPosition = text.index(selection.lowerBound, offsetBy: insertedContent.count)
             let newSelection = newCursorPosition..<newCursorPosition
-            textView.text = text
+            uopdateText(text: text)
             updateSelection(selection: newSelection)
         } else {
             text.append(insertedContent)
-            textView.text = text
+            uopdateText(text: text)
         }
     }
     
