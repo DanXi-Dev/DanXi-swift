@@ -228,7 +228,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦夕账户由旦夕团队提供，用于访问茶楼、蛋壳课评等社区服务。旦夕账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
           }
         }
@@ -310,7 +310,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦夕账户"
           }
         }
@@ -326,7 +326,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "茶楼"
           }
         }
@@ -336,7 +336,7 @@
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "茶楼"
           }
         }
@@ -506,7 +506,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "根据[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)，用户不得外传截图。因此造成恶劣影响者，管理团队有权永久停用其账户并追究责任。"
           }
         }

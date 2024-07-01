@@ -131,7 +131,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "根据社区公约，请勿将截图分享给非本校用户，感谢您的配合。"
           }
         }

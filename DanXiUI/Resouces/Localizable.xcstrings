@@ -606,7 +606,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦夕账户用于访问茶楼、蛋壳等社区服务"
           }
         }
@@ -632,7 +632,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "用户在使用茶楼前均需完成入站答题。答题时请参考 [常见问题和协议条款](https://danxi.fduhole.com/doc)。"
           }
         }
@@ -953,7 +953,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "输入置顶帖编号（仅数字）"
           }
         }
@@ -1029,7 +1029,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦夕账户"
           }
         }
@@ -1153,7 +1153,7 @@
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "茶楼"
           }
         }
@@ -1219,7 +1219,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "隐藏此帖"
           }
         }
@@ -1426,7 +1426,7 @@
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "我的帖子"
           }
         }
@@ -1590,7 +1590,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "关注的帖子有新回复时"
           }
         }
@@ -2677,7 +2677,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "您没有屏蔽任何帖子。若要屏蔽帖子，可以长按它并选择屏蔽。"
           }
         }
