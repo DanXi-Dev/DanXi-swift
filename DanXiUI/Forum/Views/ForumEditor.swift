@@ -311,7 +311,7 @@ private class ForumEditorModel: ObservableObject {
             
             do {
                 let imageURL = try await GeneralAPI.uploadImage(data)
-                insertTextAtCursor("![](\(imageURL.absoluteString))")
+                insertTextAtCursor("\n![](\(imageURL.absoluteString))\n")
             } catch _ as CancellationError {
                 // ignore
             } catch URLError.cancelled {
