@@ -140,6 +140,7 @@ struct HoleView: View {
             Text(verbatim: "#\(String(hole.id))")
             if hole.hidden {
                 Image(systemName: "eye.slash")
+                    .foregroundStyle(.orange)
             }
             Spacer()
             Text(hole.timeCreated.autoFormatted())
