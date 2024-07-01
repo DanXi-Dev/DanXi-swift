@@ -77,7 +77,7 @@ public struct Sensitive: Identifiable, Hashable, Codable {
     public let sensitiveDetail: String?
 }
 
-public struct Message: Identifiable, Hashable, Codable {
+public struct Message: Identifiable, Hashable, Decodable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
     public let description: String

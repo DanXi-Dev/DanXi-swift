@@ -173,8 +173,7 @@ extension Message {
         case timeUpdated
         case description
         case code
-        case floor
-        case report
+        case data
     }
     
     public init(from decoder: any Decoder) throws {
@@ -185,20 +184,16 @@ extension Message {
         timeUpdated = try container.decode(Date.self, forKey: .timeUpdated)
         description = try container.decode(String.self, forKey: .description)
         type = (try? container.decode(MessageType.self, forKey: .code)) ?? .mail
-        floor = try container.decodeIfPresent(Floor.self, forKey: .floor)
-        report = try container.decodeIfPresent(Report.self, forKey: .report)
-    }
-    
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(id, forKey: .id)
-        try container.encode(timeCreated, forKey: .timeCreated)
-        try container.encode(timeUpdated, forKey: .timeUpdated)
-        try container.encode(description, forKey: .description)
-        try container.encode(type, forKey: .code)
-        try container.encode(floor, forKey: .floor)
-        try container.encode(report, forKey: .report)
+        if let floor = try? container.decodeIfPresent(Floor.self, forKey: .data) {
+            self.floor = floor
+            report = nil
+        } else if let report = try? container.decodeIfPresent(Report.self, forKey: .data) {
+            floor = nil
+            self.report = report
+        } else {
+            floor = nil
+            report = nil
+        }
     }
 }
 
