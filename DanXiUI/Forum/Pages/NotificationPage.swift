@@ -37,9 +37,9 @@ private struct NotificationContent: View {
                             NotificationView(message: message)
                         }
                     }
-                    #if targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst)
                     .listRowBackground(Color.clear)
-                    #endif
+#endif
                 }
                 .listStyle(.inset)
             }
@@ -113,24 +113,24 @@ extension Message {
         }
     }
     
-    public var title: LocalizedStringKey {
+    public var title: String {
         switch self.type {
         case .favorite:
-            "New reply in favorites"
+            String(localized: "New reply in favorites", bundle: .module)
         case .reply:
-            "New reply"
+            String(localized: "New reply", bundle: .module)
         case .mention:
-            "Mentioned"
+            String(localized: "Mentioned", bundle: .module)
         case .modify:
-            "Violation notice"
+            String(localized: "Violation notice", bundle: .module)
         case .permission:
-            "Ban notice"
+            String(localized: "Ban notice", bundle: .module)
         case .report:
-            "New Report"
+            String(localized: "New Report", bundle: .module)
         case .reportDealt:
-            "Report feedback"
+            String(localized: "Report feedback", bundle: .module)
         case .mail:
-            "System mail"
+            String(localized:  "System mail", bundle: .module)
         }
     }
 }
