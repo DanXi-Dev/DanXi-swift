@@ -24,7 +24,7 @@ extension CourseGroup {
             let semester = Semester(year: course.year, semester: course.semester)
             semesters.insert(semester)
         }
-        return Array(semesters)
+        return Array(semesters).sorted(by: { $0.id > $1.id })
     }
 }
 

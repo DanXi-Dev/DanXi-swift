@@ -83,16 +83,6 @@
         }
       }
     },
-    "%@ Fall Semester" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@秋季学期"
-          }
-        }
-      }
-    },
     "%@ replied %@:" : {
       "localizations" : {
         "zh-Hans" : {
@@ -103,32 +93,66 @@
         }
       }
     },
-    "%@ Spring Semester" : {
+    "%@-%@ Fall Semester" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@-%2$@ Fall Semester"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@春季学期"
+            "value" : "%1$@-%2$@ 学年秋季学期"
           }
         }
       }
     },
-    "%@ Summer Vacation" : {
+    "%@-%@ Spring Semester" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@-%2$@ Spring Semester"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@暑假"
+            "value" : "%1$@-%2$@ 学年春季学期"
           }
         }
       }
     },
-    "%@ Winter Vacation" : {
+    "%@-%@ Summer Vacation" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@-%2$@ Summer Vacation"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@寒假"
+            "value" : "%1$@-%2$@ 学年暑假学期"
+          }
+        }
+      }
+    },
+    "%@-%@ Winter Vacation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@-%2$@ Winter Vacation"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-%2$@ 学年寒假学期"
           }
         }
       }

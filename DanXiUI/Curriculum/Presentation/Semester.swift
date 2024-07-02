@@ -9,13 +9,13 @@ struct Semester: Identifiable, Hashable {
     func formatted() -> String {
         switch semester {
         case 1:
-            return String(localized: "\(String(year)) Fall Semester", bundle: .module)
+            return String(localized: "\(String(year))-\(String(year + 1)) Fall Semester", bundle: .module)
         case 2:
-            return String(localized: "\(String(year)) Winter Vacation", bundle: .module)
+            return String(localized: "\(String(year))-\(String(year + 1)) Winter Vacation", bundle: .module)
         case 3:
-            return String(localized: "\(String(year)) Spring Semester", bundle: .module)
+            return String(localized: "\(String(year))-\(String(year + 1)) Spring Semester", bundle: .module)
         case 4:
-            return String(localized: "\(String(year)) Summer Vacation", bundle: .module)
+            return String(localized: "\(String(year))-\(String(year + 1)) Summer Vacation", bundle: .module)
         default:
             return "\(String(year)) - \(semester)"
         }
