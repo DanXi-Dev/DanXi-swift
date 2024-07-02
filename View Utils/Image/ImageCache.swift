@@ -9,7 +9,7 @@ struct LoadedImage {
     let fileURL: URL
 }
 
-func loadImage(_ url: URL) async throws -> LoadedImage {
+func loadImage(_ url: URL, proxiedURL: URL? = nil) async throws -> LoadedImage {
     if let loadedImage = await MemoryImageCache.shared.getImage(url) {
         return loadedImage
     }
@@ -18,7 +18,11 @@ func loadImage(_ url: URL) async throws -> LoadedImage {
         return loadedImage
     }
     
-    let (data, _) = try await URLSession.shared.data(from: url)
+    let (data, _) = if let proxiedURL {
+        try await URLSession.shared.data(from: proxiedURL)
+    } else { 
+        try await URLSession.shared.data(from: url)
+    }
     guard let uiImage = UIImage(data: data) else { throw URLError(.badServerResponse) }
     let image = Image(uiImage: uiImage)
     let key = makeImageKey(url)

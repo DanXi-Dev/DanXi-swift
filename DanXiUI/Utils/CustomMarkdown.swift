@@ -55,21 +55,15 @@ struct CustomImageProvider: ImageProvider {
             if let url {
                 if let sticker = Sticker(rawValue: url.absoluteString) {
                     sticker.image
+                } else if Proxy.shared.shouldUseProxy {
+                    ImageView(url, proxiedURL: Proxy.shared.createProxiedURL(url: url))
                 } else {
-                    ImageView(proxiedImageURL(url: url))
+                    ImageView(url)
                 }
             } else {
                 EmptyView()
             }
         }
-    }
-    
-    private func proxiedImageURL(url: URL) -> URL {
-        guard Proxy.shared.shouldUseProxy else {
-            return url
-        }
-        
-        return Proxy.shared.createProxiedURL(url: url)
     }
 }
 

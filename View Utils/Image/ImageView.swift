@@ -11,16 +11,18 @@ public struct ImageView: View {
     @State private var showSensitive = false
     @State private var loadingStatus: LoadingStatus = .loading
     private let url: URL
+    private let proxiedURL: URL?
     
-    public init(_ url: URL) {
+    public init(_ url: URL, proxiedURL: URL? = nil) {
         self.url = url
+        self.proxiedURL = proxiedURL
     }
     
     func load() {
         Task(priority: .medium) {
             await MainActor.run { loadingStatus = .loading }
             do {
-                let loadedImage = try await loadImage(url)
+                let loadedImage = try await loadImage(url, proxiedURL: proxiedURL)
                 await MainActor.run { loadingStatus = .loaded(image: loadedImage) }
             } catch {
                 await MainActor.run { loadingStatus = .error(error: error) }
