@@ -52,7 +52,13 @@ public class Proxy {
         
         // unauthorized, try login WebVPN
         try await authenticator.reauthenticate()
-        return try await URLSession.shared.data(for: proxiedRequest)
+        let (secondData, secondResponse) = try await URLSession.shared.data(for: proxiedRequest)
+        if let responseURL = secondResponse.url,
+           !responseURL.path().hasPrefix("/login") {
+            return (secondData, secondResponse) // successful return
+        }
+        
+        throw WebVPNError(url: request.url)
     }
     
     public func createProxiedURL(url: URL) -> URL {
@@ -111,7 +117,9 @@ actor ProxyAuthenticator {
         if isLogged { return }
         
         if let authenticationTask {
+            defer { self.authenticationTask = nil }
             try await authenticationTask.value
+            
             return
         }
         
@@ -121,6 +129,7 @@ actor ProxyAuthenticator {
             _ = try await URLSession.shared.data(from: tokenURL)
         }
         authenticationTask = task
+        defer { authenticationTask = nil }
         try await task.value
         isLogged = true
     }
@@ -130,6 +139,7 @@ actor ProxyAuthenticator {
         isLogged = false
         
         if let reauthenticationTask {
+            defer { self.reauthenticationTask = nil }
             try await reauthenticationTask.value
             isLogged = true
             return
@@ -137,12 +147,23 @@ actor ProxyAuthenticator {
         
         let task = Task {
             let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
-            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
+            let tokenURL = try! await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
             _ = try await URLSession.shared.data(from: tokenURL)
         }
         reauthenticationTask = task
+        defer { reauthenticationTask = nil }
         try await task.value
         isLogged = true
+    }
+}
+
+struct WebVPNError: Error {
+    let url: URL?
+}
+
+extension WebVPNError: LocalizedError {
+    public var errorDescription: String? {
+        String(localized: "VPN Error", bundle: .module)
     }
 }
 
