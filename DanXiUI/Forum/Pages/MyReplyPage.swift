@@ -9,8 +9,14 @@ struct MyReplyPage: View {
                 try await ForumAPI.listMyFloors(offset: floors.count)
             } content: { floor in
                 Section {
-                    DetailLink(value: HoleLoader(floor)) {
-                        SimpleFloorView(floor: floor)
+                    FoldedView(expand: !floor.deleted) {
+                        Text("Deleted Floor", bundle: .module)
+                            .foregroundStyle(.secondary)
+                            .tint(.primary)
+                    } content: {
+                        DetailLink(value: HoleLoader(floor)) {
+                            SimpleFloorView(floor: floor)
+                        }
                     }
                     .listRowInsets(EdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12))
                 }

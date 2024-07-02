@@ -708,6 +708,16 @@
         }
       }
     },
+    "Deleted Floor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已删除的回帖"
+          }
+        }
+      }
+    },
     "Department" : {
       "localizations" : {
         "zh-Hans" : {
