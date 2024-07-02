@@ -144,7 +144,7 @@ public enum ForumAPI {
     }
     
     public static func listMyFloors(offset: Int) async throws -> [Floor] {
-        let params = ["offset": String(offset)]
+        let params = ["offset": String(offset), "order_by": "id", "sort": "desc"]
         return try await requestWithResponse("/users/me/floors", base: forumURL, params: params)
     }
     
