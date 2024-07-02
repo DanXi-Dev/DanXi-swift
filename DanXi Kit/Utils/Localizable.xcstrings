@@ -22,7 +22,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "登录凭据失效，请重新登录"
+            "value" : "登录凭据失效，请重新登录。"
           }
         }
       }
@@ -38,7 +38,20 @@
       }
     },
     "VPN Error" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your requests are too frequent, please try again later. If this problem persists, please disable the automatic proxy in the settings of this App and access it under the campus network environment."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您的请求过于频繁，请稍后再试。如果此问题持续出现，请在本App设置中关闭自动代理后在校园网环境下访问。\n"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
