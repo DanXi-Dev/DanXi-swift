@@ -139,7 +139,9 @@ struct HolePage: View {
         
         Menu {
             AsyncButton {
-                try await model.toggleFavorite()
+                try await withHaptics {
+                    try await model.toggleFavorite()
+                }
             } label: {
                 if model.isFavorite {
                     Label(String(localized: "Unfavorite", bundle: .module), systemImage: "star.slash")
@@ -149,7 +151,9 @@ struct HolePage: View {
             }
             
             AsyncButton {
-                try await model.toggleSubscribe()
+                try await withHaptics {
+                    try await model.toggleSubscribe()
+                }
             } label: {
                 if model.subscribed {
                     Label(String(localized: "Unsubscribe", bundle: .module), systemImage: "bell.slash")
