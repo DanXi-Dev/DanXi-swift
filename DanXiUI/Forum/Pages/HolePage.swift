@@ -69,6 +69,9 @@ struct HolePage: View {
             .onAppear {
                 if let initialScroll = model.initialScroll {
                     model.scrollTo(floorId: initialScroll)
+                    // reset initial scroll to prevent the post from scrolling again.
+                    // the post would appear again, when, for example, user exit from image browser.
+                    model.initialScroll = nil
                 }
             }
             .onReceive(model.scrollControl) { id in

@@ -271,7 +271,7 @@ class HoleModel: ObservableObject {
     
     // MARK: - Scrolling
     
-    let initialScroll: Int?
+    @Published var initialScroll: Int?
     
     let scrollControl = PassthroughSubject<UUID, Never>()
     
