@@ -55,7 +55,7 @@ struct CustomImageProvider: ImageProvider {
             if let url {
                 if let sticker = Sticker(rawValue: url.absoluteString) {
                     sticker.image
-                } else if Proxy.shared.shouldUseProxy {
+                } else if Proxy.shared.shouldTryProxy, Proxy.shared.outsideCampus {
                     ImageView(url, proxiedURL: Proxy.shared.createProxiedURL(url: url))
                 } else {
                     ImageView(url)

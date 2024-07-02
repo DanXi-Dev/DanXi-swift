@@ -1,16 +1,20 @@
 import Foundation
 import FudanKit
 import KeychainAccess
+import SwiftUI
 
 public class Proxy {
     public static let shared = Proxy()
     
-    public var shouldUseProxy: Bool {
+    let authenticator = ProxyAuthenticator()
+    public var outsideCampus = false
+    
+    public var shouldTryProxy: Bool {
         ProxySettings.shared.enableProxy && FudanKit.CredentialStore.shared.credentialPresent
     }
     
     func upload(for request: URLRequest, from bodyData: Data) async throws -> (Data, URLResponse) {
-        guard ProxySettings.shared.enableProxy, FudanKit.CredentialStore.shared.credentialPresent else {
+        guard shouldTryProxy, outsideCampus else {
             return try await URLSession.shared.upload(for: request, from: bodyData)
         }
         
@@ -20,33 +24,35 @@ public class Proxy {
     }
     
     func data(for request: URLRequest) async throws -> (Data, URLResponse) {
-        guard FudanKit.CredentialStore.shared.credentialPresent else {
+        guard shouldTryProxy else {
             return try await URLSession.shared.data(for: request)
         }
         
         // try direct request once
-        if !ProxySettings.shared.enableProxy {
+        if !outsideCampus {
             do {
                 let config = URLSessionConfiguration.default
                 config.timeoutIntervalForRequest = 2.0
                 let session = URLSession(configuration: config)
                 return try await session.data(for: request)
             } catch URLError.timedOut {
-                ProxySettings.shared.enableProxy = true
+                outsideCampus = true
             }
         }
         
         // use proxy
+        try await authenticator.tryAuthenticate()
+        
         let proxiedRequest = createProxiedRequest(request: request)
-        let (data, response) = try await FudanKit.Authenticator.shared.authenticateWithResponse(proxiedRequest, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
+        let (data, response) = try await URLSession.shared.data(for: proxiedRequest)
         if let responseURL = response.url,
-           !responseURL.absoluteString.hasPrefix("https://webvpn.fudan.edu.cn/login") {
+           !responseURL.path().hasPrefix("/login") {
             return (data, response) // successful return
         }
         
         // unauthorized, try login WebVPN
-        _ = try await FudanKit.Authenticator.shared.authenticate(URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
-        return try await FudanKit.Authenticator.shared.authenticateWithResponse(proxiedRequest, manualLoginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
+        try await authenticator.reauthenticate()
+        return try await URLSession.shared.data(for: proxiedRequest)
     }
     
     public func createProxiedURL(url: URL) -> URL {
@@ -71,7 +77,7 @@ public class Proxy {
         default:
             return url
         }
-            
+        
         guard let proxiedURL = URL(string: proxiedURLString) else {
             return url
         }
@@ -94,8 +100,54 @@ public class Proxy {
     }
 }
 
+/// An authenticator for WebVPN service to prevent race conditions
+actor ProxyAuthenticator {
+    var isLogged = false
+    var authenticationTask: Task<Void, Error>? = nil
+    var reauthenticationTask: Task<Void, Error>? = nil
+    
+    /// Pre-authenticate before every request
+    func tryAuthenticate() async throws {
+        if isLogged { return }
+        
+        if let authenticationTask {
+            try await authenticationTask.value
+            return
+        }
+        
+        let task = Task {
+            let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
+            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
+            _ = try await URLSession.shared.data(from: tokenURL)
+        }
+        authenticationTask = task
+        try await task.value
+        isLogged = true
+    }
+    
+    /// Re-authenticate when some request failed due to unauthorized error
+    func reauthenticate() async throws {
+        isLogged = false
+        
+        if let reauthenticationTask {
+            try await reauthenticationTask.value
+            isLogged = true
+            return
+        }
+        
+        let task = Task {
+            let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
+            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
+            _ = try await URLSession.shared.data(from: tokenURL)
+        }
+        reauthenticationTask = task
+        try await task.value
+        isLogged = true
+    }
+}
+
 public class ProxySettings: ObservableObject {
     public static let shared = ProxySettings()
     
-    @Published public var enableProxy = false
+    @AppStorage("enable-proxy") public var enableProxy = true
 }
