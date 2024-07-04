@@ -44,6 +44,7 @@ struct BrowsePage: View {
                 }
                 .id(model.configurationId) // stop old loading task when config change
             }
+            .listStyle(.insetGrouped)
             .onReceive(AppEvents.ScrollToTop.forum) {
                 withAnimation {
                     proxy.scrollTo("forum-top")
