@@ -146,6 +146,7 @@ extension ImageBrowserCoordinator: UIContextMenuInteractionDelegate {
             let previewController = QLPreviewController()
             previewController.dataSource = self
             previewController.delegate = self
+            previewController.currentPreviewItemIndex = self.initialIndex
             return previewController
         } actionProvider: { suggestedActions in
             let save = UIAction(title: String(localized: "Save to Album", bundle: .module), image: UIImage(systemName: "square.and.arrow.down")) { action in
@@ -166,6 +167,7 @@ extension ImageBrowserCoordinator: UIContextMenuInteractionDelegate {
             let previewController = QLPreviewController()
             previewController.dataSource = self
             previewController.delegate = self
+            previewController.currentPreviewItemIndex = self.initialIndex
             self.uiView?.window?.farthestPresentedViewController?.show(previewController, sender: self)
         }
     }
