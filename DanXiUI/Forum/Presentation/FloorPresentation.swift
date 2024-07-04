@@ -6,7 +6,8 @@ struct FloorPresentation: Identifiable {
     init(floor: Floor, storey: Int, floors: [Floor] = []) {
         self.floor = floor
         self.storey = storey
-        self.sections = parseFloorContent(content: floor.content, mentions: floor.mentions, floors: floors)
+        // self.sections = parseFloorContent(content: floor.content, mentions: floor.mentions, floors: floors)
+        self.sections = parseFloorContent(content: temporaryFixForContentOverflow(floor.content), mentions: floor.mentions, floors: floors)
         self.replyTo = parseFirstMention(content: floor.content)
         self.imageURLs = parseFloorImageURLs(content: floor.content)
     }
@@ -33,6 +34,19 @@ func convertInlineImages(content: String) -> String {
         "\n\n\(content[match.range])\n\n"
     }
     return modifiedContent
+}
+
+/// This is a temporary fix for issue #201 by removing deep quotes
+func temporaryFixForContentOverflow(_ content: String) -> String {
+    let pattern = "^(>){4,}"
+    guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+        return content
+    }
+    let lines = content.components(separatedBy: .newlines)
+    let processedLines = lines.map { line -> String in
+        return regex.stringByReplacingMatches(in: line, options: [], range: NSRange(location: 0, length: line.utf16.count), withTemplate: ">>>")
+    }
+    return processedLines.joined(separator: "\n")
 }
 
 func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) -> [FloorSection] {
