@@ -80,7 +80,8 @@ func parseFloorImageURLs(content: String) -> [URL] {
     }
     var imageURLs: [URL] = []
     for run in attributed.runs {
-        if let imageURL = run.imageURL {
+        if let imageURL = run.imageURL,
+           Sticker(rawValue: imageURL.absoluteString) == nil {
             imageURLs.append(imageURL)
         }
     }
