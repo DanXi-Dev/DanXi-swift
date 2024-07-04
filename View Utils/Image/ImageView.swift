@@ -2,6 +2,8 @@ import SwiftUI
 import Disk
 
 public struct ImageView: View {
+    @Environment(\.supportImageBrowsing) private var supportImageBrowsing
+    
     enum LoadingStatus {
         case loading
         case error(error: Error)
@@ -49,12 +51,29 @@ public struct ImageView: View {
                         .background(Color.gray.opacity(0.2))
                 }
             case .loaded(let loadedImage):
-                ImageBrowser(image: loadedImage.uiImage, fileURL: loadedImage.fileURL, remoteURL: url)
-                    .scaledToFit()
+                if supportImageBrowsing {
+                    ImageBrowser(image: loadedImage.uiImage, fileURL: loadedImage.fileURL, remoteURL: url)
+                        .scaledToFit()
+                } else {
+                    loadedImage.image
+                        .resizable()
+                        .scaledToFit()
+                }
             }
             Spacer()
         }
         .frame(maxHeight: 300)
+    }
+}
+
+public struct SupportImageBrowsingKey: EnvironmentKey {
+    static public var defaultValue = false
+}
+
+extension EnvironmentValues {
+    public var supportImageBrowsing: Bool {
+        get { self[SupportImageBrowsingKey.self] }
+        set { self[SupportImageBrowsingKey.self] = newValue }
     }
 }
 

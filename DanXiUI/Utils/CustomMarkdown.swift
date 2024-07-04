@@ -5,9 +5,9 @@ import SwiftUI
 import ViewUtils
 
 public struct CustomMarkdown: View {
-    let content: MarkdownContent
+    private let content: MarkdownContent
     
-    let theme = Theme.gitHub
+    private let theme = Theme.gitHub
         .paragraph { blockConfiguration in
             let plaintext = blockConfiguration.content.renderPlainText()
             

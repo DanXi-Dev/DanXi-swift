@@ -74,6 +74,7 @@ struct FloorView: View {
                     switch section {
                     case .text(let markdown):
                         CustomMarkdown(markdown)
+                            .environment(\.supportImageBrowsing, true)
                     case .localMention(let floor):
                         LocalMentionView(floor)
                     case .remoteMention(let mention):
