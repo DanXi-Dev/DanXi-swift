@@ -30,7 +30,7 @@ fileprivate struct HomePageContent: View {
         if searchText.isEmpty {
             return courses
         } else {
-            return courses.filter { $0.name.localizedCaseInsensitiveContains(searchText) || $0.code.localizedCaseInsensitiveContains(searchText) }
+            return courses.filter { $0.name.localizedCaseInsensitiveContains(searchText) || $0.code.localizedCaseInsensitiveContains(searchText) || $0.teachers.contains(where: { $0.localizedCaseInsensitiveContains(searchText)})}
         }
     }
     
