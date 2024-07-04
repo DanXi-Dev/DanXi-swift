@@ -11,17 +11,79 @@ struct FloorHistorySheet: View {
     
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var divisionStore = DivisionStore.shared
-    let floorId: Int
+    let floor: Floor
     
     var body: some View {
         NavigationStack {
             AsyncContentView {
-                let punishments = try await ForumAPI.listFloorPunishmentStatus(id: floorId)
-                let histories = try await ForumAPI.listFloorHistory(id: floorId)
+                let punishments = try await ForumAPI.listFloorPunishmentStatus(id: floor.id)
+                let histories = try await ForumAPI.listFloorHistory(id: floor.id)
                 let information = AdministritiveInformation(punishments: punishments, histories: histories)
                 return information
             } content: { (information: AdministritiveInformation) in
                 List {
+                    if floor.machineReviewedSensitive {
+                        Section {
+                            LabeledContent {
+                                Text("Sensitive", bundle: .module)
+                            } label: {
+                                Text("Automatic Review Result", bundle: .module)
+                            }
+                            
+                            if let sensitiveReason = floor.sensitiveReason {
+                                LabeledContent {
+                                    Text(sensitiveReason)
+                                        .bold()
+                                        .foregroundStyle(.red)
+                                } label: {
+                                    Text("Sensitive Reason:", bundle: .module)
+                                }
+                            }
+                            
+                            if let humanReviewedSensitive = floor.humanReviewedSensitive {
+                                LabeledContent {
+                                    if humanReviewedSensitive {
+                                        Text("Sensitive", bundle: .module)
+                                    } else {
+                                        Text("Not Sensitive", bundle: .module)
+                                    }
+                                } label: {
+                                    Text("Human Review Result", bundle: .module)
+                                }
+                            } else {
+                                AsyncButton {
+                                    try await withHaptics {
+                                        try await ForumAPI.setFloorSensitive(floorId: floor.id, sensitive: false)
+                                    }
+                                } label: {
+                                    Label {
+                                        Text("Not Sensitive", bundle: .module)
+                                    } icon: {
+                                        Image(systemName: "checkmark")
+                                            .foregroundStyle(.green)
+                                    }
+                                }
+                                .tint(.green)
+                                
+                                AsyncButton {
+                                    try await withHaptics {
+                                        try await ForumAPI.setFloorSensitive(floorId: floor.id, sensitive: true)
+                                    }
+                                } label: {
+                                    Label {
+                                        Text("Sensitive", bundle: .module)
+                                    } icon: {
+                                        Image(systemName: "xmark")
+                                            .foregroundStyle(.red)
+                                    }
+                                }
+                                .tint(.red)
+                            }
+                        } header: {
+                            Text("Automatic Sensitive Content Review", bundle: .module)
+                        }
+                    }
+                    
                     PunishmentView(punishments: information.punishments)
                     
                     if !information.histories.isEmpty {

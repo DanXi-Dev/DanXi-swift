@@ -334,6 +334,26 @@
         }
       }
     },
+    "Automatic Review Result" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "机审结果"
+          }
+        }
+      }
+    },
+    "Automatic Sensitive Content Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动敏感内容审核"
+          }
+        }
+      }
+    },
     "Average" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1269,6 +1289,16 @@
         }
       }
     },
+    "Human Review Result" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "人工复核结果"
+          }
+        }
+      }
+    },
     "If you have any question, you may contact admin@fduhole.com" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1600,6 +1630,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未选择"
+          }
+        }
+      }
+    },
+    "Not Sensitive" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不敏感"
           }
         }
       }
@@ -2143,6 +2183,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "敏感"
+          }
+        }
+      }
+    },
+    "Sensitive Reason:" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感原因："
           }
         }
       }

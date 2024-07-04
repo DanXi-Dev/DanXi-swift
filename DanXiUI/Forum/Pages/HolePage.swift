@@ -264,7 +264,7 @@ private struct HolePageSheets<Label: View>: View {
                 DeleteSheet(presentation: presentation)
             }
             .sheet(item: $model.historySheet) { floor in
-                FloorHistorySheet(floorId: floor.id)
+                FloorHistorySheet(floor: floor)
             }
             .sheet(item: $model.textSelectionSheet) { floor in
                 TextSelectionSheet(text: floor.content)

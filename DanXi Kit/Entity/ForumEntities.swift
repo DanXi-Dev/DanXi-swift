@@ -31,6 +31,9 @@ public struct Floor: Identifiable, Codable, Hashable {
     public let modified, deleted: Bool
     public let fold: String
     public let mentions: [Mention]
+    public let machineReviewedSensitive: Bool
+    public let humanReviewedSensitive: Bool?
+    public let sensitiveReason: String?
 }
 
 public struct FloorHistory: Identifiable, Codable, Hashable {

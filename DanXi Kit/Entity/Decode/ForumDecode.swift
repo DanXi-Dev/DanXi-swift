@@ -77,6 +77,9 @@ extension Floor {
         case deleted
         case foldV2
         case mention
+        case isSensitive
+        case isActualSensitive
+        case sensitiveDetail
     }
     
     public init(from decoder: any Decoder) throws {
@@ -99,6 +102,10 @@ extension Floor {
         deleted = try container.decode(Bool.self, forKey: .deleted)
         fold = try container.decode(String.self, forKey: .foldV2)
         mentions = try container.decode([Mention].self, forKey: .mention)
+        
+        machineReviewedSensitive = try container.decode(Bool.self, forKey: .isSensitive)
+        humanReviewedSensitive = try container.decode(Bool?.self, forKey: .isActualSensitive)
+        sensitiveReason = try container.decodeIfPresent(String.self, forKey: .sensitiveDetail)
     }
     
     public func encode(to encoder: any Encoder) throws {
