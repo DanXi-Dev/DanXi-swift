@@ -109,13 +109,18 @@ struct ModeratePage: View {
 
 
 private struct SensitiveContentView: View {
+    enum Section {
+        case text(AttributedString)
+        case image(URL)
+    }
+    
     @EnvironmentObject var model: ModerateModel
     let item: Sensitive
-    let content: AttributedString
+    let sections: [Section]
     let detail: String?
     
     init(item: Sensitive) {
-        var content = AttributedString(item.content)
+        var content = (try? AttributedString(markdown: item.content)) ?? AttributedString(item.content)
         var detail: String? = nil
         // match sensitive detail in content, and highlight it
         if let sensitiveDetail = item.sensitiveDetail {
@@ -129,8 +134,29 @@ private struct SensitiveContentView: View {
             }
         }
         
+        var sections: [Section] = []
+        var currentSection: AttributedString?
+        for run in content.runs {
+            if let imageURL = run.imageURL {
+                if let currentSection {
+                    sections.append(.text(currentSection))
+                }
+                sections.append(.image(imageURL))
+            } else {
+                if currentSection == nil {
+                    currentSection = AttributedString(content[run.range])
+                } else {
+                    currentSection?.append(content[run.range])
+                }
+            }
+        }
+        if let currentSection {
+            sections.append(.text(currentSection))
+        }
+        
+        
         self.item = item
-        self.content = content
+        self.sections = sections
         self.detail = detail
     }
     
@@ -152,7 +178,22 @@ private struct SensitiveContentView: View {
                             .bold()
                             .foregroundStyle(.red)
                     }
-                    Text(content)
+                    
+                    VStack(alignment: .leading) {
+                        ForEach(Array(sections.enumerated()), id: \.offset) { _, section in
+                            switch section {
+                            case .image(let imageURL):
+                                if Proxy.shared.shouldTryProxy, Proxy.shared.outsideCampus {
+                                    ImageView(imageURL, proxiedURL: Proxy.shared.createProxiedURL(url: imageURL))
+                                } else {
+                                    ImageView(imageURL)
+                                }
+                            case .text(let attributedString):
+                                Text(attributedString)
+                            }
+                        }
+                    }
+                    
                     HStack {
                         Text(verbatim: "##\(String(item.id))")
                         Spacer()
