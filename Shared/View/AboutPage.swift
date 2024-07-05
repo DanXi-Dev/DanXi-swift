@@ -4,6 +4,7 @@ import ViewUtils
 
 struct AboutPage: View {
     @AppStorage("debug-unlocked") private var debugUnlocked = false
+    @AppStorage("watermark-unlocked") private var watermarkUnlocked = false
     @State private var tappedCount = 0
     
     private var version: String {
@@ -23,6 +24,10 @@ struct AboutPage: View {
                     withAnimation {
                         debugUnlocked = true
                     }
+                }
+                
+                if hashString == "37ef71a680d30c47888856527c064cd02755ceeac2ef33e51c2e02d7bf93c089" {
+                    watermarkUnlocked = true
                 }
             }
         }

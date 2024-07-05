@@ -8,6 +8,7 @@ struct DebugPage: View {
     @State private var showURLSheet = false
     @State private var showQuestionSheet = false
     @ObservedObject private var settings = ForumSettings.shared
+    @AppStorage("watermark-unlocked") private var watermarkUnlocked = false
     
     var body: some View {
         List {
@@ -22,7 +23,11 @@ struct DebugPage: View {
                 Toggle(isOn: settings.$showBanners) {
                     Label("Show Activity Announcements", systemImage: "bell")
                 }
-//                Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
+                
+                if watermarkUnlocked {
+                    Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
+                }
+                
                 Button("Test Register Questions") {
                     showQuestionSheet = true
                 }

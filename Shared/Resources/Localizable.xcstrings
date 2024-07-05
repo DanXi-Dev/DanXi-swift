@@ -656,6 +656,16 @@
         }
       }
     },
+    "Watermark Opacity %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水印透明度：%@"
+          }
+        }
+      }
+    },
     "Website" : {
       "comment" : "About",
       "localizations" : {
