@@ -41,7 +41,9 @@ public enum AuthenticationAPI {
     /// To prevent the login process to stuck on this API, this function never throws error. When an error occurs, it simply return `false`.
     static func checkCaptchaStatus(username: String) async -> Bool {
         do {
-            let url = URL(string: "https://uis.fudan.edu.cn/authserver/needCaptcha.html?username=\(username)")!
+            guard let url = URL(string: "https://uis.fudan.edu.cn/authserver/needCaptcha.html?username=\(username)") else {
+                return false
+            }
             let request = constructRequest(url)
             let (data, _) = try await URLSession.shared.data(for: request)
             guard let result = String(data: data, encoding: String.Encoding.ascii) else {
