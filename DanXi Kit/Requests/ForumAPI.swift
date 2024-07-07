@@ -213,7 +213,7 @@ public enum ForumAPI {
     }
     
     public static func modifyFavorites(holeIds: [Int]) async throws -> [Int] {
-        let payload = ["holeIds": holeIds]
+        let payload = ["hole_ids": holeIds]
         let response: ServerResponse = try await requestWithResponse("/user/favorites", base: forumURL, payload: payload, method: "PUT")
         return response.data
     }
@@ -284,7 +284,7 @@ public enum ForumAPI {
     }
     
     public static func deleteNotificationToken(deviceId: String) async throws {
-        let payload = ["deviceId": deviceId]
+        let payload = ["device_id": deviceId]
         try await requestWithoutResponse("/users/push-tokens", base: forumURL, payload: payload, method: "DELETE")
     }
     
