@@ -51,7 +51,7 @@ struct SettingsPage: View {
                     proxy.scrollTo("settings-top")
                 }
             }
-            .onReceive(AppEvents.notification) { content in
+            .onReceive(AppEvents.notificationSettings) { content in
                 navigator.pushDetail(value: ForumSettingsSection.notification, replace: true)
             }
         }

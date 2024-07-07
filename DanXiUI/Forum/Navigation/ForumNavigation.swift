@@ -66,6 +66,9 @@ public struct ForumContent: View {
                 path.removeLast(path.count)
             }
         }
+        .onReceive(AppEvents.notification) { _ in
+            navigator.pushContent(value: ForumSection.notifications)
+        }
         #if !targetEnvironment(macCatalyst)
         .environment(\.openURL, OpenURLAction { url in
             openURL = url
