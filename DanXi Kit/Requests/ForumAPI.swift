@@ -279,7 +279,7 @@ public enum ForumAPI {
     
     public static func uploadNotificationToken(deviceId: String, token: String) async throws {
         guard let packageName = Bundle.main.bundleIdentifier else { return }
-        let payload = ["service": "apns", "deviceId": deviceId, "token": token, "package_name": packageName]
+        let payload = ["service": "apns", "device_id": deviceId, "token": token, "package_name": packageName]
         try await requestWithoutResponse("/users/push-tokens", base: forumURL, payload: payload)
     }
     
