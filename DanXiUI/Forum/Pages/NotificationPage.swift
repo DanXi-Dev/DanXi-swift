@@ -3,6 +3,9 @@ import ViewUtils
 import DanXiKit
 
 struct NotificationPage: View {
+    @ObservedObject private var profileStore = ProfileStore.shared
+    @State private var showSheet = false
+    
     var body: some View {
         AsyncContentView {
             try await ForumAPI.listMessages()
@@ -12,6 +15,16 @@ struct NotificationPage: View {
         }
         .navigationTitle(String(localized: "Notifications", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Button {
+                showSheet = true
+            } label: {
+                Image(systemName: "paperplane")
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            MessageSheet()
+        }
     }
 }
 
