@@ -149,7 +149,7 @@ public enum ForumAPI {
     }
     
     public static func createFloor(content: String, holeId: Int, specialTag: String = "") async throws -> Floor {
-        let payload = ["content": content, "specialTag": specialTag]
+        let payload = ["content": content, "special_tag": specialTag]
         return try await requestWithResponse("/holes/\(holeId)/floors", base: forumURL, payload: payload)
     }
     
