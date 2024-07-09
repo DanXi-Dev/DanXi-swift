@@ -181,6 +181,16 @@
         }
       }
     },
+    "Blue" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蓝色"
+          }
+        }
+      }
+    },
     "Building" : {
       "localizations" : {
         "zh-Hans" : {
@@ -297,6 +307,16 @@
         }
       }
     },
+    "Change Theme Color" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "修改主题色"
+          }
+        }
+      }
+    },
     "Check ECard balance and transactions." : {
       "localizations" : {
         "zh-Hans" : {
@@ -363,6 +383,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课程名称"
+          }
+        }
+      }
+    },
+    "Cyan" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "青色"
           }
         }
       }
@@ -779,6 +809,16 @@
         }
       }
     },
+    "Green" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "绿色"
+          }
+        }
+      }
+    },
     "Hidden Features" : {
       "localizations" : {
         "zh-Hans" : {
@@ -795,6 +835,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "节假日"
+          }
+        }
+      }
+    },
+    "Indigo" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紫色"
           }
         }
       }
@@ -989,6 +1039,16 @@
         }
       }
     },
+    "None" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默认"
+          }
+        }
+      }
+    },
     "Not Logged in" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1005,6 +1065,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未选择"
+          }
+        }
+      }
+    },
+    "Orange" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "橙色"
           }
         }
       }
@@ -1045,6 +1115,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "体质健康测试记录"
+          }
+        }
+      }
+    },
+    "Pink" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粉色"
           }
         }
       }
@@ -1115,6 +1195,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "排名："
+          }
+        }
+      }
+    },
+    "Red" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "红色"
           }
         }
       }
