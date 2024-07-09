@@ -61,15 +61,9 @@ fileprivate struct CalendarContent: View {
                     .id("cal-top")
                 
                 Section {
-                    Picker(String(localized: "Select Semester", bundle: .module), selection: $model.semester) {
-                        ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
-                            Text(semester.name).tag(semester)
-                        }
-                    }
-                    
                     if !model.courses.isEmpty {
                         Stepper(value: $model.week, in: model.weekRange) {
-                            Label(String(localized: "Week \(String(model.week))", bundle: .module), systemImage: "calendar.badge.clock")
+                            Text(String(localized: "Week \(String(model.week))", bundle: .module))
                         }
                     }
                 }
@@ -114,12 +108,22 @@ fileprivate struct CalendarContent: View {
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
         .toolbar {
-            Button {
-                showExportSheet = true
-            } label: {
-                Image(systemName: "square.and.arrow.up")
-            }
-            .disabled(model.semester.startDate == nil)
+            Menu(content: {
+                Picker(String(localized: "Select Semester", bundle: .module), selection: $model.semester) {
+                    ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                        Text(semester.name).tag(semester)
+                    }
+                }
+                
+                Button {
+                    showExportSheet = true
+                } label: {
+                    Text(String(localized: "Export to Calendar", bundle: .module))
+                }
+                .disabled(model.semester.startDate == nil)
+            }, label: {
+                Image(systemName: "ellipsis.circle")
+            })
         }
         .sheet(isPresented: $showExportSheet) {
             ExportSheet()
