@@ -16,10 +16,12 @@ struct NotificationPage: View {
         .navigationTitle(String(localized: "Notifications", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            Button {
-                showSheet = true
-            } label: {
-                Image(systemName: "paperplane")
+            if profileStore.isAdmin {
+                Button {
+                    showSheet = true
+                } label: {
+                    Image(systemName: "paperplane")
+                }
             }
         }
         .sheet(isPresented: $showSheet) {
