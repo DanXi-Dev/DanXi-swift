@@ -252,7 +252,7 @@ private struct HolePageSheets<Label: View>: View {
                 HoleEditSheet(hole: model.hole)
             }
             .sheet(item: $model.replySheet) { floor in
-                ReplySheet(content: "##\(String(floor.id))")
+                ReplySheet(content: "##\(String(floor.id))\n")
             }
             .sheet(item: $model.editSheet) { floor in
                 FloorEditSheet(floor: floor)
