@@ -32,7 +32,7 @@ private struct QuestionPage: View {
             ScrollViewReader { scrollView in
                 Form {
                     FormTitle(title: String(localized: "DanXi Qualification", bundle: .module),
-                              description: String(localized: "DanXi Question Prompt", bundle: .module))
+                              description: AttributedString(localized: "DanXi Question Prompt", bundle: .module))
                     
                     ForEach(model.questions) { question in
                         Group {
@@ -161,7 +161,7 @@ private struct QuestionPicker: View {
     
     var body: some View {
         Picker(selection: $answer, label: QuestionLabel(question: question, incorrect: incorrect)) {
-            ForEach(Array(question.option.enumerated()), id: \.offset) { _, option in
+            ForEach(Array(question.options.enumerated()), id: \.offset) { _, option in
                 Text(option).tag(option)
             }
         }
@@ -186,7 +186,7 @@ private struct MultiQuestionSelectior: View {
     
     init(question: Question) {
         var answer: [String : Bool] = [:]
-        for option in question.option {
+        for option in question.options {
             answer[option] = false
         }
         self._answer = State(initialValue: answer)
@@ -195,7 +195,7 @@ private struct MultiQuestionSelectior: View {
     
     var body: some View {
         Section {
-            ForEach(Array(question.option.enumerated()), id: \.offset) { _, option in
+            ForEach(Array(question.options.enumerated()), id: \.offset) { _, option in
                 Button {
                     answer[option] = !(answer[option]!) // force unwrap and inverse
                 } label: {

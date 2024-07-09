@@ -1,12 +1,17 @@
 import SwiftUI
 
 public struct FormTitle: View {
-    public let title: String
-    public let description: String
+    private let title: Text
+    private let description: Text
     
     public init(title: String, description: String) {
-        self.title = title
-        self.description = description
+        self.title = Text(title)
+        self.description = Text(description)
+    }
+    
+    public init(title: String, description: AttributedString) {
+        self.title = Text(title)
+        self.description = Text(description)
     }
     
     public var body: some View {
@@ -14,11 +19,11 @@ public struct FormTitle: View {
             HStack {
                 Spacer()
                 VStack(spacing: 10) {
-                    Text(title)
+                    title
                         .font(.title)
                         .bold()
                         .multilineTextAlignment(.center)
-                    Text(description)
+                    description
                         .multilineTextAlignment(.center)
                 }
                 Spacer()

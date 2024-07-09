@@ -10,7 +10,7 @@ public struct Question: Identifiable, Decodable {
     public let type: QuestionType
     public let group: QuestionGroup
     public let question: String
-    public let option: [String]
+    public let options: [String]
 }
 
 public enum QuestionType: String, Decodable {
