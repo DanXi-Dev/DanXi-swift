@@ -118,7 +118,7 @@ fileprivate struct CalendarContent: View {
                 Button {
                     showExportSheet = true
                 } label: {
-                    Text(String(localized: "Export to Calendar", bundle: .module))
+                    Text("Export to Calendar", bundle: .module)
                 }
                 .disabled(model.semester.startDate == nil)
             }, label: {
