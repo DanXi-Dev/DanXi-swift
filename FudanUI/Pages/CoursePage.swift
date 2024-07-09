@@ -108,7 +108,7 @@ fileprivate struct CalendarContent: View {
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
         .toolbar {
-            Menu(content: {
+            Menu {
                 Picker(String(localized: "Select Semester", bundle: .module), selection: $model.semester) {
                     ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
                         Text(semester.name).tag(semester)
@@ -121,9 +121,9 @@ fileprivate struct CalendarContent: View {
                     Text("Export to Calendar", bundle: .module)
                 }
                 .disabled(model.semester.startDate == nil)
-            }, label: {
+            } label: {
                 Image(systemName: "ellipsis.circle")
-            })
+            }
         }
         .sheet(isPresented: $showExportSheet) {
             ExportSheet()
