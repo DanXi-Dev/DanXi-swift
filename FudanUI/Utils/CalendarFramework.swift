@@ -5,6 +5,7 @@ import ViewUtils
 // MARK: Courses
 
 struct CourseView: View {
+    @Environment(\.courseTint) private var courseTint
     let title: String
     let subtitle: String
     let span: Int
@@ -12,9 +13,15 @@ struct CourseView: View {
     @ScaledMetric private var titleSize = 15
     @ScaledMetric private var subtitleSize = 10
     
+    private var color: Color {
+        if let courseTint {
+            courseTint
+        } else {
+            hashColorForCalendar(title)
+        }
+    }
+    
     var body: some View {
-        let color = hashColorForCalendar(title)
-        
         CalDimensionReader { dim in
             HStack {
                 VStack(alignment: .leading) {
@@ -178,6 +185,17 @@ struct GridBackground: View {
 }
 
 // MARK: Environments
+
+struct CourseTintKey: EnvironmentKey {
+    static let defaultValue: Color? = nil
+}
+
+extension EnvironmentValues {
+    var courseTint: Color? {
+        get { self[CourseTintKey.self] }
+        set { self[CourseTintKey.self] = newValue }
+    }
+}
 
 struct CalDimension {
     let x: CGFloat

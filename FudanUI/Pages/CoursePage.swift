@@ -47,10 +47,13 @@ public struct CoursePage: View {
     }
 }
 
+
 fileprivate struct CalendarContent: View {
     @StateObject var model: CourseModel
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
+    @State private var showColorSheet = false
+    @AppStorage("calendar-theme-color") private var themeColor: ThemeColor = ThemeColor.none
     
     @ScaledMetric var minWidth = CalendarConfig.dx * 7
     
@@ -89,6 +92,7 @@ fileprivate struct CalendarContent: View {
                                 VStack(spacing: 0) {
                                     DateHeader(model.weekStart)
                                     CalendarEvents()
+                                        .environment(\.courseTint, themeColor.color)
                                 }
                             }
                         }
@@ -108,26 +112,14 @@ fileprivate struct CalendarContent: View {
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
         .toolbar {
-            Menu {
-                Picker(String(localized: "Select Semester", bundle: .module), selection: $model.semester) {
-                    ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
-                        Text(semester.name).tag(semester)
-                    }
-                }
-                
-                Button {
-                    showExportSheet = true
-                } label: {
-                    Text("Export to Calendar", bundle: .module)
-                }
-                .disabled(model.semester.startDate == nil)
-            } label: {
-                Image(systemName: "ellipsis.circle")
-            }
+            toolbar
         }
         .sheet(isPresented: $showExportSheet) {
             ExportSheet()
                 .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil) // FIXME: a hacky way to disable .refreshable for child
+        }
+        .sheet(isPresented: $showColorSheet) {
+            colorSheet
         }
         .listStyle(.inset)
         .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
@@ -136,6 +128,46 @@ fileprivate struct CalendarContent: View {
             Text(verbatim: model.networkError?.localizedDescription ?? "")
         }
         .environmentObject(model)
+    }
+    
+    private var toolbar: some View {
+        Menu {
+            Picker(selection: $model.semester) {
+                ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                    Text(semester.name).tag(semester)
+                }
+            } label: {
+                Text("Select Semester", bundle: .module)
+            }
+            .pickerStyle(.menu)
+
+            Button {
+                showExportSheet = true
+            } label: {
+                Label {
+                    Text("Export to Calendar", bundle: .module)
+                } icon: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
+            .disabled(model.semester.startDate == nil)
+            
+            Button {
+                showColorSheet = true
+            } label: {
+                Label {
+                    Text("Change Color", bundle: .module)
+                } icon: {
+                    Image(systemName: "paintpalette")
+                }
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+        }
+    }
+    
+    private var colorSheet: some View {
+        ColorSheet(themeColor: $themeColor)
     }
 }
 
