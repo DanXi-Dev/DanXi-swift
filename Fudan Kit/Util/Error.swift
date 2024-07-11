@@ -18,7 +18,7 @@ extension CampusError: LocalizedError {
         case .needCaptcha:
             return String(localized: "Need captcha, visit UIS webpage to login", bundle: .module)
         case .loginFailed:
-            return String(localized: "Login failed, check username and password", comment: "")
+            return String(localized: "Login failed, check username and password", bundle: .module)
         case .campusOnly:
             return String(localized: "Service unavailable, connect to campus WiFi or VPN to access", bundle: .module)
         case .notDiningTime:
