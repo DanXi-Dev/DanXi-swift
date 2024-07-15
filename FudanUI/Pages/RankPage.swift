@@ -1,6 +1,6 @@
-import SwiftUI
-import FudanKit
 import Charts
+import FudanKit
+import SwiftUI
 import ViewUtils
 
 struct RankPage: View {
@@ -45,7 +45,6 @@ struct RankPage: View {
                         Text("GPA Distribution", bundle: .module)
                     }
                 }
-                
             }
             .sheet(isPresented: $showSheet) {
                 NavigationStack {
@@ -125,12 +124,25 @@ private struct RankChart: View {
     }
     
     var body: some View {
-        Chart(Array(ranks.enumerated()), id: \.offset) { (index, rank) in
+        Chart(Array(ranks.enumerated()), id: \.offset) { index, rank in
             LineMark(
                 x: .value(String(localized: "Rank", bundle: .module), ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
                 y: .value(String(localized: "GPA", bundle: .module), rank.gradePoint)
             )
             .foregroundStyle(color)
+            
+            if let myRank = self.myRank {
+                PointMark(
+                    x: .value(String(localized: "Rank", bundle: .module), myRank.rank),
+                    y: .value(String(localized: "GPA", bundle: .module), myRank.gradePoint)
+                )
+                .symbolSize(72)
+                .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                PointMark(
+                    x: .value(String(localized: "Rank", bundle: .module), myRank.rank),
+                    y: .value(String(localized: "GPA", bundle: .module), myRank.gradePoint)
+                )
+            }
             
             AreaMark(
                 x: .value(String(localized: "Rank", bundle: .module), ranks.count - index - 1), // The -1 eliminates the gap at the start of the chart
