@@ -464,12 +464,32 @@
         }
       }
     },
+    "Clear End Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除截止日期"
+          }
+        }
+      }
+    },
     "Clear History" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除历史"
+          }
+        }
+      }
+    },
+    "Clear Start Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除起始日期"
           }
         }
       }
@@ -987,6 +1007,16 @@
         }
       }
     },
+    "End Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "截止日期"
+          }
+        }
+      }
+    },
     "Enter delete reason" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1085,6 +1115,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "旦夕账户"
+          }
+        }
+      }
+    },
+    "Filter Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选日期"
           }
         }
       }
