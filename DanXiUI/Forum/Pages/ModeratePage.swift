@@ -55,7 +55,7 @@ struct ModeratePage: View {
                 Button {
                     showDatePicker = true
                 } label: {
-                    Label(String(localized: "Select Date", bundle: .module), systemImage: "clock.arrow.circlepath")
+                    Label(String(localized: "Filter Date", bundle: .module), systemImage: "clock.arrow.circlepath")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
@@ -73,12 +73,16 @@ struct ModeratePage: View {
     private var datePicker: some View {
         NavigationStack {
             Form {
-                let dateBinding = Binding<Date>(
+                let baseDateBinding = Binding<Date>(
                     get: { model.baseDate ?? Date() },
                     set: { model.baseDate = $0 }
                 )
+                let endDateBinding = Binding<Date>(
+                    get: { model.endDate ?? Date() },
+                    set: { model.endDate = $0 }
+                )
                 
-                DatePicker(selection: dateBinding, in: ...Date.now, displayedComponents: [.date]) {
+                DatePicker(selection: baseDateBinding, in: ...Date.now, displayedComponents: [.date]) {
                     Text("Start Date", bundle: .module)
                 }
                     .datePickerStyle(.graphical)
@@ -88,7 +92,21 @@ struct ModeratePage: View {
                         model.baseDate = nil
                         showDatePicker = false
                     } label: {
-                        Text("Clear Date", bundle: .module)
+                        Text("Clear Start Date", bundle: .module)
+                    }
+                }
+                
+                DatePicker(selection: endDateBinding, in: ...baseDateBinding.wrappedValue, displayedComponents: [.date]) {
+                    Text("End Date", bundle: .module)
+                }
+                    .datePickerStyle(.graphical)
+                
+                if model.endDate != nil {
+                    Button(role: .destructive) {
+                        model.endDate = nil
+                        showDatePicker = false
+                    } label: {
+                        Text("Clear End Date", bundle: .module)
                     }
                 }
             }
@@ -257,6 +275,15 @@ class ModerateModel: ObservableObject {
     @Published var baseDate: Date? = nil {
         didSet {
             openItems = []
+            closedItems = []
+        }
+    }
+    @Published var endDate: Date? = nil {
+        didSet {
+            openItems = []
+            closedItems = []
+            openEndReached = false
+            closedEndReached = false
         }
     }
     
@@ -276,6 +303,11 @@ class ModerateModel: ObservableObject {
         } else {
             Date.now
         }
+        if let endDate, startTime <= endDate {
+            closedEndReached = true
+            return
+        }
+        
         let order = switch sortOption {
         case .replyTime:
             "time_updated"
@@ -302,6 +334,11 @@ class ModerateModel: ObservableObject {
         } else {
             Date.now
         }
+        if let endDate, startTime <= endDate {
+            openEndReached = true
+            return
+        }
+        
         let order = switch sortOption {
         case .replyTime:
             "time_updated"
