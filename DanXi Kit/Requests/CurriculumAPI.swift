@@ -56,4 +56,16 @@ public enum CurriculumAPI {
         let payload = ["upvote": upvote]
         return try await requestWithResponse("/reviews/\(id)", base: curriculumURL, payload: payload, method: "PATCH")
     }
+    
+    // MARK: - Sensitive
+    
+    public static func listAllSensitiveReviews() async throws -> [CurriculumSensitive] {
+        let params = ["all": "true"]
+        return try await requestWithResponse("/v3/reviews/_sensitive", base: curriculumURL, params: params)
+    }
+    
+    public static func setReviewSensitive(reviewId: Int, sensitive: Bool) async throws {
+        let payload = ["is_actually_sensitive": sensitive]
+        try await requestWithoutResponse("/v3/reviews/\(reviewId)/_sensitive", base: curriculumURL, payload: payload, method: "PUT")
+    }
 }

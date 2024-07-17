@@ -27,6 +27,14 @@ public struct Review: Identifiable, Hashable, Codable {
     public let rank: Rank
 }
 
+public struct CurriculumSensitive: Identifiable, Hashable, Decodable {
+    public let id: Int
+    public let timeCreated, timeUpdated: Date
+    public let title, content: String
+    public let humanReviewedSensitive: Bool?
+    public let sensitiveReason: String?
+}
+
 public struct Rank: Codable, Hashable {
     public let overall, content, workload, assessment: Double
     
