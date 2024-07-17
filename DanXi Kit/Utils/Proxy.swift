@@ -147,7 +147,7 @@ actor ProxyAuthenticator {
         
         let task = Task {
             let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
-            let tokenURL = try! await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
+            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
             _ = try await URLSession.shared.data(from: tokenURL)
         }
         reauthenticationTask = task
