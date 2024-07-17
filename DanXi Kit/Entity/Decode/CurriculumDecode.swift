@@ -72,3 +72,25 @@ extension Course {
         try container.encode(reviews, forKey: .reviewList)
     }
 }
+
+extension CurriculumSensitive {
+    enum CodingKeys: String, CodingKey {
+        case id, title, content, timeCreated, timeUpdated
+        case isSensitive
+        case isActualSensitive
+        case sensitiveDetail
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try values.decode(Int.self, forKey: .id)
+        title = try values.decode(String.self, forKey: .title)
+        content = try values.decode(String.self, forKey: .content)
+        timeCreated = try values.decode(Date.self, forKey: .timeCreated)
+        timeUpdated = try values.decode(Date.self, forKey: .timeUpdated)
+        
+        humanReviewedSensitive = try values.decodeIfPresent(Bool.self, forKey: .isActualSensitive)
+        sensitiveReason = try values.decodeIfPresent(String.self, forKey: .sensitiveDetail)
+    }
+}

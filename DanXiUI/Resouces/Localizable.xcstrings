@@ -2237,6 +2237,16 @@
         }
       }
     },
+    "Sensitive Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感内容审核"
+          }
+        }
+      }
+    },
     "Sensitive.Closed" : {
       "localizations" : {
         "en" : {

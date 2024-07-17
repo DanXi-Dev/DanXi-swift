@@ -16,6 +16,12 @@ struct CurriculumNavigation<Label: View>: View {
             .navigationDestination(for: CurriculumReviewItem.self) { item in
                 ReviewPage(course: item.course, review: item.review)
             }
+            .navigationDestination(for: CurriculumSection.self) { section in
+                switch section {
+                case .moderate:
+                    CurriculumModeratePage()
+                }
+            }
     }
 }
 

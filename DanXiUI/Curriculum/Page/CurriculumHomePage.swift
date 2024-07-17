@@ -23,6 +23,7 @@ struct CurriculumHomePage: View {
 }
 
 fileprivate struct HomePageContent: View {
+    @ObservedObject private var profileStore = ProfileStore.shared
     let courses: [CourseGroup]
     @State private var searchText = ""
     
@@ -55,5 +56,12 @@ fileprivate struct HomePageContent: View {
         }
         .listStyle(.plain)
         .searchable(text: $searchText)
+        .toolbar {
+            if profileStore.isAdmin {
+                DetailLink(value: CurriculumSection.moderate) {
+                    Image(systemName: "video")
+                }
+            }
+        }
     }
 }
