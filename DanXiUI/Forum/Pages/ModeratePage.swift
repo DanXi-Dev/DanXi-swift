@@ -85,7 +85,7 @@ struct ModeratePage: View {
                 DatePicker(selection: baseDateBinding, in: ...Date.now, displayedComponents: [.date]) {
                     Text("Start Date", bundle: .module)
                 }
-                    .datePickerStyle(.graphical)
+                    .datePickerStyle(.compact)
                 
                 if model.baseDate != nil {
                     Button(role: .destructive) {
@@ -99,7 +99,7 @@ struct ModeratePage: View {
                 DatePicker(selection: endDateBinding, in: ...baseDateBinding.wrappedValue, displayedComponents: [.date]) {
                     Text("End Date", bundle: .module)
                 }
-                    .datePickerStyle(.graphical)
+                    .datePickerStyle(.compact)
                 
                 if model.endDate != nil {
                     Button(role: .destructive) {
