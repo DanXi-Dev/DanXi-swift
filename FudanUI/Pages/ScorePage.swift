@@ -149,10 +149,6 @@ fileprivate struct ScoreView: View {
     }
 }
 
-class ScorePageModel: ObservableObject {
-    @Published var selectedScore: Score? = nil
-}
-
 fileprivate struct SemesterPicker: View {
     let semesters: [Semester]
     @Binding var semester: Semester
