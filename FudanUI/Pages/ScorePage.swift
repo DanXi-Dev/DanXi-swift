@@ -1,5 +1,5 @@
-import SwiftUI
 import FudanKit
+import SwiftUI
 import ViewUtils
 
 struct ScorePage: View {
@@ -9,7 +9,7 @@ struct ScorePage: View {
     }
     
     var body: some View {
-        AsyncContentView { 
+        AsyncContentView {
             let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
             if semesters.isEmpty {
                 throw URLError(.badServerResponse)
@@ -27,6 +27,7 @@ struct ScorePage: View {
 fileprivate struct ScorePageContent: View {
     private let semesters: [Semester]
     @State private var semester: Semester
+    @State private var selectedScore: Score?
     
     init(_ semesters: [Semester], current: Semester?) {
         self.semesters = semesters
@@ -36,21 +37,30 @@ fileprivate struct ScorePageContent: View {
     var body: some View {
         List {
             SemesterPicker(semesters: semesters.sorted(), semester: $semester)
-            ScoreList(semester: semester)
+            ScoreList(semester: semester, selectedScore: $selectedScore)
+        }
+        .sheet(item: $selectedScore) { score in
+            ScoreDetailSheet(score: score)
         }
     }
 }
 
 fileprivate struct ScoreList: View {
     let semester: Semester
+    @Binding var selectedScore: Score?
     
     var body: some View {
         AsyncContentView(style: .widget) {
-            return try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
+            try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
         } content: { scores in
             Section {
                 ForEach(scores) { score in
-                    ScoreView(score: score)
+                    Button {
+                        selectedScore = score
+                    } label: {
+                        ScoreView(score: score)
+                    }
+                    .tint(.primary)
                 }
             } footer: {
                 if scores.isEmpty {
@@ -63,6 +73,59 @@ fileprivate struct ScoreList: View {
             }
         }
         .id(semester.semesterId) // force reload after semester change
+    }
+}
+
+fileprivate struct ScoreDetailSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    let score: Score
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(score.courseId)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                        Text(score.courseName)
+                            .lineLimit(1)
+                            .fontWeight(.bold)
+                            .font(.title3)
+                    }
+                    Spacer()
+                    Text(score.grade)
+                        .fontWeight(.bold)
+                        .font(.title3.monospaced())
+                }
+                HStack {
+                    Text("Grade Point", bundle: .module)
+                    Spacer()
+                    Text(score.gradePoint)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("Course Credit", bundle: .module)
+                    Spacer()
+                    Text(score.courseCredit)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .labelStyle(.titleOnly)
+            .listStyle(.insetGrouped)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done", bundle: .module)
+                    }
+                }
+            }
+            .navigationTitle(String(localized: "Exam Detail", bundle: .module))
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
@@ -86,13 +149,17 @@ fileprivate struct ScoreView: View {
     }
 }
 
+class ScorePageModel: ObservableObject {
+    @Published var selectedScore: Score? = nil
+}
+
 fileprivate struct SemesterPicker: View {
     let semesters: [Semester]
     @Binding var semester: Semester
     
     private func moveSemester(offset: Int) {
         guard let idx = semesters.firstIndex(of: semester) else { return }
-        if (0..<semesters.count).contains(idx + offset) {
+        if (0 ..< semesters.count).contains(idx + offset) {
             semester = semesters[idx + offset]
         }
     }
