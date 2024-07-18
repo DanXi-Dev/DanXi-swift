@@ -367,6 +367,16 @@
         }
       }
     },
+    "Course Credit" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课程学分"
+          }
+        }
+      }
+    },
     "Course Detail" : {
       "localizations" : {
         "zh-Hans" : {
@@ -799,6 +809,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "绩点："
+          }
+        }
+      }
+    },
+    "Grade Point" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课程绩点"
           }
         }
       }
