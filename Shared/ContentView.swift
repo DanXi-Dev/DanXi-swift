@@ -11,15 +11,12 @@ struct ContentView: View {
     @StateObject private var navigator = AppNavigator()
     
     var body: some View {
-        Group {
-            if horizontalSizeClass == .compact {
-                TabNavigation(screen: $model.screen)
-                    .environmentObject(navigator)
-            } else {
-                SplitNavigation(screen: $model.screen)
-                    .environmentObject(navigator)
-            }
+        WideScreenReader {
+            SplitNavigation(screen: $model.screen)
+        } narrow: {
+            TabNavigation(screen: $model.screen)
         }
+        .environmentObject(navigator)
         .environmentObject(model)
         .onOpenURL { url in
             model.openURL(url)
