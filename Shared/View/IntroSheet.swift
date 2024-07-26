@@ -23,7 +23,7 @@ struct IntroSheet: View {
                     .frame(width: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                     .padding(12)
-                Text(String(localized:"DanXi") + " 2.0")
+                Text("DanXi")
                     .font(.largeTitle)
                     .bold()
                     .padding(8)
