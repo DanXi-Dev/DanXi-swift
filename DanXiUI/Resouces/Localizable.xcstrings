@@ -2651,6 +2651,16 @@
         }
       }
     },
+    "Use in-app Browser" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用应用内浏览器"
+          }
+        }
+      }
+    },
     "User ID" : {
       "localizations" : {
         "zh-Hans" : {

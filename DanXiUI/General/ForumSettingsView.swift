@@ -51,7 +51,7 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
         case .blockedContent:
             BlockedContent()
         case .advancedSettings:
-            ProxyToggle()
+            AdvancedSettings()
         }
     }
 }

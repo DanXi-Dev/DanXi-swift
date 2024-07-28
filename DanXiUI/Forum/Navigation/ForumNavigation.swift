@@ -69,15 +69,7 @@ public struct ForumContent: View {
         .onReceive(AppEvents.notification) { _ in
             navigator.pushContent(value: ForumSection.notifications)
         }
-        #if !targetEnvironment(macCatalyst)
-        .environment(\.openURL, OpenURLAction { url in
-            openURL = url
-            return .handled
-        })
-        .safariView(item: $openURL) { link in
-            SafariView(url: link)
-        }
-        #endif
+        .useSafariController(respectSettings: true)
     }
 }
 

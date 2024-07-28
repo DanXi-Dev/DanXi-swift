@@ -121,6 +121,7 @@ public struct ForumEditor: View {
             }
         } footer: {
             Text("TH Edit Alert", bundle: .module)
+                .useSafariController()
         }
     }
     

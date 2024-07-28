@@ -33,6 +33,7 @@ private struct QuestionPage: View {
                 Form {
                     FormTitle(title: String(localized: "DanXi Qualification", bundle: .module),
                               description: AttributedString(localized: "DanXi Question Prompt", bundle: .module))
+                        .useSafariController()
                     
                     ForEach(model.questions) { question in
                         Group {

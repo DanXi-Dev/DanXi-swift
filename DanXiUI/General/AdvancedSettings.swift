@@ -2,12 +2,19 @@ import SwiftUI
 import DanXiKit
 import FudanKit
 
-struct ProxyToggle: View {
+struct AdvancedSettings: View {
+    @ObservedObject private var settings = ForumSettings.shared
     @ObservedObject private var campusModel = CampusModel.shared
     @ObservedObject private var proxySettings = ProxySettings.shared
     
     var body: some View {
         Form {
+            Section {
+                Toggle(isOn: $settings.inAppBrowser) {
+                    Text("Use in-app Browser", bundle: .module)
+                }
+            }
+            
             Section {
                 Toggle(isOn: $proxySettings.enableProxy) {
                     Text("Enable Campus Proxy", bundle: .module)

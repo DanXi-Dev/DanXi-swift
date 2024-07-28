@@ -9,6 +9,7 @@ public class ForumSettings: ObservableObject {
     @AppStorage("blocked-holes") public var blockedHoles: [Int] = []
     @AppStorage("screenshot-alert") public var screenshotAlert = true
     @AppStorage("show-activity") public var showBanners = true
+    @AppStorage("in-app-browser") var inAppBrowser = true
     @AppStorage("is-demo") var isDemo = false
     @AppStorage("watermark-opacity") public var watermarkOpacity = 0.010
 
