@@ -197,6 +197,7 @@ private struct RegisterSheet: View {
             } footer: {
                 if type == .register {
                     Text("Register Prompt", bundle: .module)
+                        .useSafariController()
                 }
             }
         }
