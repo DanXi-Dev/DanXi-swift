@@ -69,19 +69,7 @@ struct FloorView: View {
     @ViewBuilder
     private var content: some View {
         if !floor.deleted {
-            VStack(alignment: .leading, spacing: 7) {
-                ForEach(Array(presentation.sections.enumerated()), id: \.offset) { _, section in
-                    switch section {
-                    case .text(let markdown):
-                        CustomMarkdown(markdown)
-                            .environment(\.supportImageBrowsing, true)
-                    case .localMention(let floor):
-                        LocalMentionView(floor)
-                    case .remoteMention(let mention):
-                        RemoteMentionView(mention)
-                    }
-                }
-            }
+            FloorContentView(sections: presentation.sections, content: floor.content)
         } else {
             Text(floor.content)
                 .foregroundColor(.secondary)
@@ -111,6 +99,33 @@ struct FloorView: View {
         .font(.footnote)
         .foregroundColor(Color.secondary.opacity(0.7))
         .padding(.top, 0.8)
+    }
+}
+
+private struct FloorContentView: View, Equatable {
+    static func == (lhs: FloorContentView, rhs: FloorContentView) -> Bool {
+        lhs.content == rhs.content // FIXME: This is supposed to prevent UI flicker during reload, but it didn't work for some examples. It still need further investigation.
+    }
+    
+    let sections: [FloorSection]
+    let content: String
+    
+    var body: some View {
+        let _ = Self._printChanges()
+        
+        VStack(alignment: .leading, spacing: 7) {
+            ForEach(Array(sections.enumerated()), id: \.offset) { _, section in
+                switch section {
+                case .text(let markdown):
+                    CustomMarkdown(markdown)
+                        .environment(\.supportImageBrowsing, true)
+                case .localMention(let floor):
+                    LocalMentionView(floor)
+                case .remoteMention(let mention):
+                    RemoteMentionView(mention)
+                }
+            }
+        }
     }
 }
 
