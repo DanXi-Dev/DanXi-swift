@@ -67,6 +67,13 @@ fileprivate struct FoldedContentSettings: View {
                 Text("Hide", bundle: .module).tag(ForumSettings.SensitiveContentSetting.hide)
             }
             .pickerStyle(.inline)
+            .onChange(of: settings.foldedContent) { foldedContent in
+                Task {
+                    if let userId = ProfileStore.shared.profile?.id {
+                        try await  _ = ForumAPI.updateUserSettings(userId: userId, showFoldedConfiguration: String(describing: foldedContent));
+                    }
+                }
+            }
         }
         .navigationTitle(String(localized: "Folded Content", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
