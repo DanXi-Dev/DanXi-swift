@@ -39,6 +39,12 @@ class ProfileStore: ObservableObject {
     func refreshProfile() async throws {
         let profile = try await ForumAPI.getProfile()
         await set(profile: profile)
+        ForumSettings.shared.foldedContent =  switch profile.showFoldedConfiguration {
+        case "fold": ForumSettings.SensitiveContentSetting.fold
+        case "hide": ForumSettings.SensitiveContentSetting.hide
+        case "show": ForumSettings.SensitiveContentSetting.show
+        default: ForumSettings.SensitiveContentSetting.fold
+        }
         initialized = true
     }
     
