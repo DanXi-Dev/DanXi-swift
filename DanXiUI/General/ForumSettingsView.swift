@@ -70,7 +70,7 @@ fileprivate struct FoldedContentSettings: View {
             .onChange(of: settings.foldedContent) { foldedContent in
                 Task {
                     if let userId = ProfileStore.shared.profile?.id {
-                        try await  _ = ForumAPI.updateUserSettings(userId: userId, showFoldedConfiguration: String(describing: foldedContent));
+                        try await  _ = ForumAPI.updateUserSettings(showFoldedConfiguration: String(describing: foldedContent));
                     }
                 }
             }
@@ -135,7 +135,6 @@ struct NotificationSettingWrapper: View {
 }
 
 fileprivate struct NotificationSetting: View {
-    private let userId: Int
     private let authorizationStatus: UNAuthorizationStatus
     private let notificationSettingsURL: URL?
     @State private var favorite: Bool
@@ -144,7 +143,6 @@ fileprivate struct NotificationSetting: View {
     @State private var showAlert = false
     
     init(_ user: Profile, _ authorizationStatus: UNAuthorizationStatus) {
-        self.userId = user.id
         self.authorizationStatus = authorizationStatus
         let notify = user.notificationConfiguration
         self._favorite = State(initialValue: notify.contains("favorite"))
@@ -170,7 +168,7 @@ fileprivate struct NotificationSetting: View {
             if report {
                 notifyConfig.append("report")
             }
-            let newProfile = try await ForumAPI.updateUserSettings(userId: userId, notificationConfiguration: notifyConfig)
+            let newProfile = try await ForumAPI.updateUserSettings(notificationConfiguration: notifyConfig)
             await MainActor.run {
                 ProfileStore.shared.profile = newProfile
             }
