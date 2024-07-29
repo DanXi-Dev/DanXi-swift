@@ -15,5 +15,14 @@ public class ForumSettings: ObservableObject {
 
     public enum SensitiveContentSetting: Int {
         case fold = 1, show, hide
+        
+        static func from(description: String) -> Self {
+            switch description {
+            case "fold": .fold
+            case "hide": .hide
+            case "show": .show
+            default: .fold
+            }
+        }
     }
 }
