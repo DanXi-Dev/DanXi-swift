@@ -84,13 +84,7 @@ public class CourseModel: ObservableObject {
     
     let studentType: StudentType
     @Published public var courses: [Course]
-    @Published public var semester: Semester {
-        didSet {
-            Task {
-                await updateSemester()
-            }
-        }
-    }
+    @Published public var semester: Semester
     @Published public var semesters: [Semester]
     @Published public var week: Int
     @Published public var networkError: Error? = nil
@@ -135,7 +129,7 @@ public class CourseModel: ObservableObject {
     // MARK: - Model Update
     
     /// Work to be done after semester is changed
-    @MainActor func updateSemester() async {
+    @MainActor public func updateSemester() async {
         courses = []
         do {
             if studentType == .undergrad {

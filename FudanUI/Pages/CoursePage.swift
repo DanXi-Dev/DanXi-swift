@@ -29,16 +29,6 @@ public struct CoursePage: View {
             case .staff:
                 throw URLError(.unknown) // calendar for staff is not supported
             }
-        } refreshAction: {
-            switch campusModel.studentType {
-            case .undergrad:
-                return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
-            case .grad:
-                return try await CourseModel.freshLoadForGraduate()
-            case .staff:
-                throw URLError(.unknown) // calendar for staff is not supported
-            }
-            
         } content: { model in
             CalendarContent(model: model)
         }
@@ -98,15 +88,18 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
-                #if targetEnvironment(macCatalyst)
-                .listRowBackground(Color.clear)
-                #endif
             }
             .onReceive(AppEvents.TabBarTapped.calendar) {
                 withAnimation {
                     proxy.scrollTo("cal-top")
                 }
             }
+            .refreshable {
+                await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+            }
+            #if targetEnvironment(macCatalyst)
+            .listRowBackground(Color.clear)
+            #endif
         }
         .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
@@ -116,7 +109,6 @@ fileprivate struct CalendarContent: View {
         }
         .sheet(isPresented: $showExportSheet) {
             ExportSheet()
-                .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil) // FIXME: a hacky way to disable .refreshable for child
         }
         .sheet(isPresented: $showColorSheet) {
             colorSheet
@@ -163,6 +155,11 @@ fileprivate struct CalendarContent: View {
             }
         } label: {
             Image(systemName: "ellipsis.circle")
+        }
+        .onChange(of: model.semester.semesterId) { _ in
+            Task {
+                await model.updateSemester()
+            }
         }
     }
     
