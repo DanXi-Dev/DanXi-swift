@@ -1,5 +1,5 @@
-import SwiftUI
 import FudanKit
+import SwiftUI
 import ViewUtils
 
 struct ReservationPage: View {
@@ -83,8 +83,14 @@ struct PlaygroundPage: View {
                 if filteredReservations.isEmpty {
                     Text("No Time Slots Available", bundle: .module)
                 } else {
-                    ForEach(filteredReservations) { reservation in
-                        ReservationView(reservation: reservation)
+                    Grid(alignment: .center) {
+                        ForEach(filteredReservations) { reservation in
+                            ReservationView(reservation: reservation)
+                                .padding(.vertical, 2)
+                            if reservation.id != filteredReservations.last?.id {
+                                Divider()
+                            }
+                        }
                     }
                 }
             }
@@ -100,11 +106,12 @@ fileprivate struct ReservationView: View {
     @State private var showSheet = false
     
     var body: some View {
-        HStack {
-            Text(verbatim: "\(reservation.begin.formatted(date: .omitted, time: .shortened)) - \(reservation.end.formatted(date: .omitted, time: .shortened))")
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Text(verbatim: "\(reservation.reserved) / \(reservation.total)")
-                .frame(maxWidth: .infinity, alignment: .center)
+        GridRow {
+            Group {
+                Text(verbatim: "\(reservation.begin.formatted(date: .omitted, time: .shortened)) - \(reservation.end.formatted(date: .omitted, time: .shortened))")
+                Text(verbatim: "\(reservation.reserved) / \(reservation.total)")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             Group {
                 if reservation.available {
                     Button {
@@ -112,6 +119,7 @@ fileprivate struct ReservationView: View {
                     } label: {
                         Text("Reserve", bundle: .module)
                     }
+                    .buttonStyle(.borderless)
                 } else if reservation.reserved == reservation.total {
                     Text("Full", bundle: .module)
                         .foregroundColor(.secondary)
@@ -120,7 +128,6 @@ fileprivate struct ReservationView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .sheet(isPresented: $showSheet) {
             ReservationSheet(reservation)
