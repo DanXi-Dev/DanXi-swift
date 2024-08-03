@@ -69,9 +69,7 @@ fileprivate struct FoldedContentSettings: View {
             .pickerStyle(.inline)
             .onChange(of: settings.foldedContent) { foldedContent in
                 Task {
-                    if let userId = ProfileStore.shared.profile?.id {
-                        try await  _ = ForumAPI.updateUserSettings(showFoldedConfiguration: String(describing: foldedContent));
-                    }
+                    try await _ = ForumAPI.updateUserSettings(showFoldedConfiguration: String(describing: foldedContent))
                 }
             }
         }

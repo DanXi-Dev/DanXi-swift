@@ -265,7 +265,7 @@ public enum ForumAPI {
         return try await requestWithResponse("/users/me", base: forumURL)
     }
     
-    public static func updateUserSettings(userId: Int? = nil, notificationConfiguration: [String]? = nil, showFoldedConfiguration: String? = nil) async throws -> Profile {
+    public static func updateUserSettings(notificationConfiguration: [String]? = nil, showFoldedConfiguration: String? = nil) async throws -> Profile {
         var configuration: [String: Any] = [:]
         if let notificationConfiguration {
             configuration["notify"] = notificationConfiguration
@@ -274,11 +274,20 @@ public enum ForumAPI {
             configuration["show_folded"] = showFoldedConfiguration
         }
         let payload: [String: Any] = ["config": configuration]
-        if let userId = userId {
-            return try await requestWithResponse("/users/\(userId)/_modify", base: forumURL, payload: payload, method: "PATCH")
-        } else {
-            return try await requestWithResponse("/users/me/_modify", base: forumURL, payload: payload, method: "PATCH")
+        return try await requestWithResponse("/users/me/_modify", base: forumURL, payload: payload, method: "PATCH")
+    }
+    
+    public static func adminUpdateUserSettings(userId: Int, notificationConfiguration: [String]? = nil, showFoldedConfiguration: String? = nil) async throws -> Profile {
+        var configuration: [String: Any] = [:]
+        if let notificationConfiguration {
+            configuration["notify"] = notificationConfiguration
         }
+        if let showFoldedConfiguration {
+            configuration["show_folded"] = showFoldedConfiguration
+        }
+        let payload: [String: Any] = ["config": configuration]
+        
+        return try await requestWithResponse("/users/\(userId)/_modify", base: forumURL, payload: payload, method: "PATCH")
     }
     
     public static func uploadNotificationToken(deviceId: String, token: String) async throws {
