@@ -45,7 +45,7 @@ actor DiskImageCache {
     
     init() {
         Task(priority: .background) {
-            await evict() // evict cache at app-start time
+            await evict(before: 7) // evict cache at app-start time
         }
     }
     
@@ -78,7 +78,7 @@ actor DiskImageCache {
         try Disk.save(value.uiImage, to: .caches, as: filename)
     }
     
-    func evict(before days: Int = 7) {
+    func evict(before days: Int) {
         let fileManager = FileManager.default
         var path = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)
         guard !path.isEmpty else { return }

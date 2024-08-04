@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct AsyncContentView<Value, Content: View>: View {
+public struct AsyncContentView<Value: Sendable, Content: View>: View {
     public typealias Loader = () async throws -> Value
     
     private let style: AsyncContentStyle
@@ -83,17 +83,18 @@ enum AsyncContentPhase<Value> {
     case failed(error: Error)
 }
 
-public struct AsyncContentStyle {
-    public typealias Retry = () -> Void
+@MainActor
+public struct AsyncContentStyle: Sendable {
+    public typealias Retry = @Sendable () -> Void
     
-    public init(@ViewBuilder loadingView: @escaping () -> some View,
-                @ViewBuilder errorView: @escaping (Error, @escaping Retry) -> some View) {
+    public init(@ViewBuilder loadingView: @MainActor @escaping @Sendable () -> some View,
+                @ViewBuilder errorView: @MainActor @escaping @Sendable (Error, @escaping Retry) -> some View) {
         self.loadingView = { () -> AnyView in AnyView(loadingView()) }
         self.errorView = { error, retry in AnyView(errorView(error, retry)) }
     }
     
-    let loadingView: () -> AnyView
-    let errorView: (Error, @escaping Retry) -> AnyView
+    let loadingView: @MainActor @Sendable () -> AnyView
+    let errorView: @MainActor @Sendable (Error, @escaping Retry) -> AnyView
 }
 
 extension AsyncContentStyle {

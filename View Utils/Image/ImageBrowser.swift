@@ -54,6 +54,7 @@ struct ImageBrowser: UIViewRepresentable {
     }
 }
 
+@MainActor
 class ImageBrowserCoordinator: NSObject {
     init(image: UIImage, fileURL: URL, remoteURL: URL) {
         self.image = image
@@ -120,7 +121,7 @@ extension ImageBrowserCoordinator: QLPreviewControllerDataSource {
     }
 }
 
-extension ImageBrowserCoordinator: QLPreviewControllerDelegate {
+extension ImageBrowserCoordinator: @preconcurrency QLPreviewControllerDelegate {
     func previewController(
         _ controller: QLPreviewController,
         editingModeFor previewItem: any QLPreviewItem
