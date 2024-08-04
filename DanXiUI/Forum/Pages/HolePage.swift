@@ -111,6 +111,22 @@ struct HolePage: View {
                 }
             }
             
+            if hole.hidden && profileStore.isAdmin {
+                HStack {
+                    Label {
+                        Text("This hole has been hidden", bundle: .module)
+                    } icon: {
+                        Image(systemName: "eye.slash.fill")
+                    }
+                    .textCase(.none)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                    .listRowSeparator(.hidden)
+                    
+                    Spacer()
+                }
+            }
+            
             tags
         }
     }
