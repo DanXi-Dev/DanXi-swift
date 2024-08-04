@@ -88,7 +88,7 @@ public enum AuthenticationAPI {
     /// To share credential with such components, an authenticated URL, i.e., a URL with `ticket` param must be passed to authenticate user.
     public static func authenticateForURL(_ url: URL) async throws -> URL {
         // use delegate to intercept redirecting URL
-        class RedirectDelegate: NSObject, URLSessionTaskDelegate {
+        final class RedirectDelegate: NSObject, URLSessionTaskDelegate {
             func urlSession(
                 _ session: URLSession,
                 task: URLSessionTask,

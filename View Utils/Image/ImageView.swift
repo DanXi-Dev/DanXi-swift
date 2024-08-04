@@ -67,7 +67,7 @@ public struct ImageView: View {
 }
 
 public struct SupportImageBrowsingKey: EnvironmentKey {
-    static public var defaultValue = false
+    static public let defaultValue = false
 }
 
 extension EnvironmentValues {

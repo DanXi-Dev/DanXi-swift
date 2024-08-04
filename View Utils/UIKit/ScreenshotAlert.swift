@@ -23,6 +23,7 @@ struct ScreenshotAlert<Content: View>: View {
     }
 }
 
+@MainActor
 class ScreenshotAlertModel: ObservableObject {
     weak var uiView: UIView? = nil
     
