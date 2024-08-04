@@ -2500,6 +2500,16 @@
         }
       }
     },
+    "This hole has been hidden" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该洞已被隐藏"
+          }
+        }
+      }
+    },
     "This user has been warned with permenant ban notice" : {
       "localizations" : {
         "zh-Hans" : {
