@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "DanXiUI", targets: ["DanXiUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/SwiftUIX/SwiftUIX.git", from: "0.1.9"),
+        .package(url: "https://github.com/SwiftUIX/SwiftUIX.git", from: "0.2.2"),
         .package(name: "DanXiKit", path: "../DanXi Kit"),
         .package(name: "ViewUtils", path: "../View Utils"),
         .package(name: "Utils", path: "../Utils"),
