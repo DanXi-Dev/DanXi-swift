@@ -95,12 +95,19 @@ public class Proxy {
         guard let url = request.url else {
             return request
         }
-
-        let proxiedURL = createProxiedURL(url: url)
+        
+        var component = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        if request.httpMethod == "PUT",
+           let path = component?.path {
+            component?.path = path + "/_webvpn"
+        }
+        let modifiedURL = component?.url ?? url
+        
+        let proxiedURL = createProxiedURL(url: modifiedURL)
 
         var proxiedRequest = URLRequest(url: proxiedURL)
         proxiedRequest.allHTTPHeaderFields = request.allHTTPHeaderFields
-        proxiedRequest.httpMethod = request.httpMethod
+        proxiedRequest.httpMethod = request.httpMethod == "PUT" ? "PATCH" : request.httpMethod
         proxiedRequest.httpBody = request.httpBody
         return proxiedRequest
     }
