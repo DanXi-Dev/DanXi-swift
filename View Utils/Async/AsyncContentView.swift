@@ -1,5 +1,14 @@
 import SwiftUI
 
+
+/// A view that presents an item that needs a loading process.
+///
+/// Use `AsyncContentView` for views that need relevent data to be loaded from disk
+/// or network. The view presents a loading view during loading process, and displays
+/// the designated view after the loading process is completed. In case there is an error,
+/// the view displays an error view.
+///
+/// You may specify the styles of the loading view and error view by passing an ``AsyncContentStyle``.
 public struct AsyncContentView<Value: Sendable, Content: View>: View {
     public typealias Loader = () async throws -> Value
     
@@ -11,6 +20,14 @@ public struct AsyncContentView<Value: Sendable, Content: View>: View {
     
     @State private var phase: AsyncContentPhase<Value> = .idle
     
+    
+    /// Create an `AsyncContentView`.
+    /// - Parameters:
+    ///   - style: Specify the style of loading view and error view. Use preconfigured styles like `.paged` and `.widget`, or create your own.
+    ///   - animation: The animation used during view transition.
+    ///   - defaultAction: The loading process to load the data item.
+    ///   - refreshAction: If provided, the view supports pull to refresh, and this closure will be called during refresh process.
+    ///   - content: A closure specifying how to present the data item.
     public init(style: AsyncContentStyle = .paged,
                 animation: Animation? = nil,
                 defaultAction: @escaping Loader,
@@ -83,10 +100,16 @@ enum AsyncContentPhase<Value> {
     case failed(error: Error)
 }
 
+
+/// The style used in ``AsyncContentView``.
 @MainActor
 public struct AsyncContentStyle: Sendable {
     public typealias Retry = @Sendable () -> Void
     
+    /// Create a style.
+    /// - Parameters:
+    ///   - loadingView: The loading view.
+    ///   - errorView: Render the error view using an error and a retry action.
     public init(@ViewBuilder loadingView: @MainActor @escaping @Sendable () -> some View,
                 @ViewBuilder errorView: @MainActor @escaping @Sendable (Error, @escaping Retry) -> some View) {
         self.loadingView = { () -> AnyView in AnyView(loadingView()) }
