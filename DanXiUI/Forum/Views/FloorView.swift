@@ -111,8 +111,6 @@ private struct FloorContentView: View, Equatable {
     let content: String
     
     var body: some View {
-        let _ = Self._printChanges()
-        
         VStack(alignment: .leading, spacing: 7) {
             ForEach(Array(sections.enumerated()), id: \.offset) { _, section in
                 switch section {
