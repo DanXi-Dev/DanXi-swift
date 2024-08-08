@@ -43,7 +43,7 @@ private struct SafariWrapper<Content: View>: View {
         content()
             #if !targetEnvironment(macCatalyst)
             .environment(\.openURL, OpenURLAction { url in
-                if shouldOpenInBrowser {
+                if shouldOpenInBrowser || !["http", "https"].contains(url.scheme?.lowercased() ?? "") {
                     UIApplication.shared.open(url)
                 } else {
                     safariURL = url
