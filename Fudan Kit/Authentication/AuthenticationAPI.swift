@@ -17,12 +17,7 @@ public enum AuthenticationAPI {
     
     /// Check if the user's credential is correct.
     /// - Returns: `true` if user's credential is correct, `false` otherwise.
-    public static func checkUserCredential(username: String, password: String) async throws -> Bool {
-        // check if captcha test exist
-        guard !(await checkCaptchaStatus(username: username)) else {
-            throw CampusError.needCaptcha
-        }
-        
+    public static func checkUserCredential(username: String, password: String) async throws -> Bool {        
         let request = constructRequest(authenticationURL)
         let (loginFormData, _) = try await URLSession.campusSession.data(for: request)
         let authRequest = try constructAuthenticationRequest(authenticationURL, form: loginFormData, username: username, password: password)
