@@ -34,6 +34,7 @@ public enum AuthenticationAPI {
     ///
     /// - Important:
     /// To prevent the login process to stuck on this API, this function never throws error. When an error occurs, it simply return `false`.
+    @available(*, deprecated, message: "This API is not accurate")
     static func checkCaptchaStatus(username: String) async -> Bool {
         do {
             guard let url = URL(string: "https://uis.fudan.edu.cn/authserver/needCaptcha.html?username=\(username)") else {
@@ -121,6 +122,10 @@ public enum AuthenticationAPI {
     /// Fill in the authentication form and construct a POST request
     static func constructAuthenticationRequest(_ url: URL, form: Data, username: String, password: String) throws -> URLRequest {
         var loginForm = ["username": username, "password": password]
+        
+        if existHTMLElement(form, selector: "#captchaResponse") {
+            throw CampusError.needCaptcha
+        }
         
         // search for `<input type="hidden">` and add value to the form
         let elements = try decodeHTMLElementList(form, selector: "input[type=\"hidden\"]")

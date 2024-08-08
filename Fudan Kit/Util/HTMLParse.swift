@@ -1,6 +1,16 @@
 import Foundation
 import SwiftSoup
 
+func existHTMLElement(_ data: Data, selector: String) -> Bool {
+    guard let text = String(data: data, encoding: String.Encoding.utf8),
+          let doc = try? SwiftSoup.parse(text),
+          let list = try? doc.select(selector) else {
+        return false
+    }
+    
+    return !list.isEmpty
+}
+
 func decodeHTMLDocument(_ data: Data) throws -> Document {
     guard let text = String(data: data, encoding: String.Encoding.utf8) else {
         throw URLError(.cannotDecodeContentData)
