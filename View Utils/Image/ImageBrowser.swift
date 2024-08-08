@@ -121,7 +121,7 @@ extension ImageBrowserCoordinator: QLPreviewControllerDataSource {
     }
 }
 
-extension ImageBrowserCoordinator: @preconcurrency QLPreviewControllerDelegate {
+extension ImageBrowserCoordinator: QLPreviewControllerDelegate {
     func previewController(
         _ controller: QLPreviewController,
         editingModeFor previewItem: any QLPreviewItem
