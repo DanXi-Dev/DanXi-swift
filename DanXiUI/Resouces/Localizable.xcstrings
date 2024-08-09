@@ -1586,6 +1586,12 @@
     "New reply in favorites" : {
       "comment" : "Notifications",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New reply in subscribed posts"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
