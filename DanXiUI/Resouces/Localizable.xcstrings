@@ -504,6 +504,16 @@
         }
       }
     },
+    "Confirm Delete Account" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认删除账户"
+          }
+        }
+      }
+    },
     "Confirm Delete Post" : {
       "localizations" : {
         "zh-Hans" : {
@@ -732,12 +742,32 @@
         }
       }
     },
+    "Delete Account" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除账户"
+          }
+        }
+      }
+    },
     "Delete Browse History" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "删除浏览记录"
+          }
+        }
+      }
+    },
+    "Delete DanXi account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除旦夕账户。操作后，将不能再登录此旦夕账户。您的个人信息将会被删除。"
           }
         }
       }
@@ -2542,6 +2572,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "将影响该帖下全部回复帖"
+          }
+        }
+      }
+    },
+    "This will delete your DanXi account." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将删除您的旦夕账户。"
           }
         }
       }
