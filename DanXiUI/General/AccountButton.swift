@@ -44,6 +44,10 @@ public struct CommunityAccountButton: View {
 
 public struct CommunityAccountSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var showDeleteWarning = false
+    @State private var showDeleteAlert = false
+    @State private var deleteAccountEmail = ""
+    @State private var deleteAccountPassword = ""
     
     public init() { }
     
@@ -97,7 +101,46 @@ public struct CommunityAccountSheet: View {
                             }
                         }
                     }
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            showDeleteWarning = true
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Delete Account", bundle: .module)
+                                    .bold()
+                                Spacer()
+                            }
+                        }
+                    }
                 }
+            }
+            .alert(String(localized: "Confirm Delete Account", bundle: .module), isPresented: $showDeleteWarning) {
+                Button(role: .destructive) {
+                    showDeleteAlert = true
+                } label: {
+                    Text("Delete Account", bundle: .module)
+                }
+            } message: {
+                Text("Delete DanXi account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter.", bundle: .module)
+            }
+            .alert(String(localized: "Confirm Delete Account", bundle: .module), isPresented: $showDeleteAlert) {
+                TextField(String(localized: "Email", bundle: .module), text: .constant(""))
+                SecureField(String(localized: "Password", bundle: .module), text: .constant(""))
+                Button(role: .destructive) {
+                    Task {
+                        try? await withHaptics(success: false, fail: true) {
+                            try await GeneralAPI.deleteAccount(email: deleteAccountEmail, password: deleteAccountPassword)
+                            await CommunityModel.shared.logout()
+                            dismiss()
+                        }
+                    }
+                } label: {
+                    Text("Delete Account", bundle: .module)
+                }
+            } message: {
+                Text("This will delete your DanXi account.", bundle: .module)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -112,4 +155,8 @@ public struct CommunityAccountSheet: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+}
+
+#Preview {
+    CommunityAccountSheet()
 }

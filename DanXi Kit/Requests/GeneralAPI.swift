@@ -43,6 +43,11 @@ public enum GeneralAPI {
         try await requestWithoutResponse("/verify/email", base: authURL, protected: false, params: ["email": email], method: "GET")
     }
     
+    public static func deleteAccount(email: String, password: String) async throws {
+        let payload = ["email": email, "password": password]
+        try await requestWithoutResponse("/users/me", base: authURL, payload: payload, method: "DELETE")
+    }
+    
     // MARK: Question
     
     public static func getQuestions() async throws -> Questions {
