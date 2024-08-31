@@ -274,7 +274,7 @@ public enum ForumAPI {
             configuration["show_folded"] = showFoldedConfiguration
         }
         let payload: [String: Any] = ["config": configuration]
-        return try await requestWithResponse("/users/me/_modify", base: forumURL, payload: payload, method: "PATCH")
+        return try await requestWithResponse("/users/me/_webvpn", base: forumURL, payload: payload, method: "PATCH")
     }
     
     public static func adminUpdateUserSettings(userId: Int, notificationConfiguration: [String]? = nil, showFoldedConfiguration: String? = nil) async throws -> Profile {
@@ -287,7 +287,7 @@ public enum ForumAPI {
         }
         let payload: [String: Any] = ["config": configuration]
         
-        return try await requestWithResponse("/users/\(userId)/_modify", base: forumURL, payload: payload, method: "PATCH")
+        return try await requestWithResponse("/users/\(userId)/_webvpn", base: forumURL, payload: payload, method: "PATCH")
     }
     
     public static func uploadNotificationToken(deviceId: String, token: String) async throws {
