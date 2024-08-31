@@ -66,7 +66,7 @@ public enum GraduateCourseAPI {
             }
             let type: Semester.SemesterType = (response.term == "1") ? .first : .second
             
-            let semester = Semester(year: year, type: type, semesterId: 0, startDate: response.startday, weekCount: response.countweek)
+            let semester = Semester(year: year, type: type, semesterId: 0, startDate: closestMonday(to: response.startday), weekCount: response.countweek)
             semesters.append(semester)
         }
         
@@ -255,4 +255,12 @@ public enum GraduateCourseAPI {
         let weekday: Int
         let lessons: String
     }
+}
+
+func closestMonday(to date: Date) -> Date? {
+    let calendar = Calendar.current
+    let weekday = calendar.component(.weekday, from: date)
+    let firstWeekday = calendar.firstWeekday
+    let daysToMonday = (10 - weekday - firstWeekday) % 7
+    return calendar.date(byAdding: .day, value: daysToMonday, to: date)
 }
