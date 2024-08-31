@@ -660,33 +660,33 @@
         }
       }
     },
-    "DanXi Account" : {
+    "Danta Account" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕账户"
+            "value" : "旦挞账户"
           }
         }
       }
     },
-    "DanXi account is used to access community services such as Treehole and DanKe." : {
+    "Danta account is used to access community services such as Treehole and DanKe." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi account is used to access community services such as Forum and DanKe."
+            "value" : "Danta account is used to access community services such as Forum and DanKe."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕账户用于访问茶楼、蛋壳等社区服务"
+            "value" : "旦挞账户用于访问茶楼、蛋壳等社区服务"
           }
         }
       }
     },
-    "DanXi Qualification" : {
+    "Danta Qualification" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -696,7 +696,7 @@
         }
       }
     },
-    "DanXi Question Prompt" : {
+    "Danta Question Prompt" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -762,12 +762,12 @@
         }
       }
     },
-    "Delete DanXi account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter." : {
+    "Delete Danta account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除旦夕账户。操作后，将不能再登录此旦夕账户。您的个人信息将会被删除。"
+            "value" : "删除旦挞账户。操作后，将不能再登录此旦挞账户。您的个人信息将会被删除。"
           }
         }
       }
@@ -1138,13 +1138,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi Account"
+            "value" : "Danta Account"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕账户"
+            "value" : "旦挞账户"
           }
         }
       }
@@ -2000,12 +2000,12 @@
         }
       }
     },
-    "Register DanXi Account" : {
+    "Register Danta Account" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注册旦夕账户"
+            "value" : "注册旦挞账户"
           }
         }
       }
@@ -2576,12 +2576,12 @@
         }
       }
     },
-    "This will delete your DanXi account." : {
+    "This will delete your Danta account." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "将删除您的旦夕账户。"
+            "value" : "将删除您的旦挞账户。"
           }
         }
       }
@@ -2677,12 +2677,12 @@
         }
       }
     },
-    "Use campus email to register DanXi account." : {
+    "Use campus email to register Danta account." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用校园邮箱注册旦夕账户"
+            "value" : "使用校园邮箱注册旦挞账户"
           }
         }
       }

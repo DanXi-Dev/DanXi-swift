@@ -32,7 +32,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕"
+            "value" : "旦挞"
           }
         }
       }
@@ -50,7 +50,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕需要日历写入权限以保存您的课程。"
+            "value" : "旦挞需要日历写入权限以保存您的课程。"
           }
         }
       }
@@ -67,7 +67,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕需要日历写入权限以保存您的课程。"
+            "value" : "旦挞需要日历写入权限以保存您的课程。"
           }
         }
       }
@@ -85,7 +85,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕需要相册写入权限以保存您的图片。"
+            "value" : "旦挞需要相册写入权限以保存您的图片。"
           }
         }
       }
