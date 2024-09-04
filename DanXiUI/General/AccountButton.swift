@@ -126,8 +126,8 @@ public struct CommunityAccountSheet: View {
                 Text("Delete DanXi account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter.", bundle: .module)
             }
             .alert(String(localized: "Confirm Delete Account", bundle: .module), isPresented: $showDeleteAlert) {
-                TextField(String(localized: "Email", bundle: .module), text: .constant(""))
-                SecureField(String(localized: "Password", bundle: .module), text: .constant(""))
+                TextField(String(localized: "Email", bundle: .module), text: $deleteAccountEmail)
+                SecureField(String(localized: "Password", bundle: .module), text: $deleteAccountPassword)
                 Button(role: .destructive) {
                     Task {
                         try? await withHaptics(success: false, fail: true) {
