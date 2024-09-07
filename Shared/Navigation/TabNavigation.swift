@@ -11,7 +11,7 @@ struct TabNavigation: View {
     
     @StateObject private var campusNavigator = AppNavigator()
     @StateObject private var forumNavigator = AppNavigator()
-    @StateObject private var curriculumNavigator = AppNavigator()
+    @StateObject private var communityNavigator = AppNavigator()
     
     private enum LoginStatus: Identifiable {
         case none
@@ -53,11 +53,11 @@ struct TabNavigation: View {
                         AppScreen.forum.label
                     }
                 
-                AppScreen.curriculum.content
-                    .environmentObject(curriculumNavigator)
-                    .tag(AppScreen.curriculum)
+                AppScreen.community.content
+                    .environmentObject(communityNavigator)
+                    .tag(AppScreen.community)
                     .tabItem {
-                        AppScreen.curriculum.label
+                        AppScreen.community.label
                     }
             }
             
