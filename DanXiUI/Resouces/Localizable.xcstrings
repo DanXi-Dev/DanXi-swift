@@ -578,6 +578,16 @@
         }
       }
     },
+    "Curriculum" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蛋壳"
+          }
+        }
+      }
+    },
     "Curriculum Board" : {
       "localizations" : {
         "zh-Hans" : {
@@ -587,6 +597,9 @@
           }
         }
       }
+    },
+    "Curriculum Introduction" : {
+
     },
     "DanXi Account" : {
       "localizations" : {
@@ -619,6 +632,19 @@
           }
         }
       }
+    },
+    "DanXi Community" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦夕社区"
+          }
+        }
+      }
+    },
+    "DanXi Community Introduction" : {
+
     },
     "DanXi Qualification" : {
       "localizations" : {
@@ -1357,6 +1383,19 @@
           }
         }
       }
+    },
+    "Innovation Bank" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创意银行"
+          }
+        }
+      }
+    },
+    "Innovation Bank Introduction" : {
+
     },
     "Join Date" : {
       "localizations" : {

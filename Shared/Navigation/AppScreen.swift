@@ -3,7 +3,7 @@ import FudanUI
 import DanXiUI
 
 enum AppScreen: Codable, Hashable, Identifiable, CaseIterable {
-    case campus, forum, curriculum, calendar, settings
+    case campus, forum, curriculum, community, innovation, calendar, settings
     
     var id: AppScreen {
         self
@@ -19,6 +19,10 @@ extension AppScreen {
             Label("Forum", systemImage: "leaf")
         case .curriculum:
             Label("Curriculum", systemImage: "books.vertical")
+        case .community:
+            Label("Community", systemImage: "bubble")
+        case .innovation:
+            Label("Innovation", systemImage: "lightbulb.max")
         case .calendar:
             Label("Calendar", systemImage: "calendar")
         case .settings:
@@ -38,6 +42,10 @@ extension AppScreen {
         case .curriculum:
             CurriculumContent()
                 .toolbarBackground(.visible, for: .tabBar)
+        case .community:
+            CommunityPage()
+        case .innovation:
+            EmptyView()
         case .calendar:
             NavigationStack {
                 CoursePage()
@@ -56,6 +64,10 @@ extension AppScreen {
             ForumDetail()
         case .curriculum:
             CurriculumDetail()
+        case .community:
+            EmptyView()
+        case .innovation:
+            InnovationHomePage()
         case .settings:
             SettingsDetail()
         default:

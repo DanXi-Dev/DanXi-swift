@@ -49,6 +49,9 @@ struct AppSidebarList: View {
                 
                 AppScreen.curriculum.label
                     .tag(AppScreen.curriculum)
+                
+                AppScreen.innovation.label
+                    .tag(AppScreen.innovation)
             }
             
             AppScreen.settings.label
