@@ -299,6 +299,7 @@ extension Course {
     /// Compute the actual start time and end time of a course on a given week, with respect to `semesterStart`.
     func computeTime(from semesterStart: Date, on week: Int) -> (Date, Date) {
         let calendar = Calendar.current
+        let timeZone = TimeZone(identifier: "Asia/Shanghai")
         let days = (week - 1) * 7 + weekday // first week has index 1, thus it should be subtracted
         let day = calendar.date(byAdding: DateComponents(day: days), to: semesterStart)!
         var components = calendar.dateComponents([.year, .month, .day], from: day)
@@ -307,12 +308,14 @@ extension Course {
         let startComponent = calendar.dateComponents([.hour, .minute], from: startTime)
         components.hour = startComponent.hour
         components.minute = startComponent.minute
+        components.timeZone = timeZone
         let startDate = calendar.date(from: components)!
         
         let endTime = ClassTimeSlot.getItem(end + 1).end
         let endComponent = calendar.dateComponents([.hour, .minute], from: endTime)
         components.hour = endComponent.hour
         components.minute = endComponent.minute
+        components.timeZone = timeZone
         let endDate = calendar.date(from: components)!
         
         return (startDate, endDate)
