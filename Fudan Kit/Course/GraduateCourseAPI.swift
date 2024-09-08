@@ -225,7 +225,7 @@ public enum GraduateCourseAPI {
                 guard let lesson = Int(item.lessons) else {
                     throw URLError(.badServerResponse)
                 }
-                return lesson
+                return lesson - 1
             }
             guard let max = lessons.max(), let min = lessons.min() else { continue }
             let builder = CourseBuilder(name: response.courseName, code: response.courseId, teacher: response.teacher, location: response.location, weekday: response.weekday, start: min, end: max)
