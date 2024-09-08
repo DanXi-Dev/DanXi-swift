@@ -9,7 +9,7 @@ public struct Semester: Codable {
     public enum SemesterType: Int, Codable, Hashable {
         case first = 0, winter, second, summer
     }
-    
+
     let year: Int
     let type: SemesterType
     public let semesterId: Int
@@ -39,21 +39,21 @@ extension Semester: Comparable {
         if lhs.year != rhs.year {
             return lhs.year < rhs.year
         }
-        
+
         return lhs.type.rawValue < rhs.type.rawValue
     }
 }
 
-extension Semester {
+public extension Semester {
     /// Formatted name of the semester
-    public var name: String {
+    var name: String {
         let semesterName = switch type {
         case .first: "第一学期"
         case .winter: "寒假学期"
         case .second: "第二学期"
         case .summer: "暑假学期"
         }
-        
+
         return "\(year)-\(year + 1)年\(semesterName)"
     }
 }
@@ -65,10 +65,10 @@ public struct Course: Identifiable, Codable, Hashable {
     public let weekday: Int
     public let start, end: Int
     public let onWeeks: [Int]
-    
+
     public func openOn(_ week: Int) -> Bool {
-            onWeeks.contains(week)
-        }
+        onWeeks.contains(week)
+    }
 }
 
 /// Time slot that courses are held.
@@ -76,7 +76,7 @@ public struct Course: Identifiable, Codable, Hashable {
 /// All possible time slots have been created.
 /// Do not create your own time slot.
 /// Retrieve time slot by calling ``getItem(_:)``
-public struct ClassTimeSlot: Identifiable{
+public struct ClassTimeSlot: Identifiable {
     public let id: Int
     public let start, end: Date
 }
@@ -147,7 +147,7 @@ public struct Rank: Identifiable, Codable {
     public let grade, major, department: String
     public let gradePoint, credit: Double
     public let rank: Int
-    
+
     public var isMe: Bool {
         !name.contains("*")
     }
