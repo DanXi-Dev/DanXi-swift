@@ -153,10 +153,16 @@
     },
     "Copyright © 2024 DanXi-Dev" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "版权所有 © 2024 旦夕开发组"
+            "value" : "Copyright © 2024 Danta-Dev"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "版权所有 © 2024 旦挞开发组"
           }
         }
       }
@@ -184,20 +190,32 @@
     "DanXi" : {
       "comment" : "Navigation",
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕"
+            "value" : "Danta"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "旦挞"
           }
         }
       }
     },
     "DanXi provides timely notifications to keep you updated. You will be prompted for permission to enable this feature in the upcoming step. You can adjust this setting at any time within the system settings." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕会发送通知以方便您及时掌握最新动向。请在下一步中授予我们推送通知权限。您可以随时在系统设置中更改此设置。"
+            "value" : "Danta provides timely notifications to keep you updated. You will be prompted for permission to enable this feature in the upcoming step. You can adjust this setting at any time within the system settings."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "旦挞会发送通知以方便您及时掌握最新动向。请在下一步中授予我们推送通知权限。您可以随时在系统设置中更改此设置。"
           }
         }
       }
@@ -207,13 +225,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi uses a dual-account system, including the Fudan Campus account and the DanXi account."
+            "value" : "Danta uses a dual-account system, including the Fudan Campus account and the Danta account."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "旦夕 app 使用双账户系统，包括复旦校园账户和旦夕账户。"
+            "state" : "needs_review",
+            "value" : "旦挞 app 使用双账户系统，包括复旦校园账户和旦挞账户。"
           }
         }
       }
@@ -223,13 +241,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi account is used to log into various services provided by DanXi, including Forum and DanKe Course Review. This account is not affiliated with Fudan University, but registration must be done using a Fudan University email."
+            "value" : "Danta account is used to log into various services provided by Danta, including Forum and DanKe Course Review. This account is not affiliated with Fudan University, but registration must be done using a Fudan University email."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "旦夕账户由旦夕团队提供，用于访问茶楼、蛋壳课评等社区服务。旦夕账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
+            "state" : "needs_review",
+            "value" : "旦挞账户由旦挞团队提供，用于访问茶楼、蛋壳课评等社区服务。旦挞账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
           }
         }
       }
@@ -305,13 +323,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi Account"
+            "value" : "Danta Account"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "旦夕账户"
+            "state" : "needs_review",
+            "value" : "旦挞账户"
           }
         }
       }
@@ -461,7 +479,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重新构建的旦夕app带来更流畅的体验。"
+            "value" : "重新构建的旦挞app带来更流畅的体验。"
           }
         }
       }
