@@ -45,11 +45,11 @@
 		<true/>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>DanXi needs to write to your calendar to save your courses events.</string>
+	<string>Danta needs to write to your calendar to save your courses events.</string>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-	<string>DanXi needs to write to your calendar to save your courses events.</string>
+	<string>Danta needs to write to your calendar to save your courses events.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>DanXi needs to write to your photo library to save your images.</string>
+	<string>Danta needs to write to your photo library to save your images.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>BusScheduleIntent</string>

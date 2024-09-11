@@ -662,10 +662,16 @@
     },
     "DanXi Account" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕账户"
+            "value" : "Danta Account"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "旦挞账户"
           }
         }
       }
@@ -675,22 +681,28 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi account is used to access community services such as Forum and DanKe."
+            "value" : "Danta account is used to access community services such as Forum and DanKe."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "旦夕账户用于访问茶楼、蛋壳等社区服务"
+            "state" : "needs_review",
+            "value" : "旦挞账户用于访问茶楼、蛋壳等社区服务"
           }
         }
       }
     },
     "DanXi Qualification" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Danta Qualification"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "入站答题"
           }
         }
@@ -764,10 +776,16 @@
     },
     "Delete DanXi account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除旦夕账户。操作完成后，将不能再登录此旦夕账户，也不能用同样的邮箱再次注册。您的个人信息将会被删除。"
+            "value" : "Delete Danta account. After this operation, you will not be able to login to the same account again. Your personal information will be deleted thereafter."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "删除旦挞账户。操作完成后，将不能再登录此旦挞账户，也不能用同样的邮箱再次注册。您的个人信息将会被删除。"
           }
         }
       }
@@ -1138,13 +1156,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DanXi Account"
+            "value" : "Danta Account"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "旦夕账户"
+            "state" : "needs_review",
+            "value" : "旦挞账户"
           }
         }
       }
@@ -1371,10 +1389,16 @@
     },
     "If you have any question, you may contact admin@fduhole.com" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果有任何疑问，可以联系 admin@fduhole.com"
+            "value" : "If you have any question, you may contact admin@danta.tech"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "如果有任何疑问，可以联系 admin@danta.tech"
           }
         }
       }
@@ -2002,10 +2026,16 @@
     },
     "Register DanXi Account" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注册旦夕账户"
+            "value" : "Register Danta Account"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "注册旦挞账户"
           }
         }
       }
@@ -2578,10 +2608,16 @@
     },
     "This will delete your DanXi account." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "将删除您的旦夕账户。"
+            "value" : "This will delete your Danta account."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "将删除您的旦挞账户。"
           }
         }
       }
@@ -2679,10 +2715,16 @@
     },
     "Use campus email to register DanXi account." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用校园邮箱注册旦夕账户"
+            "value" : "Use campus email to register Danta account."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "使用校园邮箱注册旦挞账户"
           }
         }
       }
