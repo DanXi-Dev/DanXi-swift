@@ -670,7 +670,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞账户"
           }
         }
@@ -686,7 +686,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞账户用于访问茶楼、蛋壳等社区服务"
           }
         }
@@ -702,7 +702,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "入站答题"
           }
         }
@@ -784,7 +784,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "删除旦挞账户。操作完成后，将不能再登录此旦挞账户，也不能用同样的邮箱再次注册。您的个人信息将会被删除。"
           }
         }
@@ -1161,7 +1161,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞账户"
           }
         }
@@ -1397,7 +1397,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "如果有任何疑问，可以联系 admin@danta.tech"
           }
         }
@@ -2034,7 +2034,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "注册旦挞账户"
           }
         }
@@ -2616,7 +2616,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "将删除您的旦挞账户。"
           }
         }
@@ -2723,7 +2723,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "使用校园邮箱注册旦挞账户"
           }
         }

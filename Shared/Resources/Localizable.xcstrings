@@ -161,7 +161,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "版权所有 © 2024 旦挞开发组"
           }
         }
@@ -198,7 +198,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞"
           }
         }
@@ -214,7 +214,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞会发送通知以方便您及时掌握最新动向。请在下一步中授予我们推送通知权限。您可以随时在系统设置中更改此设置。"
           }
         }
@@ -230,7 +230,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞 app 使用双账户系统，包括复旦校园账户和旦挞账户。"
           }
         }
@@ -246,7 +246,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞账户由旦挞团队提供，用于访问茶楼、蛋壳课评等社区服务。旦挞账户与复旦大学无关，但必须使用复旦大学邮箱注册。"
           }
         }
@@ -328,7 +328,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "旦挞账户"
           }
         }
