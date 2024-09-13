@@ -102,7 +102,7 @@ enum AsyncContentPhase<Value> {
 
 
 /// The style used in ``AsyncContentView``.
-//@MainActor
+@MainActor
 public struct AsyncContentStyle: Sendable {
     public typealias Retry = @Sendable () -> Void
     
