@@ -44,7 +44,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "DanXi needs to write to your calendar to save your courses events."
+            "value" : "Danta needs to write to your calendar to save your courses events."
           }
         },
         "zh-Hans" : {
@@ -79,7 +79,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "DanXi needs to write to your photo library to save your images."
+            "value" : "Danta needs to write to your photo library to save your images."
           }
         },
         "zh-Hans" : {
