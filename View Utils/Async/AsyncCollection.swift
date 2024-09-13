@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct AsyncCollection<Item: Identifiable, Content: View>: View {
+public struct AsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
     private let nestedView: AnyView
     
     public init(action: @escaping ([Item]) async throws -> [Item],
@@ -20,7 +20,7 @@ public struct AsyncCollection<Item: Identifiable, Content: View>: View {
     }
 }
 
-fileprivate struct SimpleAsyncCollection<Item: Identifiable, Content: View>: View {
+fileprivate struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
     private let content: (Item) -> Content
     private let loadingAction: ([Item]) async throws -> [Item]
     

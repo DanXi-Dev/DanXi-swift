@@ -123,8 +123,3 @@ struct WalletWidgetView: View {
         }
     }
 }
-
-#Preview {
-    WalletWidgetView(entry: .init())
-        .previewContext(WidgetPreviewContext(family: .systemSmall))
-}
