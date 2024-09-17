@@ -7,10 +7,12 @@ import DanXiUI
 struct TabNavigation: View {
     @ObservedObject private var communityModel = CommunityModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var settings = ForumSettings.shared
     @Binding var screen: AppScreen
     
     @StateObject private var campusNavigator = AppNavigator()
     @StateObject private var forumNavigator = AppNavigator()
+    @StateObject private var curriculumNavigator = AppNavigator()
     @StateObject private var communityNavigator = AppNavigator()
     
     private enum LoginStatus: Identifiable {
@@ -46,19 +48,37 @@ struct TabNavigation: View {
             }
             
             if communityModel.loggedIn {
-                AppScreen.forum.content
-                    .environmentObject(forumNavigator)
-                    .tag(AppScreen.forum)
-                    .tabItem {
-                        AppScreen.forum.label
-                    }
+                if settings.previewFeatureSetting != .focus {
+                    AppScreen.forum.content
+                        .environmentObject(forumNavigator)
+                        .tag(AppScreen.forum)
+                        .tabItem {
+                            AppScreen.forum.label
+                        }
+                }
                 
-                AppScreen.community.content
-                    .environmentObject(communityNavigator)
-                    .tag(AppScreen.community)
-                    .tabItem {
-                        AppScreen.community.label
-                    }
+                switch settings.previewFeatureSetting {
+                case .focus:
+                    InnovationHomePage()
+                        .tag(AppScreen.innovation)
+                        .tabItem {
+                            AppScreen.innovation.label
+                        }
+                case .hide:
+                    AppScreen.curriculum.content
+                        .environmentObject(curriculumNavigator)
+                        .tag(AppScreen.curriculum)
+                        .tabItem {
+                            AppScreen.curriculum.label
+                        }
+                case .show:
+                    AppScreen.community.content
+                        .environmentObject(communityNavigator)
+                        .tag(AppScreen.community)
+                        .tabItem {
+                            AppScreen.community.label
+                        }
+                }
             }
             
             if campusModel.loggedIn {

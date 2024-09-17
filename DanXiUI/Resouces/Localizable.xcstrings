@@ -472,6 +472,16 @@
         }
       }
     },
+    "Control the appearance of preview features, currently including innovation bank" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "控制是否展示预览功能，目前包括创意银行"
+          }
+        }
+      }
+    },
     "Copy Full Text" : {
       "localizations" : {
         "en" : {
@@ -1167,6 +1177,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "筛选教师"
+          }
+        }
+      }
+    },
+    "Focus" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "专注"
           }
         }
       }
@@ -1871,6 +1891,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "预览"
+          }
+        }
+      }
+    },
+    "Preview Features" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预览功能"
           }
         }
       }
