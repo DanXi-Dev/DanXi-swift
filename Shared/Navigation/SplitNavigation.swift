@@ -13,12 +13,20 @@ struct SplitNavigation: View {
     }
     
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            AppSidebarList(screen: $screen)
-        } content: {
-            screen.content
-        } detail: {
-            screen.detail
+        if screen == .innovation {
+            NavigationSplitView {
+                AppSidebarList(screen: $screen)
+            } detail: {
+                screen.detail
+            }
+        } else {
+            NavigationSplitView(columnVisibility: $columnVisibility) {
+                AppSidebarList(screen: $screen)
+            } content: {
+                screen.content
+            } detail: {
+                screen.detail
+            }
         }
     }
 }
