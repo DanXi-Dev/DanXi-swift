@@ -27,6 +27,7 @@ struct AppSidebarList: View {
     @Binding var screen: AppScreen
     @ObservedObject private var communityModel = CommunityModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var settings = ForumSettings.shared
     
     var body: some View {
         let screenBinding = Binding<AppScreen?>(
@@ -44,14 +45,18 @@ struct AppSidebarList: View {
             }
             
             if communityModel.loggedIn {
-                AppScreen.forum.label
-                    .tag(AppScreen.forum)
+                if settings.previewFeatureSetting != .focus {
+                    AppScreen.forum.label
+                        .tag(AppScreen.forum)
+                    
+                    AppScreen.curriculum.label
+                        .tag(AppScreen.curriculum)
+                }
                 
-                AppScreen.curriculum.label
-                    .tag(AppScreen.curriculum)
-                
-                AppScreen.innovation.label
-                    .tag(AppScreen.innovation)
+                if settings.previewFeatureSetting != .hide {
+                    AppScreen.innovation.label
+                        .tag(AppScreen.innovation)
+                }
             }
             
             AppScreen.settings.label
