@@ -54,7 +54,6 @@ public enum GraduateCourseAPI {
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         let semestersResponse = try decoder.decode([GraduateSemesterResponse].self, from: semesterData)
@@ -67,11 +66,7 @@ public enum GraduateCourseAPI {
             }
             let type: Semester.SemesterType = (response.term == "1") ? .first : .second
             
-//            convert startday to GMT+8
-            let startday = response.startday.addingTimeInterval(8 * 3600)
-        
-            
-            let semester = Semester(year: year, type: type, semesterId: 0, startDate: closestMonday(to: startday), weekCount: response.countweek)
+            let semester = Semester(year: year, type: type, semesterId: 0, startDate: closestMonday(to: response.startday), weekCount: response.countweek)
             semesters.append(semester)
         }
         
