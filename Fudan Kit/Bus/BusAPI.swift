@@ -27,7 +27,7 @@ import Foundation
 /// The `arrow` property can be quite confusing. It has 3 possible value:
 /// - 3: The bus schedule is `start -> end`, start at `stime`, and `etime` will be empty.
 /// - 2: The bus schedule is `start <- end`, start at `etime`, and `stime` will be empty.
-/// - 1: The bus schedule is `start <-> end`, both start at `stime`, `etime` will be empty.
+/// - 1: The bus schedule is `start <-> end`, bus departing from start leaves at `stime`, bus departing from end leaves at `etime`.
 ///
 /// - Important
 /// In some cases, the separator between hour and minute can be `.`, example is shown as follows:
@@ -102,9 +102,10 @@ public enum BusAPI {
                     schedules.append(schedule)
                 case "1":
                     // expand bidirectional bus schedule into 2 separate schedules
-                    guard let time = dateDecoder.date(from: startTimeString) else { continue }
-                    let forward = Schedule(id: id, time: time, start: start, end: end, holiday: holiday, bidirectional: true)
-                    let backward = Schedule(id: id, time: time, start: end, end: start, holiday: holiday, bidirectional: true)
+                    guard let stime = dateDecoder.date(from: startTimeString) else { continue }
+                    guard let etime = dateDecoder.date(from: endTimeString) else { continue }
+                    let forward = Schedule(id: id, time: stime, start: start, end: end, holiday: holiday, bidirectional: true)
+                    let backward = Schedule(id: id, time: etime, start: end, end: start, holiday: holiday, bidirectional: true)
                     schedules += [forward, backward]
                 default:
                     continue
