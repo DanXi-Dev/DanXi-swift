@@ -1,7 +1,31 @@
 {
   "images" : [
     {
-      "filename" : "1.2.0-1024.png",
+      "filename" : "iOS App icon 2.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "iOS App icon 1.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "tinted"
+        }
+      ],
+      "filename" : "iOS App icon 3.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
