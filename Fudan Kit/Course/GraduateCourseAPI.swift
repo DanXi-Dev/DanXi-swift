@@ -260,7 +260,6 @@ public enum GraduateCourseAPI {
 func closestMonday(to date: Date) -> Date? {
     let calendar = Calendar.current
     let weekday = calendar.component(.weekday, from: date)
-    let firstWeekday = calendar.firstWeekday
-    let daysToMonday = (10 - weekday - firstWeekday) % 7
+    let daysToMonday = (2 - weekday + 7) % 7
     return calendar.date(byAdding: .day, value: daysToMonday, to: date)
 }
