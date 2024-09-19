@@ -169,6 +169,8 @@ public class CourseModel: ObservableObject {
                     semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
                 }
             }
+            
+            refreshCache()
         } catch {
             networkError = error
         }
