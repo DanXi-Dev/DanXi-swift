@@ -2462,6 +2462,23 @@
         }
       }
     },
+    "sticker_tag" : {
+      "comment" : "Sticker tag",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Sticker]"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[表情]"
+          }
+        }
+      }
+    },
     "Stickers" : {
       "localizations" : {
         "zh-Hans" : {
