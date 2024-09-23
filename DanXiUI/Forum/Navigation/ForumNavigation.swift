@@ -69,6 +69,12 @@ public struct ForumContent: View {
         .onReceive(AppEvents.notification) { _ in
             navigator.pushContent(value: ForumSection.notifications)
         }
+        .onReceive(AppEvents.Navigation.forumHole) { holeId in
+            navigator.pushDetail(value: HoleLoader(holeId: holeId), replace: true)
+        }
+        .onReceive(AppEvents.Navigation.forumFloor) { floorId in
+            navigator.pushDetail(value: HoleLoader(floorId: floorId), replace: true)
+        }
         .useSafariController(respectSettings: true)
     }
 }

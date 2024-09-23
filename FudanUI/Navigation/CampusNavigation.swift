@@ -57,6 +57,10 @@ public struct CampusContent: View {
                 path.removeLast(path.count)
             }
         }
+        .onReceive(AppEvents.Navigation.campusSection) { section in
+            guard let section = CampusSection(rawValue: section) else { return }
+            appendDetail(value: section)
+        }
     }
 }
 
