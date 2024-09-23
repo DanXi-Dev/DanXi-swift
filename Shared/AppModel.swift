@@ -37,20 +37,4 @@ class AppModel: ObservableObject {
             screen = .settings
         }
     }
-    
-    func openURL(_ url: URL) {
-        switch url.host {
-        case "settings":
-            screen = .settings
-        case "campus":
-            screen = .campus
-        case "forum":
-            screen = .forum
-        case "calendar":
-            screen = .calendar
-        case "curriculum":
-            screen = .curriculum
-        default: break
-        }
-    }
 }

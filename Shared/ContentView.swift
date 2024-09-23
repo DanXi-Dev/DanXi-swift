@@ -18,9 +18,6 @@ struct ContentView: View {
         }
         .environmentObject(navigator)
         .environmentObject(model)
-        .onOpenURL { url in
-            model.openURL(url)
-        }
         .onReceive(AppEvents.notification) { content in
             model.screen = .forum
         }
