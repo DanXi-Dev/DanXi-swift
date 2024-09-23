@@ -11,7 +11,7 @@ public enum CampusSection: String, Identifiable, Codable, CaseIterable {
     static let allHidden: Set<CampusSection> = [.course]
     static let gradHidden: Set<CampusSection> = [.sport, .rank, .score, .exam]
     static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity, .exam]
-    static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt]
+    static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt, .bus]
 }
 
 extension CampusSection {
@@ -58,6 +58,8 @@ extension CampusSection {
             ElectricityCard()
         case .announcenemnt:
             AnnouncementCard()
+        case .bus:
+            BusCard()
         default:
             EmptyView()
         }

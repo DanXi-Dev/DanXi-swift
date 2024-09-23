@@ -145,8 +145,8 @@ fileprivate class BusModel: ObservableObject {
     let workdayRoutes: [Route]
     let holidayRoutes: [Route]
     let campusList = ["邯郸", "江湾", "枫林", "张江"]
-    @Published var start = "邯郸"
-    @Published var end = "江湾"
+    @AppStorage("bus.start") var start = "邯郸"
+    @AppStorage("bus.end") var end = "江湾"
     @Published var filterSchedule = true
     @Published var type = BusType.workday
     
@@ -172,6 +172,10 @@ fileprivate class BusModel: ObservableObject {
         }.first
         
         guard let route else { return [] }
+        
+        for route in routes {
+            print("start: \(route.start), end: \(route.end), schedules: \(route.schedules.count)")
+        }
         
         var matchedSchedule = route.schedules.filter { schedule in
             schedule.start == start

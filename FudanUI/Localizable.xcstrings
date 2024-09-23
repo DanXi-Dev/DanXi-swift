@@ -253,6 +253,16 @@
         }
       }
     },
+    "Closed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "运营结束"
+          }
+        }
+      }
+    },
     "Colorful" : {
       "localizations" : {
         "zh-Hans" : {
@@ -941,6 +951,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "姓名"
+          }
+        }
+      }
+    },
+    "Next: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一班："
+          }
+        }
+      }
+    },
+    "Next: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一班：%@"
           }
         }
       }
