@@ -126,14 +126,17 @@ public struct BusWidget: Widget {
     
     public var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: "bus.fudan.edu.cn", intent: BusScheduleIntent.self, provider: BusWidgetProvier()) { entry in
-            if #available(iOS 17.0, *) {
-                BusWidgetView(entry: entry)
-                    .containerBackground(.fill.quinary, for: .widget)
-            } else {
-                BusWidgetView(entry: entry)
-                    .padding()
-                    .background()
+            Group {
+                if #available(iOS 17.0, *) {
+                    BusWidgetView(entry: entry)
+                        .containerBackground(.fill.quinary, for: .widget)
+                } else {
+                    BusWidgetView(entry: entry)
+                        .padding()
+                        .background()
+                }
             }
+            .widgetURL(URL(string: "fduhole://navigation/campus?section=bus")!)
         }
         .configurationDisplayName("Bus")
         .description("Subscribe bus schedule.")
