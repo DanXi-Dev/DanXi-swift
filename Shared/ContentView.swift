@@ -30,6 +30,9 @@ struct ContentView: View {
         .onChange(of: horizontalSizeClass) { horizontalSizeClass in
             navigator.isCompactMode = (horizontalSizeClass == .compact)
         }
+        .onOpenURL { url in
+            model.handleOpenURL(url: url)
+        }
         .sheet(isPresented: $model.showIntro) {
             IntroSheet()
                 .environmentObject(model)

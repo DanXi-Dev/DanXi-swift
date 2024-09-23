@@ -22,6 +22,12 @@ public class CommunityModel: ObservableObject {
         NotificationManager.shared.uploadAPNSToken()
     }
     
+    public func forceLogin(access: String, refresh: String) async {
+        let token = Token(access: access, refresh: refresh)
+        CredentialStore.shared.token = token
+        await setLogin(loggedIn: true)
+        NotificationManager.shared.uploadAPNSToken()
+    }
     
     public func setToken(token: Token) async {
         CredentialStore.shared.token = token
