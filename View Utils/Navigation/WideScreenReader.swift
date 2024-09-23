@@ -22,6 +22,7 @@ public struct WideScreenReader<Wide: View, Narrow: View>: View {
         }
     }
     
+    private let isPhone = UIDevice.current.userInterfaceIdiom == .phone
     private let wide: () -> Wide
     private let narrow: () -> Narrow
     
@@ -31,7 +32,7 @@ public struct WideScreenReader<Wide: View, Narrow: View>: View {
     }
     
     public var body: some View {
-        if actualHorizontalSizeClass == .compact {
+        if isPhone || actualHorizontalSizeClass == .compact {
             narrow()
         } else {
             wide()
