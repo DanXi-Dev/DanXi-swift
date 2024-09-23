@@ -104,13 +104,13 @@ private class LoginModel: ObservableObject {
     @Published var password = ""
     
     var usernameValid: Bool {
-        username.hasSuffix("fudan.edu.cn") || username.isEmpty
+        username.hasSuffix("fudan.edu.cn") || username.hasSuffix("partner.fduhole.com") || username.isEmpty
     }
     
     var completed: Bool {
         if username.isEmpty || password.isEmpty { return false }
         
-        return usernameValid
+        return true
     }
     
     func login() async throws {
