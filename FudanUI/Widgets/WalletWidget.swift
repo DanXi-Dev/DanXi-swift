@@ -61,6 +61,7 @@ public struct WalletWidget: Widget {
     public var body: some WidgetConfiguration {
         StaticConfiguration(kind: "ecard.fudan.edu.cn", provider: WalletWidgetProvier()) { entry in
             WalletWidgetView(entry: entry)
+                .widgetURL(URL(string: "fduhole://navigation/campus?section=wallet")!)
         }
         .configurationDisplayName(String(localized: "ECard", bundle: .module))
         .description(String(localized: "Check ECard balance and transactions.", bundle: .module))
