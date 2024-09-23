@@ -45,7 +45,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
                     return BusEntry(timeFilteredSchedules, schedule.time, startPoint.rawValue, endPoint.rawValue)
                 }
             } else {
-                entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule.widget.bus"))]
+                entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule"))]
             }
             let timeline = Timeline(entries: entryList, policy: .after(Calendar.current.date(byAdding: .second, value: 30, to: endOfDay)!))
             return timeline
@@ -135,7 +135,7 @@ public struct BusWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Bus.widget.bus")
+        .configurationDisplayName("Bus")
         .description("Subscribe bus schedule.")
         .supportedFamilies([.systemSmall])
     }
@@ -150,7 +150,7 @@ struct BusWidgetView: View {
             VStack(alignment: .leading) {
                 Text(self.entry.start)
                 HStack(spacing: 0) {
-                    Text("to.widget.bus")
+                    Text("to")
                     Text(self.entry.end)
                         .padding(.leading, 3)
                 }

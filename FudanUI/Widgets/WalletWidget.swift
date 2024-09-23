@@ -111,15 +111,19 @@ struct WalletWidgetView: View {
             .bold()
             .font(.title2)
             .foregroundColor(.primary.opacity(0.7))
-
+        
         Spacer()
         
         if let transaction = entry.transactions.first {
-            Label("\(transaction.location) \(String(format:"%.2f",transaction.amount))", systemImage: "clock")
-                .bold()
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .padding(.top)
+            Label {
+                Text(verbatim: "\(transaction.location) \(String(format:"%.2f",transaction.amount))")
+            } icon: {
+                Image(systemName: "clock")
+            }
+            .bold()
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .padding(.top)
         }
     }
 }

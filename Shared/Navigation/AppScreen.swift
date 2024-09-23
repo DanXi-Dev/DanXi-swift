@@ -14,7 +14,7 @@ extension AppScreen {
     var label: some View {
         switch self {
         case .campus:
-            Label("Campus.Tab", systemImage: "square.stack")
+            Label("Campus", systemImage: "square.stack")
         case .forum:
             Label("Forum", systemImage: "leaf")
         case .curriculum:

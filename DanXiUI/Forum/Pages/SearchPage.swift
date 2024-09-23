@@ -16,7 +16,11 @@ struct SearchPage: View {
                 DetailLink(value: HoleLoader(floorId: matchFloor)) {
                     model.appendHistory(model.searchText)
                 } label: {
-                    Label("##\(String(matchFloor))", systemImage: "arrow.right.square")
+                    Label {
+                        Text(verbatim: "##\(String(matchFloor))")
+                    } icon: {
+                        Image(systemName: "arrow.right.square")
+                    }
                 }
             }
             
@@ -24,7 +28,7 @@ struct SearchPage: View {
                 DetailLink(value: HoleLoader(holeId: matchHole)) {
                     model.appendHistory(model.searchText)
                 } label: {
-                    Label("#\(String(matchHole))", systemImage: "arrow.right.square")
+                    Label(String("#\(matchHole)"), systemImage: "arrow.right.square")
                 }
             }
             

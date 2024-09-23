@@ -91,7 +91,7 @@ fileprivate struct BlockedContent: View {
             
             Section {
                 ForEach(settings.blockedHoles, id: \.self) { holeId in
-                    Text("#\(String(holeId))", bundle: .module)
+                    Text(verbatim: "#\(String(holeId))")
                         .swipeActions {
                             Button(role: .destructive) {
                                 if let idx = settings.blockedHoles.firstIndex(of: holeId) {

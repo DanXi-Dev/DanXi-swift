@@ -39,7 +39,7 @@ struct SportPage: View {
                 if let exam = sportData.exam {
                     Section {
                         LabeledContent {
-                            Text("\(Int(exam.total)) (\(exam.evaluation))")
+                            Text(verbatim: "\(Int(exam.total)) (\(exam.evaluation))")
                         } label: {
                             Text("Total Score", bundle: .module)
                         }
@@ -69,7 +69,7 @@ struct SportPage: View {
                         List {
                             ForEach(sportData.exerciseLogs) { log in
                                 LabeledContent(log.category) {
-                                    Text("\(log.date) \(log.status)")
+                                    Text(verbatim: "\(log.date) \(log.status)")
                                         .font(.callout)
                                 }
                             }

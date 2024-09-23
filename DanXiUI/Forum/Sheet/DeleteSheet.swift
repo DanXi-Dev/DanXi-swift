@@ -93,7 +93,7 @@ private struct PunishmentNotice: View {
                     .foregroundColor(.yellow)
             } else {
                 // This is equivalent as EmptyView, but to trigger `task` modifier. Othewise it won't be executed.
-                Text("", bundle: .module).listRowBackground(Color.clear)
+                Text(verbatim: "").listRowBackground(Color.clear)
             }
         }
         .task {

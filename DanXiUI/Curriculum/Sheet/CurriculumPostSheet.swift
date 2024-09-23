@@ -38,7 +38,7 @@ struct CurriculumPostSheet: View {
                         .tag(-1)
                     
                     ForEach(courseGroup.courses) { course in
-                        Text("\(course.formattedSemester) \(course.teachers)", bundle: .module)
+                        Text(verbatim: "\(course.formattedSemester) \(course.teachers)")
                             .tag(course.id)
                     }
                 } label: {
