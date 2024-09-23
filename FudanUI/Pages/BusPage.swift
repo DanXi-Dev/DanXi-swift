@@ -36,8 +36,8 @@ fileprivate struct BusPageContent: View {
         List {
             Section {
                 Picker(selection: $model.type, label: Text("Type", bundle: .module)) {
-                    Text("Workday", bundle: .module).tag(FDBusType.workday)
-                    Text("Holiday", bundle: .module).tag(FDBusType.holiday)
+                    Text("Workday", bundle: .module).tag(BusType.workday)
+                    Text("Holiday", bundle: .module).tag(BusType.holiday)
                 }
                 .pickerStyle(.segmented)
                 
@@ -137,7 +137,7 @@ fileprivate struct BusRow: View {
 
 // MARK: - Model
 
-fileprivate enum FDBusType {
+fileprivate enum BusType {
     case workday, holiday
 }
 
@@ -148,7 +148,7 @@ fileprivate class BusModel: ObservableObject {
     @Published var start = "邯郸"
     @Published var end = "江湾"
     @Published var filterSchedule = true
-    @Published var type = FDBusType.workday
+    @Published var type = BusType.workday
     
     static func isWeekend() -> Bool {
         let currentDate = Date()
@@ -171,9 +171,7 @@ fileprivate class BusModel: ObservableObject {
             return directMatch || reversedMatch
         }.first
         
-        guard let route = route else {
-            return []
-        }
+        guard let route else { return [] }
         
         var matchedSchedule = route.schedules.filter { schedule in
             schedule.start == start
