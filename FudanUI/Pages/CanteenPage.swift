@@ -36,7 +36,7 @@ fileprivate struct CanteenRow: View {
                 
                 VStack {
                     CircularProgressView(value: room.current, total: room.capacity)
-                    Text("\(room.current) / \(room.capacity)")
+                    Text(verbatim: "\(room.current) / \(room.capacity)")
                         .font(.footnote)
                 }
                 .frame(minWidth: 50) // for alignment

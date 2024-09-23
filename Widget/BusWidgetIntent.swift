@@ -11,13 +11,13 @@ import WidgetKit
 @available(iOS 17.0, *)
 struct BusScheduleIntent: WidgetConfigurationIntent {
     
-    static let title: LocalizedStringResource = "Bus Schedule.widget.bus"
+    static let title: LocalizedStringResource = "Bus Schedule"
     static let description: LocalizedStringResource  = "Subscribe bus schedule."
 
     @Parameter(title: "From.widget.bus", default: .handan)
     var startPoint: CampusEnum
 
-    @Parameter(title: "To.widget.busScheduleIntent", default: .fenglin)
+    @Parameter(title: "To", default: .fenglin)
     var endPoint: CampusEnum
 
     init(startPoint: CampusEnum = .handan, endPoint: CampusEnum = .fenglin) {

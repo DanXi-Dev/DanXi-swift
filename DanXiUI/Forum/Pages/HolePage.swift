@@ -79,7 +79,7 @@ struct HolePage: View {
                     proxy.scrollTo(id, anchor: .top)
                 }
             }
-            .navigationTitle("#\(String(model.hole.id))")
+            .navigationTitle(String("#\(String(model.hole.id))"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {

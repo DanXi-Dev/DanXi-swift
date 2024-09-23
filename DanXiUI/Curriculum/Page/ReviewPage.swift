@@ -58,7 +58,7 @@ struct ReviewPage: View {
                     }
                     Spacer()
                     
-                    Label(String(localized: "\(String(review.remark))", bundle: .module), systemImage: "arrow.up")
+                    Label(String(review.remark), systemImage: "arrow.up")
                         .font(.callout)
                         .foregroundColor(.secondary)
                 }

@@ -63,7 +63,7 @@ private struct QuestionPage: View {
             })
             .alert(String(localized: "Answer incorrect, please review and re-submit", bundle: .module), isPresented: $showIncorrectAlert, actions: { })
             .environmentObject(model)
-            .navigationTitle("")
+            .navigationTitle(String(""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

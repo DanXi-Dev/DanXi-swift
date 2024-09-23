@@ -52,34 +52,22 @@
         }
       }
     },
-    "Bus Schedule.widget.bus" : {
+    "Bus" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bus Schedule"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "校车班次"
-          }
-        }
-      }
-    },
-    "Bus.widget.bus" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bus"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "校车"
+          }
+        }
+      }
+    },
+    "Bus Schedule" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "校车班次"
           }
         }
       }
@@ -95,28 +83,22 @@
         }
       }
     },
+    "Campus" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "校园"
+          }
+        }
+      }
+    },
     "Campus list" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "校区列表"
-          }
-        }
-      }
-    },
-    "Campus.Tab" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Campus"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "校园"
           }
         }
       }
@@ -438,14 +420,8 @@
         }
       }
     },
-    "No available schedule.widget.bus" : {
+    "No available schedule" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No available schedule"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -612,14 +588,8 @@
         }
       }
     },
-    "to.widget.bus" : {
+    "to" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "to"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -628,14 +598,8 @@
         }
       }
     },
-    "To.widget.busScheduleIntent" : {
+    "To" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",

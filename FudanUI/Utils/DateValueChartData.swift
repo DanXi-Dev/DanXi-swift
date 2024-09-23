@@ -87,13 +87,13 @@ struct DateValueChart: View {
                 ForEach(self.filteredData) { d in
                     LineMark(
                         x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
-                        y: .value("", d.value)
+                        y: .value(String(""), d.value)
                     )
                     .interpolationMethod(.cardinal)
                     
                     AreaMark(
                         x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
-                        y: .value("", d.value)
+                        y: .value(String(""), d.value)
                     )
                     .interpolationMethod(.cardinal)
                     .foregroundStyle(self.areaBackground)

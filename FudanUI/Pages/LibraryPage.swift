@@ -21,7 +21,7 @@ struct LibraryPage: View {
                         
                         VStack(alignment: .center) {
                             CircularProgressView(value: library.current, total: library.capacity)
-                            Text("\(String(library.current)) / \(String(library.capacity))")
+                            Text(verbatim: "\(String(library.current)) / \(String(library.capacity))")
                                 .font(.footnote)
                         }
                         .frame(minWidth: 80) // for alignment

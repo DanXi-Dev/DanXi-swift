@@ -105,12 +105,12 @@ private struct FDEcardPageChart: View {
                 ForEach(data) { d in
                     LineMark(
                         x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
-                        y: .value("¥", d.value)
+                        y: .value(String("¥"), d.value)
                     )
                     
                     AreaMark(
                         x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
-                        y: .value("", d.value)
+                        y: .value(String(""), d.value)
                     )
                     .foregroundStyle(areaBackground)
                 }

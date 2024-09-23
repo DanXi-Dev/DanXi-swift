@@ -15,7 +15,7 @@ struct CourseView: View {
                 .font(.title2)
                 .padding(.bottom, 1.0)
             
-            Text("\(courseGroup.department) - \(courseGroup.code)", bundle: .module)
+            Text(verbatim: "\(courseGroup.department) - \(courseGroup.code)")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }

@@ -84,7 +84,7 @@ private struct ElectricityPageChart: View {
                     
                     AreaMark(
                         x: .value(String(localized: "Date", bundle: .module), d.date, unit: .day),
-                        y: .value("", d.value)
+                        y: .value(String(""), d.value)
                     )
                     .foregroundStyle(areaBackground)
                 }

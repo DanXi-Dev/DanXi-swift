@@ -98,7 +98,7 @@ struct ColorSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Picker("", selection: $themeColor) {
+                Picker(String(""), selection: $themeColor) {
                     ForEach(ThemeColor.allCases) { color in
                         color.label
                             .tag(color)
