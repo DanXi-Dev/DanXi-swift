@@ -9,12 +9,12 @@ public struct ForumEditor: View {
     @EnvironmentObject.Optional private var holeModel: HoleModel?
     @StateObject private var model: ForumEditorModel
     @Binding var content: String
+    @State private var textHeight: CGFloat = .zero
     let initiallyFocused: Bool
     
     public init(content: Binding<String>, initiallyFocused: Bool = false) {
         _content = content
         self.initiallyFocused = initiallyFocused
-//        let model = ForumEditorModel(content: content.wrappedValue)
         let model = ForumEditorModel()
         self._model = StateObject(wrappedValue: model)
     }
@@ -33,8 +33,6 @@ public struct ForumEditor: View {
             .onReceive(model.contentPublisher) {
                 content = $0
             }
-//            .onChange(of: model.content) { content = $0 }
-//            .onChange(of: content) { model.content = $0 }
             .photosPicker(isPresented: $presentPhotoPicker, selection: $model.photo, matching: .images)
             .sheet(isPresented: $showStickers) {
                 stickerPicker
@@ -81,10 +79,10 @@ public struct ForumEditor: View {
         Section {
             #if targetEnvironment(macCatalyst)
             toolbar
-                .buttonStyle(.borderless) // Fixes hit-testing bug related to multiple buttons on a list row
+                .buttonStyle(.borderless)
             #endif
             
-            TextEditor(initialContent: content) {
+            TextEditor(initialContent: content, height: $textHeight) {
                 Divider()
                 toolbar
                     .padding(.horizontal)
@@ -102,7 +100,7 @@ public struct ForumEditor: View {
                 IQKeyboardManager.shared.enable = false // Disable to prevent side effects to other TextFields
             }
             .environmentObject(model)
-            .frame(height: 300)
+            .frame(height: max(textHeight, 300))
             .overlay(alignment: .topLeading) {
                 if content.isEmpty {
                     Group {
@@ -210,13 +208,13 @@ public struct ForumEditor: View {
             }
             .scrollIndicators(.hidden)
             
-            #if !targetEnvironment(macCatalyst)
+#if !targetEnvironment(macCatalyst)
             Button {
                 textfieldFocus = false
             } label: {
                 Text("Done", bundle: .module)
             }
-            #endif
+#endif
         }
         .tint(.primary)
     }
@@ -306,9 +304,8 @@ private class ForumEditorModel: ObservableObject {
     }
     
     func uploadImageData(data: Data) {
-        uploadingTask = Task {
-            // TODO: show alert, there are concurrent bugs, should be fixed in next release
-//            uploading = true
+        uploadingTask = Task { @MainActor in
+            uploading = true
             
             do {
                 let imageURL = try await GeneralAPI.uploadImage(data)
@@ -321,6 +318,9 @@ private class ForumEditorModel: ObservableObject {
                 showUploadError = true
                 uploadError = error
             }
+            
+            try await Task.sleep(for: .seconds(1))
+            uploading = false // This will cause warning "Publishing changes from within view updates is not allowed, this will cause undefined behavior", but it seems that everything is working fine. I don't know why.
         }
     }
 }
@@ -329,6 +329,7 @@ private struct TextEditor<Toolbar: View>: UIViewRepresentable {
     @EnvironmentObject private var model: ForumEditorModel
     
     let initialContent: String
+    @Binding var height: CGFloat
     @ViewBuilder let toolbar: () -> Toolbar
     
     class Coordinator: NSObject, UITextViewDelegate {
@@ -354,6 +355,8 @@ private struct TextEditor<Toolbar: View>: UIViewRepresentable {
             model.uploadImageData(data: data)
         }
         textView.text = initialContent
+        textView.isScrollEnabled = false
+        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) // enable line wrap
         textView.isEditable = true
         textView.delegate = context.coordinator
         textView.font = UIFont.preferredFont(forTextStyle: .body)
@@ -372,7 +375,9 @@ private struct TextEditor<Toolbar: View>: UIViewRepresentable {
     }
     
     func updateUIView(_ textView: UITextView, context: Context) {
-        // do nothing
+        DispatchQueue.main.async {
+            height = textView.sizeThatFits(textView.visibleSize).height
+        }
     }
 }
 
