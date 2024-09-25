@@ -11,7 +11,7 @@ struct HolePage: View {
     }
     
     init(_ hole: Hole) {
-        let model = HoleModel(hole: hole, floors: hole.prefetch, refreshPrefetch: true)
+        let model = HoleModel(hole: hole)
         self._model = StateObject(wrappedValue: model)
     }
     
