@@ -13,7 +13,7 @@ class HoleModel: ObservableObject {
     }
     
     @MainActor
-    init(hole: Hole, floors: [Floor], scrollTo: Int? = nil, refreshPrefetch: Bool = false) {
+    init(hole: Hole, floors: [Floor], scrollTo: Int? = nil) {
         self.hole = hole
         var floorPresentations: [FloorPresentation] = []
         for (index, floor) in floors.enumerated() {
@@ -26,12 +26,6 @@ class HoleModel: ObservableObject {
         self.subscribed = SubscriptionStore.shared.isSubscribed(hole.id)
         
         filterFloors()
-        
-        if refreshPrefetch {
-            Task {
-                try await refreshPrefetched(count: floors.count)
-            }
-        }
     }
     
     @Published var hole: Hole
@@ -101,19 +95,6 @@ class HoleModel: ObservableObject {
                 newPresentations.append(presentation)
             }
             await insertFloors(floors: newPresentations)
-        }
-    }
-    
-    func refreshPrefetched(count: Int) async throws {
-        let newFloors = try await ForumAPI.listFloorsInHole(holeId: hole.id, startFloor: 0, size: count)
-        var newPresentations: [FloorPresentation] = []
-        for (index, floor) in newFloors.enumerated() {
-            let presentation = FloorPresentation(floor: floor, storey: index + 1, floors: newFloors)
-            newPresentations.append(presentation)
-        }
-        let refreshedPrefetch = newPresentations // thread-safe copy
-        Task { @MainActor in
-            floors.replaceSubrange(0..<count, with: refreshedPrefetch)
         }
     }
     
