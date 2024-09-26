@@ -13,6 +13,7 @@ public struct InnovationHomePage: View {
                 WebView(frame: proxy.frame(in: .local))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .toolbar(.hidden, for: .navigationBar)
         } else {
             GeometryReader { proxy in
                 WebView(frame: proxy.frame(in: .local))
@@ -33,7 +34,7 @@ private struct WebView: UIViewRepresentable {
         
         if let token = CredentialStore.shared.token {
             let accessCookie = HTTPCookie(properties: [
-                .domain: "fduhole.com",
+                .domain: "danta.fudan.edu.cn",
                 .path: "/",
                 .name: "access",
                 .value: token.access,
@@ -41,7 +42,7 @@ private struct WebView: UIViewRepresentable {
             ])
             
             let refreshCookie = HTTPCookie(properties: [
-                .domain: "fduhole.com",
+                .domain: "danta.fudan.edu.cn",
                 .path: "/",
                 .name: "refresh",
                 .value: token.refresh,
@@ -55,7 +56,7 @@ private struct WebView: UIViewRepresentable {
         }
         
         let webView = WKWebView(frame: frame, configuration: config)
-        let url = URL(string: "https://www.fduhole.com/")!
+        let url = URL(string: "https://danta.fudan.edu.cn/lobby/1")!
         let request = URLRequest(url: url)
         webView.load(request)
         return webView
