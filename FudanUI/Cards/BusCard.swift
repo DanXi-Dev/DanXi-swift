@@ -178,20 +178,24 @@ private struct BusCardContent: View {
                 .foregroundStyle(.secondary)
                 .font(.footnote)
                 
-                if let schedule {
-                    HStack(alignment: .lastTextBaseline) {
-                        Text(schedule.time.formatted(date: .omitted, time: .shortened))
-                            .font(.headline)
-                        if let nextSchedule {
-                            Text("Next: \(nextSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
-                                .font(.system(size: 13))
-                                .bold()
-                                .foregroundStyle(.cyan)
+                HStack {
+                    if let schedule {
+                        HStack(alignment: .lastTextBaseline) {
+                            Text(schedule.time.formatted(date: .omitted, time: .shortened))
+                                .font(.headline)
+                            if let nextSchedule {
+                                Text("Next: \(nextSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
+                                    .font(.system(size: 13))
+                                    .bold()
+                                    .foregroundStyle(.cyan)
+                            }
                         }
+                    } else {
+                        Text("Closed", bundle: .module)
+                            .font(.headline)
                     }
-                } else {
-                    Text("Closed", bundle: .module)
-                        .font(.headline)
+                    
+                    Spacer()
                 }
             }
             
@@ -199,32 +203,34 @@ private struct BusCardContent: View {
             
             Divider()
             
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(end)
-                    Image(systemName: "arrow.right")
-                    Text(start)
-                }
-                .foregroundStyle(.secondary)
-                .font(.footnote)
-                
-                if let reversedSchedule {
-                    HStack(alignment: .lastTextBaseline) {
-                        Text(reversedSchedule.time.formatted(date: .omitted, time: .shortened))
-                            .font(.headline)
-                        if let nextReversedSchedule {
-                            Text("Next: \(nextReversedSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
-                                .font(.system(size: 13))
-                                .bold()
-                                .foregroundStyle(.cyan)
-                        }
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(end)
+                        Image(systemName: "arrow.right")
+                        Text(start)
                     }
-                } else {
-                    Text("Closed", bundle: .module)
-                        .font(.headline)
+                    .foregroundStyle(.secondary)
+                    .font(.footnote)
+                    
+                    if let reversedSchedule {
+                        HStack(alignment: .lastTextBaseline) {
+                            Text(reversedSchedule.time.formatted(date: .omitted, time: .shortened))
+                                .font(.headline)
+                            if let nextReversedSchedule {
+                                Text("Next: \(nextReversedSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
+                                    .font(.system(size: 13))
+                                    .bold()
+                                    .foregroundStyle(.cyan)
+                            }
+                        }
+                    } else {
+                        Text("Closed", bundle: .module)
+                            .font(.headline)
+                    }
                 }
+                
+                Spacer()
             }
         }
     }

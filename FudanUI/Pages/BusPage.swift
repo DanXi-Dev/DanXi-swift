@@ -119,7 +119,6 @@ fileprivate struct BusRow: View {
     
     var body: some View {
         HStack {
-            
             Text(schedule.time.formatted(date: .omitted, time: .shortened))
             
             Spacer()
@@ -172,10 +171,6 @@ fileprivate class BusModel: ObservableObject {
         }.first
         
         guard let route else { return [] }
-        
-        for route in routes {
-            print("start: \(route.start), end: \(route.end), schedules: \(route.schedules.count)")
-        }
         
         var matchedSchedule = route.schedules.filter { schedule in
             schedule.start == start
