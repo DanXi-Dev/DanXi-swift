@@ -1547,6 +1547,16 @@
         }
       }
     },
+    "Loading Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加载失败"
+          }
+        }
+      }
+    },
     "Lock Post" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2288,6 +2298,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "恢复理由"
+          }
+        }
+      }
+    },
+    "Retry" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
           }
         }
       }
