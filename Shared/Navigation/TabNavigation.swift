@@ -59,11 +59,13 @@ struct TabNavigation: View {
                 
                 switch settings.previewFeatureSetting {
                 case .focus:
-                    InnovationHomePage()
-                        .tag(AppScreen.innovation)
-                        .tabItem {
-                            AppScreen.innovation.label
-                        }
+                    NavigationStack {
+                        InnovationHomePage()
+                    }
+                    .tag(AppScreen.innovation)
+                    .tabItem {
+                        AppScreen.innovation.label
+                    }
                 case .hide:
                     AppScreen.curriculum.content
                         .environmentObject(curriculumNavigator)
