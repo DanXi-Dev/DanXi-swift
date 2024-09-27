@@ -91,13 +91,9 @@ public struct ForumEditor: View {
             }
             .focused($textfieldFocus)
             .onAppear() {
-                IQKeyboardManager.shared.enable = true // Prevent keyboard from obstructing editor
                 if initiallyFocused {
                     textfieldFocus = true
                 }
-            }
-            .onDisappear() {
-                IQKeyboardManager.shared.enable = false // Disable to prevent side effects to other TextFields
             }
             .environmentObject(model)
             .frame(height: max(textHeight, 300))
