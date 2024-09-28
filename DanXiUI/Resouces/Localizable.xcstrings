@@ -649,7 +649,20 @@
       }
     },
     "Curriculum Introduction" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review and share your course experience"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分享你的课程体验"
+          }
+        }
+      }
     },
     "DanXi Account" : {
       "localizations" : {
@@ -688,13 +701,26 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "旦夕社区"
+            "value" : "旦挞社区"
           }
         }
       }
     },
     "DanXi Community Introduction" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything about FDU"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于复旦的一切，畅所欲言"
+          }
+        }
+      }
     },
     "DanXi Qualification" : {
       "localizations" : {
@@ -1485,7 +1511,20 @@
       }
     },
     "Innovation Bank Introduction" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Think different"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不自量力地改变世界"
+          }
+        }
+      }
     },
     "Join Date" : {
       "localizations" : {
