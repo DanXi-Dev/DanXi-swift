@@ -75,6 +75,7 @@ struct WalletCard: View {
                                 Text(balance)
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
+                                    .privacySensitive()
                                 
                                 Text(verbatim: " ")
                                 Text("Yuan", bundle: .module)

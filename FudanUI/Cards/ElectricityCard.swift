@@ -67,11 +67,13 @@ struct ElectricityCard: View {
                                 .foregroundColor(.secondary)
                                 .bold()
                                 .font(.caption)
+                                .privacySensitive()
                             
                             HStack(alignment: .firstTextBaseline, spacing: 0) {
                                 Text(String(info.electricityAvailable))
                                     .bold()
                                     .font(.system(size: 25, design: .rounded))
+                                    .privacySensitive()
                                 
                                 Text(verbatim: " ")
                                 Text(verbatim: "kWh")
