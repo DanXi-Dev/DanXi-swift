@@ -110,6 +110,7 @@ struct FloorHistorySheet: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
+        .watermark()
     }
 }
 
