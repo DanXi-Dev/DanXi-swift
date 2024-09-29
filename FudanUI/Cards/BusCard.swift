@@ -185,7 +185,7 @@ private struct BusCardContent: View {
                                 .font(.headline)
                             if let nextSchedule {
                                 Text("Next: \(nextSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
-                                    .font(.system(size: 13))
+                                    .font(.system(size: 11))
                                     .bold()
                                     .foregroundStyle(.cyan)
                             }
@@ -219,7 +219,7 @@ private struct BusCardContent: View {
                                 .font(.headline)
                             if let nextReversedSchedule {
                                 Text("Next: \(nextReversedSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
-                                    .font(.system(size: 13))
+                                    .font(.system(size: 11))
                                     .bold()
                                     .foregroundStyle(.cyan)
                             }
