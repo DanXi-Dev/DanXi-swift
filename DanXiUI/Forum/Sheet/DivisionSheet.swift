@@ -79,6 +79,7 @@ struct DivisionSheet: View {
                 }
             }
         }
+        .watermark()
         .scrollDismissesKeyboard(.immediately)
     }
 }

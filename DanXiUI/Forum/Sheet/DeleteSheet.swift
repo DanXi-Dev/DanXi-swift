@@ -59,6 +59,7 @@ struct DeleteSheet: View {
             }
             
         }
+        .watermark()
     }
 }
 
