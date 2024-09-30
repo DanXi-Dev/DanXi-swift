@@ -176,6 +176,14 @@ public class CourseModel: ObservableObject {
         }
     }
     
+    /// The semester start date received from server might be incorrect. This method support user to manually set the start date.
+    public func manualResetSemesterStartDate(startDate: Date) {
+        semester.startDate = startDate
+        guard let idx = semesters.firstIndex(of: semester) else { return }
+        semesters[idx].startDate = startDate
+        refreshCache()
+    }
+    
     
     /// This is for undergraduate student to update semester start date when context change.
     /// - Parameter startDateContext: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
@@ -183,6 +191,7 @@ public class CourseModel: ObservableObject {
         guard studentType == .undergrad else { return }
         semesters = matchUndergraduateSemesterStartDateByContext(semesters: semesters, context: startDateContext)
         semester.startDate = startDateContext[semester.semesterId]
+        refreshCache()
     }
     
     /// An internal method that persists data to disk when model updates.
@@ -261,7 +270,9 @@ func computeWeekOffset(from startDate: Date?, courses: [Course]) -> Int {
 func matchUndergraduateSemesterStartDateByContext(semesters: [Semester], context: [Int: Date]) -> [Semester] {
     return semesters.map { semester in
         var updatedSemester = semester
-        updatedSemester.startDate = context[semester.semesterId]
+        if let startDate = context[semester.semesterId] {
+            updatedSemester.startDate = startDate
+        }
         return updatedSemester
     }
 }

@@ -273,6 +273,16 @@
         }
       }
     },
+    "Confirm" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认"
+          }
+        }
+      }
+    },
     "Course Capacity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -915,6 +925,16 @@
         }
       }
     },
+    "Manually Set Semester Start Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手动设置学期开始时间"
+          }
+        }
+      }
+    },
     "My Credit" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1227,6 +1247,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "学期"
+          }
+        }
+      }
+    },
+    "Semester Start Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "学期开始日期"
+          }
+        }
+      }
+    },
+    "Semester Start Date Prompt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sometimes the semester start date is not accurate. You may manually set this date. You should refer to the university calendar when setting this. Normally, the semester start date is a Monday.\n\nDon’t change this setting if everything is working fine."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有时，学期开始日期会出现错误。此时，您可以手动设置学期开始日期。您应参考校历设置。一般来说，学期开始日期是学期第一周的周一。\n\n当课表功能工作正常时，请勿修改此设置。"
+          }
+        }
+      }
+    },
+    "Set Semester Start Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置学期开始时间"
           }
         }
       }

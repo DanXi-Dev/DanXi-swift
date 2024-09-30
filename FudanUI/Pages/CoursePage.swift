@@ -43,6 +43,7 @@ fileprivate struct CalendarContent: View {
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
     @State private var showColorSheet = false
+    @State private var showManualDateSelectionSheet = false
     @AppStorage("calendar-theme-color") private var themeColor: ThemeColor = ThemeColor.none
     
     @ScaledMetric var minWidth = CalendarConfig.dx * 7
@@ -113,6 +114,9 @@ fileprivate struct CalendarContent: View {
         .sheet(isPresented: $showColorSheet) {
             colorSheet
         }
+        .sheet(isPresented: $showManualDateSelectionSheet) {
+            ManualResetSemesterStartDateSheet()
+        }
         .listStyle(.inset)
         .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
             
@@ -152,6 +156,12 @@ fileprivate struct CalendarContent: View {
                 } icon: {
                     Image(systemName: "paintpalette")
                 }
+            }
+            
+            Button {
+                showManualDateSelectionSheet = true
+            } label: {
+                Text("Set Semester Start Date", bundle: .module)
             }
         } label: {
             Image(systemName: "ellipsis.circle")
@@ -407,6 +417,51 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
         
         func calendarChooserDidCancel(_ calendarChooser: EKCalendarChooser) {
             parent.dismiss()
+        }
+    }
+}
+
+private struct ManualResetSemesterStartDateSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: CourseModel
+    @State private var startDate: Date = .now
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    DatePicker(selection: $startDate, displayedComponents: .date) {
+                        Text("Semester Start Date", bundle: .module)
+                    }
+                } footer: {
+                    Text("Semester Start Date Prompt", bundle: .module)
+                }
+            }
+            .navigationTitle(String(localized: "Manually Set Semester Start Date", bundle: .module))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel", bundle: .module)
+                    }
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        model.manualResetSemesterStartDate(startDate: startDate)
+                        dismiss()
+                    } label: {
+                        Text("Confirm", bundle: .module)
+                    }
+                }
+            }
+            .onAppear {
+                if let startDate = model.semester.startDate {
+                    self.startDate = startDate
+                }
+            }
         }
     }
 }
