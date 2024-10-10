@@ -39,6 +39,10 @@ struct SettingsPage: View {
                 }
                 
                 Section {
+                    DetailLink(value: ForumSettingsSection.advancedSettings) {
+                        ForumSettingsSection.advancedSettings.label.navigationStyle()
+                    }
+                    
                     DetailLink(value: SettingsSection.about) {
                         Label("About", systemImage: "info.circle")
                             .navigationStyle()

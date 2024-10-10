@@ -23,6 +23,7 @@ class AppModel: ObservableObject {
                     AppEvents.TabBarTapped.calendar.send()
                 case .settings:
                     AppEvents.TabBarTapped.settings.send()
+                default: break
                 }
             }
         }

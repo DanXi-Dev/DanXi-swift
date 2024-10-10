@@ -30,7 +30,7 @@ public class CredentialStore {
 
 public struct Token: Codable {
     public let access: String
-    let refresh: String
+    public let refresh: String
     
     public init(access: String, refresh: String) {
         self.access = access

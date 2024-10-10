@@ -68,7 +68,46 @@ public struct CurriculumContent: View {
                 path.removeLast(path.count)
             }
         }
-//        .useSafariController(respectSettings: true)
+    }
+}
+
+public struct CurriculumEmbeddedContent: View {
+    @EnvironmentObject private var navigator: AppNavigator
+    @Binding private var path: NavigationPath
+    
+    @State private var openURL: URL? = nil
+    
+    func appendContent(value: any Hashable) {
+        path.append(value)
+    }
+    
+    func appendDetail(value: any Hashable) {
+        path.append(value)
+    }
+    
+    public init(path: Binding<NavigationPath>) {
+        self._path = path
+    }
+    
+    public var body: some View {
+        CurriculumNavigation {
+            CurriculumHomePage()
+        }
+        .onReceive(navigator.contentSubject) { value in
+            appendContent(value: value)
+        }
+        .onReceive(navigator.detailSubject) { value, _ in
+            if navigator.isCompactMode {
+                appendDetail(value: value)
+            }
+        }
+        .onReceive(AppEvents.TabBarTapped.curriculum) { _ in
+            if path.isEmpty {
+                AppEvents.ScrollToTop.curriculum.send()
+            } else {
+                path.removeLast(path.count)
+            }
+        }
     }
 }
 
