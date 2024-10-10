@@ -115,6 +115,30 @@ public enum ClassroomAPI {
         return classrooms
     }
     
+    private static func parseCourseId(text: String) -> (String, String) {
+        var partialCourseId = Substring("")
+        var rest = Substring(text)
+        var spaceOccurred = false
+        
+        while let firstChar = rest.first, (firstChar.isLetter && firstChar.isASCII) || firstChar.isNumber {
+            partialCourseId.append(firstChar)
+            rest = rest.dropFirst()
+            
+            if let nextChar = rest.first, nextChar == " " {
+                let prefix = rest.prefix(3)
+                if !spaceOccurred && prefix == " . " {
+                    partialCourseId.append(".")
+                    rest = rest.dropFirst(3)
+                    spaceOccurred = true
+                } else {
+                    break
+                }
+            }
+        }
+        
+        return (String(partialCourseId), String(rest.trimmingCharacters(in: .whitespaces)))
+    }
+    
     private static func parseCourseSchedule(element: Element, idx: Int) throws -> CourseScheduleBuilder? {
         let category = try? element.select(".rare").first()?.text()
         
@@ -123,20 +147,14 @@ public enum ClassroomAPI {
         
         // get and parse font
         let text = try element.text().trimmingCharacters(in: .whitespacesAndNewlines)
-        let texts = text.split(separator: " ")
-        
         if text.isEmpty { return nil }
         
-        // builder that should be returned when parsing fails (which means an exception)
-        let failedBuilder = CourseScheduleBuilder(name: text, courseId: "", category: nil, teacher: nil, capacity: nil, start: idx, end: idx)
-        
-        guard texts.count >= 4 else {
-            return failedBuilder
-        }
+        let (courseId, rest) = parseCourseId(text: text)
         
         let pattern = /\[(?<name>[^\]]+)\](\((?<teacher>[^\)]+)\))?(\{(?<capacity>[^\}]+)\})?/
-        let courseId = String(texts[0] + texts[1] + texts[2])
-        guard let match = texts[3].firstMatch(of: pattern) else {
+        
+        guard let match = rest.firstMatch(of: pattern) else {
+            let failedBuilder = CourseScheduleBuilder(name: rest, courseId: courseId, category: nil, teacher: nil, capacity: nil, start: idx, end: idx)
             return failedBuilder
         }
         let name = String(match.name)
@@ -148,7 +166,7 @@ public enum ClassroomAPI {
         if let capacityMatch = match.capacity {
             capacity = String(capacityMatch)
         }
-        
+
         return CourseScheduleBuilder(name: name, courseId: courseId, category: category, teacher: teacher, capacity: capacity, start: idx, end: idx)
     }
     
