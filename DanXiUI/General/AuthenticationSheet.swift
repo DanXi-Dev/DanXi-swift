@@ -57,7 +57,6 @@ private struct LoginSheet: View {
                         .disableAutocorrection(true)
                         .focused($usernameFocus)
                 }
-                .showAlert(!usernameFocus && !model.usernameValid)
                 
                 LabeledEntry(String(localized: "Password", bundle: .module)) {
                     SecureField(String(localized: "Required", bundle: .module), text: $model.password)
@@ -102,10 +101,6 @@ private struct LoginSheet: View {
 private class LoginModel: ObservableObject {
     @Published var username = ""
     @Published var password = ""
-    
-    var usernameValid: Bool {
-        username.hasSuffix("fudan.edu.cn") || username.hasSuffix("partner.fduhole.com") || username.isEmpty
-    }
     
     var completed: Bool {
         if username.isEmpty || password.isEmpty { return false }
@@ -168,7 +163,6 @@ private struct RegisterSheet: View {
                         .disableAutocorrection(true)
                         .focused($emailFocus)
                 }
-                .showAlert(!emailFocus && !model.emailValid)
                 
                 LabeledEntry(String(localized: "Password", bundle: .module)) {
                     SecureField(String(localized: "Required", bundle: .module), text: $model.password)
@@ -192,7 +186,7 @@ private struct RegisterSheet: View {
                         Text("Get Code", bundle: .module)
                     }
                     .buttonStyle(.borderless)
-                    .disabled(!model.emailValid || model.email.isEmpty)
+                    .disabled(model.email.isEmpty)
                 }
             } footer: {
                 if type == .register {
@@ -224,10 +218,6 @@ private class RegisterModel: ObservableObject {
     @Published var repeatPassword = ""
     @Published var verificationCode = ""
     
-    var emailValid: Bool {
-        email.hasSuffix("fudan.edu.cn") || email.isEmpty
-    }
-    
     var passwordValid: Bool {
         password.count >= 8 || password.isEmpty
     }
@@ -241,7 +231,7 @@ private class RegisterModel: ObservableObject {
             return false
         }
         
-        return emailValid && passwordValid && repeatValid
+        return passwordValid && repeatValid
     }
     
     func sendVerificationCode() async throws {
