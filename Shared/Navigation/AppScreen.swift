@@ -31,10 +31,13 @@ extension AppScreen {
         switch self {
         case .campus:
             CampusContent()
+                .toolbarBackground(.visible, for: .tabBar)
         case .forum:
-            DanXiUI.ForumContent()
+            ForumContent()
+                .toolbarBackground(.visible, for: .tabBar)
         case .curriculum:
-            DanXiUI.CurriculumContent()
+            CurriculumContent()
+                .toolbarBackground(.visible, for: .tabBar)
         case .calendar:
             NavigationStack {
                 CoursePage()
@@ -50,9 +53,9 @@ extension AppScreen {
         case .campus:
             CampusDetail()
         case .forum:
-            DanXiUI.ForumDetail()
+            ForumDetail()
         case .curriculum:
-            DanXiUI.CurriculumDetail()
+            CurriculumDetail()
         case .settings:
             SettingsDetail()
         default:
