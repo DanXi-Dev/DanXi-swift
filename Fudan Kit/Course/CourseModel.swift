@@ -47,6 +47,11 @@ public class CourseModel: ObservableObject {
     /// - Parameter studentType: the type of the student. If it's not matched with cache, it will return `nil` and invalidate cache.
     /// - Returns: A model recreated from local cache
     public static func loadCache(for studentType: StudentType) throws -> CourseModel? {
+        // for preview purpose
+        if let cache = try? Disk.retrieve("preview/fdutools/course-model.json", from: .applicationSupport, as: CourseModelCache.self) {
+            return CourseModel(cache: cache, week: 1)
+        }
+        
         guard let cache = try? Disk.retrieve("fdutools/course-model.json", from: .appGroup, as: CourseModelCache.self) else {
             return nil
         }

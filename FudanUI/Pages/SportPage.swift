@@ -128,3 +128,8 @@ fileprivate struct SportData {
     let exerciseLogs: [ExerciseLog]
     let exam: SportExam?
 }
+
+#Preview {
+    SportPage()
+        .previewPrepared()
+}

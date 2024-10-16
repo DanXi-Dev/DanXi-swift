@@ -78,3 +78,8 @@ struct AnnouncementCard: View {
         .id(campusModel.studentType)
     }
 }
+
+#Preview {
+    AnnouncementCard()
+        .previewPrepared(wrapped: .card)
+}

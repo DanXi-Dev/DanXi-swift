@@ -9,18 +9,26 @@ struct CanteenPage: View {
         AsyncContentView {
             try await CanteenAPI.getCanteenQueuing()
         } content: { canteens in
-            List(canteens) { canteen in
-                Section(canteen.campus) {
-                    ForEach(canteen.diningRooms) { room in
-                        CanteenRow(room: room)
-                    }
-                }
-                .headerProminence(.increased)
-            }
-            .listStyle(SidebarListStyle()) // support fold section
+            CanteenPageContent(canteens: canteens)
         }
         .navigationTitle(String(localized: "Canteen Popularity", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private struct CanteenPageContent: View {
+    let canteens: [Canteen]
+    
+    var body: some View {
+        List(canteens) { canteen in
+            Section(canteen.campus) {
+                ForEach(canteen.diningRooms) { room in
+                    CanteenRow(room: room)
+                }
+            }
+            .headerProminence(.increased)
+        }
+        .listStyle(SidebarListStyle()) // support fold section
     }
 }
 
@@ -42,5 +50,14 @@ fileprivate struct CanteenRow: View {
                 .frame(minWidth: 50) // for alignment
             }
         }
+    }
+}
+
+#Preview {
+    let canteens: [Canteen] = decodePreviewData(filename: "canteen")
+    NavigationStack {
+        CanteenPageContent(canteens: canteens)
+            .navigationTitle(String(localized: "Canteen Popularity", bundle: .module))
+            .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -204,7 +204,6 @@ fileprivate struct ScheduleDetailSheet: View {
 }
 
 #Preview {
-    NavigationStack {
-        ClassroomPage()
-    }
+    ClassroomPage()
+        .previewPrepared()
 }

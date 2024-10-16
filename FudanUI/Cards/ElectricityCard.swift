@@ -102,3 +102,8 @@ struct ElectricityCard: View {
         }
     }
 }
+
+#Preview {
+    ElectricityCard()
+        .previewPrepared(wrapped: .card)
+}

@@ -38,4 +38,8 @@ public actor ReservationStore {
     public func getReservations(playground: Playground, date: Date) async throws -> [Reservation] {
         return try await ReservationAPI.getReservations(playground: playground, date: date)
     }
+    
+    public func setupPreview(playgrounds: [Playground]) {
+        self.playgrounds = playgrounds
+    }
 }

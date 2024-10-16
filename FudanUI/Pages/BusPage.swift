@@ -189,3 +189,8 @@ fileprivate class BusModel: ObservableObject {
         swap(&start, &end)
     }
 }
+
+#Preview {
+    BusPage()
+        .previewPrepared()
+}

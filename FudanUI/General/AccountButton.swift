@@ -113,3 +113,16 @@ public struct AccountSheet: View {
         }
     }
 }
+
+#Preview("Logged In") {
+    List {
+        CampusAccountButton(showLoginSheet: .constant(false), showUserSheet: .constant(false))
+    }
+    .previewPrepared(wrapped: nil)
+}
+
+#Preview("Not Logged In") {
+    List {
+        CampusAccountButton(showLoginSheet: .constant(false), showUserSheet: .constant(false))
+    }
+}

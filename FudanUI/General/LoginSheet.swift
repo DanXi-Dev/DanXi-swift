@@ -39,3 +39,12 @@ public struct LoginSheet: View {
         .sheetStyle(style)
     }
 }
+
+#Preview {
+    List {
+        
+    }
+    .sheet(isPresented: .constant(true)) {
+        LoginSheet()
+    }
+}

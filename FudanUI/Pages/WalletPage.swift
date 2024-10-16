@@ -24,14 +24,14 @@ struct WalletPage: View {
             
             return (balanceLoaded, filteredDateValues)
         } content: { balance, history in
-            ECardPageContent(balance: balance, history: history)
+            WalletPageContent(balance: balance, history: history)
         }
         .navigationTitle(String(localized: "ECard Information", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-private struct ECardPageContent: View {
+private struct WalletPageContent: View {
     let balance: String
     let history: [DateValueChartData]
     
@@ -48,7 +48,7 @@ private struct ECardPageContent: View {
             }
             
             if #available(iOS 17, *), !history.isEmpty {
-                FDEcardPageChart(data: history)
+                WalletPageChart(data: history)
             }
             
             if showDetailedTransactionHistory {
@@ -91,7 +91,7 @@ private struct TransactionView: View {
 }
 
 @available(iOS 17.0, *)
-private struct FDEcardPageChart: View {
+private struct WalletPageChart: View {
     let data: [DateValueChartData]
     @State private var chartSelection: Date?
     
@@ -165,4 +165,9 @@ private struct FDEcardPageChart: View {
         }
         .padding(.top, 8) // Leave space for annotation
     }
+}
+
+#Preview {
+    WalletPage()
+        .previewPrepared()
 }

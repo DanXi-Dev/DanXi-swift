@@ -48,4 +48,10 @@ public actor MyStore {
         self.walletLogs = walletLogs
         return walletLogs
     }
+    
+    public func setupPreivew(electricity: [ElectricityLog], wallet: [WalletLog], user: UserInfo? = nil) {
+        electricityLog = electricity
+        userInfo = user
+        walletLogs = wallet
+    }
 }

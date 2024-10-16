@@ -5,10 +5,23 @@ import ViewUtils
 
 struct RankPage: View {
     @State private var showSheet = false
+    let previewRanks: [Rank]?
+    
+    init(previewRanks: [Rank]) {
+        self.previewRanks = previewRanks
+    }
+    
+    init() {
+        previewRanks = nil
+    }
     
     var body: some View {
         AsyncContentView {
-            try await UndergraduateCourseAPI.getRanks()
+            if let previewRanks {
+                return previewRanks
+            }
+            
+            return try await UndergraduateCourseAPI.getRanks()
         } content: { ranks in
             List {
                 let myRank = ranks.first(where: { $0.isMe })
@@ -198,4 +211,9 @@ private struct RankChart: View {
         .frame(height: 300)
         .padding(.top, 8)
     }
+}
+
+#Preview {
+    RankPage(previewRanks: decodePreviewData(filename: "ranks"))
+        .previewPrepared()
 }

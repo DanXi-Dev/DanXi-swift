@@ -20,4 +20,8 @@ public actor ClassroomStore {
         classroomsCache[building] = classrooms
         return classrooms
     }
+    
+    public func setupPreview(_ cache: [Building: [Classroom]]) {
+        self.classroomsCache = cache
+    }
 }

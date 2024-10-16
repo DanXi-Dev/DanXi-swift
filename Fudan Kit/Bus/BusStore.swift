@@ -42,4 +42,9 @@ public actor BusStore {
         
         return (workdayRoutes, holidayRoutes)
     }
+    
+    public func setupPreview(routes: BusRoutes) {
+        self.holidayRoutes = routes.weekend
+        self.workdayRoutes = routes.workday
+    }
 }
