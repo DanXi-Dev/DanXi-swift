@@ -235,3 +235,8 @@ private struct BusCardContent: View {
         }
     }
 }
+
+#Preview {
+    BusCard()
+        .previewPrepared(wrapped: .card)
+}

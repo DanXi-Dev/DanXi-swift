@@ -37,4 +37,9 @@ public actor SportStore {
         self.exam = exam
         return exam
     }
+    
+    public func setupPreview(exercises: [Exercise], exerciseLogs: [ExerciseLog]) {
+        self.exercises = exercises
+        self.exerciseLogs = exerciseLogs
+    }
 }

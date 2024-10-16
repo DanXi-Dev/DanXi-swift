@@ -465,3 +465,8 @@ private struct ManualResetSemesterStartDateSheet: View {
         }
     }
 }
+
+#Preview {
+    CoursePage()
+        .previewPrepared()
+}

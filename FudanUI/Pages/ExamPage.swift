@@ -108,7 +108,3 @@ fileprivate struct ExamDetailSheet: View {
         }
     }
 }
-
-#Preview {
-    ExamPage()
-}

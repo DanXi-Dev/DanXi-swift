@@ -102,3 +102,8 @@ struct WalletCard: View {
         }
     }
 }
+
+#Preview {
+    WalletCard()
+        .previewPrepared(wrapped: .card)
+}

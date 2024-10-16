@@ -1,7 +1,7 @@
 import Foundation
 
 /// All buildings that host courses
-public enum Building: String {
+public enum Building: String, CaseIterable {
     case empty = ""
     case h2 = "H2"
     case h3 = "H3"
@@ -17,7 +17,7 @@ public enum Building: String {
 }
 
 /// A classroom, which contains a list of schedules
-public struct Classroom: Identifiable {
+public struct Classroom: Identifiable, Codable {
     public let id: UUID
     public let name: String
     public let capacity: String

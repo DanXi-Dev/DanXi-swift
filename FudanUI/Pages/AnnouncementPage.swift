@@ -93,3 +93,9 @@ fileprivate struct AuthenticatedLink: Identifiable {
     let id = UUID()
     let url: URL
 }
+
+#Preview {
+    NavigationStack {
+        AnnouncementPage()
+    }
+}

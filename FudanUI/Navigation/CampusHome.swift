@@ -268,3 +268,9 @@ class CampusHomeModel: ObservableObject {
         }
     }
 }
+
+#Preview {
+    CampusHome()
+        .previewPrepared()
+        .environmentObject(AppNavigator())
+}

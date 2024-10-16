@@ -50,4 +50,9 @@ public actor WalletStore {
         self.transactions += transactions
         return self.transactions
     }
+    
+    public func setupPreview(transactions: [Transaction]) {
+        finished = true
+        self.transactions = transactions
+    }
 }

@@ -141,3 +141,8 @@ private struct ElectricityPageChart: View {
         .padding(.top, 8) // Leave space for annotation
     }
 }
+
+#Preview {
+    ElectricityPage()
+        .previewPrepared()
+}

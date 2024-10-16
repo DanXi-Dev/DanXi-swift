@@ -53,9 +53,6 @@ struct PlaygroundContent: View {
                 Text("Playground List", bundle: .module)
             }
         }
-        .navigationDestination(for: Playground.self) { playground in
-            PlaygroundPage(playground)
-        }
     }
 }
 
@@ -225,4 +222,9 @@ class PlaygroundModel: ObservableObject {
         }
         return "circle.fill"
     }
+}
+
+#Preview {
+    ReservationPage()
+        .previewPrepared()
 }

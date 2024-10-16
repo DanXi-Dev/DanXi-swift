@@ -1,0 +1,38 @@
+[
+    {
+      "id": "c758d9cb-91ef-4665-a731-85e7b4d9a25f",
+      "campus": "东校区",
+      "diningRooms": [
+        {
+          "id": "d6efb5a3-44e8-44da-a12d-649b24bdfcfa",
+          "name": "一楼窗口",
+          "current": 50,
+          "capacity": 100
+        },
+        {
+          "id": "a3b0c7d9-9304-4bc9-b120-9a0b9c6c6f26",
+          "name": "二楼窗口",
+          "current": 30,
+          "capacity": 80
+        }
+      ]
+    },
+    {
+      "id": "83b2a8b6-6c9a-4d60-b03a-e4e8c1e6c467",
+      "campus": "西校区",
+      "diningRooms": [
+        {
+          "id": "5d6b7f5c-789d-41b7-905d-3c8df6c8b0ae",
+          "name": "一楼窗口",
+          "current": 60,
+          "capacity": 120
+        },
+        {
+          "id": "9a7b4c15-6a3d-4c71-b5f9-993eafb9a8e3",
+          "name": "二楼窗口",
+          "current": 20,
+          "capacity": 70
+        }
+      ]
+    }
+  ]

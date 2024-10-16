@@ -3,6 +3,11 @@ import Foundation
 public struct BusRoutes: Codable {
     public let workday: [Route]
     public let weekend: [Route]
+    
+    public init(workday: [Route], weekend: [Route]) {
+        self.workday = workday
+        self.weekend = weekend
+    }
 }
 
 /// Campus bus route, e.g., 邯郸-江湾

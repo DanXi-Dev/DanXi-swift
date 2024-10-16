@@ -21,4 +21,8 @@ public actor ElectricityStore {
         self.usage = usage
         return usage
     }
+    
+    public func setupPreview(usage: ElectricityUsage) {
+        self.usage = usage
+    }
 }

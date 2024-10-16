@@ -26,18 +26,20 @@ struct ScorePage: View {
 
 fileprivate struct ScorePageContent: View {
     private let semesters: [Semester]
+    private let previewScores: [Score]?
     @State private var semester: Semester
     @State private var selectedScore: Score?
     
-    init(_ semesters: [Semester], current: Semester?) {
+    init(_ semesters: [Semester], current: Semester?, previewScores: [Score]? = nil) {
         self.semesters = semesters
         self._semester = State(initialValue: current ?? semesters.last!)
+        self.previewScores = previewScores
     }
     
     var body: some View {
         List {
             SemesterPicker(semesters: semesters.sorted(), semester: $semester)
-            ScoreList(semester: semester, selectedScore: $selectedScore)
+            ScoreList(semester: semester, selectedScore: $selectedScore, previewScores: previewScores)
         }
         .sheet(item: $selectedScore) { score in
             ScoreDetailSheet(score: score)
@@ -48,10 +50,20 @@ fileprivate struct ScorePageContent: View {
 fileprivate struct ScoreList: View {
     let semester: Semester
     @Binding var selectedScore: Score?
+    let previewScores: [Score]?
+        
+    init(semester: Semester, selectedScore: Binding<Score?>, previewScores: [Score]?) {
+        self.semester = semester
+        self._selectedScore = selectedScore
+        self.previewScores = previewScores
+    }
     
     var body: some View {
         AsyncContentView(style: .widget) {
-            try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
+            if let previewScores {
+                return previewScores
+            }
+            return try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
         } content: { scores in
             Section {
                 ForEach(scores) { score in
@@ -196,4 +208,11 @@ fileprivate struct SemesterPicker: View {
             .listRowBackground(Color.clear)
         }
     }
+}
+
+#Preview {
+    let semesters: [Semester] = decodePreviewData(filename: "semesters")
+    
+    ScorePageContent(semesters.sorted(), current: semesters.sorted().last!, previewScores: decodePreviewData(filename: "score"))
+        .previewPrepared()
 }
