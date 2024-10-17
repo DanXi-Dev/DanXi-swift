@@ -36,3 +36,8 @@ struct TagsPage: View {
         .searchable(text: $searchText, prompt: Text("Search in Tags", bundle: .module))
     }
 }
+
+#Preview {
+    TagsPage()
+        .previewPrepared()
+}

@@ -10,6 +10,7 @@ import Disk
 enum PreviewWrapper {
     case navigation
     case list
+    case sheet
 }
 
 struct PreviewModifier: ViewModifier {
@@ -29,11 +30,19 @@ struct PreviewModifier: ViewModifier {
                     List {
                         content
                     }
+                case .sheet:
+                    List {
+                        
+                    }
+                    .sheet(isPresented: .constant(true)) {
+                        content
+                    }
                 }
             } else {
                 content
             }
         }
+        .environmentObject(AppNavigator())
     }
 }
 
@@ -79,5 +88,9 @@ func decodePreviewData<T: Decodable>(filename: String, directory: String? = nil)
 }
 
 func setupPreview() async {
-    
+    DivisionStore.shared.divisions = decodePreviewData(filename: "divisions", directory: "forum")
+    ProfileStore.shared.profile = decodePreviewData(filename: "profile", directory: "forum")
+    ProfileStore.shared.initialized = true
+    TagStore.shared.tags = decodePreviewData(filename: "tags", directory: "forum")
+    TagStore.shared.initialized = true
 }
