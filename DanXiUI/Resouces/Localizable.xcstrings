@@ -472,6 +472,16 @@
         }
       }
     },
+    "Control the appearance of preview features, currently including innovation bank" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "控制是否展示预览功能，目前包括创意银行"
+          }
+        }
+      }
+    },
     "Copy Full Text" : {
       "localizations" : {
         "en" : {
@@ -578,12 +588,38 @@
         }
       }
     },
+    "Curriculum" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "蛋壳"
+          }
+        }
+      }
+    },
     "Curriculum Board" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "蛋壳课评"
+          }
+        }
+      }
+    },
+    "Curriculum Introduction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review and share your course experience"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分享你的课程体验"
           }
         }
       }
@@ -616,6 +652,32 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "旦挞账户用于访问茶楼、蛋壳等社区服务"
+          }
+        }
+      }
+    },
+    "DanXi Community" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞社区"
+          }
+        }
+      }
+    },
+    "DanXi Community Introduction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything about FDU"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于复旦的一切，畅所欲言"
           }
         }
       }
@@ -1145,6 +1207,16 @@
         }
       }
     },
+    "Focus" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "专注"
+          }
+        }
+      }
+    },
     "Fold" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1358,6 +1430,32 @@
         }
       }
     },
+    "Innovation Bank" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创意银行"
+          }
+        }
+      }
+    },
+    "Innovation Bank Introduction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Think different"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不自量力地改变世界"
+          }
+        }
+      }
+    },
     "Join Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1404,6 +1502,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加载中"
+          }
+        }
+      }
+    },
+    "Loading Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加载失败"
           }
         }
       }
@@ -1836,6 +1944,16 @@
         }
       }
     },
+    "Preview Features" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预览功能"
+          }
+        }
+      }
+    },
     "Professors" : {
       "localizations" : {
         "en" : {
@@ -2109,6 +2227,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "恢复理由"
+          }
+        }
+      }
+    },
+    "Retry" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
           }
         }
       }

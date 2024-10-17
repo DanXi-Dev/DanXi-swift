@@ -13,12 +13,20 @@ struct SplitNavigation: View {
     }
     
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            AppSidebarList(screen: $screen)
-        } content: {
-            screen.content
-        } detail: {
-            screen.detail
+        if screen == .innovation {
+            NavigationSplitView {
+                AppSidebarList(screen: $screen)
+            } detail: {
+                screen.detail
+            }
+        } else {
+            NavigationSplitView(columnVisibility: $columnVisibility) {
+                AppSidebarList(screen: $screen)
+            } content: {
+                screen.content
+            } detail: {
+                screen.detail
+            }
         }
     }
 }
@@ -27,6 +35,7 @@ struct AppSidebarList: View {
     @Binding var screen: AppScreen
     @ObservedObject private var communityModel = CommunityModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var settings = ForumSettings.shared
     
     var body: some View {
         let screenBinding = Binding<AppScreen?>(
@@ -44,11 +53,18 @@ struct AppSidebarList: View {
             }
             
             if communityModel.loggedIn {
-                AppScreen.forum.label
-                    .tag(AppScreen.forum)
+                if settings.previewFeatureSetting != .focus {
+                    AppScreen.forum.label
+                        .tag(AppScreen.forum)
+                    
+                    AppScreen.curriculum.label
+                        .tag(AppScreen.curriculum)
+                }
                 
-                AppScreen.curriculum.label
-                    .tag(AppScreen.curriculum)
+                if settings.previewFeatureSetting != .hide {
+                    AppScreen.innovation.label
+                        .tag(AppScreen.innovation)
+                }
             }
             
             AppScreen.settings.label

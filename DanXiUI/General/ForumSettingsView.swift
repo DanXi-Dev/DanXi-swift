@@ -5,9 +5,11 @@ import ViewUtils
 public struct ForumSettingsView: View {
     public init() {}
     
+    private var sections: [ForumSettingsSection] = [.notification, .foldedContent, .blockedContent]
+    
     public var body: some View {
         Section {
-            ForEach(ForumSettingsSection.allCases) { section in
+            ForEach(sections) { section in
                 DetailLink(value: section) {
                     section.label.navigationStyle()
                 }
