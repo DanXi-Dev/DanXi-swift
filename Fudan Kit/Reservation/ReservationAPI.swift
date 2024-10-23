@@ -264,7 +264,7 @@ public enum ReservationAPI {
                 .select("td.site_td4")
                 .first()?
                 .html()
-                .firstMatch(of: /.*(?<reserved>\d+).*(?<total>\d+)/) else {
+                .firstMatch(of: /(?<reserved>\d+)\D+(?<total>\d+)/) else {
                 continue
             }
             
