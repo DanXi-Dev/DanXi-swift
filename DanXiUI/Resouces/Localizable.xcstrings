@@ -362,12 +362,32 @@
         }
       }
     },
+    "Check Decryption Status" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查询解密进度"
+          }
+        }
+      }
+    },
     "Check email inbox for verification code, notice that it may be filtered by junk mail" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "请在邮箱内查收验证码，如未收到邮件，请检查垃圾箱或重试"
+          }
+        }
+      }
+    },
+    "Ciphertext Copied" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制密文到剪贴板"
           }
         }
       }
@@ -468,6 +488,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "待举报的内容"
+          }
+        }
+      }
+    },
+    "Copied" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制"
+          }
+        }
+      }
+    },
+    "Copy Ciphertext" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制密文"
           }
         }
       }
@@ -668,6 +708,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "处理者：%@"
+          }
+        }
+      }
+    },
+    "Decryption Identity" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解密密钥ID"
+          }
+        }
+      }
+    },
+    "Decryption identity is the identifier used to create the decryption key. It should look like this: admin_name <admin@fduhole.com>" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解密密钥ID是用于标识解密密钥的标识符。这是一个示例：admin_name <admin@fduhole.com>"
+          }
+        }
+      }
+    },
+    "Decryption Result: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解密结果：%@"
           }
         }
       }
@@ -1368,6 +1438,16 @@
         }
       }
     },
+    "Key Admin Section" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密钥管理员"
+          }
+        }
+      }
+    },
     "Last Created" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1642,6 +1722,16 @@
         }
       }
     },
+    "Not enough plaintext yet" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明文数量不足"
+          }
+        }
+      }
+    },
     "Not Logged in" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1776,6 +1866,16 @@
         }
       }
     },
+    "Paste Decrypted Plaintext Here" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将解密后的明文粘贴在此"
+          }
+        }
+      }
+    },
     "Penalty Duration: %lld" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1792,6 +1892,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选取"
+          }
+        }
+      }
+    },
+    "Plaintext Uploaded:" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已上传的明文："
           }
         }
       }
@@ -2648,6 +2758,16 @@
         }
       }
     },
+    "Upload Plaintext" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上传明文"
+          }
+        }
+      }
+    },
     "Uploading Image" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2710,6 +2830,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用户ID"
+          }
+        }
+      }
+    },
+    "User ID to decrypt" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "待解密的用户ID"
           }
         }
       }

@@ -124,4 +124,30 @@ public enum GeneralAPI {
         }
         return url
     }
+    
+    // MARK: Shamir
+    
+    public static func retrieveEncryptedShamirShare(userId: Int, identityName: String) async throws -> String {
+        let data = try await requestWithData("/shamir/\(userId)", base: authURL, params: ["identity_name": identityName])
+        let json = try JSON(data: data)
+        
+        guard let message = json["pgp_message"].string else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return message
+    }
+    
+    public static func uploadDecryptedShamirShare(userId: Int, share: String, identityName: String) async throws {
+        let payload: [String: Any] = ["identity_name": identityName, "share": share, "user_id": userId]
+        try await requestWithoutResponse("/shamir/decrypt", base: authURL, payload: payload)
+    }
+    
+    public static func getShamirDecryptionStatus(userId: Int) async throws -> ShamirDecryptionStatus {
+        return try await requestWithResponse("/shamir/decrypt/status/\(userId)", base: authURL)
+    }
+    
+    public static func getShamirDecryptionResult(userId: Int) async throws -> ShamirDecryptionResult {
+        return try await requestWithResponse("/shamir/decrypt/\(userId)", base: authURL)
+    }
 }
