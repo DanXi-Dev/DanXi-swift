@@ -3,11 +3,21 @@ import SwiftUI
 import ViewUtils
 
 public struct ForumSettingsView: View {
+    @ObservedObject private var profileStore = ProfileStore.shared
+    
+    private var sections: [ForumSettingsSection] {
+        if profileStore.isAdmin {
+            ForumSettingsSection.allCases
+        } else {
+            ForumSettingsSection.normalList
+        }
+    }
+    
     public init() {}
     
     public var body: some View {
         Section {
-            ForEach(ForumSettingsSection.allCases) { section in
+            ForEach(sections) { section in
                 DetailLink(value: section) {
                     section.label.navigationStyle()
                 }
@@ -23,6 +33,9 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
     case foldedContent
     case blockedContent
     case advancedSettings
+    case adminSection
+    
+    static let normalList: [ForumSettingsSection] = [.notification, .foldedContent, .blockedContent, .advancedSettings]
     
     public var id: ForumSettingsSection {
         self
@@ -38,6 +51,8 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
             Label(String(localized: "Blocked Content", bundle: .module), systemImage: "hand.raised.app")
         case .advancedSettings:
             Label(String(localized: "Advanced Settings", bundle: .module), systemImage: "slider.horizontal.2.square")
+        case .adminSection:
+            Label(String(localized: "Key Admin Section", bundle: .module), systemImage: "key.card.fill")
         }
     }
     
@@ -52,6 +67,8 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
             BlockedContent()
         case .advancedSettings:
             AdvancedSettings()
+        case .adminSection:
+            KeyAdminSection()
         }
     }
 }

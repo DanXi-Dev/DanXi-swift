@@ -28,3 +28,14 @@ public enum QuestionResponse {
     case success(Token)
     case fail([Int])
 }
+
+public struct ShamirDecryptionStatus: Codable {
+    public let shamirUploadReady: Bool
+    public let uploadedSharesIdentityNames: [String]?
+}
+
+public struct ShamirDecryptionResult: Codable {
+    public let identityNames: [String]
+    public let userEmail: String
+    public let userId: Int
+}
