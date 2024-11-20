@@ -335,3 +335,16 @@ private struct HolePageSheets<Label: View>: View {
             }
     }
 }
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let floors: [Floor] = decodePreviewData(filename: "floors", directory: "forum")
+    let model = HoleModel(hole: hole, floors: floors)
+    
+    NavigationStack {
+        HolePage(model)
+    }
+    .onAppear {
+        model.endReached = true
+    }
+}

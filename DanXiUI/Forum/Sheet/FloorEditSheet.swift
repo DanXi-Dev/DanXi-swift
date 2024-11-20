@@ -42,3 +42,12 @@ struct FloorEditSheet: View {
         .scrollDismissesKeyboard(.immediately)
     }
 }
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let floors: [Floor] = decodePreviewData(filename: "floors", directory: "forum")
+    let holeModel = HoleModel(hole: hole, floors: floors)
+    
+    FloorEditSheet(floor: floors[0])
+        .environmentObject(holeModel)
+}

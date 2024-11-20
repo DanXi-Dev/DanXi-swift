@@ -18,7 +18,7 @@ struct PosterView: View {
                     .bold()
                     .foregroundColor(.white)
                     .padding(.horizontal, posterPadding)
-                    .background(hashColorForTreehole(name))
+                    .background(randomColor(name))
                     .cornerRadius(corner)
             }
             
@@ -26,12 +26,12 @@ struct PosterView: View {
                 .font(.subheadline)
                 .bold()
         }
-        .foregroundColor(hashColorForTreehole(name))
+        .foregroundColor(randomColor(name))
         .padding(.leading, barPadding)
         .overlay(
             Rectangle()
                 .frame(width: barWidth, height: nil, alignment: .leading)
-                .foregroundColor(hashColorForTreehole(name))
+                .foregroundColor(randomColor(name))
                 .padding(.vertical, 1), alignment: .leading)
     }
 }

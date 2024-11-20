@@ -20,3 +20,12 @@ struct ReplySheet: View {
         .warnDiscard(!content.isEmpty)
     }
 }
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let floors: [Floor] = decodePreviewData(filename: "floors", directory: "forum")
+    let holeModel = HoleModel(hole: hole, floors: floors)
+    
+    ReplySheet()
+        .environmentObject(holeModel)
+}

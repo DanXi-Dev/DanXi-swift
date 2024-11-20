@@ -17,7 +17,7 @@ struct CourseView: View {
         if let courseTint {
             courseTint
         } else {
-            hashColorForCalendar(title)
+            randomColor(title)
         }
     }
     
@@ -256,3 +256,27 @@ struct CalendarConfig {
     static let dx: CGFloat = 60
     static let dy: CGFloat = 50
 }
+
+// MARK: - Random Color
+
+public func randomColor(_ name: String) -> Color {
+    let hashColorList = [
+        Color.red,
+        Color.pink,
+        Color.purple,
+        Color.blue,
+        Color.cyan,
+        Color.teal,
+        Color.green,
+        Color.orange,
+        Color.brown,
+    ]
+    
+    var sum = 0
+    for c in name.utf16 {
+        sum += Int(c)
+    }
+    sum %= hashColorList.count
+    return hashColorList[sum]
+}
+

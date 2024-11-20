@@ -42,7 +42,7 @@ struct MentionView: View {
                 Image(systemName: "quote.closing")
                     .foregroundColor(.secondary)
             }
-            .foregroundColor(hashColorForTreehole(anonyname))
+            .foregroundColor(randomColor(anonyname))
                         
             Text(content.inlineAttributed())
                 .foregroundColor(deleted ? .secondary : .primary)

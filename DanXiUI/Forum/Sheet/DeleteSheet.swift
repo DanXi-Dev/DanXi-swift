@@ -124,3 +124,12 @@ private struct PunishmentHistory: View {
         }
     }
 }
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let floors: [Floor] = decodePreviewData(filename: "floors", directory: "forum")
+    let holeModel = HoleModel(hole: hole, floors: floors)
+     
+    DeleteSheet(presentation: holeModel.floors[0])
+        .environmentObject(holeModel)
+}

@@ -351,3 +351,15 @@ struct MultipleFoldedFloorView: View {
         }
     }
 }
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let holeModel = HoleModel(hole: hole)
+    let floor: Floor = decodePreviewData(filename: "floor", directory: "forum")
+    let presentation = FloorPresentation(floor: floor, storey: 1)
+    
+    List {
+        FloorView(presentation: presentation)
+            .environmentObject(holeModel)
+    }
+}
