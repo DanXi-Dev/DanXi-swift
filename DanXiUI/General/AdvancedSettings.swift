@@ -7,25 +7,8 @@ struct AdvancedSettings: View {
     @ObservedObject private var campusModel = CampusModel.shared
     @ObservedObject private var proxySettings = ProxySettings.shared
     
-    @State private var path = ""
-    
-    func submit() {
-        Task {
-            let data = try await DanXiKit.requestWithData(path, base: forumURL)
-            let string = String(decoding: data, as: Unicode.UTF8.self)
-            UIPasteboard.general.string = string
-        }
-    }
-    
     var body: some View {
         Form {
-            Section {
-                TextField("Path", text: $path)
-                Button("Submit") {
-                    submit()
-                }
-            }
-            
             Section {
                 Toggle(isOn: $settings.inAppBrowser) {
                     Text("Use in-app Browser", bundle: .module)
