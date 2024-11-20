@@ -1,7 +1,7 @@
 import SwiftUI
 
 public enum CampusSection: String, Identifiable, Codable, CaseIterable {
-    case wallet, electricity, announcenemnt, pay, bus, classroom, library, canteen, sport, score, rank, playground, exam
+    case wallet, electricity, announcenemnt, pay, schoolbus, classroom, library, canteen, sport, score, rank, playground, exam
     case course
     
     public var id: CampusSection {
@@ -11,7 +11,7 @@ public enum CampusSection: String, Identifiable, Codable, CaseIterable {
     static let allHidden: Set<CampusSection> = [.course]
     static let gradHidden: Set<CampusSection> = [.sport, .rank, .score, .exam]
     static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity, .exam]
-    static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt, .bus]
+    static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt, .schoolbus]
 }
 
 extension CampusSection {
@@ -22,7 +22,7 @@ extension CampusSection {
             Label(String(localized: "PE Curriculum", bundle: .module), systemImage: "figure.disc.sports")
         case .pay:
             Label(String(localized: "Fudan QR Code", bundle: .module), systemImage: "qrcode")
-        case .bus:
+        case .schoolbus:
             Label(String(localized: "Bus Schedule", bundle: .module), systemImage: "bus.fill")
         case .exam:
             Label(String(localized: "Exams", bundle: .module), systemImage: "book.closed")
@@ -58,7 +58,7 @@ extension CampusSection {
             ElectricityCard()
         case .announcenemnt:
             AnnouncementCard()
-        case .bus:
+        case .schoolbus:
             BusCard()
         default:
             EmptyView()
@@ -72,7 +72,7 @@ extension CampusSection {
             SportPage()
         case .pay:
             PayPage()
-        case .bus:
+        case .schoolbus:
             BusPage()
         case .wallet:
             WalletPage()
