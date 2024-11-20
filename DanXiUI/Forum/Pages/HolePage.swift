@@ -22,57 +22,37 @@ struct HolePage: View {
     var body: some View {
         ScrollViewReader { proxy in
             HolePageSheets {
-                ForumList {
-                    // On older platform, adjusting list section spacing will hide section header
-                    // due to implementation of compactSectionSpacing.
-                    if #unavailable(iOS 17) {
+                ScrollView {
+                    LazyVStack(spacing: 12) {
                         header
-                            .listRowBackground(Color.clear)
-                    }
-                    
-                    AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
-                        switch segment {
-                        case .floor(let presentation):
-                            Section {
+                        
+                        AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
+                            switch segment {
+                            case .floor(let presentation):
                                 FloorView(presentation: presentation)
-                            } header: {
-                                if presentation.id == model.floors.first?.id {
-                                    header
-                                }
-                            }
-                            .id(presentation.id)
-                            .onDisappear() {
-                                if presentation.id == model.targetFloorId {
-                                    model.targetFloorVisibility = false
-                                }
-                            }
-                        case .folded(let presentations):
-                            FoldedView {
-                                MultipleFoldedFloorView(presentations: presentations)
-                            } content: {
-                                ForEach(presentations) { presentation in
-                                    Section {
-                                        FloorView(presentation: presentation)
-                                    }
                                     .id(presentation.id)
-                                }
-                            }
-                            .listRowInsets(.zero)
-                            .onDisappear() {
-                                for presentation in presentations {
-                                    if presentation.id == model.targetFloorId {
-                                        model.targetFloorVisibility = false
+                            case .folded(let presentations):
+                                FoldedView {
+                                    MultipleFoldedFloorView(presentations: presentations)
+                                } content: {
+                                    ForEach(presentations) { presentation in
+                                        Section {
+                                            FloorView(presentation: presentation)
+                                        }
+                                        .id(presentation.id)
                                     }
                                 }
                             }
                         }
                     }
-                }
-                .refreshable {
-                    try? await withHaptics(success: false) {
-                        try await model.refreshAllFloors()
+                    .refreshable {
+                        try? await withHaptics(success: false) {
+                            try await model.refreshAllFloors()
+                        }
                     }
+                    .padding(.horizontal, 18)
                 }
+                .background(Color("List Background", bundle: .module)) // TODO: light gray + black
             }
             .environment(\.allImageURL, model.imageURLs)
             .watermark()

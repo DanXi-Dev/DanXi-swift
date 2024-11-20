@@ -50,6 +50,10 @@ struct FloorView: View {
                 model.highlight()
             }
         }
+        .background {
+            RoundedRectangle(cornerSize: .init(width: 10, height: 10), style: .continuous)
+                .foregroundStyle(Color("List Foreground", bundle: .module))
+        }
         .environmentObject(model)
     }
     
