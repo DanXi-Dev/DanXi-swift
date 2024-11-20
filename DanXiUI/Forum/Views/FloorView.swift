@@ -103,6 +103,8 @@ struct FloorView: View {
 }
 
 private struct FloorContentView: View, Equatable {
+    @EnvironmentObject private var model: HoleModel
+    
     static func == (lhs: FloorContentView, rhs: FloorContentView) -> Bool {
         lhs.content == rhs.content // FIXME: This is supposed to prevent UI flicker during reload, but it didn't work for some examples. It still need further investigation.
     }
@@ -110,9 +112,26 @@ private struct FloorContentView: View, Equatable {
     let sections: [FloorSection]
     let content: String
     
+    private var displaySections: [FloorSection] {
+        let sliced = if sections.count > 1 {
+            Array(sections[1...])
+        } else {
+            sections
+        }
+        
+        return switch model.filterOption {
+        case .conversation(_):
+            sliced
+        case .reply(_):
+            sliced
+        default:
+            sections
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
-            ForEach(Array(sections.enumerated()), id: \.offset) { _, section in
+            ForEach(Array(displaySections.enumerated()), id: \.offset) { _, section in
                 switch section {
                 case .text(let markdown):
                     CustomMarkdown(markdown)
