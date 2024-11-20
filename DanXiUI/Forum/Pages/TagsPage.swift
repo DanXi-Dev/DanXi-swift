@@ -23,7 +23,7 @@ struct TagsPage: View {
                 ContentLink(value: tag) {
                     HStack {
                         Label(tag.name, systemImage: "tag")
-                            .foregroundColor(hashColorForTreehole(tag.name))
+                            .foregroundColor(randomColor(tag.name))
                         Label(String(tag.temperature), systemImage: "flame")
                             .font(.footnote)
                             .foregroundColor(.separator)
@@ -35,4 +35,9 @@ struct TagsPage: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: Text("Search in Tags", bundle: .module))
     }
+}
+
+#Preview {
+    TagsPage()
+        .previewPrepared()
 }

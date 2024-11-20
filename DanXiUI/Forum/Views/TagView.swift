@@ -9,7 +9,7 @@ struct TagView: View {
     
     init(_ name: String, color: Color? = nil, deletable: Bool = false) {
         self.name = name
-        self.color = color ?? hashColorForTreehole(name)
+        self.color = color ?? randomColor(name)
         self.deletable = deletable
     }
     

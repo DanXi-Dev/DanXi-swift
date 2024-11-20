@@ -332,3 +332,16 @@ private struct BannerView: View {
         .padding()
     }
 }
+
+#Preview {
+    let holes: [Hole] = decodePreviewData(filename: "holes", directory: "forum")
+    let presentations = holes.map { HolePresentation(hole: $0) }
+    let divisions: [Division] = decodePreviewData(filename: "divisions", directory: "forum")
+    let model = BrowseModel(division: divisions[0])
+    model.holes = presentations
+    model.endReached = true
+    
+    return BrowsePage()
+        .environmentObject(model)
+        .previewPrepared()
+}

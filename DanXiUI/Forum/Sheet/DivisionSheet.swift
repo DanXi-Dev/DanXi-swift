@@ -83,3 +83,8 @@ struct DivisionSheet: View {
         .scrollDismissesKeyboard(.immediately)
     }
 }
+
+#Preview {
+    DivisionSheet(divisionId: 1)
+        .previewPrepared()
+}

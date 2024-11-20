@@ -27,3 +27,10 @@ struct ReportSheet: View {
         .warnDiscard(!reason.isEmpty)
     }
 }
+
+#Preview {
+    let floor: Floor = decodePreviewData(filename: "floor", directory: "forum")
+    let presentation = FloorPresentation(floor: floor, storey: 1)
+    
+    ReportSheet(presentation: presentation)
+}

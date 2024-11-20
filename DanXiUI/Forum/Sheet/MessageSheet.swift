@@ -30,3 +30,7 @@ struct MessageSheet: View {
         .warnDiscard(!message.isEmpty)
     }
 }
+
+#Preview {
+    MessageSheet()
+}

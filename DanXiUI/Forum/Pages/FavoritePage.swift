@@ -70,3 +70,12 @@ private struct FavoritePageContent: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+#Preview {
+    let holes: [Hole] = decodePreviewData(filename: "holes", directory: "forum")
+    let presentations = holes.map { HolePresentation(hole: $0) }
+    
+    NavigationStack {
+        FavoritePageContent(presentations)
+    }
+}

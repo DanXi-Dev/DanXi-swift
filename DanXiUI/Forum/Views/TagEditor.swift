@@ -86,7 +86,7 @@ struct TagEditor: View {
                     } label: {
                         HStack {
                             Label(tag.name, systemImage: "tag")
-                                .foregroundColor(hashColorForTreehole(tag.name))
+                                .foregroundColor(randomColor(tag.name))
                             Label(String(tag.temperature), systemImage: "flame")
                                 .font(.footnote)
                                 .foregroundColor(.separator)
