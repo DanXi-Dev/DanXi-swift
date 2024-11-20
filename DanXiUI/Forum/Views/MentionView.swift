@@ -69,6 +69,7 @@ struct MentionView: View {
 
 struct LocalMentionView: View {
     @EnvironmentObject private var model: HoleModel
+    @Environment(\.originalFloor) private var originalFloor
     
     private let floor: Floor
     
@@ -79,6 +80,9 @@ struct LocalMentionView: View {
     var body: some View {
         Button {
             model.scrollTo(floorId: floor.id)
+            withAnimation(.spring(bounce: 0.55).speed(1.5)) {
+                model.scrollFrom = originalFloor
+            }
         } label: {
             MentionView(floor)
         }

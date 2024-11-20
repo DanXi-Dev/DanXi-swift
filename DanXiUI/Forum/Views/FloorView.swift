@@ -70,6 +70,7 @@ struct FloorView: View {
     private var content: some View {
         if !floor.deleted {
             FloorContentView(sections: presentation.sections, content: floor.content)
+                .environment(\.originalFloor, presentation)
         } else {
             Text(floor.content)
                 .foregroundColor(.secondary)
@@ -99,6 +100,16 @@ struct FloorView: View {
         .font(.footnote)
         .foregroundColor(Color.secondary.opacity(0.7))
         .padding(.top, 0.8)
+    }
+}
+
+struct FloorEnvironmentKey: EnvironmentKey {
+    static let defaultValue: FloorPresentation? = nil
+}
+
+extension EnvironmentValues {
+    var originalFloor: FloorPresentation? {
+        get { self[FloorEnvironmentKey.self] } set { self[FloorEnvironmentKey.self] = newValue }
     }
 }
 

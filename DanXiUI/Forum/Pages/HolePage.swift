@@ -90,6 +90,13 @@ struct HolePage: View {
                     bottomBar
                 }
             }
+            .overlay(alignment: .bottom) {
+                if let originalFloor = model.scrollFrom {
+                    ReturnCapsule(originalFloor: originalFloor)
+                        .id(originalFloor.id)
+                        .padding(.bottom, 20)
+                }
+            }
             .environmentObject(model)
             .task {
                 HistoryStore.shared.saveHistory(hole: hole)

@@ -2223,6 +2223,16 @@
         }
       }
     },
+    "Return to Floor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回到楼层"
+          }
+        }
+      }
+    },
     "Review Title" : {
       "localizations" : {
         "zh-Hans" : {
