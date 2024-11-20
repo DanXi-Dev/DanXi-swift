@@ -49,7 +49,7 @@ struct MentionView: View {
                 .relativeLineSpacing(.em(0.18))
                 .multilineTextAlignment(.leading)
                 .font(.subheadline)
-                .lineLimit(3)
+                .lineLimit(1)
                         
             HStack {
                 Text(verbatim: "##\(String(id))")
