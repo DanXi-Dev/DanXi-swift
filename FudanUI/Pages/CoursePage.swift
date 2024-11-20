@@ -138,7 +138,15 @@ fileprivate struct CalendarContent: View {
             .pickerStyle(.menu)
 
             Button {
-                showExportSheet = true
+                Task(priority: .userInitiated) {
+                    let eventStore = EKEventStore()
+                    if #available(iOS 17, *) {
+                        try await eventStore.requestWriteOnlyAccessToEvents()
+                    } else {
+                        try await eventStore.requestAccess(to: .event)
+                    }
+                    showExportSheet = true
+                }
             } label: {
                 Label {
                     Text("Export to Calendar", bundle: .module)
