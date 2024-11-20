@@ -254,6 +254,9 @@ class HoleModel: ObservableObject {
     
     @Published var initialScroll: Int?
     
+    /// The floor where you click the MentionView.
+    @Published var scrollFrom: FloorPresentation?
+    
     let scrollControl = PassthroughSubject<UUID, Never>()
     
     @MainActor
