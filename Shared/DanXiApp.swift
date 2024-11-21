@@ -23,7 +23,7 @@ struct DanXiApp: App {
                         if oldPhase == .background {
                             // Application is resuming from background
                             // The two other states, active and inactive, should both be treated as running in foreground
-                            ProxySettings.shared.enableProxy = false
+                            Proxy.shared.outsideCampus = false
                             // TODO: refresh outdated homescreen cards
                         }
                     }
