@@ -42,10 +42,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         return true
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        ProxySettings.shared.enableProxy = false
-    }
-    
     // MARK: - Notification
     
     func application(_ application: UIApplication,
