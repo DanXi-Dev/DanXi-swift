@@ -15,8 +15,6 @@ public struct ForumSettingsView: View {
     
     public init() {}
     
-    private var sections: [ForumSettingsSection] = [.notification, .foldedContent, .blockedContent]
-    
     public var body: some View {
         Section {
             ForEach(sections) { section in
