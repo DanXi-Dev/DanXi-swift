@@ -177,5 +177,5 @@ extension WebVPNError: LocalizedError {
 public class ProxySettings: ObservableObject {
     public static let shared = ProxySettings()
     
-    @AppStorage("enable-proxy") public var enableProxy = true
+    @AppStorage("enable-webvpn") public var enableProxy = true
 }
