@@ -31,11 +31,13 @@ struct MentionView: View {
         VStack(alignment: .leading) {
             HStack {
                 Rectangle()
-                    .frame(width: 3, height: 15)
+                    .frame(width: 2.5, height: 12)
                             
                 Text(anonyname)
-                    .font(.subheadline)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
+                Text(timeUpdated.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+                    .foregroundColor(.secondary)
+                    .font(.caption)
                             
                 Spacer()
                             
@@ -43,6 +45,7 @@ struct MentionView: View {
                     .foregroundColor(.secondary)
             }
             .foregroundColor(randomColor(anonyname))
+            .font(.subheadline)
                         
             Text(content.inlineAttributed())
                 .foregroundColor(deleted ? .secondary : .primary)
@@ -50,15 +53,6 @@ struct MentionView: View {
                 .multilineTextAlignment(.leading)
                 .font(.subheadline)
                 .lineLimit(1)
-                        
-            HStack {
-                Text(verbatim: "##\(String(id))")
-                Spacer()
-                Text(timeUpdated.formatted(.relative(presentation: .named, unitsStyle: .wide)))
-            }
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .padding(.top, 1.0)
         }
         .padding(.horizontal, 12.0)
         .padding(.vertical, 7.0)
