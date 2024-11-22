@@ -12,7 +12,8 @@ public class ForumSettings: ObservableObject {
     @AppStorage("in-app-browser") var inAppBrowser = true
     @AppStorage("is-demo") var isDemo = false
     @AppStorage("watermark-opacity") public var watermarkOpacity = 0.010
-    @AppStorage("preview-feature-setting") public var previewFeatureSetting = PreviewFeatureSetting.show
+//    @AppStorage("preview-feature-setting") public var previewFeatureSetting = PreviewFeatureSetting.show
+    public var previewFeatureSetting: PreviewFeatureSetting = .hide
 
     public enum SensitiveContentSetting: Int {
         case fold = 1, show, hide
