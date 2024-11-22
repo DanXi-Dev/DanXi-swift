@@ -80,7 +80,7 @@ struct LocalMentionView: View {
     var body: some View {
         Button {
             model.scrollTo(floorId: floor.id)
-            withAnimation(.spring(bounce: 0.55).speed(1.5)) {
+            withAnimation(.smooth) {
                 model.scrollFrom = originalFloor
             }
         } label: {
