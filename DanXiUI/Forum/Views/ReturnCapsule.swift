@@ -8,27 +8,29 @@ struct ReturnCapsule: View {
         HStack {
             VStack {
                 Text("Return to Floor")
-                    .foregroundStyle(.gray)
                     .font(.caption)
                     .fontWeight(.bold)
                 Text(verbatim: "\(originalFloor.storey)F")
-                    .foregroundStyle(.gray.opacity(0.5))
+                    .foregroundStyle(.gray)
                     .font(.caption2)
                     .fontWeight(.semibold)
             }
+            .padding(.vertical, 2)
         }
         .padding(.horizontal, 40)
         .overlay(alignment: .leading) {
             Image(systemName: "arrow.uturn.backward.circle.fill")
-                .font(.subheadline)
-                .foregroundStyle(.blue.opacity(0.6))
+                .font(.headline)
+                .foregroundStyle(.blue)
                 .padding(.leading, 10)
         }
         
         .padding(.vertical, 7)
         .background {
             Capsule(style: .continuous)
-                .fill(.regularMaterial)
+                .fill(.background)
+                .shadow(.drop(radius: 12))
+                
         }
         .transition(.move(edge: .bottom).combined(with: .opacity))
         .task {
