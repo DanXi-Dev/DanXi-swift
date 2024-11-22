@@ -18,18 +18,18 @@ struct ReturnCapsule: View {
             }
             .padding(.vertical, 2)
         }
-        .padding(.horizontal, 40)
+        .padding(.horizontal, 44)
         .overlay(alignment: .leading) {
             Image(systemName: "arrow.uturn.backward.circle.fill")
                 .font(.headline)
-                .foregroundStyle(.blue)
+                .foregroundStyle(Color.accentColor)
                 .padding(.leading, 10)
         }
         
-        .padding(.vertical, 7)
+        .padding(.vertical, 8)
         .background {
             Capsule(style: .continuous)
-                .fill(.background)
+                .fill(.thickMaterial)
                 .shadow(.drop(radius: 12))
                 
         }
