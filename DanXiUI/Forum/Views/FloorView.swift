@@ -231,13 +231,7 @@ private struct FloorActions: View {
     }
     
     private var menu: some View {
-        Menu {
-            Button {
-                UIPasteboard.general.string = NSAttributedString(floor.content.inlineAttributed()).string
-            } label: {
-                Label(String(localized: "Copy Full Text", bundle: .module), systemImage: "doc.on.doc")
-            }
-            
+        Menu {            
             Button {
                 holeModel.textSelectionSheet = floor
             } label: {
