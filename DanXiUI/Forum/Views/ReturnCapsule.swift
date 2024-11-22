@@ -3,6 +3,7 @@ import SwiftUI
 struct ReturnCapsule: View {
     @EnvironmentObject var model: HoleModel
     let originalFloor: FloorPresentation
+    @State private var currentSleepingTask: Task<Void, Never>? = nil
     
     var body: some View {
         HStack {
@@ -34,7 +35,13 @@ struct ReturnCapsule: View {
         }
         .transition(.move(edge: .bottom).combined(with: .opacity))
         .task {
-            try? await Task.sleep(for: .seconds(8))
+            if let existingTask = currentSleepingTask {
+                    existingTask.cancel()
+            }
+            currentSleepingTask = Task {
+                try? await Task.sleep(for: .seconds(8))
+            }
+            _ = await currentSleepingTask?.result
             withAnimation {
                 model.scrollFrom = nil
             }
