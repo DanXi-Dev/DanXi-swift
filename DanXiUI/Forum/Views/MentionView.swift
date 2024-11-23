@@ -55,7 +55,8 @@ struct MentionView: View {
                 .lineLimit(1)
         }
         .padding(.horizontal, 12.0)
-        .padding(.vertical, 7.0)
+        .padding(.top, 6.5)
+        .padding(.bottom, 8.0)
         .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
         .cornerRadius(7.0)
     }
