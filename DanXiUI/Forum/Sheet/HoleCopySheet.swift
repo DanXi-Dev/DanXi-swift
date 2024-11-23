@@ -16,6 +16,8 @@ struct HoleCopySheet: View {
             selectedFloors.append(floor)
         }
         
+        selectedFloors =  selectedFloors.sorted(by: { $0.storey < $1.storey })
+        
         var text = ""
         
         for presentation in selectedFloors {
