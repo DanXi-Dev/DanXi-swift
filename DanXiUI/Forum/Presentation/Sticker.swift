@@ -17,6 +17,14 @@ enum Sticker: String, CaseIterable {
     case thrill = "dx_thrill"
     case touchFish = "dx_touch_fish"
     case twin = "dx_twin"
+    case kiss = "dx_kiss"
+    case onlooker = "dx_onlooker"
+    case craving = "dx_craving"
+    case caught = "dx_caught"
+    case worn = "dx_worn"
+    case murderous = "dx_murderous"
+    case confused = "dx_confused"
+    case like = "dx_like"
     
     var image: Image {
         switch self {
@@ -36,6 +44,14 @@ enum Sticker: String, CaseIterable {
         case .thrill: Image("happy", bundle: .module)
         case .touchFish: Image("slacking", bundle: .module)
         case .twin: Image("dd", bundle: .module)
+        case .kiss: Image("kiss", bundle: .module)
+        case .onlooker: Image("onlooker", bundle: .module)
+        case .craving: Image("craving", bundle: .module)
+        case .caught: Image("caught", bundle: .module)
+        case .worn: Image("worn", bundle: .module)
+        case .murderous: Image("murderous", bundle: .module)
+        case .confused: Image("confused", bundle: .module)
+        case .like: Image("like", bundle: .module)
         }
     }
 }
