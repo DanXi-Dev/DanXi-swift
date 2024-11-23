@@ -209,6 +209,18 @@ struct HolePage: View {
                 Label(String(localized: "Navigate to Bottom", bundle: .module), systemImage: "arrow.down.to.line")
             }
             
+            Divider()
+            
+            Button {
+                model.showCopySheet = true
+            } label: {
+                Label {
+                    Text("Copy Text", bundle: .module)
+                } icon: {
+                    Image(systemName: "document.on.document")
+                }
+            }
+            
             if profileStore.isAdmin {
                 Divider()
                 
@@ -291,6 +303,9 @@ private struct HolePageSheets<Label: View>: View {
             }
             .sheet(item: $model.textSelectionSheet) { floor in
                 TextSelectionSheet(text: floor.content)
+            }
+            .sheet(isPresented: $model.showCopySheet ) {
+                HoleCopySheet()
             }
             .alert(String(localized: "Confirm Delete Post", bundle: .module), isPresented: $model.showHideAlert) {
                 Button(role: .destructive) {

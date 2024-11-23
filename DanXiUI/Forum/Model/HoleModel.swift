@@ -333,6 +333,7 @@ class HoleModel: ObservableObject {
     @Published var showQuestionSheet = false
     @Published var showHoleEditSheet = false
     @Published var showHideAlert = false
+    @Published var showCopySheet = false
     
     @Published var replySheet: Floor? = nil
     @Published var editSheet: Floor? = nil
