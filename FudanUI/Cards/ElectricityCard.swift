@@ -3,6 +3,9 @@ import FudanKit
 import ViewUtils
 
 struct ElectricityCard: View {
+    @Environment(\.scenePhase) var scenePhase
+    @State private var contentId = UUID() // Controls refresh
+    
     private let style = AsyncContentStyle {
         VStack(alignment: .leading) {
             Text(verbatim: "*******")
@@ -38,6 +41,50 @@ struct ElectricityCard: View {
         .padding(.bottom, 15)
     }
     
+    private var content: some View {
+        HStack(alignment: .bottom) {
+            AsyncContentView(style: style, animation: .default) {
+                async let usage = ElectricityStore.shared.getCachedElectricityUsage()
+                async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                return try await (usage, dateValues)
+            } refreshAction: {
+                async let usage = ElectricityStore.shared.getRefreshedEletricityUsage()
+                async let dateValues = try? MyStore.shared.getRefreshedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
+                return try await (usage, dateValues)
+            } content: {(info: ElectricityUsage, transactions: [DateValueChartData]?) in
+                VStack(alignment: .leading) {
+                    Text(info.campus + info.building + info.room)
+                        .foregroundColor(.secondary)
+                        .bold()
+                        .font(.caption)
+                        .privacySensitive()
+                    
+                    HStack(alignment: .firstTextBaseline, spacing: 0) {
+                        Text(String(info.electricityAvailable))
+                            .bold()
+                            .font(.system(size: 25, design: .rounded))
+                            .privacySensitive()
+                        
+                        Text(verbatim: " ")
+                        Text(verbatim: "kWh")
+                            .foregroundColor(.secondary)
+                            .bold()
+                            .font(.caption2)
+                        
+                        Spacer()
+                    }
+                }
+                
+                if let transactions {
+                    DateValueChart(data: transactions.map({value in DateValueChartData(date: value.date, value: value.value)}), color: .green)
+                        .frame(width: 100, height: 40)
+                    
+                    Spacer(minLength: 10)
+                }
+            }
+        }
+    }
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack {
@@ -52,46 +99,16 @@ struct ElectricityCard: View {
                 
                 Spacer()
                 
-                HStack(alignment: .bottom) {
-                    AsyncContentView(style: style, animation: .default) {
-                        async let usage = ElectricityStore.shared.getCachedElectricityUsage()
-                        async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
-                        return try await (usage, dateValues)
-                    } refreshAction: {
-                        async let usage = ElectricityStore.shared.getRefreshedEletricityUsage()
-                        async let dateValues = try? MyStore.shared.getRefreshedElectricityLogs().map({ DateValueChartData(date: $0.date, value: $0.usage) })
-                        return try await (usage, dateValues)
-                    } content: {(info: ElectricityUsage, transactions: [DateValueChartData]?) in
-                        VStack(alignment: .leading) {
-                            Text(info.campus + info.building + info.room)
-                                .foregroundColor(.secondary)
-                                .bold()
-                                .font(.caption)
-                                .privacySensitive()
-                            
-                            HStack(alignment: .firstTextBaseline, spacing: 0) {
-                                Text(String(info.electricityAvailable))
-                                    .bold()
-                                    .font(.system(size: 25, design: .rounded))
-                                    .privacySensitive()
-                                
-                                Text(verbatim: " ")
-                                Text(verbatim: "kWh")
-                                    .foregroundColor(.secondary)
-                                    .bold()
-                                    .font(.caption2)
-                                
-                                Spacer()
+                if #unavailable(macCatalyst 17.0) {
+                    content
+                } else {
+                    content
+                        .id(contentId)
+                        .onChange(of: scenePhase) { oldPhase, newPhase in
+                            if oldPhase == .background {
+                                contentId = UUID()
                             }
                         }
-                        
-                        if let transactions {
-                            DateValueChart(data: transactions.map({value in DateValueChartData(date: value.date, value: value.value)}), color: .green)
-                                .frame(width: 100, height: 40)
-                            
-                            Spacer(minLength: 10)
-                        }
-                    }
                 }
             }
             

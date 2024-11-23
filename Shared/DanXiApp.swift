@@ -14,7 +14,12 @@ struct DanXiApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if #available(iOS 17.0, *) {
+            if #unavailable(macCatalyst 17.0) {
+                ContentView()
+                    .task(priority: .background) {
+                        ConfigurationCenter.initialFetch()
+                    }
+            } else {
                 ContentView()
                     .task(priority: .background) {
                         ConfigurationCenter.initialFetch()
@@ -24,13 +29,7 @@ struct DanXiApp: App {
                             // Application is resuming from background
                             // The two other states, active and inactive, should both be treated as running in foreground
                             Proxy.shared.outsideCampus = false
-                            // TODO: refresh outdated homescreen cards
                         }
-                    }
-            } else {
-                ContentView()
-                    .task(priority: .background) {
-                        ConfigurationCenter.initialFetch()
                     }
             }
         }
