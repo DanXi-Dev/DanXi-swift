@@ -77,17 +77,19 @@ struct HoleCopySheet: View {
                 
                 ForEach(model.floors) { presentation in
                     VStack(alignment: .leading, spacing: 8) {
-                        PosterView(name: presentation.floor.anonyname, isPoster: presentation.floor.anonyname == model.floors.first?.floor.anonyname)
-                        Text(presentation.floor.content.inlineAttributed())
-                            .lineLimit(2)
-                        HStack {
+                        HStack(alignment: .firstTextBaseline) {
+                            PosterView(name: presentation.floor.anonyname, isPoster: presentation.floor.anonyname == model.floors.first?.floor.anonyname)
+                            Spacer()
                             Text(verbatim: "\(presentation.storey)F")
                                 .bold()
-                            Spacer()
+                                .foregroundStyle(.secondary)
+                                .font(.footnote)
                             Text(verbatim: "##\(presentation.floor.id)")
+                                .foregroundStyle(.secondary)
+                                .font(.footnote)
                         }
-                        .foregroundStyle(.secondary)
-                        .font(.footnote)
+                        Text(presentation.floor.content.inlineAttributed())
+                            .lineLimit(2)
                     }
                     .tag(presentation.floor.id)
                 }
