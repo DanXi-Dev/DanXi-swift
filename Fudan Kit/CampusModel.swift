@@ -10,10 +10,11 @@ public class CampusModel: ObservableObject {
     
     public static let shared = CampusModel()
     
-    @AppStorage("campus-student-type") public var studentType = StudentType.undergrad
+    public var studentType: StudentType
     @Published public var loggedIn: Bool // cannot use computed property from credential store because it won't trigger SwiftUI reload
     
     public init() {
+        studentType = CredentialStore.shared.studentType
         if CredentialStore.shared.username != nil {
             loggedIn = true
         } else {
