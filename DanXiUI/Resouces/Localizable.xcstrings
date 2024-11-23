@@ -32,7 +32,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@于%2$@"
+            "value" : "%1$@于%2$@\n"
           }
         }
       }
