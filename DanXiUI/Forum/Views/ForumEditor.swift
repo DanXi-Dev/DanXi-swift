@@ -136,6 +136,7 @@ public struct ForumEditor: View {
                             }
                         }
                     }
+                    .padding(.top, 12)
                 }
             }
             .toolbar {
