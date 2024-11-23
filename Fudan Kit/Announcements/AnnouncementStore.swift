@@ -8,6 +8,12 @@ public actor UndergraduateAnnouncementStore {
     var finished = false
     var announcements: [Announcement] = []
     
+    public func clearCache() {
+        announcements = []
+        page = 1
+        finished = false
+    }
+    
     /// Fetch more announcements and return the entire list
     public func getCachedAnnouncements() async throws -> [Announcement] {
         if finished { return self.announcements }
@@ -35,6 +41,12 @@ public actor PostgraduateAnnouncementStore {
     var page = 1
     var finished = false
     var announcements: [Announcement] = []
+    
+    public func clearCache() {
+        announcements = []
+        page = 1
+        finished = false
+    }
     
     /// Fetch more announcements and return the entire list
     public func getCachedAnnouncements() async throws -> [Announcement] {

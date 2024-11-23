@@ -9,6 +9,13 @@ public actor WalletStore {
     var finished = false
     var transactions: [Transaction] = []
     
+    public func clearCache() {
+        balance = nil
+        transactions = []
+        page = 1
+        finished = false
+    }
+    
     /// Warning: This API is slow, use MyAPI instead
     public func getCachedBalance() async throws -> String {
         if let balance = balance {

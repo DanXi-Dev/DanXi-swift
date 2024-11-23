@@ -6,6 +6,10 @@ public actor ElectricityStore {
     
     var usage: ElectricityUsage? = nil
     
+    public func clearCache() {
+        usage = nil
+    }
+    
     /// Get cached electricity usage
     public func getCachedElectricityUsage() async throws -> ElectricityUsage {
         if let usage = usage {
