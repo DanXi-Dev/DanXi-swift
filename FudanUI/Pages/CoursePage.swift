@@ -340,7 +340,7 @@ fileprivate struct ExportSheet: View {
                         Button {
                             selectedKeys = []
                         } label: {
-                            Text("Deselect All", bundle: .module)
+                            Text("Unselect All", bundle: .module)
                         }
                     } else {
                         Button {
