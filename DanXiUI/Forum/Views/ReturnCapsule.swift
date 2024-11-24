@@ -1,4 +1,5 @@
 import SwiftUI
+import DanXiKit
 
 struct ReturnCapsule: View {
     @EnvironmentObject var model: HoleModel
@@ -8,7 +9,7 @@ struct ReturnCapsule: View {
     var body: some View {
         HStack {
             VStack {
-                Text("Return to Floor")
+                Text("Return to Floor", bundle: .module)
                     .font(.caption)
                     .fontWeight(.bold)
                 Text(verbatim: "\(originalFloor.storey)F")
@@ -53,4 +54,15 @@ struct ReturnCapsule: View {
             }
         }
     }
+}
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let floor: Floor = decodePreviewData(filename: "floor", directory: "forum")
+    let presentation = FloorPresentation(floor: floor, storey: 5)
+    let floors: [Floor] = decodePreviewData(filename: "floors", directory: "forum")
+    let model = HoleModel(hole: hole, floors: floors)
+    
+    ReturnCapsule(originalFloor: presentation)
+        .environmentObject(model)
 }

@@ -49,3 +49,9 @@ struct AdvancedSettings: View {
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        AdvancedSettings()
+    }
+}

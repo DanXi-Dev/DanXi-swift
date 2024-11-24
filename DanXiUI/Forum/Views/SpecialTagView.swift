@@ -15,3 +15,7 @@ struct SpecialTagView: View {
             .shadow(radius: 1)
     }
 }
+
+#Preview {
+    SpecialTagView(content: "Hello, World!")
+}

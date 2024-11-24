@@ -247,3 +247,7 @@ private class RegisterModel: ObservableObject {
         await CommunityModel.shared.setToken(token: token)
     }
 }
+
+#Preview {
+    AuthenticationSheet()
+}

@@ -222,3 +222,12 @@ private struct HolePreview: View {
         .environmentObject(model)
     }
 }
+
+#Preview {
+    let hole: Hole = decodePreviewData(filename: "hole", directory: "forum")
+    let holePresentation = HolePresentation(hole: hole)
+    
+    List {
+        HoleView(presentation: holePresentation)
+    }
+}

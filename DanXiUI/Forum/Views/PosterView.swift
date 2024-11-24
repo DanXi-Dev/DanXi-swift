@@ -35,3 +35,11 @@ struct PosterView: View {
                 .padding(.vertical, 1), alignment: .leading)
     }
 }
+
+#Preview {
+    PosterView(name: "Alice", isPoster: true)
+}
+
+#Preview {
+    PosterView(name: "Bob", isPoster: false)
+}
