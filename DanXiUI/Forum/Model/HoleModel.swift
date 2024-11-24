@@ -256,6 +256,8 @@ class HoleModel: ObservableObject {
     
     /// The floor where you click the MentionView.
     @Published var scrollFrom: FloorPresentation?
+    var targetFloorId: UUID? = nil
+    @Published var targetFloorVisibility: Bool = true
     
     let scrollControl = PassthroughSubject<UUID, Never>()
     
@@ -263,6 +265,7 @@ class HoleModel: ObservableObject {
     func scrollTo(floorId: Int) {
         if let presentation = floors.filter({ $0.floor.id == floorId }).first {
             scrollControl.send(presentation.id)
+            targetFloorId = presentation.id
         }
     }
     
@@ -270,6 +273,7 @@ class HoleModel: ObservableObject {
     func scrollToBottom() {
         if let lastId = floors.last?.id {
             scrollControl.send(lastId)
+            targetFloorId = lastId
         }
     }
     
