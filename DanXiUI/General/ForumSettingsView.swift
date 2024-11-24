@@ -246,3 +246,9 @@ fileprivate struct NotificationSetting: View {
         .labelStyle(.titleOnly)
     }
 }
+
+#Preview {
+    List {
+        ForumSettingsView()
+    }
+}

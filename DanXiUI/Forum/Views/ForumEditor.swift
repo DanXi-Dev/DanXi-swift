@@ -409,3 +409,12 @@ class UITextViewWithImagePasting: UITextView {
         }
     }
 }
+
+@available(iOS 17.0, *)
+#Preview {
+    @Previewable @State var text = ""
+    
+    List {
+        ForumEditor(content: $text)
+    }
+}

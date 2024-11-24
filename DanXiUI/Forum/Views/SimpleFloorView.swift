@@ -27,3 +27,11 @@ struct SimpleFloorView: View {
         .foregroundColor(.separator)
     }
 }
+
+#Preview {
+    let floor: Floor = decodePreviewData(filename: "floor", directory: "forum")
+    
+    List {
+        SimpleFloorView(floor: floor)
+    }
+}
