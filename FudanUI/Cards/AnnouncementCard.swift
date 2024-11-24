@@ -4,6 +4,8 @@ import ViewUtils
 
 struct AnnouncementCard: View {
     @ObservedObject private var campusModel = CampusModel.shared
+    @Environment(\.scenePhase) var scenePhase
+    @State private var contentId = UUID() // Controls refresh
     
     private let style = AsyncContentStyle {
         HStack {
@@ -24,6 +26,36 @@ struct AnnouncementCard: View {
         .padding(.bottom, 15)
     }
     
+    private var content: some View {
+        AsyncContentView(style: style, animation: .default) {
+            switch(campusModel.studentType) {
+            case .undergrad:
+                let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
+                return Array(announcements.prefix(1))
+            default:
+                let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
+                return Array(announcements.prefix(1))
+            }
+        } refreshAction: {
+            switch(campusModel.studentType) {
+            case .undergrad:
+                let announcements = try await UndergraduateAnnouncementStore.shared.getRefreshedAnnouncements()
+                return Array(announcements.prefix(1))
+            default:
+                let announcements = try await PostgraduateAnnouncementStore.shared.getRefreshedAnnouncements()
+                return Array(announcements.prefix(1))
+            }
+        } content: { (annoucements: [Announcement]) in
+            ForEach(annoucements) { announcement in
+                HStack {
+                    Text(announcement.title)
+                        .font(.callout)
+                        .lineLimit(3)
+                    Spacer()
+                }
+            }
+        }
+    }
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -40,33 +72,38 @@ struct AnnouncementCard: View {
                 
                 Spacer()
                 
-                AsyncContentView(style: style, animation: .default) {
-                    switch(campusModel.studentType) {
-                    case .undergrad:
-                        let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
-                        return Array(announcements.prefix(1))
-                    default:
-                        let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
-                        return Array(announcements.prefix(1))
-                    }
-                } refreshAction: {
-                    switch(campusModel.studentType) {
-                    case .undergrad:
-                        let announcements = try await UndergraduateAnnouncementStore.shared.getRefreshedAnnouncements()
-                        return Array(announcements.prefix(1))
-                    default:
-                        let announcements = try await PostgraduateAnnouncementStore.shared.getRefreshedAnnouncements()
-                        return Array(announcements.prefix(1))
-                    }
-                } content: { (annoucements: [Announcement]) in
-                    ForEach(annoucements) { announcement in
-                        HStack {
-                            Text(announcement.title)
-                                .font(.callout)
-                                .lineLimit(3)
-                            Spacer()
+                if #available(iOS 17.0, *) {
+                    content
+                        .id(contentId)
+                        .onChange(of: scenePhase) { oldPhase, newPhase in
+                            if oldPhase == .background {
+                                Task(priority: .medium) {
+                                    let undergradOutdated = await UndergraduateAnnouncementStore.shared.outdated
+                                    let postgradOutdated = await PostgraduateAnnouncementStore.shared.outdated
+                                    if  undergradOutdated && postgradOutdated {
+                                        await UndergraduateAnnouncementStore.shared.clearCache()
+                                        await PostgraduateAnnouncementStore.shared.clearCache()
+                                        contentId = UUID()
+                                    }
+                                }
+                            }
                         }
-                    }
+                } else {
+                    content
+                        .id(contentId)
+                        .onChange(of: scenePhase) { newPhase in
+                            if newPhase == .active {
+                                Task(priority: .medium) {
+                                    let undergradOutdated = await UndergraduateAnnouncementStore.shared.outdated
+                                    let postgradOutdated = await PostgraduateAnnouncementStore.shared.outdated
+                                    if  undergradOutdated && postgradOutdated {
+                                        await UndergraduateAnnouncementStore.shared.clearCache()
+                                        await PostgraduateAnnouncementStore.shared.clearCache()
+                                        contentId = UUID()
+                                    }
+                                }
+                            }
+                        }
                 }
             }
             

@@ -8,6 +8,18 @@ public actor WalletStore {
     var page = 1
     var finished = false
     var transactions: [Transaction] = []
+    let dataValidFor: TimeInterval = 1 * 60 * 60
+    public var lastUpdated = Date.distantPast
+    public var outdated: Bool {
+        lastUpdated + dataValidFor < Date.now
+    }
+    
+    public func clearCache() {
+        balance = nil
+        transactions = []
+        page = 1
+        finished = false
+    }
     
     /// Warning: This API is slow, use MyAPI instead
     public func getCachedBalance() async throws -> String {
@@ -15,15 +27,14 @@ public actor WalletStore {
             return balance
         }
         
-        let balance = try await WalletAPI.getBalance()
-        self.balance = balance
-        return balance
+        return try await getRefreshedBalance()
     }
     
     /// Warning: This API is slow, use MyAPI instead
     public func getRefreshedBalance() async throws -> String {
         let balance = try await WalletAPI.getBalance()
         self.balance = balance
+        self.lastUpdated = Date.now
         return balance
     }
     
@@ -36,6 +47,7 @@ public actor WalletStore {
         page += 1
         finished = transactions.isEmpty
         self.transactions += transactions
+        self.lastUpdated = Date.now
         return self.transactions
     }
     
@@ -48,6 +60,7 @@ public actor WalletStore {
         page += 1
         finished = transactions.isEmpty
         self.transactions += transactions
+        self.lastUpdated = Date.now
         return self.transactions
     }
     

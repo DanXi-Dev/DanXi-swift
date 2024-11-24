@@ -3,6 +3,18 @@ import Foundation
 public actor MyStore {
     public static let shared = MyStore()
     
+    let dataValidFor: TimeInterval = 1 * 60 * 60
+    public var lastUpdated = Date.distantPast
+    public var outdated: Bool {
+        lastUpdated + dataValidFor < Date.now
+    }
+    
+    public func clearCache() {
+        electricityLog = nil
+        userInfo = nil
+        walletLogs = nil
+    }
+    
     var electricityLog: [ElectricityLog]? = nil
     
     public func getCachedElectricityLogs() async throws -> [ElectricityLog] {
@@ -16,6 +28,7 @@ public actor MyStore {
     public func getRefreshedElectricityLogs() async throws -> [ElectricityLog] {
         let electricityLog = try await MyAPI.getElectricityLogs()
         self.electricityLog = electricityLog
+        self.lastUpdated = Date.now
         return electricityLog
     }
     
@@ -46,6 +59,7 @@ public actor MyStore {
     public func getRefreshedWalletLogs() async throws -> [WalletLog] {
         let walletLogs = try await MyAPI.getWalletLogs()
         self.walletLogs = walletLogs
+        self.lastUpdated = Date.now
         return walletLogs
     }
     

@@ -3,6 +3,9 @@ import FudanKit
 import ViewUtils
 
 struct BusCard: View {
+    @Environment(\.scenePhase) var scenePhase
+    @State private var contentId = UUID() // Controls refresh
+    
     private let style = AsyncContentStyle {
         HStack {
             VStack(alignment: .leading) {
@@ -80,7 +83,23 @@ struct BusCard: View {
                 AsyncContentView(style: style, animation: .default) {
                     try await BusStore.shared.getCachedRoutes()
                 } content: { (workdayRoutes, holidayRoutes) in
-                    BusCardContent(workdayRoutes, holidayRoutes)
+                    if #available(iOS 17.0, *) {
+                        BusCardContent(workdayRoutes, holidayRoutes)
+                            .id(contentId)
+                            .onChange(of: scenePhase) { oldPhase, newPhase in
+                                if oldPhase == .background {
+                                    contentId = UUID()
+                                }
+                            }
+                    } else {
+                        BusCardContent(workdayRoutes, holidayRoutes)
+                            .id(contentId)
+                            .onChange(of: scenePhase) { newPhase in
+                                if newPhase == .active {
+                                    contentId = UUID()
+                                }
+                            }
+                    }
                 }
             }
             
