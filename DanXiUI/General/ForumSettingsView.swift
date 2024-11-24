@@ -7,7 +7,7 @@ public struct ForumSettingsView: View {
     
     private var sections: [ForumSettingsSection] {
         if profileStore.isAdmin {
-            ForumSettingsSection.allCases
+            ForumSettingsSection.adminList
         } else {
             ForumSettingsSection.normalList
         }
@@ -35,7 +35,8 @@ public enum ForumSettingsSection: Identifiable, Hashable, CaseIterable {
     case advancedSettings
     case adminSection
     
-    static let normalList: [ForumSettingsSection] = [.notification, .foldedContent, .blockedContent, .advancedSettings]
+    static let normalList: [ForumSettingsSection] = [.notification, .foldedContent, .blockedContent]
+    static let adminList: [ForumSettingsSection] = [.notification, .foldedContent, .blockedContent, .adminSection]
     
     public var id: ForumSettingsSection {
         self
