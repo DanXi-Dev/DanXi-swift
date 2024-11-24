@@ -14,7 +14,7 @@ struct DanXiApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if #unavailable(macCatalyst 17.0) {
+            if #unavailable(iOS 17.0) {
                 ContentView()
                     .task(priority: .background) {
                         ConfigurationCenter.initialFetch()

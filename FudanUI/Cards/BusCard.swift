@@ -83,7 +83,7 @@ struct BusCard: View {
                 AsyncContentView(style: style, animation: .default) {
                     try await BusStore.shared.getCachedRoutes()
                 } content: { (workdayRoutes, holidayRoutes) in
-                    if #unavailable(macCatalyst 17.0) {
+                    if #unavailable(iOS 17.0) {
                         BusCardContent(workdayRoutes, holidayRoutes)
                     } else {
                         BusCardContent(workdayRoutes, holidayRoutes)

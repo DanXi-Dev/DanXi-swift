@@ -99,7 +99,7 @@ struct ElectricityCard: View {
                 
                 Spacer()
                 
-                if #unavailable(macCatalyst 17.0) {
+                if #unavailable(iOS 17.0) {
                     content
                 } else {
                     content
