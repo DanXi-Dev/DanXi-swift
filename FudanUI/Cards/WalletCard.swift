@@ -107,7 +107,7 @@ struct WalletCard: View {
                         .onChange(of: scenePhase) { oldPhase, newPhase in
                             if oldPhase == .background {
                                 Task(priority: .medium) {
-                                    await WalletStore.shared.clearCache()
+                                    await WalletStore.shared.clearCache(onlyIfOutdated: true)
                                     contentId = UUID()
                                 }
                             }

@@ -8,8 +8,13 @@ public actor WalletStore {
     var page = 1
     var finished = false
     var transactions: [Transaction] = []
+    let dataValidFor: TimeInterval = 1 * 60 * 60
+    var lastUpdated = Date.distantPast
     
-    public func clearCache() {
+    public func clearCache(onlyIfOutdated: Bool = false) {
+        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
+            return
+        }
         balance = nil
         transactions = []
         page = 1
@@ -31,6 +36,7 @@ public actor WalletStore {
     public func getRefreshedBalance() async throws -> String {
         let balance = try await WalletAPI.getBalance()
         self.balance = balance
+        self.lastUpdated = Date.now
         return balance
     }
     
@@ -55,6 +61,7 @@ public actor WalletStore {
         page += 1
         finished = transactions.isEmpty
         self.transactions += transactions
+        self.lastUpdated = Date.now
         return self.transactions
     }
     

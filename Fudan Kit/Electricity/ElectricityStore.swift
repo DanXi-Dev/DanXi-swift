@@ -5,8 +5,13 @@ public actor ElectricityStore {
     public static let shared = ElectricityStore()
     
     var usage: ElectricityUsage? = nil
+    var lastUpdated = Date.distantPast
+    let dataValidFor: TimeInterval = 1 * 60 * 60
     
-    public func clearCache() {
+    public func clearCache(onlyIfOutdated: Bool = false) {
+        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
+            return
+        }
         usage = nil
     }
     
@@ -23,6 +28,7 @@ public actor ElectricityStore {
     public func getRefreshedEletricityUsage() async throws -> ElectricityUsage {
         let usage = try await ElectricityAPI.getElectricityUsage()
         self.usage = usage
+        self.lastUpdated = Date.now
         return usage
     }
     

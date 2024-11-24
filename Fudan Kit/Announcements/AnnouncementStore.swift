@@ -7,8 +7,13 @@ public actor UndergraduateAnnouncementStore {
     var page = 1
     var finished = false
     var announcements: [Announcement] = []
+    let dataValidFor: TimeInterval = 1 * 60 * 60
+    var lastUpdated = Date.distantPast
     
-    public func clearCache() {
+    public func clearCache(onlyIfOutdated: Bool = false) {
+        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
+            return
+        }
         announcements = []
         page = 1
         finished = false
@@ -31,6 +36,7 @@ public actor UndergraduateAnnouncementStore {
         finished = false
         self.announcements = try await AnnouncementAPI.getUndergraduateAnnouncement(page: page)
         finished = self.announcements.isEmpty
+        self.lastUpdated = Date.now
         return self.announcements
     }
 }
@@ -41,8 +47,13 @@ public actor PostgraduateAnnouncementStore {
     var page = 1
     var finished = false
     var announcements: [Announcement] = []
+    let dataValidFor: TimeInterval = 1 * 60 * 60
+    var lastUpdated = Date.distantPast
     
-    public func clearCache() {
+    public func clearCache(onlyIfOutdated: Bool = false) {
+        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
+            return
+        }
         announcements = []
         page = 1
         finished = false
@@ -65,6 +76,7 @@ public actor PostgraduateAnnouncementStore {
         finished = false
         self.announcements = try await AnnouncementAPI.getPostgraduateAnnouncement(page: page)
         finished = self.announcements.isEmpty
+        self.lastUpdated = Date.now
         return self.announcements
     }
 }
