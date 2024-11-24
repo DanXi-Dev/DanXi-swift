@@ -99,13 +99,24 @@ struct WalletCard: View {
                 
                 Spacer()
                 
-                if #unavailable(iOS 17.0) {
-                    content
-                } else {
+                if #available(iOS 17.0, *) {
                     content
                         .id(contentId)
                         .onChange(of: scenePhase) { oldPhase, newPhase in
                             if oldPhase == .background {
+                                Task(priority: .medium) {
+                                    if await MyStore.shared.outdated {
+                                        await MyStore.shared.clearCache()
+                                        contentId = UUID()
+                                    }
+                                }
+                            }
+                        }
+                } else {
+                    content
+                        .id(contentId)
+                        .onChange(of: scenePhase) { newPhase in
+                            if newPhase == .active {
                                 Task(priority: .medium) {
                                     if await MyStore.shared.outdated {
                                         await MyStore.shared.clearCache()

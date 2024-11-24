@@ -83,13 +83,19 @@ struct BusCard: View {
                 AsyncContentView(style: style, animation: .default) {
                     try await BusStore.shared.getCachedRoutes()
                 } content: { (workdayRoutes, holidayRoutes) in
-                    if #unavailable(iOS 17.0) {
-                        BusCardContent(workdayRoutes, holidayRoutes)
-                    } else {
+                    if #available(iOS 17.0, *) {
                         BusCardContent(workdayRoutes, holidayRoutes)
                             .id(contentId)
                             .onChange(of: scenePhase) { oldPhase, newPhase in
                                 if oldPhase == .background {
+                                    contentId = UUID()
+                                }
+                            }
+                    } else {
+                        BusCardContent(workdayRoutes, holidayRoutes)
+                            .id(contentId)
+                            .onChange(of: scenePhase) { newPhase in
+                                if newPhase == .active {
                                     contentId = UUID()
                                 }
                             }
