@@ -255,6 +255,12 @@
     },
     "Closed" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service Ended"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",

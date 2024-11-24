@@ -2419,10 +2419,16 @@
     },
     "Return to Floor" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Return to Previous Floor"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "返回到楼层"
+            "value" : "返回到原楼层"
           }
         }
       }
@@ -3040,6 +3046,12 @@
     },
     "Use in-app Browser" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use In-App Browser"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
