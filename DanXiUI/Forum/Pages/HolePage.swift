@@ -41,6 +41,11 @@ struct HolePage: View {
                                 }
                             }
                             .id(presentation.id)
+                            .onDisappear() {
+                                if presentation.id == model.targetFloorId {
+                                    model.targetFloorVisibility = false
+                                }
+                            }
                         case .folded(let presentations):
                             FoldedView {
                                 MultipleFoldedFloorView(presentations: presentations)
@@ -53,6 +58,13 @@ struct HolePage: View {
                                 }
                             }
                             .listRowInsets(.zero)
+                            .onDisappear() {
+                                for presentation in presentations {
+                                    if presentation.id == model.targetFloorId {
+                                        model.targetFloorVisibility = false
+                                    }
+                                }
+                            }
                         }
                     }
                 }

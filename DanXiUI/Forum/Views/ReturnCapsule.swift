@@ -35,22 +35,30 @@ struct ReturnCapsule: View {
                 
         }
         .transition(.move(edge: .bottom).combined(with: .opacity))
-        .task {
-            if let existingTask = currentSleepingTask {
-                    existingTask.cancel()
+        .onChange(of: model.targetFloorVisibility, perform: { visible in
+            if !visible {
+                Task {
+                    if let existingTask = currentSleepingTask {
+                            existingTask.cancel()
+                    }
+                    currentSleepingTask = Task {
+                        try? await Task.sleep(for: .seconds(1))
+                    }
+                    _ = await currentSleepingTask?.result
+                    withAnimation {
+                        model.scrollFrom = nil
+                        model.targetFloorId = nil
+                        model.targetFloorVisibility = true
+                    }
+                }
             }
-            currentSleepingTask = Task {
-                try? await Task.sleep(for: .seconds(8))
-            }
-            _ = await currentSleepingTask?.result
-            withAnimation {
-                model.scrollFrom = nil
-            }
-        }
+        })
         .onTapGesture {
             withAnimation {
                 model.scrollTo(floorId: originalFloor.floor.id)
                 model.scrollFrom = nil
+                model.targetFloorId = nil
+                model.targetFloorVisibility = true
             }
         }
     }
