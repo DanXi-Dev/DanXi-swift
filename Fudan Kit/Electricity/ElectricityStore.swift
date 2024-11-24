@@ -5,13 +5,13 @@ public actor ElectricityStore {
     public static let shared = ElectricityStore()
     
     var usage: ElectricityUsage? = nil
-    var lastUpdated = Date.distantPast
+    public var lastUpdated = Date.distantPast
     let dataValidFor: TimeInterval = 1 * 60 * 60
+    public var outdated: Bool {
+        lastUpdated + dataValidFor < Date.now
+    }
     
-    public func clearCache(onlyIfOutdated: Bool = false) {
-        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
-            return
-        }
+    public func clearCache() {
         usage = nil
     }
     

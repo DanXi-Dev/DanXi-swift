@@ -107,8 +107,10 @@ struct ElectricityCard: View {
                         .onChange(of: scenePhase) { oldPhase, newPhase in
                             if oldPhase == .background {
                                 Task(priority: .medium) {
-                                    await ElectricityStore.shared.clearCache(onlyIfOutdated: true)
-                                    contentId = UUID()
+                                    if await ElectricityStore.shared.outdated {
+                                        await ElectricityStore.shared.clearCache()
+                                        contentId = UUID()
+                                    }
                                 }
                             }
                         }

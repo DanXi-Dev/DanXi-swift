@@ -80,9 +80,13 @@ struct AnnouncementCard: View {
                         .onChange(of: scenePhase) { oldPhase, newPhase in
                             if oldPhase == .background {
                                 Task(priority: .medium) {
-                                    await UndergraduateAnnouncementStore.shared.clearCache(onlyIfOutdated: true)
-                                    await PostgraduateAnnouncementStore.shared.clearCache(onlyIfOutdated: true)
-                                    contentId = UUID()
+                                    let undergradOutdated = await UndergraduateAnnouncementStore.shared.outdated
+                                    let postgradOutdated = await PostgraduateAnnouncementStore.shared.outdated
+                                    if  undergradOutdated && postgradOutdated {
+                                        await UndergraduateAnnouncementStore.shared.clearCache()
+                                        await PostgraduateAnnouncementStore.shared.clearCache()
+                                        contentId = UUID()
+                                    }
                                 }
                             }
                         }

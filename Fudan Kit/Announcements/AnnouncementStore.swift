@@ -8,12 +8,12 @@ public actor UndergraduateAnnouncementStore {
     var finished = false
     var announcements: [Announcement] = []
     let dataValidFor: TimeInterval = 1 * 60 * 60
-    var lastUpdated = Date.distantPast
+    public var lastUpdated = Date.distantPast
+    public var outdated: Bool {
+        lastUpdated + dataValidFor < Date.now
+    }
     
-    public func clearCache(onlyIfOutdated: Bool = false) {
-        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
-            return
-        }
+    public func clearCache() {
         announcements = []
         page = 1
         finished = false
@@ -48,12 +48,12 @@ public actor PostgraduateAnnouncementStore {
     var finished = false
     var announcements: [Announcement] = []
     let dataValidFor: TimeInterval = 1 * 60 * 60
-    var lastUpdated = Date.distantPast
+    public var lastUpdated = Date.distantPast
+    public var outdated: Bool {
+        lastUpdated + dataValidFor < Date.now
+    }
     
-    public func clearCache(onlyIfOutdated: Bool = false) {
-        if onlyIfOutdated && lastUpdated + dataValidFor > Date.now {
-            return
-        }
+    public func clearCache() {
         announcements = []
         page = 1
         finished = false
