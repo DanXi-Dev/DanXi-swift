@@ -29,9 +29,9 @@ struct MentionView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .firstTextBaseline) {
                 Rectangle()
-                    .frame(width: 2.5, height: 12)
+                    .frame(width: 2.5, height: 11.5)
                             
                 Text(anonyname)
                     .fontWeight(.semibold)
