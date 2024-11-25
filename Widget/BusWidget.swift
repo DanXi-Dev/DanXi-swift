@@ -136,7 +136,7 @@ public struct BusWidget: Widget {
                         .background()
                 }
             }
-            .widgetURL(URL(string: "fduhole://navigation/campus?section=bus")!)
+            .widgetURL(URL(string: "fduhole://navigation/campus?section=schoolbus")!)
         }
         .configurationDisplayName("Bus")
         .description("Subscribe bus schedule.")
