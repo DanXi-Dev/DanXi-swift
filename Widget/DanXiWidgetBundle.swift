@@ -12,12 +12,12 @@ struct DanXiWidgetBundle: WidgetBundle {
     }
 }
 
-//@available(iOS 17, *)
-//#Preview("Wallet", as: .systemSmall) {
-//    WalletWidget()
-//} timeline: {
-//    WalletEntry()
-//}
+@available(iOS 17, *)
+#Preview("Wallet", as: .systemSmall) {
+    WalletWidget()
+} timeline: {
+    WalletEntry()
+}
 
 @available(iOS 17, *)
 #Preview("Bus", as: .systemSmall) {
