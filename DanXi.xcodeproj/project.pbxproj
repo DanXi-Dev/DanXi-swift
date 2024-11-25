@@ -119,7 +119,7 @@
 		27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWidgetBundle.swift; sourceTree = "<group>"; };
 		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WigdetExtension.entitlements; sourceTree = "<group>"; };
+		27536ECB29DC9A8300894A98 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D60B2891D22D009F4DB1 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		2778D6112891D22D009F4DB1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
 				E5A316A42BE4C9CB00BCC41A /* BusWidget.swift */,
 				E5A316A52BE4C9CB00BCC41A /* BusWidgetIntent.swift */,
-				27536ECB29DC9A8300894A98 /* WigdetExtension.entitlements */,
+				27536ECB29DC9A8300894A98 /* WidgetExtension.entitlements */,
 				27536EC529DC9A8300894A98 /* Assets.xcassets */,
 				27536EC729DC9A8300894A98 /* Info.plist */,
 			);
@@ -579,7 +579,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Widget/WigdetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widget/WidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -587,7 +587,7 @@
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
+				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -613,7 +613,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = Widget/WigdetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widget/WidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -621,7 +621,7 @@
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Wigdet;
+				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
