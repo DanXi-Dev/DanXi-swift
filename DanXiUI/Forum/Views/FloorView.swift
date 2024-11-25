@@ -244,6 +244,8 @@ private struct FloorActions: View {
                 Label(String(localized: "Select Text", bundle: .module), systemImage: "character.cursor.ibeam")
             }
             
+            Divider()
+            
             Button {
                 withAnimation {
                     holeModel.filterOption = .user(floor.anonyname)
