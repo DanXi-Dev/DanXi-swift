@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import QuickLook
 import Disk
@@ -202,3 +203,4 @@ extension UIWindow {
         return Array(sequence(first: rootViewController, next: \.presentedViewController)).last
     }
 }
+#endif

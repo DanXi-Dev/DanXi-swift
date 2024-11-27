@@ -1,10 +1,4 @@
-//
-//  SheetExtension.swift
-//  DanXi
-//
-//  Created by Kavin Zhao on 2024-03-25.
-//
-
+#if !os(watchOS)
 import SwiftUI
 import UIKit
 
@@ -58,3 +52,4 @@ extension View {
         ).edgesIgnoringSafeArea(.all)
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import SwiftUIIntrospect
 
@@ -62,3 +63,4 @@ struct CompactSectionSpacing: ViewModifier {
         }
     }
 }
+#endif

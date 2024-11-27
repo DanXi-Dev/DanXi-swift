@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import Disk
 
@@ -85,3 +86,4 @@ extension EnvironmentValues {
         }
     }
 }
+#endif

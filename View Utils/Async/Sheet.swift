@@ -127,8 +127,10 @@ public struct Sheet<Content: View>: View {
         } message: {
             Text("Are your sure you want to discard your contents? Your messages will be lost.", bundle: .module)
         }
+        #if !os(watchOS)
         .interactiveDismiss(canDismissSheet: !discardWarningNeeded) {
             showDiscardWarning = true
         }
+        #endif
     }
 }
