@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import FudanKit
 import SwiftUI
 import ViewUtils
@@ -228,3 +229,4 @@ class PlaygroundModel: ObservableObject {
     ReservationPage()
         .previewPrepared()
 }
+#endif

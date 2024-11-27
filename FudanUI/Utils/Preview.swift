@@ -2,7 +2,9 @@ import SwiftUI
 import FudanKit
 import ViewUtils
 import Utils
+#if !os(watchOS)
 import Disk
+#endif
 
 // MARK: Preview Wrapper
 

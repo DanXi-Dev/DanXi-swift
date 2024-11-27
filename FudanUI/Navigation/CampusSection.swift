@@ -65,6 +65,8 @@ extension CampusSection {
         }
     }
     
+    #if !os(watchOS)
+    
     @ViewBuilder
     var destination: some View {
         switch self {
@@ -97,5 +99,18 @@ extension CampusSection {
         case .course:
             CoursePage()
         }
+        
     }
+    
+    #else
+    
+    @ViewBuilder
+    var destination: some View {
+        switch self {
+        default:
+            Image(systemName: "exclamationmark.circle")
+        }
+    }
+    
+    #endif
 }

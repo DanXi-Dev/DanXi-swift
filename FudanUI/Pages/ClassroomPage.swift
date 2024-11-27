@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import ViewUtils
 import FudanKit
@@ -207,3 +208,4 @@ fileprivate struct ScheduleDetailSheet: View {
     ClassroomPage()
         .previewPrepared()
 }
+#endif

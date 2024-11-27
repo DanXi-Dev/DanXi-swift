@@ -1,14 +1,15 @@
 import SwiftUI
-import FudanKit
+import FudanUI
+import ViewUtils
+import Utils
 
 struct ContentView: View {
+    @StateObject private var navigator = AppNavigator()
+    
     var body: some View {
-        Text("DanXi")
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+        NavigationStack {
+            CampusContent()
+        }
+        .environmentObject(navigator)
     }
 }

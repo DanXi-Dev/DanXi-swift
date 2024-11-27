@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import ViewUtils
 import FudanKit
@@ -99,3 +100,4 @@ fileprivate struct AuthenticatedLink: Identifiable {
         AnnouncementPage()
     }
 }
+#endif

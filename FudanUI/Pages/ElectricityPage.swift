@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import Charts
 import ViewUtils
 import FudanKit
@@ -146,3 +147,4 @@ private struct ElectricityPageChart: View {
     ElectricityPage()
         .previewPrepared()
 }
+#endif

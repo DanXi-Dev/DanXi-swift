@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import FudanKit
 import SwiftUI
 import ViewUtils
@@ -216,3 +217,4 @@ fileprivate struct SemesterPicker: View {
     ScorePageContent(semesters.sorted(), current: semesters.sorted().last!, previewScores: decodePreviewData(filename: "score"))
         .previewPrepared()
 }
+#endif

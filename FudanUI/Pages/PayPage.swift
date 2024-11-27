@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import UIKit
 import FudanKit
@@ -80,3 +81,4 @@ struct PayPage: View {
         }
     }
 }
+#endif

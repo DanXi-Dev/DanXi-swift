@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import ViewUtils
 import Utils
@@ -486,3 +487,4 @@ private struct ManualResetSemesterStartDateSheet: View {
     CoursePage()
         .previewPrepared()
 }
+#endif
