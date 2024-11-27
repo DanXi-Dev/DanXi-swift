@@ -15,6 +15,7 @@
 		273B11E72BD3B37A001F7757 /* SettingsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273B11E62BD3B37A001F7757 /* SettingsNavigation.swift */; };
 		273D53332BD94AC200801B77 /* DanXiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 273D53322BD94AC200801B77 /* DanXiKit */; };
 		273D53352BD94AC200801B77 /* DanXiUI in Frameworks */ = {isa = PBXBuildFile; productRef = 273D53342BD94AC200801B77 /* DanXiUI */; };
+		273EA8862CF77FEE00FC4DEB /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 273EA8852CF77FEE00FC4DEB /* Utils */; };
 		274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197229D1BF9B000DE221 /* WatchApp.swift */; };
 		274C197529D1BF9B000DE221 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274C197429D1BF9B000DE221 /* ContentView.swift */; };
 		274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274C197629D1BF9C000DE221 /* Assets.xcassets */; };
@@ -32,6 +33,9 @@
 		27C6B4782C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27C6B4792C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27C6B47A2C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
+		27D226152CF7826400AF63B4 /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226142CF7826400AF63B4 /* ViewUtils */; };
+		27D226172CF782E900AF63B4 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226162CF782E900AF63B4 /* FudanUI */; };
+		27D226192CF78FE700AF63B4 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */; };
 		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
@@ -46,7 +50,6 @@
 		E5A316A62BE4C9CB00BCC41A /* BusWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A316A52BE4C9CB00BCC41A /* BusWidgetIntent.swift */; };
 		E5A316A72BE4C9CB00BCC41A /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A316A42BE4C9CB00BCC41A /* BusWidget.swift */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
-		F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */; };
 		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
 /* End PBXBuildFile section */
@@ -127,6 +130,7 @@
 		27AF614C2BCD61DE00754718 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		27C68CB12BB563A100037D52 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utils; sourceTree = "<group>"; };
 		27C6B4772C2B3895006841C7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		27D6F4532892C5D70059228F /* BundleResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleResource.swift; sourceTree = "<group>"; };
 		27DD19B22BA5C16900B75643 /* Fudan Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Fudan Kit"; sourceTree = "<group>"; };
 		27E1C52C29D09CF700B333BA /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
@@ -152,7 +156,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273EA8862CF77FEE00FC4DEB /* Utils in Frameworks */,
 				27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */,
+				27D226152CF7826400AF63B4 /* ViewUtils in Frameworks */,
+				27D226172CF782E900AF63B4 /* FudanUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +195,7 @@
 				274C197229D1BF9B000DE221 /* WatchApp.swift */,
 				274C197429D1BF9B000DE221 /* ContentView.swift */,
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
+				27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */,
 			);
 			path = watchOS;
 			sourceTree = "<group>";
@@ -212,7 +220,6 @@
 				2778D5F52891C664009F4DB1 /* Assets.xcassets */,
 				27066037292FA34200F4C321 /* contributor.json */,
 				27066031292F56AF00F4C321 /* license.json */,
-				F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */,
 				F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */,
 				27C6B4772C2B3895006841C7 /* Localizable.xcstrings */,
 			);
@@ -295,6 +302,7 @@
 		8AC7A5CF26872C3E00C9CD98 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */,
 				27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */,
 				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
@@ -320,6 +328,9 @@
 			name = "DanXi Watch";
 			packageProductDependencies = (
 				27D3A4A72BBCFA3D00350D21 /* FudanKit */,
+				273EA8852CF77FEE00FC4DEB /* Utils */,
+				27D226142CF7826400AF63B4 /* ViewUtils */,
+				27D226162CF782E900AF63B4 /* FudanUI */,
 			);
 			productName = "DanXi-watch Watch App";
 			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
@@ -424,9 +435,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F13306D92BA5766C005361D2 /* InfoPlist.xcstrings in Resources */,
 				274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */,
 				27C6B4792C2B3895006841C7 /* Localizable.xcstrings in Resources */,
+				27D226192CF78FE700AF63B4 /* InfoPlist.xcstrings in Resources */,
 				27E1178C2A782BC90006EE20 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,7 +549,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -569,7 +580,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -704,6 +715,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -763,6 +775,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -900,6 +913,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = DanXiUI;
 		};
+		273EA8852CF77FEE00FC4DEB /* Utils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utils;
+		};
 		2785E2A72BC8645100D50D31 /* FudanUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FudanUI;
@@ -911,6 +928,14 @@
 		27C68CB22BB563EE00037D52 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utils;
+		};
+		27D226142CF7826400AF63B4 /* ViewUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ViewUtils;
+		};
+		27D226162CF782E900AF63B4 /* FudanUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FudanUI;
 		};
 		27D3A4A72BBCFA3D00350D21 /* FudanKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import WidgetKit
 import SwiftUI
 import FudanKit
@@ -128,3 +129,4 @@ struct WalletWidgetView: View {
         }
     }
 }
+#endif

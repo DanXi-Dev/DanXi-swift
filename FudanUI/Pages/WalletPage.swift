@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import Charts
 import FudanKit
 import SwiftUI
@@ -171,3 +172,4 @@ private struct WalletPageChart: View {
     WalletPage()
         .previewPrepared()
 }
+#endif

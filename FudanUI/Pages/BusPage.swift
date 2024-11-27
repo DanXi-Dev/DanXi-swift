@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import FudanKit
 import ViewUtils
@@ -194,3 +195,4 @@ fileprivate class BusModel: ObservableObject {
     BusPage()
         .previewPrepared()
 }
+#endif

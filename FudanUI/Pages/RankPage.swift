@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import Charts
 import FudanKit
 import SwiftUI
@@ -217,3 +218,4 @@ private struct RankChart: View {
     RankPage(previewRanks: decodePreviewData(filename: "ranks"))
         .previewPrepared()
 }
+#endif

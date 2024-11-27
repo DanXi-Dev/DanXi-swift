@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import FudanKit
 import ViewUtils
@@ -61,3 +62,4 @@ fileprivate struct CanteenRow: View {
             .navigationBarTitleDisplayMode(.inline)
     }
 }
+#endif

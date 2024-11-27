@@ -20,6 +20,16 @@ public struct CampusHome: View {
     public init() {}
     
     public var body: some View {
+        #if os(watchOS)
+        List {
+            ForEach(CampusSection.allCases) { section in
+                DetailLink(value: section) {
+                    section.label.navigationStyle()
+                }
+            }
+        }
+        .navigationTitle(String(localized: "Campus Services", bundle: .module))
+        #else
         ScrollViewReader { proxy in
             List {
                 EmptyView()
@@ -110,6 +120,7 @@ public struct CampusHome: View {
             HomePageEditor()
                 .environmentObject(model)
         }
+        #endif
     }
 }
 
@@ -201,7 +212,9 @@ struct HomePageEditor: View {
                         .bold()
                 }
             }
+            #if !os(watchOS)
             .environment(\.editMode, .constant(.active))
+            #endif
             .navigationTitle(String(localized: "Edit Home Page Features", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
         }

@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "FudanUI",
     defaultLocalization: "en", 
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v16), .watchOS(.v10)],
     products: [
         .library(name: "FudanUI", targets: ["FudanUI"]),
     ],
@@ -16,6 +16,6 @@ let package = Package(
         .package(url: "https://github.com/stleamist/BetterSafariView.git", .upToNextMajor(from: "2.4.2")),
     ],
     targets: [
-        .target(name: "FudanUI", dependencies: ["FudanKit", "ViewUtils", "Utils", "BetterSafariView"], path: ".", resources: [.copy("Preview")]),
+        .target(name: "FudanUI", dependencies: ["FudanKit", "ViewUtils", "Utils", .product(name: "BetterSafariView", package: "BetterSafariView", condition: .when(platforms: [.iOS, .macCatalyst]))], path: ".", resources: [.copy("Preview")]),
     ]
 )
