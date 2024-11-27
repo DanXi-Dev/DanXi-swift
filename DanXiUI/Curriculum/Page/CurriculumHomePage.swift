@@ -58,8 +58,12 @@ fileprivate struct HomePageContent: View {
         .searchable(text: $searchText)
         .toolbar {
             if profileStore.isAdmin {
-                DetailLink(value: CurriculumSection.moderate) {
-                    Image(systemName: "video")
+                Menu {
+                    DetailLink(value: CurriculumSection.moderate) {
+                        Label(String(localized: "Admin Actions", bundle: .module), systemImage: "person.badge.key")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
                 }
             }
         }
