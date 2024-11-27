@@ -1,4 +1,6 @@
+#if !os(watchOS)
 import Disk
+#endif
 import Utils
 
 /// App-wide cache for bus schedule. The cache is invalidated between app launches.
