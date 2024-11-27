@@ -156,21 +156,29 @@ fileprivate struct CalendarContent: View {
             }
             .disabled(model.semester.startDate == nil)
             
-            Button {
-                showColorSheet = true
-            } label: {
-                Label {
-                    Text("Change Color", bundle: .module)
-                } icon: {
-                    Image(systemName: "paintpalette")
-                }
-            }
+            Divider()
             
-            Button {
-                showManualDateSelectionSheet = true
-            } label: {
-                Text("Set Semester Start Date", bundle: .module)
-            }
+            Menu(String(localized: "Advanced Settings", bundle: .module), content: {
+                Button {
+                    showColorSheet = true
+                } label: {
+                    Label {
+                        Text("Change Color", bundle: .module)
+                    } icon: {
+                        Image(systemName: "paintpalette")
+                    }
+                }
+                
+                Button {
+                    showManualDateSelectionSheet = true
+                } label: {
+                    Label {
+                        Text("Set Semester Start Date", bundle: .module)
+                    } icon: {
+                        Image(systemName: "clock")
+                    }
+                }
+            })
         } label: {
             Image(systemName: "ellipsis.circle")
         }

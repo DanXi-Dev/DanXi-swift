@@ -57,6 +57,16 @@
         }
       }
     },
+    "Advanced Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高级设置"
+          }
+        }
+      }
+    },
     "All" : {
       "localizations" : {
         "zh-Hans" : {
