@@ -31,6 +31,16 @@
         }
       }
     },
+    "¥%@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¥%@"
+          }
+        }
+      }
+    },
     "Academic Office Announcements" : {
       "localizations" : {
         "en" : {

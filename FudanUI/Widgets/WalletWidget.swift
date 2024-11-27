@@ -45,7 +45,7 @@ public struct WalletEntry: TimelineEntry {
     public init() {
         date = Date()
         balance = "100.0"
-        transactions = []
+        transactions = Transaction.sampleTransactions
     }
     
     public init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
@@ -75,7 +75,7 @@ struct WalletWidgetView: View {
     var body: some View {
         if #available(iOS 17, *) {
             widgetContent
-                .containerBackground(.fill, for: .widget)
+                .containerBackground(.fill.quinary, for: .widget)
         } else {
             widgetContent
                 .padding()
@@ -88,14 +88,15 @@ struct WalletWidgetView: View {
             Text("Load Failed", bundle: .module)
                 .foregroundColor(.secondary)
         } else {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading) {
                 HStack {
                     Label(String(localized: "ECard", bundle: .module), systemImage: "creditcard.fill")
                         .bold()
-                        .font(.callout)
-                        .foregroundColor(.blue)
+                        .font(.caption)
+                        .foregroundColor(.orange)
                     Spacer()
                 }
+                .padding(.bottom, 6)
                 
                 if entry.placeholder {
                     walletContent.redacted(reason: .placeholder)
@@ -108,23 +109,31 @@ struct WalletWidgetView: View {
     
     @ViewBuilder
     private var walletContent: some View {
-        Text(verbatim: "¥\(entry.balance)")
-            .bold()
-            .font(.title2)
-            .foregroundColor(.primary.opacity(0.7))
+        VStack(alignment: .leading, spacing: 0) {
+            Text(String(localized: "Balance", bundle: .module))
+                .font(.caption2)
+                .foregroundColor(.secondary)
+            Text("¥\(entry.balance)")
+                .bold()
+                .font(.body)
+                .foregroundColor(.primary)
+        }
         
-        Spacer()
+        Spacer(minLength: 6)
         
-        if let transaction = entry.transactions.first {
-            Label {
-                Text(verbatim: "\(transaction.location) \(String(format:"%.2f",transaction.amount))")
-            } icon: {
-                Image(systemName: "clock")
+        ForEach(entry.transactions.prefix(2), id: \.id) { transaction in
+            VStack(alignment: .leading) {
+                Text(verbatim: "\(transaction.location)")
+                   .lineLimit(1)
+                
+                HStack {
+                    Text("¥\(String(format:"%.2f",transaction.amount))")
+                    Spacer()
+                    Text(transaction.date, style: .time)
+                }
+                .foregroundColor(.secondary)
             }
-            .bold()
             .font(.footnote)
-            .foregroundColor(.secondary)
-            .padding(.top)
         }
     }
 }
