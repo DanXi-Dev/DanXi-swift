@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import WebKit
 
@@ -36,5 +37,4 @@ struct WebView: UIViewRepresentable {
         webView.load(request)
     }
 }
-
-
+#endif

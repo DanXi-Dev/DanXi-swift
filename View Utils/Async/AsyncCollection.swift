@@ -62,7 +62,9 @@ fileprivate struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content:
             }
             
             footer
+                #if !os(watchOS)
                 .listRowSeparator(.hidden, edges: .bottom)
+                #endif
         }
         .task {
             await loadMore()
@@ -136,7 +138,9 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
                 }
             }
             footer
+                #if !os(watchOS)
                 .listRowSeparator(.hidden, edges: .bottom)
+                #endif
         }
         .task {
             await loadMore()
@@ -185,6 +189,18 @@ fileprivate struct LoadingView: View {
     }
 }
 
+#if os(watchOS)
+
+fileprivate struct ActivityIndicatorView: View {
+    let isAnimating: Bool
+    
+    var body: some View {
+        ProgressView()
+    }
+}
+
+#else
+
 fileprivate struct ActivityIndicatorView: UIViewRepresentable {
     let isAnimating: Bool
     
@@ -206,6 +222,8 @@ fileprivate struct ActivityIndicatorView: UIViewRepresentable {
         uiView.stopAnimating()
     }
 }
+
+#endif
 
 fileprivate struct ErrorView: View {
     private let action: () async -> Void

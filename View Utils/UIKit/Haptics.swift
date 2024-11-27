@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import UIKit
 
 @MainActor
@@ -21,3 +22,4 @@ public func withHaptics(success: Bool = true, fail: Bool = true, action: () asyn
         throw error
     }
 }
+#endif

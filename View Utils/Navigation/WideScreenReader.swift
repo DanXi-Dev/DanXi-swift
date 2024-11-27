@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /**
@@ -43,3 +44,4 @@ public struct WideScreenReader<Wide: View, Narrow: View>: View {
 private class WideScreenReaderModel: ObservableObject {
     var storedHorizontalSizeClass: UserInterfaceSizeClass? = nil
 }
+#endif

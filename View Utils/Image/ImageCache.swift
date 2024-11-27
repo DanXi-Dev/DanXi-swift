@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import Foundation
 import SwiftUI
 import Disk
@@ -127,3 +128,4 @@ actor MemoryImageCache {
         cache.reserveCapacity(capacity)
     }
 }
+#endif

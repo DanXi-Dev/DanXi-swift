@@ -34,6 +34,8 @@ public struct LabeledEntry<Content: View>: View {
             }
             .frame(maxWidth: 90)
         }
+        #if !os(watchOS)
         .listRowBackground(Color(.separator).opacity(0.2))
+        #endif
     }
 }

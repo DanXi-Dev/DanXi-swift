@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 extension View {
@@ -55,3 +56,4 @@ struct ScreenshotAlertPresentor: UIViewRepresentable {
         // do nothing
     }
 }
+#endif
