@@ -14,6 +14,7 @@ import Foundation
 public enum Directory {
     case applicationSupport
     case caches
+    case appGroup
 }
 
 public class Disk {
@@ -86,6 +87,8 @@ extension Disk {
         case .caches:
             searchPathDirectory = .cachesDirectory
         case .applicationSupport:
+            searchPathDirectory = .applicationSupportDirectory
+        case .appGroup:
             searchPathDirectory = .applicationSupportDirectory
         }
         
