@@ -18,8 +18,7 @@ struct WalletWidgetProvier: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         Task {
             do {
-                let balance = try await WalletAPI.getBalance()
-                let transactions = try await WalletAPI.getTransactions(page: 1)
+                let (balance, transactions) = try await (WalletAPI.getBalance(), WalletAPI.getTransactions(page: 1))
                 let entry = WalletEntry(balance, transactions)
                 let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date.now)!
                 let timeline = Timeline(entries: [entry], policy: .after(date))
