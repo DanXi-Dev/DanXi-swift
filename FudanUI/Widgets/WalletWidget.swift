@@ -44,7 +44,10 @@ public struct WalletEntry: TimelineEntry {
     public init() {
         date = Date()
         balance = "100.0"
-        transactions =  Array(repeating: Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂1楼", amount: 15.50, remaining: 200.00), count: 3)
+        transactions = [
+            Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂1楼", amount: 10.00, remaining: 200.00),
+            Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂2楼", amount: 20.00, remaining: 210.00)
+        ]
     }
     
     public init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
@@ -98,7 +101,7 @@ struct WalletWidgetView: View {
                 .padding(.bottom, 6)
                 
                 if entry.placeholder {
-                    walletContent.redacted(reason: .placeholder)
+                    walletContent
                 } else {
                     walletContent
                 }
