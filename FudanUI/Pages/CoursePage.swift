@@ -1,10 +1,11 @@
-#if !os(watchOS)
 import SwiftUI
 import ViewUtils
 import Utils
 import FudanKit
+#if canImport(EventKitUI)
 import EventKit
 import EventKitUI
+#endif
 
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
@@ -54,6 +55,10 @@ fileprivate struct CalendarContent: View {
             List {
                 EmptyView()
                     .id("cal-top")
+                
+                #if os(watchOS)
+                toolbar
+                #endif
                 
                 Section {
                     if !model.courses.isEmpty {
@@ -106,6 +111,7 @@ fileprivate struct CalendarContent: View {
         .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
+        #if !os(watchOS)
         .toolbar {
             toolbar
         }
@@ -119,6 +125,7 @@ fileprivate struct CalendarContent: View {
             ManualResetSemesterStartDateSheet()
         }
         .listStyle(.inset)
+        #endif
         .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
             
         } message: {
@@ -126,6 +133,8 @@ fileprivate struct CalendarContent: View {
         }
         .environmentObject(model)
     }
+    
+    #if !os(watchOS)
     
     private var toolbar: some View {
         Menu {
@@ -189,6 +198,25 @@ fileprivate struct CalendarContent: View {
             }
         }
     }
+    
+    #else
+    
+    private var toolbar: some View {
+        Picker(selection: $model.semester) {
+            ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                Text(semester.name).tag(semester)
+            }
+        } label: {
+            Text("Select Semester", bundle: .module)
+        }
+        .onChange(of: model.semester.semesterId) { _, _ in
+            Task {
+                await model.updateSemester()
+            }
+        }
+    }
+    
+    #endif
     
     private var colorSheet: some View {
         ColorSheet(themeColor: $themeColor)
@@ -262,7 +290,9 @@ fileprivate struct CourseDetailSheet: View {
                 }
             }
             .labelStyle(.titleOnly)
+            #if !os(watchOS)
             .listStyle(.insetGrouped)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -278,6 +308,7 @@ fileprivate struct CourseDetailSheet: View {
     }
 }
 
+#if canImport(EventKitUI)
 fileprivate struct ExportSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var model: CourseModel
@@ -437,6 +468,7 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
         }
     }
 }
+#endif
 
 private struct ManualResetSemesterStartDateSheet: View {
     @Environment(\.dismiss) private var dismiss
@@ -487,4 +519,3 @@ private struct ManualResetSemesterStartDateSheet: View {
     CoursePage()
         .previewPrepared()
 }
-#endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import Charts
 import ViewUtils
 import FudanKit
@@ -119,7 +118,9 @@ private struct ElectricityPageChart: View {
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(70)
+                    #if !os(watchOS)
                     .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                    #endif
                     PointMark(
                         x: .value(String(localized: "Date", bundle: .module), selectedData.date, unit: .day),
                         y: .value("kWh", selectedData.value)
@@ -147,4 +148,3 @@ private struct ElectricityPageChart: View {
     ElectricityPage()
         .previewPrepared()
 }
-#endif

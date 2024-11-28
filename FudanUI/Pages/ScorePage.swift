@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import FudanKit
 import SwiftUI
 import ViewUtils
@@ -126,7 +125,9 @@ fileprivate struct ScoreDetailSheet: View {
                 }
             }
             .labelStyle(.titleOnly)
+            #if !os(watchOS)
             .listStyle(.insetGrouped)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -175,6 +176,19 @@ fileprivate struct SemesterPicker: View {
     
     var body: some View {
         Section {
+            #if os(watchOS)
+            
+            Picker(selection: $semester) {
+                ForEach(semesters, id: \.semesterId) { semester in
+                    Text(semester.name)
+                        .tag(semester)
+                }
+            } label: {
+                Text("Semester", bundle: .module)
+            }
+            
+            #else
+            
             HStack {
                 Button {
                     moveSemester(offset: -1)
@@ -207,7 +221,11 @@ fileprivate struct SemesterPicker: View {
             }
             .font(.body)
             .listRowBackground(Color.clear)
+            
+            #endif
         }
+        
+        
     }
 }
 
@@ -217,4 +235,3 @@ fileprivate struct SemesterPicker: View {
     ScorePageContent(semesters.sorted(), current: semesters.sorted().last!, previewScores: decodePreviewData(filename: "score"))
         .previewPrepared()
 }
-#endif

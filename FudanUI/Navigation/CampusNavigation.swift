@@ -13,12 +13,10 @@ struct CampusNavigation<Label: View>: View {
                 section.destination
                     .environmentObject(navigator)
             }
-            #if !os(watchOS)
             .navigationDestination(for: Playground.self) { playground in
                 PlaygroundPage(playground)
                     .environmentObject(navigator)
             }
-            #endif
     }
 }
 

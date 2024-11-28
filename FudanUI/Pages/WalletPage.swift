@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import Charts
 import FudanKit
 import SwiftUI
@@ -144,7 +143,9 @@ private struct WalletPageChart: View {
                         y: .value("kWh", selectedData.value)
                     )
                     .symbolSize(70)
+                    #if !os(watchOS)
                     .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                    #endif
                     PointMark(
                         x: .value(String(localized: "Date", bundle: .module), selectedData.date, unit: .day),
                         y: .value(String(localized: "Yuan", bundle: .module), selectedData.value)
@@ -172,4 +173,3 @@ private struct WalletPageChart: View {
     WalletPage()
         .previewPrepared()
 }
-#endif
