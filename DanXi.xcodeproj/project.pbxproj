@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,8 @@
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
 		2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A72BC8645100D50D31 /* FudanUI */; };
 		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
+		279EE2952CF8521900206F72 /* DanXi Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 274C197029D1BF9B000DE221 /* DanXi Watch.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		279EE29D2CF85E9100206F72 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
 		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
 		27C6B4782C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
@@ -36,7 +38,6 @@
 		27D226152CF7826400AF63B4 /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226142CF7826400AF63B4 /* ViewUtils */; };
 		27D226172CF782E900AF63B4 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226162CF782E900AF63B4 /* FudanUI */; };
 		27D226192CF78FE700AF63B4 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */; };
-		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
@@ -55,23 +56,45 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */ = {
+		279EE29B2CF8522D00206F72 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
-			remoteInfo = "DanXi Wigdet";
+			remoteGlobalIDString = 274C196F29D1BF9B000DE221;
+			remoteInfo = "DanXi Watch";
 		};
-		27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */ = {
+		279EE29E2CF85E9100206F72 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
-			remoteInfo = "DanXi Wigdet";
+			remoteInfo = "DanXi Widget";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		279EE2982CF8521900206F72 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				279EE2952CF8521900206F72 /* DanXi Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		279EE2A02CF85E9100206F72 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				279EE29D2CF85E9100206F72 /* DanXi Widget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27D3A4942BBC840A00350D21 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,22 +105,11 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		27D3A4A22BBC9F0800350D21 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8AC7A63326872C4100C9CD98 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
+			dstSubfolderSpec = 1;
 			files = (
 			);
 			name = "Embed Watch Content";
@@ -367,13 +379,14 @@
 				8AC7A5CB26872C3E00C9CD98 /* Resources */,
 				8AC7A63326872C4100C9CD98 /* Embed Watch Content */,
 				27D3A4942BBC840A00350D21 /* Embed Frameworks */,
-				27D3A4A22BBC9F0800350D21 /* Embed Foundation Extensions */,
+				279EE2982CF8521900206F72 /* Embed Watch Content */,
+				279EE2A02CF85E9100206F72 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
-				27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */,
+				279EE29C2CF8522D00206F72 /* PBXTargetDependency */,
+				279EE29F2CF85E9100206F72 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -512,15 +525,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
+		279EE29C2CF8522D00206F72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
-			targetProxy = 27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */;
+			platformFilter = ios;
+			target = 274C196F29D1BF9B000DE221 /* DanXi Watch */;
+			targetProxy = 279EE29B2CF8522D00206F72 /* PBXContainerItemProxy */;
 		};
-		27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */ = {
+		279EE29F2CF85E9100206F72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilters = (
+				ios,
+				maccatalyst,
+			);
 			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
-			targetProxy = 27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */;
+			targetProxy = 279EE29E2CF85E9100206F72 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -532,20 +550,21 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 463;
+				CURRENT_PROJECT_VERSION = 500;
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = watchOS/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
+				INFOPLIST_KEY_CFBundleDisplayName = DanXi;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "io.github.danxi-dev.dan-xi";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				MARKETING_VERSION = 2.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -563,20 +582,21 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 463;
+				CURRENT_PROJECT_VERSION = 500;
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = watchOS/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
+				INFOPLIST_KEY_CFBundleDisplayName = DanXi;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "io.github.danxi-dev.dan-xi";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				MARKETING_VERSION = 2.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -610,7 +630,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -644,7 +664,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -806,7 +826,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -815,7 +835,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -845,7 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -854,7 +874,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
