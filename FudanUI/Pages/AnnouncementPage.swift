@@ -1,9 +1,10 @@
-#if !os(watchOS)
 import SwiftUI
 import ViewUtils
 import FudanKit
+#if canImport(SafariServices)
 import SafariServices
 import BetterSafariView
+#endif
 
 struct AnnouncementPage: View {
     @Environment(\.openURL) private var openURL
@@ -11,18 +12,23 @@ struct AnnouncementPage: View {
     @State private var authenticated = false
     @State private var page = 1
     @State private var presentLink: AuthenticatedLink?
-    let configuration: SFSafariViewController.Configuration
     
+    #if canImport(SafariServices)
+    let configuration: SFSafariViewController.Configuration
+    #endif
+    
+    #if canImport(SafariServices)
     init() {
         let configuration = SFSafariViewController.Configuration()
         configuration.entersReaderIfAvailable = true
         configuration.barCollapsingEnabled = false
         self.configuration = configuration
     }
+    #endif
     
     private func openLink(announcement: Announcement, needAuthenticate: Bool) async {
         func present(url: URL) {
-            #if targetEnvironment(macCatalyst)
+            #if targetEnvironment(macCatalyst) || os(watchOS)
             openURL(url)
             #else
             presentLink = AuthenticatedLink(url: url)
@@ -76,16 +82,20 @@ struct AnnouncementPage: View {
                     .foregroundColor(.primary)
                 }
             }
-#if targetEnvironment(macCatalyst)
+            #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
-#endif
+            #endif
         }
+        #if !os(watchOS)
         .listStyle(.inset)
+        #endif
         .navigationTitle(campusModel.studentType == .undergrad ? String(localized: "Undergraduate Academic Announcements", bundle: .module) : String(localized: "Postgraduate Academic Announcements", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+        #if canImport(SafariServices)
         .safariView(item: $presentLink) { link in
             SafariView(url: link.url, configuration: configuration)
         }
+        #endif
     }
 }
 
@@ -100,4 +110,3 @@ fileprivate struct AuthenticatedLink: Identifiable {
         AnnouncementPage()
     }
 }
-#endif

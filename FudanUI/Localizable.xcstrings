@@ -1257,6 +1257,16 @@
         }
       }
     },
+    "Semester" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "学期"
+          }
+        }
+      }
+    },
     "Semester Start Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1299,6 +1309,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示全部排名"
+          }
+        }
+      }
+    },
+    "Show Logs" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示记录"
           }
         }
       }

@@ -111,6 +111,7 @@
 		27066031292F56AF00F4C321 /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
 		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
 		270CD1902BAD68C900881ABA /* View Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "View Utils"; sourceTree = "<group>"; };
+		271298362CF79D4D002D1481 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2737C7E62BCFF4F0001945C1 /* DanXi Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DanXi Kit"; sourceTree = "<group>"; };
 		2737C7E72BCFF56C001945C1 /* DanXiUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DanXiUI; sourceTree = "<group>"; };
 		273B11E62BD3B37A001F7757 /* SettingsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigation.swift; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 		274C197129D1BF9B000DE221 /* watchOS */ = {
 			isa = PBXGroup;
 			children = (
+				271298362CF79D4D002D1481 /* Info.plist */,
 				274C197229D1BF9B000DE221 /* WatchApp.swift */,
 				274C197429D1BF9B000DE221 /* ContentView.swift */,
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
@@ -534,6 +536,7 @@
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = watchOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
@@ -564,6 +567,7 @@
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = watchOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";

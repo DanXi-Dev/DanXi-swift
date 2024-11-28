@@ -1,12 +1,15 @@
-#if !os(watchOS)
 import SwiftUI
+#if os(watchOS)
+import EFQRCode
+#else
 import UIKit
+#endif
 import FudanKit
 
 struct PayPage: View {
     @Environment(\.openURL) var openURL
     
-    @State private var qrCodeData: Data? = nil
+    @State private var imageData: Data? = nil
     @State private var loading = false
     @State private var showTermsAlert = false
     
@@ -17,6 +20,16 @@ struct PayPage: View {
             do {
                 let qrcodeStr = try await WalletAPI.getQRCode()
                 
+                #if os(watchOS)
+                // generate QR code data
+                
+                if let image = EFQRCode.generate(for: qrcodeStr) {
+                    let uiImage = UIImage(cgImage: image)
+                    imageData = uiImage.pngData()
+                } else {
+                    throw URLError(.badServerResponse)
+                }
+                #else
                 // generate QR code data
                 guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
                     throw URLError(.badServerResponse)
@@ -29,7 +42,8 @@ struct PayPage: View {
                 let transform = CGAffineTransform(scaleX: 10, y: 10)
                 let scaledCIImage = ciimage.transformed(by: transform)
                 let uiImage = UIImage(ciImage: scaledCIImage)
-                qrCodeData = uiImage.pngData()!
+                imageData = uiImage.pngData()
+                #endif
             } catch CampusError.termsNotAgreed {
                 showTermsAlert = true
             } catch {
@@ -43,21 +57,30 @@ struct PayPage: View {
             Group {
                 if loading {
                     ProgressView()
-                } else if let data = qrCodeData {
-                    Image(uiImage: UIImage(data: data)!)
+                } else if let imageData {
+                    Image(uiImage: UIImage(data: imageData)!)
                         .resizable()
                 } else {
                     Text("Error", bundle: .module)
                 }
             }
-            .frame(width: 300, height: 300)
-                
             
+            #if os(watchOS)
+            .frame(width: 145, height: 145)
+            .onTapGesture {
+                loadCodeData()
+            }
+            #else
+            .frame(width: 300, height: 300)
+            #endif
+                
+            #if !os(watchOS)
             Button {
                 loadCodeData()
             } label: {
                 Label(String(localized: "Refresh QR Code", bundle: .module), systemImage: "arrow.clockwise")
             }
+            #endif
         }
         .alert(String(localized: "Terms not Agreed", bundle: .module), isPresented: $showTermsAlert) {
             Button {
@@ -74,11 +97,12 @@ struct PayPage: View {
         } message: {
             Text("To use QRCode, you must accept terms and conditions in webpage", bundle: .module)
         }
+        #if !os(watchOS)
         .navigationTitle(String(localized: "Fudan QR Code", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .task {
             loadCodeData()
         }
     }
 }
-#endif
