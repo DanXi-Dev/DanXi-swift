@@ -16,6 +16,22 @@ public struct LoginSheet: View {
         Sheet {
             try await model.login(username: username, password: password)
         } content: {
+            #if os(watchOS)
+            
+            Picker(selection: $model.studentType) {
+                Text("Undergraduate", bundle: .module).tag(StudentType.undergrad)
+                Text("Graduate", bundle: .module).tag(StudentType.grad)
+                Text("Staff", bundle: .module).tag(StudentType.staff)
+            } label: {
+                Text("Student Type", bundle: .module)
+            }
+            
+            TextField(String(localized: "Fudan.ID", bundle: .module), text: $username)
+
+            SecureField(String(localized: "Password", bundle: .module), text: $password)
+            
+            #else
+            
             FormTitle(title: String(localized: "Fudan Campus Account", bundle: .module), description: String(localized: "Login with Fudan campus account (UIS) to access various campus services", bundle: .module))
             
             Section {
@@ -33,6 +49,8 @@ public struct LoginSheet: View {
                     SecureField(String(localized: "Fudan UIS Password", bundle: .module), text: $password)
                 }
             }
+            
+            #endif
         }
         .completed(!username.isEmpty && !password.isEmpty)
         .submitText(String(localized: "Login", bundle: .module))
