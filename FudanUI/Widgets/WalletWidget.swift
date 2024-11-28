@@ -44,7 +44,7 @@ public struct WalletEntry: TimelineEntry {
     public init() {
         date = Date()
         balance = "100.0"
-        transactions = Transaction.sampleTransactions
+        transactions =  Array(repeating: Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂1楼", amount: 15.50, remaining: 200.00), count: 3)
     }
     
     public init(_ balance: String, _ transactions: [FudanKit.Transaction]) {
@@ -123,7 +123,7 @@ struct WalletWidgetView: View {
         ForEach(entry.transactions.prefix(2), id: \.id) { transaction in
             VStack(alignment: .leading) {
                 Text(verbatim: "\(transaction.location)")
-                   .lineLimit(1)
+                    .lineLimit(1)
                 
                 HStack {
                     Text("¥\(String(format:"%.2f",transaction.amount))")
