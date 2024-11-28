@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import Charts
 import FudanKit
 import SwiftUI
@@ -151,7 +150,9 @@ private struct RankChart: View {
                     y: .value(String(localized: "GPA", bundle: .module), myRank.gradePoint)
                 )
                 .symbolSize(72)
+                #if !os(watchOS)
                 .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                #endif
                 PointMark(
                     x: .value(String(localized: "Rank", bundle: .module), myRank.rank),
                     y: .value(String(localized: "GPA", bundle: .module), myRank.gradePoint)
@@ -175,7 +176,9 @@ private struct RankChart: View {
                     y: .value(String(localized: "GPA", bundle: .module), value.gradePoint)
                 )
                 .symbolSize(70)
+                #if !os(watchOS)
                 .foregroundStyle(Color(uiColor: .secondarySystemGroupedBackground))
+                #endif
                 PointMark(
                     x: .value(String(localized: "Rank", bundle: .module), x),
                     y: .value(String(localized: "GPA", bundle: .module), value.gradePoint)
@@ -218,4 +221,3 @@ private struct RankChart: View {
     RankPage(previewRanks: decodePreviewData(filename: "ranks"))
         .previewPrepared()
 }
-#endif

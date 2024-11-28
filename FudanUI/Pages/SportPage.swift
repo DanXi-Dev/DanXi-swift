@@ -24,6 +24,9 @@ struct SportPage: View {
                         }
                     }
                 } header: {
+                    #if os(watchOS)
+                    Text("Extracurricular Activities", bundle: .module)
+                    #else
                     HStack {
                         Text("Extracurricular Activities", bundle: .module)
                         Spacer()
@@ -34,8 +37,18 @@ struct SportPage: View {
                                 .font(.footnote)
                         }
                     }
+                    #endif
+                } footer: {
+                    #if os(watchOS)
+                    Button {
+                        showExerciseSheet = true
+                    } label: {
+                        Text("Show Logs", bundle: .module)
+                    }
+                    #endif
                 }
                 
+                #if !os(watchOS)
                 if let exam = sportData.exam {
                     Section {
                         LabeledContent {
@@ -62,6 +75,7 @@ struct SportPage: View {
                         }
                     }
                 }
+                #endif
             }
             .sheet(isPresented: $showExerciseSheet) {
                 NavigationStack {

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import SwiftUI
 import FudanKit
 import ViewUtils
@@ -29,7 +28,9 @@ private struct CanteenPageContent: View {
             }
             .headerProminence(.increased)
         }
+        #if !os(watchOS)
         .listStyle(SidebarListStyle()) // support fold section
+        #endif
     }
 }
 
@@ -62,4 +63,3 @@ fileprivate struct CanteenRow: View {
             .navigationBarTitleDisplayMode(.inline)
     }
 }
-#endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import SwiftUI
 import ViewUtils
 import FudanKit
@@ -12,7 +11,7 @@ struct ClassroomPage: View {
         List {
             Picker(String(localized: "Building", bundle: .module), selection: $building) {
                 if building == .empty {
-                    Text("Not Selected").tag(Building.empty)
+                    Text("Not Selected", bundle: .module).tag(Building.empty)
                 }
                 Text(verbatim: "第二教学楼").tag(Building.h2)
                 Text(verbatim: "第三教学楼").tag(Building.h3)
@@ -26,9 +25,9 @@ struct ClassroomPage: View {
                 Text(verbatim: "张江校区").tag(Building.z)
                 Text(verbatim: "枫林校区").tag(Building.f)
             }
-#if targetEnvironment(macCatalyst)
+            #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
-#endif
+            #endif
             
             if building == .empty {
                 HStack {
@@ -38,7 +37,9 @@ struct ClassroomPage: View {
                     Spacer()
                 }
                 .padding(50)
+                #if !os(watchOS)
                 .listRowSeparator(.hidden, edges: .bottom)
+                #endif
                 #if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
                 #endif
@@ -70,14 +71,18 @@ struct ClassroomPage: View {
                     }
                 }
                 .id(building)
+                #if !os(watchOS)
                 .listRowSeparator(.hidden, edges: .bottom)
-#if targetEnvironment(macCatalyst)
+                #endif
+                #if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-#endif
+                #endif
             }
         }
         .searchable(text: $searchText)
+        #if !os(watchOS)
         .listStyle(.inset)
+        #endif
         .navigationTitle(String(localized: "Classroom Schedule", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -187,7 +192,9 @@ fileprivate struct ScheduleDetailSheet: View {
                     }
                 }
             }
+            #if !os(watchOS)
             .listStyle(.insetGrouped)
+            #endif
             .labelStyle(.titleOnly)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -208,4 +215,3 @@ fileprivate struct ScheduleDetailSheet: View {
     ClassroomPage()
         .previewPrepared()
 }
-#endif

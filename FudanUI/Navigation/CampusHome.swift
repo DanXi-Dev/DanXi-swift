@@ -23,8 +23,19 @@ public struct CampusHome: View {
         #if os(watchOS)
         List {
             ForEach(CampusSection.allCases) { section in
-                DetailLink(value: section) {
-                    section.label.navigationStyle()
+                let hiddenSet = switch campusModel.studentType {
+                case .undergrad:
+                    Set<CampusSection>() // empty set
+                case .grad:
+                    CampusSection.gradHidden
+                case .staff:
+                    CampusSection.staffHidden
+                }
+                
+                if !hiddenSet.contains(section) {
+                    DetailLink(value: section) {
+                        section.label.navigationStyle()
+                    }
                 }
             }
         }

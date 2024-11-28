@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import FudanKit
 import SwiftUI
 import ViewUtils
@@ -94,7 +93,9 @@ fileprivate struct ExamDetailSheet: View {
                 }
             }
             .labelStyle(.titleOnly)
+            #if !os(watchOS)
             .listStyle(.insetGrouped)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -109,4 +110,3 @@ fileprivate struct ExamDetailSheet: View {
         }
     }
 }
-#endif

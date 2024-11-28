@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import FudanKit
 import SwiftUI
 import ViewUtils
@@ -100,6 +99,7 @@ struct PlaygroundPage: View {
 }
 
 fileprivate struct ReservationView: View {
+    @Environment(\.openURL) var openURL
     let reservation: Reservation
     @State private var showSheet = false
     
@@ -113,7 +113,13 @@ fileprivate struct ReservationView: View {
             Group {
                 if reservation.available {
                     Button {
+                        #if os(watchOS)
+                        if let url = reservation.reserveURL {
+                            openURL(url)
+                        }
+                        #else
                         showSheet = true
+                        #endif
                     } label: {
                         Text("Reserve", bundle: .module)
                     }
@@ -150,6 +156,7 @@ fileprivate struct ReservationSheet: View {
     var body: some View {
         NavigationStack {
             Group {
+                #if !os(watchOS)
                 if let request = request {
                     WebViewWrapper(request)
                 } else {
@@ -157,6 +164,7 @@ fileprivate struct ReservationSheet: View {
                         .font(.title3)
                         .foregroundColor(.secondary)
                 }
+                #endif
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -229,4 +237,3 @@ class PlaygroundModel: ObservableObject {
     ReservationPage()
         .previewPrepared()
 }
-#endif

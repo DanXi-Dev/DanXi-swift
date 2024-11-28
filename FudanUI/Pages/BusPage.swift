@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import SwiftUI
 import FudanKit
 import ViewUtils
@@ -22,6 +21,10 @@ struct BusPage: View {
 fileprivate struct BusPageContent: View {
     @StateObject private var model: BusModel
     
+    #if os(watchOS)
+    @State private var showControlSheet = false
+    #endif
+    
     init(_ model: BusModel) {
         self._model = StateObject(wrappedValue: model)
     }
@@ -36,12 +39,32 @@ fileprivate struct BusPageContent: View {
     var body: some View {
         List {
             Section {
+                #if os(watchOS)
+                
+                Button {
+                    showControlSheet = true
+                } label: {
+                    LabeledContent {
+                        Text(model.start) + Text(Image(systemName: "arrow.right")) + Text(model.end)
+                    } label: {
+                        Group {
+                            switch model.type {
+                            case .holiday:
+                                Text("Holiday", bundle: .module)
+                            case .workday:
+                                Text("Workday", bundle: .module)
+                            }
+                        }
+                    }
+                }
+                #else
+                
                 Picker(selection: $model.type, label: Text("Type", bundle: .module)) {
                     Text("Workday", bundle: .module).tag(BusType.workday)
                     Text("Holiday", bundle: .module).tag(BusType.holiday)
                 }
                 .pickerStyle(.segmented)
-                
+
                 HStack {
                     Text("From", bundle: .module)
                     Spacer()
@@ -93,6 +116,7 @@ fileprivate struct BusPageContent: View {
                 Toggle(isOn: $model.filterSchedule.animation()) {
                     Text("Show schedule after \(getTime())", bundle: .module)
                 }
+                #endif
             }
             
             Section {
@@ -106,7 +130,60 @@ fileprivate struct BusPageContent: View {
             }
             .environmentObject(model)
         }
+        #if os(watchOS)
+        .sheet(isPresented: $showControlSheet) {
+            controlSheet
+        }
+        #endif
     }
+    
+    #if os(watchOS)
+    
+    private var controlSheet: some View {
+        List {
+            let startBinding = Binding<String>(
+                get: { model.start },
+                set: { newStart in
+                    if newStart == model.end {
+                        // User probably wants to swap start & end locations
+                        // We use bindings as an "elegant" way of triggering swap when this happens
+                        model.end = model.start
+                    }
+                    model.start = newStart
+                }
+            )
+            
+            Picker(selection: startBinding, label: Text("From", bundle: .module)) {
+                ForEach(model.campusList, id: \.self) { campus in
+                    Text(campus).tag(campus)
+                }
+            }
+            
+            let endBinding = Binding<String>(
+                get: { model.end },
+                set: { newEnd in
+                    if newEnd == model.start {
+                        // User probably wants to swap start & end locations
+                        // We use bindings as an "elegant" way of triggering swap when this happens
+                        model.start = model.end
+                    }
+                    model.end = newEnd
+                }
+            )
+            
+            Picker(selection: endBinding, label: Text("To", bundle: .module)) {
+                ForEach(model.campusList, id: \.self) { campus in
+                    Text(campus).tag(campus)
+                }
+            }
+            
+            Toggle(isOn: $model.filterSchedule.animation()) {
+                Text("Show schedule after \(getTime())", bundle: .module)
+            }
+        }
+    }
+    
+    #endif
 }
 
 
@@ -195,4 +272,3 @@ fileprivate class BusModel: ObservableObject {
     BusPage()
         .previewPrepared()
 }
-#endif
