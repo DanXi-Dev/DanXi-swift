@@ -244,7 +244,7 @@ public enum ForumAPI {
     
     public static func deleteSubscription(holeId: Int) async throws -> [Int] {
         let payload = ["hole_id": holeId]
-        let response: ServerResponse = try await requestWithResponse("/users/subscription", base: forumURL, payload: payload, method: "DELETE")
+        let response: ServerResponse = try await requestWithResponse("/users/subscriptions", base: forumURL, payload: payload, method: "DELETE")
         return response.data
     }
     
