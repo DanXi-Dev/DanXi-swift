@@ -17,6 +17,7 @@ public class CredentialStore {
     
     init() {
         let keychain = Keychain(service: "com.fduhole.danxi")
+            .synchronizable(true)
         self.keychain = keychain
         
         if let data = keychain[data: "token"],

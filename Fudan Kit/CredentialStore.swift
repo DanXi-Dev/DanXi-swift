@@ -21,6 +21,7 @@ public class CredentialStore {
     
     init() {
         let keychain = Keychain(service: "com.fduhole.fdutools", accessGroup: "group.com.fduhole.danxi")
+            .synchronizable(true)
         self.keychain = keychain
         self.username = keychain["username"]
         self.password = keychain["password"]
