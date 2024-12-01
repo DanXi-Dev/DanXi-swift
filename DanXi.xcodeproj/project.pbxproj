@@ -62,13 +62,6 @@
 			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
 			remoteInfo = "DanXi Wigdet";
 		};
-		27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27536EBC29DC9A8100894A98;
-			remoteInfo = "DanXi Wigdet";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -373,7 +366,6 @@
 			);
 			dependencies = (
 				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
-				27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -517,11 +509,6 @@
 			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
 			targetProxy = 27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */;
 		};
-		27D3A4A12BBC9F0800350D21 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
-			targetProxy = 27D3A4A02BBC9F0800350D21 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -532,19 +519,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 463;
+				CURRENT_PROJECT_VERSION = 500;
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = watchOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "io.github.danxi-dev.dan-xi";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -563,19 +550,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 463;
+				CURRENT_PROJECT_VERSION = 500;
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = watchOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "io.github.danxi-dev.dan-xi";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -610,7 +597,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -644,7 +631,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -806,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -845,7 +832,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
