@@ -14,16 +14,12 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.10.0"),
         .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4"),
-        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.3.1"),
-        .package(url: "https://github.com/colinc86/LaTeXSwiftUI", from: "1.3.2")
     ],
     targets: [
         .target(name: "ViewUtils",
                 dependencies: [
                     .product(name: "SwiftUIIntrospect", package: "swiftui-introspect", condition: .when(platforms: [.iOS, .macCatalyst])),
-                    .product(name: "MarkdownUI", package: "swift-markdown-ui", condition: .when(platforms: [.iOS, .macCatalyst])),
-                    .product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst])),
-                    .product(name: "LaTeXSwiftUI", package: "LaTeXSwiftUI", condition: .when(platforms: [.iOS, .macCatalyst]))
+                    .product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst]))
                 ],
                 path: "."),
     ]
