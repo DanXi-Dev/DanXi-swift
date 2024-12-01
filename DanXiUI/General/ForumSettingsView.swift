@@ -122,13 +122,42 @@ fileprivate struct BlockedContent: View {
                             }
                         }
                 }
+                
+                if settings.blockedHoles.isEmpty {
+                    Text("You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu.", bundle: .module)
+                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                }
             } header: {
                 Text("Blocked Holes", bundle: .module)
             }
             
-            if settings.blockedHoles.isEmpty {
-                Section(String(localized: "You haven't blocked any holes. You can a block hole by pressing and holding it and select \"Block Hole\" in the menu.", bundle: .module)) {}
-                    .textCase(.none)
+            if !settings.hiddenMyHoles.isEmpty {
+                Section {
+                    Button {
+                        withAnimation {
+                            settings.hiddenMyHoles = []
+                        }
+                    } label: {
+                        Text("Restore Hidden Posts", bundle: .module)
+                    }
+                } footer: {
+                    Text("If you have hidden your posts in \"My Posts\" Page, you may restore them.", bundle: .module)
+                }
+            }
+            
+            if !settings.hiddenMyReplies.isEmpty {
+                Section {
+                    Button {
+                        withAnimation {
+                            settings.hiddenMyReplies = []
+                        }
+                    } label: {
+                        Text("Restore Hidden Replies", bundle: .module)
+                    }
+                } footer: {
+                    Text("If you have hidden your replies in \"My Reply\" Page, you may restore them.", bundle: .module)
+                }
             }
         }
         .navigationTitle(String(localized: "Blocked Content", bundle: .module))

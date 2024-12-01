@@ -7,6 +7,8 @@ public class ForumSettings: ObservableObject {
     @AppStorage("sensitive-content") public var foldedContent = SensitiveContentSetting.fold
     @AppStorage("blocked-tags") public var blockedTags: [String] = []
     @AppStorage("blocked-holes") public var blockedHoles: [Int] = []
+    @AppStorage("hidden-my-holes") public var hiddenMyHoles: [Int] = []
+    @AppStorage("hidden-my-replies") public var hiddenMyReplies: [Int] = []
     @AppStorage("screenshot-alert") public var screenshotAlert = true
     @AppStorage("show-activity") public var showBanners = true
     @AppStorage("in-app-browser") var inAppBrowser = true

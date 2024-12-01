@@ -1529,6 +1529,26 @@
         }
       }
     },
+    "If you have hidden your posts in \"My Posts\" Page, you may restore them." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果之前在“我的帖子”中隐藏了自己的帖子，可在此复原。"
+          }
+        }
+      }
+    },
+    "If you have hidden your replies in \"My Reply\" Page, you may restore them." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果之前在“我的回复”页面中隐藏了自己的回复，可在此复原。"
+          }
+        }
+      }
+    },
     "image_tag" : {
       "comment" : "Image Tag",
       "localizations" : {
@@ -2383,6 +2403,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "恢复"
+          }
+        }
+      }
+    },
+    "Restore Hidden Posts" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复隐藏的帖子"
+          }
+        }
+      }
+    },
+    "Restore Hidden Replies" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复隐藏的回复"
           }
         }
       }
