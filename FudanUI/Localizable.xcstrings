@@ -871,6 +871,9 @@
         }
       }
     },
+    "Loading" : {
+
+    },
     "Loading Failed" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1250,6 +1253,9 @@
           }
         }
       }
+    },
+    "Retry" : {
+
     },
     "Select All" : {
       "localizations" : {
