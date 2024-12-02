@@ -92,7 +92,7 @@ public enum GraduateCourseAPI {
     }
     
     /// Get courses on a given semester
-    public static func getCourses(semester: Semester) async throws -> [Course] {
+    public static func getCourses(semester: Semester, onProgressUpdate: @escaping (Float) -> Void) async throws -> [Course] {
         let dictionary = try await withThrowingTaskGroup(of: (Int, [CourseBuilder]).self,
                                                          returning: [Int: [CourseBuilder]].self) { taskGroup in
             var dictionary: [Int: [CourseBuilder]] = [:]
@@ -105,8 +105,12 @@ public enum GraduateCourseAPI {
                 }
             }
             
+            var completedWeeks = 0
             for try await (week, builders) in taskGroup {
                 dictionary[week] = builders
+                completedWeeks += 1
+                let progress = Float(completedWeeks) / Float(semester.weekCount)
+                onProgressUpdate(progress)
             }
             
             return dictionary

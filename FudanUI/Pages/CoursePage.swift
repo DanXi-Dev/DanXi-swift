@@ -9,6 +9,7 @@ import EventKitUI
 
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
+    @State private var loadingProgress: Float?
     
     private var context: [Int: Date] {
         ConfigurationCenter.configuration.semesterStartDate
@@ -17,7 +18,34 @@ public struct CoursePage: View {
     public init() { }
     
     public var body: some View {
-        AsyncContentView {
+        AsyncContentView(style: .init(loadingView: {
+            ProgressView(value: loadingProgress) {
+                Text("Loading", bundle: .module)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal, 64)
+        }, errorView: { error, retry in
+            VStack {
+                Text("Loading Failed", bundle: .module)
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                Text(error.localizedDescription)
+                    .font(.callout)
+                    .padding(.bottom)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                
+                Button {
+                    retry()
+                } label: {
+                    Text("Retry", bundle: .module)
+                }
+                .foregroundStyle(Color.accentColor)
+            }
+            .padding()
+        })) {
             if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
                 cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
                 return cachedModel
@@ -27,7 +55,11 @@ public struct CoursePage: View {
             case .undergrad:
                 return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
             case .grad:
-                return try await CourseModel.freshLoadForGraduate()
+                return try await CourseModel.freshLoadForGraduate() { progress in
+                    DispatchQueue.main.async {
+                        loadingProgress = progress
+                    }
+                }
             case .staff:
                 throw URLError(.unknown) // calendar for staff is not supported
             }
@@ -56,9 +88,9 @@ fileprivate struct CalendarContent: View {
                 EmptyView()
                     .id("cal-top")
                 
-                #if os(watchOS)
+#if os(watchOS)
                 toolbar
-                #endif
+#endif
                 
                 Section {
                     if !model.courses.isEmpty {
@@ -67,9 +99,9 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
-                #if targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-                #endif
+#endif
                 
                 Section {
                     HStack {
@@ -104,14 +136,14 @@ fileprivate struct CalendarContent: View {
             .refreshable {
                 await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
             }
-            #if targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
-            #endif
+#endif
         }
         .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
-        #if !os(watchOS)
+#if !os(watchOS)
         .toolbar {
             toolbar
         }
@@ -125,7 +157,7 @@ fileprivate struct CalendarContent: View {
             ManualResetSemesterStartDateSheet()
         }
         .listStyle(.inset)
-        #endif
+#endif
         .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
             
         } message: {
@@ -134,7 +166,7 @@ fileprivate struct CalendarContent: View {
         .environmentObject(model)
     }
     
-    #if !os(watchOS)
+#if !os(watchOS)
     
     private var toolbar: some View {
         Menu {
@@ -146,7 +178,7 @@ fileprivate struct CalendarContent: View {
                 Text("Select Semester", bundle: .module)
             }
             .pickerStyle(.menu)
-
+            
             Button {
                 Task(priority: .userInitiated) {
                     let eventStore = EKEventStore()
@@ -199,7 +231,7 @@ fileprivate struct CalendarContent: View {
         }
     }
     
-    #else
+#else
     
     private var toolbar: some View {
         Picker(selection: $model.semester) {
@@ -216,7 +248,7 @@ fileprivate struct CalendarContent: View {
         }
     }
     
-    #endif
+#endif
     
     private var colorSheet: some View {
         ColorSheet(themeColor: $themeColor)

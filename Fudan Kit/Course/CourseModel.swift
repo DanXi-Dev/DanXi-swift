@@ -12,11 +12,11 @@ public class CourseModel: ObservableObject {
     
     /// Factory constructor for graduate student to create a new model from network
     /// - Returns: A new model loaded from network
-    public static func freshLoadForGraduate() async throws -> CourseModel {
+    public static func freshLoadForGraduate(onProgressUpdate: @escaping (Float) -> Void) async throws -> CourseModel {
         let (semesters, currentSemesterFromServer) = try await GraduateCourseStore.shared.getRefreshedSemesters()
         guard !semesters.isEmpty else { throw URLError(.badServerResponse) }
         let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
-        let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
+        let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester, onProgressUpdate: onProgressUpdate)
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
         let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
         model.refreshCache()
@@ -140,7 +140,9 @@ public class CourseModel: ObservableObject {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getCachedCourses(semester: semester)
             } else if studentType == .grad {
-                courses = try await GraduateCourseStore.shared.getCachedCourses(semester: semester)
+                courses = try await GraduateCourseStore.shared.getCachedCourses(semester: semester) { progress in
+                    // TODO: progress view for refresh?
+                }
             }
             refreshCache()
         } catch {
@@ -164,7 +166,9 @@ public class CourseModel: ObservableObject {
                     semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
                 }
             } else if studentType == .grad {
-                courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester)
+                courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester) { progress in
+                    // TODO: progress for refresh?
+                }
                 let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
                 guard semesters.isEmpty else {
                     throw URLError(.badServerResponse)

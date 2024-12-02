@@ -25,16 +25,16 @@ public actor GraduateCourseStore {
         }
     }
     
-    func getCachedCourses(semester: Semester) async throws -> [Course] {
+    func getCachedCourses(semester: Semester, onProgressUpdate: @escaping (Float) -> Void) async throws -> [Course] {
         if let courses = courseMap[semester] {
             return courses
         }
         
-        return try await getRefreshedCourses(semester: semester)
+        return try await getRefreshedCourses(semester: semester, onProgressUpdate: onProgressUpdate)
     }
     
-    func getRefreshedCourses(semester: Semester) async throws -> [Course] {        
-        let courses = try await GraduateCourseAPI.getCourses(semester: semester)
+    func getRefreshedCourses(semester: Semester, onProgressUpdate: @escaping (Float) -> Void) async throws -> [Course] {
+        let courses = try await GraduateCourseAPI.getCourses(semester: semester, onProgressUpdate: onProgressUpdate)
         courseMap[semester] = courses
         try Disk.save(courses, to: .appGroup, as: "fdutools/grad-course-map.json")
         return courses
