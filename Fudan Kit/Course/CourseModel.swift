@@ -134,14 +134,14 @@ public class CourseModel: ObservableObject {
     // MARK: - Model Update
     
     /// Work to be done after semester is changed
-    @MainActor public func updateSemester() async {
+    @MainActor public func updateSemester(onProgressUpdate: @escaping (Float) -> Void) async {
         courses = []
         do {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getCachedCourses(semester: semester)
             } else if studentType == .grad {
                 courses = try await GraduateCourseStore.shared.getCachedCourses(semester: semester) { progress in
-                    // TODO: progress view for refresh?
+                    onProgressUpdate(progress)
                 }
             }
             refreshCache()
@@ -153,7 +153,7 @@ public class CourseModel: ObservableObject {
     
     /// Refresh courses in current semester and refresh semesters list
     /// - Parameter context: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
-    @MainActor public func refresh(with context: [Int: Date]) async {
+    @MainActor public func refresh(with context: [Int: Date], onProgressUpdate: @escaping (Float) -> Void) async {
         do {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
@@ -167,7 +167,7 @@ public class CourseModel: ObservableObject {
                 }
             } else if studentType == .grad {
                 courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester) { progress in
-                    // TODO: progress for refresh?
+                    onProgressUpdate(progress)
                 }
                 let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
                 guard semesters.isEmpty else {

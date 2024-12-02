@@ -64,7 +64,7 @@ public struct CoursePage: View {
                 throw URLError(.unknown) // calendar for staff is not supported
             }
         } content: { model in
-            CalendarContent(model: model)
+            CalendarContent(model: model, loadingProgress: $loadingProgress)
         }
         .id(campusModel.studentType) // ensure the page will refresh when student type changes
         .navigationTitle(String(localized: "Calendar", bundle: .module))
@@ -74,6 +74,7 @@ public struct CoursePage: View {
 
 fileprivate struct CalendarContent: View {
     @StateObject var model: CourseModel
+    @Binding var loadingProgress: Float?
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
     @State private var showColorSheet = false
@@ -134,7 +135,12 @@ fileprivate struct CalendarContent: View {
                 }
             }
             .refreshable {
-                await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                loadingProgress = nil
+                await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate) { progress in
+                    DispatchQueue.main.async {
+                        loadingProgress = progress
+                    }
+                }
             }
 #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
@@ -225,8 +231,13 @@ fileprivate struct CalendarContent: View {
             Image(systemName: "ellipsis.circle")
         }
         .onChange(of: model.semester.semesterId) { _ in
+            loadingProgress = nil
             Task {
-                await model.updateSemester()
+                await model.updateSemester() { progress in
+                    DispatchQueue.main.async {
+                        loadingProgress = progress
+                    }
+                }
             }
         }
     }
