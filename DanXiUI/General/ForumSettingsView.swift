@@ -240,21 +240,21 @@ fileprivate struct NotificationSetting: View {
             
             Section {
                 Toggle(isOn: $mention) {
-                    Label(String(localized: "Notify when my post is mentioned", bundle: .module), systemImage: "arrowshape.turn.up.left")
+                    Text("Notify when my post is mentioned", bundle: .module)
                 }
                 .onChange(of: mention) { _ in
                     Task { await updateConfig() }
                 }
                 
                 Toggle(isOn: $favorite) {
-                    Label(String(localized: "Notify when favorited hole gets reply", bundle: .module), systemImage: "star")
+                    Text("Notify when favorited hole gets reply", bundle: .module)
                 }
                 .onChange(of: favorite) { _ in
                     Task { await updateConfig() }
                 }
                 
                 Toggle(isOn: $report) {
-                    Label(String(localized: "Notify when my report is dealt", bundle: .module), systemImage: "exclamationmark.triangle")
+                    Text("Notify when my report is dealt", bundle: .module)
                 }
                 .onChange(of: report) { _ in
                     Task { await updateConfig() }
