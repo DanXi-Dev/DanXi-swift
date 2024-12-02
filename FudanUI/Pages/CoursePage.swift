@@ -268,28 +268,27 @@ fileprivate struct CourseDetailSheet: View {
                 LabeledContent {
                     Text(course.name)
                 } label: {
-                    Label(String(localized: "Course Name", bundle: .module), systemImage: "magazine")
+                    Text("Course Name", bundle: .module)
                 }
 
                 LabeledContent {
                     Text(course.teacher)
                 } label: {
-                    Label(String(localized: "Instructor", bundle: .module), systemImage: "person")
+                    Text("Instructor", bundle: .module)
                 }
 
                 LabeledContent {
                     Text(course.code)
                 } label: {
-                    Label(String(localized: "Course ID", bundle: .module), systemImage: "number")
+                    Text("Course ID", bundle: .module)
                 }
                 
                 LabeledContent {
                     Text(course.location)
                 } label: {
-                    Label(String(localized: "Location", bundle: .module), systemImage: "mappin.and.ellipse")
+                    Text("Location", bundle: .module)
                 }
             }
-            .labelStyle(.titleOnly)
             #if !os(watchOS)
             .listStyle(.insetGrouped)
             #endif
