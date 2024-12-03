@@ -12,7 +12,7 @@ public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
     @State private var loadingProgress: Float?
     
-    let loadingProgressPublisher = PassthroughSubject<Float, Never>()
+    private let loadingProgressPublisher = PassthroughSubject<Float, Never>()
     
     private var context: [Int: Date] {
         ConfigurationCenter.configuration.semesterStartDate
@@ -21,13 +21,17 @@ public struct CoursePage: View {
     public init() { }
     
     public var body: some View {
-        let asyncContentStyle = AsyncContentStyle(loadingView: {
+        let asyncContentStyle = AsyncContentStyle {
             if let loadingProgress {
-                ProgressView(String(localized: "Loading", bundle: .module) + " \(Int(loadingProgress * 100))%")
+                ProgressView {
+                    Text("Loading \(Int(loadingProgress * 100))%", bundle: .module)
+                }
             } else {
-                ProgressView(String(localized: "Loading", bundle: .module))
+                ProgressView {
+                    Text("Loading", bundle: .module)
+                }
             }
-        }, errorView: { error, retry in
+        } errorView: { error, retry in
             VStack {
                 Text("Loading Failed", bundle: .module)
                     .font(.title)
@@ -47,7 +51,7 @@ public struct CoursePage: View {
                 .foregroundStyle(Color.accentColor)
             }
             .padding()
-        })
+        }
         
         AsyncContentView(style: asyncContentStyle) {
             if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
@@ -68,9 +72,9 @@ public struct CoursePage: View {
         } content: { model in
             CalendarContent(model: model)
         }
-        .onReceive(loadingProgressPublisher, perform: { progress in
+        .onReceive(loadingProgressPublisher) { progress in
             loadingProgress = progress
-        })
+        }
         .id(campusModel.studentType) // ensure the page will refresh when student type changes
         .navigationTitle(String(localized: "Calendar", bundle: .module))
     }
@@ -93,9 +97,9 @@ fileprivate struct CalendarContent: View {
                 EmptyView()
                     .id("cal-top")
                 
-#if os(watchOS)
+                #if os(watchOS)
                 toolbar
-#endif
+                #endif
                 
                 Section {
                     if !model.courses.isEmpty {
@@ -104,9 +108,9 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
-#if targetEnvironment(macCatalyst)
+                #if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-#endif
+                #endif
                 
                 Section {
                     HStack {
@@ -141,14 +145,14 @@ fileprivate struct CalendarContent: View {
             .refreshable {
                 await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
             }
-#if targetEnvironment(macCatalyst)
+            #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
-#endif
+            #endif
         }
         .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
-#if !os(watchOS)
+        #if !os(watchOS)
         .toolbar {
             toolbar
         }
@@ -162,7 +166,7 @@ fileprivate struct CalendarContent: View {
             ManualResetSemesterStartDateSheet()
         }
         .listStyle(.inset)
-#endif
+        #endif
         .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
             
         } message: {
@@ -205,7 +209,7 @@ fileprivate struct CalendarContent: View {
             
             Divider()
             
-            Menu(String(localized: "Advanced Settings", bundle: .module), content: {
+            Menu {
                 Button {
                     showColorSheet = true
                 } label: {
@@ -225,7 +229,9 @@ fileprivate struct CalendarContent: View {
                         Image(systemName: "clock")
                     }
                 }
-            })
+            } label: {
+                Text("Advanced Settings", bundle: .module)
+            }
         } label: {
             Image(systemName: "ellipsis.circle")
         }
