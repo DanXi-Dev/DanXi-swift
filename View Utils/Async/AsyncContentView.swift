@@ -122,7 +122,9 @@ public struct AsyncContentStyle: Sendable {
 
 extension AsyncContentStyle {
     public static let paged = AsyncContentStyle {
-        ProgressView(String(localized: "Loading", bundle: .module))
+        ProgressView {
+            Text("Loading", bundle: .module)
+        }
     } errorView: { error, retry in
         VStack {
             Text("Loading Failed", bundle: .module)
