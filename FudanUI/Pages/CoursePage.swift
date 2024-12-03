@@ -18,13 +18,12 @@ public struct CoursePage: View {
     public init() { }
     
     public var body: some View {
-        AsyncContentView(style: .init(loadingView: {
-            ProgressView(value: loadingProgress) {
-                Text("Loading", bundle: .module)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+        let asyncContentStyle = AsyncContentStyle(loadingView: {
+            if let loadingProgress {
+                ProgressView(String(localized: "Loading", bundle: .module) + " \(Int(loadingProgress))%")
+            } else {
+                ProgressView(String(localized: "Loading", bundle: .module))
             }
-            .padding(.horizontal, 64)
         }, errorView: { error, retry in
             VStack {
                 Text("Loading Failed", bundle: .module)
@@ -45,7 +44,9 @@ public struct CoursePage: View {
                 .foregroundStyle(Color.accentColor)
             }
             .padding()
-        })) {
+        })
+        
+        AsyncContentView(style: asyncContentStyle) {
             if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
                 cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
                 return cachedModel
