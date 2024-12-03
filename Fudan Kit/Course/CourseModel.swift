@@ -11,13 +11,12 @@ public class CourseModel: ObservableObject {
     // MARK: - Factory Methods
     
     /// Factory constructor for graduate student to create a new model from network
-    /// - Parameter onProgressUpdate: callback when the progress is updated. The parameter progress is a Float between 0.0 and 1.0.
     /// - Returns: A new model loaded from network
-    public static func freshLoadForGraduate(onProgressUpdate: @escaping (Float) -> Void) async throws -> CourseModel {
+    public static func freshLoadForGraduate() async throws -> CourseModel {
         let (semesters, currentSemesterFromServer) = try await GraduateCourseStore.shared.getRefreshedSemesters()
         guard !semesters.isEmpty else { throw URLError(.badServerResponse) }
         let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
-        let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester, onProgressUpdate: onProgressUpdate)
+        let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
         let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
         model.refreshCache()
@@ -135,16 +134,13 @@ public class CourseModel: ObservableObject {
     // MARK: - Model Update
     
     /// Work to be done after semester is changed
-    /// - Parameter onProgressUpdate: callback when the progress is updated. The parameter progress is a Float between 0.0 and 1.0.
-    @MainActor public func updateSemester(onProgressUpdate: @escaping (Float) -> Void) async {
+    @MainActor public func updateSemester() async {
         courses = []
         do {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getCachedCourses(semester: semester)
             } else if studentType == .grad {
-                courses = try await GraduateCourseStore.shared.getCachedCourses(semester: semester) { progress in
-                    onProgressUpdate(progress)
-                }
+                courses = try await GraduateCourseStore.shared.getCachedCourses(semester: semester)
             }
             refreshCache()
         } catch {
@@ -156,8 +152,7 @@ public class CourseModel: ObservableObject {
     /// Refresh courses in current semester and refresh semesters list
     /// - Parameters:
     ///   - context: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
-    ///   - onProgressUpdate: callback when the progress is updated. The parameter progress is a Float between 0.0 and 1.0.
-    @MainActor public func refresh(with context: [Int: Date], onProgressUpdate: @escaping (Float) -> Void) async {
+    @MainActor public func refresh(with context: [Int: Date]) async {
         do {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
@@ -170,9 +165,7 @@ public class CourseModel: ObservableObject {
                     semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
                 }
             } else if studentType == .grad {
-                courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester) { progress in
-                    onProgressUpdate(progress)
-                }
+                courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester)
                 let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
                 guard semesters.isEmpty else {
                     throw URLError(.badServerResponse)

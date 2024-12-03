@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import ViewUtils
 import Utils
 import FudanKit
@@ -11,6 +12,8 @@ public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
     @State private var loadingProgress: Float?
     
+    let loadingProgressPublisher = PassthroughSubject<Float, Never>()
+    
     private var context: [Int: Date] {
         ConfigurationCenter.configuration.semesterStartDate
     }
@@ -20,7 +23,7 @@ public struct CoursePage: View {
     public var body: some View {
         let asyncContentStyle = AsyncContentStyle(loadingView: {
             if let loadingProgress {
-                ProgressView(String(localized: "Loading", bundle: .module) + " \(Int(loadingProgress))%")
+                ProgressView(String(localized: "Loading", bundle: .module) + " \(Int(loadingProgress * 100))%")
             } else {
                 ProgressView(String(localized: "Loading", bundle: .module))
             }
@@ -56,17 +59,18 @@ public struct CoursePage: View {
             case .undergrad:
                 return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
             case .grad:
-                return try await CourseModel.freshLoadForGraduate() { progress in
-                    DispatchQueue.main.async {
-                        loadingProgress = progress
-                    }
+                return try await LoadingProgressPublisherKey.$progressPublisher.withValue(loadingProgressPublisher) { // This sets the task-local publisher for this refresh task. It will be received by this instance of CoursePage to update the UI progress.
+                    return try await CourseModel.freshLoadForGraduate()
                 }
             case .staff:
                 throw URLError(.unknown) // calendar for staff is not supported
             }
         } content: { model in
-            CalendarContent(model: model, loadingProgress: $loadingProgress)
+            CalendarContent(model: model)
         }
+        .onReceive(loadingProgressPublisher, perform: { progress in
+            loadingProgress = progress
+        })
         .id(campusModel.studentType) // ensure the page will refresh when student type changes
         .navigationTitle(String(localized: "Calendar", bundle: .module))
     }
@@ -75,7 +79,6 @@ public struct CoursePage: View {
 
 fileprivate struct CalendarContent: View {
     @StateObject var model: CourseModel
-    @Binding var loadingProgress: Float?
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
     @State private var showColorSheet = false
@@ -136,12 +139,7 @@ fileprivate struct CalendarContent: View {
                 }
             }
             .refreshable {
-                loadingProgress = nil
-                await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate) { progress in
-                    DispatchQueue.main.async {
-                        loadingProgress = progress
-                    }
-                }
+                await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
             }
 #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
@@ -232,13 +230,8 @@ fileprivate struct CalendarContent: View {
             Image(systemName: "ellipsis.circle")
         }
         .onChange(of: model.semester.semesterId) { _ in
-            loadingProgress = nil
             Task {
-                await model.updateSemester() { progress in
-                    DispatchQueue.main.async {
-                        loadingProgress = progress
-                    }
-                }
+                await model.updateSemester()
             }
         }
     }
