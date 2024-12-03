@@ -881,6 +881,16 @@
         }
       }
     },
+    "Loading %lld%%" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加载中 %lld%%"
+          }
+        }
+      }
+    },
     "Loading Failed" : {
       "localizations" : {
         "zh-Hans" : {
