@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 public enum GraduateCourseAPI {
     
@@ -92,7 +93,7 @@ public enum GraduateCourseAPI {
     }
     
     /// Get courses on a given semester
-    public static func getCourses(semester: Semester, onProgressUpdate: @escaping (Float) -> Void) async throws -> [Course] {
+    public static func getCourses(semester: Semester) async throws -> [Course] {
         let dictionary = try await withThrowingTaskGroup(of: (Int, [CourseBuilder]).self,
                                                          returning: [Int: [CourseBuilder]].self) { taskGroup in
             var dictionary: [Int: [CourseBuilder]] = [:]
@@ -109,8 +110,13 @@ public enum GraduateCourseAPI {
             for try await (week, builders) in taskGroup {
                 dictionary[week] = builders
                 completedWeeks += 1
+                // Publish progress to the publisher of this task, obtained from the task-local variable CourseLoadingProgressPublisherKey.progressPublisher
+                // If there is no such publisher (nobody asked for progress), the publisher will simply default to a dummy publisher that nobody receives from.
                 let progress = Float(completedWeeks) / Float(semester.weekCount)
-                onProgressUpdate(progress)
+                let publisher = LoadingProgressPublisherKey.progressPublisher // Since this publisher is task-local, we must get it before entering main thread
+                DispatchQueue.main.async {
+                    publisher.send(progress) // Publishing UI changes must be done on main thread
+                }
             }
             
             return dictionary
