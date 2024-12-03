@@ -63,7 +63,11 @@ func setupPreview() async {
     await CampusModel.shared.forceLogin(username: "123456", password: "")
     
     let courseCacheURL = Bundle.module.url(forResource: "course", withExtension: "json", subdirectory: "Preview")!
+    #if os(watchOS)
+    try! Disk.save(data: try! Data(contentsOf: courseCacheURL), to: .applicationSupport, as: "preview/fdutools/course-model.json")
+    #else
     try! Disk.save(try! Data(contentsOf: courseCacheURL), to: .applicationSupport, as: "preview/fdutools/course-model.json")
+    #endif
     
     let walletLogs: [WalletLog] = decodePreviewData(filename: "wallet-logs", directory: "my")
     let electricityLogs: [ElectricityLog] = decodePreviewData(filename: "electricity-logs", directory: "my")

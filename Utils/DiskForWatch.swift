@@ -32,6 +32,18 @@ public class Disk {
         }
     }
     
+    public static func save(data: Data, to directory: Directory, as path: String) throws {
+        if path.hasSuffix("/") {
+            throw NSError()
+        }
+        do {
+            let url = try createURL(for: path, in: directory)
+            try data.write(to: url, options: .atomic)
+        } catch {
+            throw error
+        }
+    }
+    
     public static func retrieve<T: Decodable>(_ path: String, from directory: Directory, as type: T.Type, decoder: JSONDecoder = JSONDecoder()) throws -> T {
         if path.hasSuffix("/") {
             throw NSError()
