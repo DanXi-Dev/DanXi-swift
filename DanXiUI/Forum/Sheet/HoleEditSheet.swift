@@ -49,7 +49,6 @@ struct HoleEditSheet: View {
             }
         }
         .completed(!tags.isEmpty)
-        .warnDiscard(!tags.isEmpty)
         .watermark()
     }
 }
