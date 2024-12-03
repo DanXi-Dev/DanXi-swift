@@ -11,6 +11,7 @@ public class CourseModel: ObservableObject {
     // MARK: - Factory Methods
     
     /// Factory constructor for graduate student to create a new model from network
+    /// - Parameter onProgressUpdate: callback when the progress is updated. The parameter progress is a Float between 0.0 and 1.0.
     /// - Returns: A new model loaded from network
     public static func freshLoadForGraduate(onProgressUpdate: @escaping (Float) -> Void) async throws -> CourseModel {
         let (semesters, currentSemesterFromServer) = try await GraduateCourseStore.shared.getRefreshedSemesters()
@@ -134,6 +135,7 @@ public class CourseModel: ObservableObject {
     // MARK: - Model Update
     
     /// Work to be done after semester is changed
+    /// - Parameter onProgressUpdate: callback when the progress is updated. The parameter progress is a Float between 0.0 and 1.0.
     @MainActor public func updateSemester(onProgressUpdate: @escaping (Float) -> Void) async {
         courses = []
         do {
@@ -152,7 +154,9 @@ public class CourseModel: ObservableObject {
     
     
     /// Refresh courses in current semester and refresh semesters list
-    /// - Parameter context: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
+    /// - Parameters:
+    ///   - context: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
+    ///   - onProgressUpdate: callback when the progress is updated. The parameter progress is a Float between 0.0 and 1.0.
     @MainActor public func refresh(with context: [Int: Date], onProgressUpdate: @escaping (Float) -> Void) async {
         do {
             if studentType == .undergrad {
