@@ -12,6 +12,9 @@
 		27066032292F56AF00F4C321 /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066031292F56AF00F4C321 /* license.json */; };
 		27066038292FA34200F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066037292FA34200F4C321 /* contributor.json */; };
 		270CD1942BAD697600881ABA /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 270CD1932BAD697600881ABA /* ViewUtils */; };
+		273110112D01BDD700A347DA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 273110102D01BDD700A347DA /* Localizable.xcstrings */; };
+		273110132D01BE0600A347DA /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273110122D01BE0600A347DA /* WelcomePage.swift */; };
+		273110152D01C1D900A347DA /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273110142D01C1D900A347DA /* Connectivity.swift */; };
 		273B11E72BD3B37A001F7757 /* SettingsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273B11E62BD3B37A001F7757 /* SettingsNavigation.swift */; };
 		273D53332BD94AC200801B77 /* DanXiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 273D53322BD94AC200801B77 /* DanXiKit */; };
 		273D53352BD94AC200801B77 /* DanXiUI in Frameworks */ = {isa = PBXBuildFile; productRef = 273D53342BD94AC200801B77 /* DanXiUI */; };
@@ -26,13 +29,13 @@
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D60B2891D22D009F4DB1 /* SettingsPage.swift */; };
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
+		277A66FE2D01AEE500613A00 /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277A66FD2D01AEE500613A00 /* Connectivity.swift */; };
 		2785E2A82BC8645100D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A72BC8645100D50D31 /* FudanUI */; };
 		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
 		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
 		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
 		27C6AB592D00649E00136783 /* DanXi Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 274C197029D1BF9B000DE221 /* DanXi Watch.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27C6B4782C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
-		27C6B4792C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27C6B47A2C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27D226152CF7826400AF63B4 /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226142CF7826400AF63B4 /* ViewUtils */; };
 		27D226172CF782E900AF63B4 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226162CF782E900AF63B4 /* FudanUI */; };
@@ -57,13 +60,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		27C6AB572D00649800136783 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 274C196F29D1BF9B000DE221;
-			remoteInfo = "DanXi Watch";
-		};
-		27C6AB5A2D00649E00136783 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
 			proxyType = 1;
@@ -121,6 +117,9 @@
 		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
 		270CD1902BAD68C900881ABA /* View Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "View Utils"; sourceTree = "<group>"; };
 		271298362CF79D4D002D1481 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		273110102D01BDD700A347DA /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		273110122D01BE0600A347DA /* WelcomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
+		273110142D01C1D900A347DA /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		2737C7E62BCFF4F0001945C1 /* DanXi Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DanXi Kit"; sourceTree = "<group>"; };
 		2737C7E72BCFF56C001945C1 /* DanXiUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DanXiUI; sourceTree = "<group>"; };
 		273B11E62BD3B37A001F7757 /* SettingsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigation.swift; sourceTree = "<group>"; };
@@ -136,6 +135,7 @@
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D60B2891D22D009F4DB1 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		2778D6112891D22D009F4DB1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		277A66FD2D01AEE500613A00 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		2785E2A62BC8641E00D50D31 /* FudanUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FudanUI; sourceTree = "<group>"; };
 		27AF614C2BCD61DE00754718 /* TabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigation.swift; sourceTree = "<group>"; };
 		27C68CB12BB563A100037D52 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utils; sourceTree = "<group>"; };
@@ -205,8 +205,11 @@
 				271298362CF79D4D002D1481 /* Info.plist */,
 				274C197229D1BF9B000DE221 /* WatchApp.swift */,
 				274C197429D1BF9B000DE221 /* ContentView.swift */,
+				273110122D01BE0600A347DA /* WelcomePage.swift */,
+				277A66FD2D01AEE500613A00 /* Connectivity.swift */,
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
 				27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */,
+				273110102D01BDD700A347DA /* Localizable.xcstrings */,
 			);
 			path = watchOS;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			children = (
 				F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */,
 				27E1C52E29D0AD6F00B333BA /* AppDelegate.swift */,
+				273110142D01C1D900A347DA /* Connectivity.swift */,
 				8AAABD4326881E0500486D37 /* DanXi.entitlements */,
 				8AC7A5D926872C3F00C9CD98 /* Info.plist */,
 			);
@@ -383,7 +387,6 @@
 			dependencies = (
 				27C6AB582D00649800136783 /* PBXTargetDependency */,
 				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
-				27C6AB5B2D00649E00136783 /* PBXTargetDependency */,
 			);
 			name = DanXi;
 			packageProductDependencies = (
@@ -448,7 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				274C197729D1BF9C000DE221 /* Assets.xcassets in Resources */,
-				27C6B4792C2B3895006841C7 /* Localizable.xcstrings in Resources */,
+				273110112D01BDD700A347DA /* Localizable.xcstrings in Resources */,
 				27D226192CF78FE700AF63B4 /* InfoPlist.xcstrings in Resources */,
 				27E1178C2A782BC90006EE20 /* Assets.xcassets in Resources */,
 			);
@@ -483,6 +486,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273110132D01BE0600A347DA /* WelcomePage.swift in Sources */,
+				277A66FE2D01AEE500613A00 /* Connectivity.swift in Sources */,
 				274C197529D1BF9B000DE221 /* ContentView.swift in Sources */,
 				274C197329D1BF9B000DE221 /* WatchApp.swift in Sources */,
 			);
@@ -512,6 +517,7 @@
 				27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
 				F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */,
+				273110152D01C1D900A347DA /* Connectivity.swift in Sources */,
 				27E70CA12AF136B300820933 /* DebugPage.swift in Sources */,
 				2706602C292F513700F4C321 /* AboutPage.swift in Sources */,
 				27E1C52D29D09CF700B333BA /* AppModel.swift in Sources */,
@@ -527,11 +533,6 @@
 			platformFilter = ios;
 			target = 274C196F29D1BF9B000DE221 /* DanXi Watch */;
 			targetProxy = 27C6AB572D00649800136783 /* PBXContainerItemProxy */;
-		};
-		27C6AB5B2D00649E00136783 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 274C196F29D1BF9B000DE221 /* DanXi Watch */;
-			targetProxy = 27C6AB5A2D00649E00136783 /* PBXContainerItemProxy */;
 		};
 		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -564,7 +565,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -595,7 +596,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.watchapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -630,7 +631,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -664,7 +665,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -826,7 +827,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -865,7 +866,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
