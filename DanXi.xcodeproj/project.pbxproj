@@ -120,6 +120,7 @@
 		273110102D01BDD700A347DA /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		273110122D01BE0600A347DA /* WelcomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
 		273110142D01C1D900A347DA /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		273110162D01EAF900A347DA /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
 		2737C7E62BCFF4F0001945C1 /* DanXi Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DanXi Kit"; sourceTree = "<group>"; };
 		2737C7E72BCFF56C001945C1 /* DanXiUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DanXiUI; sourceTree = "<group>"; };
 		273B11E62BD3B37A001F7757 /* SettingsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigation.swift; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 				274C197429D1BF9B000DE221 /* ContentView.swift */,
 				273110122D01BE0600A347DA /* WelcomePage.swift */,
 				277A66FD2D01AEE500613A00 /* Connectivity.swift */,
+				273110162D01EAF900A347DA /* DanXi.entitlements */,
 				274C197629D1BF9C000DE221 /* Assets.xcassets */,
 				27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */,
 				273110102D01BDD700A347DA /* Localizable.xcstrings */,
@@ -552,6 +554,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = watchOS/DanXi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 500;
 				DEVELOPMENT_TEAM = KF7M99CN68;
@@ -583,6 +586,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = watchOS/DanXi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 500;
 				DEVELOPMENT_TEAM = KF7M99CN68;
