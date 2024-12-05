@@ -10,7 +10,7 @@ struct ContentView: View {
     
     @State private var showLoginSheet = false
     
-    private func syncCreditials() async throws {
+    private func syncCredentials() async throws {
         let state = try await requestCredentialTransfer()
         switch state {
         case .isLogged(let username, let password, let studentType):
@@ -26,10 +26,10 @@ struct ContentView: View {
             if campusModel.loggedIn {
                 CampusContent()
                     .task {
-                        try? await syncCreditials()
+                        try? await syncCredentials()
                     }
             } else {
-                WatchWelcomePage(showLoginSheet: $showLoginSheet, syncOperation: syncCreditials)
+                WatchWelcomePage(showLoginSheet: $showLoginSheet, syncOperation: syncCredentials)
             }
         }
         .environmentObject(navigator)
