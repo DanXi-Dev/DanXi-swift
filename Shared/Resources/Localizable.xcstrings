@@ -280,6 +280,16 @@
         }
       }
     },
+    "Debug Information" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "调试信息"
+          }
+        }
+      }
+    },
     "Details in Classroom Schedules" : {
       "localizations" : {
         "zh-Hans" : {

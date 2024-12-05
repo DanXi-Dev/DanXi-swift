@@ -47,6 +47,12 @@ struct SettingsPage: View {
                         Label("About", systemImage: "info.circle")
                             .navigationStyle()
                     }
+                    
+                    NavigationLink {
+                        EntryViewer()
+                    } label: {
+                        Label("Debug Information", systemImage: "ecg.text.page")
+                    }
                 }
             }
             .listStyle(.insetGrouped)
@@ -73,5 +79,26 @@ struct SettingsPage: View {
             FudanUI.LoginSheet()
         }
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
+    }
+}
+
+struct EntryViewer: View {
+    @ObservedObject private var entryRecorder = EntryRecorder.shared
+    
+    var body: some View {
+        List {
+            ForEach(entryRecorder.records) { record in
+                VStack(alignment: .leading) {
+                    Text(record.content)
+                    HStack {
+                        Text(verbatim: "\(record.file):\(record.line)")
+                        Spacer()
+                        Text(record.date.formatted(date: .omitted, time: .shortened))
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                }
+            }
+        }
     }
 }

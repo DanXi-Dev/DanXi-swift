@@ -41,7 +41,11 @@ func constructFormRequest(_ url: URL, method: String = "POST", form: [String: St
     
     var requestBodyComponents = URLComponents()
     requestBodyComponents.queryItems = queryItems
-    request.httpBody = requestBodyComponents.query?.data(using: .ascii)
+    let data = requestBodyComponents.query?.data(using: .ascii)
+    if let data, let string = String(data: data, encoding: String.Encoding.utf8) {
+        createRecord("Constrcuted UIS Request: \n\(string)")
+    }
+    request.httpBody = data
     
     return request
 }
