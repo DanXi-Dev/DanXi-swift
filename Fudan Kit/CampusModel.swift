@@ -1,8 +1,8 @@
 import SwiftUI
-#if !os(watchOS)
-import Disk
-#else
+#if os(watchOS)
 import Utils
+#else
+import Disk
 #endif
 
 @MainActor

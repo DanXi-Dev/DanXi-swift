@@ -5,13 +5,13 @@ public class CredentialStore {
     public static let shared = CredentialStore()
     
     private let keychain: Keychain
-    var username: String? {
+    public var username: String? {
         didSet { keychain["username"] = username }
     }
-    var password: String? {
+    public var password: String? {
         didSet { keychain["password"] = password }
     }
-    var studentType: StudentType {
+    public var studentType: StudentType {
         didSet { keychain["campus-student-type"] = String(studentType.rawValue) }
     }
     
@@ -46,6 +46,4 @@ public class CredentialStore {
         self.username = nil
         self.password = nil
     }
-    
-    
 }

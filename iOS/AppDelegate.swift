@@ -1,6 +1,7 @@
 import UIKit
 import UserNotifications
 import CoreTelephony
+import WatchConnectivity
 import Utils
 import DanXiUI
 import DanXiKit
@@ -38,6 +39,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             }
         }
         #endif
+        
+        let session = WCSession.default
+        session.delegate = CredentialSynchronizer.shared
+        session.activate()
         
         return true
     }
