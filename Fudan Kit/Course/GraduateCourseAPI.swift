@@ -1,5 +1,5 @@
 import Foundation
-import Utils
+import Combine
 
 public enum GraduateCourseAPI {
     
@@ -92,6 +92,11 @@ public enum GraduateCourseAPI {
         let countweek: Int
     }
     
+    /// A task-local publisher that allows subroutines to report loading progress to UI.
+    public enum LoadingProgress {
+        @TaskLocal public static var progressPublisher = PassthroughSubject<Float, Never>()
+    }
+    
     /// Get courses on a given semester
     public static func getCourses(semester: Semester) async throws -> [Course] {
         let dictionary = try await withThrowingTaskGroup(of: (Int, [CourseBuilder]).self,
@@ -113,7 +118,7 @@ public enum GraduateCourseAPI {
                 // Publish progress to the publisher of this task, obtained from the task-local variable CourseLoadingProgressPublisherKey.progressPublisher
                 // If there is no such publisher (nobody asked for progress), the publisher will simply default to a dummy publisher that nobody receives from.
                 let progress = Float(completedWeeks) / Float(semester.weekCount)
-                let publisher = LoadingProgressPublisherKey.progressPublisher // Since this publisher is task-local, we must get it before entering main thread
+                let publisher = LoadingProgress.progressPublisher // Since this publisher is task-local, we must get it before entering main thread
                 DispatchQueue.main.async {
                     publisher.send(progress) // Publishing UI changes must be done on main thread
                 }
