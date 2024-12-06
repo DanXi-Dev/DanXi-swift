@@ -48,7 +48,7 @@ public struct CampusHome: View {
                 Text("Logout", bundle: .module)
             }
         }
-        .alert(String(localized: "Do you really want to logout?", bundle: .module), isPresented: $showLogoutAlert, actions: {
+        .alert(String(localized: "Do you really want to logout?", bundle: .module), isPresented: $showLogoutAlert) {
             Button(role: .destructive) {
                 showLogoutAlert = false
                 campusModel.logout()
@@ -61,7 +61,7 @@ public struct CampusHome: View {
             } label: {
                 Text("Cancel", bundle: .module)
             }
-        })
+        }
         .navigationTitle(String(localized: "Campus Services", bundle: .module))
         #else
         ScrollViewReader { proxy in
