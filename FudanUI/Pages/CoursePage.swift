@@ -63,7 +63,7 @@ public struct CoursePage: View {
             case .undergrad:
                 return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
             case .grad:
-                return try await LoadingProgressPublisherKey.$progressPublisher.withValue(loadingProgressPublisher) { // This sets the task-local publisher for this refresh task. It will be received by this instance of CoursePage to update the UI progress.
+                return try await GraduateCourseAPI.LoadingProgress.$progressPublisher.withValue(loadingProgressPublisher) { // This sets the task-local publisher for this refresh task. It will be received by this instance of CoursePage to update the UI progress.
                     return try await CourseModel.freshLoadForGraduate()
                 }
             case .staff:
