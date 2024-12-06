@@ -77,7 +77,6 @@ extension Schedule {
             return Schedule(id: self.id, time: currentScheduleTime, start: self.start, end: self.end, holiday: self.holiday, bidirectional: self.bidirectional)
         }
         
-        print("Error: Failed to set base date for schedule.")
         return self
     }
 }

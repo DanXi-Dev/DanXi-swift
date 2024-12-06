@@ -1,5 +1,6 @@
 import Foundation
 import SwiftSoup
+import Utils
 
 func existHTMLElement(_ data: Data, selector: String) -> Bool {
     guard let text = String(data: data, encoding: String.Encoding.utf8),
@@ -13,7 +14,7 @@ func existHTMLElement(_ data: Data, selector: String) -> Bool {
 
 func decodeHTMLDocument(_ data: Data) throws -> Document {
     guard let text = String(data: data, encoding: String.Encoding.utf8) else {
-        throw URLError(.cannotDecodeContentData)
+        throw LocatableError()
     }
     
     return try SwiftSoup.parse(text)
@@ -21,12 +22,12 @@ func decodeHTMLDocument(_ data: Data) throws -> Document {
 
 func decodeHTMLElement(_ data: Data, selector: String) throws -> Element {
     guard let text = String(data: data, encoding: String.Encoding.utf8) else {
-        throw URLError(.cannotDecodeContentData)
+        throw LocatableError()
     }
     
     let doc = try SwiftSoup.parse(text)
     guard let element = try doc.select(selector).first() else {
-        throw URLError(.badServerResponse)
+        throw LocatableError()
     }
     
     return element
@@ -34,7 +35,7 @@ func decodeHTMLElement(_ data: Data, selector: String) throws -> Element {
 
 func decodeHTMLElementList(_ data: Data, selector: String) throws -> Elements {
     guard let text = String(data: data, encoding: String.Encoding.utf8) else {
-        throw URLError(.cannotDecodeContentData)
+        throw LocatableError()
     }
     
     let document = try SwiftSoup.parse(text)

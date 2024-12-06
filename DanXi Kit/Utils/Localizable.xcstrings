@@ -1,18 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Error %lld: %@" : {
+    "Error %@: %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error %1$lld: %2$@"
+            "value" : "Error %1$@: %2$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "错误 %1$lld：%2$@"
+            "value" : "错误%1$@：%2$@"
           }
         }
       }

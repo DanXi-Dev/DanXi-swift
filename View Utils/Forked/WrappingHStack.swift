@@ -163,7 +163,6 @@ extension WrappingHStack {
                 currentRow.width = proposal.width ?? .infinity
                 let remain = currentRow.width - currentX - spacing
                 size.width = max(strech, remain)
-                // print("Streched width: \(size.width)")
                 currentRow.elements.append((index, size, currentX + spacing))
 
                 rows.append(currentRow)

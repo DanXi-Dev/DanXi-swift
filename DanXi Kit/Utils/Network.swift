@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "https://auth.fduhole.com/api")
 public var forumURL = constructBaseURL(key: "fduhole_base_url", defaultURL: "https://forum.fduhole.com/api")
@@ -36,7 +37,7 @@ func requestWithData(_ path: String, base: URL, protected: Bool = true, params: 
     }
     
     guard let httpResponse = response as? HTTPURLResponse else {
-        throw URLError(.badServerResponse)
+        throw LocatableError()
     }
     
     if httpResponse.statusCode >= 300 {
@@ -94,7 +95,7 @@ extension HTTPError: LocalizedError {
             return message
         }
         let localizedCodeDescription = HTTPURLResponse.localizedString(forStatusCode: code)
-        return String(localized: "Error \(code): \(localizedCodeDescription)", bundle: .module)
+        return String(localized: "Error \(String(code)): \(localizedCodeDescription)", bundle: .module)
     }
 }
 

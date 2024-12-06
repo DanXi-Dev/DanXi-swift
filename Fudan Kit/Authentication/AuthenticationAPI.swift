@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 /// APIs that handle the authentication process with UIS system
 ///
@@ -114,7 +115,7 @@ public enum AuthenticationAPI {
         guard let httpResponse = newResponse as? HTTPURLResponse,
               let header = httpResponse.value(forHTTPHeaderField: "Location"),
               let url = URL(string: header) else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         return url
     }

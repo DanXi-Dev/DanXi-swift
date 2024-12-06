@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Utils
 
 public enum GeneralAPI {
     
@@ -62,19 +63,19 @@ public enum GeneralAPI {
         let data = try await requestWithData("/register/questions/_answer", base: authURL, payload: payload)
         let json = try JSON(data: data)
         guard let correct = json["correct"].bool else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         if correct {
             guard let access = json["access"].string,
                   let refresh = json["refresh"].string else {
-                throw URLError(.badServerResponse)
+                throw LocatableError()
             }
             let token = Token(access: access, refresh: refresh)
             return .success(token)
         } else {
             guard let wrongQuestionsData = try? json["wrong_question_ids"].rawData(),
                   let wrongQustions = try? JSONDecoder().decode([Int].self, from: wrongQuestionsData) else {
-                throw URLError(.badServerResponse)
+                throw LocatableError()
             }
             return .fail(wrongQustions)
         }
@@ -120,7 +121,7 @@ public enum GeneralAPI {
         guard let responseObject = try? JSON(data: responseData),
               let urlString = responseObject["image", "url"].string,
               let url = URL(string: urlString) else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         return url
     }
@@ -132,7 +133,7 @@ public enum GeneralAPI {
         let json = try JSON(data: data)
         
         guard let message = json["pgp_message"].string else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         return message

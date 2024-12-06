@@ -51,6 +51,16 @@
         }
       }
     },
+    "Semester list is empty" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "学期列表为空"
+          }
+        }
+      }
+    },
     "Service unavailable, connect to campus WiFi or VPN to access" : {
       "localizations" : {
         "zh-Hans" : {

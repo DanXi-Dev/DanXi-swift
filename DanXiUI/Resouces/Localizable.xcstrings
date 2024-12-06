@@ -966,6 +966,16 @@
         }
       }
     },
+    "Division list is empty" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分区列表为空"
+          }
+        }
+      }
+    },
     "Division Name" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1608,6 +1618,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "注册日期"
+          }
+        }
+      }
+    },
+    "JSON format incorrect" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JSON格式错误"
           }
         }
       }
@@ -2760,6 +2780,16 @@
         }
       }
     },
+    "Sticker parse failed." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "表情包解析失败"
+          }
+        }
+      }
+    },
     "sticker_tag" : {
       "comment" : "Sticker tag",
       "localizations" : {
@@ -3106,6 +3136,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用户ID"
+          }
+        }
+      }
+    },
+    "User ID is not a number." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户ID不是数字"
           }
         }
       }

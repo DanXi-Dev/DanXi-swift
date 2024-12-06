@@ -1,6 +1,7 @@
 import FudanKit
 import SwiftUI
 import ViewUtils
+import Utils
 
 struct ScorePage: View {
     struct SemesterInfo {
@@ -12,7 +13,8 @@ struct ScorePage: View {
         AsyncContentView {
             let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
             if semesters.isEmpty {
-                throw URLError(.badServerResponse)
+                let description = String(localized: "Semester list is empty.", bundle: .module)
+                throw LocatableError(description)
             }
             let info = SemesterInfo(semesters: semesters, currentSemester: currentSemester)
             return info

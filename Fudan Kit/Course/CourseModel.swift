@@ -2,9 +2,8 @@ import SwiftUI
 #if !os(watchOS)
 import EventKit
 import Disk
-#else
-import Utils
 #endif
+import Utils
 
 public class CourseModel: ObservableObject {
     
@@ -14,7 +13,10 @@ public class CourseModel: ObservableObject {
     /// - Returns: A new model loaded from network
     public static func freshLoadForGraduate() async throws -> CourseModel {
         let (semesters, currentSemesterFromServer) = try await GraduateCourseStore.shared.getRefreshedSemesters()
-        guard !semesters.isEmpty else { throw URLError(.badServerResponse) }
+        guard !semesters.isEmpty else {
+            let description = String(localized: "Semester list is empty", bundle: .module)
+            throw LocatableError(description)
+        }
         let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
         let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
@@ -28,7 +30,10 @@ public class CourseModel: ObservableObject {
     /// - Returns: A new model loaded from network
     public static func freshLoadForUndergraduate(startDateContext: [Int: Date]) async throws -> CourseModel {
         var (semesters, currentSemesterFromServer) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
-        guard !semesters.isEmpty else { throw URLError(.badServerResponse) }
+        guard !semesters.isEmpty else {
+            let description = String(localized: "Semester list is empty", bundle: .module)
+            throw LocatableError(description)
+        }
         var currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
         
         // match semester start date
@@ -158,7 +163,8 @@ public class CourseModel: ObservableObject {
                 courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
                 let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
                 guard semesters.isEmpty else {
-                    throw URLError(.badServerResponse)
+                    let description = String(localized: "Semester list is empty", bundle: .module)
+                    throw LocatableError(description)
                 }
                 self.semesters = matchUndergraduateSemesterStartDateByContext(semesters: semesters, context: context)
                 if self.semesters.contains(semester) {
@@ -168,7 +174,8 @@ public class CourseModel: ObservableObject {
                 courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester)
                 let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
                 guard semesters.isEmpty else {
-                    throw URLError(.badServerResponse)
+                    let description = String(localized: "Semester list is empty", bundle: .module)
+                    throw LocatableError(description)
                 }
                 self.semesters = semesters
                 if self.semesters.contains(semester) {

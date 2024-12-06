@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Utils
 
 public enum CurriculumAPI {
     
@@ -17,7 +18,7 @@ public enum CurriculumAPI {
         let data = try await requestWithData("/courses/hash", base: curriculumURL)
         let json = try JSON(data: data)
         guard let hash = json["hash"].string else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         return hash
     }

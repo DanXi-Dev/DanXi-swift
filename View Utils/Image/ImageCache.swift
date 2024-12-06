@@ -3,6 +3,7 @@ import Foundation
 import SwiftUI
 import Disk
 import CryptoKit
+import Utils
 
 struct LoadedImage {
     let image: Image
@@ -24,7 +25,7 @@ func loadImage(_ url: URL, proxiedURL: URL? = nil) async throws -> LoadedImage {
     } else { 
         try await URLSession.shared.data(from: url)
     }
-    guard let uiImage = UIImage(data: data) else { throw URLError(.badServerResponse) }
+    guard let uiImage = UIImage(data: data) else { throw LocatableError() }
     let image = Image(uiImage: uiImage)
     let key = makeImageKey(url)
     let filename = "cachedimages/\(key).jpg"

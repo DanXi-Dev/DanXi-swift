@@ -67,7 +67,8 @@ public struct CoursePage: View {
                     return try await CourseModel.freshLoadForGraduate()
                 }
             case .staff:
-                throw URLError(.unknown) // calendar for staff is not supported
+                let description = String(localized: "Calendar for staff is not supported.", bundle: .module)
+                throw LocatableError(description)
             }
         } content: { model in
             CalendarContent(model: model)
