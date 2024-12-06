@@ -1,6 +1,7 @@
 import SwiftUI
 import ViewUtils
 import DanXiKit
+import Utils
 
 struct MessageSheet: View {
     @State private var message = ""
@@ -10,7 +11,8 @@ struct MessageSheet: View {
         Sheet(String(localized: "Send Message", bundle: .module)) {
             guard let recipientsJSON = "[\(recipients)]".data(using: String.Encoding.utf8),
                   let parsedRecipients = try? JSONDecoder().decode([Int].self, from: recipientsJSON)else {
-                throw URLError(.badURL)
+                let description = String(localized: "JSON format incorrect", bundle: .module)
+                throw LocatableError(description)
             }
             try await ForumAPI.sendMessage(content: message, recipients: parsedRecipients)
         } content: {

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Utils
 
 /// API collection for academic and courses service.
 /// These API are only available to undergraduate students.
@@ -51,7 +52,7 @@ public enum UndergraduateCourseAPI {
         
         // the data sent from server is not real JSON, need to add quotes
         guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         jsonString.replace(/(?<key>\w+):/) { match in
             return "\"\(match.key)\":"
@@ -117,13 +118,13 @@ public enum UndergraduateCourseAPI {
         
         let idsPattern = /bg\.form\.addInput\(form,\s*"ids",\s*"(?<ids>\d+)"\);/
         guard let ids = html.firstMatch(of: idsPattern)?.ids else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         let semesterIdPattern = /empty:\s*"false",\s*onChange:\s*"",\s*value:\s*"(?<semester>\d+)"/
         guard let semesterIdString = html.firstMatch(of: semesterIdPattern)?.semester,
               let semesterId = Int(semesterIdString) else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         return (semesterId, String(ids))

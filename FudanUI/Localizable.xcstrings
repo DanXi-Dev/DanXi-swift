@@ -177,6 +177,16 @@
         }
       }
     },
+    "Calendar for staff is not supported." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支持教职工查看课程表"
+          }
+        }
+      }
+    },
     "Campus" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1313,6 +1323,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "学期"
+          }
+        }
+      }
+    },
+    "Semester list is empty." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "学期列表为空"
           }
         }
       }

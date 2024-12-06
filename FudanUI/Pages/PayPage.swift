@@ -5,6 +5,7 @@ import EFQRCode
 import UIKit
 #endif
 import FudanKit
+import Utils
 
 struct PayPage: View {
     @Environment(\.openURL) var openURL
@@ -27,17 +28,17 @@ struct PayPage: View {
                     let uiImage = UIImage(cgImage: image)
                     imageData = uiImage.pngData()
                 } else {
-                    throw URLError(.badServerResponse)
+                    throw LocatableError()
                 }
                 #else
                 // generate QR code data
                 guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
-                    throw URLError(.badServerResponse)
+                    throw LocatableError()
                 }
                 let data = qrcodeStr.data(using: .ascii, allowLossyConversion: false)
                 filter.setValue(data, forKey: "inputMessage")
                 guard let ciimage = filter.outputImage else {
-                    throw URLError(.badServerResponse)
+                    throw LocatableError()
                 }
                 let transform = CGAffineTransform(scaleX: 10, y: 10)
                 let scaledCIImage = ciimage.transformed(by: transform)

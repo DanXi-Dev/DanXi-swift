@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 import Combine
 
 public enum GraduateCourseAPI {
@@ -238,7 +239,7 @@ public enum GraduateCourseAPI {
             // get all \.lessons array. If parse to int fails, throw error.
             let lessons = try matchedResponses.map { item in
                 guard let lesson = Int(item.lessons) else {
-                    throw URLError(.badServerResponse)
+                    throw LocatableError()
                 }
                 return lesson - 1
             }

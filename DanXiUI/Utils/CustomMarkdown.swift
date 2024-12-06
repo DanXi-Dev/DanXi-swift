@@ -3,6 +3,7 @@ import LaTeXSwiftUI
 import MarkdownUI
 import SwiftUI
 import ViewUtils
+import Utils
 
 public struct CustomMarkdown: View {
     private let content: MarkdownContent
@@ -43,7 +44,8 @@ struct ImageProviderWithSticker: InlineImageProvider {
     func image(with url: URL, label: String) async throws -> Image {
         guard let sticker = Sticker(rawValue: url.absoluteString) else {
             // This is not a sticker
-            throw URLError(.badURL)
+            let description = String(localized: "Sticker parse failed.", bundle: .module)
+            throw LocatableError(description)
         }
         return sticker.image
     }

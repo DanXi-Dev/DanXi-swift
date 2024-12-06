@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Utils
 
 /// Unwrap JSON data retrieved from campus server
 /// - Returns: `JSON` object
@@ -16,7 +17,7 @@ import SwiftyJSON
 func unwrapJSON(_ data: Data) throws -> JSON {
     guard let json = try? JSON(data: data),
           let code = json["e"].int else {
-        throw URLError(.badServerResponse)
+        throw LocatableError()
     }
     
     if code != 0 {

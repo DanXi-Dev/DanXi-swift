@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Utils
 
 /// API collection from `my.fudan.edu.cn`.
 /// This API collection has some duplicated functions, but it is 
@@ -74,12 +75,12 @@ public enum MyAPI {
         
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
               let userDataList = (dictionary["data"] as? [[String]]), !userDataList.isEmpty else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         let userData = userDataList[0]
         guard userData.count >= 6 else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         return UserInfo(userId: userData[0], userName: userData[1], cardStatus: userData[2], entryPermission: userData[3], expirationDate: userData[4], balance: userData[5])

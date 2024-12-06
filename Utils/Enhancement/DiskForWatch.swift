@@ -20,7 +20,7 @@ public enum Directory {
 public class Disk {
     public static func save<T: Encodable>(_ value: T, to directory: Directory, as path: String, encoder: JSONEncoder = JSONEncoder()) throws {
         if path.hasSuffix("/") {
-            throw NSError()
+            throw LocatableError()
         }
         do {
             let url = try createURL(for: path, in: directory)
@@ -34,7 +34,7 @@ public class Disk {
     
     public static func save(data: Data, to directory: Directory, as path: String) throws {
         if path.hasSuffix("/") {
-            throw NSError()
+            throw LocatableError()
         }
         do {
             let url = try createURL(for: path, in: directory)
@@ -46,7 +46,7 @@ public class Disk {
     
     public static func retrieve<T: Decodable>(_ path: String, from directory: Directory, as type: T.Type, decoder: JSONDecoder = JSONDecoder()) throws -> T {
         if path.hasSuffix("/") {
-            throw NSError()
+            throw LocatableError()
         }
         do {
             let url = try getExistingFileURL(for: path, in: directory)
@@ -115,7 +115,7 @@ extension Disk {
             return url
         }
         
-        throw NSError()
+        throw LocatableError()
     }
     
     static func getExistingFileURL(for path: String?, in directory: Directory) throws -> URL {
@@ -124,7 +124,7 @@ extension Disk {
             if FileManager.default.fileExists(atPath: url.path) {
                 return url
             }
-            throw NSError()
+            throw LocatableError()
         } catch {
             throw error
         }

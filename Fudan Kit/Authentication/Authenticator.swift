@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 import Queue
 
 
@@ -43,7 +44,7 @@ public actor Authenticator {
     
     
     public func authenticateWithResponse(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> (Data, URLResponse) {
-        guard let host = request.url?.host(), let method = request.httpMethod else { throw URLError(.badURL) }
+        guard let host = request.url?.host(), let method = request.httpMethod else { throw LocatableError() }
         
         // GET request is redirected to UIS. If the request is not GET, we should manually login once.
         if !isLoggedIn(host: host) && (method != "GET" || manualLoginURL != nil) {
@@ -56,7 +57,7 @@ public actor Authenticator {
                     var components = URLComponents()
                     components.scheme = request.url?.scheme
                     components.host = request.url?.host()
-                    guard let baseURL = components.url else { throw URLError(.badURL) }
+                    guard let baseURL = components.url else { throw LocatableError() }
                     _ = try await AuthenticationAPI.authenticateForData(baseURL)
                 }
                 self.hostLastLoggedInDate[host] = Date()

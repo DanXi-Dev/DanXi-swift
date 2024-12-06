@@ -1,5 +1,6 @@
 import Foundation
 import SwiftSoup
+import Utils
 
 /// API collection for student sports
 ///
@@ -59,7 +60,7 @@ public enum SportAPI {
         for row in element.children() {
             // prevent out-of-bound error
             guard row.childNodeSize() > 4 else {
-                throw URLError(.badServerResponse)
+                throw LocatableError()
             }
             
             do {
@@ -69,7 +70,7 @@ public enum SportAPI {
                 let status = try row.child(4).html()
                 
                 // filter "--" from time string
-                let pattern =  #/
+                let pattern = #/
                 (?<time> \d+:\d+)
                 *
                 /#
@@ -97,11 +98,11 @@ public enum SportAPI {
         
         guard let totalText = try document.select("#pitem > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(11) > td:nth-child(3) > red").first(),
               let total = Double(try totalText.html()) else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         guard let evaluation = try document.select("#pitem > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(11) > td:nth-child(5) > red").first()?.html() else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         let items = try getExamItems(document: document)

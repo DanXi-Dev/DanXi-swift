@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtils
+import Utils
 import DanXiKit
 
 struct ForumHomePage: View {
@@ -45,7 +46,8 @@ struct ForumHomePage: View {
         AsyncContentView {
             try await loadAll()
             guard let division = DivisionStore.shared.divisions.first else {
-                throw URLError(.badServerResponse)
+                let description = String(localized: "Division list is empty", bundle: .module)
+                throw LocatableError(description)
             }
             let model = BrowseModel(division: division)
             return model

@@ -2,6 +2,7 @@ import SwiftUI
 import WatchConnectivity
 import FudanKit
 import Combine
+import Utils
 
 enum CompanionState {
     case isLogged(username: String, password: String, studentType: StudentType)
@@ -11,7 +12,7 @@ enum CompanionState {
 func requestCredentialTransfer() async throws -> CompanionState {
     let session = WCSession.default
     guard session.isReachable else {
-        throw NSError()
+        throw LocatableError()
     }
     
     let state: CompanionState = try await withCheckedThrowingContinuation { continuation in

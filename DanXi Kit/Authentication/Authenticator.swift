@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 actor Authenticator {
     static let shared = Authenticator()
@@ -16,7 +17,7 @@ actor Authenticator {
         // send request to server
         let (data, response) = try await Proxy.shared.data(for: authenticatedRequest)
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw URLError(.badServerResponse)
+            throw LocatableError()
         }
         
         // request success, return response

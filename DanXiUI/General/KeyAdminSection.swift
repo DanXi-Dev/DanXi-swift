@@ -1,6 +1,7 @@
 import SwiftUI
 import ViewUtils
 import DanXiKit
+import Utils
 
 struct KeyAdminSection: View {
     @State private var userId: String = ""
@@ -81,7 +82,8 @@ struct KeyAdminSection: View {
     private var uploadPlaintextSheet: some View {
         Sheet(String(localized: "Upload Plaintext", bundle: .module)) {
             guard let userId = Int(userId), let plaintext else {
-                throw URLError(.badServerResponse)
+                let description = String(localized: "User ID is not a number.", bundle: .module)
+                throw LocatableError(description)
             }
             
             try await GeneralAPI.uploadDecryptedShamirShare(userId: userId, share: plaintext, identityName: identity)
