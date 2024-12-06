@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "Utils",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v16), .watchOS(.v9)
     ],
