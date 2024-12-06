@@ -8,6 +8,9 @@ public struct CampusHome: View {
     @ObservedObject private var campusModel = CampusModel.shared
     @StateObject private var model = CampusHomeModel()
     @State private var showSheet = false
+    #if os(watchOS)
+    @State private var showLogoutAlert = false
+    #endif
     
     private func shouldDisplay(section: CampusSection) -> Bool {
         switch campusModel.studentType {
@@ -38,7 +41,27 @@ public struct CampusHome: View {
                     }
                 }
             }
+            
+            Button(role: .destructive) {
+                showLogoutAlert = true
+            } label: {
+                Text("Logout", bundle: .module)
+            }
         }
+        .alert(String(localized: "Do you really want to logout?", bundle: .module), isPresented: $showLogoutAlert, actions: {
+            Button(role: .destructive) {
+                showLogoutAlert = false
+                campusModel.logout()
+            } label: {
+                Text("Logout", bundle: .module)
+            }
+            
+            Button(role: .cancel) {
+                showLogoutAlert = false
+            } label: {
+                Text("Cancel", bundle: .module)
+            }
+        })
         .navigationTitle(String(localized: "Campus Services", bundle: .module))
         #else
         ScrollViewReader { proxy in

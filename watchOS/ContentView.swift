@@ -25,9 +25,6 @@ struct ContentView: View {
         NavigationStack {
             if campusModel.loggedIn {
                 CampusContent()
-                    .task {
-                        try? await syncCredentials()
-                    }
             } else {
                 WatchWelcomePage(showLoginSheet: $showLoginSheet, syncOperation: syncCredentials)
             }

@@ -25,7 +25,7 @@ struct WatchWelcomePage: View {
             }
             .padding(.bottom, 10)
             
-            AsyncButton {
+            AsyncButton(actionOptions: [.showProgressView, .disableButton]) {
                 try await syncOperation()
             } label: {
                 Text("Sync From iPhone")
