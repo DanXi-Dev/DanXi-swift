@@ -3270,6 +3270,16 @@
         }
       }
     },
+    "Viewing #%@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在浏览 #%@"
+          }
+        }
+      }
+    },
     "Violation notice" : {
       "localizations" : {
         "zh-Hans" : {
