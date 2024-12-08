@@ -38,7 +38,7 @@ struct ContentView: View {
                 .environmentObject(model)
         }
         .onContinueUserActivity("io.github.danxi-dev.dan-xi.viewing-hole") { userActivity in
-            if let holeId = userActivity.userInfo?["holeId"] as? Int {
+            if let holeId = userActivity.userInfo?["hole-id"] as? Int {
                 model.handleNavigation(navigation: .forumHole(holeId: holeId))
             }
         }
