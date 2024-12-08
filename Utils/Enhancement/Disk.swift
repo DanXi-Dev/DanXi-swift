@@ -1,12 +1,13 @@
-/*
- ABSTRACT:
- 
- `Disk` do not support watchOS. This file is to
- port `Disk` APIs to watchOS platform.
- */
+#if canImport(Disk)
 
+import Disk
 
-#if os(watchOS)
+public extension Disk.Directory {
+    static let appGroup = Disk.Directory.sharedContainer(appGroupName: "group.com.fduhole.danxi")
+}
+
+#else
+
 import Foundation
 
 // MARK: API
@@ -94,17 +95,17 @@ extension Disk {
         let filePrefix = "file://"
         let validPath: String? = nil
 
-        var searchPathDirectory: FileManager.SearchPathDirectory
+        var baseURL: URL?
         switch directory {
         case .caches:
-            searchPathDirectory = .cachesDirectory
+            baseURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
         case .applicationSupport:
-            searchPathDirectory = .applicationSupportDirectory
+            baseURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
         case .appGroup:
-            searchPathDirectory = .applicationSupportDirectory
+            baseURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.fduhole.danxi")
         }
         
-        if var url = FileManager.default.urls(for: searchPathDirectory, in: .userDomainMask).first {
+        if var url = baseURL {
             if let validPath = validPath {
                 url = url.appendingPathComponent(validPath, isDirectory: false)
             }
@@ -130,4 +131,5 @@ extension Disk {
         }
     }
 }
+
 #endif
