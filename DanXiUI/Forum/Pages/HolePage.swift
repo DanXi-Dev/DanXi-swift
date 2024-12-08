@@ -114,7 +114,7 @@ struct HolePage: View {
                 HistoryStore.shared.saveHistory(hole: hole)
                 try? await ForumAPI.updateHoleViews(id: hole.id)
             }
-            .userActivity("io.github.danxi-dev.dan-xi.viewing-hole", element: model.hole.id) { holeId, userActivity in
+            .userActivity("com.fduhole.forum.viewing-hole", element: model.hole.id) { holeId, userActivity in
                 userActivity.title = String(localized: "Viewing #\(String(holeId))", bundle: .module)
                 userActivity.isEligibleForHandoff = true
                 userActivity.userInfo = ["hole-id": holeId]

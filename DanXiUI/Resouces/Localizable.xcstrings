@@ -3275,7 +3275,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "正在浏览 #%@"
+            "value" : "浏览 #%@"
           }
         }
       }

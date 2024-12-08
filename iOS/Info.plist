@@ -52,7 +52,7 @@
 	<string>Danta needs to write to your photo library to save your images.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>io.github.danxi-dev.dan-xi.viewing-hole</string>
+		<string>com.fduhole.forum.viewing-hole</string>
 		<string>BusScheduleIntent</string>
 		<string>BusSecheduleIntentIntent</string>
 		<string>IntentIntent</string>
