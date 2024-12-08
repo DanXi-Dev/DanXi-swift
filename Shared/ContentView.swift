@@ -37,5 +37,10 @@ struct ContentView: View {
             IntroSheet()
                 .environmentObject(model)
         }
+        .onContinueUserActivity("com.fduhole.forum.viewing-hole") { userActivity in
+            if let holeId = userActivity.userInfo?["hole-id"] as? Int {
+                model.handleNavigation(navigation: .forumHole(holeId: holeId))
+            }
+        }
     }
 }
