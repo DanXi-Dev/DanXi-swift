@@ -116,11 +116,8 @@ struct HolePage: View {
             }
             .userActivity("io.github.danxi-dev.dan-xi.viewing-hole", element: model.hole.id) { holeId, userActivity in
                 userActivity.title = String(localized: "Viewing #\(String(holeId))", bundle: .module)
-                userActivity.isEligibleForPrediction = true
-                userActivity.isEligibleForSearch = true
                 userActivity.isEligibleForHandoff = true
-                userActivity.userInfo = ["holeId": holeId]
-//                userActivity.webpageURL = URL(string: "https://fduhole.com/hole/\(holeId)")
+                userActivity.userInfo = ["hole-id": holeId]
             }
         }
     }
