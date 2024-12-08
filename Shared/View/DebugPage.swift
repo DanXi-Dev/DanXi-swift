@@ -4,7 +4,6 @@ import DanXiUI
 import ViewUtils
 
 struct DebugPage: View {
-    @EnvironmentObject private var model: AppModel
     @State private var showURLSheet = false
     @State private var showQuestionSheet = false
     @ObservedObject private var settings = ForumSettings.shared
@@ -35,7 +34,7 @@ struct DebugPage: View {
             
             Section {
                 Button("Reset Intro") {
-                    model.showIntro.toggle()
+                    UserDefaults.standard.set(false, forKey: "intro-done")
                 }
             }
             
