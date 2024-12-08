@@ -14,24 +14,15 @@ struct DanXiApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if #unavailable(iOS 17.0) {
-                ContentView()
-                    .task(priority: .background) {
-                        ConfigurationCenter.initialFetch()
+            ContentView()
+                .task(priority: .background) {
+                    ConfigurationCenter.initialFetch()
+                }
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .background {
+                        Proxy.shared.outsideCampus = false
                     }
-            } else {
-                ContentView()
-                    .task(priority: .background) {
-                        ConfigurationCenter.initialFetch()
-                    }
-                    .onChange(of: scenePhase) { oldPhase, newPhase in
-                        if oldPhase == .background {
-                            // Application is resuming from background
-                            // The two other states, active and inactive, should both be treated as running in foreground
-                            Proxy.shared.outsideCampus = false
-                        }
-                    }
-            }
+                }
         }
     }
 }
