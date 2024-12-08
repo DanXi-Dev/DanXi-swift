@@ -34,21 +34,26 @@ struct IntroSheet: View {
                     NewFeature(title: "Details in Classroom Schedules", subtitle: "View and search for schedule details in each classroom.", icon: "calendar.day.timeline.leading")
                 }
                 .padding(.horizontal, 32)
+                
                 Spacer()
                 Spacer()
                 Spacer()
                 Spacer()
+                
                 Text("Use of this app is subject to our [Terms and Conditions](https://danxi.fduhole.com/doc/app-terms-and-condition) and [Privacy Policy](https://danxi.fduhole.com/doc/app-privacy)")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .font(.footnote)
                     .padding(.horizontal, 32)
-                NavigationLink(destination: IntroNotificationSheet(), label: {
+                
+                NavigationLink {
+                    IntroNotificationSheet()
+                } label: {
                     Text("Continue")
                         .font(.title3)
                         .frame(maxWidth: 320)
                         .padding(8)
-                })
+                }
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
                 .padding(.top, 8)
@@ -102,27 +107,31 @@ struct IntroLoginSheet: View {
         Form {
             FormTitle(title: String(localized: "Login"), description: String(localized: "danxi-app-account-system-description"))
             
-            Section(content: {
-                NavigationLink(destination: LoginSheet(style: .subpage), label: {
+            Section  {
+                NavigationLink {
+                    LoginSheet(style: .subpage)
+                } label: {
                     LabeledContent("Fudan Campus Account") {
                         if campusModel.loggedIn {
                             Image(systemName: "checkmark.circle")
                         }
                     }
-                })
+                }
                 .disabled(campusModel.loggedIn)
-            }, footer: {
+            } footer: {
                 Text("danxi-app-account-system-footer-uis")
-            })
+            }
             
             Section {
-                NavigationLink(destination: AuthenticationSheet(style: .subpage), label: {
+                NavigationLink {
+                    AuthenticationSheet(style: .subpage)
+                } label: {
                     LabeledContent("FDU Hole Account") {
                         if communityModel.loggedIn {
                             Image(systemName: "checkmark.circle")
                         }
                     }
-                })
+                }
                 .disabled(communityModel.loggedIn)
             } footer: {
                 Text("danxi-app-account-system-footer-danxi")
@@ -137,7 +146,7 @@ struct IntroLoginSheet: View {
                     } else if campusModel.loggedIn {
                         model.screen = .campus
                     }
-                    model.showIntro = false
+                    dismiss()
                 } label: {
                     Text("Skip")
                 }
@@ -147,7 +156,7 @@ struct IntroLoginSheet: View {
         .onAppear() {
             if allAccountLogined {
                 model.screen = .campus
-                model.showIntro = false
+                dismiss()
             }
         }
         .interactiveDismissDisabled()
@@ -177,6 +186,7 @@ struct IntroNotificationSheet: View {
             Text("DanXi provides timely notifications to keep you updated. You will be prompted for permission to enable this feature in the upcoming step. You can adjust this setting at any time within the system settings.")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+            
             Spacer()
             Spacer()
             Spacer()
@@ -184,27 +194,30 @@ struct IntroNotificationSheet: View {
             Spacer()
             Spacer()
             Spacer()
-            Button(action: {
+            
+            Button {
                 #if targetEnvironment(macCatalyst)
                 nextPage = true
                 #endif
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound, .providesAppNotificationSettings]) { granted, error in
-                    // Next page
                     nextPage = true
                 }
-            }, label: {
+            } label: {
                 Text("Continue")
                     .font(.title3)
                     .frame(maxWidth: 320)
                     .padding(8)
-            })
+            }
             .buttonStyle(.borderedProminent)
             .padding(.horizontal)
             .padding(.top, 8)
+            
             Spacer()
         }
         .interactiveDismissDisabled()
-        .navigationDestination(isPresented: $nextPage, destination: { IntroLoginSheet() })
+        .navigationDestination(isPresented: $nextPage) {
+            IntroLoginSheet()
+        }
     }
 }
 

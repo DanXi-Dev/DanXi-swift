@@ -10,6 +10,8 @@ struct ContentView: View {
     @StateObject private var model = AppModel()
     @StateObject private var navigator = AppNavigator()
     
+    @AppStorage("intro-done") var showIntro = true // Shown once
+    
     var body: some View {
         WideScreenReader {
             SplitNavigation(screen: $model.screen)
@@ -33,7 +35,7 @@ struct ContentView: View {
         .onOpenURL { url in
             model.handleOpenURL(url: url)
         }
-        .sheet(isPresented: $model.showIntro) {
+        .sheet(isPresented: $showIntro) {
             IntroSheet()
                 .environmentObject(model)
         }
