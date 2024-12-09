@@ -8,11 +8,24 @@ import Utils
 @MainActor
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @StateObject private var model = AppModel()
+    @StateObject private var model: AppModel
     @StateObject private var navigator = AppNavigator()
     @StateObject private var tabViewModel = TabViewModel() // an empty object, for environment object to exist
     
+    @StateObject private var campusNavigator: CampusNavigator
+    @StateObject private var forumNavigator: ForumNavigator
+    
     @AppStorage("intro-done") var showIntro = true // shown once
+    
+    init() {
+        let forumNavigator = ForumNavigator()
+        let campusNavigator = CampusNavigator()
+        let model = AppModel(campusNavigator: campusNavigator, forumNavigator: forumNavigator)
+        
+        self._campusNavigator = StateObject(wrappedValue: campusNavigator)
+        self._forumNavigator = StateObject(wrappedValue: forumNavigator)
+        self._model = StateObject(wrappedValue: model)
+    }
     
     var body: some View {
         WideScreenReader {
@@ -23,6 +36,8 @@ struct ContentView: View {
         .environmentObject(navigator)
         .environmentObject(model)
         .environmentObject(tabViewModel)
+        .environmentObject(forumNavigator)
+        .environmentObject(campusNavigator)
         .onReceive(AppEvents.notification) { content in
             model.screen = .forum
         }

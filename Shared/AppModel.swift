@@ -3,14 +3,17 @@ import UserNotifications
 import Combine
 import FudanKit
 import DanXiUI
+import FudanUI
 import SwiftUI
 import Utils
 
 @MainActor
 class AppModel: ObservableObject {
     @Published var screen: AppScreen
+    unowned var forumNavigator: ForumNavigator
+    unowned var campusNavigator: CampusNavigator
     
-    init() {
+    init(campusNavigator: CampusNavigator, forumNavigator: ForumNavigator) {
         if CampusModel.shared.loggedIn {
             screen = .campus
         } else if CommunityModel.shared.loggedIn {
@@ -18,6 +21,9 @@ class AppModel: ObservableObject {
         } else {
             screen = .settings
         }
+        
+        self.campusNavigator = campusNavigator
+        self.forumNavigator = forumNavigator
     }
     
     func handleOpenURL(url: URL) {
@@ -40,13 +46,13 @@ class AppModel: ObservableObject {
         switch navigation {
         case .campus(let section):
             screen = .campus
-            AppEvents.Navigation.campusSection.send(section)
+            campusNavigator.campusSection.send(section)
         case .forumHole(holeId: let holeId):
             screen = .forum
-            AppEvents.Navigation.forumHole.send(holeId)
+            forumNavigator.forumHole.send(holeId)
         case .forumFloor(floorId: let floorId):
             screen = .forum
-            AppEvents.Navigation.forumFloor.send(floorId)
+            forumNavigator.forumFloor.send(floorId)
         }
     }
     

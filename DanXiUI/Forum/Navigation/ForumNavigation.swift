@@ -32,9 +32,8 @@ struct ForumNavigation<Label: View>: View {
 public struct ForumContent: View {
     @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
+    @EnvironmentObject private var forumNavigator: ForumNavigator
     @State private var path = NavigationPath()
-    
-    @State private var openURL: URL? = nil
     
     func appendContent(value: any Hashable) {
         path.append(value)
@@ -70,10 +69,10 @@ public struct ForumContent: View {
         .onReceive(AppEvents.notification) { _ in
             navigator.pushContent(value: ForumSection.notifications)
         }
-        .onReceive(AppEvents.Navigation.forumHole) { holeId in
+        .onReceive(forumNavigator.forumHole) { holeId in
             navigator.pushDetail(value: HoleLoader(holeId: holeId), replace: true)
         }
-        .onReceive(AppEvents.Navigation.forumFloor) { floorId in
+        .onReceive(forumNavigator.forumFloor) { floorId in
             navigator.pushDetail(value: HoleLoader(floorId: floorId), replace: true)
         }
         .useSafariController(respectSettings: true)

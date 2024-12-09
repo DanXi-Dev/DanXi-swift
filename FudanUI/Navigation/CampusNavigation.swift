@@ -23,6 +23,7 @@ struct CampusNavigation<Label: View>: View {
 public struct CampusContent: View {
     @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
+    @EnvironmentObject private var campusNavigator: CampusNavigator
     @State private var path = NavigationPath()
     
     func appendContent(value: any Hashable) {
@@ -58,7 +59,7 @@ public struct CampusContent: View {
                 path.removeLast(path.count)
             }
         }
-        .onReceive(AppEvents.Navigation.campusSection) { section in
+        .onReceive(campusNavigator.campusSection) { section in
             guard let section = CampusSection(rawValue: section) else { return }
             appendDetail(value: section)
         }
