@@ -38,6 +38,13 @@ struct HoleView: View {
             }
         } content: {
             fullContent
+                .onDrag {
+                    let userActivity = NSUserActivity(activityType: "com.fduhole.forum.viewing-hole")
+                    userActivity.userInfo = ["hole-id": hole.id]
+                    let itemProvider = NSItemProvider(object: userActivity)
+                    return itemProvider
+                    
+                }
         }
         .listRowInsets(EdgeInsets(top: 8, leading: 9, bottom: 8, trailing: 9))
     }
