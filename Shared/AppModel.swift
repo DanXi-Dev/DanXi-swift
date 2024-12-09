@@ -8,25 +8,7 @@ import Utils
 
 @MainActor
 class AppModel: ObservableObject {
-    @Published var screen: AppScreen {
-        willSet {
-            if screen == newValue {
-                switch(screen) {
-                case .campus:
-                    AppEvents.TabBarTapped.campus.send()
-                case .forum:
-                    AppEvents.TabBarTapped.forum.send()
-                case .curriculum:
-                    AppEvents.TabBarTapped.curriculum.send()
-                case .calendar:
-                    AppEvents.TabBarTapped.calendar.send()
-                case .settings:
-                    AppEvents.TabBarTapped.settings.send()
-                default: break
-                }
-            }
-        }
-    }
+    @Published var screen: AppScreen
     
     init() {
         if CampusModel.shared.loggedIn {

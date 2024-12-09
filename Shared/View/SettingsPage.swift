@@ -7,6 +7,7 @@ import Utils
 import ViewUtils
 
 struct SettingsPage: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @ObservedObject private var communityModel = CommunityModel.shared
     @ObservedObject private var campusModel = CampusModel.shared
@@ -50,7 +51,7 @@ struct SettingsPage: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .onReceive(AppEvents.ScrollToTop.settings) { _ in
+            .onReceive(tabViewModel.scrollControl) { _ in
                 withAnimation {
                     proxy.scrollTo("settings-top")
                 }

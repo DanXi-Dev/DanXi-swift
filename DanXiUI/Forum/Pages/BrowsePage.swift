@@ -4,6 +4,7 @@ import ViewUtils
 import DanXiKit
 
 struct BrowsePage: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var model: BrowseModel
     @ObservedObject private var divisionStore = DivisionStore.shared
     @ObservedObject private var settings = ForumSettings.shared
@@ -45,7 +46,7 @@ struct BrowsePage: View {
                 .id(model.configurationId) // stop old loading task when config change
             }
             .listStyle(.insetGrouped)
-            .onReceive(AppEvents.ScrollToTop.forum) {
+            .onReceive(tabViewModel.scrollControl) {
                 withAnimation {
                     proxy.scrollTo("forum-top")
                 }
