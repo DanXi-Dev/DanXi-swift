@@ -21,6 +21,7 @@ struct CampusNavigation<Label: View>: View {
 }
 
 public struct CampusContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
@@ -50,9 +51,9 @@ public struct CampusContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(AppEvents.TabBarTapped.campus) { _ in
+        .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
-                AppEvents.ScrollToTop.campus.send()
+                tabViewModel.scrollControl.send()
             } else {
                 path.removeLast(path.count)
             }

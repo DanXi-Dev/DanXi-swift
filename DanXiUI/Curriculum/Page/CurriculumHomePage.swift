@@ -23,6 +23,7 @@ struct CurriculumHomePage: View {
 }
 
 fileprivate struct HomePageContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @ObservedObject private var profileStore = ProfileStore.shared
     let courses: [CourseGroup]
     @State private var searchText = ""
@@ -48,7 +49,7 @@ fileprivate struct HomePageContent: View {
                     }
                 }
             }
-            .onReceive(AppEvents.ScrollToTop.curriculum) {
+            .onReceive(tabViewModel.scrollControl) {
                 withAnimation {
                     proxy.scrollTo("dk-top")
                 }

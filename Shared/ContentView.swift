@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtils
+import DanXiUI
 import FudanKit
 import FudanUI
 import Utils
@@ -9,8 +10,9 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject private var model = AppModel()
     @StateObject private var navigator = AppNavigator()
+    @StateObject private var tabViewModel = TabViewModel() // an empty object, for environment object to exist
     
-    @AppStorage("intro-done") var showIntro = true // Shown once
+    @AppStorage("intro-done") var showIntro = true // shown once
     
     var body: some View {
         WideScreenReader {
@@ -20,6 +22,7 @@ struct ContentView: View {
         }
         .environmentObject(navigator)
         .environmentObject(model)
+        .environmentObject(tabViewModel)
         .onReceive(AppEvents.notification) { content in
             model.screen = .forum
         }

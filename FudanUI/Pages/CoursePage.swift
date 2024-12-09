@@ -83,6 +83,7 @@ public struct CoursePage: View {
 
 
 fileprivate struct CalendarContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @StateObject var model: CourseModel
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
@@ -138,7 +139,7 @@ fileprivate struct CalendarContent: View {
                     }
                 }
             }
-            .onReceive(AppEvents.TabBarTapped.calendar) {
+            .onReceive(tabViewModel.navigationControl) { _ in
                 withAnimation {
                     proxy.scrollTo("cal-top")
                 }

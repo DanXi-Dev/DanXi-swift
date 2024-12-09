@@ -37,6 +37,7 @@ struct SettingsNavigation<Label: View>: View {
 }
 
 struct SettingsContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
@@ -62,9 +63,9 @@ struct SettingsContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(AppEvents.TabBarTapped.settings) { _ in
+        .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
-                AppEvents.ScrollToTop.settings.send()
+                tabViewModel.scrollControl.send()
             } else {
                 path.removeLast(path.count)
             }

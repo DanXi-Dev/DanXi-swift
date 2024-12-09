@@ -32,6 +32,7 @@ struct CurriculumReviewItem: Hashable {
 
 
 public struct CurriculumContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
@@ -61,9 +62,9 @@ public struct CurriculumContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(AppEvents.TabBarTapped.curriculum) { _ in
+        .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
-                AppEvents.ScrollToTop.curriculum.send()
+                tabViewModel.scrollControl.send()
             } else {
                 path.removeLast(path.count)
             }
@@ -72,6 +73,7 @@ public struct CurriculumContent: View {
 }
 
 public struct CurriculumEmbeddedContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @Binding private var path: NavigationPath
     
@@ -101,9 +103,9 @@ public struct CurriculumEmbeddedContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(AppEvents.TabBarTapped.curriculum) { _ in
+        .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
-                AppEvents.ScrollToTop.curriculum.send()
+                tabViewModel.scrollControl.send()
             } else {
                 path.removeLast(path.count)
             }

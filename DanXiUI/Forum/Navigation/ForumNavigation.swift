@@ -30,6 +30,7 @@ struct ForumNavigation<Label: View>: View {
 }
 
 public struct ForumContent: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @State private var path = NavigationPath()
     
@@ -59,9 +60,9 @@ public struct ForumContent: View {
                 appendDetail(value: value)
             }
         }
-        .onReceive(AppEvents.TabBarTapped.forum) { _ in
+        .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
-                AppEvents.ScrollToTop.forum.send()
+                tabViewModel.scrollControl.send()
             } else {
                 path.removeLast(path.count)
             }

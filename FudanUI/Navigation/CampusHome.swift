@@ -4,6 +4,7 @@ import ViewUtils
 import Utils
 
 public struct CampusHome: View {
+    @EnvironmentObject private var tabViewModel: TabViewModel
     @EnvironmentObject private var navigator: AppNavigator
     @ObservedObject private var campusModel = CampusModel.shared
     @StateObject private var model = CampusHomeModel()
@@ -134,7 +135,7 @@ public struct CampusHome: View {
                     }
                 }
             }
-            .onReceive(AppEvents.ScrollToTop.campus) { _ in
+            .onReceive(tabViewModel.scrollControl) { _ in
                 withAnimation {
                     proxy.scrollTo("campus-top")
                 }
