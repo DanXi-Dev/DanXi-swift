@@ -8,21 +8,15 @@ struct TextSelectionSheet: View {
         NavigationStack {
             SelectableText(text: text)
                 .padding(.horizontal)
-                .navigationTitle(String(localized: "Select Text", bundle: .module))
+                .navigationTitle(String(localized: "Copy Text", bundle: .module))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .status) {
+                    ToolbarItem(placement: .confirmationAction) {
                         Button {
                             UIPasteboard.general.string = text
                             dismiss()
                         } label: {
-                            Label {
-                                Text("Copy Full Text", bundle: .module)
-                                    .bold()
-                            } icon: {
-                                Image(systemName: "doc.on.doc")
-                            }
-                            .labelStyle(.titleAndIcon)
+                            Text("Copy All", bundle: .module)
                         }
                     }
                     ToolbarItem(placement: .cancellationAction) {
