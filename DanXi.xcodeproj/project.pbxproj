@@ -55,7 +55,7 @@
 		E5A316A72BE4C9CB00BCC41A /* BusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A316A42BE4C9CB00BCC41A /* BusWidget.swift */; };
 		F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F13306D72BA5766C005361D2 /* InfoPlist.xcstrings */; };
 		F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */; };
-		F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */; };
+		F1A762D62BAFD1B7001E5D08 /* WelcomeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A762D52BAFD1B7001E5D08 /* WelcomeSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +159,7 @@
 		F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
+		F1A762D52BAFD1B7001E5D08 /* WelcomeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,7 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				2706602D292F51BC00F4C321 /* CreditPage.swift */,
-				F1A762D52BAFD1B7001E5D08 /* IntroSheet.swift */,
+				F1A762D52BAFD1B7001E5D08 /* WelcomeSheet.swift */,
 				2706602B292F513700F4C321 /* AboutPage.swift */,
 				2778D60B2891D22D009F4DB1 /* SettingsPage.swift */,
 				27E70CA02AF136B300820933 /* DebugPage.swift */,
@@ -518,7 +518,7 @@
 				2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */,
 				27F2F2242BCC2B650017CB5E /* SplitNavigation.swift in Sources */,
 				27E1C52F29D0AD6F00B333BA /* AppDelegate.swift in Sources */,
-				F1A762D62BAFD1B7001E5D08 /* IntroSheet.swift in Sources */,
+				F1A762D62BAFD1B7001E5D08 /* WelcomeSheet.swift in Sources */,
 				273110152D01C1D900A347DA /* Connectivity.swift in Sources */,
 				27E70CA12AF136B300820933 /* DebugPage.swift in Sources */,
 				2706602C292F513700F4C321 /* AboutPage.swift in Sources */,

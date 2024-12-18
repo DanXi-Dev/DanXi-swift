@@ -54,7 +54,7 @@ struct ContentView: View {
             model.handleOpenURL(url: url)
         }
         .sheet(isPresented: $showIntro) {
-            IntroSheet()
+            WelcomeSheet()
                 .environmentObject(model)
         }
         .onContinueUserActivity("com.fduhole.forum.viewing-hole") { userActivity in
