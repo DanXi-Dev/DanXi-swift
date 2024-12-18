@@ -1,6 +1,6 @@
 import Foundation
 import Utils
-import Combine
+@preconcurrency import Combine
 
 public enum GraduateCourseAPI {
     
