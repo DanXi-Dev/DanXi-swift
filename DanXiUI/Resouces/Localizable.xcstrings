@@ -458,6 +458,15 @@
         }
       }
     },
+    "Clear Entire Cache" : {
+
+    },
+    "Clear entire cache will clear all data. This cannot be undone." : {
+
+    },
+    "Clear entire cache. The app will restart after this operation." : {
+
+    },
     "Clear History" : {
       "localizations" : {
         "zh-Hans" : {
@@ -467,6 +476,12 @@
           }
         }
       }
+    },
+    "Clear Image Cache" : {
+
+    },
+    "Clear image cache to free up disk space." : {
+
     },
     "Clear Start Date" : {
       "localizations" : {
@@ -487,6 +502,9 @@
           }
         }
       }
+    },
+    "Confirm Clear Entire Cache" : {
+
     },
     "Confirm Delete Account" : {
       "localizations" : {
