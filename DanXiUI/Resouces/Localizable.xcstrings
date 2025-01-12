@@ -428,6 +428,16 @@
         }
       }
     },
+    "Clear All Data" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除全部本机数据"
+          }
+        }
+      }
+    },
     "Clear Browse History" : {
       "localizations" : {
         "zh-Hans" : {
@@ -459,13 +469,24 @@
       }
     },
     "Clear Entire Cache" : {
-
-    },
-    "Clear entire cache will clear all data. This cannot be undone." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除所有数据"
+          }
+        }
+      }
     },
     "Clear entire cache. The app will restart after this operation." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除所有数据。本应用会在此操作后重新启动。"
+          }
+        }
+      }
     },
     "Clear History" : {
       "localizations" : {
@@ -478,10 +499,24 @@
       }
     },
     "Clear Image Cache" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除图片缓存"
+          }
+        }
+      }
     },
     "Clear image cache to free up disk space." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除图片缓存以释放磁盘空间。"
+          }
+        }
+      }
     },
     "Clear Start Date" : {
       "localizations" : {
@@ -489,6 +524,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除起始日期"
+          }
+        }
+      }
+    },
+    "Clearing all data stored in this app. This operation cannot be undone." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您将清除本应用的所有本机数据，此操作无法被撤销。"
           }
         }
       }
@@ -503,8 +548,15 @@
         }
       }
     },
-    "Confirm Clear Entire Cache" : {
-
+    "Confirm Data Clearance" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定清除全部本机数据？"
+          }
+        }
+      }
     },
     "Confirm Delete Account" : {
       "localizations" : {

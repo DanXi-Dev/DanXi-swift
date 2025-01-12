@@ -50,14 +50,14 @@ struct AdvancedSettings: View {
                 Button(role: .destructive) {
                     showClearAllCacheWarning = true
                 } label: {
-                    Text("Clear Entire Cache", bundle: .module)
+                    Text("Clear All Data", bundle: .module)
                 }
             } footer: {
-                Text("Clear entire cache will clear all data. This cannot be undone.", bundle: .module)
+                Text("Clearing all data stored in this app. This operation cannot be undone.", bundle: .module)
             }
             
         }
-        .alert(String(localized: "Confirm Clear Entire Cache", bundle: .module), isPresented: $showClearAllCacheWarning) {
+        .alert(String(localized: "Confirm Data Clearance", bundle: .module), isPresented: $showClearAllCacheWarning) {
             Button(role: .destructive) {
                 Task.detached {
                     try? Disk.remove("fduhole/", from: .appGroup)
