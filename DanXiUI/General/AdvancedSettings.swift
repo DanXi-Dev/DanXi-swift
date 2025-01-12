@@ -53,11 +53,11 @@ struct AdvancedSettings: View {
                     Text("Clear All Data", bundle: .module)
                 }
             } footer: {
-                Text("Clear all local data, including login accounts, search history, image cache, calendar and course cache, etc. It is generally used to fix issues such as freezing or failure to load content. This action cannot be undone.", bundle: .module)
+                Text("Clear all local data, including login accounts, search history, image cache, calendar and course cache, etc. It is generally used to fix issues such as freezing or failure to load content. This operation cannot be undone, so please use it under the guidance of the development team.", bundle: .module)
             }
             
         }
-        .alert(String(localized: "Confirm Data Clearance", bundle: .module), isPresented: $showClearAllCacheWarning) {
+        .alert(String(localized: "Confirm Clearing All Data", bundle: .module), isPresented: $showClearAllCacheWarning) {
             Button(role: .destructive) {
                 Task.detached {
                     try? Disk.remove("fduhole/", from: .appGroup)
@@ -79,10 +79,10 @@ struct AdvancedSettings: View {
                     exit(0) // close app to clear memory
                 }
             } label: {
-                Text("Clear Entire Cache", bundle: .module)
+                Text("Clear All Data", bundle: .module)
             }
         } message: {
-            Text("Clear entire cache. The app will restart after this operation.", bundle: .module)
+            Text("Clear all data. The app will restart after this operation.", bundle: .module)
         }
         .navigationTitle(String(localized: "Advanced Settings", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
