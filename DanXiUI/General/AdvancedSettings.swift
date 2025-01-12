@@ -53,7 +53,7 @@ struct AdvancedSettings: View {
                     Text("Clear All Data", bundle: .module)
                 }
             } footer: {
-                Text("Clearing all data stored in this app. This operation cannot be undone.", bundle: .module)
+                Text("Clear all local data, including login accounts, search history, image cache, calendar and course cache, etc. It is generally used to fix issues such as freezing or failure to load content. This action cannot be undone.", bundle: .module)
             }
             
         }

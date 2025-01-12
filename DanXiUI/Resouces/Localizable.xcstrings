@@ -438,6 +438,16 @@
         }
       }
     },
+    "Clear all local data, including login accounts, search history, image cache, calendar and course cache, etc. It is generally used to fix issues such as freezing or failure to load content. This action cannot be undone." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除所有本机数据，包括已登录的账号、搜索历史、图片缓存、日程与课程缓存等。一般用于修复卡死或者无法加载内容的问题。此操作无法被撤销。"
+          }
+        }
+      }
+    },
     "Clear Browse History" : {
       "localizations" : {
         "zh-Hans" : {
@@ -524,16 +534,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除起始日期"
-          }
-        }
-      }
-    },
-    "Clearing all data stored in this app. This operation cannot be undone." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "您将清除本应用的所有本机数据，此操作无法被撤销。"
           }
         }
       }
