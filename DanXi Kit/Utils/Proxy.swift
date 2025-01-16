@@ -118,14 +118,6 @@ actor ProxyAuthenticator {
     var isLogged = false
     var authenticationTask: Task<Void, Error>? = nil
     
-    private func createAuthenticationTask() -> Task<Void, Error> {
-        Task {
-            let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
-            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
-            _ = try await URLSession.shared.data(from: tokenURL)
-        }
-    }
-    
     /// Pre-authenticate before every request
     func tryAuthenticate() async throws {
         if isLogged { return }
@@ -137,7 +129,9 @@ actor ProxyAuthenticator {
             return
         }
         
-        let task = createAuthenticationTask()
+        let task = Task {
+            try await authenticateWebVPN()
+        }
         authenticationTask = task
         defer { authenticationTask = nil }
         try await task.value
@@ -155,7 +149,9 @@ actor ProxyAuthenticator {
             return
         }
         
-        let task = createAuthenticationTask()
+        let task = Task {
+            try await authenticateWebVPN()
+        }
         authenticationTask = task
         defer { authenticationTask = nil }
         try await task.value
