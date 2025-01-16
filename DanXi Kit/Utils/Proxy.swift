@@ -117,7 +117,14 @@ public class Proxy {
 actor ProxyAuthenticator {
     var isLogged = false
     var authenticationTask: Task<Void, Error>? = nil
-    var reauthenticationTask: Task<Void, Error>? = nil
+    
+    private func createAuthenticationTask() -> Task<Void, Error> {
+        Task {
+            let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
+            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
+            _ = try await URLSession.shared.data(from: tokenURL)
+        }
+    }
     
     /// Pre-authenticate before every request
     func tryAuthenticate() async throws {
@@ -130,11 +137,7 @@ actor ProxyAuthenticator {
             return
         }
         
-        let task = Task {
-            let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
-            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
-            _ = try await URLSession.shared.data(from: tokenURL)
-        }
+        let task = createAuthenticationTask()
         authenticationTask = task
         defer { authenticationTask = nil }
         try await task.value
@@ -145,20 +148,16 @@ actor ProxyAuthenticator {
     func reauthenticate() async throws {
         isLogged = false
         
-        if let reauthenticationTask {
-            defer { self.reauthenticationTask = nil }
-            try await reauthenticationTask.value
+        if let authenticationTask {
+            defer { self.authenticationTask = nil }
+            try await authenticationTask.value
             isLogged = true
             return
         }
         
-        let task = Task {
-            let loginURL = URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!
-            let tokenURL = try await FudanKit.AuthenticationAPI.authenticateForURL(loginURL)
-            _ = try await URLSession.shared.data(from: tokenURL)
-        }
-        reauthenticationTask = task
-        defer { reauthenticationTask = nil }
+        let task = createAuthenticationTask()
+        authenticationTask = task
+        defer { authenticationTask = nil }
         try await task.value
         isLogged = true
     }
