@@ -38,7 +38,7 @@ struct PostSheet: View {
                 Text("Tags", bundle: .module)
             }
             
-            if profileStore.isAdmin{
+            if profileStore.isAdmin {
                 Section {
                     TextField(String(localized: "Special Tag", bundle: .module), text: $specialTag)
                 } header: {

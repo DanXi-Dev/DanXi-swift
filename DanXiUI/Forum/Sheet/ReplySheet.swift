@@ -6,18 +6,17 @@ struct ReplySheet: View {
     @ObservedObject private var profileStore = ProfileStore.shared
     @EnvironmentObject private var model: HoleModel
     @State private var content: String
-    @State private var specialTag: String
+    @State private var specialTag: String = ""
     
-    init(content: String = "", specialTag: String = "") {
+    init(content: String = "") {
         self._content = State(initialValue: content)
-        self._specialTag = State(initialValue: specialTag)
     }
     
     var body: some View {
         Sheet(String(localized: "Reply", bundle: .module)) {
             try await model.reply(content: content, specialTag: specialTag)
         } content: {
-            if profileStore.isAdmin{
+            if profileStore.isAdmin {
                 Section {
                     TextField(String(localized: "Special Tag", bundle: .module), text: $specialTag)
                 } header: {
