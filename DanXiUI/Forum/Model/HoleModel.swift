@@ -241,8 +241,8 @@ class HoleModel: ObservableObject {
     
     // MARK: - Reply
     
-    func reply(content: String) async throws {
-        let floor = try await ForumAPI.createFloor(content: content, holeId: hole.id)
+    func reply(content: String, specialTag: String = "") async throws {
+        let floor = try await ForumAPI.createFloor(content: content, holeId: hole.id, specialTag: specialTag)
         await setEndReached(false)
         Task {
             try? await self.loadAllFloors()
