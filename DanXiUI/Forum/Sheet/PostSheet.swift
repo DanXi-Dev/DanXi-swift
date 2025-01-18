@@ -3,16 +3,18 @@ import ViewUtils
 import DanXiKit
 
 struct PostSheet: View {
+    @ObservedObject private var profileStore = ProfileStore.shared
     @ObservedObject private var divisionStore = DivisionStore.shared
     @EnvironmentObject private var navigator: AppNavigator
     
     @State var divisionId: Int
     @State private var content = ""
     @State private var tags: [String] = []
+    @State private var specialTag: String = ""
     
     var body: some View {
         Sheet(String(localized: "New Post", bundle: .module)) {
-            let hole = try await ForumAPI.createHole(content: content, divisionId: divisionId, tags: tags)
+            let hole = try await ForumAPI.createHole(content: content, divisionId: divisionId, tags: tags, specialTag: specialTag)
             navigator.pushDetail(value: hole, replace: true) // navigate to hole page
             
             Task {
@@ -34,6 +36,14 @@ struct PostSheet: View {
                 TagEditor($tags, maxSize: 5)
             } header: {
                 Text("Tags", bundle: .module)
+            }
+            
+            if profileStore.isAdmin{
+                Section {
+                    TextField(String(localized: "Special Tag", bundle: .module), text: $specialTag)
+                } header: {
+                    Text("Admin Actions", bundle: .module)
+                }
             }
             
             ForumEditor(content: $content, initiallyFocused: false)

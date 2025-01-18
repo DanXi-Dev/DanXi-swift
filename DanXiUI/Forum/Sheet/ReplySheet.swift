@@ -3,17 +3,27 @@ import ViewUtils
 import DanXiKit
 
 struct ReplySheet: View {
+    @ObservedObject private var profileStore = ProfileStore.shared
     @EnvironmentObject private var model: HoleModel
     @State private var content: String
+    @State private var specialTag: String
     
-    init(content: String = "") {
+    init(content: String = "", specialTag: String = "") {
         self._content = State(initialValue: content)
+        self._specialTag = State(initialValue: specialTag)
     }
     
     var body: some View {
         Sheet(String(localized: "Reply", bundle: .module)) {
-            try await model.reply(content: content)
+            try await model.reply(content: content, specialTag: specialTag)
         } content: {
+            if profileStore.isAdmin{
+                Section {
+                    TextField(String(localized: "Special Tag", bundle: .module), text: $specialTag)
+                } header: {
+                    Text("Admin Actions", bundle: .module)
+                }
+            }
             ForumEditor(content: $content, initiallyFocused: true)
         }
         .completed(!content.isEmpty)
