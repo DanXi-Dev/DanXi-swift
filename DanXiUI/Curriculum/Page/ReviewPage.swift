@@ -80,13 +80,25 @@ struct ReviewPage: View {
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text("Posted by: \(String(review.reviewerId))", bundle: .module)
                         Text(review.timeUpdated.formatted(date: .abbreviated, time: .omitted))
                     }
                 }
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.top)
+                
+                let medals: [String] = review.extra.achievements.map { $0.name }
+                
+                
+                LazyVGrid (columns: [GridItem(.fixed(35)), GridItem(.fixed(35)), GridItem(.fixed(35))], alignment: .trailing){
+                    ForEach (medals, id: \.self) { medal in
+                        Image(medal, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                
             }
         }
         .padding(.horizontal)

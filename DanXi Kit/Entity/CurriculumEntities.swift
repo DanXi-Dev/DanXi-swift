@@ -25,6 +25,17 @@ public struct Review: Identifiable, Hashable, Codable {
     public let remark: Int
     public let vote: Int
     public let rank: Rank
+    public let extra: CurriculumExtra
+}
+
+public struct CurriculumExtra: Hashable, Codable {
+    public let achievements: [Achievement]
+}
+
+public struct Achievement: Hashable, Codable {
+    public let name: String
+    public let obtainDate: Date
+    public let domain: String
 }
 
 public struct CurriculumSensitive: Identifiable, Hashable, Decodable {
