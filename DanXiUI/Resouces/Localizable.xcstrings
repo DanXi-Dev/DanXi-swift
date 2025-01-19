@@ -618,6 +618,16 @@
         }
       }
     },
+    "Copy All" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制全部"
+          }
+        }
+      }
+    },
     "Copy Ciphertext" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2632,6 +2642,7 @@
       }
     },
     "Select Text" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
