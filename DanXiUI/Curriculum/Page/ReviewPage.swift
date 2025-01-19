@@ -83,27 +83,17 @@ struct ReviewPage: View {
                 .foregroundColor(.secondary)
                 .padding(.top)
                 
-                let medals : [String] = Array(Set(review.extra.achievements.map{ $0.name }))
-                var medalGroups : [[String]] {
-                    stride(from: 0, to: medals.count, by: 3).map { index in
-                        Array(medals[index..<min(index + 3, medals.count)])
-                    }
-                }
+                let medals : [String] = review.extra.achievements.map{ $0.name }
                 
                 
-                VStack (alignment: .trailing){
-                    ForEach (medalGroups, id: \.self) { group in
-                        HStack {
-                            ForEach(group, id: \.self) { medal in
-                                Image(medal, bundle: .module)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height : 35)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                LazyVGrid (columns: [GridItem(.fixed(35)), GridItem(.fixed(35)), GridItem(.fixed(35))], alignment: .trailing){
+                    ForEach (medals, id: \.self) { medal in
+                        Image(medal, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
                 
             }
         }
