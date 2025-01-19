@@ -996,6 +996,16 @@
         }
       }
     },
+    "Delete Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除课评"
+          }
+        }
+      }
+    },
     "Deleted" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1180,6 +1190,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "编辑回复"
+          }
+        }
+      }
+    },
+    "Edit Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑课评"
           }
         }
       }

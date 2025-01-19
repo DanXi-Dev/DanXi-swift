@@ -43,14 +43,14 @@ public enum CurriculumAPI {
         return try await requestWithResponse("/courses/\(courseId)/reviews", base: curriculumURL, payload: payload, method: "POST")
     }
     
-    public static func modifyReview(courseId: Int, title: String, content: String, rank: Rank) async throws -> Review {
+    public static func modifyReview(reviewId: Int, title: String, content: String, rank: Rank) async throws -> Review {
         let rankMap = ["overall": rank.overall, "content": rank.content, "workload": rank.workload, "assessment": rank.assessment]
         let payload: [String: Any] = ["title": title, "content": content, "rank": rankMap]
-        return try await requestWithResponse("/courses/\(courseId)/reviews", base: curriculumURL, payload: payload, method: "PUT")
+        return try await requestWithResponse("/reviews/\(reviewId)", base: curriculumURL, payload: payload, method: "PUT")
     }
     
-    public static func deleteReview(id: Int) async throws {
-        try await requestWithoutResponse("/reviews/\(id)", base: curriculumURL, method: "DELETE")
+    public static func deleteReview(reviewId: Int) async throws {
+        try await requestWithoutResponse("/reviews/\(reviewId)", base: curriculumURL, method: "DELETE")
     }
     
     public static func voteReview(id: Int, upvote: Bool) async throws -> Review {

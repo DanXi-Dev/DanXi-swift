@@ -4,8 +4,12 @@ import ViewUtils
 import DanXiKit
 
 struct ReviewPage: View {
+    @Environment(\.dismiss) private var dismiss
+    
     let course: Course
     @State private var review: Review
+    @State private var showEditSheet = false
+    @State private var showDeleteReviewAlert = false
     @EnvironmentObject var model: CourseModel
     
     init(course: Course, review: Review) {
@@ -87,5 +91,37 @@ struct ReviewPage: View {
         }
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
+        .sheet(isPresented: $showEditSheet) {
+            CurriculumEditSheet(courseGroup: model.courseGroup, course: course, review: $review)
+        }
+        .alert(String(localized: "Delete Review", bundle: .module), isPresented: $showDeleteReviewAlert) {
+            Button(role: .destructive) {
+                Task {
+                    try await CurriculumAPI.deleteReview(reviewId: review.id)
+                    dismiss()
+                }
+            } label: {
+                Text("Confirm", bundle: .module)
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                if review.isMe {
+                    Button {
+                        showEditSheet = true
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                            .font(.headline)
+                    }
+                    
+                    Button {
+                        showDeleteReviewAlert = true
+                    } label: {
+                        Image(systemName: "trash")
+                            .font(.headline)
+                    }
+                }
+            }
+        }
     }
 }
