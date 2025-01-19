@@ -2210,17 +2210,6 @@
         }
       }
     },
-    "Posted by: %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "作者：%@"
-          }
-        }
-      }
-    },
     "Preview" : {
       "localizations" : {
         "zh-Hans" : {

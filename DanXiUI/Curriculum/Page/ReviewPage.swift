@@ -83,7 +83,7 @@ struct ReviewPage: View {
                 .foregroundColor(.secondary)
                 .padding(.top)
                 
-                let medals : [String] = review.extra.achievements.map{ $0.name }
+                let medals: [String] = review.extra.achievements.map { $0.name }
                 
                 
                 LazyVGrid (columns: [GridItem(.fixed(35)), GridItem(.fixed(35)), GridItem(.fixed(35))], alignment: .trailing){
