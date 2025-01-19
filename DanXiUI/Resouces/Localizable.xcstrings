@@ -2211,6 +2211,7 @@
       }
     },
     "Posted by: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
