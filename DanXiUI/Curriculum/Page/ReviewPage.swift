@@ -3,18 +3,40 @@ import SwiftUI
 import ViewUtils
 import DanXiKit
 
-struct ReviewPage: View {
+public struct ReviewPage: View {
+    @Namespace private var namespace
+    @State private var selectedMedal: Achievement?
+    let course: Course
+    let review: Review
+    
+    public var body: some View {
+        ReviewPageContent(course: course, review: review, selectedMedal: $selectedMedal, namespace: namespace)
+            .overlay {
+                if let selectedMedal {
+                    MedalPage(medal: selectedMedal, selectedMedal: $selectedMedal, namespace: namespace)
+                }
+            }
+            .navigationBarBackButtonHidden(selectedMedal != nil)
+    }
+}
+
+
+struct ReviewPageContent: View {
     @Environment(\.dismiss) private var dismiss
     
     let course: Course
     @State private var review: Review
     @State private var showEditSheet = false
     @State private var showDeleteReviewAlert = false
+    @Binding var selectedMedal: Achievement?
+    let namespace: Namespace.ID
     @EnvironmentObject var model: CourseModel
     
-    init(course: Course, review: Review) {
+    init(course: Course, review: Review, selectedMedal: Binding<Achievement?>, namespace: Namespace.ID) {
         self.course = course
         self._review = State(initialValue: review)
+        self._selectedMedal = selectedMedal
+        self.namespace = namespace
     }
     
     @ViewBuilder private var likeButtons: some View {
@@ -87,7 +109,7 @@ struct ReviewPage: View {
                 .foregroundColor(.secondary)
                 .padding(.top)
                 
-                let medals: [String] = review.extra.achievements.map { $0.name }
+                let medals: [String] = ["蛋壳开荒者"]
                 
                 
                 LazyVGrid (columns: [GridItem(.fixed(35)), GridItem(.fixed(35)), GridItem(.fixed(35))], alignment: .trailing){
@@ -95,6 +117,14 @@ struct ReviewPage: View {
                         Image(medal, bundle: .module)
                             .resizable()
                             .scaledToFit()
+                            .onTapGesture {
+                                if let medal = review.extra.achievements.first(where: { $0.name == medal }) {
+                                    withAnimation {
+                                        selectedMedal = medal
+                                    }
+                                }
+                            }
+                            .matchedGeometryEffect(id: medal, in: namespace)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)

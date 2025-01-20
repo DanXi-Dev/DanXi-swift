@@ -36,6 +36,12 @@ public struct Achievement: Hashable, Codable {
     public let name: String
     public let obtainDate: Date
     public let domain: String
+    
+    public init(name: String, obtainDate: Date, domain: String) {
+        self.name = name
+        self.obtainDate = obtainDate
+        self.domain = domain
+    }
 }
 
 public struct CurriculumSensitive: Identifiable, Hashable, Decodable {
