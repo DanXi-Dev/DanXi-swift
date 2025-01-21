@@ -37,7 +37,7 @@ struct ElectricityWidgetProvier: TimelineProvider {
                     filteredDateValues = []
                 }
                 
-                let place = "\(usageLoaded.campus) \(usageLoaded.building) \(usageLoaded.room)"
+                let place = "\(usageLoaded.campus)\(usageLoaded.building)\(usageLoaded.room)"
                 let electricityAvailable = usageLoaded.electricityAvailable
                 let average = filteredDateValues.isEmpty ? 15.0 : filteredDateValues.prefix(3).map { $0.value }.reduce(0, +) / Float(min(3, filteredDateValues.count))
                 let entry = ElectricityEntity(place, electricityAvailable, average)
@@ -134,19 +134,53 @@ struct ElectricityWidgetView: View {
                 Label(String(localized: "Dorm Electricity", bundle: .module), systemImage: "bolt.fill")
                     .bold()
                     .font(.caption)
-                    .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                    .foregroundColor(.green)
                 Spacer()
             }
-            .padding(.bottom, 1)
+            .padding(.bottom, 18)
+            
+            if entry.warnLevel == 0 {
+                HStack{
+                    Image(systemName: "battery.100")
+                                .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                    Text(String(localized: "Sufficient charge", bundle: .module))
+                        .bold()
+                        .font(.system(size: 22, design: .rounded))
+                        .privacySensitive()
+                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                }
+            } else if entry.warnLevel == 1 {
+                HStack{
+                    Image(systemName: "battery.50percent")
+                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                    Text(String(localized: "Battery tension", bundle: .module))
+                        .bold()
+                        .font(.system(size: 22, design: .rounded))
+                        .privacySensitive()
+                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                }
+            } else if entry.warnLevel == 2 {
+                HStack{
+                    Image(systemName: "battery.25percent")
+                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                    Text(String(localized: "Power cut imminent", bundle: .module))
+                        .bold()
+                        .font(.system(size: 22, design: .rounded))
+                        .privacySensitive()
+                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                }
+            }
+            
+            Spacer()
             
             VStack(alignment: .leading, spacing: 0) {
-                Text(entry.place)
+                Text(String(localized: "Remaining battery capacity", bundle: .module))
                     .font(.caption2)
                     .foregroundColor(.secondary)
                 HStack(alignment: .firstTextBaseline, spacing: 0) {
                     Text(String(format: "%.2f", entry.electricityAvailable))
                         .bold()
-                        .font(.system(size: 15, design: .rounded))
+                        .font(.system(size: 20, design: .rounded))
                         .privacySensitive()
                     
                     Text(verbatim: " ")
@@ -155,50 +189,7 @@ struct ElectricityWidgetView: View {
                         .bold()
                         .font(.caption2)
                     
-                    Spacer()
                 }
-            }
-            .padding(.bottom, 1)
-            
-            VStack(alignment: .leading, spacing: 0) {
-                Text(String(localized: "3-day average usage", bundle: .module))
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                HStack(alignment: .firstTextBaseline, spacing: 0) {
-                    Text(String(format: "%.2f", entry.average))
-                        .bold()
-                        .font(.system(size: 15, design: .rounded))
-                        .privacySensitive()
-                    
-                    Text(verbatim: " ")
-                    Text(verbatim: "kWh")
-                        .foregroundColor(.secondary)
-                        .bold()
-                        .font(.caption2)
-                    
-                    Spacer()
-                }
-            }
-            .padding(.bottom, 1)
-            
-            if entry.warnLevel == 0 {
-                Text(String(localized: "Sufficient charge ~", bundle: .module))
-                    .bold()
-                    .font(.system(size: 13, design: .rounded))
-                    .privacySensitive()
-                    .foregroundColor(getWidgetColor(for: entry.warnLevel))
-            } else if entry.warnLevel == 1 {
-                Text(String(localized: "Only 1-2 days of power left...", bundle: .module))
-                    .bold()
-                    .font(.system(size: 12, design: .rounded))
-                    .privacySensitive()
-                    .foregroundColor(getWidgetColor(for: entry.warnLevel))
-            } else if entry.warnLevel == 2 {
-                Text(String(localized: "Power critical, cutoff in 12 hours!", bundle: .module))
-                    .bold()
-                    .font(.system(size: 12, design: .rounded))
-                    .privacySensitive()
-                    .foregroundColor(getWidgetColor(for: entry.warnLevel))
             }
         }
     }

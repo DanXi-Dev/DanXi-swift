@@ -41,6 +41,17 @@
         }
       }
     },
+    "1-2 days left" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预计剩余1-2天"
+          }
+        }
+      }
+    },
     "3-day average usage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -124,6 +135,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "余额"
+          }
+        }
+      }
+    },
+    "Battery tension" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量紧张"
           }
         }
       }
@@ -904,6 +926,17 @@
         }
       }
     },
+    "less than 12 hours" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预计不足12小时"
+          }
+        }
+      }
+    },
     "Library Popularity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1144,17 +1177,6 @@
         }
       }
     },
-    "Only 1-2 days of power left..." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "电量只够1~2天的使用"
-          }
-        }
-      }
-    },
     "Orange" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1265,13 +1287,13 @@
         }
       }
     },
-    "Power critical, cutoff in 12 hours!" : {
+    "Power cut imminent" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "电量告急，半天内停电！"
+            "value" : "即将断电"
           }
         }
       }
@@ -1312,6 +1334,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刷新二维码"
+          }
+        }
+      }
+    },
+    "Remaining battery capacity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剩余电量"
           }
         }
       }
@@ -1500,13 +1533,13 @@
         }
       }
     },
-    "Sufficient charge ~" : {
+    "Sufficient charge" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "寝室电量充足 ~"
+            "value" : "电量充足"
           }
         }
       }
