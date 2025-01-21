@@ -41,17 +41,6 @@
         }
       }
     },
-    "1-2 days left" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预计剩余1-2天"
-          }
-        }
-      }
-    },
     "3-day average usage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -306,13 +295,13 @@
         }
       }
     },
-    "Check the remaining electricity in the dormitory and the average electricity usage in recent days." : {
+    "Check the remaining electricity in the dormitory" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "检查宿舍剩余电量以及近日平均用电"
+            "value" : "检查宿舍剩余电量"
           }
         }
       }

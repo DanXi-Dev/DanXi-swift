@@ -11,12 +11,12 @@ import FudanKit
 
 struct ElectricityWidgetProvier: TimelineProvider {
     func placeholder(in context: Context) -> ElectricityEntity {
-        ElectricityEntity(0)
+        ElectricityEntity(ElectricityEntity.WarnLevel.full)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (ElectricityEntity) -> Void) {
-        var entry = ElectricityEntity(0)
-        if !context.isPreview {             
+        var entry = ElectricityEntity(ElectricityEntity.WarnLevel.full)
+        if !context.isPreview {
             entry.placeholder = true
         }
         completion(entry)
@@ -62,24 +62,27 @@ public struct ElectricityEntity: TimelineEntry {
     public let average: Float               // 3 days average usage
     public var placeholder = false
     public var loadFailed = false
-    public var warnLevel: Int = 0
+    public var warnLevel: WarnLevel
     
-    public init(_ warnLevel: Int = 0) {
+    public enum WarnLevel: Int {
+        case full = 0
+        case low = 1
+        case critical = 2
+    }
+    
+    public init(_ warnLevel: WarnLevel = .full) {
         date = Date()
         place = "南区 10号楼 108"
         average = 15.27898
-        
-        if warnLevel == 0 {
+        switch warnLevel {
+        case .full:
             electricityAvailable = 3 * average
-        } else if warnLevel == 1 {
+        case .low:
             electricityAvailable = 1.2 * average
-        } else if warnLevel == 2 {
+        case .critical:
             electricityAvailable = 0.2 * average
-        } else {
-            electricityAvailable = 1.2 * average
-            print("warnLevel set error: warn level must be 0/1/2")
         }
-        setWarnLevel()
+        self.warnLevel = warnLevel
     }
     
     public init(_ place: String, _ electricityAvailable: Float, _ average: Float) {
@@ -87,12 +90,8 @@ public struct ElectricityEntity: TimelineEntry {
         self.place = place
         self.electricityAvailable = electricityAvailable
         self.average = average
-        setWarnLevel()
-    }
-    
-    public mutating func setWarnLevel() {
         let ratio = electricityAvailable / average
-        warnLevel = ratio < 0.5 ? 2 : (ratio <= 1.8 ? 1 : 0)
+        self.warnLevel = ratio < 0.5 ? WarnLevel.critical : (ratio <= 1.8 ? WarnLevel.low : WarnLevel.full)
     }
 }
 
@@ -106,7 +105,7 @@ public struct ElectricityWidget: Widget {
                 .widgetURL(URL(string: "fduhole://navigation/campus?section=electricity")!)
         }
         .configurationDisplayName(String(localized: "Dormitory battery reminder", bundle: .module))
-        .description(String(localized: "Check the remaining electricity in the dormitory and the average electricity usage in recent days.", bundle: .module))
+        .description(String(localized: "Check the remaining electricity in the dormitory", bundle: .module))
         .supportedFamilies([.systemSmall])
         
     }
@@ -115,6 +114,17 @@ public struct ElectricityWidget: Widget {
 @available(iOS 17.0, *)
 struct ElectricityWidgetView: View {
     let entry: ElectricityEntity
+    
+    private var widgetColor: Color {
+        switch entry.warnLevel {
+        case .full:
+            return .green
+        case .low:
+            return .orange
+        case .critical:
+            return .red
+        }
+    }
     
     var body: some View {
         if entry.loadFailed {
@@ -139,35 +149,35 @@ struct ElectricityWidgetView: View {
             }
             .padding(.bottom, 18)
             
-            if entry.warnLevel == 0 {
+            if entry.warnLevel == .full {
                 HStack{
                     Image(systemName: "battery.100")
-                                .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                        .foregroundColor(widgetColor)
                     Text(String(localized: "Sufficient charge", bundle: .module))
                         .bold()
                         .font(.system(size: 22, design: .rounded))
                         .privacySensitive()
-                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                        .foregroundColor(widgetColor)
                 }
-            } else if entry.warnLevel == 1 {
+            } else if entry.warnLevel == .low {
                 HStack{
                     Image(systemName: "battery.50percent")
-                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                        .foregroundColor(widgetColor)
                     Text(String(localized: "Battery tension", bundle: .module))
                         .bold()
                         .font(.system(size: 22, design: .rounded))
                         .privacySensitive()
-                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                        .foregroundColor(widgetColor)
                 }
-            } else if entry.warnLevel == 2 {
+            } else if entry.warnLevel == .critical {
                 HStack{
                     Image(systemName: "battery.25percent")
-                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                        .foregroundColor(widgetColor)
                     Text(String(localized: "Power cut imminent", bundle: .module))
                         .bold()
                         .font(.system(size: 22, design: .rounded))
                         .privacySensitive()
-                        .foregroundColor(getWidgetColor(for: entry.warnLevel))
+                        .foregroundColor(widgetColor)
                 }
             }
             
@@ -188,22 +198,8 @@ struct ElectricityWidgetView: View {
                         .foregroundColor(.secondary)
                         .bold()
                         .font(.caption2)
-                    
                 }
             }
-        }
-    }
-    
-    func getWidgetColor(for level: Int) -> Color {
-        switch level {
-        case 0:
-            return .green
-        case 1:
-            return .orange
-        case 2:
-            return .red
-        default:
-            return .green
         }
     }
 }

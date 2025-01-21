@@ -31,7 +31,7 @@ struct DanXiWidgetBundle: WidgetBundle {
 #Preview("Electricity level 0-1-2", as: .systemSmall) {
     ElectricityWidget()
 } timeline: {
-    ElectricityEntity(0)
-    ElectricityEntity(1)
-    ElectricityEntity(2)
+    ElectricityEntity(ElectricityEntity.WarnLevel.full)
+    ElectricityEntity(ElectricityEntity.WarnLevel.low)
+    ElectricityEntity(ElectricityEntity.WarnLevel.critical)
 }
