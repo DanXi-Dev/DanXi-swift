@@ -8,6 +8,7 @@ struct DanXiWidgetBundle: WidgetBundle {
         WalletWidget()
         if #available(iOS 17.0, *) {
             BusWidget()
+            ElectricityWidget()
         }
     }
 }
@@ -24,4 +25,25 @@ struct DanXiWidgetBundle: WidgetBundle {
     BusWidget()
 } timeline: {
     BusEntry()
+}
+
+@available(iOS 17, *)
+#Preview("Electricity level 0", as: .systemSmall) {
+    ElectricityWidget()
+} timeline: {
+    ElectricityEntity(0)
+}
+
+@available(iOS 17, *)
+#Preview("Electricity level 1", as: .systemSmall) {
+    ElectricityWidget()
+} timeline: {
+    ElectricityEntity(1)
+}
+
+@available(iOS 17, *)
+#Preview("Electricity level 2", as: .systemSmall) {
+    ElectricityWidget()
+} timeline: {
+    ElectricityEntity(2)
 }

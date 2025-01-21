@@ -41,6 +41,17 @@
         }
       }
     },
+    "3-day average usage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "近3日平均用电量"
+          }
+        }
+      }
+    },
     "Academic Office Announcements" : {
       "localizations" : {
         "en" : {
@@ -273,6 +284,17 @@
         }
       }
     },
+    "Check the remaining electricity in the dormitory and the average electricity usage in recent days." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查宿舍剩余电量以及近日平均用电"
+          }
+        }
+      }
+    },
     "Classroom Schedule" : {
       "localizations" : {
         "zh-Hans" : {
@@ -455,6 +477,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "寝室电量"
+          }
+        }
+      }
+    },
+    "Dormitory battery reminder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宿舍电量提醒"
           }
         }
       }
@@ -1111,6 +1144,17 @@
         }
       }
     },
+    "Only 1-2 days of power left..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量只够1~2天的使用"
+          }
+        }
+      }
+    },
     "Orange" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1217,6 +1261,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "研究生教务通知"
+          }
+        }
+      }
+    },
+    "Power critical, cutoff in 12 hours!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量告急，半天内停电！"
           }
         }
       }
@@ -1441,6 +1496,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用户类别"
+          }
+        }
+      }
+    },
+    "Sufficient charge ~" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寝室电量充足 ~"
           }
         }
       }
