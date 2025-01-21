@@ -41,6 +41,17 @@
         }
       }
     },
+    "3-day average usage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "近3日平均用电量"
+          }
+        }
+      }
+    },
     "Academic Office Announcements" : {
       "localizations" : {
         "en" : {
@@ -113,6 +124,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "余额"
+          }
+        }
+      }
+    },
+    "Battery tension" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量紧张"
           }
         }
       }
@@ -269,6 +291,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "查询校园卡余额和消费记录"
+          }
+        }
+      }
+    },
+    "Check the remaining electricity in the dormitory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查宿舍剩余电量"
           }
         }
       }
@@ -455,6 +488,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "寝室电量"
+          }
+        }
+      }
+    },
+    "Dormitory battery reminder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宿舍电量提醒"
           }
         }
       }
@@ -871,6 +915,17 @@
         }
       }
     },
+    "less than 12 hours" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预计不足12小时"
+          }
+        }
+      }
+    },
     "Library Popularity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1221,6 +1276,17 @@
         }
       }
     },
+    "Power cut imminent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即将断电"
+          }
+        }
+      }
+    },
     "Rank" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1257,6 +1323,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刷新二维码"
+          }
+        }
+      }
+    },
+    "Remaining battery capacity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剩余电量"
           }
         }
       }
@@ -1441,6 +1518,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用户类别"
+          }
+        }
+      }
+    },
+    "Sufficient charge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量充足"
           }
         }
       }
