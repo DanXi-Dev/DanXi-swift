@@ -28,10 +28,10 @@ struct DanXiWidgetBundle: WidgetBundle {
 }
 
 @available(iOS 17, *)
-#Preview("Electricity level 0-1-2", as: .systemSmall) {
+#Preview("Electricity", as: .systemSmall) {
     ElectricityWidget()
 } timeline: {
-    ElectricityEntity(ElectricityEntity.WarnLevel.full)
-    ElectricityEntity(ElectricityEntity.WarnLevel.low)
-    ElectricityEntity(ElectricityEntity.WarnLevel.critical)
+    ElectricityEntry(ElectricityEntry.WarnLevel.full)
+    ElectricityEntry(ElectricityEntry.WarnLevel.low)
+    ElectricityEntry(ElectricityEntry.WarnLevel.critical)
 }

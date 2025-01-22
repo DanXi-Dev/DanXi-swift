@@ -116,7 +116,7 @@ struct WalletWidgetView: View {
             Text(String(localized: "Balance", bundle: .module))
                 .font(.caption2)
                 .foregroundColor(.secondary)
-            Text("¥\(entry.balance)")
+            Text(verbatim: "¥\(entry.balance)")
                 .bold()
                 .font(.body)
                 .foregroundColor(.primary)
@@ -130,7 +130,7 @@ struct WalletWidgetView: View {
                     .lineLimit(1)
                 
                 HStack {
-                    Text("¥\(String(format:"%.2f",transaction.amount))")
+                    Text(verbatim: "¥\(String(format:"%.2f",transaction.amount))")
                     Spacer()
                     Text(transaction.date, style: .time)
                 }
