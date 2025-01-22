@@ -10,12 +10,12 @@ import SwiftUI
 import FudanKit
 
 struct ElectricityWidgetProvier: TimelineProvider {
-    func placeholder(in context: Context) -> ElectricityEntity {
-        ElectricityEntity(ElectricityEntity.WarnLevel.full)
+    func placeholder(in context: Context) -> ElectricityEntry {
+        ElectricityEntry(ElectricityEntry.WarnLevel.full)
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (ElectricityEntity) -> Void) {
-        var entry = ElectricityEntity(ElectricityEntity.WarnLevel.full)
+    func getSnapshot(in context: Context, completion: @escaping (ElectricityEntry) -> Void) {
+        var entry = ElectricityEntry(ElectricityEntry.WarnLevel.full)
         if !context.isPreview {
             entry.placeholder = true
         }
@@ -25,27 +25,29 @@ struct ElectricityWidgetProvier: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         Task {
             do {
-                async let usage = ElectricityStore.shared.getCachedElectricityUsage()
-                async let dateValues = try? MyStore.shared.getCachedElectricityLogs().map { DateValueChartData(date: $0.date, value: $0.usage) }
-                let (usageLoaded, dateValuesLoaded) = try await (usage, dateValues)
+                let usage = try await ElectricityStore.shared.getCachedElectricityUsage()
+                let dateValues = try? await MyStore.shared.getCachedElectricityLogs().map { DateValueChartData(date: $0.date, value: $0.usage) }
                 
                 var filteredDateValues: [DateValueChartData] = []
-                if let dateValuesLoaded {
-                    let nonZeroDateValues = dateValuesLoaded.filter { $0.value != 0 }
+                if let dateValues {
+                    let nonZeroDateValues = dateValues.filter { $0.value != 0 }
                     filteredDateValues = Array(nonZeroDateValues.prefix(3))
                 } else {
                     filteredDateValues = []
                 }
                 
-                let place = "\(usageLoaded.campus)\(usageLoaded.building)\(usageLoaded.room)"
-                let electricityAvailable = usageLoaded.electricityAvailable
-                let average = filteredDateValues.isEmpty ? 15.0 : filteredDateValues.prefix(3).map { $0.value }.reduce(0, +) / Float(min(3, filteredDateValues.count))
-                let entry = ElectricityEntity(place, electricityAvailable, average)
-                let date = Calendar.current.date(byAdding: .minute, value: 30, to: Date.now)!
+                let electricityAvailable = usage.electricityAvailable
+                let average: Float = if filteredDateValues.isEmpty {
+                    15.0
+                } else {
+                    filteredDateValues.prefix(3).map { $0.value }.reduce(0, +) / Float(min(3, filteredDateValues.count))
+                }
+                let entry = ElectricityEntry(electricityAvailable, average)
+                let date = Calendar.current.date(byAdding: .hour, value: 6, to: Date.now)!
                 let timeline = Timeline(entries: [entry], policy: .after(date))
                 completion(timeline)
             } catch {
-                var entry = ElectricityEntity()
+                var entry = ElectricityEntry()
                 entry.loadFailed = true
                 let date = Calendar.current.date(byAdding: .minute, value: 30, to: Date.now)!
                 let timeline = Timeline(entries: [entry], policy: .after(date))
@@ -55,24 +57,23 @@ struct ElectricityWidgetProvier: TimelineProvider {
     }
 }
 
-public struct ElectricityEntity: TimelineEntry {
+public struct ElectricityEntry: TimelineEntry {
     public let date: Date
-    public let place: String
-    public let electricityAvailable: Float
-    public let average: Float               // 3 days average usage
     public var placeholder = false
+    public let electricityAvailable: Float
+    /// 3 days average usage
+    public let average: Float
     public var loadFailed = false
     public var warnLevel: WarnLevel
     
     public enum WarnLevel: Int {
-        case full = 0
-        case low = 1
-        case critical = 2
+        case full
+        case low
+        case critical
     }
     
     public init(_ warnLevel: WarnLevel = .full) {
         date = Date()
-        place = "南区 10号楼 108"
         average = 15.27898
         switch warnLevel {
         case .full:
@@ -85,13 +86,18 @@ public struct ElectricityEntity: TimelineEntry {
         self.warnLevel = warnLevel
     }
     
-    public init(_ place: String, _ electricityAvailable: Float, _ average: Float) {
+    public init(_ electricityAvailable: Float, _ average: Float) {
         date = Date()
-        self.place = place
         self.electricityAvailable = electricityAvailable
         self.average = average
         let ratio = electricityAvailable / average
-        self.warnLevel = ratio < 0.5 ? WarnLevel.critical : (ratio <= 1.8 ? WarnLevel.low : WarnLevel.full)
+        
+        self.warnLevel = switch ratio {
+        case ..<0.5: .critical
+        case 0.5..<1.8: .low
+        case 1.8...: .full
+        default: .full
+        }
     }
 }
 
@@ -107,13 +113,12 @@ public struct ElectricityWidget: Widget {
         .configurationDisplayName(String(localized: "Dormitory battery reminder", bundle: .module))
         .description(String(localized: "Check the remaining electricity in the dormitory", bundle: .module))
         .supportedFamilies([.systemSmall])
-        
     }
 }
 
 @available(iOS 17.0, *)
 struct ElectricityWidgetView: View {
-    let entry: ElectricityEntity
+    let entry: ElectricityEntry
     
     private var widgetColor: Color {
         switch entry.warnLevel {
@@ -131,14 +136,12 @@ struct ElectricityWidgetView: View {
             Text("Load Failed", bundle: .module)
                 .foregroundColor(.secondary)
         } else {
-            ElectricityWidgetContent
+            widgetContent
                 .containerBackground(.fill.quinary, for: .widget)
-            
         }
     }
     
-    @ViewBuilder
-    private var ElectricityWidgetContent: some View {
+    private var widgetContent: some View {
         VStack(alignment: .leading) {
             HStack {
                 Label(String(localized: "Dorm Electricity", bundle: .module), systemImage: "bolt.fill")
@@ -149,7 +152,8 @@ struct ElectricityWidgetView: View {
             }
             .padding(.bottom, 18)
             
-            if entry.warnLevel == .full {
+            switch entry.warnLevel {
+            case .full:
                 HStack{
                     Image(systemName: "battery.100")
                         .foregroundColor(widgetColor)
@@ -159,7 +163,7 @@ struct ElectricityWidgetView: View {
                         .privacySensitive()
                         .foregroundColor(widgetColor)
                 }
-            } else if entry.warnLevel == .low {
+            case .low:
                 HStack{
                     Image(systemName: "battery.50percent")
                         .foregroundColor(widgetColor)
@@ -169,7 +173,7 @@ struct ElectricityWidgetView: View {
                         .privacySensitive()
                         .foregroundColor(widgetColor)
                 }
-            } else if entry.warnLevel == .critical {
+            case .critical:
                 HStack{
                     Image(systemName: "battery.25percent")
                         .foregroundColor(widgetColor)

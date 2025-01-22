@@ -41,17 +41,6 @@
         }
       }
     },
-    "3-day average usage" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "近3日平均用电量"
-          }
-        }
-      }
-    },
     "Academic Office Announcements" : {
       "localizations" : {
         "en" : {
@@ -129,7 +118,6 @@
       }
     },
     "Battery tension" : {
-      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -296,7 +284,6 @@
       }
     },
     "Check the remaining electricity in the dormitory" : {
-      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -493,7 +480,6 @@
       }
     },
     "Dormitory battery reminder" : {
-      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -915,17 +901,6 @@
         }
       }
     },
-    "less than 12 hours" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预计不足12小时"
-          }
-        }
-      }
-    },
     "Library Popularity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1277,7 +1252,6 @@
       }
     },
     "Power cut imminent" : {
-      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1328,7 +1302,6 @@
       }
     },
     "Remaining battery capacity" : {
-      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1523,7 +1496,6 @@
       }
     },
     "Sufficient charge" : {
-      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
