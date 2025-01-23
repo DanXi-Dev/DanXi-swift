@@ -52,6 +52,7 @@ public struct CampusContent: View {
                 appendDetail(value: value)
             }
         }
+        #if !os(watchOS)
         .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
                 tabViewModel.scrollControl.send()
@@ -59,6 +60,7 @@ public struct CampusContent: View {
                 path.removeLast(path.count)
             }
         }
+        #endif
         .onReceive(campusNavigator.campusSection) { section in
             guard let section = CampusSection(rawValue: section) else { return }
             appendDetail(value: section)

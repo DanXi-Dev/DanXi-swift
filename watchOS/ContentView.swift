@@ -6,6 +6,7 @@ import Utils
 
 struct ContentView: View {
     @StateObject private var navigator = AppNavigator()
+    @StateObject private var campusNavigator = CampusNavigator()
     @ObservedObject private var campusModel = CampusModel.shared
     
     @State private var showLoginSheet = false
@@ -30,6 +31,7 @@ struct ContentView: View {
             }
         }
         .environmentObject(navigator)
+        .environmentObject(campusNavigator)
         .sheet(isPresented: $showLoginSheet) {
             LoginSheet()
         }
