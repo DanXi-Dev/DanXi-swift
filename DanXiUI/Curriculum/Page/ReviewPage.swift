@@ -90,7 +90,7 @@ struct ReviewPage: View {
                 let medals: [String] = review.extra.achievements.map { $0.name }
                 
                 
-                LazyVGrid (columns: [GridItem(.fixed(35)), GridItem(.fixed(35)), GridItem(.fixed(35))], alignment: .trailing){
+                LazyVGrid (columns: [GridItem](repeating: GridItem(.fixed(35)), count: min(3, medals.count)), alignment: .trailing){
                     ForEach (medals, id: \.self) { medal in
                         Image(medal, bundle: .module)
                             .resizable()
