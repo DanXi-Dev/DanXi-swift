@@ -29,6 +29,7 @@
 		2773A2B12D46A9B600DF9682 /* ElectricityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773A2B02D46A9B600DF9682 /* ElectricityWidget.swift */; };
 		2773A2B32D46A9DE00DF9682 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2773A2B22D46A9DE00DF9682 /* FudanKit */; };
 		2773A2B52D46B67600DF9682 /* WalletWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773A2B42D46B67600DF9682 /* WalletWidget.swift */; };
+		2773A2B72D46BAEF00DF9682 /* WidgetWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773A2B62D46BAEF00DF9682 /* WidgetWrapper.swift */; };
 		2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2778D5F52891C664009F4DB1 /* Assets.xcassets */; };
 		2778D6272891D22D009F4DB1 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D60B2891D22D009F4DB1 /* SettingsPage.swift */; };
 		2778D62A2891D22D009F4DB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2778D6112891D22D009F4DB1 /* ContentView.swift */; };
@@ -138,6 +139,7 @@
 		27536ECB29DC9A8300894A98 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		2773A2B02D46A9B600DF9682 /* ElectricityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricityWidget.swift; sourceTree = "<group>"; };
 		2773A2B42D46B67600DF9682 /* WalletWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletWidget.swift; sourceTree = "<group>"; };
+		2773A2B62D46BAEF00DF9682 /* WidgetWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetWrapper.swift; sourceTree = "<group>"; };
 		2778D5F52891C664009F4DB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2778D60B2891D22D009F4DB1 /* SettingsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		2778D6112891D22D009F4DB1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */,
+				2773A2B62D46BAEF00DF9682 /* WidgetWrapper.swift */,
 				E5A316A42BE4C9CB00BCC41A /* BusWidget.swift */,
 				E5A316A52BE4C9CB00BCC41A /* BusWidgetIntent.swift */,
 				2773A2B02D46A9B600DF9682 /* ElectricityWidget.swift */,
@@ -509,6 +512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2773A2B52D46B67600DF9682 /* WalletWidget.swift in Sources */,
+				2773A2B72D46BAEF00DF9682 /* WidgetWrapper.swift in Sources */,
 				E5A316A72BE4C9CB00BCC41A /* BusWidget.swift in Sources */,
 				E5A316A62BE4C9CB00BCC41A /* BusWidgetIntent.swift in Sources */,
 				27536EC229DC9A8100894A98 /* DanXiWidgetBundle.swift in Sources */,
