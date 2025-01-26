@@ -75,21 +75,7 @@ struct WalletWidgetView: View {
     let entry: WalletEntry
     
     var body: some View {
-        if #available(iOS 17, *) {
-            widgetContent
-                .containerBackground(.fill.quinary, for: .widget)
-        } else {
-            widgetContent
-                .padding()
-        }
-    }
-    
-    @ViewBuilder
-    private var widgetContent: some View {
-        if entry.loadFailed {
-            Text("Load Failed")
-                .foregroundColor(.secondary)
-        } else {
+        WidgetWrapper(failed: entry.loadFailed) {
             VStack(alignment: .leading) {
                 HStack {
                     Label("ECard", systemImage: "creditcard.fill")
@@ -100,42 +86,33 @@ struct WalletWidgetView: View {
                 }
                 .padding(.bottom, 6)
                 
-                if entry.placeholder {
-                    walletContent
-                } else {
-                    walletContent
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Balance")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    Text(verbatim: "¥\(entry.balance)")
+                        .bold()
+                        .font(.body)
+                        .foregroundColor(.primary)
                 }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var walletContent: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("Balance")
-                .font(.caption2)
-                .foregroundColor(.secondary)
-            Text(verbatim: "¥\(entry.balance)")
-                .bold()
-                .font(.body)
-                .foregroundColor(.primary)
-        }
-        
-        Spacer(minLength: 6)
-        
-        ForEach(entry.transactions.prefix(2), id: \.id) { transaction in
-            VStack(alignment: .leading) {
-                Text(verbatim: "\(transaction.location)")
-                    .lineLimit(1)
                 
-                HStack {
-                    Text(verbatim: "¥\(String(format:"%.2f",transaction.amount))")
-                    Spacer()
-                    Text(transaction.date, style: .time)
+                Spacer(minLength: 6)
+                
+                ForEach(entry.transactions.prefix(2), id: \.id) { transaction in
+                    VStack(alignment: .leading) {
+                        Text(verbatim: "\(transaction.location)")
+                            .lineLimit(1)
+                        
+                        HStack {
+                            Text(verbatim: "¥\(String(format:"%.2f",transaction.amount))")
+                            Spacer()
+                            Text(transaction.date, style: .time)
+                        }
+                        .foregroundColor(.secondary)
+                    }
+                    .font(.footnote)
                 }
-                .foregroundColor(.secondary)
             }
-            .font(.footnote)
         }
     }
 }

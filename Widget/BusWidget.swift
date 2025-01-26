@@ -119,17 +119,9 @@ struct BusEntry: TimelineEntry {
 struct BusWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: "bus.fudan.edu.cn", intent: BusScheduleIntent.self, provider: BusWidgetProvier()) { entry in
-            Group {
-                if #available(iOS 17.0, *) {
-                    BusWidgetView(entry: entry)
-                        .containerBackground(.fill.quinary, for: .widget)
-                } else {
-                    BusWidgetView(entry: entry)
-                        .padding()
-                        .background()
-                }
-            }
-            .widgetURL(URL(string: "fduhole://navigation/campus?section=schoolbus")!)
+            BusWidgetView(entry: entry)
+                .containerBackground(.fill.quinary, for: .widget)
+                .widgetURL(URL(string: "fduhole://navigation/campus?section=schoolbus")!)
         }
         .configurationDisplayName("Bus")
         .description("Subscribe bus schedule.")
@@ -140,6 +132,19 @@ struct BusWidget: Widget {
 @available(iOS 17.0, *)
 struct BusWidgetView: View {
     let entry: BusEntry
+    
+    var body: some View {
+        if self.entry.loadFailed {
+            Text("Load Failed")
+                .foregroundColor(.secondary)
+        } else {
+            VStack(alignment: .leading) {
+                header
+                Spacer()
+                followingBus
+            }
+        }
+    }
     
     private var header: some View {
         HStack(alignment: .top) {
@@ -212,32 +217,6 @@ struct BusWidgetView: View {
                 return AnyView(Text("No more shifts today")
                     .font(.footnote)
                     .foregroundColor(.gray))
-            }
-        }
-    }
-    
-    var body: some View {
-        if #available(iOS 17, *) {
-            widgetContent
-                .containerBackground(.fill, for: .widget)
-        } else {
-            self.widgetContent
-                .padding()
-        }
-    }
-    
-    @ViewBuilder
-    private var widgetContent: some View {
-        if self.entry.loadFailed {
-            Text("Load Failed")
-                .foregroundColor(.secondary)
-        } else {
-            VStack(alignment: .leading) {
-                self.header
-                
-                Spacer()
-        
-                self.followingBus
             }
         }
     }

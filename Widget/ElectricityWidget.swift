@@ -124,62 +124,54 @@ struct ElectricityWidgetView: View {
     }
     
     var body: some View {
-        if entry.loadFailed {
-            Text("Load Failed")
-                .foregroundColor(.secondary)
-        } else {
-            widgetContent
-                .containerBackground(.fill.quinary, for: .widget)
-        }
-    }
-    
-    private var widgetContent: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Label("Dorm Electricity", systemImage: "bolt.fill")
-                    .bold()
-                    .font(.caption)
-                    .fontDesign(.rounded)
-                    .foregroundColor(.green)
-                Spacer()
-            }
-            .padding(.bottom, 1)
-            
-            Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
-                .foregroundColor(.secondary)
-                .font(.caption2)
-            
-            Spacer()
-            
-            Text("Remains")
-                .foregroundColor(.secondary)
-                .font(.caption2)
-            HStack(alignment: .firstTextBaseline, spacing: 0) {
-                Text(String(format: "%.2f", entry.electricityAvailable))
-                    .bold()
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                
-                Text(verbatim: " kWh")
-                    .foregroundColor(.secondary)
-                    .bold()
-                    .font(.caption2)
-            }
-            
-            HStack {
-                switch entry.warnLevel {
-                case .full:
-                    Label("Sufficient", systemImage: "battery.100")
+        WidgetWrapper(failed: entry.loadFailed) {
+            VStack(alignment: .leading) {
+                HStack {
+                    Label("Dorm Electricity", systemImage: "bolt.fill")
+                        .bold()
+                        .font(.caption)
+                        .fontDesign(.rounded)
                         .foregroundColor(.green)
-                case .low:
-                    Label("Low", systemImage: "battery.50percent")
-                        .foregroundColor(.orange)
-                case .critical:
-                    Label("Critical", systemImage: "battery.25percent")
-                        .foregroundColor(.red)
+                    Spacer()
                 }
+                .padding(.bottom, 1)
+                
+                Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
+                
+                Spacer()
+                
+                Text("Remains")
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    Text(String(format: "%.2f", entry.electricityAvailable))
+                        .bold()
+                        .font(.title2)
+                        .fontDesign(.rounded)
+                    
+                    Text(verbatim: " kWh")
+                        .foregroundColor(.secondary)
+                        .bold()
+                        .font(.caption2)
+                }
+                
+                HStack {
+                    switch entry.warnLevel {
+                    case .full:
+                        Label("Sufficient", systemImage: "battery.100")
+                            .foregroundColor(.green)
+                    case .low:
+                        Label("Low", systemImage: "battery.50percent")
+                            .foregroundColor(.orange)
+                    case .critical:
+                        Label("Critical", systemImage: "battery.25percent")
+                            .foregroundColor(.red)
+                    }
+                }
+                .font(.caption)
             }
-            .font(.caption)
         }
     }
 }
