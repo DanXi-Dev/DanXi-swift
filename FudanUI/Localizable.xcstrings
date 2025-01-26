@@ -253,26 +253,6 @@
         }
       }
     },
-    "Check ECard balance and transactions." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "查询校园卡余额和消费记录"
-          }
-        }
-      }
-    },
-    "Check the remaining electricity in the dormitory" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "检查宿舍剩余电量"
-          }
-        }
-      }
-    },
     "Classroom Schedule" : {
       "localizations" : {
         "zh-Hans" : {
@@ -379,16 +359,6 @@
         }
       }
     },
-    "Critical" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "即将断电"
-          }
-        }
-      }
-    },
     "Cyan" : {
       "localizations" : {
         "zh-Hans" : {
@@ -405,16 +375,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "每日消费"
-          }
-        }
-      }
-    },
-    "Daily usage: %@ kWh" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日用电平均：%@ kWh"
           }
         }
       }
@@ -475,16 +435,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "寝室电量"
-          }
-        }
-      }
-    },
-    "Dormitory battery reminder" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "宿舍电量提醒"
           }
         }
       }
@@ -911,16 +861,6 @@
         }
       }
     },
-    "Load Failed" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "加载失败"
-          }
-        }
-      }
-    },
     "Loading" : {
       "localizations" : {
         "zh-Hans" : {
@@ -997,16 +937,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "退出登录"
-          }
-        }
-      }
-    },
-    "Low" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "电量低"
           }
         }
       }
@@ -1301,16 +1231,6 @@
         }
       }
     },
-    "Remains" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "剩余"
-          }
-        }
-      }
-    },
     "Reserve" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1491,16 +1411,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用户类别"
-          }
-        }
-      }
-    },
-    "Sufficient" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "电量充足"
           }
         }
       }

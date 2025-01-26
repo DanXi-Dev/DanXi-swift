@@ -52,6 +52,16 @@
         }
       }
     },
+    "Balance" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "余额"
+          }
+        }
+      }
+    },
     "Bus" : {
       "localizations" : {
         "zh-Hans" : {
@@ -113,6 +123,26 @@
         }
       }
     },
+    "Check ECard balance and transactions." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查询校园卡余额和消费记录"
+          }
+        }
+      }
+    },
+    "Check the remaining electricity in the dormitory" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查宿舍剩余电量"
+          }
+        }
+      }
+    },
     "Community" : {
       "localizations" : {
         "zh-Hans" : {
@@ -159,12 +189,32 @@
         }
       }
     },
+    "Critical" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "即将断电"
+          }
+        }
+      }
+    },
     "Curriculum" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "课评"
+          }
+        }
+      }
+    },
+    "Daily usage: %@ kWh" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日用电平均：%@ kWh"
           }
         }
       }
@@ -290,12 +340,42 @@
         }
       }
     },
+    "Dorm Electricity" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寝室电量"
+          }
+        }
+      }
+    },
+    "Dormitory battery reminder" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宿舍电量提醒"
+          }
+        }
+      }
+    },
     "Due in" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "还有"
+          }
+        }
+      }
+    },
+    "ECard" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "校园卡"
           }
         }
       }
@@ -429,6 +509,16 @@
         }
       }
     },
+    "Low" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量低"
+          }
+        }
+      }
+    },
     "Next shift at" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -486,6 +576,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "全新的界面"
+          }
+        }
+      }
+    },
+    "Remains" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剩余"
           }
         }
       }
@@ -594,6 +694,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "订阅校车班次。"
+          }
+        }
+      }
+    },
+    "Sufficient" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "电量充足"
           }
         }
       }

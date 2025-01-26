@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import WidgetKit
 import SwiftUI
 import FudanKit
@@ -66,8 +65,8 @@ public struct WalletWidget: Widget {
             WalletWidgetView(entry: entry)
                 .widgetURL(URL(string: "fduhole://navigation/campus?section=wallet")!)
         }
-        .configurationDisplayName(String(localized: "ECard", bundle: .module))
-        .description(String(localized: "Check ECard balance and transactions.", bundle: .module))
+        .configurationDisplayName("ECard")
+        .description("Check ECard balance and transactions.")
         .supportedFamilies([.systemSmall])
     }
 }
@@ -88,12 +87,12 @@ struct WalletWidgetView: View {
     @ViewBuilder
     private var widgetContent: some View {
         if entry.loadFailed {
-            Text("Load Failed", bundle: .module)
+            Text("Load Failed")
                 .foregroundColor(.secondary)
         } else {
             VStack(alignment: .leading) {
                 HStack {
-                    Label(String(localized: "ECard", bundle: .module), systemImage: "creditcard.fill")
+                    Label("ECard", systemImage: "creditcard.fill")
                         .bold()
                         .font(.caption)
                         .foregroundColor(.orange)
@@ -113,7 +112,7 @@ struct WalletWidgetView: View {
     @ViewBuilder
     private var walletContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(String(localized: "Balance", bundle: .module))
+            Text("Balance")
                 .font(.caption2)
                 .foregroundColor(.secondary)
             Text(verbatim: "¥\(entry.balance)")
@@ -140,4 +139,10 @@ struct WalletWidgetView: View {
         }
     }
 }
-#endif
+
+@available(iOS 17, *)
+#Preview("Wallet", as: .systemSmall) {
+    WalletWidget()
+} timeline: {
+    WalletEntry()
+}
