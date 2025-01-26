@@ -102,12 +102,14 @@ struct ElectricityWidget: Widget {
         }
         .configurationDisplayName("Dormitory battery reminder")
         .description("Check the remaining electricity in the dormitory")
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .accessoryRectangular, .accessoryInline])
     }
 }
 
 @available(iOS 16.1, *)
 struct ElectricityWidgetView: View {
+    @Environment(\.widgetFamily) private var widgetFamily
+    
     let entry: ElectricityEntry
     
     private var widgetColor: Color {
@@ -123,59 +125,133 @@ struct ElectricityWidgetView: View {
     
     var body: some View {
         WidgetWrapper(failed: entry.loadFailed) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Label("Dorm Electricity", systemImage: "bolt.fill")
-                        .bold()
-                        .font(.caption)
-                        .fontDesign(.rounded)
-                        .foregroundColor(.green)
-                    Spacer()
+            Group {
+                switch widgetFamily {
+                case .systemSmall:
+                    systemSmall
+                case .accessoryRectangular:
+                    accessoryRectangular
+                case .accessoryInline:
+                    accessoryInline
+                default:
+                    EmptyView()
                 }
-                .padding(.bottom, 1)
-                
-                Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
-                    .foregroundColor(.secondary)
-                    .font(.caption2)
-                
-                Spacer()
-                
-                Text("Remains")
-                    .foregroundColor(.secondary)
-                    .font(.caption2)
-                HStack(alignment: .firstTextBaseline, spacing: 0) {
-                    Text(String(format: "%.2f", entry.electricityAvailable))
-                        .bold()
-                        .font(.title2)
-                        .fontDesign(.rounded)
-                    
-                    Text(verbatim: " kWh")
-                        .foregroundColor(.secondary)
-                        .bold()
-                        .font(.caption2)
-                }
-                
-                HStack {
-                    switch entry.warnLevel {
-                    case .full:
-                        Label("Sufficient", systemImage: "battery.100")
-                            .foregroundColor(.green)
-                    case .low:
-                        Label("Low", systemImage: "battery.50percent")
-                            .foregroundColor(.orange)
-                    case .critical:
-                        Label("Critical", systemImage: "battery.25percent")
-                            .foregroundColor(.red)
-                    }
-                }
-                .font(.caption)
             }
+        }
+    }
+    
+    private var systemSmall: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Label("Dorm Electricity", systemImage: "bolt.fill")
+                    .bold()
+                    .font(.caption)
+                    .fontDesign(.rounded)
+                    .foregroundColor(.green)
+                Spacer()
+            }
+            .padding(.bottom, 1)
+            
+            Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
+                .foregroundColor(.secondary)
+                .font(.caption2)
+            
+            Spacer()
+            
+            Text("Remains")
+                .foregroundColor(.secondary)
+                .font(.caption2)
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                Text(String(format: "%.2f", entry.electricityAvailable))
+                    .bold()
+                    .font(.title2)
+                    .fontDesign(.rounded)
+                
+                Text(verbatim: " kWh")
+                    .foregroundColor(.secondary)
+                    .bold()
+                    .font(.caption2)
+            }
+            
+            Group {
+                switch entry.warnLevel {
+                case .full:
+                    Label("Sufficient", systemImage: "battery.100")
+                        .foregroundColor(.green)
+                case .low:
+                    Label("Low", systemImage: "battery.50percent")
+                        .foregroundColor(.orange)
+                case .critical:
+                    Label("Critical", systemImage: "battery.25percent")
+                        .foregroundColor(.red)
+                }
+            }
+            .font(.caption)
+        }
+    }
+    
+    private var accessoryInline: some View {
+        switch entry.warnLevel {
+        case .full:
+            Label("Sufficient", systemImage: "battery.100")
+                .foregroundColor(.green)
+        case .low:
+            Label("Low", systemImage: "battery.50percent")
+                .foregroundColor(.orange)
+        case .critical:
+            Label("Critical", systemImage: "battery.25percent")
+                .foregroundColor(.red)
+        }
+    }
+    
+    private var accessoryRectangular: some View {
+        VStack(alignment: .leading) {
+            Group {
+                switch entry.warnLevel {
+                case .full:
+                    Label("Sufficient", systemImage: "battery.100")
+                        .foregroundColor(.green)
+                case .low:
+                    Label("Low", systemImage: "battery.50percent")
+                        .foregroundColor(.orange)
+                case .critical:
+                    Label("Critical", systemImage: "battery.25percent")
+                        .foregroundColor(.red)
+                }
+            }
+            
+            HStack {
+                Text("Remains") + Text(String(format: "%.2f", entry.electricityAvailable)) + Text(verbatim: " kWh")
+                Spacer()
+            }
+            
+            Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
+                .foregroundColor(.secondary)
+                .font(.footnote)
         }
     }
 }
 
 @available(iOS 17, *)
 #Preview("Electricity", as: .systemSmall) {
+    ElectricityWidget()
+} timeline: {
+    ElectricityEntry(.full)
+    ElectricityEntry(.low)
+    ElectricityEntry(.critical)
+}
+
+@available(iOS 17, *)
+#Preview("Electricity", as: .accessoryRectangular) {
+    ElectricityWidget()
+} timeline: {
+    ElectricityEntry(.full)
+    ElectricityEntry(.low)
+    ElectricityEntry(.critical)
+}
+
+@available(iOS 17, *)
+#Preview("Electricity", as: .accessoryInline) {
     ElectricityWidget()
 } timeline: {
     ElectricityEntry(.full)
