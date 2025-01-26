@@ -12,26 +12,3 @@ struct DanXiWidgetBundle: WidgetBundle {
         }
     }
 }
-
-@available(iOS 17, *)
-#Preview("Wallet", as: .systemSmall) {
-    WalletWidget()
-} timeline: {
-    WalletEntry()
-}
-
-@available(iOS 17, *)
-#Preview("Bus", as: .systemSmall) {
-    BusWidget()
-} timeline: {
-    BusEntry()
-}
-
-@available(iOS 17, *)
-#Preview("Electricity", as: .systemSmall) {
-    ElectricityWidget()
-} timeline: {
-    ElectricityEntry(ElectricityEntry.WarnLevel.full)
-    ElectricityEntry(ElectricityEntry.WarnLevel.low)
-    ElectricityEntry(ElectricityEntry.WarnLevel.critical)
-}

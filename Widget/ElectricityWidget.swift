@@ -1,11 +1,5 @@
-//
-//  ElectricityWidget.swift
-//  FudanUI
-//
-//  Created by 袁新宇 on 2025/1/20.
-
-#if !os(watchOS)
 import FudanKit
+import FudanUI
 import SwiftUI
 import WidgetKit
 
@@ -26,21 +20,19 @@ struct ElectricityWidgetProvier: TimelineProvider {
         Task {
             do {
                 let usage = try await ElectricityStore.shared.getCachedElectricityUsage()
-                let dateValues = try? await MyStore.shared.getCachedElectricityLogs().map { DateValueChartData(date: $0.date, value: $0.usage) }
+                let electricityLogs = try? await MyStore.shared.getCachedElectricityLogs()
                 
-                var filteredDateValues: [DateValueChartData] = []
-                if let dateValues {
-                    let nonZeroDateValues = dateValues.filter { $0.value != 0 }
-                    filteredDateValues = Array(nonZeroDateValues.prefix(3))
+                let filteredLogs: [ElectricityLog] = if let electricityLogs {
+                    Array(electricityLogs.filter { $0.usage != 0 }.prefix(3))
                 } else {
-                    filteredDateValues = []
+                    []
                 }
                 
                 let electricityAvailable = usage.electricityAvailable
-                let average: Float = if filteredDateValues.isEmpty {
+                let average: Float = if filteredLogs.isEmpty {
                     15.0
                 } else {
-                    filteredDateValues.prefix(3).map { $0.value }.reduce(0, +) / Float(min(3, filteredDateValues.count))
+                    filteredLogs.map { $0.usage }.reduce(0, +) / Float(min(3, filteredLogs.count))
                 }
                 let entry = ElectricityEntry(electricityAvailable, average)
                 let date = Calendar.current.date(byAdding: .hour, value: 6, to: Date.now)!
@@ -57,22 +49,22 @@ struct ElectricityWidgetProvier: TimelineProvider {
     }
 }
 
-public struct ElectricityEntry: TimelineEntry {
-    public let date: Date
-    public var placeholder = false
-    public let electricityAvailable: Float
+struct ElectricityEntry: TimelineEntry {
+    let date: Date
+    var placeholder = false
+    let electricityAvailable: Float
     /// 3 days average usage
-    public let average: Float
-    public var loadFailed = false
-    public var warnLevel: WarnLevel
+    let average: Float
+    var loadFailed = false
+    var warnLevel: WarnLevel
     
-    public enum WarnLevel: Int {
+    enum WarnLevel: Int {
         case full
         case low
         case critical
     }
     
-    public init(_ warnLevel: WarnLevel = .full) {
+    init(_ warnLevel: WarnLevel = .full) {
         date = Date()
         average = 15.27898
         switch warnLevel {
@@ -86,7 +78,7 @@ public struct ElectricityEntry: TimelineEntry {
         self.warnLevel = warnLevel
     }
     
-    public init(_ electricityAvailable: Float, _ average: Float) {
+    init(_ electricityAvailable: Float, _ average: Float) {
         date = Date()
         self.electricityAvailable = electricityAvailable
         self.average = average
@@ -102,16 +94,16 @@ public struct ElectricityEntry: TimelineEntry {
 }
 
 @available(iOS 17.0, *)
-public struct ElectricityWidget: Widget {
-    public init() {}
+struct ElectricityWidget: Widget {
+    init() {}
     
-    public var body: some WidgetConfiguration {
+    var body: some WidgetConfiguration {
         StaticConfiguration(kind: "electricity.fudan.edu.cn", provider: ElectricityWidgetProvier()) { entry in
             ElectricityWidgetView(entry: entry)
                 .widgetURL(URL(string: "fduhole://navigation/campus?section=electricity")!)
         }
-        .configurationDisplayName(String(localized: "Dormitory battery reminder", bundle: .module))
-        .description(String(localized: "Check the remaining electricity in the dormitory", bundle: .module))
+        .configurationDisplayName("Dormitory battery reminder")
+        .description("Check the remaining electricity in the dormitory")
         .supportedFamilies([.systemSmall])
     }
 }
@@ -133,7 +125,7 @@ struct ElectricityWidgetView: View {
     
     var body: some View {
         if entry.loadFailed {
-            Text("Load Failed", bundle: .module)
+            Text("Load Failed")
                 .foregroundColor(.secondary)
         } else {
             widgetContent
@@ -144,7 +136,7 @@ struct ElectricityWidgetView: View {
     private var widgetContent: some View {
         VStack(alignment: .leading) {
             HStack {
-                Label(String(localized: "Dorm Electricity", bundle: .module), systemImage: "bolt.fill")
+                Label("Dorm Electricity", systemImage: "bolt.fill")
                     .bold()
                     .font(.caption)
                     .fontDesign(.rounded)
@@ -153,13 +145,13 @@ struct ElectricityWidgetView: View {
             }
             .padding(.bottom, 1)
             
-            Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh", bundle: .module)
+            Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
                 .foregroundColor(.secondary)
                 .font(.caption2)
             
             Spacer()
             
-            Text("Remains", bundle: .module)
+            Text("Remains")
                 .foregroundColor(.secondary)
                 .font(.caption2)
             HStack(alignment: .firstTextBaseline, spacing: 0) {
@@ -177,13 +169,13 @@ struct ElectricityWidgetView: View {
             HStack {
                 switch entry.warnLevel {
                 case .full:
-                    Label(String(localized: "Sufficient", bundle: .module), systemImage: "battery.100")
+                    Label("Sufficient", systemImage: "battery.100")
                         .foregroundColor(.green)
                 case .low:
-                    Label(String(localized: "Low", bundle: .module), systemImage: "battery.50percent")
+                    Label("Low", systemImage: "battery.50percent")
                         .foregroundColor(.orange)
                 case .critical:
-                    Label(String(localized: "Critical", bundle: .module), systemImage: "battery.25percent")
+                    Label("Critical", systemImage: "battery.25percent")
                         .foregroundColor(.red)
                 }
             }
@@ -191,4 +183,12 @@ struct ElectricityWidgetView: View {
         }
     }
 }
-#endif
+
+@available(iOS 17, *)
+#Preview("Electricity", as: .systemSmall) {
+    ElectricityWidget()
+} timeline: {
+    ElectricityEntry(ElectricityEntry.WarnLevel.full)
+    ElectricityEntry(ElectricityEntry.WarnLevel.low)
+    ElectricityEntry(ElectricityEntry.WarnLevel.critical)
+}
