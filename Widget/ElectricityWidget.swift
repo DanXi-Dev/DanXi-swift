@@ -93,10 +93,8 @@ struct ElectricityEntry: TimelineEntry {
     }
 }
 
-@available(iOS 17.0, *)
+@available(iOS 16.1, *)
 struct ElectricityWidget: Widget {
-    init() {}
-    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "electricity.fudan.edu.cn", provider: ElectricityWidgetProvier()) { entry in
             ElectricityWidgetView(entry: entry)
@@ -108,7 +106,7 @@ struct ElectricityWidget: Widget {
     }
 }
 
-@available(iOS 17.0, *)
+@available(iOS 16.1, *)
 struct ElectricityWidgetView: View {
     let entry: ElectricityEntry
     
@@ -180,7 +178,7 @@ struct ElectricityWidgetView: View {
 #Preview("Electricity", as: .systemSmall) {
     ElectricityWidget()
 } timeline: {
-    ElectricityEntry(ElectricityEntry.WarnLevel.full)
-    ElectricityEntry(ElectricityEntry.WarnLevel.low)
-    ElectricityEntry(ElectricityEntry.WarnLevel.critical)
+    ElectricityEntry(.full)
+    ElectricityEntry(.low)
+    ElectricityEntry(.critical)
 }
