@@ -211,23 +211,33 @@ struct ElectricityWidgetView: View {
                 case .full:
                     Label("Sufficient", systemImage: "battery.100")
                         .foregroundColor(.green)
+                        .fontWeight(.bold)
                 case .low:
                     Label("Low", systemImage: "battery.50percent")
                         .foregroundColor(.orange)
+                        .fontWeight(.bold)
                 case .critical:
                     Label("Critical", systemImage: "battery.25percent")
                         .foregroundColor(.red)
+                        .fontWeight(.bold)
                 }
             }
-            
-            HStack {
-                Text("Remains") + Text(String(format: "%.2f", entry.electricityAvailable)) + Text(verbatim: " kWh")
-                Spacer()
+            // choose a smaller font to avoid overflow in English
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    Text("\(String(format: "%.2f", entry.electricityAvailable)) kWh remains")
+                    Spacer()
+                }
+                HStack {
+                    Text("\(String(format: "%.2f", entry.electricityAvailable)) kWh remains")
+                    Spacer()
+                }
+                .font(.caption)
             }
             
             Text("Daily usage: \(String(format: "%.2f", entry.average)) kWh")
                 .foregroundColor(.secondary)
-                .font(.footnote)
+                .font(.caption2)
         }
     }
 }

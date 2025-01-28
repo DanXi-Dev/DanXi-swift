@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ kWh remains" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剩余 %@ kWh"
+          }
+        }
+      }
+    },
     "About" : {
       "localizations" : {
         "zh-Hans" : {
