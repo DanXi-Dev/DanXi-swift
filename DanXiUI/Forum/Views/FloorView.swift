@@ -1,6 +1,6 @@
+import DanXiKit
 import SwiftUI
 import SwiftUIX
-import DanXiKit
 import ViewUtils
 
 struct FloorView: View {
@@ -135,9 +135,9 @@ private struct FloorContentView: View, Equatable {
         }
         
         return switch model.filterOption {
-        case .conversation(_):
+        case .conversation:
             sliced
-        case .reply(_):
+        case .reply:
             sliced
         default:
             sections

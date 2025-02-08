@@ -1,5 +1,5 @@
-import SwiftUI
 import DanXiKit
+import SwiftUI
 import ViewUtils
 
 struct HolePage: View {
@@ -326,7 +326,7 @@ private struct HolePageSheets<Label: View>: View {
             .sheet(item: $model.textSelectionSheet) { floor in
                 TextSelectionSheet(text: floor.content)
             }
-            .sheet(isPresented: $model.showCopySheet ) {
+            .sheet(isPresented: $model.showCopySheet) {
                 HoleCopySheet()
                     .environmentObject(model)
             }
