@@ -50,6 +50,10 @@ struct FloorView: View {
                 model.highlight()
             }
         }
+        .background {
+            RoundedRectangle(cornerSize: .init(width: 10, height: 10), style: .continuous)
+                .foregroundStyle(Color("List Foreground", bundle: .module))
+        }
         .environmentObject(model)
     }
     
@@ -367,6 +371,11 @@ struct MultipleFoldedFloorView: View {
             .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
             .overlay(Color.accentColor.opacity(highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
         }
+        .background {
+            RoundedRectangle(cornerSize: .init(width: 10, height: 10), style: .continuous)
+                .foregroundStyle(Color("List Foreground", bundle: .module))
+        }
+        
         // FIXME: This ID modifier don't seems to have effect when scrolling
         .id(id)
         .onReceive(holeModel.scrollControl) { id in

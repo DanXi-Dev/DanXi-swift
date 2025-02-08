@@ -22,50 +22,55 @@ struct HolePage: View {
     var body: some View {
         ScrollViewReader { proxy in
             HolePageSheets {
-                ForumList {
-                    // On older platform, adjusting list section spacing will hide section header
-                    // due to implementation of compactSectionSpacing.
-                    if #unavailable(iOS 17) {
-                        header
-                            .listRowBackground(Color.clear)
-                    }
-                    
-                    AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
-                        switch segment {
-                        case .floor(let presentation):
-                            Section {
-                                FloorView(presentation: presentation)
-                            } header: {
-                                if presentation.id == model.floors.first?.id {
-                                    header
-                                }
+                ScrollView {
+                    LazyVStack {
+                        // On older platform, adjusting list section spacing will hide section header
+                        // due to implementation of compactSectionSpacing.
+                        Group {
+                            if #unavailable(iOS 17) {
+                                header
+                                    .listRowBackground(Color.clear)
                             }
-                            .id(presentation.id)
-                            .onDisappear() {
-                                if presentation.id == model.targetFloorId {
-                                    model.targetFloorVisibility = false
-                                }
-                            }
-                        case .folded(let presentations):
-                            FoldedView {
-                                MultipleFoldedFloorView(presentations: presentations)
-                            } content: {
-                                ForEach(presentations) { presentation in
+                            
+                            AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
+                                switch segment {
+                                case .floor(let presentation):
                                     Section {
                                         FloorView(presentation: presentation)
+                                    } header: {
+                                        if presentation.id == model.floors.first?.id {
+                                            header
+                                        }
                                     }
                                     .id(presentation.id)
-                                }
-                            }
-                            .listRowInsets(.zero)
-                            .onDisappear() {
-                                for presentation in presentations {
-                                    if presentation.id == model.targetFloorId {
-                                        model.targetFloorVisibility = false
+                                    .onDisappear {
+                                        if presentation.id == model.targetFloorId {
+                                            model.targetFloorVisibility = false
+                                        }
+                                    }
+                                case .folded(let presentations):
+                                    FoldedView {
+                                        MultipleFoldedFloorView(presentations: presentations)
+                                    } content: {
+                                        ForEach(presentations) { presentation in
+                                            Section {
+                                                FloorView(presentation: presentation)
+                                            }
+                                            .id(presentation.id)
+                                        }
+                                    }
+                                    .listRowInsets(.zero)
+                                    .onDisappear {
+                                        for presentation in presentations {
+                                            if presentation.id == model.targetFloorId {
+                                                model.targetFloorVisibility = false
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
+                        .transformEffect(.identity)
                     }
                 }
                 .refreshable {
