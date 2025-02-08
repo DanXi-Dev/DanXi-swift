@@ -44,7 +44,7 @@ struct FloorView: View {
         }
         .listRowInsets(.zero)
         .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
-        .overlay(Color.accentColor.opacity(model.highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
+        .overlay(Color.gray.opacity(model.highlighted ? 0.4 : 0).listRowInsets(.zero).allowsHitTesting(false))
         .onReceive(holeModel.scrollControl) { id in
             if id == presentation.id {
                 model.highlight()
@@ -369,7 +369,7 @@ struct MultipleFoldedFloorView: View {
             .foregroundColor(.secondary)
             .font(.subheadline)
             .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
-            .overlay(Color.accentColor.opacity(highlighted ? 0.5 : 0).listRowInsets(.zero).allowsHitTesting(false))
+            .overlay(Color.gray.opacity(highlighted ? 0.2 : 0).listRowInsets(.zero).allowsHitTesting(false))
         }
         .background {
             RoundedRectangle(cornerSize: .init(width: 10, height: 10), style: .continuous)
