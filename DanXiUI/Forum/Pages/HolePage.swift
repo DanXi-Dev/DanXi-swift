@@ -1,5 +1,5 @@
-import SwiftUI
 import DanXiKit
+import SwiftUI
 import ViewUtils
 
 struct HolePage: View {
@@ -22,50 +22,60 @@ struct HolePage: View {
     var body: some View {
         ScrollViewReader { proxy in
             HolePageSheets {
-                ForumList {
-                    // On older platform, adjusting list section spacing will hide section header
-                    // due to implementation of compactSectionSpacing.
-                    if #unavailable(iOS 17) {
-                        header
-                            .listRowBackground(Color.clear)
-                    }
-                    
-                    AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
-                        switch segment {
-                        case .floor(let presentation):
-                            Section {
-                                FloorView(presentation: presentation)
-                            } header: {
-                                if presentation.id == model.floors.first?.id {
-                                    header
-                                }
+                // Use ScrollView and LazyVStack instead of ForumList to fix overflow problem,
+                // see https://github.com/DanXi-Dev/DanXi-swift/pull/313.
+                ScrollView {
+                    LazyVStack {
+                        // On older platform, adjusting list section spacing will hide section header
+                        // due to implementation of compactSectionSpacing.
+                        Group {
+                            if #unavailable(iOS 17) {
+                                header
+                                    .listRowBackground(Color.clear)
                             }
-                            .id(presentation.id)
-                            .onDisappear() {
-                                if presentation.id == model.targetFloorId {
-                                    model.targetFloorVisibility = false
-                                }
-                            }
-                        case .folded(let presentations):
-                            FoldedView {
-                                MultipleFoldedFloorView(presentations: presentations)
-                            } content: {
-                                ForEach(presentations) { presentation in
+                            
+                            AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
+                                switch segment {
+                                case .floor(let presentation):
                                     Section {
                                         FloorView(presentation: presentation)
+                                    } header: {
+                                        if presentation.id == model.floors.first?.id {
+                                            header
+                                        }
                                     }
                                     .id(presentation.id)
-                                }
-                            }
-                            .listRowInsets(.zero)
-                            .onDisappear() {
-                                for presentation in presentations {
-                                    if presentation.id == model.targetFloorId {
-                                        model.targetFloorVisibility = false
+                                    .onDisappear {
+                                        if presentation.id == model.targetFloorId {
+                                            model.targetFloorVisibility = false
+                                        }
+                                    }
+                                case .folded(let presentations):
+                                    FoldedView {
+                                        MultipleFoldedFloorView(presentations: presentations)
+                                    } content: {
+                                        ForEach(presentations) { presentation in
+                                            Section {
+                                                FloorView(presentation: presentation)
+                                            }
+                                            .id(presentation.id)
+                                        }
+                                    }
+                                    .listRowInsets(.zero)
+                                    .onDisappear {
+                                        for presentation in presentations {
+                                            if presentation.id == model.targetFloorId {
+                                                model.targetFloorVisibility = false
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
+                        // To get rid of the animation bug in LazyVStack,
+                        // same as .geometryGroup() but available in iOS 16.
+                        // See https://stackoverflow.com/questions/78209143/weird-animation-bug-inside-scrollview-with-lazyhstack.
+                        .transformEffect(.identity)
                     }
                 }
                 .refreshable {
@@ -321,7 +331,7 @@ private struct HolePageSheets<Label: View>: View {
             .sheet(item: $model.textSelectionSheet) { floor in
                 TextSelectionSheet(text: floor.content)
             }
-            .sheet(isPresented: $model.showCopySheet ) {
+            .sheet(isPresented: $model.showCopySheet) {
                 HoleCopySheet()
                     .environmentObject(model)
             }
