@@ -22,6 +22,8 @@ struct HolePage: View {
     var body: some View {
         ScrollViewReader { proxy in
             HolePageSheets {
+                // Use ScrollView and LazyVStack instead of ForumList to fix overflow problem,
+                // see https://github.com/DanXi-Dev/DanXi-swift/pull/313.
                 ScrollView {
                     LazyVStack {
                         // On older platform, adjusting list section spacing will hide section header
@@ -70,6 +72,9 @@ struct HolePage: View {
                                 }
                             }
                         }
+                        // To get rid of the animation bug in LazyVStack,
+                        // same as .geometryGroup() but available in iOS 16.
+                        // See https://stackoverflow.com/questions/78209143/weird-animation-bug-inside-scrollview-with-lazyhstack.
                         .transformEffect(.identity)
                     }
                 }
