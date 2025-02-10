@@ -1,4 +1,3 @@
-import FudanUI
 import SwiftUI
 import WidgetKit
 
