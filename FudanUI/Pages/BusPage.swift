@@ -191,8 +191,8 @@ fileprivate struct BusRow: View {
     @EnvironmentObject private var model: BusModel
     let schedule: Schedule
     
-    init(_ schedual: Schedule) {
-        self.schedule = schedual
+    init(_ schedule: Schedule) {
+        self.schedule = schedule
     }
     
     var body: some View {

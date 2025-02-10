@@ -106,6 +106,8 @@ struct TimeslotsSidebar: View {
     init() {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
+        formatter.locale = Locale.init(identifier: "zh_Hans_CN")
+        formatter.calendar = Calendar.init(identifier: .iso8601)
         self.formatter = formatter
     }
     
