@@ -107,7 +107,7 @@ struct TimeslotsSidebar: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         formatter.locale = Locale.init(identifier: "zh_Hans_CN")
-        formatter.calendar = Calendar.init(identifier: .iso8601)
+        formatter.calendar = Calendar.init(identifier: .iso8601) //in order to cope with potential 12-h format e.g. "上午 9:41"
         self.formatter = formatter
     }
     
