@@ -200,10 +200,10 @@ private struct BusCardContent: View {
                 HStack {
                     if let schedule {
                         HStack(alignment: .lastTextBaseline) {
-                            Text(schedule.time.formatted(date: .omitted, time: .shortened))
+                            Text(schedule.time.formatted(.dateTime.hour().minute().locale(Locale(identifier: "en_CN")))) //use "en_CN" in order to cope with potential 12-h format problem
                                 .font(.headline)
                             if let nextSchedule {
-                                Text("Next: \(nextSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
+                                Text("Next: \(nextSchedule.time.formatted(.dateTime.hour().minute().locale(Locale(identifier: "en_CN"))))", bundle: .module) //use "en_CN" in order to cope with potential 12-h format problem
                                     .font(.system(size: 11))
                                     .bold()
                                     .foregroundStyle(.cyan)
@@ -234,10 +234,10 @@ private struct BusCardContent: View {
                     
                     if let reversedSchedule {
                         HStack(alignment: .lastTextBaseline) {
-                            Text(reversedSchedule.time.formatted(date: .omitted, time: .shortened))
+                            Text(reversedSchedule.time.formatted(.dateTime.hour().minute().locale(Locale(identifier: "en_CN")))) //use "en_CN" in order to cope with potential 12-h format problem
                                 .font(.headline)
                             if let nextReversedSchedule {
-                                Text("Next: \(nextReversedSchedule.time.formatted(date: .omitted, time: .shortened))", bundle: .module)
+                                Text("Next: \(nextReversedSchedule.time.formatted(.dateTime.hour().minute().locale(Locale(identifier: "en_CN"))))", bundle: .module) //use "en_CN" in order to cope with potential 12-h format problem
                                     .font(.system(size: 11))
                                     .bold()
                                     .foregroundStyle(.cyan)

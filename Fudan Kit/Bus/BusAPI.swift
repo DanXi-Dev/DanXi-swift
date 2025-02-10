@@ -78,6 +78,8 @@ public enum BusAPI {
             
             let dateDecoder = DateFormatter()
             dateDecoder.dateFormat = "HH:mm"
+            dateDecoder.locale = Locale.init(identifier: "zh_Hans_CN")
+            dateDecoder.calendar = Calendar.init(identifier: .iso8601) //in order to cope with potential 12-h format e.g. "上午 9:41"
             
             for scheduleResponse in routeResponse.lists {
                 let startTimeString = scheduleResponse.stime.replacing(".", with: ":")
