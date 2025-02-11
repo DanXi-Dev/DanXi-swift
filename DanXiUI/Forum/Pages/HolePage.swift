@@ -77,6 +77,9 @@ struct HolePage: View {
                         // See https://stackoverflow.com/questions/78209143/weird-animation-bug-inside-scrollview-with-lazyhstack.
                         .transformEffect(.identity)
                     }
+                    .padding(.horizontal, 18)
+                    // To add space before the tags.
+                    .padding(.top, 30)
                 }
                 .refreshable {
                     try? await withHaptics(success: false) {
@@ -84,6 +87,8 @@ struct HolePage: View {
                     }
                 }
             }
+            // Use with the "List Foreground" color.
+            .background(Color("List Background", bundle: .module))
             .environment(\.allImageURL, model.imageURLs)
             .watermark()
             .screenshotAlert()
