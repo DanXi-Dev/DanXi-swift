@@ -335,6 +335,9 @@ private struct HolePageSheets<Label: View>: View {
                 HoleCopySheet()
                     .environmentObject(model)
             }
+            .sheet(isPresented: $model.showSensitiveNoticeSheet) {
+                SensitiveNoticeSheet()
+            }
             .alert(String(localized: "Confirm Delete Post", bundle: .module), isPresented: $model.showHideAlert) {
                 Button(role: .destructive) {
                     Task {

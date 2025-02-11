@@ -243,6 +243,9 @@ class HoleModel: ObservableObject {
     
     func reply(content: String, specialTag: String = "") async throws {
         let floor = try await ForumAPI.createFloor(content: content, holeId: hole.id, specialTag: specialTag)
+        if floor.machineReviewedSensitive {
+            showSensitiveNoticeSheet = true
+        }
         await setEndReached(false)
         Task {
             try? await self.loadAllFloors()
@@ -338,6 +341,7 @@ class HoleModel: ObservableObject {
     @Published var showHoleEditSheet = false
     @Published var showHideAlert = false
     @Published var showCopySheet = false
+    @Published var showSensitiveNoticeSheet = false
     
     @Published var replySheet: Floor? = nil
     @Published var editSheet: Floor? = nil

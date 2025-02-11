@@ -2744,6 +2744,16 @@
         }
       }
     },
+    "SensitiveTitle" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "敏感内容标题"
+          }
+        }
+      }
+    },
     "Set Hidden" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2961,6 +2971,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "标签"
+          }
+        }
+      }
+    },
+    "Test" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测试"
           }
         }
       }
