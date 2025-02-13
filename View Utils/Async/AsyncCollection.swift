@@ -3,16 +3,18 @@ import SwiftUI
 public struct AsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
     private let nestedView: AnyView
     
-    public init(action: @escaping ([Item]) async throws -> [Item],
-         @ViewBuilder content: @escaping (Item) -> Content) {
-        nestedView = AnyView(SimpleAsyncCollection(action: action, content: content))
+    public init(style: AsyncCollectionStyle = .plain,
+                action: @escaping ([Item]) async throws -> [Item],
+                @ViewBuilder content: @escaping (Item) -> Content) {
+        nestedView = AnyView(SimpleAsyncCollection(style: style, action: action, content: content))
     }
     
-    public init(_ items: [Item],
-         endReached: Bool,
-         action: @escaping () async throws -> Void,
-         @ViewBuilder content: @escaping (Item) -> Content) {
-        nestedView = AnyView(ComplexAsyncCollection(items, endReached: endReached, action: action, content: content))
+    public init(style: AsyncCollectionStyle = .plain,
+                _ items: [Item],
+                endReached: Bool,
+                action: @escaping () async throws -> Void,
+                @ViewBuilder content: @escaping (Item) -> Content) {
+        nestedView = AnyView(ComplexAsyncCollection(style: style, items, endReached: endReached, action: action, content: content))
     }
     
     public var body: some View {
@@ -20,27 +22,23 @@ public struct AsyncCollection<Item: Identifiable & Sendable, Content: View>: Vie
     }
 }
 
-fileprivate struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
-    private let content: (Item) -> Content
-    private let loadingAction: ([Item]) async throws -> [Item]
+private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
+    let style: AsyncCollectionStyle
+    let action: ([Item]) async throws -> [Item]
+    let content: (Item) -> Content
+    
     
     @State private var items: [Item] = []
     @State private var endReached = false
     @State private var loading = false
     @State private var loadingError: Error? = nil
     
-    init(action: @escaping ([Item]) async throws -> [Item],
-         @ViewBuilder content: @escaping (Item) -> Content) {
-        self.loadingAction = action
-        self.content = content
-    }
-    
     private func loadMore() async {
         do {
             loadingError = nil
             loading = true
             defer { loading = false }
-            let newItems = try await loadingAction(items)
+            let newItems = try await action(items)
             endReached = newItems.isEmpty
             items += newItems
         } catch {
@@ -51,6 +49,17 @@ fileprivate struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content:
     }
     
     var body: some View {
+        style.layout(AnyView(contents), AnyView(footer))
+            .task {
+                await loadMore()
+            }
+            .refreshable {
+                items = []
+                await loadMore()
+            }
+    }
+    
+    private var contents: some View {
         Group {
             ForEach(items) { item in
                 content(item)
@@ -60,40 +69,27 @@ fileprivate struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content:
                         }
                     }
             }
-            
-            footer
-                #if !os(watchOS)
-                .listRowSeparator(.hidden, edges: .bottom)
-                #endif
-        }
-        .task {
-            await loadMore()
-        }
-        .refreshable {
-            items = []
-            await loadMore()
         }
     }
     
     @ViewBuilder
     private var footer: some View {
         if !endReached {
-            HStack {
-                Spacer()
-                if let loadingError = self.loadingError {
-                    ErrorView(loadingError) {
+            if let loadingError = self.loadingError {
+                style.contentStyle.errorView(loadingError) {
+                    Task.detached {
                         await loadMore()
                     }
-                } else {
-                    LoadingView()
                 }
-                Spacer()
+            } else {
+                style.contentStyle.loadingView()
             }
         }
     }
 }
 
-fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
+private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
+    private let style: AsyncCollectionStyle
     private let items: [Item]
     private let content: (Item) -> Content
     private let loadingAction: () async throws -> Void
@@ -102,10 +98,12 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
     @State private var loading = false
     @State private var loadingError: Error? = nil
     
-    init(_ items: [Item],
+    init(style: AsyncCollectionStyle,
+         _ items: [Item],
          endReached: Bool,
          action: @escaping () async throws -> Void,
          @ViewBuilder content: @escaping (Item) -> Content) {
+        self.style = style
         self.items = items
         self.endReached = endReached
         self.loadingAction = action
@@ -126,129 +124,42 @@ fileprivate struct ComplexAsyncCollection<Item: Identifiable, Content: View>: Vi
     }
     
     var body: some View {
-        Group {
-            ForEach(items) { item in
-                if item.id == items.last?.id {
-                    content(item)
-                        .task {
-                            await loadMore()
-                        }
-                } else {
-                    content(item)
+        style.layout(AnyView(contents), AnyView(footer))
+            .task {
+                await loadMore()
+            }
+            .onChange(of: items.count) { count in
+                if count == 0 { // automatically handles refresh
+                    Task { await loadMore() }
                 }
             }
-            footer
-                #if !os(watchOS)
-                .listRowSeparator(.hidden, edges: .bottom)
-                #endif
-        }
-        .task {
-            await loadMore()
-        }
-        .onChange(of: items.count) { count in
-            if count == 0 { // automatically handles refresh
-                Task { await loadMore() }
+    }
+    
+    private var contents: some View {
+        Group {
+            ForEach(items) { item in
+                content(item)
+                    .task {
+                        if item.id == items.last?.id {
+                            await loadMore()
+                        }
+                    }
             }
         }
     }
     
     @ViewBuilder
     private var footer: some View {
-        Group {
-            HStack {
-                Spacer()
-                if let loadingError = loadingError {
-                    ErrorView(loadingError) {
+        if !endReached {
+            if let loadingError = self.loadingError {
+                style.contentStyle.errorView(loadingError) {
+                    Task.detached {
                         await loadMore()
                     }
-                } else if !endReached {
-                    // use UIKit wrapped view to make custom control of animation starting and ending.
-                    // In SwiftUI there is a bug that ProgressView may not appearing.
-                    // I guess this may be related to the `hidesWhenStopped` property.
-                    LoadingView()
                 }
-                Spacer()
+            } else {
+                style.contentStyle.loadingView()
             }
         }
-        .frame(height: 50)
-        .listRowBackground(Color.clear)
     }
 }
-
-fileprivate struct LoadingView: View {
-    @State private var isAnimating = false
-    
-    var body: some View {
-        ActivityIndicatorView(isAnimating: isAnimating)
-            .onAppear {
-                isAnimating = true
-            }
-            .onDisappear {
-                isAnimating = false
-            }
-    }
-}
-
-#if os(watchOS)
-
-fileprivate struct ActivityIndicatorView: View {
-    let isAnimating: Bool
-    
-    var body: some View {
-        ProgressView()
-    }
-}
-
-#else
-
-fileprivate struct ActivityIndicatorView: UIViewRepresentable {
-    let isAnimating: Bool
-    
-    func makeUIView(context: Context) -> UIActivityIndicatorView {
-        let view = UIActivityIndicatorView()
-        view.hidesWhenStopped = false
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
-        if isAnimating {
-            uiView.startAnimating()
-        } else {
-            uiView.stopAnimating()
-        }
-    }
-    
-    static func dismantleUIView(_ uiView: UIActivityIndicatorView, coordinator: ()) {
-        uiView.stopAnimating()
-    }
-}
-
-#endif
-
-fileprivate struct ErrorView: View {
-    private let action: () async -> Void
-    private let error: Error
-    
-    init(_ error: Error, action: @escaping () async -> Void) {
-        self.error = error
-        self.action = action
-    }
-    
-    var body: some View {
-        VStack {
-            Text(error.localizedDescription)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-            Button {
-                Task {
-                    await action()
-                }
-            } label: {
-                Text("Retry", bundle: .module)
-                    .foregroundColor(.accentColor)
-            }
-        }
-        .font(.caption)
-    }
-}
-
