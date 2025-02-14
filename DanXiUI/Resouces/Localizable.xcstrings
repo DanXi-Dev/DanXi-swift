@@ -298,6 +298,16 @@
         }
       }
     },
+    "Are you on drugs?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你是不是喝了假酒，连密码都看不清了？"
+          }
+        }
+      }
+    },
     "Automatic Review Result" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1676,6 +1686,16 @@
         }
       }
     },
+    "Incorrect username or password" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户名或密码错误"
+          }
+        }
+      }
+    },
     "Innovation Bank" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1888,6 +1908,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "多选题"
+          }
+        }
+      }
+    },
+    "My pet ferret can type better than you!" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的密码是不是被你家的猫踩键盘踩出来的？"
           }
         }
       }
@@ -2120,6 +2150,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "举报被处理时"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
           }
         }
       }
@@ -2647,17 +2687,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "分区"
-          }
-        }
-      }
-    },
-    "Select Text" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择文本"
           }
         }
       }
@@ -3371,6 +3400,16 @@
         }
       }
     },
+    "Wrong! You cheating scum!" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输错密码这么多次，你是不是在练习如何被系统拉黑？"
+          }
+        }
+      }
+    },
     "Yesterday" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3403,6 +3442,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "您没有屏蔽任何帖子。若要屏蔽帖子，可以长按它并选择屏蔽。"
+          }
+        }
+      }
+    },
+    "You type like I drive." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你输入密码的技术，像我试图用叉子喝汤。"
           }
         }
       }

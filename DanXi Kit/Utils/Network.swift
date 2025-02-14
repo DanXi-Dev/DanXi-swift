@@ -79,9 +79,9 @@ func requestWithoutResponse(_ path: String, base: URL, protected: Bool = true, p
     _ = try await requestWithData(path, base: base, protected: protected, params: params, payload: payload, method: method)
 }
 
-struct HTTPError: Error {
-    let code: Int
-    let message: String?
+public struct HTTPError: Error {
+    public let code: Int
+    public let message: String?
     
     init(code: Int, message: String? = nil) {
         self.code = code
@@ -90,7 +90,7 @@ struct HTTPError: Error {
 }
 
 extension HTTPError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         if let message {
             return message
         }

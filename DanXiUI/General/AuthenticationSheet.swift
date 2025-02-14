@@ -87,7 +87,7 @@ private struct LoginSheet: View {
             ToolbarItem(placement: .confirmationAction) {
                 AsyncButton {
                     try await model.login()
-                    authModel.done = true
+//                    authModel.done = true
                 } label: {
                     Text("Login", bundle: .module)
                 }
@@ -99,8 +99,17 @@ private struct LoginSheet: View {
 
 @MainActor
 private class LoginModel: ObservableObject {
-    @Published var username = ""
-    @Published var password = ""
+    static let insults: [String] = [
+        String(localized: "Are you on drugs?", bundle: .module),
+        String(localized: "You type like I drive.", bundle: .module),
+        String(localized: "Wrong! You cheating scum!", bundle: .module),
+        String(localized: "My pet ferret can type better than you!", bundle: .module),
+    ]
+    
+    @Published var username = "123@fudan.edu.cn"
+    @Published var password = "123"
+    @Published var presentInsult = false
+    @Published var insult: String = insults.randomElement()! // force-unwrap, as insults is not an empty list
     
     var completed: Bool {
         if username.isEmpty || password.isEmpty { return false }
@@ -123,8 +132,16 @@ private class LoginModel: ObservableObject {
                 curriculumURL = curriculumTestURL
             }
         }
-                
-        try await CommunityModel.shared.login(email: username, password: password)
+         
+        do {
+            try await CommunityModel.shared.login(email: username, password: password)
+        } catch {
+            if let httpError = error as? HTTPError,
+               httpError.code == 401 {
+                insult = Self.insults.randomElement()!
+                presentInsult = true
+            }
+        }
     }
 }
 
