@@ -8,6 +8,7 @@ struct DeleteSheet: View {
     let presentation: FloorPresentation
     @State private var reason = ""
     @State private var ban = false
+    @State private var foreverBan = false
     @State private var days = 1
     
     private var floorId: Int {
@@ -17,7 +18,12 @@ struct DeleteSheet: View {
     var body: some View {
         Sheet(String(localized: "Delete Post", bundle: .module)) {
             let banDays = ban ? days : 0
-            try await model.punish(floorId: floorId, reason: reason, days: banDays)
+            if !foreverBan {
+                try await model.punish(floorId: floorId, reason: reason, days: banDays)
+            } else {
+                try await model.punishForever(floorId: floorId, reason: reason)
+            }
+            
         } content: {
             Section {
                 ScrollView(.vertical, showsIndicators: false) {
@@ -43,6 +49,11 @@ struct DeleteSheet: View {
                 if ban {
                     Stepper(value: $days, in: 1...3600) {
                         Label(String(localized: "Penalty Duration: \(days)", bundle: .module), systemImage: "chevron.up.chevron.down")
+                    }
+                    .disabled(foreverBan)
+                    
+                    Toggle(isOn: $foreverBan){
+                        Label(String(localized: "Add Forever Ban", bundle: .module), systemImage: "nosign")
                     }
                     
                     NavigationLink {

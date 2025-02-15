@@ -175,6 +175,11 @@ public enum ForumAPI {
         try await requestWithoutResponse("/penalty/\(id)", base: forumURL, payload: payload)
     }
     
+    public static func foreverPenaltyForFloor(id: Int, reason: String) async throws {
+        let payload: [String: Any] = ["reason": reason]
+        try await requestWithoutResponse("/penalty/\(id)/_forever", base: forumURL, payload: payload)
+    }
+    
     // MARK: - Reports
     
     public static func listReports(offset: Int, type: Int) async throws -> [Report] {

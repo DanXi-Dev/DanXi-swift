@@ -101,4 +101,10 @@ class FloorModel: ObservableObject {
             try await ForumAPI.penaltyForFloor(id: floor.id, reason: reason, days: days)
         }
     }
+    
+    func foreverpunish(_ reason: String) async throws {
+        let floor = try await ForumAPI.deleteFloor(id: floor.id, reason: reason)
+        await updateFloor(floor)
+        try await ForumAPI.foreverPenaltyForFloor(id: floor.id, reason: reason)
+    }
 }
