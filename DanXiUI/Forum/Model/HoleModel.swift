@@ -331,6 +331,12 @@ class HoleModel: ObservableObject {
         }
     }
     
+    func permanentPunish(floorId: Int, reason: String) async throws {
+        let floor = try await ForumAPI.deleteFloor(id: floorId, reason: reason)
+        await replaceFloor(floor: floor)
+        try await ForumAPI.permanentPenaltyForFloor(id: floorId, reason: reason)
+    }
+    
     // MARK: Sheets
     
     @Published var showReplySheet = false

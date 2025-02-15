@@ -161,6 +161,16 @@
         }
       }
     },
+    "Add Permanent Ban" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "永久封禁"
+          }
+        }
+      }
+    },
     "Add Tag" : {
       "localizations" : {
         "zh-Hans" : {
