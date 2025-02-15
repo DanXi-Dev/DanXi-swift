@@ -41,7 +41,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
                     return BusEntry(timeFilteredSchedules, schedule.time, startPoint.rawValue, endPoint.rawValue)
                 }
             } else {
-                entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue, String(localized: "No available schedule"))]
+                entryList = [BusEntry([], currentTime, startPoint.rawValue, endPoint.rawValue)]
             }
             let timeline = Timeline(entries: entryList, policy: .after(Calendar.current.date(byAdding: .second, value: 30, to: endOfDay)!))
             return timeline
@@ -89,7 +89,6 @@ struct BusEntry: TimelineEntry {
     let date: Date
     let schedules: [Schedule]
     let start, end: String
-    let errorMessage: String?
     var placeholder = false
     var loadFailed = false
     
@@ -103,15 +102,13 @@ struct BusEntry: TimelineEntry {
         ]
         self.start = "邯郸"
         self.end = "枫林"
-        self.errorMessage = nil
     }
     
-    init(_ schedules: [Schedule], _ renderTime: Date, _ start: String, _ end: String, _ errorMessage: String? = nil) {
+    init(_ schedules: [Schedule], _ renderTime: Date, _ start: String, _ end: String) {
         self.date = renderTime
         self.schedules = schedules
         self.start = start
         self.end = end
-        self.errorMessage = errorMessage
     }
 }
 
@@ -132,6 +129,19 @@ struct BusWidget: Widget {
 @available(iOS 17.0, *)
 struct BusWidgetView: View {
     let entry: BusEntry
+    var followingBusTimeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        formatter.locale = Locale.current
+        return formatter
+    }
+    var schedules: [Schedule] {
+        entry.schedules.filter { schedule in
+            schedule.start == entry.start && schedule.end == entry.end
+        }
+    }
+    
     
     var body: some View {
         if self.entry.loadFailed {
@@ -139,9 +149,9 @@ struct BusWidgetView: View {
                 .foregroundColor(.secondary)
         } else {
             VStack(alignment: .leading) {
-                header
+                self.header
                 Spacer()
-                followingBus
+                self.followingBus
             }
         }
     }
@@ -166,26 +176,11 @@ struct BusWidgetView: View {
         }
     }
     
-    private var followingBus: some View {
-        if let errorMessage = entry.errorMessage {
-            return AnyView(Text(errorMessage)
-                .font(.footnote)
-                .foregroundColor(.gray))
-        } else {
-            let schedules: [Schedule] = self.entry.schedules.filter { schedule in
-                schedule.start == self.entry.start && schedule.end == self.entry.end
-            }
-            
+    @ViewBuilder
+        private var followingBus: some View {
             if let schedule = schedules.first {
-                // TODO: add 'if show nex day's bus' switch
-                let formatter = DateFormatter()
-                formatter.dateStyle = .none
-                formatter.timeStyle = .short
-                formatter.locale = Locale.current
-                // TODO: check if 12-hour format is working
-                
-                return AnyView(VStack(alignment: .leading, spacing: 2) {
-                    Text(formatter.string(from: schedule.time))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(followingBusTimeFormatter.string(from: schedule.time))
                         .font(.title2)
                         .fontWeight(.bold)
                     HStack(spacing: 0) {
@@ -196,11 +191,10 @@ struct BusWidgetView: View {
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(.cyan)
-                    
                     if let followingBus = schedules.dropFirst().first {
                         HStack(spacing: 0) {
                             Text("Next shift at")
-                            Text(formatter.string(from: followingBus.time))
+                            Text(followingBusTimeFormatter.string(from: followingBus.time))
                                 .padding(.leading, 2)
                                 .padding(.top, 1)
                         }
@@ -212,14 +206,13 @@ struct BusWidgetView: View {
                             .foregroundColor(.gray)
                             .padding(.top, 1)
                     }
-                })
+                }
             } else {
-                return AnyView(Text("No more shifts today")
+                Text("No more shifts today")
                     .font(.footnote)
-                    .foregroundColor(.gray))
+                    .foregroundColor(.gray)
             }
         }
-    }
 }
 
 @available(iOS 17, *)
@@ -232,7 +225,7 @@ struct BusWidgetView: View {
     let myroute2 = [Schedule(id: 1, time: date2, start: "邯郸", end: "枫林", holiday: false, bidirectional: false)]
     let myroute3: [Schedule] = []
     return [BusEntry(myroute1, Date.now, "邯郸", "枫林"), BusEntry(myroute2, date1, "邯郸", "枫林"), BusEntry(myroute3, date2, "邯郸", "枫林"),
-            BusEntry(myroute2, date1, "邯郸", "枫林", "No available schedule")]
+            BusEntry(myroute2, date1, "邯郸", "枫林")]
 }
 
 @available(iOS 17, *)

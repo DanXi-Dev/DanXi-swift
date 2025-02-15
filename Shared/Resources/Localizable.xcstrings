@@ -540,16 +540,6 @@
         }
       }
     },
-    "No available schedule" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未找到班次信息"
-          }
-        }
-      }
-    },
     "No more shifts today" : {
       "localizations" : {
         "zh-Hans" : {
