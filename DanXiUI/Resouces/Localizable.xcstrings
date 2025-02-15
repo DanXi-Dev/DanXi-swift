@@ -161,7 +161,7 @@
         }
       }
     },
-    "Add Forever Ban" : {
+    "Add Permanent Ban" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
