@@ -1939,12 +1939,11 @@
       }
     },
     "New Post" : {
-      "comment" : "Treehole Edit Page",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新建主题帖"
+            "value" : "发帖"
           }
         }
       }
@@ -2657,17 +2656,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "分区"
-          }
-        }
-      }
-    },
-    "Select Text" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择文本"
           }
         }
       }
