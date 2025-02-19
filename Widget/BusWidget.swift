@@ -32,7 +32,7 @@ struct BusWidgetProvier: AppIntentTimelineProvider {
             // the routes.start/end from server only has one direction, for example only 邯郸->江湾 but not 江湾->邯郸.
             // so we need to filter the routes by both directions now.
             if let filteredRoutes = routes.filter({ ($0.start == startPoint.rawValue && $0.end == endPoint.rawValue) ||
-                    ($0.start == endPoint.rawValue && $0.end == startPoint.rawValue)
+                ($0.start == endPoint.rawValue && $0.end == startPoint.rawValue)
             }).first {
                 // use the route time as render time
                 let route = filteredRoutes.setSchedulesToBaseDate(date: currentTime)
@@ -68,7 +68,7 @@ extension Schedule {
         combinedComponents.hour = busTimeComponents.hour
         combinedComponents.minute = busTimeComponents.minute
         combinedComponents.second = busTimeComponents.second
-
+        
         if let currentScheduleTime = currentCalendar.date(from: combinedComponents) {
             return Schedule(id: self.id, time: currentScheduleTime, start: self.start, end: self.end, holiday: self.holiday, bidirectional: self.bidirectional)
         }
@@ -129,6 +129,7 @@ struct BusWidget: Widget {
 @available(iOS 17.0, *)
 struct BusWidgetView: View {
     let entry: BusEntry
+    
     var followingBusTimeFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
@@ -136,12 +137,16 @@ struct BusWidgetView: View {
         formatter.locale = Locale.current
         return formatter
     }
+    
+private var followingBus: Schedule? {
+    schedules.dropFirst().first
+}
+    
     var schedules: [Schedule] {
         entry.schedules.filter { schedule in
             schedule.start == entry.start && schedule.end == entry.end
         }
     }
-    
     
     var body: some View {
         if self.entry.loadFailed {
@@ -151,7 +156,7 @@ struct BusWidgetView: View {
             VStack(alignment: .leading) {
                 self.header
                 Spacer()
-                self.followingBus
+                self.followingBusView
             }
         }
     }
@@ -168,7 +173,9 @@ struct BusWidgetView: View {
             }
             .font(.callout)
             .fontWeight(.bold)
+            
             Spacer()
+            
             Image(systemName: "bus.fill")
                 .foregroundColor(.cyan)
                 .font(.callout)
@@ -177,42 +184,44 @@ struct BusWidgetView: View {
     }
     
     @ViewBuilder
-        private var followingBus: some View {
-            if let schedule = schedules.first {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(followingBusTimeFormatter.string(from: schedule.time))
-                        .font(.title2)
-                        .fontWeight(.bold)
+    private var followingBusView: some View {
+        if let schedule = schedules.first {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(followingBusTimeFormatter.string(from: schedule.time))
+                    .font(.title2)
+                    .fontWeight(.bold)
+                
+                HStack(spacing: 0) {
+                    Text("Due in")
+                    Text(schedule.time, style: .relative)
+                        .padding(.leading, 2.5)
+                }
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .foregroundColor(.cyan)
+                
+                if let followingBus {
                     HStack(spacing: 0) {
-                        Text("Due in")
-                        Text(schedule.time, style: .relative)
-                            .padding(.leading, 2.5)
-                    }
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.cyan)
-                    if let followingBus = schedules.dropFirst().first {
-                        HStack(spacing: 0) {
-                            Text("Next shift at")
-                            Text(followingBusTimeFormatter.string(from: followingBus.time))
-                                .padding(.leading, 2)
-                                .padding(.top, 1)
-                        }
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                    } else {
-                        Text("No more shifts today")
-                            .font(.caption2)
-                            .foregroundColor(.gray)
+                        Text("Next shift at")
+                        Text(followingBusTimeFormatter.string(from: followingBus.time))
+                            .padding(.leading, 2)
                             .padding(.top, 1)
                     }
-                }
-            } else {
-                Text("No more shifts today")
-                    .font(.footnote)
+                    .font(.caption2)
                     .foregroundColor(.gray)
+                } else {
+                    Text("No more shifts today")
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                        .padding(.top, 1)
+                }
             }
+        } else {
+            Text("No more shifts today")
+                .font(.footnote)
+                .foregroundColor(.gray)
         }
+    }
 }
 
 @available(iOS 17, *)
