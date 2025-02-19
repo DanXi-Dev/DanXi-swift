@@ -7,6 +7,10 @@ public struct CourseGroup: Identifiable, Hashable, Codable {
     public let department: String
     public let campus: String
     public var courses: [Course]
+    
+    public var sortedCourses: [Course] {
+        return courses.sorted { ($0.year * 10 + $0.semester) > ($1.year * 10 + $1.semester) }
+    }
 }
 
 public struct Course: Identifiable, Hashable, Codable {

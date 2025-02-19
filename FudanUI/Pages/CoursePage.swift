@@ -182,7 +182,7 @@ fileprivate struct CalendarContent: View {
     private var toolbar: some View {
         Menu {
             Picker(selection: $model.semester) {
-                ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
                     Text(semester.name).tag(semester)
                 }
             } label: {
