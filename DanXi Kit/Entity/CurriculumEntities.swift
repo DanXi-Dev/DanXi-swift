@@ -9,7 +9,7 @@ public struct CourseGroup: Identifiable, Hashable, Codable {
     public var courses: [Course]
     
     public var sortedCourses: [Course] {
-        return courses.sorted { ($0.year * 10 + $0.semester)  > ($0.year * 10 + $0.semester) }
+        return courses.sorted { ($0.year * 10 + $0.semester) > ($1.year * 10 + $1.semester) }
     }
 }
 
