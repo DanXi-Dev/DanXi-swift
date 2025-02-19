@@ -37,7 +37,7 @@ struct CurriculumPostSheet: View {
                     Text("Not Selected", bundle: .module)
                         .tag(-1)
                     
-                    ForEach(courseGroup.courses) { course in
+                    ForEach(courseGroup.courses.sorted(by: {$0.year > $1.year})) { course in
                         Text(verbatim: "\(course.formattedSemester) \(course.teachers)")
                             .tag(course.id)
                     }
