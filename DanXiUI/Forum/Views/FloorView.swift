@@ -225,7 +225,11 @@ private struct FloorActions: View {
     
     private var replyButton: some View {
         Button {
-            holeModel.replySheet = floor
+            if profileStore.answered {
+                holeModel.replySheet = floor
+            } else {
+                holeModel.showQuestionSheet = true
+            }
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
         }
