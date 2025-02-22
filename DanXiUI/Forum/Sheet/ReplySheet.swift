@@ -8,13 +8,19 @@ struct ReplySheet: View {
     @State private var content: String
     @State private var specialTag: String = ""
     
-    init(content: String = "") {
+    @State private var hasSubmitted = false
+    private let replyTo: Int?
+    
+    init(content: String = "", replyTo: Int? = nil) {
         self._content = State(initialValue: content)
+        self.replyTo = replyTo
     }
     
     var body: some View {
         Sheet(String(localized: "Reply", bundle: .module)) {
             try await model.reply(content: content, specialTag: specialTag)
+            hasSubmitted = true
+            await DraftboxStore.shared.deleteReplyDraft(holeId: model.hole.id, replyTo: replyTo)
         } content: {
             if profileStore.isAdmin {
                 Section {
@@ -26,7 +32,13 @@ struct ReplySheet: View {
             ForumEditor(content: $content, initiallyFocused: true)
         }
         .completed(!content.isEmpty)
-        .warnDiscard(!content.isEmpty)
+        .onDisappear {
+            Task {
+                if !hasSubmitted {
+                    DraftboxStore.shared.addReplyDraft(content: content, holeId: model.hole.id, replyTo: replyTo)
+                }
+            }
+        }
     }
 }
 

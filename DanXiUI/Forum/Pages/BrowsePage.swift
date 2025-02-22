@@ -11,6 +11,7 @@ struct BrowsePage: View {
     @ObservedObject private var profileStore = ProfileStore.shared
     
     @State private var showPostSheet = false
+    @State private var draftPostSheet: Post?
     @State private var showDatePicker = false
     @State private var showDivisionSheet = false
     @State private var showQuestionSheet = false
@@ -73,6 +74,9 @@ struct BrowsePage: View {
         .sheet(isPresented: $showPostSheet) {
             PostSheet(divisionId: model.division.id)
         }
+        .sheet(item: $draftPostSheet) { post in
+            PostSheet(divisionId: model.division.id, content: post.content, tags: post.tags)
+        }
         .sheet(isPresented: $showDatePicker) {
             datePicker
         }
@@ -124,9 +128,13 @@ struct BrowsePage: View {
     
     @ViewBuilder
     private var toolbar: some View {
-        Button {
+        AsyncButton {
             if profileStore.answered {
-                showPostSheet = true
+                if let draftPost = await DraftboxStore.shared.getPost() {
+                    draftPostSheet = draftPost
+                } else {
+                    showPostSheet = true
+                }
             } else {
                 showQuestionSheet = true
             }

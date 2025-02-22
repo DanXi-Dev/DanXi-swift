@@ -224,8 +224,12 @@ private struct FloorActions: View {
     }
     
     private var replyButton: some View {
-        Button {
-            holeModel.replySheet = floor
+        AsyncButton {
+            if let draftReply = await DraftboxStore.shared.getReply(holeModel.hole.id, replyTo: floor.id) {
+                holeModel.draftReplySheet = draftReply
+            } else {
+                holeModel.replySheet = floor
+            }
         } label: {
             Image(systemName: "arrowshape.turn.up.left")
         }
