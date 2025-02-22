@@ -71,6 +71,7 @@ struct HolePage: View {
                                     }
                                 }
                             }
+                            .padding(.vertical, 1.8)
                         }
                         // To get rid of the animation bug in LazyVStack,
                         // same as .geometryGroup() but available in iOS 16.
