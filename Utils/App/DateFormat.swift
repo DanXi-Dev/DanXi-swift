@@ -1,7 +1,7 @@
 import Foundation
 
-extension Date {
-    func autoFormatted() -> String {
+public extension Date {
+    public func autoFormatted() -> String {
         let now = Date.now
         let oneWeekAgo = now.addingTimeInterval(-7 * 24 * 60 * 60)
         
