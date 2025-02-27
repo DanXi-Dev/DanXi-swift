@@ -18,7 +18,7 @@ func requestWithData(_ path: String, base: URL, protected: Bool = true, params: 
     if let params {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.queryItems = params.map { URLQueryItem(name: $0.key, value: $0.value) }
-        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B") // URLComponents won't encode plus sign, it should be manually encoded.
         url = components.url!
     }
     
