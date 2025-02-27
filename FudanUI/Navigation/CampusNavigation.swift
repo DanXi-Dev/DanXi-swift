@@ -62,14 +62,17 @@ public struct CampusContent: View {
         }
         #endif
         .onReceive(campusNavigator.campusSection) { section in
-            guard let section = CampusSection(rawValue: section) else { return }
-            appendDetail(value: section)
+            if navigator.isCompactMode {
+                guard let section = CampusSection(rawValue: section) else { return }
+                appendDetail(value: section)
+            }
         }
     }
 }
 
 public struct CampusDetail: View {
     @EnvironmentObject private var navigator: AppNavigator
+    @EnvironmentObject private var campusNavigator: CampusNavigator
     @State private var path = NavigationPath()
     
     func appendDetail(item: any Hashable, replace: Bool) {
@@ -94,6 +97,10 @@ public struct CampusDetail: View {
         }
         .onReceive(navigator.detailSubject) { item, replace in
             appendDetail(item: item, replace: replace)
+        }
+        .onReceive(campusNavigator.campusSection) { section in
+            guard let section = CampusSection(rawValue: section) else { return }
+            appendDetail(item: section, replace: false)
         }
     }
 }
