@@ -148,8 +148,10 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
         }
         
         @objc func textChange(textField: UITextField) {
-            DispatchQueue.main.async { @MainActor [weak self] in
-                self?.text = textField.text ?? ""
+            if textField.markedTextRange == nil {
+                DispatchQueue.main.async { @MainActor [weak self] in
+                    self?.text = textField.text ?? ""
+                }
             }
         }
         
