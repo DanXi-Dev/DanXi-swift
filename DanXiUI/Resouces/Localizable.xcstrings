@@ -151,6 +151,16 @@
         }
       }
     },
+    "Accurate" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "精确搜索"
+          }
+        }
+      }
+    },
     "Add Ban" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1547,6 +1557,16 @@
         }
       }
     },
+    "Fuzzy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "模糊搜索"
+          }
+        }
+      }
+    },
     "Get Code" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1928,6 +1948,9 @@
         }
       }
     },
+    "N ot Logged in" : {
+
+    },
     "Navigate to Bottom" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2047,6 +2070,7 @@
       }
     },
     "Not Logged in" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
