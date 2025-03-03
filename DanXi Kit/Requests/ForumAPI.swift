@@ -153,11 +153,8 @@ public enum ForumAPI {
         return try await requestWithResponse("/holes/\(holeId)/floors", base: forumURL, payload: payload)
     }
     
-    public static func searchFloor(keyword: String, accurate: Bool? = nil, offset: Int) async throws -> [Floor] {
-        var params = ["search": keyword, "offset": String(offset)]
-        if let accurate {
-            params["accurate"] = accurate ? "true" : "false"
-        }
+    public static func searchFloor(keyword: String, accurate: Bool, offset: Int) async throws -> [Floor] {
+        let params = ["search": keyword, "offset": String(offset), "accurate": String(accurate)]
         return try await requestWithResponse("/floors/search", base: forumURL, params: params)
     }
     

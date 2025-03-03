@@ -69,6 +69,10 @@ private struct BrowseWrpper: View {
     var body: some View {
         BrowseDispatch()
             .searchable(text: $searchModel.searchText)
+            .searchScopes($searchModel.scope) {
+                Text("Fuzzy", bundle: .module).tag(SearchScope.fuzzy)
+                Text("Accurate", bundle: .module).tag(SearchScope.accurate)
+            }
             .onSubmit(of: .search) {
                 searchModel.submitted = true
                 searchModel.appendHistory(searchModel.searchText)
