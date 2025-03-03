@@ -49,7 +49,7 @@ public actor GraduateCourseStore {
         return semesters
     }
     
-    func getRefreshedSemesters() async throws -> ([Semester], Semester?) {
+    public func getRefreshedSemesters() async throws -> ([Semester], Semester?) {
         let (semesters, currentSemester) = try await GraduateCourseAPI.getSemesters()
         self.semesters = semesters
         self.currentSemester = currentSemester
