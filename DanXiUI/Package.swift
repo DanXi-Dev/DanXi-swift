@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/SwiftUIX/SwiftUIX.git", from: "0.2.2"),
         .package(url: "https://github.com/stleamist/BetterSafariView.git", .upToNextMajor(from: "2.4.2")),
-        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.3.1"),
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui", from: "2.4.1"),
         .package(url: "https://github.com/colinc86/LaTeXSwiftUI", from: "1.3.2"),
         .package(name: "DanXiKit", path: "../DanXi Kit"),
         .package(name: "ViewUtils", path: "../View Utils"),

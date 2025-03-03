@@ -35,6 +35,7 @@ public struct CustomMarkdown: View {
     public var body: some View {
         Markdown(self.content)
             .markdownTheme(self.theme)
+            .markdownSoftBreakMode(.lineBreak)
             .markdownImageProvider(CustomImageProvider())
             .markdownInlineImageProvider(ImageProviderWithSticker())
     }
@@ -69,28 +70,41 @@ struct CustomImageProvider: ImageProvider {
     }
 }
 
-extension String {
-    /// Convert Treehole-formatted content to basic markdown, stripping images, stickers and LaTeX.
-    func stripToBasicMarkdown() -> String {
-        let text = NSMutableString(string: self)
-        
-        _ = try? NSRegularExpression(pattern: #"\${1,2}.*?\${1,2}"#, options: .dotMatchesLineSeparators).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: String(localized: "formula_tag", bundle: .module))
-        // Replace Stickers (e.g., ![](dx_cate))
-        let stickerPatterns = Sticker.allCases.map { $0.rawValue }.joined(separator: "|")
-        _ = try? NSRegularExpression(pattern: #"!\[\]\((\#(stickerPatterns))\)"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: String(localized: "sticker_tag", bundle: .module))
-        // Replace Images
-        _ = try? NSRegularExpression(pattern: #"!\[.*?\]\(.*?\)"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: String(localized: "image_tag", bundle: .module))
-//        _ = try? NSRegularExpression(pattern: #"#{1,2}[0-9]+\s*"#).replaceMatches(in: text, range: NSRange(location: 0, length: text.length), withTemplate: "")
-        
-        return String(text)
+
+func replaceMarkdownTags(_ content: String) -> String {
+    var markdown = content
+    markdown.replace(/\${1,2}[\s\S]*?\${1,2}/, with: String(localized: "[Formula]", bundle: .module))
+    markdown.replace(/!\[.*?\]\((?<link>.*?)\)/) { match in
+        if Sticker(rawValue: String(match.link)) != nil {
+            return String(localized: "[Sticker]", bundle: .module)
+        } else {
+            return String(localized: "[Image]", bundle: .module)
+        }
     }
     
-    /// Convert `String` to `AttributedString` using Markdown syntax, stripping images stickers and LaTeX.
-    func inlineAttributed() -> AttributedString {
-        let content = self.stripToBasicMarkdown()
-        if let attributedString = try? AttributedString(markdown: content) {
-            return attributedString
+    return markdown
+}
+
+func inlineAttributed(_ content: String, multiline: Bool = false) -> AttributedString {
+    let replacedContent = replaceMarkdownTags(content)
+    var processedContent = replacedContent
+    
+    if multiline {
+        let lines = replacedContent.split(separator: "\n")
+        let nonEmptyLines = lines.filter { line in
+            !line.trimmingCharacters(in: .whitespaces).isEmpty
         }
-        return AttributedString(content)
+        processedContent = nonEmptyLines.joined(separator: "\n")
     }
+    
+    let options = if multiline {
+        AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+    } else {
+        AttributedString.MarkdownParsingOptions()
+    }
+    
+    if let attributedString = try? AttributedString(markdown: processedContent, options: options) {
+        return attributedString
+    }
+    return AttributedString(processedContent)
 }
