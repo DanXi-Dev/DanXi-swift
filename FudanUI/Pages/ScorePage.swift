@@ -4,6 +4,8 @@ import ViewUtils
 import Utils
 
 struct ScorePage: View {
+    @ObservedObject var campusModel = CampusModel.shared
+    
     struct SemesterInfo {
         let semesters: [Semester]
         let currentSemester: Semester?
@@ -11,7 +13,15 @@ struct ScorePage: View {
     
     var body: some View {
         AsyncContentView {
-            let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+            let (semesters, currentSemester) = switch campusModel.studentType {
+            case .undergrad:
+                try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+            case .grad:
+                try await GraduateCourseStore.shared.getRefreshedSemesters()
+            case .staff:
+                throw LocatableError()
+            }
+            
             if semesters.isEmpty {
                 let description = String(localized: "Semester list is empty.", bundle: .module)
                 throw LocatableError(description)
@@ -31,6 +41,7 @@ fileprivate struct ScorePageContent: View {
     private let previewScores: [Score]?
     @State private var semester: Semester
     @State private var selectedScore: Score?
+    @ObservedObject var campusModel = CampusModel.shared
     
     init(_ semesters: [Semester], current: Semester?, previewScores: [Score]? = nil) {
         self.semesters = semesters
@@ -40,7 +51,9 @@ fileprivate struct ScorePageContent: View {
     
     var body: some View {
         List {
-            SemesterPicker(semesters: semesters.sorted(), semester: $semester)
+            if campusModel.studentType != .grad {
+                SemesterPicker(semesters: semesters.sorted(), semester: $semester)
+            }
             ScoreList(semester: semester, selectedScore: $selectedScore, previewScores: previewScores)
         }
         .sheet(item: $selectedScore) { score in
@@ -53,6 +66,7 @@ fileprivate struct ScoreList: View {
     let semester: Semester
     @Binding var selectedScore: Score?
     let previewScores: [Score]?
+    @ObservedObject var campusModel = CampusModel.shared
         
     init(semester: Semester, selectedScore: Binding<Score?>, previewScores: [Score]?) {
         self.semester = semester
@@ -65,7 +79,15 @@ fileprivate struct ScoreList: View {
             if let previewScores {
                 return previewScores
             }
-            return try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
+            switch campusModel.studentType {
+            case .undergrad:
+                return try await UndergraduateCourseAPI.getScore(semester: semester.semesterId)
+            case .grad:
+                return try await GraduateCourseAPI.getScore()
+            case .staff:
+                throw LocatableError()
+            }
+            
         } content: { scores in
             Section {
                 ForEach(scores) { score in
