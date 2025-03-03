@@ -1948,9 +1948,6 @@
         }
       }
     },
-    "N ot Logged in" : {
-
-    },
     "Navigate to Bottom" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2070,7 +2067,6 @@
       }
     },
     "Not Logged in" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
