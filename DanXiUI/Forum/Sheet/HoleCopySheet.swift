@@ -39,7 +39,7 @@ struct HoleCopySheet: View {
                 case .remoteMention(let mention):
                     String(localized: "[Mentioned ##\(String(mention.floorId))]", bundle: .module)
                 case .text(let content):
-                    content.renderMarkdown().stripToBasicMarkdown()
+                    replaceMarkdownTags(content.renderMarkdown())
                 }
                 
                 text += sectionText + "\n"
@@ -88,7 +88,7 @@ struct HoleCopySheet: View {
                                 .foregroundStyle(.secondary)
                                 .font(.footnote)
                         }
-                        Text(presentation.floor.content.inlineAttributed())
+                        Text(inlineAttributed(presentation.floor.content))
                             .lineLimit(2)
                     }
                     .tag(presentation.floor.id)

@@ -15,9 +15,10 @@ struct HolePresentation: Identifiable {
     init(hole: Hole) {
         self.hole = hole
         let firstFloorContent = hole.firstFloor.fold.isEmpty ? hole.firstFloor.content : hole.firstFloor.fold
-        self.firstFloorContent = firstFloorContent.inlineAttributed()
+        self.firstFloorContent = inlineAttributed(firstFloorContent, multiline: true)
+        
         self.lastFloorContent = if hole.firstFloor.id != hole.lastFloor.id {
-            (hole.lastFloor.fold.isEmpty ? hole.lastFloor.content : hole.lastFloor.fold).inlineAttributed()
+            inlineAttributed(hole.lastFloor.fold.isEmpty ? hole.lastFloor.content : hole.lastFloor.fold)
         } else {
             nil
         }

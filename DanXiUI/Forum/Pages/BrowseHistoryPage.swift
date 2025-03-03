@@ -119,7 +119,7 @@ private struct BrowseHistoryView: View {
                     }
                 }
                 
-                Text(history.content.inlineAttributed())
+                Text(inlineAttributed(history.content))
                     .font(.callout)
                     .multilineTextAlignment(.leading)
                     .lineLimit(6)
