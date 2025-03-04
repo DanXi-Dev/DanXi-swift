@@ -44,10 +44,13 @@ public struct CommunityAccountButton: View {
 
 public struct CommunityAccountSheet: View {
     @Environment(\.dismiss) private var dismiss
+    
     @State private var showDeleteWarning = false
     @State private var showDeleteAlert = false
     @State private var deleteAccountEmail = ""
     @State private var deleteAccountPassword = ""
+    
+    @State private var showResetPasswordSheet = false
     
     public init() { }
     
@@ -83,6 +86,18 @@ public struct CommunityAccountSheet: View {
                                 } label: {
                                     Label(String(localized: "Admin Privilege", bundle: .module), systemImage: "person.badge.key.fill")
                                 }
+                            }
+                        }
+                    }
+                    
+                    Section {
+                        Button {
+                            showResetPasswordSheet = true
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Reset Password", bundle: .module)
+                                Spacer()
                             }
                         }
                     }
@@ -150,6 +165,11 @@ public struct CommunityAccountSheet: View {
                         Text("Done", bundle: .module)
                     }
                 }
+            }
+            .sheet(isPresented: $showResetPasswordSheet) {
+                        NavigationStack {
+                            RegisterSheet(type: .resetPassword)
+                        }
             }
             .navigationTitle(String(localized: "Account Info", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
