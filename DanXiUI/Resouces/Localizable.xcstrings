@@ -1,26 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "[Formula]" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[公式]"
-          }
-        }
-      }
-    },
-    "[Image]" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[图片]"
-          }
-        }
-      }
-    },
     "[Mentioned ##%@]" : {
       "localizations" : {
         "zh-Hans" : {
@@ -37,16 +17,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "[引用了%lldF]"
-          }
-        }
-      }
-    },
-    "[Sticker]" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "[表情]"
           }
         }
       }
@@ -1550,6 +1520,23 @@
         }
       }
     },
+    "formula_tag" : {
+      "comment" : "Formula Tag",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Formula]"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[公式]"
+          }
+        }
+      }
+    },
     "Forum" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1688,6 +1675,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "如果之前在“我的回复”页面中隐藏了自己的回复，可在此复原。"
+          }
+        }
+      }
+    },
+    "image_tag" : {
+      "comment" : "Image Tag",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Image]"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[图片]"
           }
         }
       }
@@ -2523,6 +2527,16 @@
         }
       }
     },
+    "Reset Password" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置密码"
+          }
+        }
+      }
+    },
     "Restore" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2677,6 +2691,17 @@
         }
       }
     },
+    "Select Text" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择文本"
+          }
+        }
+      }
+    },
     "Semester" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2755,6 +2780,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未处理"
+          }
+        }
+      }
+    },
+    "Set a new password for your account." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为您的账户设置新密码"
           }
         }
       }
@@ -2882,6 +2917,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "表情包解析失败"
+          }
+        }
+      }
+    },
+    "sticker_tag" : {
+      "comment" : "Sticker tag",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Sticker]"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[表情]"
           }
         }
       }
