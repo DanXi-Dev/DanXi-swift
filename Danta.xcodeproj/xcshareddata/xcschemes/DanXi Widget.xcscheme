@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "27536EBC29DC9A8100894A98"
-               BuildableName = "DanXi Widget.appex"
-               BlueprintName = "DanXi Widget"
-               ReferencedContainer = "container:DanXi.xcodeproj">
+               BuildableName = "Danta Widget.appex"
+               BlueprintName = "Danta Widget"
+               ReferencedContainer = "container:Danta.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -30,9 +30,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-               BuildableName = "DanXi.app"
-               BlueprintName = "DanXi"
-               ReferencedContainer = "container:DanXi.xcodeproj">
+               BuildableName = "Danta.app"
+               BlueprintName = "Danta"
+               ReferencedContainer = "container:Danta.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
-            BlueprintName = "DanXi"
-            ReferencedContainer = "container:DanXi.xcodeproj">
+            BuildableName = "Danta.app"
+            BlueprintName = "Danta"
+            ReferencedContainer = "container:Danta.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -98,9 +98,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
-            BlueprintName = "DanXi"
-            ReferencedContainer = "container:DanXi.xcodeproj">
+            BuildableName = "Danta.app"
+            BlueprintName = "Danta"
+            ReferencedContainer = "container:Danta.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
