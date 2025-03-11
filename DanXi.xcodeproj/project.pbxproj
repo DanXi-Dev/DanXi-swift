@@ -41,7 +41,7 @@
 		27C6B4782C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27C6B47A2C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27D226152CF7826400AF63B4 /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226142CF7826400AF63B4 /* ViewUtils */; };
-		27D226172CF782E900AF63B4 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226162CF782E900AF63B4 /* FudanUI */; };
+		27D226172CF782E900AF63B4 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226162CF782E900AF63B4 /* FudanUI */; settings = {ATTRIBUTES = (Required, ); }; };
 		27D226192CF78FE700AF63B4 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */; };
 		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
@@ -62,13 +62,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		27C6AB572D00649800136783 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 274C196F29D1BF9B000DE221;
-			remoteInfo = "DanXi Watch";
-		};
 		27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AC7A5C526872C3E00C9CD98 /* Project object */;
@@ -396,7 +389,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				27C6AB582D00649800136783 /* PBXTargetDependency */,
 				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
 			);
 			name = DanXi;
@@ -542,12 +534,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		27C6AB582D00649800136783 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 274C196F29D1BF9B000DE221 /* DanXi Watch */;
-			targetProxy = 27C6AB572D00649800136783 /* PBXContainerItemProxy */;
-		};
 		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilters = (
