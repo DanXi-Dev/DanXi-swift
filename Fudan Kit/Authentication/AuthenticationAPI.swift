@@ -1,4 +1,7 @@
 import Foundation
+import Combine
+import UIKit
+import SwiftUI
 import Utils
 
 /// APIs that handle the authentication process with UIS system
@@ -16,16 +19,73 @@ public enum AuthenticationAPI {
     /// The UIS service URL
     private static let authenticationURL = URL(string: "https://uis.fudan.edu.cn/authserver/login")!
     
+    static func updateAuthencationFrom(form: Data, response: URLResponse) async throws {
+        var captcha: Image? = nil
+        if existHTMLElement(form, selector: "#captchaImg") {
+            var components = URLComponents()
+            components.scheme = response.url?.scheme
+            components.host = response.url?.host()
+            components.path = "/authserver/captcha.html"
+            guard let url = components.url else { throw LocatableError() }
+            
+            var captchaRequest = constructRequest(url)
+            captchaRequest.setValue(authenticationURL.absoluteString, forHTTPHeaderField: "Referer")
+            let (captchaData, _) = try! await URLSession.campusSession.data(for: captchaRequest)
+            guard let uiImage = UIImage(data: captchaData) else {
+                throw LocatableError()
+            }
+            
+            captcha = Image(uiImage: uiImage)
+        }
+        
+        var loginForm: [String:String] = [:]
+        // search for `<input type="hidden">` and add value to the form
+        let elements = try decodeHTMLElementList(form, selector: "input[type=\"hidden\"]")
+        for element in elements {
+            loginForm[try element.attr("name")] = try element.attr("value")
+        }
+        
+        await MainActor.run {
+            AuthenticationForm.shared.update(captcha: captcha, additional: loginForm)
+        }
+    }
+    
+    static func retrieveAuthenticationForm() async throws  {
+        let request = constructRequest(authenticationURL, method: "POST")
+        let (loginFormData, response) = try await URLSession.campusSession.data(for: request)
+        
+        try await updateAuthencationFrom(form: loginFormData, response: response)
+    }
+    
+
+    static func submitAuthenticationForm(content: AuthenticationContent) async throws {
+        var form: [String: String] = [:]
+        form["password"] = content.password
+        form["username"] = content.username
+        if content.captcha != nil {
+            form["captcha"] = content.captcha
+        }
+        for (additionalKey, additional) in content.additional {
+            form[additionalKey] = additional
+        }
+        let request = constructFormRequest(authenticationURL, form: form)
+        let (data, response) = try await URLSession.campusSession.data(for: request)
+        guard response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do" else {
+            try await updateAuthencationFrom(form: data, response: response)
+            throw LocatableError()
+        }
+    }
+    
     /// Check if the user's credential is correct.
     /// - Returns: `true` if user's credential is correct, `false` otherwise.
-    public static func checkUserCredential(username: String, password: String) async throws -> Bool {        
-        let request = constructRequest(authenticationURL)
-        let (loginFormData, _) = try await URLSession.campusSession.data(for: request)
-        let authRequest = try constructAuthenticationRequest(authenticationURL, form: loginFormData, username: username, password: password)
-        let (_, response) = try await URLSession.campusSession.data(for: authRequest)
-        
-        return response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do"
-    }
+//    public static func checkUserCredential(username: String, password: String) async throws -> Bool {        
+//        let request = constructRequest(authenticationURL)
+//        let (loginFormData, _) = try await URLSession.campusSession.data(for: request)
+//        let authRequest = try constructAuthenticationRequest(authenticationURL, form: loginFormData, username: username, password: password)
+//        let (_, response) = try await URLSession.campusSession.data(for: authRequest)
+//        
+//        return response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do"
+//    }
     
     /// Check if the user's login is captcha protected.
     ///
@@ -135,5 +195,31 @@ public enum AuthenticationAPI {
         }
         
         return constructFormRequest(url, form: loginForm)
+    }
+}
+
+public class AuthenticationForm: ObservableObject {
+    @Published public var captcha: Image? = nil
+    @Published public var additional: [String: String] = [:]
+    
+    public static let shared: AuthenticationForm = AuthenticationForm()
+    
+    public func update(captcha: Image?, additional: [String: String]) {
+        self.captcha = captcha
+        self.additional = additional
+    }
+}
+
+public struct AuthenticationContent {
+    let username: String
+    let password: String
+    let captcha: String?
+    let additional: [String: String]
+    
+    public init(username: String, password: String, captcha: String?, additional: [String : String]) {
+        self.username = username
+        self.password = password
+        self.captcha = captcha
+        self.additional = additional
     }
 }

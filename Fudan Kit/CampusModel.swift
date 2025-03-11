@@ -1,6 +1,7 @@
 import SwiftUI
-#if os(watchOS)
 import Utils
+#if os(watchOS)
+
 #else
 import Disk
 #endif
@@ -24,12 +25,23 @@ public class CampusModel: ObservableObject {
         }
     }
     
-    public func login(username: String, password: String) async throws {
-        guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
-            throw CampusError.loginFailed
-        }
+//    public func login(username: String, password: String) async throws {
+//        guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
+//            throw CampusError.loginFailed
+//        }
+//        
+//        CredentialStore.shared.set(username: username, password: password)
+//        loggedIn = true
+//    }
+    
+    public func retrieveAuthenticationForm() async throws {
+        try await AuthenticationAPI.retrieveAuthenticationForm()
+    }
+    
+    public func submitAuthenticationForm(content: AuthenticationContent) async throws {
+        try await AuthenticationAPI.submitAuthenticationForm(content: content)
         
-        CredentialStore.shared.set(username: username, password: password)
+        CredentialStore.shared.set(username: content.username, password: content.password)
         loggedIn = true
     }
     

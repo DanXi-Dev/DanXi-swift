@@ -243,6 +243,17 @@
         }
       }
     },
+    "Captcha" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "验证码"
+          }
+        }
+      }
+    },
     "Change Color" : {
       "localizations" : {
         "zh-Hans" : {
@@ -668,6 +679,9 @@
           }
         }
       }
+    },
+    "Fudan UIS Captcha" : {
+
     },
     "Fudan UIS ID" : {
       "localizations" : {
