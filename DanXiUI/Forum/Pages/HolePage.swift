@@ -357,7 +357,9 @@ private struct HolePageSheets<Label: View>: View {
                     Text("Confirm", bundle: .module)
                 }
                 
-                Button(role: .cancel) {} label: {
+                Button(role: .cancel) {
+                    
+                } label: {
                     Text("Cancel", bundle: .module)
                 }
             } message: {

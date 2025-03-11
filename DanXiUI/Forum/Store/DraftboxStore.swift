@@ -5,7 +5,8 @@ import SwiftUI
 class DraftboxStore {
     static let shared = DraftboxStore()
     private var cachedDraftbox: Draftbox?
-    
+
+    /// `Draftbox` object managed with caching and persistent storage.
     var draftbox: Draftbox {
         get {
             if let cachedDraftbox {
@@ -37,52 +38,54 @@ class DraftboxStore {
         let newDraftbox = Draftbox(post: draftbox.post, replies: draftbox.replies + [newReply])
         draftbox = newDraftbox
     }
-    
+
     func getReply(_ holeId: Int, replyTo: Int? = nil) async -> Reply? {
         let task = Task {
-            return draftbox.replies.filter { reply in
+            draftbox.replies.filter { reply in
                 holeId == reply.holeId && replyTo == reply.replyTo
             }.first
         }
         return await task.value
     }
-    
+
     func getPost() async -> Post? {
         let task = Task {
-            return draftbox.post
+            draftbox.post
         }
         return await task.value
     }
-    
-    func deletePostDraft() async -> Void {
-        
+
+    func deletePostDraft() async {
         let task = Task {
             draftbox = Draftbox(post: nil, replies: draftbox.replies)
         }
         return await task.value
     }
-    
-    func deleteReplyDraft(holeId: Int, replyTo: Int? = nil) async -> Void {
+
+    func deleteReplyDraft(holeId: Int, replyTo: Int? = nil) async {
         let task = Task {
-            draftbox = Draftbox(post: draftbox.post, replies: draftbox.replies.filter { reply in
+            // delete the reply in the draft box
+            let newReplies = draftbox.replies.filter { reply in
                 holeId != reply.holeId || replyTo != reply.replyTo
-            })
+            }
+            draftbox = Draftbox(post: draftbox.post, replies: newReplies)
         }
         return await task.value
     }
-    
 }
 
+/// A `Draftbox` represents the storage of a user's draft content in the forum.
 struct Draftbox: Codable {
     let post: Post?
     let replies: [Reply]
 }
 
+/// A `Post` represents a created Hole with content and associated tags.
 struct Post: Identifiable, Codable {
     let id: UUID
     let content: String
     let tags: [String]
-    
+
     init(content: String, tags: [String]) {
         self.content = content
         self.tags = tags
@@ -90,13 +93,14 @@ struct Post: Identifiable, Codable {
     }
 }
 
+/// A `Reply` represents a reply to a Hole, which may optionally reference another reply.
 struct Reply: Identifiable, Codable {
     let id: UUID
     let content: String
     let replyTo: Int?
     let holeId: Int
     let createdAt: Date
-    
+
     init(content: String, replyTo: Int? = nil, holeId: Int) {
         self.content = content
         self.replyTo = replyTo
