@@ -30,6 +30,10 @@ class DraftboxStore {
     private var cachedDraftbox: Draftbox?
 
     /// `Draftbox` object managed with caching and persistent storage.
+    ///
+    /// This property should only be accessed from background threads due to potential
+    /// disk I/O operations. Avoid accessing this from the main thread to prevent
+    /// blocking the user interface.
     var draftbox: Draftbox {
         get {
             if let cachedDraftbox {
