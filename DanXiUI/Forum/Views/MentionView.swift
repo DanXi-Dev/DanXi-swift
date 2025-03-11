@@ -47,7 +47,7 @@ struct MentionView: View {
             .foregroundColor(randomColor(anonyname))
             .font(.subheadline)
                         
-            Text(content.inlineAttributed())
+            Text(inlineAttributed(content))
                 .foregroundColor(deleted ? .secondary : .primary)
                 .relativeLineSpacing(.em(0.18))
                 .multilineTextAlignment(.leading)

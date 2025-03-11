@@ -225,10 +225,14 @@ private struct FloorActions: View {
     
     private var replyButton: some View {
         AsyncButton {
-            if let draftReply = await DraftboxStore.shared.getReply(holeModel.hole.id, replyTo: floor.id) {
-                holeModel.draftReplySheet = draftReply
+            if profileStore.answered {
+                if let draftReply = await DraftboxStore.shared.getReply(holeModel.hole.id, replyTo: floor.id) {
+                    holeModel.draftReplySheet = draftReply
+                } else {
+                    holeModel.replySheet = floor
+                }
             } else {
-                holeModel.replySheet = floor
+                holeModel.showQuestionSheet = true
             }
         } label: {
             Image(systemName: "arrowshape.turn.up.left")

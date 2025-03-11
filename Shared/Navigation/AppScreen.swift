@@ -47,8 +47,20 @@ extension AppScreen {
         case .innovation:
             EmptyView()
         case .calendar:
-            NavigationStack {
-                CoursePage()
+            // on iOS 16.4, the implementation of `NavigationStack` is buggy, causing `AsyncContentView` to infinitly loading.
+            // This is to mitigate the problem.
+            if #available(iOS 17, *) {
+                NavigationStack {
+                    CoursePage()
+                }
+            } else if #available(iOS 16.4, *) {
+                NavigationView {
+                    CoursePage()
+                }
+            } else {
+                NavigationStack {
+                    CoursePage()
+                }
             }
         case .settings:
             SettingsContent()

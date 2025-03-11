@@ -7,6 +7,12 @@ actor Authenticator {
     var refreshTask: Task<Void, any Error>? = nil
     
     func authenticate(request: URLRequest) async throws -> (Data, URLResponse) {
+        // if there exists an active refresh task, it indicates that the token has expired
+        // there is no point sending a request with expired token, the app must wait for the token to be refreshed
+        if let refreshTask {
+            try await refreshTask.value
+        }
+        
         // prepare request
         var authenticatedRequest = request
         guard let token = CredentialStore.shared.token else {

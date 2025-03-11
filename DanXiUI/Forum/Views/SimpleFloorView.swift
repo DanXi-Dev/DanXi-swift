@@ -7,7 +7,7 @@ struct SimpleFloorView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5.0) {
             PosterView(name: floor.anonyname, isPoster: false)
-            Text(floor.content.inlineAttributed())
+            Text(inlineAttributed(floor.content))
                 .font(.callout)
                 .foregroundColor(floor.deleted ? .secondary : .primary)
                 .multilineTextAlignment(.leading)

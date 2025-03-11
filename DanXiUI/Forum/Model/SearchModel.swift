@@ -3,6 +3,11 @@ import Disk
 import DanXiKit
 import Combine
 
+enum SearchScope: Hashable {
+    case fuzzy
+    case accurate
+}
+
 @MainActor
 class SearchModel: ObservableObject {
     @Published var searchText = "" {
@@ -20,6 +25,8 @@ class SearchModel: ObservableObject {
         }
     }
     @Published var history: [String]
+    
+    @Published var scope: SearchScope = .fuzzy
     
     init() {
         if let cachedHistory = try? Disk.retrieve("fduhole/search-history.json", from: .appGroup, as: [String].self) {
