@@ -62,7 +62,7 @@ struct PostSheet: View {
             ForumEditor(content: $content, initiallyFocused: false)
         }
         .completed(!tags.isEmpty && !content.isEmpty)
-        .onDisappear {
+        .onDisappearOrBackground {
             Task {
                 if !hasSubmitted {
                     DraftboxStore.shared.addPostDraft(content: content, tags: tags)

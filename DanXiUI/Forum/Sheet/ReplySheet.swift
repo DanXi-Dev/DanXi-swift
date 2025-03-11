@@ -3,6 +3,7 @@ import SwiftUI
 import ViewUtils
 
 struct ReplySheet: View {
+    @Environment(\.scenePhase) private var scenePhase
     @ObservedObject private var profileStore = ProfileStore.shared
     @EnvironmentObject private var model: HoleModel
     @State private var content: String
@@ -32,7 +33,7 @@ struct ReplySheet: View {
             ForumEditor(content: $content, initiallyFocused: true)
         }
         .completed(!content.isEmpty)
-        .onDisappear {
+        .onDisappearOrBackground {
             Task {
                 if !hasSubmitted {
                     DraftboxStore.shared.addReplyDraft(content: content, holeId: model.hole.id, replyTo: replyTo)
