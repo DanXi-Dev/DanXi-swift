@@ -58,11 +58,15 @@ public struct LoginSheet: View {
                         LabeledEntry(String(localized: "Captcha", bundle: .module)) {
                             SecureField(String(localized: "Fudan UIS Captcha", bundle: .module), text: $captcha)
                         }
-                        HStack{ loginForm.captcha }
+                        HStack{
+                            Spacer()
+                            loginForm.captcha?.resizable()
+                                .scaledToFit()
+                            Spacer()
+                            
+                        }
                     }
-                   
                 }
-                
                 #endif
             }
             .completed(!username.isEmpty && !password.isEmpty)

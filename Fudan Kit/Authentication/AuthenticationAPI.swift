@@ -72,7 +72,7 @@ public enum AuthenticationAPI {
         let (data, response) = try await URLSession.campusSession.data(for: request)
         guard response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do" else {
             try await updateAuthencationFrom(form: data, response: response)
-            throw LocatableError()
+            throw LoginError.login
         }
     }
     
@@ -195,6 +195,16 @@ public enum AuthenticationAPI {
         }
         
         return constructFormRequest(url, form: loginForm)
+    }
+}
+
+enum LoginError: Error {
+    case login
+}
+
+extension LoginError: LocalizedError {
+    var errorDescription: String? {
+        String(localized: "Login Failed", bundle: .module)
     }
 }
 
