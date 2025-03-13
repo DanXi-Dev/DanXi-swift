@@ -185,9 +185,13 @@ struct HolePage: View {
     
     @ViewBuilder
     private var toolbar: some View {
-        Button {
+        AsyncButton {
             if profileStore.answered {
-                model.showReplySheet = true
+                if let draftReply = await DraftboxStore.shared.getReply(hole.id) {
+                    model.draftReplySheet = draftReply
+                } else {
+                    model.showReplySheet = true
+                }
             } else {
                 model.showQuestionSheet = true
             }
@@ -313,6 +317,9 @@ private struct HolePageSheets<Label: View>: View {
             .sheet(isPresented: $model.showReplySheet) {
                 ReplySheet()
             }
+            .sheet(item: $model.draftReplySheet) { reply in
+                ReplySheet(content: reply.content, replyTo: reply.replyTo)
+            }
             .sheet(isPresented: $model.showQuestionSheet) {
                 QuestionSheet()
             }
@@ -320,7 +327,7 @@ private struct HolePageSheets<Label: View>: View {
                 HoleEditSheet(hole: model.hole)
             }
             .sheet(item: $model.replySheet) { floor in
-                ReplySheet(content: "##\(String(floor.id))\n")
+                ReplySheet(content: "##\(String(floor.id))\n", replyTo: floor.id)
             }
             .sheet(item: $model.editSheet) { floor in
                 FloorEditSheet(floor: floor)

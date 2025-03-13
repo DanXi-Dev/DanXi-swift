@@ -344,7 +344,7 @@ class HoleModel: ObservableObject {
     @Published var showHoleEditSheet = false
     @Published var showHideAlert = false
     @Published var showCopySheet = false
-    
+    @Published var draftReplySheet: Reply? = nil
     @Published var replySheet: Floor? = nil
     @Published var editSheet: Floor? = nil
     @Published var reportSheet: FloorPresentation? = nil

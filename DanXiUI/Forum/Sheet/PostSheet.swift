@@ -1,6 +1,6 @@
+import DanXiKit
 import SwiftUI
 import ViewUtils
-import DanXiKit
 
 struct PostSheet: View {
     @ObservedObject private var profileStore = ProfileStore.shared
@@ -11,10 +11,23 @@ struct PostSheet: View {
     @State private var content = ""
     @State private var tags: [String] = []
     @State private var specialTag: String = ""
+    @State private var hasSubmitted = false
+    
+    init(divisionId: Int) {
+        self.divisionId = divisionId
+    }
+    
+    init(divisionId: Int, content: String = "", tags: [String] = []) {
+        self._content = State(initialValue: content)
+        self._tags = State(initialValue: tags)
+        self.divisionId = divisionId
+    }
     
     var body: some View {
         Sheet(String(localized: "New Post", bundle: .module)) {
             let hole = try await ForumAPI.createHole(content: content, divisionId: divisionId, tags: tags, specialTag: specialTag)
+            hasSubmitted = true
+            await DraftboxStore.shared.deletePostDraft()
             navigator.pushDetail(value: hole, replace: true) // navigate to hole page
             
             Task {
@@ -49,6 +62,12 @@ struct PostSheet: View {
             ForumEditor(content: $content, initiallyFocused: false)
         }
         .completed(!tags.isEmpty && !content.isEmpty)
-        .warnDiscard(!tags.isEmpty || !content.isEmpty)
+        .onDisappearOrBackground {
+            Task {
+                if !hasSubmitted {
+                    DraftboxStore.shared.addPostDraft(content: content, tags: tags)
+                }
+            }
+        }
     }
 }

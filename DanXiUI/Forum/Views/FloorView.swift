@@ -224,9 +224,13 @@ private struct FloorActions: View {
     }
     
     private var replyButton: some View {
-        Button {
+        AsyncButton {
             if profileStore.answered {
-                holeModel.replySheet = floor
+                if let draftReply = await DraftboxStore.shared.getReply(holeModel.hole.id, replyTo: floor.id) {
+                    holeModel.draftReplySheet = draftReply
+                } else {
+                    holeModel.replySheet = floor
+                }
             } else {
                 holeModel.showQuestionSheet = true
             }
