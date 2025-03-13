@@ -81,6 +81,7 @@ struct HolePage: View {
                     .padding(.horizontal, 18)
                     // To add space before the tags.
                     .padding(.top, 30)
+                    .padding(.bottom, 16)
                 }
                 .refreshable {
                     try? await withHaptics(success: false) {
