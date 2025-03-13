@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "274C196F29D1BF9B000DE221"
-               BuildableName = "DanXi Watch.app"
-               BlueprintName = "DanXi Watch"
+               BuildableName = "Danta Watch.app"
+               BlueprintName = "Danta Watch"
                ReferencedContainer = "container:DanXi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "274C196F29D1BF9B000DE221"
-            BuildableName = "DanXi Watch.app"
-            BlueprintName = "DanXi Watch"
+            BuildableName = "Danta Watch.app"
+            BlueprintName = "Danta Watch"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "274C196F29D1BF9B000DE221"
-            BuildableName = "DanXi Watch.app"
-            BlueprintName = "DanXi Watch"
+            BuildableName = "Danta Watch.app"
+            BlueprintName = "Danta Watch"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

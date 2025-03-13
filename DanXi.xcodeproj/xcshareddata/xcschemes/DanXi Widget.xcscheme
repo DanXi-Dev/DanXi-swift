@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "27536EBC29DC9A8100894A98"
-               BuildableName = "DanXi Widget.appex"
-               BlueprintName = "DanXi Widget"
+               BuildableName = "Danta Widget.appex"
+               BlueprintName = "Danta Widget"
                ReferencedContainer = "container:DanXi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-               BuildableName = "DanXi.app"
-               BlueprintName = "DanXi"
+               BuildableName = "Danta.app"
+               BlueprintName = "Danta"
                ReferencedContainer = "container:DanXi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
-            BlueprintName = "DanXi"
+            BuildableName = "Danta.app"
+            BlueprintName = "Danta"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -98,8 +98,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
-            BlueprintName = "DanXi"
+            BuildableName = "Danta.app"
+            BlueprintName = "Danta"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

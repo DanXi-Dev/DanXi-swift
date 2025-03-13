@@ -37,13 +37,13 @@
 		2785E2AA2BC8645900D50D31 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2785E2A92BC8645900D50D31 /* FudanUI */; };
 		27AF614D2BCD61DE00754718 /* TabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF614C2BCD61DE00754718 /* TabNavigation.swift */; };
 		27C68CB32BB563EE00037D52 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 27C68CB22BB563EE00037D52 /* Utils */; };
-		27C6AB592D00649E00136783 /* DanXi Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 274C197029D1BF9B000DE221 /* DanXi Watch.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27C6AB592D00649E00136783 /* Danta Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 274C197029D1BF9B000DE221 /* Danta Watch.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27C6B4782C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27C6B47A2C2B3895006841C7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4772C2B3895006841C7 /* Localizable.xcstrings */; };
 		27D226152CF7826400AF63B4 /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226142CF7826400AF63B4 /* ViewUtils */; };
 		27D226172CF782E900AF63B4 /* FudanUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27D226162CF782E900AF63B4 /* FudanUI */; };
 		27D226192CF78FE700AF63B4 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27D226182CF78FE700AF63B4 /* InfoPlist.xcstrings */; };
-		27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27D3A49F2BBC9F0800350D21 /* Danta Widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 27536EBD29DC9A8100894A98 /* Danta Widget.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27D3A4A82BBCFA3D00350D21 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27D3A4A72BBCFA3D00350D21 /* FudanKit */; };
 		27D6F4542892C5D70059228F /* BundleResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6F4532892C5D70059228F /* BundleResource.swift */; };
 		27DD19B42BA5CCA400B75643 /* FudanKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27DD19B32BA5CCA400B75643 /* FudanKit */; };
@@ -95,7 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				27D3A49F2BBC9F0800350D21 /* DanXi Widget.appex in Embed Foundation Extensions */,
+				27D3A49F2BBC9F0800350D21 /* Danta Widget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +106,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				27C6AB592D00649E00136783 /* DanXi Watch.app in Embed Watch Content */,
+				27C6AB592D00649E00136783 /* Danta Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,11 +127,11 @@
 		2737C7E62BCFF4F0001945C1 /* DanXi Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "DanXi Kit"; sourceTree = "<group>"; };
 		2737C7E72BCFF56C001945C1 /* DanXiUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DanXiUI; sourceTree = "<group>"; };
 		273B11E62BD3B37A001F7757 /* SettingsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigation.swift; sourceTree = "<group>"; };
-		274C197029D1BF9B000DE221 /* DanXi Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DanXi Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		274C197029D1BF9B000DE221 /* Danta Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Danta Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274C197229D1BF9B000DE221 /* WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchApp.swift; sourceTree = "<group>"; };
 		274C197429D1BF9B000DE221 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		274C197629D1BF9C000DE221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		27536EBD29DC9A8100894A98 /* DanXi Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DanXi Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27536EBD29DC9A8100894A98 /* Danta Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Danta Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27536EC129DC9A8100894A98 /* DanXiWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiWidgetBundle.swift; sourceTree = "<group>"; };
 		27536EC529DC9A8300894A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27536EC729DC9A8300894A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 		27F2F2212BCBE8C80017CB5E /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
 		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
-		8AC7A5CD26872C3E00C9CD98 /* DanXi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanXi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC7A5CD26872C3E00C9CD98 /* Danta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Danta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5A316A42BE4C9CB00BCC41A /* BusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidget.swift; sourceTree = "<group>"; };
@@ -317,9 +317,9 @@
 		8AC7A5CE26872C3E00C9CD98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A5CD26872C3E00C9CD98 /* DanXi.app */,
-				274C197029D1BF9B000DE221 /* DanXi Watch.app */,
-				27536EBD29DC9A8100894A98 /* DanXi Widget.appex */,
+				8AC7A5CD26872C3E00C9CD98 /* Danta.app */,
+				274C197029D1BF9B000DE221 /* Danta Watch.app */,
+				27536EBD29DC9A8100894A98 /* Danta Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,9 +339,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		274C196F29D1BF9B000DE221 /* DanXi Watch */ = {
+		274C196F29D1BF9B000DE221 /* Danta Watch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 274C197D29D1BF9C000DE221 /* Build configuration list for PBXNativeTarget "DanXi Watch" */;
+			buildConfigurationList = 274C197D29D1BF9C000DE221 /* Build configuration list for PBXNativeTarget "Danta Watch" */;
 			buildPhases = (
 				274C196C29D1BF9B000DE221 /* Sources */,
 				274C196D29D1BF9B000DE221 /* Frameworks */,
@@ -351,7 +351,7 @@
 			);
 			dependencies = (
 			);
-			name = "DanXi Watch";
+			name = "Danta Watch";
 			packageProductDependencies = (
 				27D3A4A72BBCFA3D00350D21 /* FudanKit */,
 				273EA8852CF77FEE00FC4DEB /* Utils */,
@@ -359,12 +359,12 @@
 				27D226162CF782E900AF63B4 /* FudanUI */,
 			);
 			productName = "DanXi-watch Watch App";
-			productReference = 274C197029D1BF9B000DE221 /* DanXi Watch.app */;
+			productReference = 274C197029D1BF9B000DE221 /* Danta Watch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		27536EBC29DC9A8100894A98 /* DanXi Widget */ = {
+		27536EBC29DC9A8100894A98 /* Danta Widget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Widget" */;
+			buildConfigurationList = 27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "Danta Widget" */;
 			buildPhases = (
 				27536EB929DC9A8100894A98 /* Sources */,
 				27536EBA29DC9A8100894A98 /* Frameworks */,
@@ -374,17 +374,17 @@
 			);
 			dependencies = (
 			);
-			name = "DanXi Widget";
+			name = "Danta Widget";
 			packageProductDependencies = (
 				2773A2B22D46A9DE00DF9682 /* FudanKit */,
 			);
 			productName = DanXi_WigdetExtension;
-			productReference = 27536EBD29DC9A8100894A98 /* DanXi Widget.appex */;
+			productReference = 27536EBD29DC9A8100894A98 /* Danta Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		8AC7A5CC26872C3E00C9CD98 /* DanXi */ = {
+		8AC7A5CC26872C3E00C9CD98 /* Danta */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */;
+			buildConfigurationList = 8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "Danta" */;
 			buildPhases = (
 				8AC7A5C926872C3E00C9CD98 /* Sources */,
 				8AC7A5CA26872C3E00C9CD98 /* Frameworks */,
@@ -399,7 +399,7 @@
 				27C6AB582D00649800136783 /* PBXTargetDependency */,
 				27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */,
 			);
-			name = DanXi;
+			name = Danta;
 			packageProductDependencies = (
 				27DD19B32BA5CCA400B75643 /* FudanKit */,
 				270CD1932BAD697600881ABA /* ViewUtils */,
@@ -409,7 +409,7 @@
 				273D53342BD94AC200801B77 /* DanXiUI */,
 			);
 			productName = "DanXi-native";
-			productReference = 8AC7A5CD26872C3E00C9CD98 /* DanXi.app */;
+			productReference = 8AC7A5CD26872C3E00C9CD98 /* Danta.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -449,9 +449,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8AC7A5CC26872C3E00C9CD98 /* DanXi */,
-				274C196F29D1BF9B000DE221 /* DanXi Watch */,
-				27536EBC29DC9A8100894A98 /* DanXi Widget */,
+				8AC7A5CC26872C3E00C9CD98 /* Danta */,
+				274C196F29D1BF9B000DE221 /* Danta Watch */,
+				27536EBC29DC9A8100894A98 /* Danta Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -545,7 +545,7 @@
 		27C6AB582D00649800136783 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = 274C196F29D1BF9B000DE221 /* DanXi Watch */;
+			target = 274C196F29D1BF9B000DE221 /* Danta Watch */;
 			targetProxy = 27C6AB572D00649800136783 /* PBXContainerItemProxy */;
 		};
 		27D3A49A2BBC9D5300350D21 /* PBXTargetDependency */ = {
@@ -554,7 +554,7 @@
 				ios,
 				maccatalyst,
 			);
-			target = 27536EBC29DC9A8100894A98 /* DanXi Widget */;
+			target = 27536EBC29DC9A8100894A98 /* Danta Widget */;
 			targetProxy = 27D3A4992BBC9D5300350D21 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -573,7 +573,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = watchOS/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Danta Watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "io.github.danxi-dev.dan-xi";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -606,7 +606,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = watchOS/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "DanXi-watch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Danta Watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "io.github.danxi-dev.dan-xi";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -641,7 +641,7 @@
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Widget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Danta Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -675,7 +675,7 @@
 				DEVELOPMENT_TEAM = KF7M99CN68;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DanXi_Widget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Danta Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -905,7 +905,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		274C197D29D1BF9C000DE221 /* Build configuration list for PBXNativeTarget "DanXi Watch" */ = {
+		274C197D29D1BF9C000DE221 /* Build configuration list for PBXNativeTarget "Danta Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				274C197B29D1BF9C000DE221 /* Debug */,
@@ -914,7 +914,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "DanXi Widget" */ = {
+		27536ECE29DC9A8300894A98 /* Build configuration list for PBXNativeTarget "Danta Widget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27536ECC29DC9A8300894A98 /* Debug */,
@@ -932,7 +932,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "DanXi" */ = {
+		8AC7A63426872C4100C9CD98 /* Build configuration list for PBXNativeTarget "Danta" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC7A63526872C4100C9CD98 /* Debug */,
