@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2706602C292F513700F4C321 /* AboutPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602B292F513700F4C321 /* AboutPage.swift */; };
 		2706602E292F51BC00F4C321 /* CreditPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2706602D292F51BC00F4C321 /* CreditPage.swift */; };
-		27066032292F56AF00F4C321 /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066031292F56AF00F4C321 /* license.json */; };
-		27066038292FA34200F4C321 /* contributor.json in Resources */ = {isa = PBXBuildFile; fileRef = 27066037292FA34200F4C321 /* contributor.json */; };
 		270CD1942BAD697600881ABA /* ViewUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 270CD1932BAD697600881ABA /* ViewUtils */; };
 		273110112D01BDD700A347DA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 273110102D01BDD700A347DA /* Localizable.xcstrings */; };
 		273110132D01BE0600A347DA /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273110122D01BE0600A347DA /* WelcomePage.swift */; };
@@ -116,8 +114,6 @@
 /* Begin PBXFileReference section */
 		2706602B292F513700F4C321 /* AboutPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPage.swift; sourceTree = "<group>"; };
 		2706602D292F51BC00F4C321 /* CreditPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditPage.swift; sourceTree = "<group>"; };
-		27066031292F56AF00F4C321 /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
-		27066037292FA34200F4C321 /* contributor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributor.json; sourceTree = "<group>"; };
 		270CD1902BAD68C900881ABA /* View Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "View Utils"; sourceTree = "<group>"; };
 		271298362CF79D4D002D1481 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		273110102D01BDD700A347DA /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -243,8 +239,6 @@
 			children = (
 				27D6F4532892C5D70059228F /* BundleResource.swift */,
 				2778D5F52891C664009F4DB1 /* Assets.xcassets */,
-				27066037292FA34200F4C321 /* contributor.json */,
-				27066031292F56AF00F4C321 /* license.json */,
 				F15059FC2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy */,
 				27C6B4772C2B3895006841C7 /* Localizable.xcstrings */,
 			);
@@ -484,8 +478,6 @@
 				F15059FD2BBD60F200EA62E3 /* PrivacyInfo.xcprivacy in Resources */,
 				F13306D82BA5766C005361D2 /* InfoPlist.xcstrings in Resources */,
 				27C6B4782C2B3895006841C7 /* Localizable.xcstrings in Resources */,
-				27066038292FA34200F4C321 /* contributor.json in Resources */,
-				27066032292F56AF00F4C321 /* license.json in Resources */,
 				2778D5F62891C664009F4DB1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
