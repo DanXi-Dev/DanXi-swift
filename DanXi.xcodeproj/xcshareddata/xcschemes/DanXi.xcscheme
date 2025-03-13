@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-               BuildableName = "DanXi.app"
+               BuildableName = "Assistant.app"
                BlueprintName = "DanXi"
                ReferencedContainer = "container:DanXi.xcodeproj">
             </BuildableReference>
@@ -47,7 +47,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
+            BuildableName = "Assistant.app"
             BlueprintName = "DanXi"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AC7A5CC26872C3E00C9CD98"
-            BuildableName = "DanXi.app"
+            BuildableName = "Assistant.app"
             BlueprintName = "DanXi"
             ReferencedContainer = "container:DanXi.xcodeproj">
          </BuildableReference>
