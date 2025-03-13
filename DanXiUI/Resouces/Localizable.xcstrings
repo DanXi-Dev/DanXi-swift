@@ -2523,6 +2523,16 @@
         }
       }
     },
+    "Reset Password" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置密码"
+          }
+        }
+      }
+    },
     "Restore" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2755,6 +2765,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未处理"
+          }
+        }
+      }
+    },
+    "Set a new password for your account." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为您的账户设置新的密码"
           }
         }
       }

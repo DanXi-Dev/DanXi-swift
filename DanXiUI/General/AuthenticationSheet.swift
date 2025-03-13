@@ -130,8 +130,9 @@ private class LoginModel: ObservableObject {
 
 // MARK: - Register
 
-private struct RegisterSheet: View {
-    @EnvironmentObject private var authModel: AuthenticationModel
+struct RegisterSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject.Optional private var authModel: AuthenticationModel?
     @StateObject private var model = RegisterModel()
     @State private var showVerificationAlert = false
     @FocusState private var emailFocus: Bool
@@ -139,7 +140,7 @@ private struct RegisterSheet: View {
     @FocusState private var repeatFocus: Bool
     
     enum SheetType {
-        case register, forgetPassword
+        case register, forgetPassword, resetPassword
     }
     
     let type: SheetType
@@ -149,9 +150,12 @@ private struct RegisterSheet: View {
             if type == .register {
                 FormTitle(title: String(localized: "Register DanXi Account", bundle: .module),
                           description: String(localized: "Use campus email to register DanXi account.", bundle: .module))
-            } else {
+            } else if type == .forgetPassword {
                 FormTitle(title: String(localized: "Forget Password", bundle: .module),
                           description: String(localized: "Use campus email to reset password.", bundle: .module))
+            } else if type == .resetPassword {
+                FormTitle(title: String(localized: "Reset Password", bundle: .module),
+                          description: String(localized: "Set a new password for your account.", bundle: .module))
             }
             
             Section {
@@ -199,7 +203,8 @@ private struct RegisterSheet: View {
             ToolbarItem(placement: .confirmationAction) {
                 AsyncButton {
                     try await model.register(create: type == .register)
-                    authModel.done = true
+                    authModel?.done = true
+                    dismiss()
                 } label: {
                     Text(type == .register ? "Register" : "Submit", bundle: .module)
                 }

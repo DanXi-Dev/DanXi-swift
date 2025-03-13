@@ -26,7 +26,7 @@ public actor Authenticator {
         let calendar = Calendar.current
         guard let addedDate = calendar.date(byAdding: dateComponents, to: loginDate) else { return false }
         
-        return addedDate < Date.now
+        return addedDate > Date.now
     }
     
     /// Authenticate a request and return the data required.
