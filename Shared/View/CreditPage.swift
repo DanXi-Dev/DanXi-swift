@@ -71,6 +71,10 @@ let contributors: [Contributor] = [
             image:Image("Boreas618")
         ),
         Contributor(
+            name: "Caster-L",
+            image:Image("Caster-L")
+        ),
+        Contributor(
             name: "Dest1n1",
             image:Image("Dest1n1")
         ),
@@ -95,12 +99,28 @@ let contributors: [Contributor] = [
             image:Image( "JingYiJun")
         ),
         Contributor(
+            name: "kachrel",
+            image:Image("kachrel")
+        ),
+        Contributor(
+            name: "Kirisame-Official",
+            image:Image( "Kirisame-Official")
+        ),
+        Contributor(
             name: "kyln24",
             image:Image("kyln24")
         ),
         Contributor(
             name: "Linn3a",
             image:Image("Linn3a")
+        ),
+        Contributor(
+            name: "MSapphire",
+           image:Image("MSapphire")
+        ),
+        Contributor(
+            name: "NanshineLoong",
+           image:Image("NanshineLoong")
         ),
         Contributor(
             name: "PinappleUnderTheSea",
@@ -119,16 +139,24 @@ let contributors: [Contributor] = [
             image:Image("Serenii02")
         ),
         Contributor(
+            name: "shdancer",
+            image:Image("shdancer")
+        ),
+        Contributor(
             name: "singularity-s0",
             image:Image("singularity-s0")
         ),
         Contributor(
-            name: "yujular",
-            image:Image("yujular")
+            name: "starain-xinxin",
+            image:Image("starain-xinxin")
         ),
         Contributor(
             name: "w568w",
             image:Image("w568w")
+        ),
+        Contributor(
+            name: "yujular",
+            image:Image("yujular")
         )
     ]
     
