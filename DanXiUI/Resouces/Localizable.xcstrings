@@ -2150,6 +2150,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Open Notification Settings" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2618,6 +2621,12 @@
           }
         }
       }
+    },
+    "Screenshot Alert Content" : {
+
+    },
+    "Screenshot Detected" : {
+
     },
     "Search in Tags" : {
       "localizations" : {

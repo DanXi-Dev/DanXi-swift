@@ -1,26 +1,30 @@
-#if !os(watchOS)
 import SwiftUI
 
 extension View {
-    public func screenshotAlert() -> some View {
+    func screenshotAlert() -> some View {
         ScreenshotAlert(content: self)
     }
 }
 
 struct ScreenshotAlert<Content: View>: View {
     let content: Content
+    @AppStorage("screenshot-alert") var active = true
     @StateObject private var model = ScreenshotAlertModel()
     private let screenshotPublisher = NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)
     
     var body: some View {
-        content
-            .background {
-                ScreenshotAlertPresentor()
-                    .environmentObject(model)
-            }
-            .onReceive(screenshotPublisher) { _ in
-                model.presentAlert()
-            }
+        if active {
+            content
+                .background {
+                    ScreenshotAlertPresentor()
+                        .environmentObject(model)
+                }
+                .onReceive(screenshotPublisher) { _ in
+                    model.presentAlert()
+                }
+        } else {
+            content
+        }
     }
 }
 
@@ -56,4 +60,3 @@ struct ScreenshotAlertPresentor: UIViewRepresentable {
         // do nothing
     }
 }
-#endif
