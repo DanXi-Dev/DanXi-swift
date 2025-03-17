@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export XCODE_PROJ_FILE=$CI_PRIMARY_REPOSITORY_PATH/DanXi.xcodeproj/project.pbxproj
+python3 update_xcode_project.py || exit 1
+
 cd $CI_PRIMARY_REPOSITORY_PATH/FudanUI || exit 1
 rm -rf Preview/*
 
