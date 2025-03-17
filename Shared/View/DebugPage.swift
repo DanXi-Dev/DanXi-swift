@@ -4,124 +4,75 @@ import DanXiUI
 import ViewUtils
 
 struct DebugPage: View {
-    @State private var showURLSheet = false
     @State private var showQuestionSheet = false
+    @State private var resetURLSuccessAlert = false
     @ObservedObject private var settings = ForumSettings.shared
-    @AppStorage("watermark-unlocked") private var watermarkUnlocked = false
+    @AppStorage("watermark-unlocked") private var watermarkUnlocked = true
+    
+    private func resetBaseURLs() {
+        guard let urls = UIPasteboard.general.string else { return }
+        let lines = urls.split(separator: "\n")
+        guard lines.count == 3 else { return }
+        let authURL = URL(string: String(lines[0]))
+        let forumURL = URL(string: String(lines[1]))
+        let curriculumURL = URL(string: String(lines[2]))
+        
+        guard let authURL, let forumURL, let curriculumURL else { return }
+        
+        UserDefaults.standard.set(authURL.absoluteString, forKey: "fduhole_auth_url")
+        UserDefaults.standard.set(forumURL.absoluteString, forKey: "fduhole_base_url")
+        UserDefaults.standard.set(curriculumURL.absoluteString, forKey: "danke_base_url")
+        
+        DanXiKit.authURL = authURL
+        DanXiKit.forumURL = forumURL
+        DanXiKit.curriculumURL = curriculumURL
+        
+        resetURLSuccessAlert = true
+    }
     
     var body: some View {
         List {
             Section {
-                Button("Debug Base URL") {
-                    showURLSheet = true
-                }
-            }
-            
-            Section {
-                ScreenshotAlert()
-                Toggle(isOn: settings.$showBanners) {
-                    Label("Show Activity Announcements", systemImage: "bell")
-                }
-                
-                if watermarkUnlocked {
-                    Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
-                }
-                
-                Button("Test Register Questions") {
+                Button {
                     showQuestionSheet = true
+                } label: {
+                    Text("Register Questions")
                 }
             }
             
             Section {
-                Button("Reset Intro") {
-                    UserDefaults.standard.set(false, forKey: "intro-done")
+                Button {
+                    resetBaseURLs()
+                } label: {
+                    Text("Reset Base URLs")
                 }
+                
+            } footer: {
+                Text("Paste the backend URLs in three lines, separated by newlines, in the order of `auth`, `forum` and `curriculum`.")
             }
             
-            if let token = UserDefaults.standard.string(forKey: "notification-token") {
-                Section("APNS Token") {
-                    Text(token)
-                        .onPress {
-                            UIPasteboard.general.string = token
-                        }
+            if watermarkUnlocked {
+                Section {
+                    Toggle(isOn: $settings.screenshotAlert) {
+                        Label("Screenshot Alert", systemImage: "camera.viewfinder")
+                    }
+                    
+                    Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
                 }
             }
         }
         .navigationTitle("Debug")
-        .sheet(isPresented: $showURLSheet) {
-            DebugURLForm()
-        }
         .sheet(isPresented: $showQuestionSheet) {
             QuestionSheet()
         }
-    }
-}
-
-private struct DebugURLForm: View {
-    @Environment(\.dismiss) private var dismiss
-    @State private var auth: String = authURL.absoluteString
-    @State private var fduhole: String = forumURL.absoluteString
-    @State private var danke: String = curriculumURL.absoluteString
-    
-    var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    TextField("Auth", text: $auth)
-                    TextField("fduhole", text: $fduhole)
-                    TextField("danke", text: $danke)
-                }
-            }
-            .navigationTitle("Debug Base URL")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        if let authURL = URL(string: auth),
-                           let forumURL = URL(string: fduhole),
-                           let curriculumURL = URL(string: danke) {
-                            UserDefaults.standard.set(authURL.absoluteString, forKey: "fduhole_auth_url")
-                            UserDefaults.standard.set(forumURL.absoluteString, forKey: "fduhole_base_url")
-                            UserDefaults.standard.set(curriculumURL.absoluteString, forKey: "danke_base_url")
-                            
-                            DanXiKit.authURL = authURL
-                            DanXiKit.forumURL = forumURL
-                            DanXiKit.curriculumURL = curriculumURL
-                        }
-                        dismiss()
-                    } label: {
-                        Text("Submit")
-                    }
-                }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                    }
-                }
-            }
-        }
-    }
-}
-
-fileprivate struct ScreenshotAlert: View {
-    @ObservedObject private var settings = ForumSettings.shared
-    @State private var showWarning = false
-    
-    var body: some View {
-        Toggle(isOn: $settings.screenshotAlert) {
-            Label("Screenshot Alert", systemImage: "camera.viewfinder")
-        }
-        .alert("Screenshot Policy", isPresented: $showWarning) {
+        .alert("Reset URLs Success", isPresented: $resetURLSuccessAlert) {
             
-        } message: {
-            Text("Screenshot Warning")
         }
-        .onChange(of: settings.screenshotAlert) { willShowAlert in
-            if !willShowAlert {
-                showWarning = true
-            }
-        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        DebugPage()
     }
 }

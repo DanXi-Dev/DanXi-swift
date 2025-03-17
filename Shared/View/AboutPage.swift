@@ -4,8 +4,6 @@ import ViewUtils
 
 struct AboutPage: View {
     @AppStorage("debug-unlocked") private var debugUnlocked = false
-    @AppStorage("watermark-unlocked") private var watermarkUnlocked = false
-    @State private var tappedCount = 0
     
     private var version: String {
         Bundle.main.releaseVersionNumber ?? ""
@@ -13,24 +11,6 @@ struct AboutPage: View {
     
     private var build: String {
         Bundle.main.buildVersionNumber ?? ""
-    }
-    
-    private func checkPassword() {
-        if UIPasteboard.general.hasStrings {
-            if let password = UIPasteboard.general.string {
-                let hash = SHA256.hash(data: password.data(using: .utf8)!)
-                let hashString = hash.map { String(format: "%02hhx", $0) }.joined()
-                if hashString == "2a71f797c0c5b266e885fb8f9a137936aba75e9a9d9e9fca747f965452b35463" {
-                    withAnimation {
-                        debugUnlocked = true
-                    }
-                }
-                
-                if hashString == "37ef71a680d30c47888856527c064cd02755ceeac2ef33e51c2e02d7bf93c089" {
-                    watermarkUnlocked = true
-                }
-            }
-        }
     }
     
     var body: some View {
@@ -47,14 +27,10 @@ struct AboutPage: View {
                                 .navigationStyle()
                         }
                     } header: {
-                        appIcon
-                            .textCase(.none)
-                            .onTapGesture {
-                                tappedCount += 1
-                                if tappedCount > 5 && !debugUnlocked {
-                                    checkPassword()
-                                }
-                            }
+                        GateKeeper {
+                            appIcon
+                                .textCase(.none)
+                        }
                     }
                     
                     if debugUnlocked {
@@ -68,6 +44,7 @@ struct AboutPage: View {
                 }
             }
             
+            #if os(iOS)
             VStack {
                 Text(verbatim: "Copyright © 2024-2025 DanXi-Dev")
                 Link(destination: URL(string: "https://beian.miit.gov.cn/")!) {
@@ -77,6 +54,7 @@ struct AboutPage: View {
             .foregroundStyle(.secondary)
             .font(.footnote)
             .padding()
+            #endif
         }
         .labelStyle(.titleOnly)
         .navigationTitle("About")
@@ -102,6 +80,46 @@ struct AboutPage: View {
             .padding(.bottom)
             Spacer()
         }
+    }
+}
+
+/// The debug page is protected, only those who have the app password can access. The password is checked against a hash encryption.
+struct GateKeeper<Content: View>: View {
+    @AppStorage("debug-unlocked") private var debugUnlocked = false
+    @AppStorage("watermark-unlocked") private var watermarkUnlocked = false
+    @State private var tappedCount = 0
+    
+    private let normalCapabilityHash = "2a71f797c0c5b266e885fb8f9a137936aba75e9a9d9e9fca747f965452b35463"
+    private let raisedCapabilityHash = "37ef71a680d30c47888856527c064cd02755ceeac2ef33e51c2e02d7bf93c089"
+    
+    let content: () -> Content
+    
+    /// Check password against hash encryption and grant user certain debug capability.
+    private func checkPassword() {
+        guard UIPasteboard.general.hasStrings,
+              let password = UIPasteboard.general.string else { return }
+        
+        let hash = SHA256.hash(data: password.data(using: .utf8)!)
+        let hashString = hash.map { String(format: "%02hhx", $0) }.joined()
+        if hashString == normalCapabilityHash || hashString == raisedCapabilityHash {
+            withAnimation {
+                debugUnlocked = true
+            }
+        }
+        
+        if hashString == raisedCapabilityHash {
+            watermarkUnlocked = true
+        }
+    }
+    
+    var body: some View {
+        content()
+            .onTapGesture {
+                tappedCount += 1
+                if tappedCount > 5 && !debugUnlocked {
+                    checkPassword()
+                }
+            }
     }
 }
 

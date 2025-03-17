@@ -71,16 +71,6 @@
         }
       }
     },
-    "OK" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "确认"
-          }
-        }
-      }
-    },
     "Photo" : {
       "localizations" : {
         "zh-Hans" : {
@@ -107,32 +97,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存到相册"
-          }
-        }
-      }
-    },
-    "Screenshot Alert Content" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "According to community guidelines, please do not share this screenshot on the Internet."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "为保障茶楼信息安全和其他用户的隐私，请不要将截图发送到任何平台，感谢您的配合。"
-          }
-        }
-      }
-    },
-    "Screenshot Detected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "检测到截图"
           }
         }
       }
