@@ -68,16 +68,11 @@ struct AboutPage: View {
                 }
             }
             
-            
             VStack {
-                Text("Copyright © 2024 DanXi-Dev")
-                Text("沪ICP备2021032046号-4A")
-                    .onPress {
-                        let url = URL(string: "https://beian.miit.gov.cn/")!
-                        if UIApplication.shared.canOpenURL(url) {
-                            UIApplication.shared.open(url, options: [:])
-                        }
-                    }
+                Text(verbatim: "Copyright © 2024-2025 DanXi-Dev")
+                Link(destination: URL(string: "https://beian.miit.gov.cn/")!) {
+                    Text(verbatim: "沪ICP备2021032046号-4A")
+                }
             }
             .foregroundStyle(.secondary)
             .font(.footnote)
@@ -107,5 +102,33 @@ struct AboutPage: View {
             .padding(.bottom)
             Spacer()
         }
+    }
+}
+
+struct LinkView: View {
+    let url: String
+    let text: LocalizedStringKey
+    let icon: String
+
+    var body: some View {
+        Link(destination: URL(string: url)!) {
+            HStack {
+                Label {
+                    Text(text)
+                        .foregroundColor(.primary)
+                } icon: {
+                    Image(systemName: icon)
+                }
+                Spacer()
+                Image(systemName: "link")
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        AboutPage()
     }
 }

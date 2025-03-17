@@ -47,7 +47,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : " APNS Token"
+            "value" : "APNS Token"
           }
         }
       }
@@ -179,22 +179,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "贡献者"
-          }
-        }
-      }
-    },
-    "Copyright © 2024 DanXi-Dev" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Copyright © 2024 Danta-Dev"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "版权所有 © 2024 旦挞开发组"
           }
         }
       }
@@ -825,16 +809,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "江湾"
-          }
-        }
-      }
-    },
-    "沪ICP备2021032046号-4A" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "沪ICP备2021032046号-4A"
           }
         }
       }
