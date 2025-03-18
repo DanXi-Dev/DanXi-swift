@@ -173,7 +173,7 @@ struct BackspaceDetectingTextField: UIViewRepresentable {
 
 @available(iOS 17.0, *)
 #Preview {
-    @Previewable @State var tags: [String] = []
+    @Previewable @State var tags: [String] = ["Hello", "World!"]
     
     TagEditor($tags)
         .previewPrepared(wrapped: .list)

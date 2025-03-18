@@ -277,3 +277,8 @@ private class QuestionModel: ObservableObject {
     }
 }
 
+#Preview {
+    let questions: Questions = decodePreviewData(filename: "questions")
+    
+    QuestionPage(questions)
+}

@@ -560,6 +560,9 @@ private struct ManualResetSemesterStartDateSheet: View {
 }
 
 #Preview {
+    let model = TabViewModel()
+    
     CoursePage()
+        .environmentObject(model)
         .previewPrepared()
 }
