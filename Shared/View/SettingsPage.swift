@@ -76,3 +76,12 @@ struct SettingsPage: View {
         .toolbar(showToolbar ? .visible : .hidden, for: .tabBar)
     }
 }
+
+#Preview {
+    let model = TabViewModel()
+    
+    NavigationStack {
+        SettingsPage()
+    }
+    .environmentObject(model)
+}

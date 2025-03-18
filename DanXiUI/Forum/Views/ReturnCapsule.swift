@@ -35,7 +35,7 @@ struct ReturnCapsule: View {
                 
         }
         .transition(.move(edge: .bottom).combined(with: .opacity))
-        .onChange(of: model.targetFloorVisibility, perform: { visible in
+        .onChange(of: model.targetFloorVisibility) { visible in
             if !visible {
                 Task {
                     if let existingTask = currentSleepingTask {
@@ -52,7 +52,7 @@ struct ReturnCapsule: View {
                     }
                 }
             }
-        })
+        }
         .onTapGesture {
             withAnimation {
                 model.scrollTo(floorId: originalFloor.floor.id)

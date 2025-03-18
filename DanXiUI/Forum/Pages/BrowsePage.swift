@@ -350,7 +350,12 @@ private struct BannerView: View {
     model.holes = presentations
     model.endReached = true
     
+    let navigator = AppNavigator()
+    let tabViewModel = TabViewModel()
+    
     return BrowsePage()
         .environmentObject(model)
+        .environmentObject(navigator)
+        .environmentObject(tabViewModel)
         .previewPrepared()
 }
