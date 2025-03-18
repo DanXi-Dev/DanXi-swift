@@ -47,7 +47,13 @@ public actor UndergraduateCourseStore {
             return self.semesters
         }
         
-        let (semesters, _) = try await getRefreshedSemesters()
+        let (semesters, currentSemester) = try await getRefreshedSemesters()
+        
+        if let currentSemester = currentSemester,
+           let courses = courseMap[currentSemester] {
+            try updateCourseModel(with: currentSemester, courses: courses)
+        }
+        
         return semesters
     }
     
@@ -66,6 +72,12 @@ public actor UndergraduateCourseStore {
         let currentSemester = semesters.filter({ $0.semesterId == currentSemesterId }).first
         self.semesters = semesters
         try Disk.save(semesters, to: .appGroup, as: "fdutools/undergrad-semesters.json")
+        
+        if let currentSemester = currentSemester,
+           let courses = courseMap[currentSemester] {
+            try updateCourseModel(with: currentSemester, courses: courses)
+        }
+        
         return (semesters, currentSemester)
     }
     
@@ -84,6 +96,24 @@ public actor UndergraduateCourseStore {
         let courses = try await UndergraduateCourseAPI.getCourses(semesterId: semester.semesterId, ids: ids)
         self.courseMap[semester] = courses
         try Disk.save(self.courseMap, to: .appGroup, as: "fdutools/undergrad-course-map.json")
+        
+        if semester.semesterId == currentSemesterId {
+            try updateCourseModel(with: semester, courses: courses)
+        }
+        
         return courses
+    }
+    
+    // MARK: Update
+    
+    private func updateCourseModel(with semester: Semester, courses: [Course]) throws {
+        _ = computeWeekOffset(from: semester.startDate, courses: courses)
+        let cache = CourseModelCache(
+            studentType: .undergrad,
+            courses: courses,
+            semester: semester,
+            semesters: self.semesters
+        )
+        try Disk.save(cache, to: .appGroup, as: "fdutools/course-model.json")
     }
 }
