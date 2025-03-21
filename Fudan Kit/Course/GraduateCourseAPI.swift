@@ -310,9 +310,6 @@ public enum GraduateCourseAPI {
         let loginURL = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/*default/index.do")!
         let url = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/modules/xscjcx/jdjscjcx.do")!
         let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
-        
-        let string = String(data: data, encoding: .utf8)!
-        print(string)
 
         var scores: [Score] = []
         guard let json = try? JSON(data: data),
