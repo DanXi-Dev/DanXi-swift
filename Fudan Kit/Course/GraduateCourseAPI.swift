@@ -59,14 +59,12 @@ public enum GraduateCourseAPI {
         dateFormatter.dateFormat = "YYYY-MM-dd"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
-        let semestersResponse = try decoder.decode(
-            [GraduateSemesterResponse].self, from: semesterData)
+        let semestersResponse = try decoder.decode([GraduateSemesterResponse].self, from: semesterData)
         var semesters: [Semester] = []
         for response in semestersResponse {
             let yearPattern = /(?<startYear>\d+)-\d+/
             guard let yearMatch = response.year.firstMatch(of: yearPattern),
-                let year = Int(yearMatch.startYear)
-            else {
+                  let year = Int(yearMatch.startYear) else {
                 continue
             }
             let type: Semester.SemesterType = (response.term == "1") ? .first : .second
@@ -81,13 +79,10 @@ public enum GraduateCourseAPI {
 
         let currentSemesterYearString = json["params"]["year"].stringValue
         let currentSemsterTermString = json["params"]["term"].stringValue
-        if let currentSemesterYearMatch = currentSemesterYearString.firstMatch(
-            of: /(?<startYear>\d+)-\d+/),
-            let currentSemesterYear = Int(currentSemesterYearMatch.startYear)
-        {
+        if let currentSemesterYearMatch = currentSemesterYearString.firstMatch(of: /(?<startYear>\d+)-\d+/),
+           let currentSemesterYear = Int(currentSemesterYearMatch.startYear) {
             let type: Semester.SemesterType = (currentSemsterTermString == "1") ? .first : .second
-            currentSemester =
-                semesters.filter({ $0.year == currentSemesterYear && $0.type == type }).first
+            currentSemester = semesters.filter({ $0.year == currentSemesterYear && $0.type == type }).first
         }
 
         return (semesters, currentSemester)
@@ -107,10 +102,7 @@ public enum GraduateCourseAPI {
 
     /// Get courses on a given semester
     public static func getCourses(semester: Semester) async throws -> [Course] {
-        let dictionary = try await withThrowingTaskGroup(
-            of: (Int, [CourseBuilder]).self,
-            returning: [Int: [CourseBuilder]].self
-        ) { taskGroup in
+        let dictionary = try await withThrowingTaskGroup(of: (Int, [CourseBuilder]).self, returning: [Int: [CourseBuilder]].self) { taskGroup in
             var dictionary: [Int: [CourseBuilder]] = [:]
 
             for week in 1...semester.weekCount {
@@ -316,11 +308,11 @@ public enum GraduateCourseAPI {
     ///
     public static func getScore() async throws -> [Score] {
         let loginURL = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/*default/index.do")!
-        let url = URL(
-            string:
-                "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/modules/xscjcx/jdjscjcx.do"
-        )!
+        let url = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/modules/xscjcx/jdjscjcx.do")!
         let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        
+        let string = String(data: data, encoding: .utf8)!
+        print(string)
 
         var scores: [Score] = []
         guard let json = try? JSON(data: data),
@@ -329,13 +321,11 @@ public enum GraduateCourseAPI {
         }
         
         if code != "0" {
-            let message = "Unknown"
-            throw CampusError.customError(message: message)
+            throw LocatableError()
         }
         
         let scoresData = try json["datas"]["jdjscjcx"]["rows"].rawData()
         let decoder = JSONDecoder()
-        
         let responses = try decoder.decode([ScoreResponse].self, from: scoresData)
         
         for scoreResponse in responses {
@@ -349,7 +339,7 @@ public enum GraduateCourseAPI {
         let courseName: String
         let courseId: String
         let credit: Float
-        let teacher: String
+        let teacher: String?
         let courseType: String
         let grade: String
         let gradePoint: Float
