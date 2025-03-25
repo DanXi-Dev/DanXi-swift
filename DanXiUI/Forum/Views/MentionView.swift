@@ -4,6 +4,7 @@ import DanXiKit
 
 struct MentionView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @State private var isExpanded: Bool = false
     
     private let id: Int
     private let anonyname: String
@@ -41,7 +42,7 @@ struct MentionView: View {
                             
                 Spacer()
                             
-                Image(systemName: "quote.closing")
+                Image(systemName: isExpanded ? "quote.opening" : "quote.closing")
                     .foregroundColor(.secondary)
             }
             .foregroundColor(randomColor(anonyname))
@@ -52,13 +53,16 @@ struct MentionView: View {
                 .relativeLineSpacing(.em(0.18))
                 .multilineTextAlignment(.leading)
                 .font(.subheadline)
-                .lineLimit(1)
+                .lineLimit(isExpanded ? nil : 1)
         }
         .padding(.horizontal, 12.0)
         .padding(.top, 6.5)
         .padding(.bottom, 8.0)
         .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
         .cornerRadius(7.0)
+        .onLongPressGesture(minimumDuration: 0.2) {
+                isExpanded.toggle()
+        }
     }
 }
 
