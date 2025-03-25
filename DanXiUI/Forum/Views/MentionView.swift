@@ -4,6 +4,7 @@ import DanXiKit
 
 struct MentionView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.mentionAllowExpantion) private var allowExpantion
     @State private var isExpanded: Bool = false
     
     private let id: Int
@@ -42,7 +43,7 @@ struct MentionView: View {
                             
                 Spacer()
                             
-                Image(systemName: isExpanded ? "quote.opening" : "quote.closing")
+                Image(systemName: "quote.closing")
                     .foregroundColor(.secondary)
             }
             .foregroundColor(randomColor(anonyname))
@@ -61,7 +62,9 @@ struct MentionView: View {
         .background(Color.secondary.opacity(colorScheme == .light ? 0.1 : 0.2))
         .cornerRadius(7.0)
         .onLongPressGesture(minimumDuration: 0.2) {
+            if allowExpantion {
                 isExpanded.toggle()
+            }
         }
     }
 }
@@ -106,5 +109,14 @@ struct RemoteMentionView: View {
             MentionView(mention)
         }
         .buttonStyle(.borderless)
+    }
+}
+
+struct MentionAllowExpansionKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+extension EnvironmentValues {
+    var mentionAllowExpantion: Bool {
+        get { self[MentionAllowExpansionKey.self] } set { self[MentionAllowExpansionKey.self] = newValue }
     }
 }
