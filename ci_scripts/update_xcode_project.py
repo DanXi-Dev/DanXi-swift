@@ -2,6 +2,10 @@ import json
 import os
 import subprocess
 
+# check condition
+if os.environ.get('CI_PRODUCT_PLATFORM') != 'iOS':
+    exit(0)
+
 # read file and convert to json
 file = os.environ.get('XCODE_PROJ_FILE')
 original_json_string = subprocess.run(['plutil', '-convert', 'json', file, '-o', '-'], capture_output=True)
