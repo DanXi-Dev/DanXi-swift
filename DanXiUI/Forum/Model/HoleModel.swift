@@ -166,7 +166,7 @@ class HoleModel: ObservableObject {
         case .conversation(let starting):
             filteredFloors = traceConversation(startId: starting)
         case .reply(let floorId):
-            filteredFloors = floors.filter { $0.replyTo == floorId }
+            filteredFloors = floors.filter { $0.replyTo == floorId || $0.floor.id == floorId }
         }
     }
     
