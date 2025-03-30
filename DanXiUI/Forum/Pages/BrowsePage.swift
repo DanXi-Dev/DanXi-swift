@@ -234,6 +234,7 @@ private struct BannerCarousel: View {
     @State private var currentBanner: Int = 0
     @ScaledMetric private var containerHeight: CGFloat = 54
     @State private var timer = Timer.publish(every: 5, on: .main, in: .default).autoconnect()
+    @ObservedObject private var settings = ForumSettings.shared
     
     private func updateBanner() {
         withAnimation {
@@ -243,7 +244,7 @@ private struct BannerCarousel: View {
     }
     
     var body: some View {
-        if !banners.isEmpty {
+        if !banners.isEmpty && settings.showBanners {
             TabView(selection: $currentBanner) {
                 ForEach(Array(banners.enumerated()), id: \.offset) { index, banner in
                     BannerView(banner: banner)
