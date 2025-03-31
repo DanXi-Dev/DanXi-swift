@@ -20,7 +20,7 @@ struct SplitNavigation: View {
                 screen.detail
             }
         } else {
-            NavigationSplitView(columnVisibility: $columnVisibility) {
+            PlatformSplitView {
                 AppSidebarList(screen: $screen)
             } content: {
                 screen.content
@@ -70,6 +70,7 @@ struct AppSidebarList: View {
             AppScreen.settings.label
                 .tag(AppScreen.settings)
         }
+        .listStyle(.sidebar)
         .navigationTitle("DanXi")
         .navigationBarTitleDisplayMode(.large)
     }

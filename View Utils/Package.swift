@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "ViewUtils", targets: ["ViewUtils"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.10.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.3.0"),
         .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4"),
     ],
     targets: [
