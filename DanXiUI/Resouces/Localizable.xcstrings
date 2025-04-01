@@ -2623,10 +2623,16 @@
     },
     "Screenshot Alert Content" : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请勿将茶楼截图转发给非茶楼用户"
+            "value" : "According to community guidelines, please do not share this screenshot on the Internet."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "为保障茶楼信息安全和其他用户的隐私，请不要将截图发送到任何平台，感谢您的配合。"
           }
         }
       }
@@ -2636,7 +2642,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "检测到屏幕截图"
+            "value" : "检测到截图"
           }
         }
       }
