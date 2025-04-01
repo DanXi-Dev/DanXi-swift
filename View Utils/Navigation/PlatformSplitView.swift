@@ -40,7 +40,7 @@ public struct PlatformSplitView<Sidebar: View, Content: View, Detail: View>: Vie
             splitViewController.presentsWithGesture = false
         }
         #else
-        NavigationSplitView(columnVisiblity: $columnVisibility) {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             sidebar()
         } content: {
             content()
