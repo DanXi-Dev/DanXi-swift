@@ -2622,10 +2622,24 @@
       }
     },
     "Screenshot Alert Content" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请勿将茶楼截图转发给非茶楼用户"
+          }
+        }
+      }
     },
     "Screenshot Detected" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检测到屏幕截图"
+          }
+        }
+      }
     },
     "Search in Tags" : {
       "localizations" : {
