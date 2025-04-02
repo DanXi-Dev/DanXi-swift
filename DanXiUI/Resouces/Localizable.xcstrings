@@ -648,6 +648,16 @@
         }
       }
     },
+    "Control whether to show activity banners at the top of the forum page." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "控制是否显示茶楼顶部的活动横幅"
+          }
+        }
+      }
+    },
     "Copied" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2853,6 +2863,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示所有楼层"
+          }
+        }
+      }
+    },
+    "Show Banners" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示横幅"
           }
         }
       }

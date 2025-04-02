@@ -16,6 +16,12 @@ struct AdvancedSettings: View {
                 Toggle(isOn: $settings.inAppBrowser) {
                     Text("Use in-app Browser", bundle: .module)
                 }
+            
+                Toggle(isOn: $settings.showBanners) {
+                    Text("Show Banners", bundle:.module)
+                }
+            } footer: {
+                Text("Control whether to show activity banners at the top of the forum page.", bundle:.module)
             }
             
             Section {
