@@ -134,7 +134,7 @@
 		27F2F2212BCBE8C80017CB5E /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
 		27F2F2232BCC2B650017CB5E /* SplitNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitNavigation.swift; sourceTree = "<group>"; };
 		8AAABD4326881E0500486D37 /* DanXi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DanXi.entitlements; sourceTree = "<group>"; };
-		8AC7A5CD26872C3E00C9CD98 /* Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC7A5CD26872C3E00C9CD98 /* Danta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Danta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC7A5D026872C3E00C9CD98 /* DanXiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanXiApp.swift; sourceTree = "<group>"; };
 		8AC7A5D926872C3F00C9CD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5A316A42BE4C9CB00BCC41A /* BusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusWidget.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		8AC7A5CE26872C3E00C9CD98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AC7A5CD26872C3E00C9CD98 /* Assistant.app */,
+				8AC7A5CD26872C3E00C9CD98 /* Danta.app */,
 				274C197029D1BF9B000DE221 /* DanXi Watch.app */,
 				27536EBD29DC9A8100894A98 /* DanXi Widget.appex */,
 			);
@@ -368,7 +368,7 @@
 				273D53342BD94AC200801B77 /* DanXiUI */,
 			);
 			productName = "DanXi-native";
-			productReference = 8AC7A5CD26872C3E00C9CD98 /* Assistant.app */;
+			productReference = 8AC7A5CD26872C3E00C9CD98 /* Danta.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -600,7 +600,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -634,7 +634,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi.widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -799,7 +799,7 @@
 				MARKETING_VERSION = 2.2.7;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
-				PRODUCT_NAME = Assistant;
+				PRODUCT_NAME = Danta;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
@@ -838,7 +838,7 @@
 				MARKETING_VERSION = 2.2.7;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.danxi-dev.dan-xi";
-				PRODUCT_NAME = Assistant;
+				PRODUCT_NAME = Danta;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;

@@ -4,7 +4,18 @@ import subprocess
 
 # check condition
 if os.environ.get('CI_PRODUCT_PLATFORM') != 'iOS':
+    # macOS: Replace "校园助手" with "旦挞" in iOS/InfoPlist.xcstrings
+    base_path = os.environ.get('CI_PROJECT_FILE_PATH')
+    file_path = os.path.join(base_path, 'iOS/InfoPlist.xcstrings')
+    if os.path.exists(file_path):
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        updated_content = content.replace("校园助手", "旦挞")
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(updated_content)
     exit(0)
+
+# iOS
 
 # read file and convert to json
 file = os.environ.get('XCODE_PROJ_FILE')
