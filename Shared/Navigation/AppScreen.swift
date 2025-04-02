@@ -22,7 +22,7 @@ extension AppScreen {
         case .community:
             Label("Community", systemImage: "bubble")
         case .innovation:
-            Label("Innovation", systemImage: "lightbulb.max")
+            Label("Innovation", systemImage: "building.columns")
         case .calendar:
             Label("Calendar", systemImage: "calendar")
         case .settings:
