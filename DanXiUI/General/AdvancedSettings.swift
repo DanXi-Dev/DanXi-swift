@@ -38,7 +38,7 @@ struct AdvancedSettings: View {
                 Text("Use Fudan University WebVPN service to access Forum and DanKe from off-campus.\n\nWhen this is off, most features will only be available within the campus intranet. Campus Assistant automatically adjusts this setting based on your network condition. You do not have to change this in most occasions.", bundle: .module)
             }
             
-             previewFeatureSetting
+            // previewFeatureSetting
             
             Section {
                 Button {
@@ -95,6 +95,7 @@ struct AdvancedSettings: View {
     }
     
     private var previewFeatureSetting: some View {
+        // TODO: This should be added once the innovation bank is released
         Section {
             Picker(String(localized: "Preview Features", bundle: .module), selection: $settings.previewFeatureSetting) {
                 Text("Show", bundle: .module).tag(ForumSettings.PreviewFeatureSetting.show)
