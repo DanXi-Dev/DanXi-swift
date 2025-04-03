@@ -6,8 +6,16 @@ struct FloorPresentation: Identifiable {
     init(floor: Floor, storey: Int, floors: [Floor] = []) {
         self.floor = floor
         self.storey = storey
+        self.heightWrapped = effectiveLineCount(for: floor.content) > 250
+        var cutContent = floor.content
+        if self.heightWrapped {
+            // cut the content to 500 characters
+            cutContent = String(floor.content.prefix(500))
+        } else {
+            cutContent = floor.content
+        }
         // self.sections = parseFloorContent(content: floor.content, mentions: floor.mentions, floors: floors)
-        self.sections = parseFloorContent(content: temporaryFixForContentOverflow(floor.content), mentions: floor.mentions, floors: floors)
+        self.sections = parseFloorContent(content: temporaryFixForContentOverflow(cutContent), mentions: floor.mentions, floors: floors)
         self.replyTo = parseFirstMention(content: floor.content)
         self.imageURLs = parseFloorImageURLs(content: floor.content)
     }
@@ -19,6 +27,9 @@ struct FloorPresentation: Identifiable {
     
     let floor: Floor
     let storey: Int
+    
+    // Whether the height of the content is wrapped
+    let heightWrapped: Bool
 }
 
 enum FloorSection {
@@ -47,6 +58,18 @@ func temporaryFixForContentOverflow(_ content: String) -> String {
         return regex.stringByReplacingMatches(in: line, options: [], range: NSRange(location: 0, length: line.utf16.count), withTemplate: ">>>")
     }
     return processedLines.joined(separator: "\n")
+}
+
+func effectiveLineCount(for text: String, charsPerLine: Int = 30) -> Int {
+    let lines = text.components(separatedBy: "\n")
+    var effectiveLines = 0
+    for line in lines {
+        let charCount = line.count
+
+        let lineCountForThisLine = max(Int(ceil(Double(charCount) / Double(charsPerLine))), 1)
+        effectiveLines += lineCountForThisLine
+    }
+    return effectiveLines
 }
 
 func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) -> [FloorSection] {

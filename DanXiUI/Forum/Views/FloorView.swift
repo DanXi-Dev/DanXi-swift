@@ -36,10 +36,22 @@ struct FloorView: View {
                 Spacer(minLength: 0)
             }
         } content: {
-            VStack(alignment: .leading) {
-                headLine
-                content
-                bottomLine
+                VStack(alignment: .leading) {
+                    headLine
+                    ZStack {
+                        content
+                        if presentation.heightWrapped {
+                            VStack {
+                                Spacer()
+                                wrappingMask
+                            }
+                        }
+//                        VStack {
+//                            Spacer()
+//                            wrappingMask
+//                        }
+                    }
+                    bottomLine
             }
         }
         .listRowInsets(.zero)
@@ -104,6 +116,49 @@ struct FloorView: View {
         .font(.footnote)
         .foregroundColor(Color.secondary.opacity(0.7))
         .padding(.top, 0.8)
+    }
+    
+    private var wrappingMask: some View {
+        ZStack {
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color("List Foreground", bundle: .module).opacity(0), Color("List Foreground", bundle: .module)]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+            HStack {
+                Spacer()
+                HStack {
+                    VStack {
+                        Text(" ", bundle: .module)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                    }
+    //                .padding(.leading, 5)
+                }
+                .padding(.horizontal, 18)
+                .overlay(alignment: .center) {
+                    Image(systemName: "chevron.down")
+                        .font(.subheadline)
+    //                    .foregroundStyle(Color.accentColor)
+    //                    .padding(.leading, 10)
+                }
+                
+                .padding(.vertical, 8)
+                .background {
+                    Capsule(style: .continuous)
+                        .fill(.thickMaterial)
+                        .shadow(.drop(radius: 8))
+                        
+                }
+            }
+            .padding(.trailing, 10)
+            .onTapGesture {
+                withAnimation {
+                    holeModel.textSelectionSheet = floor
+                }
+            }
+        }
+        .frame(height: 40)
     }
 }
 
