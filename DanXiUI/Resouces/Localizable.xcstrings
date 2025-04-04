@@ -378,6 +378,16 @@
         }
       }
     },
+    "Back" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
+          }
+        }
+      }
+    },
     "Ban notice" : {
       "localizations" : {
         "zh-Hans" : {
@@ -574,6 +584,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除起始日期"
+          }
+        }
+      }
+    },
+    "Community Home Page" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回社区主页"
           }
         }
       }
@@ -1600,6 +1620,26 @@
         }
       }
     },
+    "Go Back" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回上一页"
+          }
+        }
+      }
+    },
+    "Go Forward" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前往下一页"
+          }
+        }
+      }
+    },
     "Good" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2160,7 +2200,14 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定"
+          }
+        }
+      }
     },
     "Open Notification Settings" : {
       "localizations" : {
@@ -2389,6 +2436,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "收件人"
+          }
+        }
+      }
+    },
+    "Refresh" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新"
           }
         }
       }
@@ -2641,7 +2698,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "为保障茶楼信息安全和其他用户的隐私，请不要将截图发送到任何平台，感谢您的配合。"
           }
         }
