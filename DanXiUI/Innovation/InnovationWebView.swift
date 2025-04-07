@@ -122,4 +122,14 @@ extension WebViewModel: WKUIDelegate {
         
         return nil
     }
+    
+    func webView(
+        _ webView: WKWebView,
+        requestMediaCapturePermissionFor origin: WKSecurityOrigin,
+        initiatedByFrame frame: WKFrameInfo,
+        type: WKMediaCaptureType,
+        decisionHandler: @escaping @MainActor (WKPermissionDecision) -> Void
+    ) {
+        decisionHandler(.deny)
+    }
 }
