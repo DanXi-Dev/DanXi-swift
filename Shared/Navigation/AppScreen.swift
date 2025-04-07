@@ -44,6 +44,7 @@ extension AppScreen {
                 .toolbarBackground(.visible, for: .tabBar)
         case .community:
             CommunityPage()
+                .toolbarBackground(.visible, for: .tabBar)
         case .innovation:
             EmptyView()
         case .calendar:
