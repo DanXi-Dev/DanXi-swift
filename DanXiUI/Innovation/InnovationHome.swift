@@ -2,6 +2,7 @@ import SwiftUI
 import ViewUtils
 import DanXiKit
 import WebKit
+import BetterSafariView
 
 public struct InnovationHomePage: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -31,6 +32,10 @@ public struct InnovationHomePage: View {
             ToolbarItem(placement: .topBarTrailing) {
                 menu
             }
+        }
+        .toolbarBackground(.visible, for: .navigationBar)
+        .safariView(item: $model.externalURL) { url in
+            SafariView(url: url)
         }
     }
     

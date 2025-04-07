@@ -53,6 +53,7 @@ struct InnovationWebView: UIViewRepresentable {
         webview.allowsBackForwardNavigationGestures = true
         webview.load(request)
         webview.navigationDelegate = context.coordinator
+        webview.uiDelegate = context.coordinator
         context.coordinator.webview = webview
         return webview
     }
@@ -63,7 +64,6 @@ struct InnovationWebView: UIViewRepresentable {
             context.coordinator.canGoForward = webview.canGoForward
         }
     }
-    
 }
 
 // MARK: - Data
@@ -75,6 +75,7 @@ enum WebViewLoadingStatus {
 }
 
 class WebViewModel: NSObject, ObservableObject {
+    @Published var externalURL: URL? = nil
     @Published var loadingStatus = WebViewLoadingStatus.loading
     @Published var canGoBack = false
     @Published var canGoForward = false
@@ -96,12 +97,29 @@ class WebViewModel: NSObject, ObservableObject {
 
 extension WebViewModel: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("completed")
         loadingStatus = .completed
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
-        print("failed")
         loadingStatus = .failed(error: error)
+    }
+}
+
+extension WebViewModel: WKUIDelegate {
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        if let url = navigationAction.request.url {
+            #if targetEnvironment(macCatalyst)
+            UIApplication.shared.open(url)
+            #else
+            externalURL = url
+            #endif
+        }
+        
+        return nil
     }
 }
