@@ -20,7 +20,7 @@ public class CourseModel: ObservableObject {
         let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
         let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
-        let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
+        let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: semesters, week: week, lastUpdated: Date.now)
         model.refreshCache()
         return model
     }
@@ -43,7 +43,7 @@ public class CourseModel: ObservableObject {
         let courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
         let startDate = startDateContext[currentSemester.semesterId]
         let week = computeWeekOffset(from: startDate, courses: courses)
-        let model = CourseModel(studentType: .undergrad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
+        let model = CourseModel(studentType: .undergrad, courses: courses, semester: currentSemester, semesters: semesters, week: week, lastUpdated: Date.now)
         model.refreshCache()
         return model
     }
@@ -54,7 +54,7 @@ public class CourseModel: ObservableObject {
     public static func loadCache(for studentType: StudentType) throws -> CourseModel? {
         // for preview purpose
         if let cache = try? Disk.retrieve("preview/fdutools/course-model.json", from: .applicationSupport, as: CourseModelCache.self) {
-            return CourseModel(cache: cache, week: 1)
+            return CourseModel(cache: cache, week: 1, lastUpdated: cache.lastUpdated ?? Date.distantPast)
         }
         
         guard let cache = try? Disk.retrieve("fdutools/course-model.json", from: .appGroup, as: CourseModelCache.self) else {
@@ -69,25 +69,27 @@ public class CourseModel: ObservableObject {
         }
         
         let week = computeWeekOffset(from: cache.semester.startDate, courses: cache.courses)
-        return CourseModel(cache: cache, week: week)
+        return CourseModel(cache: cache, week: week, lastUpdated: cache.lastUpdated ?? Date.distantPast)
     }
     
     // MARK: - Initializers
     
-    init(studentType: StudentType, courses: [Course], semester: Semester, semesters: [Semester], week: Int) {
+    init(studentType: StudentType, courses: [Course], semester: Semester, semesters: [Semester], week: Int, lastUpdated: Date) {
         self.studentType = studentType
         self.courses = courses
         self.semester = semester
         self.semesters = semesters
         self.week = week
+        self.lastUpdated = lastUpdated
     }
     
-    init(cache: CourseModelCache, week: Int) {
+    init(cache: CourseModelCache, week: Int, lastUpdated: Date) {
         self.studentType = cache.studentType
         self.courses = cache.courses
         self.semester = cache.semester
         self.semesters = cache.semesters
         self.week = week
+        self.lastUpdated = lastUpdated
     }
     
     // MARK: - Source of Truth
@@ -97,6 +99,7 @@ public class CourseModel: ObservableObject {
     @Published public var semester: Semester
     @Published public var semesters: [Semester]
     @Published public var week: Int
+    @Published public var lastUpdated: Date
     @Published public var networkError: Error? = nil
     
     // MARK: - Computed Property
@@ -210,7 +213,7 @@ public class CourseModel: ObservableObject {
     /// An internal method that persists data to disk when model updates.
     func refreshCache() {
         Task(priority: .background) {
-            let cache = CourseModelCache(studentType: studentType, courses: courses, semester: semester, semesters: semesters)
+            let cache = CourseModelCache(studentType: studentType, courses: courses, semester: semester, semesters: semesters, lastUpdated: Date.now)
             try Disk.save(cache, to: .appGroup, as: "fdutools/course-model.json")
         }
     }
@@ -295,6 +298,7 @@ struct CourseModelCache: Codable {
     let courses: [Course]
     let semester: Semester
     let semesters: [Semester]
+    let lastUpdated: Date?
 }
 
 // MARK: - Extension to Course for Calendar Export
