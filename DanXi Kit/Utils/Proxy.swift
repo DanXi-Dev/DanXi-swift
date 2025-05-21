@@ -47,6 +47,7 @@ public class Proxy {
                 switch error.code {
                 case .timedOut: fallthrough // the IP address is not in the local network
                 case .cannotConnectToHost: fallthrough // the IP address is within the local network, but the server rejects the connection
+                case .secureConnectionFailed: fallthrough // the IP address is within the local network, but the server rejects the connection
                 case .serverCertificateUntrusted: fallthrough // the server accepts the HTTPS connection, but doesn't have a valid certificate of fduhole.com
                 case .serverCertificateNotYetValid:
                     outsideCampus = true
