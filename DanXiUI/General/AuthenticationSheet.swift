@@ -14,9 +14,9 @@ public struct AuthenticationSheet: View {
     }
     
     public var body: some View {
-        NavigationStack {
+//        NavigationStack {
             LoginSheet(style: style)
-        }
+//        }
         .onChange(of: model.done) { done in
             if done {
                 dismiss()
