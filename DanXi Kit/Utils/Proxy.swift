@@ -35,10 +35,7 @@ public class Proxy {
                 config.timeoutIntervalForRequest = 2.0
                 let session = URLSession(configuration: config)
                 return try await session.data(for: request)
-            } catch URLError.timedOut, // the IP address is not in the local network
-                    URLError.cannotConnectToHost, // the IP address is within the local network, but the server rejects the connection
-                    URLError.serverCertificateUntrusted, // the server accepts the HTTPS connection, but doesn't have a valid certificate of fduhole.com
-                    URLError.serverCertificateNotYetValid {
+            } catch let error as URLError {
                 /**
                  The domain fduhole.com and its subdomains are currently mapped to an IP address within the local network.
                  When a user is outside the campus network, they will be unable to connect to fduhole.com directly.
@@ -47,7 +44,16 @@ public class Proxy {
                  - The IP address exists and corresponds to an active host, but an SSL connection cannot be successfully established.
                  Based on this reasoning, we can reliably determine whether the user is within the campus network.
                  */
-                outsideCampus = true
+                switch error.code {
+                case .timedOut: fallthrough // the IP address is not in the local network
+                case .cannotConnectToHost: fallthrough // the IP address is within the local network, but the server rejects the connection
+                case .secureConnectionFailed: fallthrough // the IP address is within the local network, but the server rejects the connection
+                case .serverCertificateUntrusted: fallthrough // the server accepts the HTTPS connection, but doesn't have a valid certificate of fduhole.com
+                case .serverCertificateNotYetValid:
+                    outsideCampus = true
+                default:
+                    throw error
+                }
             }
         }
         
