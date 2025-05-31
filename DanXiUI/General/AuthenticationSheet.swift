@@ -44,10 +44,7 @@ private struct LoginSheet: View {
     }
     
     var body: some View {
-        Sheet {
-            try await model.login()
-            authModel.done = true
-        } content: {
+        Form {
             FormTitle(title: String(localized: "DanXi Account", bundle: .module),
                       description: String(localized: "DanXi account is used to access community services such as Treehole and DanKe.", bundle: .module))
             
@@ -77,9 +74,26 @@ private struct LoginSheet: View {
                 .padding(.top)
             }
         }
-        .completed(model.completed)
-        .submitText(String(localized: "Login", bundle: .module))
-        .sheetStyle(style)
+        .toolbar {
+            if style == .independent {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel", bundle: .module)
+                    }
+                }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                AsyncButton {
+                    try await model.login()
+                    authModel.done = true
+                } label: {
+                    Text("Login", bundle: .module)
+                }
+                .disabled(!model.completed)
+            }
+        }
     }
 }
 
