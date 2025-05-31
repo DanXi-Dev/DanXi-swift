@@ -138,6 +138,16 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
+                
+                HStack {
+                    Spacer()
+                    Text("Last Updated: \(model.lastUpdated.autoFormatted())")
+                        .lineLimit(1)
+                    AsyncButton("Refresh") {
+                        await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                    }
+                    Spacer()
+                }
             }
             .onReceive(tabViewModel.navigationControl) { _ in
                 withAnimation {
