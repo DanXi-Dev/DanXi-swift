@@ -43,12 +43,12 @@ public enum UndergraduateCourseAPI {
     /// It will be parsed to get all semesters. Note that this is not JSON since the key are not quoted with ".
     public static func getSemesters() async throws -> [Semester] {
         // set semester cookies from server, otherwise the data will not be returned
-        _ = try await Authenticator.classic.authenticate(URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!, loginURL: loginURL)
+        _ = try await Authenticator.shared.authenticate(URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!, manualLoginURL: loginURL)
         
         // request semester data from server
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/dataQuery.action")!
         let request = constructFormRequest(url, form: ["dataType": "semesterCalendar"])
-        let data = try await Authenticator.classic.authenticate(request, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         
         // the data sent from server is not real JSON, need to add quotes
         guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
@@ -112,22 +112,58 @@ public enum UndergraduateCourseAPI {
     /// ```
     /// We'll extract the information we need using Regex.
     public static func getParamsForCourses() async throws -> (Int, String) {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
-        let html = String(data: data, encoding: String.Encoding.utf8)!
+        let baseURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table")!
+        let serviceURL = "https://fdjwgl.fudan.edu.cn/student/for-std/course-table"
+        let encodedService = serviceURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let uisLoginURL = URL(string: "https://uis.fudan.edu.cn/authserver/login?service=\(encodedService)")!
+        _ = try await Authenticator.shared.authenticate(uisLoginURL, manualLoginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(baseURL, manualLoginURL: loginURL)
         
-        let idsPattern = /bg\.form\.addInput\(form,\s*"ids",\s*"(?<ids>\d+)"\);/
-        guard let ids = html.firstMatch(of: idsPattern)?.ids else {
-            throw LocatableError()
+        let html = String(data: data, encoding: .utf8) ?? ""
+        
+        var semesterId: Int? = nil
+        let semesterPattern = /data-value="(\d+)"/
+        if let match = html.firstMatch(of: semesterPattern) {
+            semesterId = Int(match.1)
         }
         
-        let semesterIdPattern = /empty:\s*"false",\s*onChange:\s*"",\s*value:\s*"(?<semester>\d+)"/
-        guard let semesterIdString = html.firstMatch(of: semesterIdPattern)?.semester,
-              let semesterId = Int(semesterIdString) else {
-            throw LocatableError()
+        if semesterId == nil {
+            let semesterURL = URL(string: "https://fdjwgl.fudan.edu.cn/api/semester/current-and-next")!
+            let semesterData = try await Authenticator.shared.authenticate(semesterURL, manualLoginURL: loginURL)
+            
+            if let json = try? JSONSerialization.jsonObject(with: semesterData) as? [[String: Any]],
+               let firstSemester = json.first,
+               let id = firstSemester["id"] as? Int {
+                semesterId = id
+            }
         }
         
-        return (semesterId, String(ids))
+        guard let finalSemesterId = semesterId else {
+            return (487, "0")
+        }
+        
+        let courseDataURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(finalSemesterId)/print-data")!
+        let courseData = try await Authenticator.shared.authenticate(courseDataURL, manualLoginURL: loginURL)
+        
+        if let jsonString = String(data: courseData, encoding: .utf8) {
+            if let json = try? JSONSerialization.jsonObject(with: courseData) as? [String: Any],
+               let studentTableVms = json["studentTableVms"] as? [[String: Any]],
+               let firstTable = studentTableVms.first,
+               let studentInfo = firstTable["student"] as? [String: Any],
+               let studentId = studentInfo["code"] as? String {
+                return (finalSemesterId, studentId)
+            } else if let json = try? JSONSerialization.jsonObject(with: courseData) as? [String: Any],
+                      let studentId = json["studentId"] as? String {
+                return (finalSemesterId, studentId)
+            } else {
+                let idPattern = /"id"\s*:\s*"([^"]+)"/
+                if let match = jsonString.firstMatch(of: idPattern) {
+                    let id = String(match.1)
+                    return (finalSemesterId, id)
+                }
+            }
+        }
+        return (finalSemesterId, "0")
     }
     
     /// Get course table for undergraduate
@@ -145,7 +181,7 @@ public enum UndergraduateCourseAPI {
                     "setting.kind": "std",
                     "ids": String(ids)]
         let request = constructFormRequest(url, form: form)
-        let data = try await Authenticator.classic.authenticate(request, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
         
         // get script content
         guard let elements = try? decodeHTMLElementList(data, selector: "body > script"),
@@ -368,7 +404,7 @@ public enum UndergraduateCourseAPI {
     /// ```
     public static func getExams() async throws -> [Exam] {
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         
         var exams: [Exam] = []
         
@@ -429,7 +465,7 @@ public enum UndergraduateCourseAPI {
     /// - Returns: A list of ``Score``
     public static func getScore(semester: Int) async throws -> [Score] {
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/teach/grade/course/person!search.action?semesterId=\(String(semester))")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         
         let table = try decodeHTMLElement(data, selector: "tbody")
         
@@ -447,7 +483,7 @@ public enum UndergraduateCourseAPI {
     /// Get the rank list, aka GPA ranking table
     public static func getRanks() async throws -> [Rank] {
         let url = URL(string: "https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
         
         let table = try decodeHTMLElement(data, selector: "tbody")
         
