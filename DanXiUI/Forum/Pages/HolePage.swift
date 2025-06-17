@@ -176,7 +176,13 @@ struct HolePage: View {
         WrappingHStack(alignment: .leading) {
             ForEach(hole.tags) { tag in
                 ContentLink(value: tag) {
-                    TagView(tag.name)
+                    Group {
+                        if tag.highlight {
+                            HighlightTagView(tag.name)
+                        } else {
+                            TagView(tag.name)
+                        }
+                    }
                 }
                 .buttonStyle(.borderless)
             }

@@ -125,7 +125,13 @@ struct HoleView: View {
         HStack(alignment: .top) {
             WrappingHStack(alignment: .leading) {
                 ForEach(hole.tags) { tag in
-                    TagView(tag.name)
+                    Group {
+                        if tag.highlight {
+                            HighlightTagView(tag.name)
+                        } else {
+                            TagView(tag.name)
+                        }
+                    }
                 }
             }
             Spacer()
