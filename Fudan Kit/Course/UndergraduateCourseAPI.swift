@@ -14,84 +14,57 @@ public enum UndergraduateCourseAPI {
     ///
     /// - Returns:
     ///      A list of semesters
-    ///
-    /// ## API Detail
-    ///
-    /// The server use cookie to store user's semester settings.
-    /// When querying `https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action`, it will set
-    /// cookie item `semester.id`. This will be the current semester ID.
-    ///
-    /// Then, we'll submit a post request to `dataQuery.action` with parameter `dataType = semesterCalendar`, the response is
-    /// as follows:
-    /// ```json
-    /// {yearDom:"
-    /// <tr>
-    ///     <td class='calendar-bar-td-blankBorder' index='0'>1994-1995</td>
-    ///     <td class='calendar-bar-td-blankBorder' index='1'>1995-1996</td>
-    ///     <td class='calendar-bar-td-blankBorder' index='2'>1996-1997</td>
-    /// </tr>
-    /// ...
-    /// ",semesters:{y0:[{id:163,schoolYear:"1994-1995",name:"1"},
-    /// {id:164,schoolYear:"1994-1995",name:"2"}],
-    /// y1:[{id:161,schoolYear:"1995-1996",name:"1"},{id:162,schoolYear:"1995-1996",name:"2"}],
-    /// y2:[{id:159,schoolYear:"1996-1997",name:"1"},{id:160,schoolYear:"1996-1997",name:"2"}],
-    /// y3:[{id:142,schoolYear:"1997-1998",name:"1"},{id:158,schoolYear:"1997-1998",name:"2"}],
-    /// ...
-    /// y29:[{id:444,schoolYear:"2023-2024",name:"1"},{id:465,schoolYear:"2023-2024",name:"寒假"},{id:464,schoolYear:"2023-2024",name:"2"}]},
-    /// yearIndex:"29",termIndex:"2",semesterId:"464"}
-    /// ```
-    /// It will be parsed to get all semesters. Note that this is not JSON since the key are not quoted with ".
+
     public static func getSemesters() async throws -> [Semester] {
-        // set semester cookies from server, otherwise the data will not be returned
-        _ = try await Authenticator.shared.authenticate(URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!, manualLoginURL: loginURL)
-        
-        // request semester data from server
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/dataQuery.action")!
-        let request = constructFormRequest(url, form: ["dataType": "semesterCalendar"])
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
-        
-        // the data sent from server is not real JSON, need to add quotes
-        guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
-            throw LocatableError()
-        }
-        jsonString.replace(/(?<key>\w+):/) { match in
-            return "\"\(match.key)\":"
-        }
-        jsonString.replace("\n", with: "")
-        let json = try JSON(data: jsonString.data(using: String.Encoding.utf8)!)
-        
-        // parse semesters from JSON
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table")!
+        let data  = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        let html  = String(data: data, encoding: .utf8)!
+
+        let optionRegex = try NSRegularExpression(
+            pattern: #"<option\s+value="(\d+)">([^<]+)</option>"#
+        )
+
         var semesters: [Semester] = []
-        
-        for (_, arrayJSON) : (String, JSON) in json["semesters"] {
-            for (_, semesterJSON) : (String, JSON) in arrayJSON {
-                // parse data from JSON
-                guard let id = semesterJSON["id"].int else { continue }
-                guard let schoolYear = semesterJSON["schoolYear"].string else { continue }
-                guard let name = semesterJSON["name"].string else { continue }
-                
-                // transform data to proper format
-                guard let yearName = schoolYear.firstMatch(of: /(\d+)-(\d+)/)?.1 else { continue }
-                let year = Int(yearName)! // this must sucess since the regex match only include digits
-                
-                var type = Semester.SemesterType.first
-                if name.contains("1") {
-                    type = .first
-                } else if name.contains("2") {
-                    type = .second
-                } else if name.contains("暑") {
-                    type = .summer
-                } else if name.contains("寒") {
-                    type = .winter
-                }
-                
-                // append array
-                let semester = Semester(year: year, type: type, semesterId: id, startDate: nil, weekCount: 18)
-                semesters.append(semester)
-            }
+        var seenIds = Set<Int>()
+
+        optionRegex.enumerateMatches(
+            in: html,
+            range: NSRange(html.startIndex..., in: html)
+        ) { result, _, _ in
+            guard let result = result,
+                  let idRange   = Range(result.range(at: 1), in: html),
+                  let textRange = Range(result.range(at: 2), in: html),
+                  let id        = Int(html[idRange])
+            else { return }
+            
+            if !seenIds.insert(id).inserted { return }
+
+            let text = String(html[textRange])
+            
+            guard let yearStr = text.firstMatch(of: /(\d{4})-\d{4}/)?.1,
+                  let year    = Int(yearStr)
+            else { return }
+            
+            let type: Semester.SemesterType
+            if text.contains("1学期")      { type = .first  }
+            else if text.contains("2学期") { type = .second }
+            else if text.contains("暑")    { type = .summer }
+            else if text.contains("寒")    { type = .winter }
+            else                          { type = .first }
+            
+            semesters.append(
+                Semester(year: year,
+                         type: type,
+                         semesterId: id,
+                         startDate: nil,
+                         weekCount: 18)
+            )
         }
-        
+
+        semesters.sort { ($0.year, $0.type.rawValue) > ($1.year, $1.type.rawValue) }
+
         return semesters
+
     }
     
     /// The course table query must include 2 parameters: `semester.id` representing the semester to query, and
@@ -134,6 +107,7 @@ public enum UndergraduateCourseAPI {
 
             data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
             html = String(data: data, encoding: .utf8)!
+
         }
 
         let semesterIdPattern = /'id':\s*"?(?<semester>\d{3,})"?/
