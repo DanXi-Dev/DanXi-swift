@@ -59,7 +59,6 @@ public enum UndergraduateCourseAPI {
         }
         jsonString.replace("\n", with: "")
         let json = try JSON(data: jsonString.data(using: String.Encoding.utf8)!)
-        print(json)
         
         // parse semesters from JSON
         var semesters: [Semester] = []
