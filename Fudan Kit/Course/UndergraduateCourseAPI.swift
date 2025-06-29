@@ -14,84 +14,57 @@ public enum UndergraduateCourseAPI {
     ///
     /// - Returns:
     ///      A list of semesters
-    ///
-    /// ## API Detail
-    ///
-    /// The server use cookie to store user's semester settings.
-    /// When querying `https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action`, it will set
-    /// cookie item `semester.id`. This will be the current semester ID.
-    ///
-    /// Then, we'll submit a post request to `dataQuery.action` with parameter `dataType = semesterCalendar`, the response is
-    /// as follows:
-    /// ```json
-    /// {yearDom:"
-    /// <tr>
-    ///     <td class='calendar-bar-td-blankBorder' index='0'>1994-1995</td>
-    ///     <td class='calendar-bar-td-blankBorder' index='1'>1995-1996</td>
-    ///     <td class='calendar-bar-td-blankBorder' index='2'>1996-1997</td>
-    /// </tr>
-    /// ...
-    /// ",semesters:{y0:[{id:163,schoolYear:"1994-1995",name:"1"},
-    /// {id:164,schoolYear:"1994-1995",name:"2"}],
-    /// y1:[{id:161,schoolYear:"1995-1996",name:"1"},{id:162,schoolYear:"1995-1996",name:"2"}],
-    /// y2:[{id:159,schoolYear:"1996-1997",name:"1"},{id:160,schoolYear:"1996-1997",name:"2"}],
-    /// y3:[{id:142,schoolYear:"1997-1998",name:"1"},{id:158,schoolYear:"1997-1998",name:"2"}],
-    /// ...
-    /// y29:[{id:444,schoolYear:"2023-2024",name:"1"},{id:465,schoolYear:"2023-2024",name:"寒假"},{id:464,schoolYear:"2023-2024",name:"2"}]},
-    /// yearIndex:"29",termIndex:"2",semesterId:"464"}
-    /// ```
-    /// It will be parsed to get all semesters. Note that this is not JSON since the key are not quoted with ".
+
     public static func getSemesters() async throws -> [Semester] {
-        // set semester cookies from server, otherwise the data will not be returned
-        _ = try await Authenticator.shared.authenticate(URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!, manualLoginURL: loginURL)
-        
-        // request semester data from server
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/dataQuery.action")!
-        let request = constructFormRequest(url, form: ["dataType": "semesterCalendar"])
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
-        
-        // the data sent from server is not real JSON, need to add quotes
-        guard var jsonString = String(data: data, encoding: String.Encoding.utf8) else {
-            throw LocatableError()
-        }
-        jsonString.replace(/(?<key>\w+):/) { match in
-            return "\"\(match.key)\":"
-        }
-        jsonString.replace("\n", with: "")
-        let json = try JSON(data: jsonString.data(using: String.Encoding.utf8)!)
-        
-        // parse semesters from JSON
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table")!
+        let data  = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        let html  = String(data: data, encoding: .utf8)!
+
+        let optionRegex = try NSRegularExpression(
+            pattern: #"<option\s+value="(\d+)">([^<]+)</option>"#
+        )
+
         var semesters: [Semester] = []
-        
-        for (_, arrayJSON) : (String, JSON) in json["semesters"] {
-            for (_, semesterJSON) : (String, JSON) in arrayJSON {
-                // parse data from JSON
-                guard let id = semesterJSON["id"].int else { continue }
-                guard let schoolYear = semesterJSON["schoolYear"].string else { continue }
-                guard let name = semesterJSON["name"].string else { continue }
-                
-                // transform data to proper format
-                guard let yearName = schoolYear.firstMatch(of: /(\d+)-(\d+)/)?.1 else { continue }
-                let year = Int(yearName)! // this must sucess since the regex match only include digits
-                
-                var type = Semester.SemesterType.first
-                if name.contains("1") {
-                    type = .first
-                } else if name.contains("2") {
-                    type = .second
-                } else if name.contains("暑") {
-                    type = .summer
-                } else if name.contains("寒") {
-                    type = .winter
-                }
-                
-                // append array
-                let semester = Semester(year: year, type: type, semesterId: id, startDate: nil, weekCount: 18)
-                semesters.append(semester)
-            }
+        var seenIds = Set<Int>()
+
+        optionRegex.enumerateMatches(
+            in: html,
+            range: NSRange(html.startIndex..., in: html)
+        ) { result, _, _ in
+            guard let result = result,
+                  let idRange   = Range(result.range(at: 1), in: html),
+                  let textRange = Range(result.range(at: 2), in: html),
+                  let id        = Int(html[idRange])
+            else { return }
+            
+            if !seenIds.insert(id).inserted { return }
+
+            let text = String(html[textRange])
+            
+            guard let yearStr = text.firstMatch(of: /(\d{4})-\d{4}/)?.1,
+                  let year    = Int(yearStr)
+            else { return }
+            
+            let type: Semester.SemesterType
+            if text.contains("1学期")      { type = .first  }
+            else if text.contains("2学期") { type = .second }
+            else if text.contains("暑")    { type = .summer }
+            else if text.contains("寒")    { type = .winter }
+            else                          { type = .first }
+            
+            semesters.append(
+                Semester(year: year,
+                         type: type,
+                         semesterId: id,
+                         startDate: nil,
+                         weekCount: 18)
+            )
         }
-        
+
+        semesters.sort { ($0.year, $0.type.rawValue) > ($1.year, $1.type.rawValue) }
+
         return semesters
+
     }
     
     /// The course table query must include 2 parameters: `semester.id` representing the semester to query, and
@@ -112,21 +85,42 @@ public enum UndergraduateCourseAPI {
     /// ```
     /// We'll extract the information we need using Regex.
     public static func getParamsForCourses() async throws -> (Int, String) {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd.action")!
-        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
-        let html = String(data: data, encoding: String.Encoding.utf8)!
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table")!
+        var data  = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        var html  = String(data: data, encoding: .utf8)!
         
-        let idsPattern = /bg\.form\.addInput\(form,\s*"ids",\s*"(?<ids>\d+)"\);/
+        if html.contains(#"onload="doSubmit()""#) {
+            
+            let ticketPattern  = /name="ticket"\s+value="(?<ticket>[^"]+)"/
+            guard let ticket = html.firstMatch(of: ticketPattern)?.ticket else {
+                throw LocatableError()
+            }
+
+            
+            let actionPattern  = /form[^>]+action="(?<action>[^"]+)"/
+            guard let action = html.firstMatch(of: actionPattern)?.action,
+                  let loginURL = URL(string: action + "&ticket=" + ticket) else {
+                throw LocatableError()
+            }
+
+            _ = try await Authenticator.shared.authenticate(loginURL, manualLoginURL: loginURL)
+
+            data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+            html = String(data: data, encoding: .utf8)!
+
+        }
+
+        let semesterIdPattern = /'id':\s*"?(?<semester>\d{3,})"?/
+        guard let semesterStr = html.firstMatch(of: semesterIdPattern)?.semester,
+              let semesterId  = Int(semesterStr) else {
+            throw LocatableError()
+        }
+
+
+        let idsPattern = /var\s+studentIds\s*=\s*\[\s*(?<ids>\d+)\s*\]/
         guard let ids = html.firstMatch(of: idsPattern)?.ids else {
             throw LocatableError()
         }
-        
-        let semesterIdPattern = /empty:\s*"false",\s*onChange:\s*"",\s*value:\s*"(?<semester>\d+)"/
-        guard let semesterIdString = html.firstMatch(of: semesterIdPattern)?.semester,
-              let semesterId = Int(semesterIdString) else {
-            throw LocatableError()
-        }
-        
         return (semesterId, String(ids))
     }
     
@@ -138,86 +132,107 @@ public enum UndergraduateCourseAPI {
     /// - Returns: A list of ``Course``, representing student course table
     public static func getCourses(semesterId: Int, ids: String, startWeek: Int = 1) async throws -> [Course] {
         // retrieve data from server
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/courseTableForStd!courseTable.action")!
-        let form = ["ignoreHead": "1",
-                    "semester.id": String(semesterId),
-                    "startWeek": String(startWeek),
-                    "setting.kind": "std",
-                    "ids": String(ids)]
-        let request = constructFormRequest(url, form: form)
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(semesterId)/print-data")!
+        let courseData = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+
+        let json = try JSON(data: courseData)
+        var courseDict: [String: Course] = [:]
         
-        // get script content
-        guard let elements = try? decodeHTMLElementList(data, selector: "body > script"),
-              let scripts = try? elements.map({ try $0.html() }),
-              let script = scripts.filter({ $0.contains("new TaskActivity") }).first else {
-                  return [] //  the semester has no course
-              }
-        
-        // regex for matching in script
-        let newCoursePattern = /new TaskActivity\(".*","(?<teacher>.*)","(?<id>\d+)\((?<code>.*)\)","(?<name>.*)\(.*\)","(.*?)","(?<location>.*)","(?<weeks>[01]+)"\);/
-        let courseTimePattern = /index\s*=\s*(?<weekday>\d+)\s*\*unitCount\s*\+\s*(?<time>\d+)/
-        
-        struct CourseBuilder {
-            let id = UUID()
-            let name, code, teacher, location: String
-            var weekday = 0, start = -1, end = -1
-            let onWeeks: [Int]
-            
-            var updated = false
-            
-            mutating func update(weekday: Int, time: Int) {
-                self.weekday = weekday
-                if !updated {
-                    start = time
-                    end = time
-                } else {
-                    end = max(end, time)
-                }
-                updated = true
-            }
-            
-            func build() -> Course? {
-                guard updated else { return nil }
-                return Course(id: id, name: name, code: code, teacher: teacher, location: location, weekday: weekday, start: start, end: end, onWeeks: onWeeks)
+        // Solve the problem of the same course with different rooms
+        func insert(_ course: Course) {
+            let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
+            let key = "\(course.name)-\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
+            if let existed = courseDict[key] {
+                let oldRooms = Set(existed.location.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                let newRooms = Set(course.location.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                let mergedRooms = Array(oldRooms.union(newRooms))
+                    .filter { !$0.isEmpty }
+                    .sorted()
+                    .joined(separator: ", ")
+
+                let oldTeachers = Set(existed.teacher.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                let newTeachers = Set(course.teacher.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                let mergedTeachers = Array(oldTeachers.union(newTeachers))
+                    .filter { !$0.isEmpty }
+                    .sorted()
+                    .joined(separator: ", ")
+
+                courseDict[key] = Course(
+                    id: existed.id,
+                    name: existed.name,
+                    code: existed.code,
+                    teacher: mergedTeachers,
+                    location: mergedRooms,
+                    weekday: existed.weekday,
+                    start: existed.start,
+                    end: existed.end,
+                    onWeeks: existed.onWeeks
+                )
+            } else {
+                courseDict[key] = course
             }
         }
-        
-        // parse script confor linetent into courses
-        var courses: [Course] = []
-        let lines = script.split(separator: "\n")
-        var courseBuilder: CourseBuilder? // a course need 2 line to construct, this is a place to temporarily store the info before appending it to result
-        
-        for line in lines {
-            if let result = line.firstMatch(of: newCoursePattern) {
-                // JS: `new Activity(<course info>)`, parse and create a new course
-                
-                let weeksString = String(result.weeks)
-                var weeks: [Int] = []
-                for (index, character) in weeksString.enumerated() {
-                    if character == "1" {
-                        weeks.append(index)
-                    }
-                }
-                
-                // this script line doesn't contain all information needed to build a course, so it is temporarily stored in courseBuilder for further update
-                courseBuilder = CourseBuilder(name: String(result.name), code: String(result.code), teacher: String(result.teacher), location: String(result.location), onWeeks: weeks)
-            } else if let result = line.firstMatch(of: courseTimePattern) {
-                // JS: `index =5*unitCount+10;`, parse and edit course info
-                courseBuilder?.update(weekday: Int(result.weekday)!, time: Int(result.time)!) // force init Int because the regex match pattern is \d+, it can't fail
-                // depending on whether the course have already been inserted into array, pop it out and re-insert or simply append it at last
-                if let course = courseBuilder?.build() {
-                    if courses.last?.id == course.id {
-                        courses.removeLast()
-                    }
-                    courses.append(course)
+
+        if let studentTableVms = json["studentTableVms"].array {
+            for studentVM in studentTableVms {
+                if let activities = studentVM["activities"].array {
+                    for act in activities { if let c = parseCourse(from: act) { insert(c) } }
                 }
             }
+        } else {
+            for (_, lessonJSON):(String, JSON) in json {
+                if let c = parseCourse(from: lessonJSON) { insert(c) }
+            }
         }
-        
-        return courses
+
+        return Array(courseDict.values)
     }
     
+    // get single course
+    private static func parseCourse(from json: JSON) -> Course? {
+        guard let courseName = json["courseName"].string,
+              let lessonCode = json["lessonCode"].string,
+              var weekday = json["weekday"].int,
+              var startUnit = json["startUnit"].int,
+              var endUnit = json["endUnit"].int else {
+            return nil
+        }
+
+        weekday = max(0, weekday - 1)
+        startUnit = max(0, startUnit - 1)
+        endUnit   = max(0, endUnit - 1)
+
+        var teacherName = ""
+        if let teachers = json["teachers"].array {
+            teacherName = teachers
+                .compactMap { $0.string }
+                .filter { !$0.isEmpty && $0 != "null" }
+                .joined(separator: ", ")
+        }
+
+        var location = ""
+        if let room = json["room"].string, room != "null", !room.isEmpty {
+            location = room
+        }
+
+        var onWeeks: [Int] = []
+        if let weekIndexes = json["weekIndexes"].array {
+            onWeeks = weekIndexes.compactMap { $0.int }
+        }
+
+        return Course(
+            id: UUID(),
+            name: courseName,
+            code: lessonCode,
+            teacher: teacherName,
+            location: location,
+            weekday: weekday,
+            start: startUnit,
+            end: endUnit,
+            onWeeks: onWeeks
+        )
+    }
+
     // MARK: - Exam
     
     /// Get uset's exam list
