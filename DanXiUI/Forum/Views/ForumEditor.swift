@@ -72,7 +72,6 @@ public struct ForumEditor: View {
     private var preview: some View {
         Section {
             ForumContentPreview(content: content, contextFloors: holeModel?.floors.map({ $0.floor }) ?? [])
-                .environment(\.mentionAllowExpantion, true)
         }
     }
     
