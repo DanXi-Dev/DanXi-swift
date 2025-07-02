@@ -4,68 +4,23 @@ import Foundation
 public actor WalletStore {
     public static let shared = WalletStore()
     
-    var balance: String? = nil
-    var page = 1
-    var finished = false
-    var transactions: [Transaction] = []
-    let dataValidFor: TimeInterval = 1 * 60 * 60
-    public var lastUpdated = Date.distantPast
-    public var outdated: Bool {
-        lastUpdated + dataValidFor < Date.now
-    }
+    var content: WalletContent? = nil
     
     public func clearCache() {
-        balance = nil
-        transactions = []
-        page = 1
-        finished = false
+        content = nil
     }
     
-    /// Warning: This API is slow, use MyAPI instead
-    public func getCachedBalance() async throws -> String {
-        if let balance = balance {
-            return balance
+    public func getCachedContent() async throws -> WalletContent {
+        if let content {
+            return content
         }
         
-        return try await getRefreshedBalance()
+        return try await getRefreshedContent()
     }
     
-    /// Warning: This API is slow, use MyAPI instead
-    public func getRefreshedBalance() async throws -> String {
-        let balance = try await WalletAPI.getBalance()
-        self.balance = balance
-        self.lastUpdated = Date.now
-        return balance
-    }
-    
-    public func getCachedTransactions() async throws -> [Transaction] {
-        if finished {
-            return self.transactions
-        }
-        
-        let transactions = try await WalletAPI.getTransactions(page: page)
-        page += 1
-        finished = transactions.isEmpty
-        self.transactions += transactions
-        self.lastUpdated = Date.now
-        return self.transactions
-    }
-    
-    public func getRefreshedTransactions() async throws -> [Transaction] {
-        page = 1
-        finished = false
-        self.transactions = []
-        
-        let transactions = try await WalletAPI.getTransactions(page: page)
-        page += 1
-        finished = transactions.isEmpty
-        self.transactions += transactions
-        self.lastUpdated = Date.now
-        return self.transactions
-    }
-    
-    public func setupPreview(transactions: [Transaction]) {
-        finished = true
-        self.transactions = transactions
+    public func getRefreshedContent() async throws -> WalletContent {
+        let content = try await WalletAPI.getContent()
+        self.content = content
+        return content
     }
 }

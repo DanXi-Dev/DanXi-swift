@@ -6,25 +6,11 @@ import ViewUtils
 struct WalletPage: View {
     var body: some View {
         AsyncContentView {
-            async let balance = MyStore.shared.getCachedUserInfo().balance
-            async let dateValues = MyStore.shared.getCachedWalletLogs().map { DateValueChartData(date: $0.date, value: $0.amount) }
-            
-            let (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
-            
-            let filteredDateValues = Array(DateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
-            
-            return (balanceLoaded, filteredDateValues)
+            return try await WalletStore.shared.getCachedContent()
         } refreshAction: {
-            async let balance = MyStore.shared.getRefreshedUserInfo().balance
-            async let dateValues =  MyStore.shared.getRefreshedWalletLogs() .map { DateValueChartData(date: $0.date, value: $0.amount) }
-            
-            let (balanceLoaded, dateValuesLoaded) = try await (balance, dateValues)
-            
-            let filteredDateValues = Array(DateValueChartData.formattedData(dateValuesLoaded)[0 ..< min(7, dateValuesLoaded.count)])
-            
-            return (balanceLoaded, filteredDateValues)
-        } content: { balance, history in
-            WalletPageContent(balance: balance, history: history)
+            return try await WalletStore.shared.getRefreshedContent()
+        } content: { content in
+            WalletPageContent(content: content)
         }
         .navigationTitle(String(localized: "ECard Information", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
@@ -32,38 +18,32 @@ struct WalletPage: View {
 }
 
 private struct WalletPageContent: View {
-    let balance: String
-    let history: [DateValueChartData]
+    let content: WalletContent
     
     @State private var showDetailedTransactionHistory = false
+    
+    private var filteredDateValues: [DateValueChartData] {
+        let dateValues = content.logs.map { DateValueChartData(date: $0.date, value: $0.amount) }
+        return Array(DateValueChartData.formattedData(dateValues)[0 ..< min(7, dateValues.count)])
+    }
     
     var body: some View {
         List {
             Section {
                 LabeledContent {
-                    Text(verbatim: "¥ \(balance)")
+                    Text(verbatim: "¥ \(content.balance)")
                 } label: {
                     Text("ECard Balance", bundle: .module)
                 }
             }
             
-            if #available(iOS 17, *), !history.isEmpty {
-                WalletPageChart(data: history)
+            if #available(iOS 17, *), !filteredDateValues.isEmpty {
+                WalletPageChart(data: filteredDateValues)
             }
             
-            if showDetailedTransactionHistory {
-                AsyncCollection { _ in
-                    try await WalletStore.shared.getCachedTransactions()
-                } content: { (transaction: FudanKit.Transaction) in
+            Section {
+                ForEach(content.transactions) { transaction in
                     TransactionView(transaction: transaction)
-                }
-            } else {
-                Section {
-                    Button {
-                        showDetailedTransactionHistory = true
-                    } label: {
-                        Text("Show Transaction History", bundle: .module)
-                    }
                 }
             }
         }

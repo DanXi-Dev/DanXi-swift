@@ -1379,16 +1379,6 @@
         }
       }
     },
-    "Show Transaction History" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示交易记录"
-          }
-        }
-      }
-    },
     "Staff" : {
       "localizations" : {
         "zh-Hans" : {
