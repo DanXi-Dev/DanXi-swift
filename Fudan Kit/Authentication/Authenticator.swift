@@ -37,13 +37,61 @@ public actor Authenticator {
     ///
     /// This function requests data from server, and perform authentication to services when necessary.
     /// Use this function to prevent duplicated UIS requests and concurrency issues.
-    public func authenticate(_ url: URL, manualLoginURL: URL? = nil) async throws -> Data {
+    public func authenticate(_ url: URL, manualLoginURL: URL? = nil, method: AuthenticationMethod = .classic) async throws -> Data {
         let request = constructRequest(url)
-        return try await authenticate(request, manualLoginURL: manualLoginURL)
+        return try await authenticate(request, manualLoginURL: manualLoginURL, method: method)
     }
     
+    public func neoAuthentication(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> (Data, URLResponse) {
+        guard let host = request.url?.host(), let requestURL = request.url else { throw LocatableError() }
+        
+        // login once, mutex
+        
+        if !self.isLoggedIn(host: host) {
+            let tryLoginTask = authenticationQueue.addBarrierOperation { () -> (Data, URLResponse)? in
+                if self.isLoggedIn(host: host) { // more check inside barrier to prevent duplicated requests
+                    return nil
+                }
+                
+                let loginURL = manualLoginURL ?? requestURL
+                let (data, response) = try await NeoAuthenticationAPI.authenticate(loginURL)
+                self.hostLastLoggedInDate[host] = Date()
+                
+                if manualLoginURL == nil {
+                    return (data, response)
+                }
+                
+                return try await URLSession.campusSession.data(for: request)
+            }
+            
+            if let result = try await tryLoginTask.value {
+                return result
+            }
+        }
+        
+        // already logged-in, direct request, parallel
+        
+        let directRequestTask = authenticationQueue.addOperation {
+            let (data, response) = try await URLSession.campusSession.data(for: request)
+            if response.url?.host() != "id.fudan.edu.cn" {
+                return (data, response)
+            }
+            
+            // retry once
+            let loginURL = manualLoginURL ?? requestURL
+            let (authData, authResponse) = try await NeoAuthenticationAPI.authenticate(loginURL)
+            self.hostLastLoggedInDate[host] = Date()
+            
+            if manualLoginURL == nil {
+                return (authData, authResponse)
+            }
+            
+            return try await URLSession.campusSession.data(for: request)
+        }
+        return try await directRequestTask.value
+    }
     
-    public func authenticateWithResponse(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> (Data, URLResponse) {
+    public func classicAuthentication(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> (Data, URLResponse) {
         guard let host = request.url?.host(), let method = request.httpMethod else { throw LocatableError() }
         
         // GET request is redirected to UIS. If the request is not GET, we should manually login once.
@@ -132,8 +180,18 @@ public actor Authenticator {
     ///
     /// This function requests data from server, and perform authentication to services when necessary.
     /// Use this function to prevent duplicated UIS requests and concurrency issues.
-    func authenticate(_ request: URLRequest, manualLoginURL: URL? = nil) async throws -> Data {
-        let (data, _) = try await authenticateWithResponse(request, manualLoginURL: manualLoginURL)
+    func authenticate(_ request: URLRequest, manualLoginURL: URL? = nil, method: AuthenticationMethod = .classic) async throws -> Data {
+        let (data, _) = switch method {
+        case .classic:
+            try await classicAuthentication(request, manualLoginURL: manualLoginURL)
+        case .neo:
+            try await neoAuthentication(request, manualLoginURL: manualLoginURL)
+        }
         return data
     }
+}
+
+public enum AuthenticationMethod {
+    case classic
+    case neo
 }
