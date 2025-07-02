@@ -47,13 +47,9 @@ struct WalletCard: View {
     private var content: some View {
         HStack(alignment: .bottom) {
             AsyncContentView(style: style, animation: .default) {
-                async let balance = MyStore.shared.getCachedUserInfo().balance
-                async let dateValues = MyStore.shared.getCachedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
-                return try await (balance, dateValues)
-            } refreshAction: {
-                async let balance = MyStore.shared.getRefreshedUserInfo().balance
-                async let dateValues = MyStore.shared.getRefreshedWalletLogs().map({ DateValueChartData(date: $0.date, value: $0.amount) })
-                return try await (balance, dateValues)
+                let content = try await WalletStore.shared.getCachedContent()
+                let dateValues = content.logs.map { DateValueChartData(date: $0.date, value: $0.amount) }
+                return (content.balance, dateValues)
             } content: { (balance: String, transactions: [DateValueChartData]) in
                 VStack(alignment: .leading) {
                     Text("Balance", bundle: .module)
@@ -136,7 +132,8 @@ struct WalletCard: View {
     }
 }
 
-#Preview {
-    WalletCard()
-        .previewPrepared(wrapped: .card)
-}
+// TODO: Restore new WalletCard preview
+//#Preview {
+//    WalletCard()
+//        .previewPrepared(wrapped: .card)
+//}

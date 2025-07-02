@@ -74,8 +74,9 @@ func setupPreview() async {
     let userInfo: UserInfo = decodePreviewData(filename: "userinfo", directory: "my")
     await MyStore.shared.setupPreivew(electricity: electricityLogs, wallet: walletLogs, user: userInfo)
     
-    let transactions: [FudanKit.Transaction] = decodePreviewData(filename: "transactions")
-    await WalletStore.shared.setupPreview(transactions: transactions)
+    // let transactions: [FudanKit.Transaction] = decodePreviewData(filename: "transactions")
+    // FIXME: Preview for new Wallet API
+    // await WalletStore.shared.setupPreview(transactions: transactions)
     
     let routes: BusRoutes = decodePreviewData(filename: "bus")
     await BusStore.shared.setupPreview(routes: routes)
