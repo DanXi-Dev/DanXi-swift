@@ -9,7 +9,7 @@ public enum ElectricityAPI {
     /// `.customError` with error message.
     public static func getElectricityUsage() async throws -> ElectricityUsage {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanelec/wap/default/info")!
-        let data = try await Authenticator.shared.authenticate(url)
+        let data = try await Authenticator.shared.authenticate(url, method: .neo)
         let unwrapped = try unwrapJSON(data).rawData()
         return try JSONDecoder().decode(ElectricityUsage.self, from: unwrapped)
     }

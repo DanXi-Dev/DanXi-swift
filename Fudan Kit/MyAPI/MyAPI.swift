@@ -14,7 +14,7 @@ import Utils
 /// - ECard balance & spending history
 /// - Electricity usage
 public enum MyAPI {
-    static let loginURL = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_mrxf.json")!
+    static let loginURL = URL(string: "https://my.fudan.edu.cn")!
     
     /// API for daily electricity usage
     /// - Returns: A list of ``ElectricityLog``, which contains a date and the electricity used in this date
@@ -25,7 +25,7 @@ public enum MyAPI {
         // a magical payload discovered by @singularity-s0
         let payload = "draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false"
         let request = constructRequest(url, payload: payload.data(using: .utf8))
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL, method: .neo)
         let dateValues = try decodeMyAPIResponse(data: data)
         return dateValues.map { dateValue in
             ElectricityLog(id: UUID(), date: dateValue.date, usage: dateValue.value)
@@ -41,7 +41,7 @@ public enum MyAPI {
         // a magical payload discovered by @singularity-s0
         let payload = "draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false"
         let request = constructRequest(url, payload: payload.data(using: .utf8))
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL, method: .neo)
         let dateValues = try decodeMyAPIResponse(data: data)
         return dateValues.map { dateValue in
             WalletLog(id: UUID(), date: dateValue.date, amount: dateValue.value)
@@ -71,7 +71,7 @@ public enum MyAPI {
     public static func getUserInfo() async throws -> UserInfo {
         let url = URL(string: "https://my.fudan.edu.cn/data_tables/ykt_xx.json")!
         let request = constructRequest(url, method: "POST")
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL, method: .neo)
         
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
               let userDataList = (dictionary["data"] as? [[String]]), !userDataList.isEmpty else {
