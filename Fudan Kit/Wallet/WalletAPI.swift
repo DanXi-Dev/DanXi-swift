@@ -1,4 +1,6 @@
 import Foundation
+import Utils
+import SwiftSoup
 
 /// API collection for eCard functionality.
 public enum WalletAPI {
@@ -6,6 +8,7 @@ public enum WalletAPI {
     static let loginURL = URL(string: "https://ecard.fudan.edu.cn/epay/")!
     
     /// Get the QR code for eCard spending.
+    /// FIXME: The authentication method for this API has been updated, it's not currently available.
     /// - Returns: A QR code string representation
     ///
     /// ## API Detail
@@ -29,6 +32,88 @@ public enum WalletAPI {
             }
             
             throw error
+        }
+    }
+    
+    public static func getContent() async throws -> WalletContent {
+        let pageURL = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
+        let authenticateURL = URL(string: "https://ecard.fudan.edu.cn/epay/j_spring_cas_security_check")!
+        let data = try await Authenticator.shared.authenticate(pageURL, manualLoginURL: authenticateURL)
+        
+        let document = try decodeHTMLDocument(data)
+
+        let balance = try parseBalance(document)
+        let transactions = try parseTransactions(document)
+        let logs = try parseStatistics(document)
+        
+        return WalletContent(balance: balance, transactions: transactions, logs: logs)
+    }
+    
+    private static func parseBalance(_ document: Document) throws -> String {
+        let balanceElement = try document.select(".payway-box-bottom .payway-box-bottom-item:first-child p:first-child")
+        return try balanceElement.text()
+    }
+    
+    private static func parseTransactions(_ document: Document) throws -> [Transaction] {
+        guard let table = try document.select("#all tbody").first() else {
+            throw LocatableError()
+        }
+        
+        var transactions: [Transaction] = []
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY.MM.dd HH:mm"
+        for element in table.children() {
+            guard let dateString = try? element.child(0).child(0).html().trimmingCharacters(in: .whitespacesAndNewlines),
+                  let timeString = try? element.child(0).child(1).html().trimmingCharacters(in: .whitespacesAndNewlines),
+                  let date = dateFormatter.date(from: "\(dateString) \(timeString)") else {
+                continue
+            }
+            
+            guard let location = try? element.child(2).html().replacingOccurrences(of: "&nbsp;", with: "") else {
+                continue
+            }
+            
+            guard let amountString = try? element.child(3).html().replacingOccurrences(of: "&nbsp;", with: "").trimmingCharacters(in: .whitespacesAndNewlines),
+                  let amount = Double(amountString) else {
+                continue
+            }
+            
+            guard let balanceString = try? element.child(4).html().replacingOccurrences(of: "&nbsp;", with: "").trimmingCharacters(in: .whitespacesAndNewlines),
+                  let balance = Double(balanceString) else {
+                continue
+            }
+            
+            let transaction = Transaction(id: UUID(), date: date, location: location, amount: amount, remaining: balance)
+            transactions.append(transaction)
+        }
+
+        return transactions
+    }
+    
+    private struct WalletStatisticsResponse: Decodable {
+        let termdate: String
+        let custid: Int
+        let amount: Float
+    }
+    
+    private static func parseStatistics(_ document: Document) throws -> [WalletLog] {
+        guard let element = try document.getElementById("transLst") else {
+            throw LocatableError()
+        }
+        
+        guard let data = try element.attr("value").data(using: String.Encoding.utf8) else {
+            throw LocatableError()
+        }
+        let decoded = try JSONDecoder().decode([WalletStatisticsResponse].self, from: data)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYYMMdd"
+        
+        return decoded.compactMap {
+            guard let date = dateFormatter.date(from: $0.termdate) else {
+                return nil
+            }
+            
+            return WalletLog(id: UUID(), date: date, amount: $0.amount)
         }
     }
     

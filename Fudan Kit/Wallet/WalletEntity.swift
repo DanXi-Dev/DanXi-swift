@@ -16,3 +16,9 @@ public struct Transaction: Identifiable, Codable {
         self.remaining = remaining
     }
 }
+
+public struct WalletContent: Codable {
+    public let balance: String
+    public let transactions: [Transaction]
+    public let logs: [WalletLog]
+}
