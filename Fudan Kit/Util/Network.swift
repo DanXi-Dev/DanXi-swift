@@ -45,3 +45,12 @@ func constructFormRequest(_ url: URL, method: String = "POST", form: [String: St
     
     return request
 }
+
+func constructJSONRequest(_ url: URL, method: String = "POST", payload: [String: Any]) throws -> URLRequest {
+    var request = constructRequest(url, method: method)
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    let data = try JSONSerialization.data(withJSONObject: payload)
+    request.httpBody = data
+    
+    return request
+}
