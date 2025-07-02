@@ -19,7 +19,7 @@ public enum WalletAPI {
     /// app should redirect user to proper webpage to agree.
     public static func getQRCode() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
-        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, method: .neo)
         
         do {
             let element = try decodeHTMLElement(data, selector: "#myText")
