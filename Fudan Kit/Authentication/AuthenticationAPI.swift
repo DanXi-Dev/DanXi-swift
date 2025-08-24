@@ -27,31 +27,6 @@ public enum AuthenticationAPI {
         return response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do"
     }
     
-    /// Check if the user's login is captcha protected.
-    ///
-    /// When user try to login, there might be a captcha check. The app cannot automatically handle this case, so it need
-    /// to prompt user to manually login once to eliminate captcha. This function represents whether such a captcha check
-    /// exists.
-    ///
-    /// - Important:
-    /// To prevent the login process to stuck on this API, this function never throws error. When an error occurs, it simply return `false`.
-    @available(*, deprecated, message: "This API is not accurate")
-    static func checkCaptchaStatus(username: String) async -> Bool {
-        do {
-            guard let url = URL(string: "https://uis.fudan.edu.cn/authserver/needCaptcha.html?username=\(username)") else {
-                return false
-            }
-            let request = constructRequest(url)
-            let (data, _) = try await URLSession.shared.data(for: request)
-            guard let result = String(data: data, encoding: String.Encoding.ascii) else {
-                return false
-            }
-            return result.trimmingCharacters(in: .whitespacesAndNewlines) != "false"
-        } catch {
-            return false
-        }
-    }
-    
     /// Authenticate the request and return the data retrieved
     public static func authenticateForData(_ url: URL) async throws -> Data {
         guard let username = CredentialStore.shared.username,
