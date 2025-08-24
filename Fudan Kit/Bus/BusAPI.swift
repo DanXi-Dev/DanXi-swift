@@ -57,12 +57,12 @@ public enum BusAPI {
         var routeResponses: [RouteResponse] = []
         switch type {
         case .workday:
-            let data = try await Authenticator.shared.authenticate(url)
+            let data = try await Authenticator.classic.authenticate(url)
             let routeData = try unwrapJSON(data)["data"].rawData()
             routeResponses = try JSONDecoder().decode([RouteResponse].self, from: routeData)
         case .holiday:
             let request = constructFormRequest(url, form: ["holiday": "1"])
-            let data = try await Authenticator.shared.authenticate(request)
+            let data = try await Authenticator.classic.authenticate(request)
             let routeData = try unwrapJSON(data)["data"].rawData()
             routeResponses = try JSONDecoder().decode([RouteResponse].self, from: routeData)
         }

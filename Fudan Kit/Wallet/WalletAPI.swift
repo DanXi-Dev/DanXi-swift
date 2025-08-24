@@ -19,7 +19,7 @@ public enum WalletAPI {
     /// app should redirect user to proper webpage to agree.
     public static func getQRCode() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!
-        let data = try await Authenticator.shared.authenticate(url, method: .neo)
+        let data = try await Authenticator.neo.authenticate(url)
         
         do {
             let element = try decodeHTMLElement(data, selector: "#myText")
@@ -38,7 +38,7 @@ public enum WalletAPI {
     public static func getContent() async throws -> WalletContent {
         let pageURL = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
         let authenticateURL = URL(string: "https://ecard.fudan.edu.cn/epay/j_spring_cas_security_check")!
-        let data = try await Authenticator.shared.authenticate(pageURL, manualLoginURL: authenticateURL)
+        let data = try await Authenticator.classic.authenticate(pageURL, loginURL: authenticateURL)
         
         let document = try decodeHTMLDocument(data)
 
@@ -122,7 +122,7 @@ public enum WalletAPI {
     /// This API is slower than ``MyAPI.getUserInfo()``, which should be preferred.
     public static func getBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let responseData = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        let responseData = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
         let cashElement = try decodeHTMLElement(responseData, selector: ".payway-box-bottom-item > p")
         return try cashElement.html()
     }
@@ -170,7 +170,7 @@ public enum WalletAPI {
                 }
                 
                 let url = URL(string: "https://ecard.fudan.edu.cn/epay/consume/index")!
-                let responseData = try await Authenticator.shared.authenticate(url, manualLoginURL: WalletAPI.loginURL)
+                let responseData = try await Authenticator.classic.authenticate(url, loginURL: WalletAPI.loginURL)
                 let element = try decodeHTMLElement(responseData, selector: "meta[name=\"_csrf\"]")
                 let csrf = try element.attr("content")
                 self.csrf = csrf
@@ -183,7 +183,7 @@ public enum WalletAPI {
         let form = ["pageNo": String(page), "_csrf": csrf]
         let request = constructFormRequest(url, form: form)
         
-        let data = try await Authenticator.shared.authenticate(request, manualLoginURL: loginURL)
+        let data = try await Authenticator.classic.authenticate(request, loginURL: loginURL)
         
         let table = try decodeHTMLElement(data, selector: "#all tbody")
         var transactions: [Transaction] = []

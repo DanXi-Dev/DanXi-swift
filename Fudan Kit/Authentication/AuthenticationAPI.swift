@@ -27,6 +27,34 @@ public enum AuthenticationAPI {
         return response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do"
     }
     
+    
+    public static func authenticate(_ url: URL) async throws -> (Data, URLResponse) {
+        guard let username = CredentialStore.shared.username,
+              let password = CredentialStore.shared.password else {
+            throw CampusError.credentialNotFound
+        }
+        
+        // construct authentication URLRequest
+        var components = URLComponents(string: authenticationURL.absoluteString)!
+        components.queryItems = [URLQueryItem(name: "service", value: url.absoluteString)]
+        let authRequest = constructRequest(components.url!)
+        let (data, response) = try await URLSession.campusSession.data(for: authRequest)
+        
+        // if local cookie is not expired, the response will be returned directly
+        // otherwise, this will redirect to UIS page
+        guard response.url?.host == authenticationURL.host else {
+            return (data, response)
+        }
+        
+        let dataRequest = try constructAuthenticationRequest(components.url!, form: data, username: username, password: password)
+        let (authData, authResponse) = try await URLSession.campusSession.data(for: dataRequest)
+        guard authResponse.url?.host != authenticationURL.host else {
+            throw CampusError.loginFailed
+        }
+        return (authData, authResponse)
+    }
+    
+    
     /// Authenticate the request and return the data retrieved
     public static func authenticateForData(_ url: URL) async throws -> Data {
         guard let username = CredentialStore.shared.username,
