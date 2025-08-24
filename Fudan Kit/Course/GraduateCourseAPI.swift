@@ -309,7 +309,7 @@ public enum GraduateCourseAPI {
     public static func getScore() async throws -> [Score] {
         let loginURL = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/*default/index.do")!
         let url = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/modules/xscjcx/jdjscjcx.do")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
 
         var scores: [Score] = []
         guard let json = try? JSON(data: data),
