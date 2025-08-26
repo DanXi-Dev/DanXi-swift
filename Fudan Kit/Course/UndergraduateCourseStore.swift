@@ -29,17 +29,6 @@ public actor UndergraduateCourseStore {
         }
     }
     
-    private func getNecessaryParams() async throws -> (Int, String) {
-        if let semesterId = self.currentSemesterId, let ids = self.ids {
-            return (semesterId, ids)
-        }
-        
-        let (semesterId, ids) = try await UndergraduateCourseAPI.getParamsForCourses()
-        self.currentSemesterId = semesterId
-        self.ids = ids
-        return (semesterId, ids)
-    }
-    
     // MARK: Semester
     
     public func getCachedSemesters() async throws -> [Semester] {
@@ -67,8 +56,7 @@ public actor UndergraduateCourseStore {
     }
     
     public func getRefreshedSemesters() async throws -> ([Semester], Semester?) {
-        let semesters = try await UndergraduateCourseAPI.getSemesters()
-        let (currentSemesterId, _) = try await getNecessaryParams()
+        let (semesters, currentSemesterId) = try await UndergraduateCourseAPI.getSemesters()
         let currentSemester = semesters.filter({ $0.semesterId == currentSemesterId }).first
         self.semesters = semesters
         try Disk.save(semesters, to: .appGroup, as: "fdutools/undergrad-semesters.json")
@@ -92,8 +80,7 @@ public actor UndergraduateCourseStore {
     }
     
     public func getRefreshedCourses(semester: Semester) async throws -> [Course] {
-        let (_, ids) = try await getNecessaryParams()
-        let courses = try await UndergraduateCourseAPI.getCourses(semesterId: semester.semesterId, ids: ids)
+        let courses = try await UndergraduateCourseAPI.getCourses(semesterId: semester.semesterId)
         self.courseMap[semester] = courses
         try Disk.save(self.courseMap, to: .appGroup, as: "fdutools/undergrad-course-map.json")
         
