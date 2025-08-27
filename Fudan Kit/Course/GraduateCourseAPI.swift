@@ -50,7 +50,7 @@ public enum GraduateCourseAPI {
     /// ```
     public static func getSemesters() async throws -> ([Semester], Semester?) {
         let url = URL(string: "https://zlapp.fudan.edu.cn/fudanyjskb/wap/default/get-index")!
-        let data = try await Authenticator.shared.authenticate(url)
+        let data = try await Authenticator.classic.authenticate(url)
         let json = try unwrapJSON(data)
         let semesterData = try json["termInfo"].rawData()
 
@@ -222,7 +222,7 @@ public enum GraduateCourseAPI {
             "type": "1",
         ]
         let request = constructFormRequest(url, form: form)
-        let data = try await Authenticator.shared.authenticate(request)
+        let data = try await Authenticator.classic.authenticate(request)
 
         // decode data into GraduateCourseResponse
         let json = try unwrapJSON(data)
@@ -309,7 +309,7 @@ public enum GraduateCourseAPI {
     public static func getScore() async throws -> [Score] {
         let loginURL = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/*default/index.do")!
         let url = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdcjapp/modules/xscjcx/jdjscjcx.do")!
-        let data = try await Authenticator.shared.authenticate(url, manualLoginURL: loginURL)
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
 
         var scores: [Score] = []
         guard let json = try? JSON(data: data),

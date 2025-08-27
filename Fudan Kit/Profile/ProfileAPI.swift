@@ -4,7 +4,7 @@ import Foundation
 public enum ProfileAPI {
     public static func getStudentProfile() async throws -> Profile {
         let url = URL(string: "https://workflow1.fudan.edu.cn/site/fudan/student-information")!
-        let data = try await Authenticator.shared.authenticate(url)
+        let data = try await Authenticator.classic.authenticate(url)
         let json = try unwrapJSON(data)
         let content = try json["info"].rawData()
         let response = try JSONDecoder().decode(ProfileResponse.self, from: content)

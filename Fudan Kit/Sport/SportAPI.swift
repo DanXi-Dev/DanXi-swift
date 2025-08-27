@@ -13,7 +13,7 @@ public enum SportAPI {
     /// - Returns: A tuple, including the count of each exercise category and exercise logs.
     public static func getExercise() async throws -> ([Exercise], [ExerciseLog]) {
         let exerciseURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stscore.aspx?item=1")!
-        let data = try await Authenticator.shared.authenticate(exerciseURL, manualLoginURL: loginURL)
+        let data = try await Authenticator.classic.authenticate(exerciseURL, loginURL: loginURL)
         
         let exercises = try parseExercise(data: data)
         if let logs = try? parseExerciseLog(data: data) {
@@ -92,7 +92,7 @@ public enum SportAPI {
     /// Get exam data, including score, items and logs.
     public static func getExam() async throws -> SportExam {
         let examURL = URL(string: "https://fdtyjw.fudan.edu.cn/sportScore/stScore.aspx?item=3")!
-        let data = try await Authenticator.shared.authenticate(examURL, manualLoginURL: loginURL)
+        let data = try await Authenticator.classic.authenticate(examURL, loginURL: loginURL)
         
         let document = try decodeHTMLDocument(data)
         

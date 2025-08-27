@@ -134,7 +134,7 @@ public enum ReservationAPI {
             // get data from server
             var component = URLComponents(string: "https://elife.fudan.edu.cn/public/front/search.htm")!
             component.queryItems = [URLQueryItem(name: "id", value: categoryId), URLQueryItem(name: "pageBean.pageSize", value: "100")]
-            let data = try await Authenticator.shared.authenticate(component.url!, manualLoginURL: loginURL)
+            let data = try await Authenticator.classic.authenticate(component.url!, loginURL: loginURL)
             
             // parse data from HTML stirng
             let elements = try decodeHTMLElementList(data, selector: "div.order_list > table > tbody > tr > td > table > tbody")
@@ -234,7 +234,7 @@ public enum ReservationAPI {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         component.queryItems = [URLQueryItem(name: "contentId", value: playground.id),
                                 URLQueryItem(name: "currentDate", value: dateFormatter.string(from: date))]
-        let data = try await Authenticator.shared.authenticate(component.url!, manualLoginURL: loginURL)
+        let data = try await Authenticator.classic.authenticate(component.url!, loginURL: loginURL)
         
         // check if is available
         guard let html = String(data: data, encoding: String.Encoding.utf8) else { return [] }

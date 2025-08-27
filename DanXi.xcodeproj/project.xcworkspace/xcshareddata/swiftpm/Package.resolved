@@ -1,5 +1,5 @@
 {
-  "originHash" : "521a0f5c24a15d46cc7b30d3170678dc7b8ad0fe78f30550956d21fd3d99bd88",
+  "originHash" : "3562ba49a76e80c45b6e5896bed1d76bc99b1402bfec2b26779ef6e1a2aae8d2",
   "pins" : [
     {
       "identity" : "bettersafariview",
@@ -62,15 +62,6 @@
       "state" : {
         "revision" : "2849f5323265386e200484b0d0f896e73c3411b9",
         "version" : "6.0.1"
-      }
-    },
-    {
-      "identity" : "queue",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mattmassicotte/Queue",
-      "state" : {
-        "revision" : "9f941ae35f146ccadd2689b9ab8d5aebb1f5d584",
-        "version" : "0.2.1"
       }
     },
     {
