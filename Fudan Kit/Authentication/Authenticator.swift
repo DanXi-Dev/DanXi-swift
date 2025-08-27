@@ -1,6 +1,5 @@
 import Foundation
 import Utils
-import Queue
 
 /// An actor that coordinates Single Sign-On (SSO) authentication against a
 /// central authorization server and fetching from business services that may
