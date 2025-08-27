@@ -88,9 +88,9 @@ public enum UndergraduateCourseAPI {
                        code: lessonCode,
                        teacher: teachers.first ?? "",
                        location: room ?? "",
-                       weekday: weekday,
-                       start: startUnit,
-                       end: endUnit,
+                       weekday: weekday - 1,
+                       start: startUnit - 1,
+                       end: endUnit - 1,
                        onWeeks: weekIndexes)
             }
         }
