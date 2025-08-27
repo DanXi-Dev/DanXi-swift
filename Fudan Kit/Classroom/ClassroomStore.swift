@@ -21,7 +21,7 @@ public actor ClassroomStore {
     
     private func authenticate() async throws {
         if shouldLogin {
-            try await authenticateWebVPN()
+            _ = try await Authenticator.neo.authenticate(URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
             lastLoginDate = Date()
         }
     }

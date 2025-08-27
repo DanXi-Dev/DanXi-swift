@@ -6,7 +6,6 @@ import SwiftUI
 public class Proxy {
     public static let shared = Proxy()
     
-    let authenticator = ProxyAuthenticator()
     public var outsideCampus = false
     
     public var shouldTryProxy: Bool {
@@ -58,24 +57,9 @@ public class Proxy {
         }
         
         // use proxy
-        try await authenticator.tryAuthenticate()
         
         let proxiedRequest = createProxiedRequest(request: request)
-        let (data, response) = try await URLSession.shared.data(for: proxiedRequest)
-        if let responseURL = response.url,
-           !responseURL.path().hasPrefix("/login") {
-            return (data, response) // successful return
-        }
-        
-        // unauthorized, try login WebVPN
-        try await authenticator.reauthenticate()
-        let (secondData, secondResponse) = try await URLSession.shared.data(for: proxiedRequest)
-        if let responseURL = secondResponse.url,
-           !responseURL.path().hasPrefix("/login") {
-            return (secondData, secondResponse) // successful return
-        }
-        
-        throw WebVPNError(url: request.url)
+        return try await FudanKit.Authenticator.neo.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
     }
     
     public func createProxiedURL(url: URL) -> URL {
@@ -127,52 +111,6 @@ public class Proxy {
         proxiedRequest.httpMethod = request.httpMethod == "PUT" ? "PATCH" : request.httpMethod
         proxiedRequest.httpBody = request.httpBody
         return proxiedRequest
-    }
-}
-
-/// An authenticator for WebVPN service to prevent race conditions
-actor ProxyAuthenticator {
-    var isLogged = false
-    var authenticationTask: Task<Void, Error>? = nil
-    
-    /// Pre-authenticate before every request
-    func tryAuthenticate() async throws {
-        if isLogged { return }
-        
-        if let authenticationTask {
-            defer { self.authenticationTask = nil }
-            try await authenticationTask.value
-            
-            return
-        }
-        
-        let task = Task {
-            try await authenticateWebVPN()
-        }
-        authenticationTask = task
-        defer { authenticationTask = nil }
-        try await task.value
-        isLogged = true
-    }
-    
-    /// Re-authenticate when some request failed due to unauthorized error
-    func reauthenticate() async throws {
-        isLogged = false
-        
-        if let authenticationTask {
-            defer { self.authenticationTask = nil }
-            try await authenticationTask.value
-            isLogged = true
-            return
-        }
-        
-        let task = Task {
-            try await authenticateWebVPN()
-        }
-        authenticationTask = task
-        defer { authenticationTask = nil }
-        try await task.value
-        isLogged = true
     }
 }
 
