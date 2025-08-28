@@ -95,8 +95,48 @@ public enum UndergraduateCourseAPI {
             }
         }
         
-        return try JSONDecoder().decode([CourseBuilder].self, from: coursesData)
-            .map { $0.build() }
+        // Solve the scheduling for courses that change rooms or teachers weekly
+        let courseBuilders = try JSONDecoder().decode([CourseBuilder].self, from: coursesData)
+            var courseDict = [String: Course]()
+
+            for builder in courseBuilders {
+                let course = builder.build()
+                
+                let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
+                let key = "\(course.name)-\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
+                
+                if let existed = courseDict[key] {
+                    let oldRooms = Set(existed.location.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                    let newRooms = Set(course.location.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                    let mergedRooms = Array(oldRooms.union(newRooms))
+                        .filter { !$0.isEmpty }
+                        .sorted()
+                        .joined(separator: ", ")
+
+                    let oldTeachers = Set(existed.teacher.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                    let newTeachers = Set(course.teacher.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                    let mergedTeachers = Array(oldTeachers.union(newTeachers))
+                        .filter { !$0.isEmpty }
+                        .sorted()
+                        .joined(separator: ", ")
+                    
+                    courseDict[key] = Course(
+                        id: existed.id,
+                        name: existed.name,
+                        code: existed.code,
+                        teacher: mergedTeachers,
+                        location: mergedRooms,
+                        weekday: existed.weekday,
+                        start: existed.start,
+                        end: existed.end,
+                        onWeeks: existed.onWeeks
+                    )
+                } else {
+                    courseDict[key] = course
+                }
+            }
+
+            return Array(courseDict.values)
     }
     
     // MARK: - Exam
