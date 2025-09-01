@@ -12,6 +12,14 @@ struct ScorePage: View {
     }
     
     var body: some View {
+        if campusModel.studentType == .undergrad {
+            Text("Service Unavailable", bundle: .module)
+        } else {
+            normalView
+        }
+    }
+    
+    private var normalView: some View {
         AsyncContentView {
             let (semesters, currentSemester) = switch campusModel.studentType {
             case .undergrad:

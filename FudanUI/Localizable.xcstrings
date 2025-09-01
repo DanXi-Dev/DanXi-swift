@@ -1061,6 +1061,16 @@
         }
       }
     },
+    "Not Available" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务暂不可用"
+          }
+        }
+      }
+    },
     "Not Logged in" : {
       "localizations" : {
         "zh-Hans" : {
