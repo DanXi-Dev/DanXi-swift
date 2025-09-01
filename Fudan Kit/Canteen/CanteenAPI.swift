@@ -27,7 +27,7 @@ public enum CanteenAPI {
     public static func getCanteenQueuing() async throws -> [Canteen] {
         // get data from server
         let url = URL(string: "https://my.fudan.edu.cn/simple_list/stqk")!
-        let data = try await Authenticator.classic.authenticate(url)
+        let data = try await Authenticator.neo.authenticate(url)
         let htmlStr = String(data: data, encoding: String.Encoding.utf8)!
         
         // check for dining time
