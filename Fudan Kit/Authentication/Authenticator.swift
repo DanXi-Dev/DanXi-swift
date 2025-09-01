@@ -17,14 +17,18 @@ public actor Authenticator {
     /// Caller-supplied login routine that performs the SSO flow *against the
     /// authorization center* using the provided `loginURL`.
     let authenticationAPI: (_ loginURL: URL) async throws -> (Data, URLResponse)
+    
+    /// The host for authentication center, for example, `id.fudan.edu.cn`.
+    let loginHost: String
 
     /// How long a successful login is considered valid for a given business host.
     private let loginValidity: TimeInterval = 2 * 60 * 60 // 2 hours
 
     // MARK: - Init
 
-    init(authenticationAPI: @escaping (_ loginURL: URL) async throws -> (Data, URLResponse)) {
+    init(loginHost: String, authenticationAPI: @escaping (_ loginURL: URL) async throws -> (Data, URLResponse)) {
         self.authenticationAPI = authenticationAPI
+        self.loginHost = loginHost
         self.loginStatus = [:]
         self.task = nil
     }
@@ -84,22 +88,22 @@ public actor Authenticator {
             try await self.authenticationAPI(url)
         }
 
-        guard response.url?.host == host else {
+        guard response.url?.host != loginHost else {
             throw CampusError.loginFailed
         }
+        
         self.loginStatus[host] = Date()
         return (data, response)
     }
 
     
     private func directFetch(request: URLRequest) async throws -> (Data, URLResponse)? {
-        guard let requestHost = request.url?.host else { throw LocatableError() }
-
         let (data, response) = try await URLSession.campusSession.data(for: request)
 
-        if response.url?.host == requestHost {
+        if response.url?.host != loginHost {
             return (data, response)
         }
+        
         return nil
     }
 }
@@ -107,11 +111,11 @@ public actor Authenticator {
 // MARK: - Instances
 
 extension Authenticator {
-    public static let classic = Authenticator { loginURL in
+    public static let classic = Authenticator(loginHost: "uis.fudan.edu.cn") { loginURL in
         try await AuthenticationAPI.authenticate(loginURL)
     }
     
-    public static let neo = Authenticator { loginURL in
+    public static let neo = Authenticator(loginHost: "id.fudan.edu.cn") { loginURL in
         try await NeoAuthenticationAPI.authenticate(loginURL)
     }
 }
