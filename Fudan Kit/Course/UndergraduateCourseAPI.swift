@@ -69,36 +69,87 @@ public enum UndergraduateCourseAPI {
     /// - Parameters:
     ///   - semesterId: semester ID
     /// - Returns: A list of ``Course``, representing student course table
+    ///
+    private struct CourseBuilder: Codable {
+        let lessonCode, courseName: String
+        let room: String?
+        let teachers: [String]
+        let startUnit, endUnit, weekday: Int
+        let weekIndexes: [Int]
+        
+        func build() -> Course {
+            Course(id: UUID(),
+                   name: courseName,
+                   code: lessonCode,
+                   teacher: teachers.first ?? "",
+                   location: room ?? "",
+                   weekday: weekday - 1,
+                   start: startUnit - 1,
+                   end: endUnit - 1,
+                   onWeeks: weekIndexes)
+        }
+    }
+
     public static func getCourses(semesterId: Int) async throws -> [Course] {
         let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(semesterId)/print-data")!
         let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
         let json = try JSON(data: data)
         let coursesData = try json["studentTableVms"][0]["activities"].rawData()
         
-        struct CourseBuilder: Codable {
-            let lessonCode, courseName: String
-            let room: String?
-            let teachers: [String]
-            let startUnit, endUnit, weekday: Int
-            let weekIndexes: [Int]
-            
-            func build() -> Course {
-                Course(id: UUID(),
-                       name: courseName,
-                       code: lessonCode,
-                       teacher: teachers.first ?? "",
-                       location: room ?? "",
-                       weekday: weekday - 1,
-                       start: startUnit - 1,
-                       end: endUnit - 1,
-                       onWeeks: weekIndexes)
-            }
+        let courseBuilders = try JSONDecoder().decode([CourseBuilder].self, from: coursesData)
+        
+        return mergeCourseBuilders(courseBuilders)
+    }
+
+    // Solve the scheduling for courses that change rooms or teachers weekly
+    /// When the same course is taught in multiple classrooms or by multiple teachers, the fdjwgl system's json file treats them as separate courses. Therefore, it's necessary to merge the classroom or teacher information; otherwise, this will result in overlapping courses on the calendar.
+    ///
+    /// Sketched out next is an example:
+    /// {"lessonId":720500,"lessonCode":"COMP130135.03","lessonName":"全校13","courseCode":"CS20012","courseName":"面向对象程序设计","weeksStr":"2~16(双)","weekIndexes":[16,2,4,6,8,10,12,14],"room":"H逸夫楼204","building":"H逸夫楼","campus":"邯郸校区","weekday":3,"startUnit":6,"endUnit":7,"lessonRemark":null,"teachers":["王雪平"],"courseType":{"nameZh":"专业教育课程","nameEn":"id:5","id":3,"code":"03","enabled":false,"createdDateTime":null,"updatedDateTime":null,"bizTypeAssocs":[2,3,4],"transient":false,"bizTypeIds":[4,2,3],"name":"专业教育课程"},"credits":2.0,"periodInfo":{"total":36.0,"weeks":18,"theory":36.0,"theoryUnit":null,"requireTheory":null,"practice":null,"practiceUnit":null,"requirePractice":null,"focusPractice":null,"focusPracticeUnit":null,"dispersedPractice":null,"test":null,"testUnit":null,"requireTest":null,"experiment":null,"experimentUnit":null,"requireExperiment":null,"machine":null,"machineUnit":null,"requireMachine":null,"design":null,"designUnit":null,"requireDesign":null,"periodsPerWeek":2.0,"extra":null,"extraUnit":null,"requireExtra":null},"stdCount":88,"limitCount":99,"startTime":"13:30","endTime":"15:10","groupNum":null,"semesterId":null,"activityType":null,"taskPeopleNum":null},{"lessonId":720500,"lessonCode":"COMP130135.03","lessonName":"全校13","courseCode":"CS20012","courseName":"面向对象程序设计","weeksStr":"2~16(双)","weekIndexes":[16,2,4,6,8,10,12,14],"room":"H逸夫楼205","building":"H逸夫楼","campus":"邯郸校区","weekday":3,"startUnit":6,"endUnit":7,"lessonRemark":null,"teachers":["王雪平"],"courseType":{"nameZh":"专业教育课程","nameEn":"id:5","id":3,"code":"03","enabled":false,"createdDateTime":null,"updatedDateTime":null,"bizTypeAssocs":[2,3,4],"transient":false,"bizTypeIds":[4,2,3],"name":"专业教育课程"},"credits":2.0,"periodInfo":{"total":36.0,"weeks":18,"theory":36.0,"theoryUnit":null,"requireTheory":null,"practice":null,"practiceUnit":null,"requirePractice":null,"focusPractice":null,"focusPracticeUnit":null,"dispersedPractice":null,"test":null,"testUnit":null,"requireTest":null,"experiment":null,"experimentUnit":null,"requireExperiment":null,"machine":null,"machineUnit":null,"requireMachine":null,"design":null,"designUnit":null,"requireDesign":null,"periodsPerWeek":2.0,"extra":null,"extraUnit":null,"requireExtra":null},"stdCount":88,"limitCount":99,"startTime":"13:30","endTime":"15:10","groupNum":null,"semesterId":null,"activityType":null,"taskPeopleNum":null},
+    ///
+    /// We want the final display to show one course with its room as 'H逸夫楼 204, H逸夫楼 205', rather than showing two separate courses in different classrooms.
+    
+    private static func mergeCourseBuilders(_ builders: [CourseBuilder]) -> [Course] {
+        var courseDict = [String: Course]()
+        
+        func mergeProperties(from old: String, and new: String) -> String {
+            let oldItems = Set(old.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+            let newItems = Set(new.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                
+            return Array(oldItems.union(newItems))
+                .filter { !$0.isEmpty }
+                .sorted()
+                .joined(separator: ", ")
         }
         
-        return try JSONDecoder().decode([CourseBuilder].self, from: coursesData)
-            .map { $0.build() }
+        for builder in builders {
+            let course = builder.build()
+            
+            let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
+            let key = "\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
+            
+            if let existed = courseDict[key] {
+                let mergedRooms = mergeProperties(from: existed.location, and: course.location)
+                let mergedTeachers = mergeProperties(from: existed.teacher, and: course.teacher)
+                
+                courseDict[key] = Course(
+                    id: existed.id,
+                    name: existed.name,
+                    code: existed.code,
+                    teacher: mergedTeachers,
+                    location: mergedRooms,
+                    weekday: existed.weekday,
+                    start: existed.start,
+                    end: existed.end,
+                    onWeeks: existed.onWeeks
+                )
+            } else {
+                courseDict[key] = course
+            }
+        }
+
+        return Array(courseDict.values)
     }
-    
     // MARK: - Exam
     
     /// Get uset's exam list
