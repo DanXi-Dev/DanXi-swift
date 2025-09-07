@@ -30,7 +30,7 @@ class ForumModel: ObservableObject {
         
         let tagTask = Task {
             if !TagStore.shared.initialized {
-                try await TagStore.shared.refreshTags()
+                try? await TagStore.shared.refreshTags() // Tags sometimes fail to load due to campus network issues, make it fail silently instead of crashing the whole page
             }
         }
         
