@@ -308,7 +308,8 @@ extension Course {
     
     /// Determine whether the course is recurrent every two week
     var doubleWeekly: Bool {
-        guard onWeeks.count > 1 else { return false }
+        guard self.onWeeks.count > 1 else { return false }
+        let onWeeks = self.onWeeks.sorted()
         for i in 1..<onWeeks.count {
             if onWeeks[i] - onWeeks[i - 1] != 2 { return false }
         }
@@ -350,6 +351,7 @@ extension Course {
     #if !os(watchOS)
     func exportEvents(for eventStore: EKEventStore, to calendar: EKCalendar, semesterStart: Date) throws {
         guard !onWeeks.isEmpty else { return }
+        let onWeeks = self.onWeeks.sorted()
         if let recurrentWeek = recurrentWeek {
             let event = EKEvent(eventStore: eventStore)
             event.title = name
