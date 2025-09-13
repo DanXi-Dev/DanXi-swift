@@ -23,21 +23,31 @@ public struct PlatformSplitView<Sidebar: View, Content: View, Detail: View>: Vie
     
     public var body: some View {
         #if targetEnvironment(macCatalyst)
-        NavigationSplitView {
-            EmptyView()
-        } content: {
-            content()
-        } detail: {
-            detail()
-        }
-        .introspect(.navigationSplitView, on: .iOS(.v16, .v17, .v18)) { splitViewController in
-            let sidebarController = UIHostingController(rootView: sidebar())
-            sidebarController.view.backgroundColor = .clear
-            splitViewController.viewControllers[0] = sidebarController
-            
-            splitViewController.primaryBackgroundStyle = .sidebar
-            splitViewController.preferredDisplayMode = .twoBesideSecondary
-            splitViewController.presentsWithGesture = false
+        if #available(iOS 26.0, *) {
+            NavigationSplitView {
+                sidebar()
+            } content: {
+                content()
+            } detail: {
+                detail()
+            }
+        } else {
+            NavigationSplitView {
+                EmptyView()
+            } content: {
+                content()
+            } detail: {
+                detail()
+            }
+            .introspect(.navigationSplitView, on: .iOS(.v16, .v17, .v18)) { splitViewController in
+                let sidebarController = UIHostingController(rootView: sidebar())
+                sidebarController.view.backgroundColor = .clear
+                splitViewController.viewControllers[0] = sidebarController
+                
+                splitViewController.primaryBackgroundStyle = .sidebar
+                splitViewController.preferredDisplayMode = .twoBesideSecondary
+                splitViewController.presentsWithGesture = false
+            }
         }
         #else
         NavigationSplitView(columnVisibility: $columnVisibility) {
