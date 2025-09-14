@@ -1005,6 +1005,17 @@
         }
       }
     },
+    "Need captcha, visit UIS webpage to login." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要验证码，请访问UIS网页登录"
+          }
+        }
+      }
+    },
     "Next: " : {
       "localizations" : {
         "zh-Hans" : {
