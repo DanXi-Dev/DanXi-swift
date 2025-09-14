@@ -10,7 +10,6 @@ public struct LoginSheet: View {
     @State private var username = ""
     @State private var password = ""
     @State private var showCaptchaAlert = false
-    //@State private var loginError: Error?
     
     public init(style: SheetStyle = .independent) {
         self.style = style
