@@ -10,7 +10,7 @@ public struct Hole: Identifiable, Codable, Hashable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
     public let divisionId: Int
-    public let view, reply: Int
+    public let view, reply, favoriteCount, subscriptionCount: Int
     public let locked: Bool
     public let hidden: Bool
     public let tags: [Tag]

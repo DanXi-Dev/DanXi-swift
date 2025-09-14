@@ -208,9 +208,9 @@ struct HolePage: View {
                 }
             } label: {
                 if model.isFavorite {
-                    Label(String(localized: "Unfavorite", bundle: .module), systemImage: "star.slash")
+                    Label(String(localized: "Unfavorite", bundle: .module) + String("(\(String(hole.favoriteCount)))"), systemImage: "star.slash")
                 } else {
-                    Label(String(localized: "Favorite", bundle: .module), systemImage: "star")
+                    Label(String(localized: "Favorite", bundle: .module) + String("(\(String(hole.favoriteCount)))"), systemImage: "star")
                 }
             }
             
@@ -220,9 +220,9 @@ struct HolePage: View {
                 }
             } label: {
                 if model.subscribed {
-                    Label(String(localized: "Unsubscribe", bundle: .module), systemImage: "bell.slash")
+                    Label(String(localized: "Unsubscribe", bundle: .module) + String("(\(String(hole.subscriptionCount)))"), systemImage: "bell.slash")
                 } else {
-                    Label(String(localized: "Subscribe", bundle: .module), systemImage: "bell")
+                    Label(String(localized: "Subscribe", bundle: .module) +  String("(\(String(hole.subscriptionCount)))"), systemImage: "bell")
                 }
             }
             
