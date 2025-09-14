@@ -5,8 +5,11 @@ import ViewUtils
 public struct LoginSheet: View {
     private let style: SheetStyle
     @ObservedObject private var model = CampusModel.shared
+    @Environment(\.openURL) var openURL
+    
     @State private var username = ""
     @State private var password = ""
+    @State private var showCaptchaAlert = false
     
     public init(style: SheetStyle = .independent) {
         self.style = style
@@ -14,7 +17,13 @@ public struct LoginSheet: View {
     
     public var body: some View {
         Sheet {
-            try await model.login(username: username, password: password)
+            do {
+                try await model.login(username: username, password: password)
+            }
+            catch CampusError.needCaptcha {
+                showCaptchaAlert = true
+                throw CampusError.needCaptcha
+            }
         } content: {
             #if os(watchOS)
             
@@ -55,6 +64,21 @@ public struct LoginSheet: View {
         .completed(!username.isEmpty && !password.isEmpty)
         .submitText(String(localized: "Login", bundle: .module))
         .sheetStyle(style)
+        .alert(String(localized: "Error", bundle: .module), isPresented: $showCaptchaAlert) {
+            Button {
+                
+            } label: {
+                Text("Cancel", bundle: .module)
+            }
+
+            Button {
+                openURL(URL(string: "https://uis.fudan.edu.cn")!)
+            } label: {
+                Text("Go to Browser", bundle: .module)
+            }
+        } message: {
+            Text("Need captcha, visit UIS webpage to login.", bundle: .module)
+        }
     }
 }
 
