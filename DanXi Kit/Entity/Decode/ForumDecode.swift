@@ -8,6 +8,8 @@ extension Hole {
         case divisionId
         case view
         case reply
+        case favoriteCount
+        case subscriptionCount
         case hidden
         case locked
         case tags
@@ -29,6 +31,8 @@ extension Hole {
         divisionId = try container.decode(Int.self, forKey: .divisionId)
         view = try container.decode(Int.self, forKey: .view)
         reply = try container.decode(Int.self, forKey: .reply)
+        favoriteCount = try container.decode(Int.self, forKey: .favoriteCount)
+        subscriptionCount = try container.decode(Int.self, forKey: .subscriptionCount)
         hidden = try container.decode(Bool.self, forKey: .hidden)
         locked = try container.decode(Bool.self, forKey: .locked)
         tags = try container.decode([Tag].self, forKey: .tags)
