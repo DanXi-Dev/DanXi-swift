@@ -43,6 +43,7 @@ public enum ConfigurationCenter {
         let banners: [Banner]
         let userAgent: String
         let highlightTagIds: [Int]
+        let stickers: [Sticker]?
         
         func constructConfiguration() -> AppConfiguration {
             var convertedSemsterStartDate: [Int: Date] = [:]
@@ -53,7 +54,13 @@ public enum ConfigurationCenter {
             }
             
             
-            return AppConfiguration(semesterStartDate: convertedSemsterStartDate, banners: banners, userAgent: userAgent, highlightTagIds: highlightTagIds)
+            return AppConfiguration(
+                semesterStartDate: convertedSemsterStartDate,
+                banners: banners,
+                userAgent: userAgent,
+                highlightTagIds: highlightTagIds,
+                stickers: stickers ?? []
+            )
         }
     }
     
@@ -98,6 +105,7 @@ public struct AppConfiguration: Codable {
     public let banners: [Banner]
     public let userAgent: String
     public let highlightTagIds: [Int]
+    public let stickers: [Sticker]
     
     /// Initializer that creates an empty configuration
     init() {
@@ -105,13 +113,21 @@ public struct AppConfiguration: Codable {
         banners = []
         userAgent = "DXSwift"
         highlightTagIds = []
+        stickers = []
     }
     
-    init(semesterStartDate: [Int: Date], banners: [Banner], userAgent: String, highlightTagIds: [Int]) {
+    init(
+        semesterStartDate: [Int: Date],
+        banners: [Banner],
+        userAgent: String,
+        highlightTagIds: [Int],
+        stickers: [Sticker]
+    ) {
         self.semesterStartDate = semesterStartDate
         self.banners = banners
         self.userAgent = userAgent
         self.highlightTagIds = highlightTagIds
+        self.stickers = stickers
     }
 }
 
@@ -124,3 +140,9 @@ public struct Banner: Codable, Equatable {
     public let button: String
 }
 
+/// Remote-controlled sticker image
+public struct Sticker: Identifiable, Codable, Hashable {
+    public let id: String
+    public let sha256: String
+    public let url: URL
+}
