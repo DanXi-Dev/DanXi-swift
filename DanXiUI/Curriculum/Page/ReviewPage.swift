@@ -87,14 +87,15 @@ struct ReviewPage: View {
                 .foregroundColor(.secondary)
                 .padding(.top)
                 
-                let medals: [String] = review.extra.achievements.map { $0.name }
+                let achievements: [Achievement] = review.extra.achievements
                 
-                
-                LazyVGrid (columns: [GridItem](repeating: GridItem(.fixed(35)), count: min(3, medals.count)), alignment: .trailing){
-                    ForEach (medals, id: \.self) { medal in
-                        Image(medal, bundle: .module)
-                            .resizable()
-                            .scaledToFit()
+                LazyVGrid (columns: [GridItem](repeating: GridItem(.fixed(35)), count: min(3, achievements.count)), alignment: .trailing){
+                    ForEach (achievements, id: \.self) { achievement in
+                        NavigationLink(destination: AchievementPage(achievement: achievement)) {
+                            Image(achievement.name, bundle: .module)
+                                .resizable()
+                                .scaledToFit()
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
