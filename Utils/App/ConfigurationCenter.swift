@@ -87,18 +87,21 @@ public struct AppConfiguration: Codable {
     public let semesterStartDate: [Int: Date]
     public let banners: [Banner]
     public let userAgent: String
+    public let stickers: [Sticker]
     
     /// Initializer that creates an empty configuration
     init() {
         semesterStartDate = [:]
         banners = []
         userAgent = "DXSwift"
+        stickers = []
     }
     
     init(semesterStartDate: [Int: Date], banners: [Banner], userAgent: String) {
         self.semesterStartDate = semesterStartDate
         self.banners = banners
         self.userAgent = userAgent
+        self.stickers = []
     }
 }
 
@@ -109,4 +112,11 @@ public struct Banner: Codable, Equatable {
     public let action: String
     /// Text that should be displayed on the button.
     public let button: String
+}
+
+/// Remote-controlled sticker image
+public struct Sticker: Identifiable, Codable, Hashable {
+    public let id: String
+    public let sha256: String
+    public let url: URL
 }

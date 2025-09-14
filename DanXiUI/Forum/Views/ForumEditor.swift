@@ -7,6 +7,7 @@ import DanXiKit
 
 public struct ForumEditor: View {
     @EnvironmentObject.Optional private var holeModel: HoleModel?
+    @ObservedObject private var stickerStore = StickerStore.shared
     @StateObject private var model: ForumEditorModel
     @Binding var content: String
     @State private var textHeight: CGFloat = .zero
@@ -118,7 +119,7 @@ public struct ForumEditor: View {
                 .useSafariController()
         }
     }
-    
+        
     private var stickerPicker: some View {
         NavigationStack {
             Form {
@@ -127,12 +128,16 @@ public struct ForumEditor: View {
                                         GridItem(.flexible()),
                                         GridItem(.flexible()),
                                         GridItem(.flexible())]) {
-                        ForEach(Sticker.allCases, id: \.self.rawValue) { sticker in
+                        ForEach(StickerStore.shared.stickers) { sticker in
                             Button {
-                                model.insertTextAtCursor("![](\(sticker.rawValue))")
+                                model.insertTextAtCursor("![](\(sticker.id))")
                                 showStickers = false
                             } label: {
-                                sticker.image
+                                if let loadedImage = stickerStore.stickerImage[sticker.id] {
+                                    loadedImage.image
+                                } else {
+                                    Image(systemName: "photo.badge.exclamationmark")
+                                }
                             }
                         }
                     }
