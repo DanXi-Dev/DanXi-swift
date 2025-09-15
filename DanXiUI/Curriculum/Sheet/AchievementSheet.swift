@@ -32,6 +32,7 @@ struct AchievementSheet: View {
             }
             .padding()
             .navigationTitle(String(localized: "Achievement Detail", bundle: .module))
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(String(localized: "Close", bundle: .module)) {
