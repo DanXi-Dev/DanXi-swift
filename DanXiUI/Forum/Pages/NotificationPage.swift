@@ -9,6 +9,8 @@ struct NotificationPage: View {
     var body: some View {
         AsyncContentView {
             try await ForumAPI.listMessages()
+        } refreshAction: {
+            try await ForumAPI.listMessages()
         } content: { messages in
             NotificationContent(messages: messages)
                 .watermark()
