@@ -10,6 +10,7 @@ extension Hole {
         case reply
         case hidden
         case locked
+        case frozen
         case tags
         case floors
     }
@@ -31,6 +32,7 @@ extension Hole {
         reply = try container.decode(Int.self, forKey: .reply)
         hidden = try container.decode(Bool.self, forKey: .hidden)
         locked = try container.decode(Bool.self, forKey: .locked)
+        frozen = try container.decode(Bool.self, forKey: .frozen)
         tags = try container.decode([Tag].self, forKey: .tags)
         
         let nestedContainer = try container.nestedContainer(keyedBy: NestedKeys.self, forKey: .floors)
@@ -49,6 +51,7 @@ extension Hole {
         try container.encode(view, forKey: .view)
         try container.encode(reply, forKey: .reply)
         try container.encode(hidden, forKey: .hidden)
+        try container.encode(frozen, forKey: .frozen)
         try container.encode(locked, forKey: .locked)
         try container.encode(tags, forKey: .tags)
         

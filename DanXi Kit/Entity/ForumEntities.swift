@@ -13,6 +13,7 @@ public struct Hole: Identifiable, Codable, Hashable {
     public let view, reply: Int
     public let locked: Bool
     public let hidden: Bool
+    public let frozen: Bool
     public let tags: [Tag]
     public let firstFloor, lastFloor: Floor
     public let prefetch: [Floor]

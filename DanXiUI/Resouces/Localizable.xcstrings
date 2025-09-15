@@ -1590,6 +1590,16 @@
         }
       }
     },
+    "Froze Post" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冻结此帖"
+          }
+        }
+      }
+    },
     "Fudan Campus Email" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3115,12 +3125,22 @@
         }
       }
     },
+    "This hole has been frozen" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此帖已被冻结"
+          }
+        }
+      }
+    },
     "This hole has been hidden" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "该洞已被隐藏"
+            "value" : "该帖已被隐藏"
           }
         }
       }

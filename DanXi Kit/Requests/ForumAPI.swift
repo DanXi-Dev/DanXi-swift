@@ -50,7 +50,7 @@ public enum ForumAPI {
         return try await requestWithResponse("/holes/\(id)", base: forumURL)
     }
     
-    public static func modifyHole(id: Int, divisionId: Int? = nil, lock: Bool? = nil, tags: [String], hidden: Bool? = nil) async throws -> Hole {
+    public static func modifyHole(id: Int, divisionId: Int? = nil, lock: Bool? = nil, frozen: Bool? = nil, tags: [String], hidden: Bool? = nil) async throws -> Hole {
         var payload: [String: Any] = ["tags": tags.map { ["name": $0] }]
         if let divisionId {
             payload["division_id"] = divisionId
@@ -60,6 +60,9 @@ public enum ForumAPI {
         }
         if let hidden {
             payload["unhidden"] = !hidden
+        }
+        if let frozen {
+            payload["frozen"] = frozen
         }
         return try await requestWithResponse("/holes/\(id)", base: forumURL, payload: payload, method: "PUT")
     }
