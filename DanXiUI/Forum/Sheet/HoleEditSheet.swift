@@ -11,18 +11,20 @@ struct HoleEditSheet: View {
     @State private var tags: [String]
     @State private var lock: Bool
     @State private var hidden: Bool
+    @State private var frozen: Bool
     
     init(hole: Hole) {
         self.hole = hole
         self._divisionId = State(initialValue: hole.divisionId)
         self._tags = State(initialValue: hole.tags.map(\.name))
         self._lock = State(initialValue: hole.locked)
+        self._frozen = State(initialValue: hole.frozen)
         self._hidden = State(initialValue: hole.hidden)
     }
     
     var body: some View {
         Sheet(String(localized: "Edit Post Info", bundle: .module)) {
-            let hole = try await ForumAPI.modifyHole(id: hole.id, divisionId: divisionId, lock: lock, tags: tags, hidden: hidden)
+            let hole = try await ForumAPI.modifyHole(id: hole.id, divisionId: divisionId, lock: lock, frozen: frozen, tags: tags, hidden: hidden)
             await MainActor.run {
                 model.hole = hole
             }
@@ -45,6 +47,10 @@ struct HoleEditSheet: View {
                 
                 Toggle(isOn: $lock) {
                     Label(String(localized: "Lock Post", bundle: .module), systemImage: "lock.fill")
+                }
+                
+                Toggle(isOn: $frozen) {
+                    Label(String(localized: "Froze Post", bundle: .module), systemImage: "thermometer.snowflake")
                 }
             }
         }

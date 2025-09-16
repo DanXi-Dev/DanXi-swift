@@ -152,6 +152,22 @@ struct HolePage: View {
                 }
             }
             
+            if hole.frozen && profileStore.isAdmin {
+                HStack {
+                    Label {
+                        Text("This hole has been frozen", bundle: .module)
+                    } icon: {
+                        Image(systemName: "thermometer.snowflake")
+                    }
+                    .textCase(.none)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                    .listRowSeparator(.hidden)
+                    
+                    Spacer()
+                }
+            }
+            
             if hole.hidden && profileStore.isAdmin {
                 HStack {
                     Label {
