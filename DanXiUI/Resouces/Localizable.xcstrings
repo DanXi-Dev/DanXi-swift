@@ -191,6 +191,16 @@
         }
       }
     },
+    "Achievement Detail" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "徽章详情"
+          }
+        }
+      }
+    },
     "Add Ban" : {
       "localizations" : {
         "zh-Hans" : {
@@ -584,6 +594,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除起始日期"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
           }
         }
       }
@@ -2195,6 +2215,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "举报被处理时"
+          }
+        }
+      }
+    },
+    "Obtain Date: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获得日期："
           }
         }
       }

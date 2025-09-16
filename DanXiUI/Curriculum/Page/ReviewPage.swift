@@ -10,6 +10,7 @@ struct ReviewPage: View {
     @State private var review: Review
     @State private var showEditSheet = false
     @State private var showDeleteReviewAlert = false
+    @State private var selectedAchievement: Achievement?
     @EnvironmentObject var model: CourseModel
     
     init(course: Course, review: Review) {
@@ -87,24 +88,29 @@ struct ReviewPage: View {
                 .foregroundColor(.secondary)
                 .padding(.top)
                 
-                let medals: [String] = review.extra.achievements.map { $0.name }
+                let achievements: [Achievement] = review.extra.achievements
                 
-                
-                LazyVGrid (columns: [GridItem](repeating: GridItem(.fixed(35)), count: min(3, medals.count)), alignment: .trailing){
-                    ForEach (medals, id: \.self) { medal in
-                        Image(medal, bundle: .module)
-                            .resizable()
-                            .scaledToFit()
+                LazyVGrid (columns: [GridItem](repeating: GridItem(.fixed(35)), count: min(3, achievements.count)), alignment: .trailing) {
+                    ForEach (achievements, id: \.self) { achievement in
+                        Button(action: {
+                            selectedAchievement = achievement
+                        }) {
+                            Image(achievement.name, bundle: .module)
+                                .resizable()
+                                .scaledToFit()
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                
             }
         }
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline) // this is to remove the top padding
         .sheet(isPresented: $showEditSheet) {
             CurriculumEditSheet(courseGroup: model.courseGroup, course: course, review: $review)
+        }
+        .sheet(item: $selectedAchievement) { achievement in
+            AchievementSheet(achievement: achievement)
         }
         .alert(String(localized: "Delete Review", bundle: .module), isPresented: $showDeleteReviewAlert) {
             Button(role: .destructive) {
