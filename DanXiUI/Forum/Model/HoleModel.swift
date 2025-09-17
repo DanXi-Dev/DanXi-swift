@@ -343,6 +343,7 @@ class HoleModel: ObservableObject {
     @Published var showQuestionSheet = false
     @Published var showHoleEditSheet = false
     @Published var showHideAlert = false
+    @Published var showForceDeleteHoleAlert = false
     @Published var showCopySheet = false
     @Published var draftReplySheet: Reply? = nil
     @Published var replySheet: Floor? = nil

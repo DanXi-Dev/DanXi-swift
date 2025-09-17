@@ -133,6 +133,9 @@ struct HoleView: View {
                 if !hole.firstFloor.specialTag.isEmpty {
                     SpecialTagView(content: hole.firstFloor.specialTag)
                 }
+                if hole.timeDeleted != nil {
+                    SpecialTagView(content: String(localized: "Deleted", bundle: .module))
+                }
                 if pinned {
                     Image(systemName: "pin.fill")
                         .font(.caption2)

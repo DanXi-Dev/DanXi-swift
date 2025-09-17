@@ -286,6 +286,13 @@ struct HolePage: View {
                             Label(String(localized: "Hide Hole", bundle: .module), systemImage: "eye.slash.fill")
                         }
                     }
+                    if model.hole.timeDeleted == nil {
+                        Button {
+                            model.showForceDeleteHoleAlert = true
+                        } label: {
+                            Label(String(localized: "Force Delete Hole", bundle: .module), systemImage: "trash")
+                        }
+                    }
                     
                     Button {
                         model.showHoleEditSheet = true
@@ -382,6 +389,18 @@ private struct HolePageSheets<Label: View>: View {
                 }
             } message: {
                 Text("This will affect all replies of this post", bundle: .module)
+            }
+            .alert(String(localized: "Confirm Delete Hole", bundle: .module), isPresented: $model.showForceDeleteHoleAlert) {
+                Button(role: .destructive) {
+                    Task {
+                        try await ForumAPI.forceDeleteHole(id: model.hole.id)
+                        model.hole = try await ForumAPI.getHole(id: model.hole.id)
+                    }
+                } label: {
+                    Text("Confirm", bundle: .module)
+                }
+            } message: {
+                Text("This will delete all replies of this post and cannot be revoked", bundle: .module)
             }
             .alert(String(localized: "Delete Floor", bundle: .module), isPresented: $model.showDeleteAlert) {
                 Button(role: .destructive) {
