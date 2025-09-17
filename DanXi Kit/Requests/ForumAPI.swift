@@ -68,6 +68,10 @@ public enum ForumAPI {
         try await requestWithoutResponse("/holes/\(id)", base: forumURL, method: "DELETE")
     }
     
+    public static func forceDeleteHole(id: Int) async throws {
+        try await requestWithoutResponse("/holes/\(id)/_force", base: forumURL, method: "DELETE")
+    }
+    
     public static func updateHoleViews(id: Int) async throws {
         try await requestWithoutResponse("/holes/\(id)", base: forumURL, method: "PATCH")
     }

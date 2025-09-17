@@ -5,6 +5,7 @@ extension Hole {
         case id
         case timeCreated
         case timeUpdated
+        case timeDeleted
         case divisionId
         case view
         case reply
@@ -28,6 +29,7 @@ extension Hole {
         id = try container.decode(Int.self, forKey: .id)
         timeCreated = try container.decode(Date.self, forKey: .timeCreated)
         timeUpdated = try container.decode(Date.self, forKey: .timeUpdated)
+        timeDeleted = try container.decode(Date?.self, forKey: .timeDeleted)
         divisionId = try container.decode(Int.self, forKey: .divisionId)
         view = try container.decode(Int.self, forKey: .view)
         reply = try container.decode(Int.self, forKey: .reply)
@@ -49,6 +51,7 @@ extension Hole {
         try container.encode(id, forKey: .id)
         try container.encode(timeCreated, forKey: .timeCreated)
         try container.encode(timeUpdated, forKey: .timeUpdated)
+        try container.encode(timeDeleted, forKey: .timeDeleted)
         try container.encode(divisionId, forKey: .divisionId)
         try container.encode(view, forKey: .view)
         try container.encode(reply, forKey: .reply)
