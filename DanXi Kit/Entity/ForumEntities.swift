@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 public struct Division: Identifiable, Codable, Hashable {
     public let id: Int
@@ -58,6 +59,10 @@ public struct Tag: Identifiable, Codable, Hashable {
     public let id: Int
     public let temperature: Int
     public let name: String
+    
+    public var highlight: Bool {
+        return ConfigurationCenter.configuration.highlightTagIds.contains(id)
+    }
 }
 
 public struct Report: Identifiable, Hashable, Codable {
