@@ -54,8 +54,9 @@ private struct TransactionView: View {
     let transaction: FudanKit.Transaction
     
     var body: some View {
+        
         LabeledContent {
-            Text(verbatim: "¥\(String(format: "%.2f", transaction.amount))")
+            Text(verbatim: "\(transaction.category)¥\(String(format: "%.2f", transaction.amount))")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
