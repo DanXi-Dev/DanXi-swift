@@ -45,8 +45,8 @@ public struct WalletEntry: TimelineEntry {
         date = Date()
         balance = "100.0"
         transactions = [
-            Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂1楼", amount: 10.00, remaining: 200.00, category: "-"),
-            Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂2楼", amount: 20.00, remaining: 210.00, category: "-")
+            Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂1楼", amount: 10.00, remaining: 200.00, sign: "-"),
+            Transaction(id: UUID(), date: Date.now, location: "江湾校区食堂2楼", amount: 20.00, remaining: 210.00, sign: "-")
         ]
     }
     

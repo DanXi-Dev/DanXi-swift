@@ -56,7 +56,7 @@ private struct TransactionView: View {
     var body: some View {
         
         LabeledContent {
-            Text(verbatim: "\(transaction.category)¥\(String(format: "%.2f", transaction.amount))")
+            Text(verbatim: "\(transaction.sign)¥\(String(format: "%.2f", transaction.amount))")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
