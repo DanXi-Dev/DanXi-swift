@@ -43,12 +43,12 @@ public struct CustomMarkdown: View {
 
 struct ImageProviderWithSticker: InlineImageProvider {
     func image(with url: URL, label: String) async throws -> Image {
-        guard let sticker = Sticker(rawValue: url.absoluteString) else {
+        guard let loadedImage = StickerStore.shared.stickerImage[url.absoluteString] else {
             // This is not a sticker
             let description = String(localized: "Sticker parse failed.", bundle: .module)
             throw LocatableError(description)
         }
-        return sticker.image
+        return loadedImage.image
     }
 }
 
@@ -56,8 +56,8 @@ struct CustomImageProvider: ImageProvider {
     func makeImage(url: URL?) -> some View {
         Group {
             if let url {
-                if let sticker = Sticker(rawValue: url.absoluteString) {
-                    sticker.image
+                if let loadedImage = StickerStore.shared.stickerImage[url.absoluteString] {
+                    loadedImage.image
                 } else if Proxy.shared.shouldTryProxy, Proxy.shared.outsideCampus {
                     ImageView(url, proxiedURL: Proxy.shared.createProxiedURL(url: url))
                 } else {
@@ -75,7 +75,7 @@ func replaceMarkdownTags(_ content: String) -> String {
     var markdown = content
     markdown.replace(/\${1,2}[\s\S]*?\${1,2}/, with: String(localized: "[Formula]", bundle: .module))
     markdown.replace(/!\[.*?\]\((?<link>.*?)\)/) { match in
-        if Sticker(rawValue: String(match.link)) != nil {
+        if StickerStore.shared.stickerSet.contains(String(match.link)) {
             return String(localized: "[Sticker]", bundle: .module)
         } else {
             return String(localized: "[Image]", bundle: .module)
