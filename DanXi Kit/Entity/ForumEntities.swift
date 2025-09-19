@@ -10,6 +10,7 @@ public struct Division: Identifiable, Codable, Hashable {
 public struct Hole: Identifiable, Codable, Hashable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
+    public let timeDeleted: Date?
     public let divisionId: Int
     public let view, reply, favoriteCount, subscriptionCount: Int
     public let locked: Bool

@@ -648,6 +648,16 @@
         }
       }
     },
+    "Confirm Delete Hole" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认删除全帖"
+          }
+        }
+      }
+    },
     "Confirm Delete Post" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1586,6 +1596,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "折叠的内容"
+          }
+        }
+      }
+    },
+    "Force Delete Hole" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除全帖"
           }
         }
       }
@@ -3201,6 +3221,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "将影响该帖下全部回复帖"
+          }
+        }
+      }
+    },
+    "This will delete all replies of this post and cannot be revoked" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将删除本帖及全部回复，且该操作不可逆"
           }
         }
       }
