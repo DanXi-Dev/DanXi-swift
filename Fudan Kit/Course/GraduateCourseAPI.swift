@@ -107,9 +107,7 @@ public enum GraduateCourseAPI {
 
             for week in 1...semester.weekCount {
                 taskGroup.addTask {
-                    let term = semester.type == .first ? 1 : 2
-                    let builders = try await getCoursesForWeek(
-                        year: semester.year, term: term, week: week)
+                    let builders = try await getCoursesForWeek(startdate: semester.startDate!, week: week)
                     return (week, builders)
                 }
             }
@@ -210,25 +208,39 @@ public enum GraduateCourseAPI {
     ///     }
     /// }
     /// ```
-    private static func getCoursesForWeek(year: Int, term: Int, week: Int) async throws
+    private static func getCoursesForWeek(startdate: Date, week: Int) async throws
         -> [CourseBuilder]
     {
         // get data from server
-        let url = URL(string: "https://zlapp.fudan.edu.cn/fudanyjskb/wap/default/get-data")!
+        let url = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdrcappfudan/wdrc/loadRcxx.do")!
+        let loginUrl = URL(string: "https://yzsfwapp.fudan.edu.cn/gsapp/sys/wdrcappfudan/*default/index.do?type=add#/wdrc")
+        
+        // cal start and end day
+        let calender = Calendar.current
+        let startDateOfWeek = calender.date(byAdding: .day, value: 7*(week-1), to: startdate)!
+        let endDateOfWeek = calender.date(byAdding: .day, value: 7*week, to: startdate)!
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
         let form = [
-            "year": "\(String(year))-\(String(year + 1))",
-            "term": String(term),
-            "week": String(week),
-            "type": "1",
+            "ksrq": dateFormatter.string(from: startDateOfWeek),
+            "jsrq": dateFormatter.string(from: endDateOfWeek),
+            "ids": ""
         ]
         let request = constructFormRequest(url, form: form)
-        let data = try await Authenticator.classic.authenticate(request)
+        let data = try await Authenticator.neo.authenticate(request, loginURL: loginUrl)
 
         // decode data into GraduateCourseResponse
-        let json = try unwrapJSON(data)
-        let courseData = try json["classes"].rawData()
+        let json = try JSON(data: data)
+        let courseData = try json["datas"].rawData()
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let formatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            return formatter
+        }()
+        decoder.dateDecodingStrategy = .formatted(formatter)
         var responses = try decoder.decode([CourseResponse].self, from: courseData)
 
         // consecutive courses are separated in response
@@ -238,24 +250,35 @@ public enum GraduateCourseAPI {
         while !responses.isEmpty {
             let response = responses.removeFirst()
             var matchedResponses = responses.filter {
-                $0.courseId == response.courseId && $0.weekday == response.weekday
+                $0.title == response.title && $0.kssj.formatted(.dateTime.year().month().day()) == response.kssj.formatted(.dateTime.year().month().day())
             }
             matchedResponses.append(response)
             responses.removeAll {
-                $0.courseId == response.courseId && $0.weekday == response.weekday
+                $0.title == response.title && $0.kssj.formatted(.dateTime.year().month().day()) == response.kssj.formatted(.dateTime.year().month().day())
             }
 
+            let calender = Calendar.current
             // get all \.lessons array. If parse to int fails, throw error.
             let lessons = try matchedResponses.map { item in
-                guard let lesson = Int(item.lessons) else {
+                let lessonIndex = ClassTimeSlot.list.firstIndex { slot in
+                    let itemComponents = calender.dateComponents([.hour, .minute], from: item.kssj)
+                    let slotComponents = calender.dateComponents([.hour, .minute], from: slot.start)
+                        
+                    return itemComponents.hour == slotComponents.hour &&
+                               itemComponents.minute == slotComponents.minute
+                }
+                guard let lesson = lessonIndex else {
                     throw LocatableError()
                 }
-                return lesson - 1
+                return lesson
             }
             guard let max = lessons.max(), let min = lessons.min() else { continue }
+            
+            let (courseName, courseCode) = try getNameAndCode(from: response.title)
+            let weekday = calender.component(.weekday, from: response.kssj)
             let builder = CourseBuilder(
-                name: response.courseName, code: response.courseId, teacher: response.teacher,
-                location: response.location, weekday: response.weekday, start: min, end: max)
+                name: courseName, code: courseCode, teacher: "",
+                location: response.dd, weekday: weekday - 1, start: min, end: max)
             builders.append(builder)
         }
 
@@ -276,13 +299,17 @@ public enum GraduateCourseAPI {
     }
 
     private struct CourseResponse: Decodable {
-        let courseName: String
-        let courseId: String
-        let location: String
-        let credit: Int
-        let teacher: String
-        let weekday: Int
-        let lessons: String
+        let title: String
+        let jssj: Date
+        let kssj: Date
+        let dd: String
+        
+        enum CodingKeys: String, CodingKey {
+            case title = "TITLE"
+            case kssj = "KSSJ"
+            case jssj = "JSSJ"
+            case dd = "DD"
+        }
     }
 
     // MARK: - Score and GPA
@@ -358,4 +385,29 @@ func closestMonday(to date: Date) -> Date? {
     let weekday = calendar.component(.weekday, from: date)
     let daysToMonday = (2 - weekday + 7) % 7
     return calendar.date(byAdding: .day, value: daysToMonday, to: date)
+}
+
+func getNameAndCode(from title: String) throws -> (name: String, code: String) {
+    guard let dashRange = title.range(of: "-"),
+          let parenthesisRange = title.range(of: "(") else {
+            throw LocatableError()
+    }
+    
+    let startIndex = title.index(after: dashRange.lowerBound)
+    let endIndex = parenthesisRange.lowerBound
+    let courseName = String(title[startIndex..<endIndex])
+    
+    let startOfCodeIndex = title.index(parenthesisRange.lowerBound, offsetBy: courseName.count + 11)
+    
+    guard let dotRange = title[startOfCodeIndex...].range(of: ".") else {
+           throw LocatableError()
+       }
+    
+    let courseCode = String(title[startOfCodeIndex..<dotRange.lowerBound])
+        
+    return (courseName, courseCode)
+}
+
+func getWeekday(from startDate: Date) {
+    
 }
