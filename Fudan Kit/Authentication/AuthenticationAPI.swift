@@ -22,7 +22,10 @@ public enum AuthenticationAPI {
         let request = constructRequest(authenticationURL)
         let (loginFormData, _) = try await URLSession.campusSession.data(for: request)
         let authRequest = try constructAuthenticationRequest(authenticationURL, form: loginFormData, username: username, password: password)
-        let (_, response) = try await URLSession.campusSession.data(for: authRequest)
+        let (possibleForm, response) = try await URLSession.campusSession.data(for: authRequest)
+        if existHTMLElement(possibleForm, selector: "#captchaImg") {
+            throw CampusError.needCaptcha
+        }
         
         return response.url?.absoluteString == "https://uis.fudan.edu.cn/authserver/index.do"
     }
@@ -48,7 +51,11 @@ public enum AuthenticationAPI {
         
         let dataRequest = try constructAuthenticationRequest(components.url!, form: data, username: username, password: password)
         let (authData, authResponse) = try await URLSession.campusSession.data(for: dataRequest)
+        guard !existHTMLElement(authData, selector: "#captchaImg") else {
+            throw CampusError.needCaptcha
+        }
         guard authResponse.url?.host != authenticationURL.host else {
+
             throw CampusError.loginFailed
         }
         return (authData, authResponse)
@@ -127,7 +134,7 @@ public enum AuthenticationAPI {
     static func constructAuthenticationRequest(_ url: URL, form: Data, username: String, password: String) throws -> URLRequest {
         var loginForm = ["username": username, "password": password]
         
-        if existHTMLElement(form, selector: "#captchaResponse") {
+        if existHTMLElement(form, selector: "#captchaImg") {
             throw CampusError.needCaptcha
         }
         
