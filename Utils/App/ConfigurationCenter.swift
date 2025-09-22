@@ -11,6 +11,7 @@ public enum ConfigurationCenter {
     
     public static let semesterMapPublisher = PassthroughSubject<[Int: Date], Never>()
     public static let bannerPublisher = PassthroughSubject<[Banner], Never>()
+    public static let highlightTagIdsPublisher = PassthroughSubject<[Int], Never>()
     
     public static func initialFetch() {
         if let configuration = try? Disk.retrieve("configuration.json", from: .appGroup, as: AppConfiguration.self) {
@@ -41,6 +42,7 @@ public enum ConfigurationCenter {
         let semesterStartDate: [String: Date]
         let banners: [Banner]
         let userAgent: String
+        let highlightTagIds: [Int]
         
         func constructConfiguration() -> AppConfiguration {
             var convertedSemsterStartDate: [Int: Date] = [:]
@@ -50,7 +52,8 @@ public enum ConfigurationCenter {
                 }
             }
             
-            return AppConfiguration(semesterStartDate: convertedSemsterStartDate, banners: banners, userAgent: userAgent)
+            
+            return AppConfiguration(semesterStartDate: convertedSemsterStartDate, banners: banners, userAgent: userAgent, highlightTagIds: highlightTagIds)
         }
     }
     
@@ -65,6 +68,13 @@ public enum ConfigurationCenter {
         if configuration.banners != self.configuration.banners {
             Task { @MainActor in
                 bannerPublisher.send(configuration.banners)
+            }
+        }
+        
+        
+        if configuration.highlightTagIds != self.configuration.highlightTagIds {
+            Task { @MainActor in
+                highlightTagIdsPublisher.send(configuration.highlightTagIds)
             }
         }
         
@@ -87,18 +97,21 @@ public struct AppConfiguration: Codable {
     public let semesterStartDate: [Int: Date]
     public let banners: [Banner]
     public let userAgent: String
+    public let highlightTagIds: [Int]
     
     /// Initializer that creates an empty configuration
     init() {
         semesterStartDate = [:]
         banners = []
         userAgent = "DXSwift"
+        highlightTagIds = []
     }
     
-    init(semesterStartDate: [Int: Date], banners: [Banner], userAgent: String) {
+    init(semesterStartDate: [Int: Date], banners: [Banner], userAgent: String, highlightTagIds: [Int]) {
         self.semesterStartDate = semesterStartDate
         self.banners = banners
         self.userAgent = userAgent
+        self.highlightTagIds = highlightTagIds
     }
 }
 
@@ -110,3 +123,4 @@ public struct Banner: Codable, Equatable {
     /// Text that should be displayed on the button.
     public let button: String
 }
+

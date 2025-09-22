@@ -69,6 +69,11 @@ public enum WalletAPI {
                 continue
             }
             
+            guard let categoryString = try? element.child(1).text().replacingOccurrences(of: "&nbsp;", with: ""),
+                  let sign = categoryString.hasSuffix("消费") ? "-" : "+" else {
+                continue
+            }
+            
             guard let location = try? element.child(2).html().replacingOccurrences(of: "&nbsp;", with: "") else {
                 continue
             }
@@ -83,7 +88,7 @@ public enum WalletAPI {
                 continue
             }
             
-            let transaction = Transaction(id: UUID(), date: date, location: location, amount: amount, remaining: balance)
+            let transaction = Transaction(id: UUID(), date: date, location: location, amount: amount, remaining: balance, sign: sign)
             transactions.append(transaction)
         }
 
@@ -196,6 +201,11 @@ public enum WalletAPI {
                 continue
             }
             
+            guard let categoryString = try? element.child(1).text().replacingOccurrences(of: "&nbsp;", with: ""),
+                  let sign = categoryString.hasSuffix("消费") ? "-" : "+" else {
+                continue
+            }
+            
             guard let location = try? element.child(2).html().replacingOccurrences(of: "&nbsp;", with: "") else {
                 continue
             }
@@ -210,7 +220,7 @@ public enum WalletAPI {
                 continue
             }
             
-            let transaction = Transaction(id: UUID(), date: date, location: location, amount: amount, remaining: balance)
+            let transaction = Transaction(id: UUID(), date: date, location: location, amount: amount, remaining: balance, sign: sign)
             transactions.append(transaction)
         }
 

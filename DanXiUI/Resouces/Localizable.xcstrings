@@ -191,6 +191,16 @@
         }
       }
     },
+    "Achievement Detail" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "徽章详情"
+          }
+        }
+      }
+    },
     "Add Ban" : {
       "localizations" : {
         "zh-Hans" : {
@@ -588,6 +598,16 @@
         }
       }
     },
+    "Close" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
+    },
     "Community Home Page" : {
       "localizations" : {
         "zh-Hans" : {
@@ -624,6 +644,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "确认删除账户"
+          }
+        }
+      }
+    },
+    "Confirm Delete Hole" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认删除全帖"
           }
         }
       }
@@ -1570,6 +1600,16 @@
         }
       }
     },
+    "Force Delete Hole" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除全帖"
+          }
+        }
+      }
+    },
     "Forget Password" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1586,6 +1626,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "茶楼"
+          }
+        }
+      }
+    },
+    "Froze Post" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冻结此帖"
           }
         }
       }
@@ -2195,6 +2245,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "举报被处理时"
+          }
+        }
+      }
+    },
+    "Obtain Date: " : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获得日期："
           }
         }
       }
@@ -3115,12 +3175,22 @@
         }
       }
     },
+    "This hole has been frozen" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此帖已被冻结"
+          }
+        }
+      }
+    },
     "This hole has been hidden" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "该洞已被隐藏"
+            "value" : "该帖已被隐藏"
           }
         }
       }
@@ -3151,6 +3221,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "将影响该帖下全部回复帖"
+          }
+        }
+      }
+    },
+    "This will delete all replies of this post and cannot be revoked" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将删除本帖及全部回复，且该操作不可逆"
           }
         }
       }

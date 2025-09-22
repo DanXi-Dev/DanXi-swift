@@ -125,13 +125,22 @@ struct HoleView: View {
         HStack(alignment: .top) {
             WrappingHStack(alignment: .leading) {
                 ForEach(hole.tags) { tag in
-                    TagView(tag.name)
+                    Group {
+                        if tag.highlight {
+                            HighlightTagView(tag.name)
+                        } else {
+                            TagView(tag.name)
+                        }
+                    }
                 }
             }
             Spacer()
             HStack {
                 if !hole.firstFloor.specialTag.isEmpty {
                     SpecialTagView(content: hole.firstFloor.specialTag)
+                }
+                if hole.timeDeleted != nil {
+                    SpecialTagView(content: String(localized: "Deleted", bundle: .module))
                 }
                 if pinned {
                     Image(systemName: "pin.fill")

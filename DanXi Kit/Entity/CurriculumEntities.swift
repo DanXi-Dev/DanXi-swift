@@ -36,7 +36,8 @@ public struct CurriculumExtra: Hashable, Codable {
     public let achievements: [Achievement]
 }
 
-public struct Achievement: Hashable, Codable {
+public struct Achievement: Identifiable, Hashable, Codable {
+    public let id = UUID()
     public let name: String
     public let obtainDate: Date
     public let domain: String

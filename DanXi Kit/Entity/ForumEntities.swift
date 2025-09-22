@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 public struct Division: Identifiable, Codable, Hashable {
     public let id: Int
@@ -9,10 +10,12 @@ public struct Division: Identifiable, Codable, Hashable {
 public struct Hole: Identifiable, Codable, Hashable {
     public let id: Int
     public let timeCreated, timeUpdated: Date
+    public let timeDeleted: Date?
     public let divisionId: Int
     public let view, reply, favoriteCount, subscriptionCount: Int
     public let locked: Bool
     public let hidden: Bool
+    public let frozen: Bool
     public let tags: [Tag]
     public let firstFloor, lastFloor: Floor
     public let prefetch: [Floor]
@@ -57,6 +60,10 @@ public struct Tag: Identifiable, Codable, Hashable {
     public let id: Int
     public let temperature: Int
     public let name: String
+    
+    public var highlight: Bool {
+        return ConfigurationCenter.configuration.highlightTagIds.contains(id)
+    }
 }
 
 public struct Report: Identifiable, Hashable, Codable {

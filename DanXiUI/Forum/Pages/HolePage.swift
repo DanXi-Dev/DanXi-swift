@@ -152,6 +152,22 @@ struct HolePage: View {
                 }
             }
             
+            if hole.frozen && profileStore.isAdmin {
+                HStack {
+                    Label {
+                        Text("This hole has been frozen", bundle: .module)
+                    } icon: {
+                        Image(systemName: "thermometer.snowflake")
+                    }
+                    .textCase(.none)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+                    .listRowSeparator(.hidden)
+                    
+                    Spacer()
+                }
+            }
+            
             if hole.hidden && profileStore.isAdmin {
                 HStack {
                     Label {
@@ -176,7 +192,13 @@ struct HolePage: View {
         WrappingHStack(alignment: .leading) {
             ForEach(hole.tags) { tag in
                 ContentLink(value: tag) {
-                    TagView(tag.name)
+                    Group {
+                        if tag.highlight {
+                            HighlightTagView(tag.name)
+                        } else {
+                            TagView(tag.name)
+                        }
+                    }
                 }
                 .buttonStyle(.borderless)
             }
@@ -268,6 +290,13 @@ struct HolePage: View {
                             model.showHideAlert = true
                         } label: {
                             Label(String(localized: "Hide Hole", bundle: .module), systemImage: "eye.slash.fill")
+                        }
+                    }
+                    if model.hole.timeDeleted == nil {
+                        Button {
+                            model.showForceDeleteHoleAlert = true
+                        } label: {
+                            Label(String(localized: "Force Delete Hole", bundle: .module), systemImage: "trash")
                         }
                     }
                     
@@ -366,6 +395,18 @@ private struct HolePageSheets<Label: View>: View {
                 }
             } message: {
                 Text("This will affect all replies of this post", bundle: .module)
+            }
+            .alert(String(localized: "Confirm Delete Hole", bundle: .module), isPresented: $model.showForceDeleteHoleAlert) {
+                Button(role: .destructive) {
+                    Task {
+                        try await ForumAPI.forceDeleteHole(id: model.hole.id)
+                        model.hole = try await ForumAPI.getHole(id: model.hole.id)
+                    }
+                } label: {
+                    Text("Confirm", bundle: .module)
+                }
+            } message: {
+                Text("This will delete all replies of this post and cannot be revoked", bundle: .module)
             }
             .alert(String(localized: "Delete Floor", bundle: .module), isPresented: $model.showDeleteAlert) {
                 Button(role: .destructive) {

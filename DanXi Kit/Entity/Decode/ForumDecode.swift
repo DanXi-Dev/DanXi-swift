@@ -5,6 +5,7 @@ extension Hole {
         case id
         case timeCreated
         case timeUpdated
+        case timeDeleted
         case divisionId
         case view
         case reply
@@ -12,6 +13,7 @@ extension Hole {
         case subscriptionCount
         case hidden
         case locked
+        case frozen
         case tags
         case floors
     }
@@ -28,6 +30,7 @@ extension Hole {
         id = try container.decode(Int.self, forKey: .id)
         timeCreated = try container.decode(Date.self, forKey: .timeCreated)
         timeUpdated = try container.decode(Date.self, forKey: .timeUpdated)
+        timeDeleted = try container.decode(Date?.self, forKey: .timeDeleted)
         divisionId = try container.decode(Int.self, forKey: .divisionId)
         view = try container.decode(Int.self, forKey: .view)
         reply = try container.decode(Int.self, forKey: .reply)
@@ -35,6 +38,7 @@ extension Hole {
         subscriptionCount = try container.decode(Int.self, forKey: .subscriptionCount)
         hidden = try container.decode(Bool.self, forKey: .hidden)
         locked = try container.decode(Bool.self, forKey: .locked)
+        frozen = try container.decode(Bool.self, forKey: .frozen)
         tags = try container.decode([Tag].self, forKey: .tags)
         
         let nestedContainer = try container.nestedContainer(keyedBy: NestedKeys.self, forKey: .floors)
@@ -49,10 +53,12 @@ extension Hole {
         try container.encode(id, forKey: .id)
         try container.encode(timeCreated, forKey: .timeCreated)
         try container.encode(timeUpdated, forKey: .timeUpdated)
+        try container.encode(timeDeleted, forKey: .timeDeleted)
         try container.encode(divisionId, forKey: .divisionId)
         try container.encode(view, forKey: .view)
         try container.encode(reply, forKey: .reply)
         try container.encode(hidden, forKey: .hidden)
+        try container.encode(frozen, forKey: .frozen)
         try container.encode(locked, forKey: .locked)
         try container.encode(tags, forKey: .tags)
         
