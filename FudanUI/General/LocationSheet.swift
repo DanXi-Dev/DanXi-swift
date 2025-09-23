@@ -48,6 +48,7 @@ struct LocationSheet: View {
             if (response?.mapItems.first?.placemark.coordinate) != nil {
                 self.item = response?.mapItems.first
             } else {
+                showAlert = true
                 errorMessage = nil
             }
         }
