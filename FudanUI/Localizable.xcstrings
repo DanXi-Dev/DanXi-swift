@@ -715,6 +715,16 @@
         }
       }
     },
+    "Get Directions" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始导航"
+          }
+        }
+      }
+    },
     "Go to Browser" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1011,16 +1021,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "姓名"
-          }
-        }
-      }
-    },
-    "Navigate" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "导航"
           }
         }
       }

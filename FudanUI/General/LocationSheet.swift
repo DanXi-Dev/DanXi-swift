@@ -65,7 +65,7 @@ struct LocationSheet: View {
                         MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeCycling
                     ])
                 }label: {
-                    Text("Navigate")
+                    Text(String(localized: "Get Directions", bundle: .module))
                         .font(.title3)
                 }
                 .buttonStyle(.borderedProminent)
