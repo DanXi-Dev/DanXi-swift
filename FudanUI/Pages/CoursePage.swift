@@ -100,9 +100,9 @@ fileprivate struct CalendarContent: View {
                 EmptyView()
                     .id("cal-top")
                 
-                #if os(watchOS)
+#if os(watchOS)
                 toolbar
-                #endif
+#endif
                 
                 Section {
                     if !model.courses.isEmpty {
@@ -111,9 +111,9 @@ fileprivate struct CalendarContent: View {
                         }
                     }
                 }
-                #if targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst)
                 .listRowBackground(Color.clear)
-                #endif
+#endif
                 
                 Section {
                     HStack {
@@ -148,14 +148,14 @@ fileprivate struct CalendarContent: View {
             .refreshable {
                 await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
             }
-            #if targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
-            #endif
+#endif
         }
         .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
             model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
-        #if !os(watchOS)
+#if !os(watchOS)
         .toolbar {
             toolbar
         }
@@ -169,7 +169,7 @@ fileprivate struct CalendarContent: View {
             ManualResetSemesterStartDateSheet()
         }
         .listStyle(.inset)
-        #endif
+#endif
         .alert(String(localized: "Error", bundle: .module), isPresented: $showErrorAlert) {
             
         } message: {
@@ -308,6 +308,7 @@ fileprivate struct CourseDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
     
     let course: Course
+    @State private var showLocationSheet = false
     
     var body: some View {
         NavigationStack {
@@ -317,13 +318,12 @@ fileprivate struct CourseDetailSheet: View {
                 } label: {
                     Text("Course Name", bundle: .module)
                 }
-
                 LabeledContent {
                     Text(course.teacher)
                 } label: {
                     Text("Instructor", bundle: .module)
                 }
-
+                
                 LabeledContent {
                     Text(course.code)
                 } label: {
@@ -331,14 +331,23 @@ fileprivate struct CourseDetailSheet: View {
                 }
                 
                 LabeledContent {
-                    Text(course.location)
+                    if #available(iOS 17.0, *){
+                        Button {
+                            showLocationSheet = true
+                        } label: {
+                            Text(course.location)
+                        }
+                    }
+                    else{
+                        Text(course.location)
+                    }
                 } label: {
                     Text("Location", bundle: .module)
                 }
             }
-            #if !os(watchOS)
+#if !os(watchOS)
             .listStyle(.insetGrouped)
-            #endif
+#endif
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -346,6 +355,11 @@ fileprivate struct CourseDetailSheet: View {
                     } label: {
                         Text("Done", bundle: .module)
                     }
+                }
+            }
+            .sheet(isPresented: $showLocationSheet){
+                if #available(iOS 17.0, *) {
+                    LocationSheet(location: course.location)
                 }
             }
             .navigationTitle(String(localized: "Course Detail", bundle: .module))

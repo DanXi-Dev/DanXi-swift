@@ -902,6 +902,16 @@
         }
       }
     },
+    "Location not found" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地点未找到"
+          }
+        }
+      }
+    },
     "Logged in" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1001,6 +1011,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "姓名"
+          }
+        }
+      }
+    },
+    "Navigate" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导航"
           }
         }
       }
