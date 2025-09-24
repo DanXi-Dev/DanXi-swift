@@ -84,6 +84,7 @@ public struct CoursePage: View {
 
 fileprivate struct CalendarContent: View {
     @EnvironmentObject private var tabViewModel: TabViewModel
+    @ObservedObject private var campusModel = CampusModel.shared
     @StateObject var model: CourseModel
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
@@ -189,6 +190,7 @@ fileprivate struct CalendarContent: View {
                 Text("Select Semester", bundle: .module)
             }
             .pickerStyle(.menu)
+            .disabled(campusModel.studentType == .grad)
             
             Button {
                 Task(priority: .userInitiated) {
