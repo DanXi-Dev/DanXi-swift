@@ -5,9 +5,10 @@ import FudanKit
 @available(iOS 17.0, *)
 struct LocationSheet: View {
     @Environment(\.dismiss) var dismiss
-    @State var showAlert = false
-    @State var item : MKMapItem?
-    @State var errorMessage : String?
+    @State private var position: MapCameraPosition = .automatic
+    @State private var showAlert = false
+    @State private var item : MKMapItem?
+    @State private var errorMessage : String?
     let location: String
     
     func generatePlaceName(for location: String)->String{
@@ -47,6 +48,7 @@ struct LocationSheet: View {
             }
             if (response?.mapItems.first?.placemark.coordinate) != nil {
                 self.item = response?.mapItems.first
+                self.position = .camera(MapCamera(centerCoordinate: item!.placemark.coordinate, distance: 400))
             } else {
                 showAlert = true
                 errorMessage = nil
@@ -57,8 +59,8 @@ struct LocationSheet: View {
     
     var body: some View {
         NavigationStack {
-            Map{
-                Marker(location,systemImage: "building.fill",coordinate: item?.placemark.coordinate ?? CLLocationCoordinate2D())
+            Map(position: $position) {
+                Marker(location, systemImage: "building.fill", coordinate: item?.placemark.coordinate ?? CLLocationCoordinate2D())
             }
             .safeAreaInset(edge: .bottom){
                 Button{
