@@ -68,6 +68,7 @@ struct LocationSheet: View {
                         MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeCycling
                     ])
                 }label: {
+                    Image(systemName: "location")
                     Text(String(localized: "Get Directions", bundle: .module))
                         .font(.title3)
                 }
