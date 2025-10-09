@@ -3,6 +3,7 @@ import DanXiUI
 import DanXiKit
 import ViewUtils
 import Utils
+import TipKit
 
 @main
 struct DanXiApp: App {
@@ -16,6 +17,12 @@ struct DanXiApp: App {
         WindowGroup {
             ContentView()
                 .task(priority: .background) {
+                    if #available(iOS 17.0, *) {
+                        try? Tips.configure([
+                            .displayFrequency(.weekly)
+                        ])
+                        Tips.showAllTipsForTesting() // TODO: remove this
+                    }
                     ConfigurationCenter.initialFetch()
                 }
                 .onChange(of: scenePhase) { newPhase in

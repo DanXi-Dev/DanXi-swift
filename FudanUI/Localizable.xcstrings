@@ -253,6 +253,9 @@
         }
       }
     },
+    "Choose which features you want to show on the home page." : {
+
+    },
     "Classroom Schedule" : {
       "localizations" : {
         "zh-Hans" : {
@@ -478,6 +481,9 @@
           }
         }
       }
+    },
+    "Edit Home Page" : {
+
     },
     "Edit Home Page Features" : {
       "localizations" : {
