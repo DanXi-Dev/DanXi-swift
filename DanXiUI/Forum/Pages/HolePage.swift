@@ -315,6 +315,11 @@ struct HolePage: View {
         } label: {
             Image(systemName: "ellipsis.circle")
         }
+        .onAppear {
+            if #available(iOS 17.0, *) {
+                favoriteOrSubscribeTip.invalidate(reason: .actionPerformed)
+            }
+        }
         
         if #available(iOS 17.0, *) {
             baseMenu
