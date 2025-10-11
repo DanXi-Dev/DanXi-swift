@@ -4,10 +4,10 @@ import TipKit
 @available(iOS 17.0, *)
 struct ChangeVisibilityTip: Tip {
     var title: Text{
-        Text("Change Visibility for Folded Content")
+        Text("Change Visibility for Folded Content", bundle: .module)
     }
     var message : Text? {
-        Text("Choose how folded content appear in the list.")
+        Text("Choose how folded content appear in the list.", bundle: .module)
     }
     var image: Image? {
         Image(systemName: "eye")
@@ -20,11 +20,11 @@ struct ChangeVisibilityTip: Tip {
 }
 
 @available(iOS 17.0, *)
-struct FavoriteOrSubscribeTip: Tip {
-    var title: Text{
-        Text("Favorite or Subscribe")
+public struct FavoriteOrSubscribeTip: Tip {
+    public var title: Text{
+        Text("Favorite or Subscribe", bundle: .module)
     }
-    var message : Text? {
-        Text("Add this hole to Favorites or Subscribe to keep track of new updates.")
+    public var message : Text? {
+        Text("Add this hole to Favorites or Subscribe to keep track of new updates.", bundle: .module)
     }
 }
