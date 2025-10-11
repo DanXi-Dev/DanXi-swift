@@ -21,6 +21,7 @@ struct DanXiApp: App {
                         try? Tips.configure([
                             .displayFrequency(.weekly)
                         ])
+                        Tips.showAllTipsForTesting()
                     }
                     ConfigurationCenter.initialFetch()
                 }
