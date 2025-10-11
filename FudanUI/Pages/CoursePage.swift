@@ -183,8 +183,9 @@ fileprivate struct CalendarContent: View {
     
 #if !os(watchOS)
     
-    private var toolbarBase: some View {
-        Menu {
+    @ViewBuilder
+    private var toolbar: some View {
+        let baseMune = Menu {
             Picker(selection: $model.semester) {
                 ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
                     Text(semester.name).tag(semester)
@@ -250,16 +251,11 @@ fileprivate struct CalendarContent: View {
                 await model.updateSemester()
             }
         }
-    }
-    
-    private var toolbar: some View {
-        Group {
-            if #available(iOS 17.0, *) {
-                toolbarBase
-                    .popoverTip(exportToCalendarTip)
-            } else {
-                toolbarBase
-            }
+        if #available(iOS 17.0, *) {
+            baseMune
+                .popoverTip(exportToCalendarTip)
+        } else {
+            baseMune
         }
     }
     

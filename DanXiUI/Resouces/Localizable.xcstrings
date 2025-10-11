@@ -231,6 +231,9 @@
         }
       }
     },
+    "Add this hole to Favorites or Subscribe to keep track of new updates." : {
+
+    },
     "Admin Actions" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1472,6 +1475,9 @@
           }
         }
       }
+    },
+    "Favorite or Subscribe" : {
+
     },
     "Favorites" : {
       "localizations" : {
