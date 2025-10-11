@@ -1,10 +1,13 @@
 import DanXiKit
 import SwiftUI
+import TipKit
 import ViewUtils
 
 struct HolePage: View {
     @StateObject private var model: HoleModel
     @ObservedObject private var profileStore = ProfileStore.shared
+    @available(iOS 17.0, *)
+    private var favoriteOrSubscribeTip : FavoriteOrSubscribeTip {.init()}
     
     private var hole: Hole {
         model.hole
@@ -223,7 +226,7 @@ struct HolePage: View {
         }
         .disabled(hole.locked && !profileStore.isAdmin)
         
-        Menu {
+        let baseMenu = Menu {
             AsyncButton {
                 try await withHaptics {
                     try await model.toggleFavorite()
@@ -311,6 +314,19 @@ struct HolePage: View {
             }
         } label: {
             Image(systemName: "ellipsis.circle")
+        }
+        .onAppear {
+            if #available(iOS 17.0, *) {
+                favoriteOrSubscribeTip.invalidate(reason: .actionPerformed)
+            }
+        }
+        
+        if #available(iOS 17.0, *) {
+            baseMenu
+                .popoverTip(favoriteOrSubscribeTip)
+        }
+        else{
+            baseMenu
         }
     }
     

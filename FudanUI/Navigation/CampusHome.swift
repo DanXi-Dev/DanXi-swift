@@ -9,6 +9,8 @@ public struct CampusHome: View {
     @ObservedObject private var campusModel = CampusModel.shared
     @StateObject private var model = CampusHomeModel()
     @State private var showSheet = false
+    @available(iOS 17.0, *)
+    private var editFeaturesTip: EditFeaturesTip { .init() }
     #if os(watchOS)
     @State private var showLogoutAlert = false
     #endif
@@ -145,10 +147,20 @@ public struct CampusHome: View {
         .compactSectionSpacing()
         .navigationTitle(String(localized: "Campus Services", bundle: .module))
         .toolbar {
-            Button {
-                showSheet = true
-            } label: {
-                Text("Edit", bundle: .module)
+            if #available(iOS 17.0, *) {
+                Button {
+                    showSheet = true
+                    editFeaturesTip.invalidate(reason: .actionPerformed)
+                } label: {
+                    Text("Edit", bundle: .module)
+                }
+                .popoverTip(editFeaturesTip)
+            } else {
+                Button {
+                    showSheet = true
+                } label: {
+                    Text("Edit", bundle: .module)
+                }
             }
         }
         .sheet(isPresented: $showSheet) {

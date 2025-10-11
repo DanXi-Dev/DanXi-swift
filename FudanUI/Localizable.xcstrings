@@ -253,6 +253,16 @@
         }
       }
     },
+    "Choose which features you want to show on the home page." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择在首页展示哪些功能。"
+          }
+        }
+      }
+    },
     "Classroom Schedule" : {
       "localizations" : {
         "zh-Hans" : {
@@ -479,6 +489,16 @@
         }
       }
     },
+    "Edit Home Page" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义首页"
+          }
+        }
+      }
+    },
     "Edit Home Page Features" : {
       "localizations" : {
         "zh-Hans" : {
@@ -615,6 +635,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导出"
+          }
+        }
+      }
+    },
+    "Export class schedule to your device calendar." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出课程表到设备日历。"
           }
         }
       }

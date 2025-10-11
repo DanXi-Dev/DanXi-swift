@@ -56,9 +56,6 @@ struct SettingsPage: View {
                     proxy.scrollTo("settings-top")
                 }
             }
-            .onReceive(AppEvents.notificationSettings) { content in
-                navigator.pushDetail(value: ForumSettingsSection.notification, replace: true)
-            }
         }
         .navigationTitle("Settings")
         .sheet(isPresented: $communityLoginSheet) {

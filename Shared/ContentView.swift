@@ -43,6 +43,21 @@ struct ContentView: View {
         }
         .onReceive(AppEvents.notificationSettings) { content in
             model.screen = .settings
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(0.1))
+                if !navigator.isCompactMode {
+                    navigator.detailSubject.send((ForumSettingsSection.notification, false))
+                }
+            }
+        }
+        .onReceive(AppEvents.foldedContentSettings) { _ in
+            model.screen = .settings
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(0.1))
+                if !navigator.isCompactMode {
+                    navigator.detailSubject.send((ForumSettingsSection.foldedContent, false))
+                }
+            }
         }
         .onAppear {
             navigator.isCompactMode = (horizontalSizeClass == .compact)

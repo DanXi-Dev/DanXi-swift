@@ -1,4 +1,5 @@
 import SwiftUI
+import TipKit
 import Utils
 import ViewUtils
 import DanXiKit
@@ -16,6 +17,9 @@ struct BrowsePage: View {
     @State private var showDivisionSheet = false
     @State private var showQuestionSheet = false
     
+    @available(iOS 17.0, *)
+    private var changeVisibilityTip : ChangeVisibilityTip {.init()}
+    
     var body: some View {
         ScrollViewReader { proxy in
             ForumList {
@@ -29,6 +33,16 @@ struct BrowsePage: View {
                 }
                 
                 bannedNotice
+                
+                if #available(iOS 17.0, *){
+                    TipView(changeVisibilityTip){
+                        action in
+                        if action.id == "go-to-settings"{
+                            AppEvents.foldedContentSettings.send()
+                        }
+                    }
+                    .tipBackground(.clear)
+                }
                 
                 if !model.division.pinned.isEmpty {
                     ForEach(model.division.pinned) { hole in
