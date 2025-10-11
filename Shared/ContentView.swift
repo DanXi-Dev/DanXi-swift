@@ -44,6 +44,9 @@ struct ContentView: View {
         .onReceive(AppEvents.notificationSettings) { content in
             model.screen = .settings
         }
+        .onReceive(AppEvents.foldedContentSettings) { _ in
+            model.screen = .settings
+        }
         .onAppear {
             navigator.isCompactMode = (horizontalSizeClass == .compact)
         }

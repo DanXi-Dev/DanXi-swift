@@ -10,9 +10,7 @@ public struct CampusHome: View {
     @StateObject private var model = CampusHomeModel()
     @State private var showSheet = false
     @available(iOS 17.0, *)
-    private var editFeaturesTip: EditFeaturesTip {
-        return EditFeaturesTip()
-    }
+    private var editFeaturesTip: EditFeaturesTip { .init() }
     #if os(watchOS)
     @State private var showLogoutAlert = false
     #endif

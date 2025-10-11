@@ -468,6 +468,9 @@
         }
       }
     },
+    "Change Visibility for Folded Content" : {
+
+    },
     "Check Decryption Status" : {
       "localizations" : {
         "zh-Hans" : {
@@ -487,6 +490,9 @@
           }
         }
       }
+    },
+    "Choose how folded content appear in the list." : {
+
     },
     "Ciphertext Copied" : {
       "localizations" : {
