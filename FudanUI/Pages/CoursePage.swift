@@ -3,6 +3,7 @@ import Combine
 import ViewUtils
 import Utils
 import FudanKit
+import TipKit
 #if canImport(EventKitUI)
 import EventKit
 import EventKitUI
@@ -90,6 +91,8 @@ fileprivate struct CalendarContent: View {
     @State private var showExportSheet = false
     @State private var showColorSheet = false
     @State private var showManualDateSelectionSheet = false
+    @available(iOS 17.0, *)
+    private var exportToCalendarTip : ExportToCalendarTip {.init()}
     @AppStorage("calendar-theme-color") private var themeColor: ThemeColor = ThemeColor.none
     
     @ScaledMetric var minWidth = CalendarConfig.dx * 7
@@ -180,7 +183,7 @@ fileprivate struct CalendarContent: View {
     
 #if !os(watchOS)
     
-    private var toolbar: some View {
+    private var toolbarBase: some View {
         Menu {
             Picker(selection: $model.semester) {
                 ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
@@ -193,6 +196,9 @@ fileprivate struct CalendarContent: View {
             .disabled(campusModel.studentType == .grad)
             
             Button {
+                if #available(iOS 17.0, *) {
+                    exportToCalendarTip.invalidate(reason: .actionPerformed)
+                }
                 Task(priority: .userInitiated) {
                     let eventStore = EKEventStore()
                     if #available(iOS 17, *) {
@@ -242,6 +248,17 @@ fileprivate struct CalendarContent: View {
         .onChange(of: model.semester.semesterId) { _ in
             Task {
                 await model.updateSemester()
+            }
+        }
+    }
+    
+    private var toolbar: some View {
+        Group {
+            if #available(iOS 17.0, *) {
+                toolbarBase
+                    .popoverTip(exportToCalendarTip)
+            } else {
+                toolbarBase
             }
         }
     }
