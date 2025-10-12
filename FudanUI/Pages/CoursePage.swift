@@ -185,7 +185,7 @@ fileprivate struct CalendarContent: View {
     
     @ViewBuilder
     private var toolbar: some View {
-        let baseMune = Menu {
+        let baseMenu = Menu {
             Picker(selection: $model.semester) {
                 ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
                     Text(semester.name).tag(semester)
@@ -252,10 +252,10 @@ fileprivate struct CalendarContent: View {
             }
         }
         if #available(iOS 17.0, *) {
-            baseMune
+            baseMenu
                 .popoverTip(exportToCalendarTip)
         } else {
-            baseMune
+            baseMenu
         }
     }
     
