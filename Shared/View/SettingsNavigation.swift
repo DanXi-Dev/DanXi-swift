@@ -63,6 +63,12 @@ struct SettingsContent: View {
                 appendDetail(value: value)
             }
         }
+        .onReceive(AppEvents.foldedContentSettings) { _ in
+            path.append(ForumSettingsSection.foldedContent)
+        }
+        .onReceive(AppEvents.notificationSettings) { _ in
+            path.append(ForumSettingsSection.notification)
+        }
         .onReceive(tabViewModel.navigationControl) { _ in
             if path.isEmpty {
                 tabViewModel.scrollControl.send()

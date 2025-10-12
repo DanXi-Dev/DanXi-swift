@@ -9,4 +9,6 @@ public enum AppEvents {
     
     /// User taps "configure notification settings" in system settings. The app should present in-app notification configuration view.
     public static let notificationSettings = PassthroughSubject<UNNotificationContent?, Never>()
+
+    public static let foldedContentSettings = PassthroughSubject<Void, Never>()
 }
