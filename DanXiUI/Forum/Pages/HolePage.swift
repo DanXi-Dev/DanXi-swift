@@ -119,15 +119,27 @@ struct HolePage: View {
                 }
                 
                 ToolbarItem(placement: .bottomBar) {
-                    bottomBar
+                    if #available(iOS 26.0, *) {
+                        // bottomBar is covered by tabBar in iOS 26+
+                        // using .overlay to generate a show-all-floor button
+                    }
+                    else {
+                        bottomBar
+                    }
                 }
             }
             .overlay(alignment: .bottom) {
-                if let originalFloor = model.scrollFrom {
-                    ReturnCapsule(originalFloor: originalFloor)
-                        .id(originalFloor.id)
-                        .padding(.bottom, 20)
-                }
+                VStack(spacing: 0) {
+                        if let originalFloor = model.scrollFrom {
+                            ReturnCapsule(originalFloor: originalFloor)
+                                .id(originalFloor.id)
+                                .padding(.bottom, 20)
+                        }
+                        
+                        if #available(iOS 26.0, *) {
+                            bottomButton
+                        }
+                    }
             }
             .environmentObject(model)
             .task {
@@ -350,6 +362,34 @@ struct HolePage: View {
                         .labelStyle(.titleAndIcon)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var bottomButton: some View {
+        // For iOS26 + where bottomBar is covered by tabBar
+        // see returnCapsule for the style of this button
+        if model.filterOption != .all && model.filterOption != .posterOnly {
+            Button {
+                withAnimation {
+                    model.filterOption = .all
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "bubble.left.and.bubble.right")
+                    Text("Show All Floors", bundle: .module)
+                    .font(.system(size: 16))
+                }
+            }
+            .padding(.horizontal, 16).padding(.vertical, 10)
+            .background {
+                Capsule(style: .continuous)
+                    .fill(.thickMaterial)
+                    .shadow(.drop(radius: 12))
+                    
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .padding(.horizontal, 18).padding(.bottom, 20)
         }
     }
 }
