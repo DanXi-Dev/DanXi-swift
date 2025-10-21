@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 
 public enum SheetStyle {
     case independent, subpage
@@ -6,9 +7,11 @@ public enum SheetStyle {
 
 public struct Sheet<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) var openURL
     
     @State private var loading = false
     @State private var showAlert = false
+    @State private var showCaptchaAlert = false
     @State private var alertMessage = ""
     @State private var showDiscardWarning = false
     
@@ -69,7 +72,12 @@ public struct Sheet<Content: View>: View {
                 }
             } catch {
                 alertMessage = error.localizedDescription
-                showAlert = true
+                switch error {
+                    case CampusError.needCaptcha:
+                        showCaptchaAlert = true
+                    default:
+                        showAlert = true
+                }
             }
         }
     }
@@ -112,11 +120,29 @@ public struct Sheet<Content: View>: View {
                 }
             }
         }
+        //regular alert
         .alert(String(localized: "Error", bundle: .module), isPresented: $showAlert) {
             
         } message: {
             Text(alertMessage)
         }
+        //captcha alert
+        .alert(String(localized: "Error", bundle: .module), isPresented: $showCaptchaAlert) {
+            Button {
+                
+            } label: {
+                Text("Cancel", bundle: .module)
+            }
+            
+            Button {
+                openURL(URL(string: "https://uis.fudan.edu.cn")!)
+            } label: {
+                Text("Go to Browser", bundle: .module)
+            }
+        } message: {
+            Text("Need captcha, visit UIS webpage to login.", bundle: .module)
+        }
+        //unsaved alert
         .alert(String(localized: "Unsaved Changes", bundle: .module), isPresented: $showDiscardWarning) {
             Button(String(localized: "Cancel", bundle: .module), role: .cancel) {
                 showDiscardWarning = false
