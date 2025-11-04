@@ -18,7 +18,6 @@ struct InnovationWebView: UIViewRepresentable {
     
     private func setupConfiguration() -> WKWebViewConfiguration {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = WKProcessPool()
         
         if let token = CredentialStore.shared.token {
             let accessCookie = HTTPCookie(properties: [
