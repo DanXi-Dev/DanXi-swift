@@ -11,29 +11,24 @@
       "blur-material" : null,
       "layers" : [
         {
-          "fill" : "automatic",
-          "glass-specializations" : [
-            {
-              "value" : true
-            },
-            {
-              "appearance" : "dark",
-              "value" : true
-            }
-          ],
-          "hidden-specializations" : [
-            {
-              "idiom" : "watchOS",
-              "value" : false
-            }
-          ],
-          "image-name" : "icon6.svg",
-          "name" : "icon6",
+          "glass" : true,
+          "image-name" : "icon7.png",
+          "name" : "icon7",
           "position-specializations" : [
+            {
+              "idiom" : "square",
+              "value" : {
+                "scale" : 0.5,
+                "translation-in-points" : [
+                  0,
+                  0
+                ]
+              }
+            },
             {
               "idiom" : "watchOS",
               "value" : {
-                "scale" : 1.1,
+                "scale" : 0.5,
                 "translation-in-points" : [
                   0,
                   0
