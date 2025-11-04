@@ -77,16 +77,43 @@ public enum UndergraduateCourseAPI {
         let startUnit, endUnit, weekday: Int
         let weekIndexes: [Int]
         
-        func build() -> Course {
-            Course(id: UUID(),
-                   name: courseName,
-                   code: lessonCode,
-                   teacher: teachers.first ?? "",
-                   location: room ?? "",
-                   weekday: weekday - 1,
-                   start: startUnit - 1,
-                   end: endUnit - 1,
-                   onWeeks: weekIndexes)
+        func build(split: Bool = false) -> [Course] {
+            if split {
+                return weekIndexes.map { weekIndex in
+                    Course(id: UUID(),
+                              name: courseName,
+                              code: lessonCode,
+                              teacher: teachers.first ?? "",
+                              location: room ?? "",
+                              weekday: weekday - 1,
+                              start: startUnit - 1,
+                              end: endUnit - 1,
+                              onWeeks: [weekIndex])
+                }
+            }
+            else{
+                return [Course(id: UUID(),
+                       name: courseName,
+                       code: lessonCode,
+                       teacher: teachers.first ?? "",
+                       location: room ?? "",
+                       weekday: weekday - 1,
+                       start: startUnit - 1,
+                       end: endUnit - 1,
+                       onWeeks: weekIndexes)]
+            }
+        }
+        
+        func conflicts(with other: CourseBuilder) -> Bool {
+            guard weekday == other.weekday else {
+                return false
+            }
+            guard !(endUnit < other.startUnit || startUnit > other.endUnit) else {
+                return false
+            }
+            let weekSet = Set(weekIndexes)
+            let otherWeekSet = Set(other.weekIndexes)
+            return !weekSet.isDisjoint(with: otherWeekSet)
         }
     }
 
@@ -122,29 +149,43 @@ public enum UndergraduateCourseAPI {
                 .joined(separator: ", ")
         }
         
+        var coursesToSplit = Set<String>()
+        
+        for i in 0..<builders.count {
+            for j in (i + 1)..<builders.count {
+                if builders[i].conflicts(with: builders[j]){
+                    if builders[i].lessonCode == builders[j].lessonCode {
+                        coursesToSplit.insert(builders[i].lessonCode)
+                    }
+                }
+            }
+        }
+        
         for builder in builders {
-            let course = builder.build()
+            let courses = builder.build(split: coursesToSplit.contains(builder.lessonCode))
             
-            let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
-            let key = "\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
-            
-            if let existed = courseDict[key] {
-                let mergedRooms = mergeProperties(from: existed.location, and: course.location)
-                let mergedTeachers = mergeProperties(from: existed.teacher, and: course.teacher)
+            for course in courses {
+                let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
+                let key = "\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
                 
-                courseDict[key] = Course(
-                    id: existed.id,
-                    name: existed.name,
-                    code: existed.code,
-                    teacher: mergedTeachers,
-                    location: mergedRooms,
-                    weekday: existed.weekday,
-                    start: existed.start,
-                    end: existed.end,
-                    onWeeks: existed.onWeeks
-                )
-            } else {
-                courseDict[key] = course
+                if let existed = courseDict[key] {
+                    let mergedRooms = mergeProperties(from: existed.location, and: course.location)
+                    let mergedTeachers = mergeProperties(from: existed.teacher, and: course.teacher)
+                    
+                    courseDict[key] = Course(
+                        id: existed.id,
+                        name: existed.name,
+                        code: existed.code,
+                        teacher: mergedTeachers,
+                        location: mergedRooms,
+                        weekday: existed.weekday,
+                        start: existed.start,
+                        end: existed.end,
+                        onWeeks: existed.onWeeks
+                    )
+                } else {
+                    courseDict[key] = course
+                }
             }
         }
 
