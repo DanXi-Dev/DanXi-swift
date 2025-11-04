@@ -24,7 +24,6 @@ struct WebView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.processPool = WKProcessPool()
         let cookies = HTTPCookieStorage.shared.cookies ?? [HTTPCookie]()
         cookies.forEach { config.websiteDataStore.httpCookieStore.setCookie($0, completionHandler: nil) }
         
