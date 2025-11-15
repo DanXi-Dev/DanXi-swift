@@ -264,7 +264,9 @@ public class CourseModel: ObservableObject {
         for key in keys {
             guard let courses = self.calendarMap[key] else { continue }
             for course in courses {
-                try course.exportEvents(for: eventStore, to: calendar, semesterStart: startDate)
+                if !CourseSettings.shared.hiddenCourses.contains(course.code) {
+                    try course.exportEvents(for: eventStore, to: calendar, semesterStart: startDate)
+                }
             }
         }
         
