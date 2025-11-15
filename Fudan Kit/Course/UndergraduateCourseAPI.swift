@@ -77,43 +77,16 @@ public enum UndergraduateCourseAPI {
         let startUnit, endUnit, weekday: Int
         let weekIndexes: [Int]
         
-        func build(split: Bool = false) -> [Course] {
-            if split {
-                return weekIndexes.map { weekIndex in
-                    Course(id: UUID(),
-                              name: courseName,
-                              code: lessonCode,
-                              teacher: teachers.first ?? "",
-                              location: room ?? "",
-                              weekday: weekday - 1,
-                              start: startUnit - 1,
-                              end: endUnit - 1,
-                              onWeeks: [weekIndex])
-                }
-            }
-            else{
-                return [Course(id: UUID(),
-                       name: courseName,
-                       code: lessonCode,
-                       teacher: teachers.first ?? "",
-                       location: room ?? "",
-                       weekday: weekday - 1,
-                       start: startUnit - 1,
-                       end: endUnit - 1,
-                       onWeeks: weekIndexes)]
-            }
-        }
-        
-        func conflicts(with other: CourseBuilder) -> Bool {
-            guard weekday == other.weekday else {
-                return false
-            }
-            guard !(endUnit < other.startUnit || startUnit > other.endUnit) else {
-                return false
-            }
-            let weekSet = Set(weekIndexes)
-            let otherWeekSet = Set(other.weekIndexes)
-            return !weekSet.isDisjoint(with: otherWeekSet)
+        func build() -> Course {
+            Course(id: UUID(),
+                   name: courseName,
+                   code: lessonCode,
+                   teacher: teachers.first ?? "",
+                   location: room ?? "",
+                   weekday: weekday - 1,
+                   start: startUnit - 1,
+                   end: endUnit - 1,
+                   onWeeks: weekIndexes)
         }
     }
 
@@ -151,18 +124,25 @@ public enum UndergraduateCourseAPI {
         
         var coursesToSplit = Set<String>()
         
-        for i in 0..<builders.count {
-            for j in (i + 1)..<builders.count {
-                if builders[i].conflicts(with: builders[j]){
-                    if builders[i].lessonCode == builders[j].lessonCode {
-                        coursesToSplit.insert(builders[i].lessonCode)
-                    }
-                }
+        let courses = builders.map { $0.build() }
+        
+        for course in courses {
+            if courses.contains(where: { $0.code == course.code && $0.conflicts(with: course) }) {
+                coursesToSplit.insert(course.code)
             }
         }
         
         for builder in builders {
-            let courses = builder.build(split: coursesToSplit.contains(builder.lessonCode))
+            var courses : [Course] = []
+            if coursesToSplit.contains(builder.lessonCode) {
+                let template = builder.build()
+                courses = template.onWeeks.map{ week in
+                    Course(id: UUID(), name: template.name, code: template.code, teacher: template.teacher, location: template.location, weekday: template.weekday, start: template.start, end: template.end, onWeeks: [week])
+                }
+            }
+            else{
+                courses = [builder.build()]
+            }
             
             for course in courses {
                 let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")

@@ -11,6 +11,7 @@ import EventKitUI
 
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var courseSettings = CourseSettings.shared
     @State private var loadingProgress: Float?
     
     private let loadingProgressPublisher = PassthroughSubject<Float, Never>()
@@ -71,8 +72,13 @@ public struct CoursePage: View {
                 let description = String(localized: "Calendar for staff is not supported.", bundle: .module)
                 throw LocatableError(description)
             }
-        } content: { model in
-            CalendarContent(model: model)
+        } content: { (model : CourseModel) in
+            if let conflicts = model.getConfiltCourses(){
+                ConflictResolver(conflits: conflicts)
+            }
+            else{
+                CalendarContent(model: model)
+            }
         }
         .onReceive(loadingProgressPublisher) { progress in
             loadingProgress = progress
@@ -242,6 +248,12 @@ fileprivate struct CalendarContent: View {
                 }
             } label: {
                 Text("Advanced Settings", bundle: .module)
+            }
+            
+            Button{
+                CourseSettings.shared.hiddenCourses = []
+            } label: {
+                Text("Clear Hidden Courses", bundle: .module)
             }
         } label: {
             Image(systemName: "ellipsis.circle")
@@ -594,4 +606,62 @@ private struct ManualResetSemesterStartDateSheet: View {
     CoursePage()
         .environmentObject(model)
         .previewPrepared()
+}
+
+private struct ConflictResolver: View {
+    public let conflits: [Course]
+    @State private var hiddenCourses: Set<String>
+
+    public init(conflits: [Course]) {
+        self.conflits = conflits
+        self.hiddenCourses = Set<String>(CourseSettings.shared.hiddenCourses)
+    }
+
+    public var body: some View {
+        ZStack(alignment: .topLeading) {
+            VStack(alignment: .leading, spacing: 12) {
+                Label(String(localized: "Course conflict — select course(s) to hide", bundle: .module),
+                      systemImage: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+
+                ForEach(conflits, id: \.code) { course in
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(course.name).font(.headline)
+                            Text(course.code).font(.subheadline).foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Toggle(String(localized: "Hide This Course", bundle: .module), isOn: Binding(
+                            get: { hiddenCourses.contains(course.code) },
+                            set: { on in
+                                if on { hiddenCourses.insert(course.code) }
+                                else  { hiddenCourses.remove(course.code) }
+                            }
+                        ))
+                        .labelsHidden()
+                    }
+                    .padding(12)
+                    .background(.background, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(.quaternary)
+                    )
+                }
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        CourseSettings.shared.hiddenCourses = Array(hiddenCourses)
+                    } label: {
+                        Text("Confirm")
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding(.top, 8)
+            }
+            .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
 }
