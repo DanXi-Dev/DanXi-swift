@@ -73,7 +73,7 @@ public struct CoursePage: View {
                 throw LocatableError(description)
             }
         } content: { (model : CourseModel) in
-            if let conflicts = model.getConfiltCourses(){
+            if let conflicts = model.getConflictingCourses(){
                 ConflictResolver(conflits: conflicts)
             }
             else{

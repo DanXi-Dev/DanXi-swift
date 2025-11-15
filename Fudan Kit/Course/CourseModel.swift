@@ -72,7 +72,7 @@ public class CourseModel: ObservableObject {
         return CourseModel(cache: cache, week: week)
     }
     
-    public func getConfiltCourses() -> [Course]? {
+    public func getConflictingCourses() -> [Course]? {
         var codes = Set<String>(CourseSettings.shared.hiddenCourses)
         let conflicts = courses.filter { course in
             guard !codes.contains(course.code) else { return false }
