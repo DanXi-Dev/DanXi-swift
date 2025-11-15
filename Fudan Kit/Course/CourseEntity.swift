@@ -69,6 +69,18 @@ public struct Course: Identifiable, Codable, Hashable {
     public func openOn(_ week: Int) -> Bool {
         onWeeks.contains(week)
     }
+    
+    func conflicts(with other: Course) -> Bool {
+        guard weekday == other.weekday else {
+            return false
+        }
+        guard !(end < other.start || start > other.end) else {
+            return false
+        }
+        let weekSet = Set(onWeeks)
+        let otherWeekSet = Set(other.onWeeks)
+        return !weekSet.isDisjoint(with: otherWeekSet)
+    }
 }
 
 /// Time slot that courses are held.

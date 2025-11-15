@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "%@" : {
       "localizations" : {
         "zh-Hans" : {
@@ -273,6 +276,16 @@
         }
       }
     },
+    "Clear Hidden Courses" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空隐藏的课程"
+          }
+        }
+      }
+    },
     "Closed" : {
       "localizations" : {
         "en" : {
@@ -325,6 +338,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课程类别"
+          }
+        }
+      }
+    },
+    "Course conflict — select course(s) to hide" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课程冲突 - 选择要隐藏的课程"
           }
         }
       }
@@ -848,6 +871,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隐藏功能"
+          }
+        }
+      }
+    },
+    "Hide This Course" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏此课程"
           }
         }
       }
