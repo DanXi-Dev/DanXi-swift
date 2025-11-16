@@ -626,19 +626,16 @@ private struct ConflictResolver: View {
 
                 ForEach(conflits, id: \.code) { course in
                     HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(course.name).font(.headline)
-                            Text(course.code).font(.subheadline).foregroundStyle(.secondary)
-                        }
-                        Spacer()
-                        Toggle(String(localized: "Hide This Course", bundle: .module), isOn: Binding(
+                        Toggle(isOn: Binding(
                             get: { hiddenCourses.contains(course.code) },
                             set: { on in
                                 if on { hiddenCourses.insert(course.code) }
                                 else  { hiddenCourses.remove(course.code) }
                             }
-                        ))
-                        .labelsHidden()
+                        )) {
+                            Text(course.name).font(.headline)
+                            Text(course.code).font(.subheadline).foregroundStyle(.secondary)
+                        }
                     }
                     .padding(12)
                     .background(.background, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
