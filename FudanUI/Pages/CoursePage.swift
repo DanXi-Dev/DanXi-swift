@@ -224,6 +224,16 @@ fileprivate struct CalendarContent: View {
             }
             .disabled(model.semester.startDate == nil)
             
+            Button{
+                CourseSettings.shared.hiddenCourses = []
+            } label: {
+                Label {
+                    Text("Clear Hidden Courses", bundle: .module)
+                } icon: {
+                    Image(systemName: "clear")
+                }
+            }
+            
             Divider()
             
             Menu {
@@ -248,12 +258,6 @@ fileprivate struct CalendarContent: View {
                 }
             } label: {
                 Text("Advanced Settings", bundle: .module)
-            }
-            
-            Button{
-                CourseSettings.shared.hiddenCourses = []
-            } label: {
-                Text("Clear Hidden Courses", bundle: .module)
             }
         } label: {
             Image(systemName: "ellipsis.circle")
