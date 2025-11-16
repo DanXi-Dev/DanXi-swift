@@ -77,9 +77,7 @@ public struct Course: Identifiable, Codable, Hashable {
         guard !(end < other.start || start > other.end) else {
             return false
         }
-        let weekSet = Set(onWeeks)
-        let otherWeekSet = Set(other.onWeeks)
-        return !weekSet.isDisjoint(with: otherWeekSet)
+        return !Set(onWeeks).isDisjoint(with: Set(other.onWeeks))
     }
 }
 

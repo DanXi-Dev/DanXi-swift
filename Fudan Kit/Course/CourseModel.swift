@@ -149,10 +149,7 @@ public class CourseModel: ObservableObject {
     
     public var coursesInThisWeek: [Course] {
         courses.filter { course in
-            !CourseSettings.shared.hiddenCourses.contains(course.code)
-        }
-        .filter { course in
-            course.onWeeks.contains(week)
+            !CourseSettings.shared.hiddenCourses.contains(course.code) && course.onWeeks.contains(week)
         }
     }
     

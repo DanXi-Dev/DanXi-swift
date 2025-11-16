@@ -872,16 +872,6 @@
         }
       }
     },
-    "Hide This Course" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "隐藏此课程"
-          }
-        }
-      }
-    },
     "Holiday" : {
       "localizations" : {
         "zh-Hans" : {
