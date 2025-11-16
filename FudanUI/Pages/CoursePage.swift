@@ -650,7 +650,7 @@ private struct ConflictResolver: View {
                     Button {
                         CourseSettings.shared.hiddenCourses = Array(hiddenCourses)
                     } label: {
-                        Text("Confirm")
+                        Text("Confirm", bundle: .module)
                             .fontWeight(.semibold)
                     }
                     .buttonStyle(.borderedProminent)
