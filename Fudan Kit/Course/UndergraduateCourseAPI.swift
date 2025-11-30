@@ -376,25 +376,81 @@ public enum UndergraduateCourseAPI {
     }
     
     // MARK: - Score and GPA
-    
+
+    /// Get  student ID from course table API
+    private static func getStudentId() async throws -> String {
+        let (_, semesterId) = try await getSemesters()
+
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(semesterId)/print-data")!
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let json = try JSON(data: data)
+
+        guard let studentId = json["studentTableVms"][0]["id"].int else {
+            throw LocatableError()
+        }
+
+        return String(studentId)
+    }
+
     /// Get the student course score on a given semeser
     /// - Parameter semester: Semester ID
     /// - Returns: A list of ``Score``
     public static func getScore(semester: Int) async throws -> [Score] {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/teach/grade/course/person!search.action?semesterId=\(String(semester))")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
-        
-        let table = try decodeHTMLElement(data, selector: "tbody")
-        
+        let studentId = try await getStudentId()
+
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/sheet/info/\(studentId)?semester=\(semester)")!
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+
+        let json = try JSON(data: data)
+        let semesterKey = String(semester)
+        guard let gradesArray = json["semesterId2studentGrades"][semesterKey].array else {
+            return []
+        }
+
         var scores: [Score] = []
-        for element in table.children() {
-            if element.childNodeSize() > 7 { // check child size before accessing child() to prevent crash
-                let score = Score(id: UUID(), courseId: try element.child(2).html(), courseName:  try element.child(3).html(), courseType: try element.child(4).html(), courseCredit: try element.child(5).html(), grade: try element.child(6).html(), gradePoint: try element.child(7).html())
+        for gradeJson in gradesArray {
+            guard let gradeData = try? gradeJson.rawData() else { continue }
+            let decoder = JSONDecoder()
+            if let scoreResponse = try? decoder.decode(ScoreResponse.self, from: gradeData) {
+                var courseTypeText = scoreResponse.courseModuleTypeName ?? scoreResponse.courseType ?? ""
+                if let commaIndex = courseTypeText.firstIndex(of: ",") {
+                    courseTypeText = String(courseTypeText[..<commaIndex])
+                }
+
+                let score = Score(
+                    id: UUID(),
+                    courseId: scoreResponse.lessonCode,
+                    courseName: scoreResponse.courseName,
+                    courseType: courseTypeText,
+                    courseCredit: nil,
+                    grade: scoreResponse.gaGrade,
+                    gradePoint: scoreResponse.gp != nil ? String(format: "%.2f", scoreResponse.gp!) : ""
+                )
                 scores.append(score)
             }
         }
-        
+
         return scores
+    }
+
+    private struct ScoreResponse: Decodable {
+        let lessonCode: String
+        let courseCode: String
+        let courseName: String
+        let courseType: String?
+        let courseModuleTypeName: String?
+        let gaGrade: String
+        let gp: Double?
+
+        enum CodingKeys: String, CodingKey {
+            case lessonCode
+            case courseCode
+            case courseName
+            case courseType
+            case courseModuleTypeName
+            case gaGrade
+            case gp
+        }
     }
     
     /// Get the rank list, aka GPA ranking table
