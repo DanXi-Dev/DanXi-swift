@@ -12,11 +12,7 @@ struct ScorePage: View {
     }
     
     var body: some View {
-        if campusModel.studentType == .undergrad {
-            Text("Service Unavailable", bundle: .module)
-        } else {
-            normalView
-        }
+        normalView
     }
     
     private var normalView: some View {
@@ -149,12 +145,15 @@ fileprivate struct ScoreDetailSheet: View {
                     Text(score.gradePoint)
                         .foregroundColor(.secondary)
                 }
+                // TODO: 暂时隐藏学分显示，等待新API支持
+                /*
                 HStack {
                     Text("Course Credit", bundle: .module)
                     Spacer()
                     Text(score.courseCredit)
                         .foregroundColor(.secondary)
                 }
+                */
             }
             .labelStyle(.titleOnly)
             #if !os(watchOS)
