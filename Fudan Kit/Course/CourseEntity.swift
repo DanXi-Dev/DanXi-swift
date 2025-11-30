@@ -145,7 +145,7 @@ public struct Score: Identifiable, Codable {
     public let courseId: String
     public let courseName: String
     public let courseType: String
-    public let courseCredit: String
+    public let courseCredit: String? // TODO: 新API暂不支持学分查询，后续补充
     public let grade: String
     public let gradePoint: String
 }
