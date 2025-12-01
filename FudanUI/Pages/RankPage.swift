@@ -16,11 +16,6 @@ struct RankPage: View {
     }
     
     var body: some View {
-        Text("Service Unavailable", bundle: .module)
-    }
-    
-    /*
-    var body: some View {
         AsyncContentView {
             if let previewRanks {
                 return previewRanks
@@ -90,7 +85,6 @@ struct RankPage: View {
         .navigationTitle(String(localized: "GPA Rank", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
-     */
 }
 
 fileprivate struct RankView: View {
