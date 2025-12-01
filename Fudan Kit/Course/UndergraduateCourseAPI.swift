@@ -441,40 +441,41 @@ public enum UndergraduateCourseAPI {
         let courseModuleTypeName: String?
         let gaGrade: String
         let gp: Double?
-
-        enum CodingKeys: String, CodingKey {
-            case lessonCode
-            case courseCode
-            case courseName
-            case courseType
-            case courseModuleTypeName
-            case gaGrade
-            case gp
-        }
     }
     
-    /// Get the rank list, aka GPA ranking table
+    /// Get the rank list, aka GPA ranking table (department-wide ranking)
     public static func getRanks() async throws -> [Rank] {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let studentId = try await getStudentId()
         
-        let table = try decodeHTMLElement(data, selector: "tbody")
+        // Get departmentAssoc and grade from search-index page
+        let indexURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/my-gpa/search-index/\(studentId)")!
+        let indexData = try await Authenticator.neo.authenticate(indexURL, loginURL: loginURL)
         
-        var ranks: [Rank] = []
-        
-        for element in table.children() {
-            if table.childNodeSize() > 8 { // check child size before accessing child() to prevent crash
-                guard let gradePoint = Double(try element.child(5).html()),
-                      let credit = Double(try element.child(6).html()),
-                      let rankIndex = Int(try element.child(7).html()) else {
-                    continue
-                }
-                
-                let rank = Rank(id: UUID(), name: try element.child(1).html(), grade: try element.child(2).html(), major: try element.child(3).html(), department: try element.child(4).html(), gradePoint: gradePoint, credit: credit, rank: rankIndex)
-                ranks.append(rank)
-            }
+        guard let html = String(data: indexData, encoding: .utf8),
+              let gradeMatch = html.firstMatch(of: /name="grade"\s+value="(\d+)"/),
+              let deptMatch = html.firstMatch(of: /name="departmentAssoc"\s+value="(\d+)"/) else {
+            throw LocatableError()
         }
         
-        return ranks
+        // get department GPA ranks
+        let searchURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/my-gpa/search?studentAssoc=\(studentId)&grade=\(gradeMatch.1)&departmentAssoc=\(deptMatch.1)&majorAssoc=")!
+        let searchData = try await Authenticator.neo.authenticate(searchURL, loginURL: loginURL)
+        
+        guard let ranksArray = try JSON(data: searchData)["data"].array else {
+            return []
+        }
+        
+        return ranksArray.compactMap { rankJson -> Rank? in
+            guard let name = rankJson["name"].string,
+                  let grade = rankJson["grade"].string,
+                  let major = rankJson["major"].string,
+                  let department = rankJson["department"].string,
+                  let gpa = rankJson["gpa"].double,
+                  let credit = rankJson["credit"].double,
+                  let ranking = rankJson["ranking"].int else {
+                return nil
+            }
+            return Rank(id: UUID(), name: name, grade: grade, major: major, department: department, gradePoint: gpa, credit: credit, rank: ranking)
+        }
     }
 }
