@@ -135,6 +135,7 @@ public struct Exam: Identifiable {
     public let time: String
     public let location: String
     public let note: String
+    public let isFinished: Bool
 }
 
 // MARK: - GPA and Score

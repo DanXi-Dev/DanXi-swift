@@ -260,6 +260,12 @@ public enum UndergraduateCourseAPI {
             var time = ""
             var location = ""
             var note = ""
+            var isFinished = false
+
+            let dataFinishedAttr = try? element.attr("data-finished")
+            if let dataFinishedAttr = dataFinishedAttr, dataFinishedAttr == "true" {
+                isFinished = true
+            }
 
             let firstCell = cellsArray[0]
             if let timeDiv = try? firstCell.select("div.time").first(),
@@ -301,7 +307,7 @@ public enum UndergraduateCourseAPI {
 
             note = (try? cellsArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
 
-            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note)
+            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note, isFinished: isFinished)
             exams.append(exam)
         }
 
