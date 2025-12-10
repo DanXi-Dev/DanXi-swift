@@ -5,12 +5,7 @@ import ViewUtils
 struct ExamPage: View {
     @State var selectedExam: Exam? = nil
     @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        Text("Service Unavailable", bundle: .module)
-    }
 
-    /*
     var body: some View {
         AsyncContentView {
             try await UndergraduateCourseAPI.getExams()
@@ -55,7 +50,6 @@ struct ExamPage: View {
         .navigationTitle(String(localized: "Exams", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
-     */
 }
 
 fileprivate struct ExamDetailSheet: View {
