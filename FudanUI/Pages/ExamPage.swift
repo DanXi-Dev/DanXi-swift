@@ -5,12 +5,7 @@ import ViewUtils
 struct ExamPage: View {
     @State var selectedExam: Exam? = nil
     @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        Text("Service Unavailable", bundle: .module)
-    }
 
-    /*
     var body: some View {
         AsyncContentView {
             try await UndergraduateCourseAPI.getExams()
@@ -32,7 +27,7 @@ struct ExamPage: View {
                             VStack(alignment: .trailing) {
                                 if !exam.type.contains("无") {
                                     Text(exam.type)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(exam.type == "期末" ? .primary : .secondary)
                                         .font(.footnote)
                                 }
                                 if !exam.location.contains("无") {
@@ -55,7 +50,6 @@ struct ExamPage: View {
         .navigationTitle(String(localized: "Exams", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
     }
-     */
 }
 
 fileprivate struct ExamDetailSheet: View {
