@@ -173,167 +173,85 @@ public enum UndergraduateCourseAPI {
     }
     // MARK: - Exam
     
-    /// Get uset's exam list
+    /// Get user's exam list
     ///
     /// ## API Detail
     ///
-    /// This API use the cookie `semester.id` to get the exam list. If it's set to different value before, it might return incorrect value.
+    /// This API uses the neo authentication to fetch exam information from the new endpoint.
+    /// The new endpoint returns HTML with an exam table.
     ///
-    /// The server response with the following content:
+    /// - Returns: A list of ``Exam``, including both finished and upcoming exams
     ///
-    /// ```swift
-    /// <table class="gridtable" style="width:100%;text-align: center" align="center">
-    ///     <thead class="gridhead">
-    ///         <tr>
-    ///             <th style="width: 10%">课程序号</th>
-    ///             <th style="width: 8%">课程代码</th>
-    ///             <th style="width: 18%">课程名称</th>
-    ///             <th style="width: 8%">考试类型</th>
-    ///             <th style="width: 11%">考试日期或论文提交日期</th>
-    ///             <th style="width: 12%">考试安排</th>
-    ///             <th style="width: 8%">考试地点</th>
-    ///             <th style="width: 6%">考试方式</th>
-    ///             <th style="width: 8%">其它说明</th>
-    ///         </tr>
-    ///     </thead>
-    ///     <tr>
-    ///         <td style="width: 10%">PHYS130093h.01</td>
-    ///         <td style="width: 8%">PHYS130093h</td>
-    ///         <td style="width: 18%">
-    ///             大学物理A：原子物理(H)
-    ///         </td>
-    ///         <td style="width: 8%">期末考试</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-21
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             13:00~15:00
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             H3209
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///         </td>
-    ///     </tr>
-    ///     <tr>
-    ///         <td style="width: 10%">MATH120022.04</td>
-    ///         <td style="width: 8%">MATH120022</td>
-    ///         <td style="width: 18%">
-    ///             高等数学A(下）
-    ///         </td>
-    ///         <td style="width: 8%">期末考试</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-21
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             08:30~10:30
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             H3208
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///         </td>
-    ///     </tr>
-    ///     <tr style="color:#BBC4C3;">
-    ///         <td style="width: 10%">ENGL110057.02</td>
-    ///         <td style="width: 8%">ENGL110057</td>
-    ///         <td style="width: 18%">
-    ///             英国文学欣赏指南
-    ///         </td>
-    ///         <td style="width: 8%">期末考试</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-14
+    /// Exam status:
+    /// - Exams with class "finished hide" are completed exams
+    /// - Exams with class "unfinished" are upcoming/pending exams
     ///
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             19:50~21:00
-    ///
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             H2201
-    ///
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///
-    ///
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///
-    ///
-    ///         </td>
-    ///     </tr>
-    ///     <tr>
-    ///         <td style="width: 10%">PHYS130013.01</td>
-    ///         <td style="width: 8%">PHYS130013</td>
-    ///         <td style="width: 18%">
-    ///             毕业论文
-    ///         </td>
-    ///         <td style="width: 8%">无</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-08
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~18:30
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             <font color="BBC4C3">无</font>
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             论文
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///
-    ///
-    ///         </td>
-    ///     </tr>
-    ///     <tr style="color:#BBC4C3;">
-    ///         <td style="width: 10%">MATH120022.04</td>
-    ///         <td style="width: 8%">MATH120022</td>
-    ///         <td style="width: 18%">
-    ///             高等数学A(下）
-    ///         </td>
-    ///         <td style="width: 8%">期中考试</td>
-    ///         <td style="width: 11%">
-    ///             <font color="BBC4C3">无</font>
-    ///
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             <font color="BBC4C3">无</font>
-    ///
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             <font color="BBC4C3">无</font>
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///         </td>
-    ///     </tr>
-    /// </table>
+    /// ## Example HTML Response:
+    /// ```html
+    /// <tr data-finished="false" class="unfinished">
+    ///     <td>
+    ///         <div class="time">2026-01-04 08:30~10:30</div>
+    ///         <div>
+    ///             <span>邯郸校区</span>
+    ///             <span>H邯郸校区第六教学楼</span>
+    ///             <span>H6506</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>
+    ///         <div>
+    ///             <span>数字集成电路设计原理(H) </span>
+    ///             <span>ICSE30021h.01 </span>
+    ///             <span>（闭卷） </span>
+    ///         </div>
+    ///         <div>
+    ///             <span class="tag-span type2">期末</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>请携带学生证或一卡通，待考试时核查。</td>
+    ///     <td>未结束</td>
+    /// </tr>
+    /// <tr data-finished="true" class="finished hide">
+    ///     <td>
+    ///         <div class="time ">2025-11-11 13:00~15:00</div>
+    ///         <div>
+    ///             <span>邯郸校区</span>
+    ///             <span>H邯郸校区第二教学楼</span>
+    ///             <span>H2115</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>
+    ///         <div>
+    ///             <span>半导体器件原理(H) </span>
+    ///             <span>ICSE30020h.01 </span>
+    ///             <span>（半开卷） </span>
+    ///         </div>
+    ///         <div>
+    ///             <span class="tag-span type1">期中</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>请携带学生证或一卡通，待考试时核查。</td>
+    ///     <td>已结束</td>
+    /// </tr>
     /// ```
     public static func getExams() async throws -> [Exam] {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
-        
+        let studentId = try await getStudentId()
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/exam-arrange/info/\(studentId)")!
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+
         var exams: [Exam] = []
-        
-        let elements = try decodeHTMLElementList(data, selector: "tr")
+
+        let elements = try decodeHTMLElementList(data, selector: "table.exam-table tbody tr")
         for element in elements {
-            let cells = try element.select("td")
-            
-            // table header is passed
-            if cells.isEmpty() {
+            let classAttr = try? element.attr("class")
+            if let classAttr = classAttr, classAttr.contains("tr-empty") {
                 continue
             }
-            
+
+            let cellsArray = try element.select("td").array()
+            guard cellsArray.count >= 4 else {
+                continue
+            }
+
             var courseId = ""
             var course = ""
             var type = ""
@@ -342,36 +260,57 @@ public enum UndergraduateCourseAPI {
             var time = ""
             var location = ""
             var note = ""
-            
-            for (index, cell) in cells.enumerated() {
-                let text = try cell.text(trimAndNormaliseWhitespace: true) // TODO: remove entities like &nbsp
-                
-                switch index {
-                case 0:
-                    courseId = text
-                case 2:
-                    course = text
-                case 3:
-                    type = text
-                case 4:
-                    date = text
-                case 5:
-                    time = text
-                case 6:
-                    location = text
-                case 7:
-                    method = text
-                case 8:
-                    note = text
-                default:
-                    continue
+            var isFinished = false
+
+            let dataFinishedAttr = try? element.attr("data-finished")
+            if let dataFinishedAttr = dataFinishedAttr, dataFinishedAttr == "true" {
+                isFinished = true
+            }
+
+            let firstCell = cellsArray[0]
+            if let timeDiv = try? firstCell.select("div.time").first(),
+               let timeText = try? timeDiv.text(trimAndNormaliseWhitespace: true) {
+                let timeComponents = timeText.components(separatedBy: " ")
+                if timeComponents.count >= 2 {
+                    date = timeComponents[0]
+                    time = timeComponents[1]
+                }
+
+                if let spanArray = try? firstCell.select("span").array(),
+                   spanArray.count > 2 {
+                    location = (try? spanArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
                 }
             }
-            
-            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note)
+
+            // Course information
+            let secondCell = cellsArray[1]
+            if let firstDiv = try? secondCell.select("div").first(),
+               let spans = try? firstDiv.select("span").array(),
+               spans.count >= 3 {
+                course = (try? spans[0].text(trimAndNormaliseWhitespace: true)) ?? ""
+                courseId = (try? spans[1].text(trimAndNormaliseWhitespace: true)) ?? ""
+
+                if let methodText = try? spans[2].text(trimAndNormaliseWhitespace: true),
+                   methodText.hasPrefix("（"), methodText.hasSuffix("）") {
+                    method = String(methodText.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
+                }
+            }
+
+            // Exam type
+            if let divs = try? secondCell.select("div").array(),
+               divs.count >= 2,
+               let typeSpan = try? divs[1].select("span").first(),
+               let typeText = try? typeSpan.text(trimAndNormaliseWhitespace: true) {
+                type = typeText.trimmingCharacters(in: .whitespaces)
+            }
+            if type.isEmpty { type = "无" }
+
+            note = (try? cellsArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
+
+            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note, isFinished: isFinished)
             exams.append(exam)
         }
-        
+
         return exams
     }
     
