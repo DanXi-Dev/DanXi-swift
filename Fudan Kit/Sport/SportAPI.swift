@@ -122,7 +122,7 @@ public enum SportAPI {
             return []
         }
         
-        for i in 0...5 {
+        for i in 0...6 {
             do {
                 let row = itemsTable.child(i)
                 if row.childNodeSize() > 4 {
