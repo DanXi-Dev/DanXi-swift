@@ -26,22 +26,17 @@ public class CourseModel: ObservableObject {
     }
     
     /// Factory constructor for undergraduate student to create a new model from network
-    /// - Parameter startDateContext: the start date configuration that maps a semester ID to it's start date. This should be retrieved from DanXi backend.
     /// - Returns: A new model loaded from network
-    public static func freshLoadForUndergraduate(startDateContext: [Int: Date]) async throws -> CourseModel {
-        var (semesters, currentSemesterFromServer) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+    public static func freshLoadForUndergraduate() async throws -> CourseModel {
+        let (semesters, currentSemesterFromServer) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
         guard !semesters.isEmpty else {
             let description = String(localized: "Semester list is empty", bundle: .module)
             throw LocatableError(description)
         }
-        var currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
-        
-        // match semester start date
-        semesters = matchUndergraduateSemesterStartDateByContext(semesters: semesters, context: startDateContext)
-        currentSemester.startDate = startDateContext[currentSemester.semesterId]
-        
+        let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
+
         let courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
-        let startDate = startDateContext[currentSemester.semesterId]
+        let startDate = currentSemester.startDate
         let week = computeWeekOffset(from: startDate, courses: courses)
         let model = CourseModel(studentType: .undergrad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
         model.refreshCache()
@@ -172,34 +167,32 @@ public class CourseModel: ObservableObject {
     
     
     /// Refresh courses in current semester and refresh semesters list
-    /// - Parameters:
-    ///   - context: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
-    @MainActor public func refresh(with context: [Int: Date]) async {
+    @MainActor public func refresh() async {
         do {
             if studentType == .undergrad {
                 courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
                 let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
-                guard semesters.isEmpty else {
+                guard !semesters.isEmpty else {
                     let description = String(localized: "Semester list is empty", bundle: .module)
                     throw LocatableError(description)
                 }
-                self.semesters = matchUndergraduateSemesterStartDateByContext(semesters: semesters, context: context)
-                if self.semesters.contains(semester) {
+                self.semesters = semesters
+                if !self.semesters.contains(semester) {
                     semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
                 }
             } else if studentType == .grad {
                 courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester)
                 let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
-                guard semesters.isEmpty else {
+                guard !semesters.isEmpty else {
                     let description = String(localized: "Semester list is empty", bundle: .module)
                     throw LocatableError(description)
                 }
                 self.semesters = semesters
-                if self.semesters.contains(semester) {
+                if !self.semesters.contains(semester) {
                     semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
                 }
             }
-            
+
             refreshCache()
         } catch {
             networkError = error
@@ -211,16 +204,6 @@ public class CourseModel: ObservableObject {
         semester.startDate = startDate
         guard let idx = semesters.firstIndex(of: semester) else { return }
         semesters[idx].startDate = startDate
-        refreshCache()
-    }
-    
-    
-    /// This is for undergraduate student to update semester start date when context change.
-    /// - Parameter startDateContext: A context for undergraduate student to match semester start date. It should be retrieved from DanXi backend.
-    public func receiveUndergraduateStartDateContextUpdate(startDateContext: [Int: Date]) {
-        guard studentType == .undergrad else { return }
-        semesters = matchUndergraduateSemesterStartDateByContext(semesters: semesters, context: startDateContext)
-        semester.startDate = startDateContext[semester.semesterId]
         refreshCache()
     }
     
@@ -293,21 +276,6 @@ func computeWeekOffset(from startDate: Date?, courses: [Course]) -> Int {
 }
 
 
-/// The undergraduate course API returns semesters with no start date information,
-/// it should be matched with context provided by DanXi-static to fill this value.
-/// - Parameters:
-///   - semesters: semesters
-///   - context: the start date configuration that maps a semester ID to it's start date. This should be retrieved from DanXi backend.
-/// - Returns: A list of updated semesters.
-func matchUndergraduateSemesterStartDateByContext(semesters: [Semester], context: [Int: Date]) -> [Semester] {
-    return semesters.map { semester in
-        var updatedSemester = semester
-        if let startDate = context[semester.semesterId] {
-            updatedSemester.startDate = startDate
-        }
-        return updatedSemester
-    }
-}
 
 struct CourseModelCache: Codable {
     let studentType: StudentType
