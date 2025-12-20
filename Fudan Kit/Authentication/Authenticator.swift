@@ -51,10 +51,10 @@ public actor Authenticator {
         throw CampusError.loginFailed
     }
 
-    public func authenticateRequest(request: URLRequest, loginURL: URL) async throws -> (Data, URLResponse) {
+    public func authenticateRequest(request: URLRequest, loginURL: URL, relogin: Bool = false) async throws -> (Data, URLResponse) {
         guard let host = request.url?.host else { throw LocatableError() }
         
-        if !isLogged(host: host) {
+        if (!isLogged(host: host) || relogin)  {
             _ = try await performAuthenticate(url: loginURL)
         }
         
