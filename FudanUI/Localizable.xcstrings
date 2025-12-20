@@ -350,6 +350,7 @@
       }
     },
     "Course Credit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -796,7 +797,6 @@
       }
     },
     "GPA Distribution" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1033,7 +1033,6 @@
       }
     },
     "My Credit" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1044,7 +1043,6 @@
       }
     },
     "My GPA" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1055,7 +1053,6 @@
       }
     },
     "My Rank" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1429,9 +1426,6 @@
         }
       }
     },
-    "Service Unavailable" : {
-
-    },
     "Set Semester Start Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1443,7 +1437,6 @@
       }
     },
     "Show all GPA rank" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

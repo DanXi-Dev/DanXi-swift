@@ -14,7 +14,7 @@ struct ChangeVisibilityTip: Tip {
     }
     var actions: [Action] {
         [
-            Action(id: "go-to-settings", title: "Go to settings")
+            Action(id: "go-to-settings", title: String(localized: "Go to Settings", bundle: .module))
         ]
     }
 }
