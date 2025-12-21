@@ -1,10 +1,13 @@
 import DanXiKit
 import SwiftUI
+import TipKit
 import ViewUtils
 
 struct HolePage: View {
     @StateObject private var model: HoleModel
     @ObservedObject private var profileStore = ProfileStore.shared
+    @available(iOS 17.0, *)
+    private var favoriteOrSubscribeTip : FavoriteOrSubscribeTip {.init()}
     
     private var hole: Hole {
         model.hole
@@ -116,15 +119,27 @@ struct HolePage: View {
                 }
                 
                 ToolbarItem(placement: .bottomBar) {
-                    bottomBar
+                    if #available(iOS 26.0, *) {
+                        // bottomBar is covered by tabBar in iOS 26+
+                        // using .overlay to generate a show-all-floor button
+                    }
+                    else {
+                        bottomBar
+                    }
                 }
             }
             .overlay(alignment: .bottom) {
-                if let originalFloor = model.scrollFrom {
-                    ReturnCapsule(originalFloor: originalFloor)
-                        .id(originalFloor.id)
-                        .padding(.bottom, 20)
-                }
+                VStack(spacing: 0) {
+                        if let originalFloor = model.scrollFrom {
+                            ReturnCapsule(originalFloor: originalFloor)
+                                .id(originalFloor.id)
+                                .padding(.bottom, 20)
+                        }
+                        
+                        if #available(iOS 26.0, *) {
+                            bottomButton
+                        }
+                    }
             }
             .environmentObject(model)
             .task {
@@ -223,7 +238,7 @@ struct HolePage: View {
         }
         .disabled(hole.locked && !profileStore.isAdmin)
         
-        Menu {
+        let baseMenu = Menu {
             AsyncButton {
                 try await withHaptics {
                     try await model.toggleFavorite()
@@ -312,6 +327,19 @@ struct HolePage: View {
         } label: {
             Image(systemName: "ellipsis.circle")
         }
+        .onAppear {
+            if #available(iOS 17.0, *) {
+                favoriteOrSubscribeTip.invalidate(reason: .actionPerformed)
+            }
+        }
+        
+        if #available(iOS 17.0, *) {
+            baseMenu
+                .popoverTip(favoriteOrSubscribeTip)
+        }
+        else{
+            baseMenu
+        }
     }
     
     @ViewBuilder
@@ -334,6 +362,34 @@ struct HolePage: View {
                         .labelStyle(.titleAndIcon)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var bottomButton: some View {
+        // For iOS26 + where bottomBar is covered by tabBar
+        // see returnCapsule for the style of this button
+        if model.filterOption != .all && model.filterOption != .posterOnly {
+            Button {
+                withAnimation {
+                    model.filterOption = .all
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "bubble.left.and.bubble.right")
+                    Text("Show All Floors", bundle: .module)
+                    .font(.system(size: 16))
+                }
+            }
+            .padding(.horizontal, 16).padding(.vertical, 10)
+            .background {
+                Capsule(style: .continuous)
+                    .fill(.thickMaterial)
+                    .shadow(.drop(radius: 12))
+                    
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .padding(.horizontal, 18).padding(.bottom, 20)
         }
     }
 }

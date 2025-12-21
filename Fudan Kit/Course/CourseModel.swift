@@ -72,6 +72,23 @@ public class CourseModel: ObservableObject {
         return CourseModel(cache: cache, week: week)
     }
     
+    public func getConflictingCourses() -> [Course]? {
+        var codes = Set<String>(CourseSettings.shared.hiddenCourses)
+        let conflicts = courses.filter { course in
+            guard !codes.contains(course.code) else { return false }
+            if courses.contains(where: { other in
+                course.id != other.id && course.conflicts(with: other) && !CourseSettings.shared.hiddenCourses.contains(other.code)
+            }) {
+                codes.insert(course.code)
+                return true
+            }
+            else{
+                return false
+            }
+        }
+        return conflicts.isEmpty ? nil : conflicts
+    }
+    
     // MARK: - Initializers
     
     init(studentType: StudentType, courses: [Course], semester: Semester, semesters: [Semester], week: Int) {
@@ -132,7 +149,7 @@ public class CourseModel: ObservableObject {
     
     public var coursesInThisWeek: [Course] {
         courses.filter { course in
-            course.onWeeks.contains(week)
+            !CourseSettings.shared.hiddenCourses.contains(course.code) && course.onWeeks.contains(week)
         }
     }
     
@@ -244,7 +261,9 @@ public class CourseModel: ObservableObject {
         for key in keys {
             guard let courses = self.calendarMap[key] else { continue }
             for course in courses {
-                try course.exportEvents(for: eventStore, to: calendar, semesterStart: startDate)
+                if !CourseSettings.shared.hiddenCourses.contains(course.code) {
+                    try course.exportEvents(for: eventStore, to: calendar, semesterStart: startDate)
+                }
             }
         }
         

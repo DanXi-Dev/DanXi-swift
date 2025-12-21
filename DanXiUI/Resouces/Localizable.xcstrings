@@ -231,6 +231,16 @@
         }
       }
     },
+    "Add this hole to Favorites or Subscribe to keep track of new updates." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关注或收藏一个树洞来获取更新。"
+          }
+        }
+      }
+    },
     "Admin Actions" : {
       "localizations" : {
         "zh-Hans" : {
@@ -468,6 +478,16 @@
         }
       }
     },
+    "Change Visibility for Folded Content" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改折叠的内容的可见性"
+          }
+        }
+      }
+    },
     "Check Decryption Status" : {
       "localizations" : {
         "zh-Hans" : {
@@ -484,6 +504,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请在邮箱内查收验证码，如未收到邮件，请检查垃圾箱或重试"
+          }
+        }
+      }
+    },
+    "Choose how folded content appear in the list." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择在列表中如何展示折叠的内容。"
           }
         }
       }
@@ -1467,6 +1497,16 @@
         }
       }
     },
+    "Favorite or Subscribe" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关注或收藏"
+          }
+        }
+      }
+    },
     "Favorites" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1686,6 +1726,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "前往下一页"
+          }
+        }
+      }
+    },
+    "Go to Settings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前往设置"
           }
         }
       }

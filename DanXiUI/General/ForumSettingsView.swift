@@ -93,6 +93,11 @@ fileprivate struct FoldedContentSettings: View {
         }
         .navigationTitle(String(localized: "Folded Content", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if #available(iOS 17.0, *) {
+                ChangeVisibilityTip().invalidate(reason: .actionPerformed)
+            }
+        }
     }
 }
 

@@ -122,29 +122,50 @@ public enum UndergraduateCourseAPI {
                 .joined(separator: ", ")
         }
         
+        var coursesToSplit = Set<String>()
+        
+        let courses = builders.map { $0.build() }
+        
+        for course in courses {
+            if courses.contains(where: { $0.code == course.code && $0.conflicts(with: course) }) {
+                coursesToSplit.insert(course.code)
+            }
+        }
+        
         for builder in builders {
-            let course = builder.build()
+            var courses : [Course] = []
+            if coursesToSplit.contains(builder.lessonCode) {
+                let template = builder.build()
+                courses = template.onWeeks.map{ week in
+                    Course(id: UUID(), name: template.name, code: template.code, teacher: template.teacher, location: template.location, weekday: template.weekday, start: template.start, end: template.end, onWeeks: [week])
+                }
+            }
+            else{
+                courses = [builder.build()]
+            }
             
-            let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
-            let key = "\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
-            
-            if let existed = courseDict[key] {
-                let mergedRooms = mergeProperties(from: existed.location, and: course.location)
-                let mergedTeachers = mergeProperties(from: existed.teacher, and: course.teacher)
+            for course in courses {
+                let weeksKey = course.onWeeks.sorted().map(String.init).joined(separator: "_")
+                let key = "\(course.code)-\(course.weekday)-\(course.start)-\(course.end)-\(weeksKey)"
                 
-                courseDict[key] = Course(
-                    id: existed.id,
-                    name: existed.name,
-                    code: existed.code,
-                    teacher: mergedTeachers,
-                    location: mergedRooms,
-                    weekday: existed.weekday,
-                    start: existed.start,
-                    end: existed.end,
-                    onWeeks: existed.onWeeks
-                )
-            } else {
-                courseDict[key] = course
+                if let existed = courseDict[key] {
+                    let mergedRooms = mergeProperties(from: existed.location, and: course.location)
+                    let mergedTeachers = mergeProperties(from: existed.teacher, and: course.teacher)
+                    
+                    courseDict[key] = Course(
+                        id: existed.id,
+                        name: existed.name,
+                        code: existed.code,
+                        teacher: mergedTeachers,
+                        location: mergedRooms,
+                        weekday: existed.weekday,
+                        start: existed.start,
+                        end: existed.end,
+                        onWeeks: existed.onWeeks
+                    )
+                } else {
+                    courseDict[key] = course
+                }
             }
         }
 
@@ -152,167 +173,85 @@ public enum UndergraduateCourseAPI {
     }
     // MARK: - Exam
     
-    /// Get uset's exam list
+    /// Get user's exam list
     ///
     /// ## API Detail
     ///
-    /// This API use the cookie `semester.id` to get the exam list. If it's set to different value before, it might return incorrect value.
+    /// This API uses the neo authentication to fetch exam information from the new endpoint.
+    /// The new endpoint returns HTML with an exam table.
     ///
-    /// The server response with the following content:
+    /// - Returns: A list of ``Exam``, including both finished and upcoming exams
     ///
-    /// ```swift
-    /// <table class="gridtable" style="width:100%;text-align: center" align="center">
-    ///     <thead class="gridhead">
-    ///         <tr>
-    ///             <th style="width: 10%">课程序号</th>
-    ///             <th style="width: 8%">课程代码</th>
-    ///             <th style="width: 18%">课程名称</th>
-    ///             <th style="width: 8%">考试类型</th>
-    ///             <th style="width: 11%">考试日期或论文提交日期</th>
-    ///             <th style="width: 12%">考试安排</th>
-    ///             <th style="width: 8%">考试地点</th>
-    ///             <th style="width: 6%">考试方式</th>
-    ///             <th style="width: 8%">其它说明</th>
-    ///         </tr>
-    ///     </thead>
-    ///     <tr>
-    ///         <td style="width: 10%">PHYS130093h.01</td>
-    ///         <td style="width: 8%">PHYS130093h</td>
-    ///         <td style="width: 18%">
-    ///             大学物理A：原子物理(H)
-    ///         </td>
-    ///         <td style="width: 8%">期末考试</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-21
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             13:00~15:00
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             H3209
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///         </td>
-    ///     </tr>
-    ///     <tr>
-    ///         <td style="width: 10%">MATH120022.04</td>
-    ///         <td style="width: 8%">MATH120022</td>
-    ///         <td style="width: 18%">
-    ///             高等数学A(下）
-    ///         </td>
-    ///         <td style="width: 8%">期末考试</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-21
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             08:30~10:30
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             H3208
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///         </td>
-    ///     </tr>
-    ///     <tr style="color:#BBC4C3;">
-    ///         <td style="width: 10%">ENGL110057.02</td>
-    ///         <td style="width: 8%">ENGL110057</td>
-    ///         <td style="width: 18%">
-    ///             英国文学欣赏指南
-    ///         </td>
-    ///         <td style="width: 8%">期末考试</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-14
+    /// Exam status:
+    /// - Exams with class "finished hide" are completed exams
+    /// - Exams with class "unfinished" are upcoming/pending exams
     ///
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             19:50~21:00
-    ///
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             H2201
-    ///
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///
-    ///
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///
-    ///
-    ///         </td>
-    ///     </tr>
-    ///     <tr>
-    ///         <td style="width: 10%">PHYS130013.01</td>
-    ///         <td style="width: 8%">PHYS130013</td>
-    ///         <td style="width: 18%">
-    ///             毕业论文
-    ///         </td>
-    ///         <td style="width: 8%">无</td>
-    ///         <td style="width: 11%">
-    ///             2024-06-08
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~18:30
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             <font color="BBC4C3">无</font>
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             论文
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///
-    ///
-    ///         </td>
-    ///     </tr>
-    ///     <tr style="color:#BBC4C3;">
-    ///         <td style="width: 10%">MATH120022.04</td>
-    ///         <td style="width: 8%">MATH120022</td>
-    ///         <td style="width: 18%">
-    ///             高等数学A(下）
-    ///         </td>
-    ///         <td style="width: 8%">期中考试</td>
-    ///         <td style="width: 11%">
-    ///             <font color="BBC4C3">无</font>
-    ///
-    ///         </td>
-    ///         <td style="width: 12%">
-    ///             <font color="BBC4C3">无</font>
-    ///
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///             <font color="BBC4C3">无</font>
-    ///         </td>
-    ///         <td style="width: 6%">
-    ///             闭卷
-    ///         </td>
-    ///         <td style="width: 8%">
-    ///         </td>
-    ///     </tr>
-    /// </table>
+    /// ## Example HTML Response:
+    /// ```html
+    /// <tr data-finished="false" class="unfinished">
+    ///     <td>
+    ///         <div class="time">2026-01-04 08:30~10:30</div>
+    ///         <div>
+    ///             <span>邯郸校区</span>
+    ///             <span>H邯郸校区第六教学楼</span>
+    ///             <span>H6506</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>
+    ///         <div>
+    ///             <span>数字集成电路设计原理(H) </span>
+    ///             <span>ICSE30021h.01 </span>
+    ///             <span>（闭卷） </span>
+    ///         </div>
+    ///         <div>
+    ///             <span class="tag-span type2">期末</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>请携带学生证或一卡通，待考试时核查。</td>
+    ///     <td>未结束</td>
+    /// </tr>
+    /// <tr data-finished="true" class="finished hide">
+    ///     <td>
+    ///         <div class="time ">2025-11-11 13:00~15:00</div>
+    ///         <div>
+    ///             <span>邯郸校区</span>
+    ///             <span>H邯郸校区第二教学楼</span>
+    ///             <span>H2115</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>
+    ///         <div>
+    ///             <span>半导体器件原理(H) </span>
+    ///             <span>ICSE30020h.01 </span>
+    ///             <span>（半开卷） </span>
+    ///         </div>
+    ///         <div>
+    ///             <span class="tag-span type1">期中</span>
+    ///         </div>
+    ///     </td>
+    ///     <td>请携带学生证或一卡通，待考试时核查。</td>
+    ///     <td>已结束</td>
+    /// </tr>
     /// ```
     public static func getExams() async throws -> [Exam] {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/stdExamTable!examTable.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
-        
+        let studentId = try await getStudentId()
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/exam-arrange/info/\(studentId)")!
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+
         var exams: [Exam] = []
-        
-        let elements = try decodeHTMLElementList(data, selector: "tr")
+
+        let elements = try decodeHTMLElementList(data, selector: "table.exam-table tbody tr")
         for element in elements {
-            let cells = try element.select("td")
-            
-            // table header is passed
-            if cells.isEmpty() {
+            let classAttr = try? element.attr("class")
+            if let classAttr = classAttr, classAttr.contains("tr-empty") {
                 continue
             }
-            
+
+            let cellsArray = try element.select("td").array()
+            guard cellsArray.count >= 4 else {
+                continue
+            }
+
             var courseId = ""
             var course = ""
             var type = ""
@@ -321,83 +260,161 @@ public enum UndergraduateCourseAPI {
             var time = ""
             var location = ""
             var note = ""
-            
-            for (index, cell) in cells.enumerated() {
-                let text = try cell.text(trimAndNormaliseWhitespace: true) // TODO: remove entities like &nbsp
-                
-                switch index {
-                case 0:
-                    courseId = text
-                case 2:
-                    course = text
-                case 3:
-                    type = text
-                case 4:
-                    date = text
-                case 5:
-                    time = text
-                case 6:
-                    location = text
-                case 7:
-                    method = text
-                case 8:
-                    note = text
-                default:
-                    continue
+            var isFinished = false
+
+            let dataFinishedAttr = try? element.attr("data-finished")
+            if let dataFinishedAttr = dataFinishedAttr, dataFinishedAttr == "true" {
+                isFinished = true
+            }
+
+            let firstCell = cellsArray[0]
+            if let timeDiv = try? firstCell.select("div.time").first(),
+               let timeText = try? timeDiv.text(trimAndNormaliseWhitespace: true) {
+                let timeComponents = timeText.components(separatedBy: " ")
+                if timeComponents.count >= 2 {
+                    date = timeComponents[0]
+                    time = timeComponents[1]
+                }
+
+                if let spanArray = try? firstCell.select("span").array(),
+                   spanArray.count > 2 {
+                    location = (try? spanArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
                 }
             }
-            
-            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note)
+
+            // Course information
+            let secondCell = cellsArray[1]
+            if let firstDiv = try? secondCell.select("div").first(),
+               let spans = try? firstDiv.select("span").array(),
+               spans.count >= 3 {
+                course = (try? spans[0].text(trimAndNormaliseWhitespace: true)) ?? ""
+                courseId = (try? spans[1].text(trimAndNormaliseWhitespace: true)) ?? ""
+
+                if let methodText = try? spans[2].text(trimAndNormaliseWhitespace: true),
+                   methodText.hasPrefix("（"), methodText.hasSuffix("）") {
+                    method = String(methodText.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
+                }
+            }
+
+            // Exam type
+            if let divs = try? secondCell.select("div").array(),
+               divs.count >= 2,
+               let typeSpan = try? divs[1].select("span").first(),
+               let typeText = try? typeSpan.text(trimAndNormaliseWhitespace: true) {
+                type = typeText.trimmingCharacters(in: .whitespaces)
+            }
+            if type.isEmpty { type = "无" }
+
+            note = (try? cellsArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
+
+            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note, isFinished: isFinished)
             exams.append(exam)
         }
-        
+
         return exams
     }
     
     // MARK: - Score and GPA
-    
+
+    /// Get  student ID from course table API
+    private static func getStudentId() async throws -> String {
+        let (_, semesterId) = try await getSemesters()
+
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(semesterId)/print-data")!
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let json = try JSON(data: data)
+
+        guard let studentId = json["studentTableVms"][0]["id"].int else {
+            throw LocatableError()
+        }
+
+        return String(studentId)
+    }
+
     /// Get the student course score on a given semeser
     /// - Parameter semester: Semester ID
     /// - Returns: A list of ``Score``
     public static func getScore(semester: Int) async throws -> [Score] {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/teach/grade/course/person!search.action?semesterId=\(String(semester))")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
-        
-        let table = try decodeHTMLElement(data, selector: "tbody")
-        
+        let studentId = try await getStudentId()
+
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/sheet/info/\(studentId)?semester=\(semester)")!
+        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+
+        let json = try JSON(data: data)
+        let semesterKey = String(semester)
+        guard let gradesArray = json["semesterId2studentGrades"][semesterKey].array else {
+            return []
+        }
+
         var scores: [Score] = []
-        for element in table.children() {
-            if element.childNodeSize() > 7 { // check child size before accessing child() to prevent crash
-                let score = Score(id: UUID(), courseId: try element.child(2).html(), courseName:  try element.child(3).html(), courseType: try element.child(4).html(), courseCredit: try element.child(5).html(), grade: try element.child(6).html(), gradePoint: try element.child(7).html())
+        for gradeJson in gradesArray {
+            guard let gradeData = try? gradeJson.rawData() else { continue }
+            let decoder = JSONDecoder()
+            if let scoreResponse = try? decoder.decode(ScoreResponse.self, from: gradeData) {
+                var courseTypeText = scoreResponse.courseModuleTypeName ?? scoreResponse.courseType ?? ""
+                if let commaIndex = courseTypeText.firstIndex(of: ",") {
+                    courseTypeText = String(courseTypeText[..<commaIndex])
+                }
+
+                let score = Score(
+                    id: UUID(),
+                    courseId: scoreResponse.lessonCode,
+                    courseName: scoreResponse.courseName,
+                    courseType: courseTypeText,
+                    courseCredit: nil,
+                    grade: scoreResponse.gaGrade,
+                    gradePoint: scoreResponse.gp != nil ? String(format: "%.2f", scoreResponse.gp!) : ""
+                )
                 scores.append(score)
             }
         }
-        
+
         return scores
     }
+
+    private struct ScoreResponse: Decodable {
+        let lessonCode: String
+        let courseCode: String
+        let courseName: String
+        let courseType: String?
+        let courseModuleTypeName: String?
+        let gaGrade: String
+        let gp: Double?
+    }
     
-    /// Get the rank list, aka GPA ranking table
+    /// Get the rank list, aka GPA ranking table (department-wide ranking)
     public static func getRanks() async throws -> [Rank] {
-        let url = URL(string: "https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action")!
-        let data = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let studentId = try await getStudentId()
         
-        let table = try decodeHTMLElement(data, selector: "tbody")
+        // Get departmentAssoc and grade from search-index page
+        let indexURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/my-gpa/search-index/\(studentId)")!
+        let indexData = try await Authenticator.neo.authenticate(indexURL, loginURL: loginURL)
         
-        var ranks: [Rank] = []
-        
-        for element in table.children() {
-            if table.childNodeSize() > 8 { // check child size before accessing child() to prevent crash
-                guard let gradePoint = Double(try element.child(5).html()),
-                      let credit = Double(try element.child(6).html()),
-                      let rankIndex = Int(try element.child(7).html()) else {
-                    continue
-                }
-                
-                let rank = Rank(id: UUID(), name: try element.child(1).html(), grade: try element.child(2).html(), major: try element.child(3).html(), department: try element.child(4).html(), gradePoint: gradePoint, credit: credit, rank: rankIndex)
-                ranks.append(rank)
-            }
+        guard let html = String(data: indexData, encoding: .utf8),
+              let gradeMatch = html.firstMatch(of: /name="grade"\s+value="(\d+)"/),
+              let deptMatch = html.firstMatch(of: /name="departmentAssoc"\s+value="(\d+)"/) else {
+            throw LocatableError()
         }
         
-        return ranks
+        // get department GPA ranks
+        let searchURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/my-gpa/search?studentAssoc=\(studentId)&grade=\(gradeMatch.1)&departmentAssoc=\(deptMatch.1)&majorAssoc=")!
+        let searchData = try await Authenticator.neo.authenticate(searchURL, loginURL: loginURL)
+        
+        guard let ranksArray = try JSON(data: searchData)["data"].array else {
+            return []
+        }
+        
+        return ranksArray.compactMap { rankJson -> Rank? in
+            guard let name = rankJson["name"].string,
+                  let grade = rankJson["grade"].string,
+                  let major = rankJson["major"].string,
+                  let department = rankJson["department"].string,
+                  let gpa = rankJson["gpa"].double,
+                  let credit = rankJson["credit"].double,
+                  let ranking = rankJson["ranking"].int else {
+                return nil
+            }
+            return Rank(id: UUID(), name: name, grade: grade, major: major, department: department, gradePoint: gpa, credit: credit, rank: ranking)
+        }
     }
 }

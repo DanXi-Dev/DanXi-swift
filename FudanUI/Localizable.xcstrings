@@ -253,12 +253,32 @@
         }
       }
     },
+    "Choose which features you want to show on the home page." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择在首页展示哪些功能。"
+          }
+        }
+      }
+    },
     "Classroom Schedule" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "教室日程查询"
+          }
+        }
+      }
+    },
+    "Clear Hidden Courses" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空隐藏的课程"
           }
         }
       }
@@ -319,7 +339,18 @@
         }
       }
     },
+    "Course conflict — select course(s) to hide" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课程冲突 - 选择要隐藏的课程"
+          }
+        }
+      }
+    },
     "Course Credit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -479,6 +510,16 @@
         }
       }
     },
+    "Edit Home Page" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义首页"
+          }
+        }
+      }
+    },
     "Edit Home Page Features" : {
       "localizations" : {
         "zh-Hans" : {
@@ -619,6 +660,16 @@
         }
       }
     },
+    "Export class schedule to your device calendar." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导出课程表到设备日历。"
+          }
+        }
+      }
+    },
     "Export to Calendar" : {
       "localizations" : {
         "zh-Hans" : {
@@ -746,7 +797,6 @@
       }
     },
     "GPA Distribution" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -983,7 +1033,6 @@
       }
     },
     "My Credit" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -994,7 +1043,6 @@
       }
     },
     "My GPA" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1005,7 +1053,6 @@
       }
     },
     "My Rank" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1379,9 +1426,6 @@
         }
       }
     },
-    "Service Unavailable" : {
-
-    },
     "Set Semester Start Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1393,7 +1437,6 @@
       }
     },
     "Show all GPA rank" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

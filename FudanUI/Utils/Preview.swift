@@ -69,10 +69,8 @@ func setupPreview() async {
     try! Disk.save(try! Data(contentsOf: courseCacheURL), to: .applicationSupport, as: "preview/fdutools/course-model.json")
     #endif
     
-    let walletLogs: [WalletLog] = decodePreviewData(filename: "wallet-logs", directory: "my")
     let electricityLogs: [ElectricityLog] = decodePreviewData(filename: "electricity-logs", directory: "my")
-    let userInfo: UserInfo = decodePreviewData(filename: "userinfo", directory: "my")
-    await MyStore.shared.setupPreivew(electricity: electricityLogs, wallet: walletLogs, user: userInfo)
+    await MyStore.shared.setupPreivew(electricity: electricityLogs)
     
     // let transactions: [FudanKit.Transaction] = decodePreviewData(filename: "transactions")
     // FIXME: Preview for new Wallet API

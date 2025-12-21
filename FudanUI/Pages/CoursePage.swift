@@ -3,6 +3,7 @@ import Combine
 import ViewUtils
 import Utils
 import FudanKit
+import TipKit
 #if canImport(EventKitUI)
 import EventKit
 import EventKitUI
@@ -10,6 +11,7 @@ import EventKitUI
 
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var courseSettings = CourseSettings.shared
     @State private var loadingProgress: Float?
     
     private let loadingProgressPublisher = PassthroughSubject<Float, Never>()
@@ -70,8 +72,13 @@ public struct CoursePage: View {
                 let description = String(localized: "Calendar for staff is not supported.", bundle: .module)
                 throw LocatableError(description)
             }
-        } content: { model in
-            CalendarContent(model: model)
+        } content: { (model : CourseModel) in
+            if let conflicts = model.getConflictingCourses(){
+                ConflictResolver(conflits: conflicts)
+            }
+            else{
+                CalendarContent(model: model)
+            }
         }
         .onReceive(loadingProgressPublisher) { progress in
             loadingProgress = progress
@@ -90,6 +97,8 @@ fileprivate struct CalendarContent: View {
     @State private var showExportSheet = false
     @State private var showColorSheet = false
     @State private var showManualDateSelectionSheet = false
+    @available(iOS 17.0, *)
+    private var exportToCalendarTip : ExportToCalendarTip {.init()}
     @AppStorage("calendar-theme-color") private var themeColor: ThemeColor = ThemeColor.none
     
     @ScaledMetric var minWidth = CalendarConfig.dx * 7
@@ -180,8 +189,9 @@ fileprivate struct CalendarContent: View {
     
 #if !os(watchOS)
     
+    @ViewBuilder
     private var toolbar: some View {
-        Menu {
+        let baseMenu = Menu {
             Picker(selection: $model.semester) {
                 ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
                     Text(semester.name).tag(semester)
@@ -193,6 +203,9 @@ fileprivate struct CalendarContent: View {
             .disabled(campusModel.studentType == .grad)
             
             Button {
+                if #available(iOS 17.0, *) {
+                    exportToCalendarTip.invalidate(reason: .actionPerformed)
+                }
                 Task(priority: .userInitiated) {
                     let eventStore = EKEventStore()
                     if #available(iOS 17, *) {
@@ -210,6 +223,16 @@ fileprivate struct CalendarContent: View {
                 }
             }
             .disabled(model.semester.startDate == nil)
+            
+            Button{
+                CourseSettings.shared.hiddenCourses = []
+            } label: {
+                Label {
+                    Text("Clear Hidden Courses", bundle: .module)
+                } icon: {
+                    Image(systemName: "clear")
+                }
+            }
             
             Divider()
             
@@ -243,6 +266,12 @@ fileprivate struct CalendarContent: View {
             Task {
                 await model.updateSemester()
             }
+        }
+        if #available(iOS 17.0, *) {
+            baseMenu
+                .popoverTip(exportToCalendarTip)
+        } else {
+            baseMenu
         }
     }
     
@@ -581,4 +610,59 @@ private struct ManualResetSemesterStartDateSheet: View {
     CoursePage()
         .environmentObject(model)
         .previewPrepared()
+}
+
+private struct ConflictResolver: View {
+    public let conflits: [Course]
+    @State private var hiddenCourses: Set<String>
+
+    public init(conflits: [Course]) {
+        self.conflits = conflits
+        self.hiddenCourses = Set<String>(CourseSettings.shared.hiddenCourses)
+    }
+
+    public var body: some View {
+        ZStack(alignment: .topLeading) {
+            VStack(alignment: .leading, spacing: 12) {
+                Label(String(localized: "Course conflict — select course(s) to hide", bundle: .module),
+                      systemImage: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+
+                ForEach(conflits, id: \.code) { course in
+                    HStack(alignment: .top) {
+                        Toggle(isOn: Binding(
+                            get: { hiddenCourses.contains(course.code) },
+                            set: { on in
+                                if on { hiddenCourses.insert(course.code) }
+                                else  { hiddenCourses.remove(course.code) }
+                            }
+                        )) {
+                            Text(course.name).font(.headline)
+                            Text(course.code).font(.subheadline).foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding(12)
+                    .background(.background, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(.quaternary)
+                    )
+                }
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        CourseSettings.shared.hiddenCourses = Array(hiddenCourses)
+                    } label: {
+                        Text("Confirm", bundle: .module)
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding(.top, 8)
+            }
+            .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
 }

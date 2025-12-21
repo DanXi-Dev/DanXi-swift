@@ -69,6 +69,16 @@ public struct Course: Identifiable, Codable, Hashable {
     public func openOn(_ week: Int) -> Bool {
         onWeeks.contains(week)
     }
+    
+    func conflicts(with other: Course) -> Bool {
+        guard weekday == other.weekday else {
+            return false
+        }
+        guard !(end < other.start || start > other.end) else {
+            return false
+        }
+        return !Set(onWeeks).isDisjoint(with: Set(other.onWeeks))
+    }
 }
 
 /// Time slot that courses are held.
@@ -125,6 +135,7 @@ public struct Exam: Identifiable {
     public let time: String
     public let location: String
     public let note: String
+    public let isFinished: Bool
 }
 
 // MARK: - GPA and Score
@@ -135,7 +146,7 @@ public struct Score: Identifiable, Codable {
     public let courseId: String
     public let courseName: String
     public let courseType: String
-    public let courseCredit: String
+    public let courseCredit: String? // TODO: 新API暂不支持学分查询，后续补充
     public let grade: String
     public let gradePoint: String
 }
