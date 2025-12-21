@@ -105,9 +105,25 @@ struct KeyAdminSection: View {
                 
                 HStack {
                     Spacer()
+                    // on MacOS, PasteButton does not work, use UIPasteBoard
+                    #if targetEnvironment(macCatalyst)
+                    Button {
+                        if let string = UIPasteboard.general.string {
+                            plaintext = string
+                        }
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "doc.on.clipboard")
+                            Text("Paste", bundle: .module)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    #else
+                    // On iOS, use PasteButton
                     PasteButton(payloadType: String.self) { strings in
                         plaintext = strings.first
                     }
+                    #endif
                     Spacer()
                 }
             }

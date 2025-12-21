@@ -2365,6 +2365,17 @@
         }
       }
     },
+    "Paste" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粘贴"
+          }
+        }
+      }
+    },
     "Paste Decrypted Plaintext Here" : {
       "localizations" : {
         "zh-Hans" : {
