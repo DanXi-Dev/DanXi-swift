@@ -600,6 +600,16 @@
         }
       }
     },
+    "Exam Semester" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "考试学期"
+          }
+        }
+      }
+    },
     "Exam Time" : {
       "localizations" : {
         "zh-Hans" : {

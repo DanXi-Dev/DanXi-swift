@@ -131,6 +131,7 @@ public struct Exam: Identifiable {
     public let course: String
     public let type: String
     public let method: String
+    public let semester: String
     public let date: String
     public let time: String
     public let location: String
