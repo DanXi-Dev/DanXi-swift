@@ -256,6 +256,7 @@ public enum UndergraduateCourseAPI {
             var course = ""
             var type = ""
             var method = ""
+            var semester = ""
             var date = ""
             var time = ""
             var location = ""
@@ -272,8 +273,9 @@ public enum UndergraduateCourseAPI {
                let timeText = try? timeDiv.text(trimAndNormaliseWhitespace: true) {
                 let timeComponents = timeText.components(separatedBy: " ")
                 if timeComponents.count >= 2 {
-                    date = timeComponents[0]
-                    time = timeComponents[1]
+                    semester = timeComponents[0]
+                    date = timeComponents[1]
+                    time = timeComponents[2]
                 }
 
                 if let spanArray = try? firstCell.select("span").array(),
@@ -307,7 +309,7 @@ public enum UndergraduateCourseAPI {
 
             note = (try? cellsArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
 
-            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note, isFinished: isFinished)
+            let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, semester: semester, date: date, time: time, location: location, note: note, isFinished: isFinished)
             exams.append(exam)
         }
 
