@@ -373,7 +373,7 @@ public enum UndergraduateCourseAPI {
     }
 
     private struct ScoreResponse: Decodable {
-        let lessonCode: String
+        let lessonCode: String?
         let courseCode: String
         let courseName: String
         let courseType: String?
