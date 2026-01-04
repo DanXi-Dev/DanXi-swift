@@ -12,20 +12,24 @@ public class Proxy {
         ProxySettings.shared.enableProxy && FudanKit.CredentialStore.shared.credentialPresent
     }
     
-    private func validateResponse(_ response: URLResponse) throws {
+    private func validateResponse(_ response: URLResponse) -> Bool {
         /**
          WebVPN may occasionally return HTML instead of the expected payload; when this occurs, re-authenticate.
          This method can be modified to handle other cases where WebVPN returns unexpected responses.
          */
         
         if let mimeType = response.mimeType, mimeType.contains("text/html") {
-            throw WebVPNDisconnectedError()
+            // WebVPNDisconnectedError()
+            return false
         }
         if let httpResponse = response as? HTTPURLResponse,
            let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
            contentType.contains("text/html") {
-            throw WebVPNDisconnectedError()
+           // WebVPNDisconnectedError()
+           return false
         }
+        
+        return true
     }
     
     func upload(for request: URLRequest, from bodyData: Data) async throws -> (Data, URLResponse) {
@@ -38,6 +42,7 @@ public class Proxy {
         return try await URLSession.shared.upload(for: proxiedRequest, from: bodyData)
         
         // this method is not used yet so no validateResponse check for now
+        // todo: add validateResponse to this method when being used
     }
     
     func data(for request: URLRequest) async throws -> (Data, URLResponse) {
@@ -80,11 +85,10 @@ public class Proxy {
         let (data, response) = try await FudanKit.Authenticator.neo.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
         
         // check if webvpn returns the correct data format
-        do {
-            try validateResponse(response)
+        if validateResponse(response) {
             return (data, response)
-        } catch is WebVPNDisconnectedError {
-            return try await FudanKit.Authenticator.neo.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!, relogin: true)
+        } else {
+            return try await FudanKit.Authenticator.neo.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!, forceRelogin: true)
         }
     }
     
@@ -150,7 +154,7 @@ extension WebVPNError: LocalizedError {
     }
 }
 
-public struct WebVPNDisconnectedError: Error, LocalizedError {
+public struct WebVPNDisconnectedError: Error {
     public var errorDescription: String? {
         return "WebVPN disconnected"
     }
