@@ -19,13 +19,11 @@ public class Proxy {
          */
         
         if let mimeType = response.mimeType, mimeType.contains("text/html") {
-            // WebVPNDisconnectedError()
             return false
         }
         if let httpResponse = response as? HTTPURLResponse,
            let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
            contentType.contains("text/html") {
-           // WebVPNDisconnectedError()
            return false
         }
         
@@ -151,12 +149,6 @@ struct WebVPNError: Error {
 extension WebVPNError: LocalizedError {
     public var errorDescription: String? {
         String(localized: "VPN Error", bundle: .module)
-    }
-}
-
-public struct WebVPNDisconnectedError: Error {
-    public var errorDescription: String? {
-        return "WebVPN disconnected"
     }
 }
 
