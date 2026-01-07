@@ -20,7 +20,7 @@ struct ExamPage: View {
                                 Text(exam.course)
                                     .fontWeight(.bold)
                                     .foregroundColor(exam.isFinished ? .secondary : .primary)
-                                Text(verbatim: "\(exam.date)  \(exam.time)")
+                                Text(verbatim: "\(exam.semester) \(exam.date)  \(exam.time)")
                                     .foregroundColor(.secondary)
                                     .font(.footnote)
                             }
@@ -79,6 +79,12 @@ fileprivate struct ExamDetailSheet: View {
                     Text("Exam Type", bundle: .module)
                     Spacer()
                     Text(exam.method)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("Exam Semester", bundle: .module)
+                    Spacer()
+                    Text(exam.semester)
                         .foregroundColor(.secondary)
                 }
                 HStack {
