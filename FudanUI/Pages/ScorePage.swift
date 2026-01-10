@@ -126,9 +126,11 @@ fileprivate struct ScoreDetailSheet: View {
             List {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(score.courseId)
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
+                        if let courseId = score.courseId {
+                            Text(courseId)
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
                         Text(score.courseName)
                             .lineLimit(1)
                             .fontWeight(.bold)

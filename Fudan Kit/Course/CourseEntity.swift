@@ -143,7 +143,7 @@ public struct Exam: Identifiable {
 /// The score of a course
 public struct Score: Identifiable, Codable {
     public let id: UUID
-    public let courseId: String
+    public let courseId: String?
     public let courseName: String
     public let courseType: String
     public let courseCredit: String? // TODO: 新API暂不支持学分查询，后续补充
