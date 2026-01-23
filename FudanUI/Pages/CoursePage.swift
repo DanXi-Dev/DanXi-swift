@@ -13,13 +13,9 @@ public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
     @ObservedObject private var courseSettings = CourseSettings.shared
     @State private var loadingProgress: Float?
-    
+
     private let loadingProgressPublisher = PassthroughSubject<Float, Never>()
-    
-    private var context: [Int: Date] {
-        ConfigurationCenter.configuration.semesterStartDate
-    }
-    
+
     public init() { }
     
     public var body: some View {
@@ -57,15 +53,14 @@ public struct CoursePage: View {
         
         AsyncContentView(style: asyncContentStyle) {
             if let cachedModel = try? CourseModel.loadCache(for: campusModel.studentType) {
-                cachedModel.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
                 return cachedModel
             }
-            
+
             switch campusModel.studentType {
             case .undergrad:
-                return try await CourseModel.freshLoadForUndergraduate(startDateContext: context)
+                return try await CourseModel.freshLoadForUndergraduate()
             case .grad:
-                return try await GraduateCourseAPI.LoadingProgress.$progressPublisher.withValue(loadingProgressPublisher) { // This sets the task-local publisher for this refresh task. It will be received by this instance of CoursePage to update the UI progress.
+                return try await GraduateCourseAPI.LoadingProgress.$progressPublisher.withValue(loadingProgressPublisher) { 
                     return try await CourseModel.freshLoadForGraduate()
                 }
             case .staff:
@@ -83,7 +78,7 @@ public struct CoursePage: View {
         .onReceive(loadingProgressPublisher) { progress in
             loadingProgress = progress
         }
-        .id(campusModel.studentType) // ensure the page will refresh when student type changes
+        .id(campusModel.studentType) 
         .navigationTitle(String(localized: "Calendar", bundle: .module))
     }
 }
@@ -155,14 +150,11 @@ fileprivate struct CalendarContent: View {
                 }
             }
             .refreshable {
-                await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                await model.refresh()
             }
 #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
 #endif
-        }
-        .onReceive(ConfigurationCenter.semesterMapPublisher) { context in
-            model.receiveUndergraduateStartDateContextUpdate(startDateContext: context)
         }
 #if !os(watchOS)
         .toolbar {
