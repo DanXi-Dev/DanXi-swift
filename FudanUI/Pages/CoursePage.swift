@@ -73,12 +73,7 @@ public struct CoursePage: View {
                 throw LocatableError(description)
             }
         } content: { (model : CourseModel) in
-            if let conflicts = model.getConflictingCourses(){
-                ConflictResolver(conflits: conflicts)
-            }
-            else{
-                CalendarContent(model: model)
-            }
+            CalendarContent(model: model)
         }
         .onReceive(loadingProgressPublisher) { progress in
             loadingProgress = progress
@@ -92,7 +87,9 @@ public struct CoursePage: View {
 fileprivate struct CalendarContent: View {
     @EnvironmentObject private var tabViewModel: TabViewModel
     @ObservedObject private var campusModel = CampusModel.shared
+    @ObservedObject private var courseSettings = CourseSettings.shared
     @StateObject var model: CourseModel
+    @State private var showConflictBanner = true
     @State private var showErrorAlert = false
     @State private var showExportSheet = false
     @State private var showColorSheet = false
@@ -112,6 +109,38 @@ fileprivate struct CalendarContent: View {
 #if os(watchOS)
                 toolbar
 #endif
+                
+                if showConflictBanner, let conflicts = model.getConflictingCourses() {
+                    Section {
+                        HStack {
+                            NavigationLink {
+                                ConflictResolver(conflicts: conflicts)
+                                    .onDisappear {
+                                        Task {
+                                            await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                                        }
+                                    }
+                            } label: {
+                                Label {
+                                    Text("Course Conflict", bundle: .module)
+                                } icon: {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .foregroundStyle(.orange)
+                                }
+                            }
+                            Spacer()
+                            Button {
+                                withAnimation {
+                                    showConflictBanner = false
+                                }
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
                 
                 Section {
                     if !model.courses.isEmpty {
@@ -226,6 +255,9 @@ fileprivate struct CalendarContent: View {
             
             Button{
                 CourseSettings.shared.hiddenCourses = []
+                Task {
+                    await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                }
             } label: {
                 Label {
                     Text("Clear Hidden Courses", bundle: .module)
@@ -613,56 +645,45 @@ private struct ManualResetSemesterStartDateSheet: View {
 }
 
 private struct ConflictResolver: View {
-    public let conflits: [Course]
+    @Environment(\.dismiss) private var dismiss
+    let conflicts: [Course]
     @State private var hiddenCourses: Set<String>
 
-    public init(conflits: [Course]) {
-        self.conflits = conflits
+    public init(conflicts: [Course]) {
+        self.conflicts = conflicts
         self.hiddenCourses = Set<String>(CourseSettings.shared.hiddenCourses)
     }
 
-    public var body: some View {
-        ZStack(alignment: .topLeading) {
-            VStack(alignment: .leading, spacing: 12) {
-                Label(String(localized: "Course conflict — select course(s) to hide", bundle: .module),
-                      systemImage: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.orange)
-
-                ForEach(conflits, id: \.code) { course in
-                    HStack(alignment: .top) {
-                        Toggle(isOn: Binding(
-                            get: { hiddenCourses.contains(course.code) },
-                            set: { on in
-                                if on { hiddenCourses.insert(course.code) }
-                                else  { hiddenCourses.remove(course.code) }
-                            }
-                        )) {
-                            Text(course.name).font(.headline)
-                            Text(course.code).font(.subheadline).foregroundStyle(.secondary)
-                        }
+    var body: some View {
+        List {
+            ForEach(conflicts, id: \.code) { course in
+                Toggle(isOn: Binding(
+                    get: { hiddenCourses.contains(course.code) },
+                    set: { on in
+                        if on { hiddenCourses.insert(course.code) }
+                        else  { hiddenCourses.remove(course.code) }
                     }
-                    .padding(12)
-                    .background(.background, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(.quaternary)
-                    )
-                }
-                
-                HStack {
-                    Spacer()
-                    Button {
-                        CourseSettings.shared.hiddenCourses = Array(hiddenCourses)
-                    } label: {
-                        Text("Confirm", bundle: .module)
-                            .fontWeight(.semibold)
+                )) {
+                    VStack(alignment: .leading) {
+                        Text(course.name)
+                            .font(.headline)
+                        Text(course.code)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                     }
-                    .buttonStyle(.borderedProminent)
                 }
-                .padding(.top, 8)
             }
-            .padding()
+            
+            Button {
+                CourseSettings.shared.hiddenCourses = Array(hiddenCourses)
+                dismiss()
+            } label: {
+                Text("Confirm", bundle: .module)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .navigationTitle(String(localized: "Hide Courses", bundle: .module))
     }
 }
