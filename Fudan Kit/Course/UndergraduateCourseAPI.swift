@@ -270,10 +270,10 @@ public enum UndergraduateCourseAPI {
             let firstCell = cellsArray[0]
             if let timeDiv = try? firstCell.select("div.time").first(),
                let timeText = try? timeDiv.text(trimAndNormaliseWhitespace: true) {
-                let timeComponents = timeText.components(separatedBy: " ")
-                if timeComponents.count >= 2 {
-                    date = timeComponents[0]
-                    time = timeComponents[1]
+                if let dateMatch = timeText.firstMatch(of: /(\d{4}-\d{2}-\d{2})/),
+                   let timeMatch = timeText.firstMatch(of: /(\d{2}:\d{2}~\d{2}:\d{2})/) {
+                    date = String(dateMatch.1)
+                    time = String(timeMatch.1)
                 }
 
                 if let spanArray = try? firstCell.select("span").array(),
@@ -373,7 +373,7 @@ public enum UndergraduateCourseAPI {
     }
 
     private struct ScoreResponse: Decodable {
-        let lessonCode: String
+        let lessonCode: String?
         let courseCode: String
         let courseName: String
         let courseType: String?
