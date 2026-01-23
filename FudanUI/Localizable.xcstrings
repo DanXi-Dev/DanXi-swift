@@ -339,12 +339,12 @@
         }
       }
     },
-    "Course conflict — select course(s) to hide" : {
+    "Course Conflict" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "课程冲突 - 选择要隐藏的课程"
+            "value" : "课程冲突"
           }
         }
       }
@@ -868,6 +868,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隐藏功能"
+          }
+        }
+      }
+    },
+    "Hide Courses" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏课程"
           }
         }
       }
