@@ -112,7 +112,7 @@ fileprivate struct CalendarContent: View {
                                 ConflictResolver(conflicts: conflicts)
                                     .onDisappear {
                                         Task {
-                                            await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                                            await model.refresh()
                                         }
                                     }
                             } label: {
@@ -248,7 +248,7 @@ fileprivate struct CalendarContent: View {
             Button{
                 CourseSettings.shared.hiddenCourses = []
                 Task {
-                    await model.refresh(with: ConfigurationCenter.configuration.semesterStartDate)
+                    await model.refresh()
                 }
             } label: {
                 Label {
