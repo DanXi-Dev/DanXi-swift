@@ -51,6 +51,17 @@
         }
       }
     },
+    "Go to Browser" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开浏览器"
+          }
+        }
+      }
+    },
     "Loading" : {
       "localizations" : {
         "zh-Hans" : {
@@ -67,6 +78,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加载失败"
+          }
+        }
+      }
+    },
+    "Need captcha, visit UIS webpage to login." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要验证码，请访问UIS网页登录"
           }
         }
       }
