@@ -6,60 +6,91 @@ import FudanKit
 struct LocationSheet: View {
     @Environment(\.dismiss) var dismiss
     @State private var position: MapCameraPosition = .automatic
-    @State private var showAlert = false
     @State private var item : MKMapItem?
-    @State private var errorMessage : String?
     let location: String
     
-    func generatePlaceName(for location: String)->String{
+    private static let campusTable: [Character: (name: String, radius: CLLocationDistance)] = [
+        "J": ("复旦大学江湾校区", 900),
+        "Z": ("复旦大学张江校区", 450),
+        "F": ("复旦大学枫林校区", 350),
+        "H": ("复旦大学邯郸校区", 1000)
+    ]
+    
+    private static func getCampusName(for location: String) -> String {
+        return campusTable[location.first ?? "H"]?.name ?? campusTable["H"]!.name
+    }
+    
+    private static func getCampusRadius(for location: String) -> CLLocationDistance {
+        return campusTable[location.first ?? "H"]?.radius ?? campusTable["H"]!.radius
+    }
+    
+    private static let locationTable: [(prefix: String, name: String)] = [
+        (Building.hgx.rawValue, "光华楼西辅楼"),
+        (Building.hgd.rawValue, "光华楼东辅楼"),
+        (Building.h6.rawValue,  "第六教学楼"),
+        (Building.h5.rawValue,  "第五教学楼"),
+        (Building.h4.rawValue,  "第四教学楼"),
+        (Building.h3.rawValue,  "第三教学楼"),
+        (Building.h2.rawValue,  "第二教学楼"),
+        ("JA","江湾校区教学楼A号楼"),
+        ("JB","江湾校区智华楼"),
+        ("Z1","张江校区1号教学楼"),
+        ("Z2","张江校区2号教学楼"),
+        ("F1","上海医学院第1教学楼"),
+        ("F2","上海医学院第2教学楼"),
+        ("H","邯郸校区"),
+        (Building.hq.rawValue,  "新闻学院"),
+        (Building.j.rawValue,   "江湾校区"),
+        (Building.z.rawValue,   "张江校区"),
+        (Building.f.rawValue,   "枫林校区")
+    ]
+    
+    private static func getLocationName(for location: String) -> String {
         let base = "复旦大学"
-        
-        let table: [(prefix: String, name: String)] = [
-            (Building.hgx.rawValue, "光华楼西辅楼"),
-            (Building.hgd.rawValue, "光华楼东辅楼"),
-            (Building.h6.rawValue,  "第六教学楼"),
-            (Building.h5.rawValue,  "第五教学楼"),
-            (Building.h4.rawValue,  "第四教学楼"),
-            (Building.h3.rawValue,  "第三教学楼"),
-            (Building.h2.rawValue,  "第二教学楼"),
-            ("JA","江湾校区教学楼A号楼"),
-            ("JB","江湾校区智华楼"),
-            ("Z1","张江校区1号教学楼"),
-            ("Z2","张江校区2号教学楼"),
-            ("F1","上海医学院第1教学楼"),
-            ("F2","上海医学院第2教学楼"),
-            ("H","邯郸校区"),
-            (Building.hq.rawValue,  "新闻学院"),
-            (Building.j.rawValue,   "江湾校区"),
-            (Building.z.rawValue,   "张江校区"),
-            (Building.f.rawValue,   "枫林校区")
-        ]
-        
-        if let match = table.first(where: { location.hasPrefix($0.prefix) }) {
+        if let match = locationTable.first(where: { location.hasPrefix($0.prefix) }) {
             return base + match.name + String(location.dropFirst(match.prefix.count))
         }
-        
         return base + location.dropFirst(1)
     }
     
-    func fetchCoordinate(for placeName: String) {
+    private static func searchLocation(_ query: String) async throws -> MKMapItem? {
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = placeName
-        
+        request.naturalLanguageQuery = query
         let search = MKLocalSearch(request: request)
-        search.start { response, error in
-            guard error == nil else {
-                errorMessage = error!.localizedDescription
-                showAlert = true
-                return
+        let response = try await search.start()
+        return response.mapItems.first
+    }
+    
+    static func validateLocation(_ location: String) async -> Bool {
+        guard !location.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return false
+        }
+        
+        let campusName = getCampusName(for: location)
+        let locationName = getLocationName(for: location)
+        
+        do {
+            guard let campusCoordinate = try await searchLocation(campusName)?.placemark.coordinate,
+                  let locationCoordinate = try await searchLocation(locationName)?.placemark.coordinate else {
+                return false
             }
-            if (response?.mapItems.first?.placemark.coordinate) != nil {
-                self.item = response?.mapItems.first
-                self.position = .camera(MapCamera(centerCoordinate: item!.placemark.coordinate, distance: 400))
-            } else {
-                showAlert = true
-                errorMessage = nil
-            }
+            
+            let campusLocation = CLLocation(latitude: campusCoordinate.latitude, longitude: campusCoordinate.longitude)
+            let targetLocation = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+            return targetLocation.distance(from: campusLocation) <= getCampusRadius(for: location)
+        } catch {
+            return false
+        }
+    }
+    
+    private func fetchLocation() async {
+        let locationName = Self.getLocationName(for: location)
+        
+        guard let mapItem = try? await Self.searchLocation(locationName) else { return }
+        
+        await MainActor.run {
+            self.item = mapItem
+            self.position = .camera(MapCamera(centerCoordinate: mapItem.placemark.coordinate, distance: 400))
         }
     }
     
@@ -92,13 +123,8 @@ struct LocationSheet: View {
                 }
             }
         }
-        .alert(String(localized: "Location not found", bundle: .module), isPresented: $showAlert){} message: {
-            if errorMessage != nil {
-                Text(errorMessage!)
-            }
-        }
-        .onAppear{
-            fetchCoordinate(for: generatePlaceName(for: location))
+        .task {
+            await fetchLocation()
         }
     }
 }

@@ -973,6 +973,7 @@
       }
     },
     "Location not found" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
