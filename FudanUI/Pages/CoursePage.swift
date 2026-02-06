@@ -330,6 +330,7 @@ fileprivate struct CourseDetailSheet: View {
     
     let course: Course
     @State private var showLocationSheet = false
+    @State private var locationFound = false
     
     var body: some View {
         NavigationStack {
@@ -352,14 +353,13 @@ fileprivate struct CourseDetailSheet: View {
                 }
                 
                 LabeledContent {
-                    if #available(iOS 17.0, *){
+                    if #available(iOS 17.0, *), locationFound {
                         Button {
                             showLocationSheet = true
                         } label: {
                             Text(course.location)
                         }
-                    }
-                    else{
+                    } else {
                         Text(course.location)
                     }
                 } label: {
@@ -385,6 +385,11 @@ fileprivate struct CourseDetailSheet: View {
             }
             .navigationTitle(String(localized: "Course Detail", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
+            .task {
+                if #available(iOS 17.0, *) {
+                    locationFound = await LocationSheet.validateLocation(course.location)
+                }
+            }
         }
     }
 }
