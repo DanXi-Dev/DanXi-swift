@@ -281,6 +281,9 @@
         }
       }
     },
+    "AI Summary" : {
+
+    },
     "All Banners" : {
       "localizations" : {
         "zh-Hans" : {
@@ -447,6 +450,9 @@
           }
         }
       }
+    },
+    "Branches" : {
+
     },
     "Campus" : {
       "localizations" : {
@@ -1487,6 +1493,9 @@
         }
       }
     },
+    "Failed to generate summary" : {
+
+    },
     "Favorite" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1582,6 +1591,12 @@
           }
         }
       }
+    },
+    "Floor ##%@ not found" : {
+
+    },
+    "Floor ##%lld not found" : {
+
     },
     "Focus" : {
       "localizations" : {
@@ -1699,6 +1714,9 @@
           }
         }
       }
+    },
+    "Generating AI Summary for %lld floors..." : {
+
     },
     "Get Code" : {
       "localizations" : {
@@ -1878,6 +1896,9 @@
         }
       }
     },
+    "Interactions" : {
+
+    },
     "Join Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1907,6 +1928,9 @@
           }
         }
       }
+    },
+    "Keywords" : {
+
     },
     "Last Created" : {
       "localizations" : {
@@ -3188,6 +3212,9 @@
         }
       }
     },
+    "Summary" : {
+
+    },
     "System mail" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3362,6 +3389,9 @@
           }
         }
       }
+    },
+    "Unknown error" : {
+
     },
     "Unselect All" : {
       "localizations" : {

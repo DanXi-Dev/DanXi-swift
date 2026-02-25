@@ -67,6 +67,13 @@ class HoleModel: ObservableObject {
         self.floors = floors
     }
     
+    func getFloor(floorId: Int) -> Floor? {
+        if let floor = floors.first(where: { $0.floor.id == floorId })?.floor {
+            return floor
+        }
+        return nil
+    }
+    
     @MainActor
     func setEndReached(_ value: Bool) {
         self.endReached = value
@@ -345,6 +352,7 @@ class HoleModel: ObservableObject {
     @Published var showHideAlert = false
     @Published var showForceDeleteHoleAlert = false
     @Published var showCopySheet = false
+    @Published var showAISummarySheet = false
     @Published var draftReplySheet: Reply? = nil
     @Published var replySheet: Floor? = nil
     @Published var editSheet: Floor? = nil

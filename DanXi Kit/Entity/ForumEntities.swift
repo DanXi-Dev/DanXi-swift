@@ -16,6 +16,7 @@ public struct Hole: Identifiable, Codable, Hashable {
     public let locked: Bool
     public let hidden: Bool
     public let frozen: Bool
+    public let aiSummaryAvailable: Bool
     public let tags: [Tag]
     public let firstFloor, lastFloor: Floor
     public let prefetch: [Floor]
@@ -109,4 +110,68 @@ public struct Profile: Identifiable, Hashable, Decodable {
     public let bannedDivision: [Int: Date]
     public let notificationConfiguration: [String]
     public let showFoldedConfiguration: String
+}
+
+public struct AISummaryResponse: Codable{
+    public let code: Int
+    public let message: String
+    public let data: AISummaryContent?
+    
+    enum CodingKeys: String, CodingKey {
+            case code, message, data
+        }
+        
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.code = try container.decode(Int.self, forKey: .code)
+        self.message = try container.decode(String.self, forKey: .message)
+        
+        if self.code == 1000 || self.code == 1001 {
+            self.data = try container.decode(AISummaryContent.self, forKey: .data)
+        } else {
+            self.data = nil
+        }
+    }
+}
+
+public struct AISummaryContent: Codable{
+    public let holeId: Int
+    public let summary: String
+    public let branches: [Branch]?
+    public let interactions: [Interaction]?
+    public let keywords: [String]?
+    public let generatedAt: Date
+    
+    
+    public struct Branch: Codable, Hashable {
+        public let id: Int
+        public let label: String
+        public let content: String
+        public let color: String
+        public let representativeFloors: [Int]
+    }
+    
+    public struct Interaction: Codable, Hashable {
+        public let fromFloor: Int
+        public let fromUser: String
+        public let toFloor: Int
+        public let toUser: String
+        public let interactionType: InteractionType
+        public let content: String
+        
+        public enum InteractionType: String, Codable, Hashable {
+            case support
+            case question
+            case reply
+            case rebuttal
+            case supplement
+            
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                let rawValue = try container.decode(String.self)
+                self = InteractionType(rawValue: rawValue) ?? .reply
+            }
+        }
+    }
 }

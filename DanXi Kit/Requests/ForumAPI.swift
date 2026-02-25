@@ -323,4 +323,9 @@ public enum ForumAPI {
         let payload = ["is_actual_sensitive": sensitive]
         try await requestWithoutResponse("/floors/\(floorId)/_sensitive", base: forumURL, payload: payload, method: "PUT")
     }
+    
+    public static func getAISummary(holeId: Int) async throws -> AISummaryResponse {
+
+        return try await requestWithResponse("/holes/\(holeId)/summary", base: forumURL)
+    }
 }
