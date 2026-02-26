@@ -28,3 +28,13 @@ public struct FavoriteOrSubscribeTip: Tip {
         Text("Add this hole to Favorites or Subscribe to keep track of new updates.", bundle: .module)
     }
 }
+
+@available(iOS 17.0, *)
+public struct AISummaryTip: Tip {
+    public var title: Text{
+        Text("AI Summary", bundle: .module)
+    }
+    public var message : Text? {
+        Text("Let AI quickly summarize the key points of this hole for you.", bundle: .module)
+    }
+}

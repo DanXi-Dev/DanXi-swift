@@ -2018,6 +2018,16 @@
         }
       }
     },
+    "Let AI quickly summarize the key points of this hole for you." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "让 AI 为您快速提炼这个树洞的核心要点。"
+          }
+        }
+      }
+    },
     "Load More" : {
       "localizations" : {
         "zh-Hans" : {

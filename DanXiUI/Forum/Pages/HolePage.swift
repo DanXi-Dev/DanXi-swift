@@ -8,6 +8,8 @@ struct HolePage: View {
     @ObservedObject private var profileStore = ProfileStore.shared
     @available(iOS 17.0, *)
     private var favoriteOrSubscribeTip : FavoriteOrSubscribeTip {.init()}
+    @available(iOS 17.0, *)
+    private var aiSummaryTip: AISummaryTip {.init()}
     
     private var hole: Hole {
         model.hole
@@ -230,7 +232,7 @@ struct HolePage: View {
     @ViewBuilder
     private var toolbar: some View {
         if hole.aiSummaryAvailable {
-            ControlGroup{
+            let aiSummaryGroup = ControlGroup{
                 AsyncButton {
                     Task{
                         try await model.loadAllFloors()
@@ -240,6 +242,13 @@ struct HolePage: View {
                     Image(systemName: "sparkles")
                         .symbolRenderingMode(.multicolor)
                 }
+            }
+            if #available(iOS 17.0, *) {
+                aiSummaryGroup
+                    .popoverTip(aiSummaryTip)
+            }
+            else{
+                aiSummaryGroup
             }
         }
         
