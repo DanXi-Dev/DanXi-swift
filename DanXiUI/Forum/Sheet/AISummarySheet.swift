@@ -42,8 +42,8 @@ struct AISummarySheet: View {
         switch model.state {
         case .idle, .loading:
             loadingView
-        case .loaded(let summaryContent):
-            loadedView(content: summaryContent)
+        case .loaded(let summaryContent, let isGenerating):
+            summaryView(content: summaryContent, isGenerating: isGenerating)
         case .error(let error):
             errorView(error: error)
         }
@@ -61,26 +61,43 @@ struct AISummarySheet: View {
         }
     }
     
-    private func loadedView(content: AISummaryContent) -> some View {
-        ScrollView {
+    private func summaryView(content: AISummaryContent, isGenerating: Bool) -> some View {
+        let placeholder: AISummaryContent = decodePreviewData(filename: "ai_summary", directory: "forum")
+        return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                if let keywords = content.keywords{
+                if let keywords = content.keywords {
                     KeywordsView(keywords: keywords)
-                    Divider()
+                } else if isGenerating, let keywords = placeholder.keywords {
+                    KeywordsView(keywords: keywords)
+                        .shimmeringPlaceholder()
                 }
-                
-                
-                SummaryView(summary: content.summary)
                 
                 Divider()
                 
-                if let branches = content.branches{
-                    BranchesView(branches: branches, holeModel: holeModel)
-                    Divider()
+                if !content.summary.isEmpty {
+                    SummaryView(summary: content.summary)
+                } else if isGenerating {
+                    SummaryView(summary: placeholder.summary)
+                        .shimmeringPlaceholder()
                 }
                 
-                if let interactions = content.interactions{
+                Divider()
+                
+                if let branches = content.branches {
+                    BranchesView(branches: branches, holeModel: holeModel)
+                } else if isGenerating, let branches = placeholder.branches {
+                    BranchesView(branches: branches, holeModel: holeModel)
+                        .shimmeringPlaceholder()
+                }
+                
+                
+                Divider()
+                
+                if let interactions = content.interactions {
                     InteractionsView(interactions: interactions, holeModel: holeModel)
+                } else if isGenerating, let interactions = placeholder.interactions {
+                    InteractionsView(interactions: interactions, holeModel: holeModel)
+                        .shimmeringPlaceholder()
                 }
             }
             .padding()

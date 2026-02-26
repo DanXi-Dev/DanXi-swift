@@ -7,7 +7,7 @@ class AISummaryModel: ObservableObject {
     enum LoadingState {
         case idle
         case loading
-        case loaded(AISummaryContent)
+        case loaded(AISummaryContent, isGenerating: Bool)
         case error(Error)
     }
     
@@ -29,11 +29,11 @@ class AISummaryModel: ObservableObject {
                     guard let data = response.data else {
                         throw LocatableError("Invalid response")
                     }
-                    state = .loaded(data)
+                    state = .loaded(data, isGenerating: false)
                     return
                 case 1001:
                     if let data = response.data {
-                        state = .loaded(data)
+                        state = .loaded(data, isGenerating: true)
                     }
                     break
                 case 1002:

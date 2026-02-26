@@ -143,7 +143,7 @@ public struct AISummaryContent: Codable{
     public let keywords: [String]?
     public let generatedAt: Date
     
-    
+
     public struct Branch: Codable, Hashable {
         public let id: Int
         public let label: String
