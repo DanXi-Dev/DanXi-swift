@@ -6,6 +6,9 @@ struct AISummarySheet: View {
     @ObservedObject var holeModel: HoleModel
     @StateObject private var model: AISummaryModel
     
+    
+    let placeholder: AISummaryContent = decodePreviewData(filename: "ai_summary", directory: "forum")
+    
     init(holeModel: HoleModel) {
         self.holeModel = holeModel
         self._model = StateObject(wrappedValue: AISummaryModel(hole: holeModel.hole))
@@ -41,7 +44,7 @@ struct AISummarySheet: View {
     private var content: some View {
         switch model.state {
         case .idle, .loading:
-            loadingView
+            summaryView(content: nil, isGenerating: true)
         case .loaded(let summaryContent, let isGenerating):
             summaryView(content: summaryContent, isGenerating: isGenerating)
         case .error(let error):
@@ -49,23 +52,23 @@ struct AISummarySheet: View {
         }
     }
     
-    private var loadingView: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            ProgressView()
-                .scaleEffect(1.5)
-            Text("Generating AI Summary for \(holeModel.floors.count) floors...", bundle: .module)
-                .font(.headline)
-                .foregroundStyle(.secondary)
-            Spacer()
-        }
-    }
+
     
-    private func summaryView(content: AISummaryContent, isGenerating: Bool) -> some View {
-        let placeholder: AISummaryContent = decodePreviewData(filename: "ai_summary", directory: "forum")
+    private func summaryView(content: AISummaryContent?, isGenerating: Bool) -> some View {
         return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                if let keywords = content.keywords {
+                if isGenerating {
+                    Text("AI is generating the summary... You can close this sheet and come back later.", bundle: .module)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.secondary.opacity(0.1))
+                        .cornerRadius(8)
+                }
+                
+                if let keywords = content?.keywords {
                     KeywordsView(keywords: keywords)
                 } else if isGenerating, let keywords = placeholder.keywords {
                     KeywordsView(keywords: keywords)
@@ -74,8 +77,8 @@ struct AISummarySheet: View {
                 
                 Divider()
                 
-                if !content.summary.isEmpty {
-                    SummaryView(summary: content.summary)
+                if let summary = content?.summary, !summary.isEmpty {
+                    SummaryView(summary: summary)
                 } else if isGenerating {
                     SummaryView(summary: placeholder.summary)
                         .shimmeringPlaceholder()
@@ -83,7 +86,7 @@ struct AISummarySheet: View {
                 
                 Divider()
                 
-                if let branches = content.branches {
+                if let branches = content?.branches {
                     BranchesView(branches: branches, holeModel: holeModel)
                 } else if isGenerating, let branches = placeholder.branches {
                     BranchesView(branches: branches, holeModel: holeModel)
@@ -93,7 +96,7 @@ struct AISummarySheet: View {
                 
                 Divider()
                 
-                if let interactions = content.interactions {
+                if let interactions = content?.interactions {
                     InteractionsView(interactions: interactions, holeModel: holeModel)
                 } else if isGenerating, let interactions = placeholder.interactions {
                     InteractionsView(interactions: interactions, holeModel: holeModel)
