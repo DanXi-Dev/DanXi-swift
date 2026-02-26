@@ -282,10 +282,24 @@
       }
     },
     "AI is generating the summary... You can close this sheet and come back later." : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 正在努力分析讨论内容... 你可以先退出当前树洞去看看别的，待会再来"
+          }
+        }
+      }
     },
     "AI Summary" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 总结"
+          }
+        }
+      }
     },
     "All Banners" : {
       "localizations" : {
@@ -455,7 +469,14 @@
       }
     },
     "Branches" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "讨论分支"
+          }
+        }
+      }
     },
     "Campus" : {
       "localizations" : {
@@ -1497,7 +1518,14 @@
       }
     },
     "Failed to generate summary" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "总结生成失败"
+          }
+        }
+      }
     },
     "Favorite" : {
       "localizations" : {
@@ -1596,10 +1624,24 @@
       }
     },
     "Floor ##%@ not found" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "楼层 ##%@ 未找到"
+          }
+        }
+      }
     },
     "Floor ##%lld not found" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "楼层 ##%lld 未找到"
+          }
+        }
+      }
     },
     "Focus" : {
       "localizations" : {
@@ -1897,7 +1939,14 @@
       }
     },
     "Interactions" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "互动拓扑"
+          }
+        }
+      }
     },
     "Join Date" : {
       "localizations" : {
@@ -1930,7 +1979,14 @@
       }
     },
     "Keywords" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关键词"
+          }
+        }
+      }
     },
     "Last Created" : {
       "localizations" : {
@@ -3213,7 +3269,14 @@
       }
     },
     "Summary" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "核心摘要"
+          }
+        }
+      }
     },
     "System mail" : {
       "localizations" : {
@@ -3391,7 +3454,14 @@
       }
     },
     "Unknown error" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知错误"
+          }
+        }
+      }
     },
     "Unselect All" : {
       "localizations" : {
