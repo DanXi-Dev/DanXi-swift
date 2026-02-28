@@ -93,7 +93,8 @@ public enum UndergraduateCourseAPI {
                 var dateMap: [Int: Date] = [:]
                 for semester in semesters {
                     if let id = semester.id, let startDate = semester.startDate {
-                        dateMap[id] = startDate
+                        // fdjwgl returns the Sunday before the first teaching week; adjust +1 day.
+                        dateMap[id] = Calendar.current.date(byAdding: .day, value: 1, to: startDate) ?? startDate
                     }
                 }
                 return dateMap

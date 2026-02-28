@@ -37,8 +37,8 @@ public enum WalletAPI {
     
     public static func getContent() async throws -> WalletContent {
         let pageURL = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let authenticateURL = URL(string: "https://ecard.fudan.edu.cn/epay/j_spring_cas_security_check")!
-        let data = try await Authenticator.classic.authenticate(pageURL, loginURL: authenticateURL)
+        let request = constructRequest(pageURL)
+        let (data, _) = try await authenticateEpay(request: request)
         
         let document = try decodeHTMLDocument(data)
 
@@ -94,6 +94,7 @@ public enum WalletAPI {
 
         return transactions
     }
+
     
     private struct WalletStatisticsResponse: Decodable {
         let termdate: String
@@ -121,13 +122,14 @@ public enum WalletAPI {
             return WalletLog(id: UUID(), date: date, amount: $0.amount)
         }
     }
-    
+
     /// Get user's eCard balance.
     ///
     /// This API is slower than ``MyAPI.getUserInfo()``, which should be preferred.
     public static func getBalance() async throws -> String {
         let url = URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!
-        let responseData = try await Authenticator.classic.authenticate(url, loginURL: loginURL)
+        let request = constructRequest(url)
+        let responseData = try await authenticateEpay(request: request).0
         let cashElement = try decodeHTMLElement(responseData, selector: ".payway-box-bottom-item > p")
         return try cashElement.html()
     }
@@ -175,7 +177,8 @@ public enum WalletAPI {
                 }
                 
                 let url = URL(string: "https://ecard.fudan.edu.cn/epay/consume/index")!
-                let responseData = try await Authenticator.classic.authenticate(url, loginURL: WalletAPI.loginURL)
+                let request = constructRequest(url)
+                let responseData = try await WalletAPI.authenticateEpay(request: request).0
                 let element = try decodeHTMLElement(responseData, selector: "meta[name=\"_csrf\"]")
                 let csrf = try element.attr("content")
                 self.csrf = csrf
@@ -188,7 +191,7 @@ public enum WalletAPI {
         let form = ["pageNo": String(page), "_csrf": csrf]
         let request = constructFormRequest(url, form: form)
         
-        let data = try await Authenticator.classic.authenticate(request, loginURL: loginURL)
+        let data = try await authenticateEpay(request: request).0
         
         let table = try decodeHTMLElement(data, selector: "#all tbody")
         var transactions: [Transaction] = []
@@ -225,5 +228,9 @@ public enum WalletAPI {
         }
 
         return transactions
+    }
+
+    private static func authenticateEpay(request: URLRequest) async throws -> (Data, URLResponse) {
+        return try await Authenticator.neo.authenticateRequest(request: request)
     }
 }
