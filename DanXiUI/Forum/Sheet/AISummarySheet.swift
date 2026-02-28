@@ -7,7 +7,7 @@ struct AISummarySheet: View {
     @StateObject private var model: AISummaryModel
     
     
-    let placeholder: AISummaryContent = decodePreviewData(filename: "ai_summary", directory: "forum")
+    let placeholder: AISummaryContent = .placeholder
     
     init(holeModel: HoleModel) {
         self.holeModel = holeModel

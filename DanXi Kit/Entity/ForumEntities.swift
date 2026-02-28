@@ -143,6 +143,19 @@ public struct AISummaryContent: Codable{
     public let keywords: [String]?
     public let generatedAt: Date
     
+    public static var placeholder: AISummaryContent {
+        AISummaryContent(
+            holeId: 0,
+            summary: "AI is analyzing the conversation and generating a comprehensive summary for you. This may take a few seconds...",
+            branches: [
+                Branch(id: 1, label: "Main Topic", content: "The main discussion point of this thread.", color: "#007AFF", representativeFloors: []),
+                Branch(id: 2, label: "Different Perspectives", content: "Various opinions shared by users.", color: "#5856D6", representativeFloors: [])
+            ],
+            interactions: [],
+            keywords: ["Analyzing", "Summarizing", "AI"],
+            generatedAt: Date()
+        )
+    }
 
     public struct Branch: Codable, Hashable {
         public let id: Int
