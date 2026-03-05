@@ -161,6 +161,12 @@ class HoleModel: ObservableObject {
     
     @Published var filteredSegments: [HoleSegment] = []
     
+    @Published var detachedFoldedFloorIds: Set<Int> = [] {
+        didSet {
+            groupHoleSegments()
+        }
+    }
+    
     private func filterFloors() {
         switch filterOption {
         case .all:
@@ -188,7 +194,7 @@ class HoleModel: ObservableObject {
         var accumulatedFoldedFloors: [FloorPresentation] = []
         
         for presentation in presentations {
-            if presentation.floor.collapse {
+            if presentation.floor.collapse && !detachedFoldedFloorIds.contains(presentation.floor.id) {
                 accumulatedFoldedFloors.append(presentation)
             } else {
                 if !accumulatedFoldedFloors.isEmpty {
@@ -271,8 +277,18 @@ class HoleModel: ObservableObject {
     @MainActor
     func scrollTo(floorId: Int) {
         if let presentation = floors.filter({ $0.floor.id == floorId }).first {
-            scrollControl.send(presentation.id)
-            targetFloorId = presentation.id
+            if presentation.floor.collapse && !detachedFoldedFloorIds.contains(floorId) {
+                detachedFoldedFloorIds.insert(floorId)
+                
+                Task {
+                    try? await Task.sleep(for: .seconds(0.1))
+                    scrollControl.send(presentation.id)
+                    targetFloorId = presentation.id
+                }
+            } else {
+                scrollControl.send(presentation.id)
+                targetFloorId = presentation.id
+            }
         }
     }
     
