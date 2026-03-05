@@ -35,9 +35,6 @@ struct AISummarySheet: View {
         .task {
             await model.loadSummary()
         }
-        .onReceive(holeModel.scrollControl) { _ in
-            holeModel.showAISummarySheet = false
-        }
     }
     
     @ViewBuilder

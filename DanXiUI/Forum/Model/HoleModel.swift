@@ -277,15 +277,26 @@ class HoleModel: ObservableObject {
     @MainActor
     func scrollTo(floorId: Int) {
         if let presentation = floors.filter({ $0.floor.id == floorId }).first {
+            var needsDelay: Bool = false
+            
+            if showAISummarySheet {
+                showAISummarySheet = false
+                needsDelay = true
+            }
+            
             if presentation.floor.collapse && !detachedFoldedFloorIds.contains(floorId) {
                 detachedFoldedFloorIds.insert(floorId)
-                
+                needsDelay = true
+            }
+            
+            if needsDelay {
                 Task {
-                    try? await Task.sleep(for: .seconds(0.1))
+                    try? await Task.sleep(for: .seconds(0.5))
                     scrollControl.send(presentation.id)
                     targetFloorId = presentation.id
                 }
-            } else {
+            }
+            else{
                 scrollControl.send(presentation.id)
                 targetFloorId = presentation.id
             }
