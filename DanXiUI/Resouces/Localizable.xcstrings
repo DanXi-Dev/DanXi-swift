@@ -281,16 +281,6 @@
         }
       }
     },
-    "AI is generating the summary... You can close this sheet and come back later." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "AI 正在努力分析讨论内容... 你可以先退出当前树洞去看看别的，待会再来"
-          }
-        }
-      }
-    },
     "AI Summary" : {
       "localizations" : {
         "zh-Hans" : {
@@ -910,6 +900,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课程工作量"
+          }
+        }
+      }
+    },
+    "Creating your summary... You can close this sheet and come back later." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在努力分析讨论内容... 你可以先退出当前树洞去看看别的，待会再来"
           }
         }
       }

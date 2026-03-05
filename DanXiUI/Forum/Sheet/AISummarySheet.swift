@@ -55,7 +55,7 @@ struct AISummarySheet: View {
         return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 if isGenerating {
-                    Text("AI is generating the summary... You can close this sheet and come back later.", bundle: .module)
+                    Text("Creating your summary... You can close this sheet and come back later.", bundle: .module)
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .padding(.vertical, 8)
