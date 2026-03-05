@@ -102,6 +102,11 @@ struct AISummarySheet: View {
                     InteractionsView(interactions: interactions, holeModel: holeModel)
                         .shimmeringPlaceholder()
                 }
+                
+                if !isGenerating, let content = content {
+                    AIFeedbackView(holeId: content.holeId, traceId: content.traceId ?? "")
+                        .padding(.top, 8)
+                }
             }
             .padding()
         }
@@ -373,6 +378,108 @@ extension AISummaryContent.Interaction.InteractionType {
         case .reply: return .blue
         case .rebuttal: return .red
         case .supplement: return .indigo
+        }
+    }
+}
+
+private struct AIFeedbackView: View {
+    let holeId: Int
+    let traceId: String
+    
+    @State private var feedbackState: FeedbackState = .none
+    @State private var reason: String = ""
+    
+    enum FeedbackState {
+        case none, liked, disliked
+    }
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Divider()
+                .padding(.vertical, 4)
+            
+            Text("Is this summary helpful?", bundle: .module)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            
+            TextField(String(localized: "Feedback(optional)...", bundle: .module), text: $reason)
+                .textFieldStyle(.roundedBorder)
+                .font(.subheadline)
+                .disabled(feedbackState != .none)
+            
+            HStack(spacing: 16) {
+                Button(action: {
+                    if feedbackState == .none {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                            feedbackState = .liked
+                        }
+                        Task {
+                            try? await ForumAPI.createAISummaryFeedback(holeId: holeId, traceId: traceId, type: 1, reason: reason)
+                        }
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: feedbackState == .liked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        Text("Helpful", bundle: .module)
+                    }
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(
+                        feedbackState == .liked ? Color.blue.opacity(0.15) : Color.secondary.opacity(0.1)
+                    )
+                    .foregroundStyle(
+                        feedbackState == .liked ? Color.blue :
+                        feedbackState == .disliked ? Color.secondary.opacity(0.4) :
+                        Color.primary
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(
+                                feedbackState == .liked ? Color.blue.opacity(0.3) : Color.clear,
+                                lineWidth: 2
+                            )
+                    )
+                }
+                .disabled(feedbackState != .none)
+                
+                Button(action: {
+                    if feedbackState == .none {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                            feedbackState = .disliked
+                        }
+                        Task {
+                            try? await ForumAPI.createAISummaryFeedback(holeId: holeId, traceId: traceId, type: 0, reason: reason)
+                        }
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: feedbackState == .disliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
+                        Text("Not Helpful", bundle: .module)
+                    }
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(
+                        feedbackState == .disliked ? Color.red.opacity(0.15) : Color.secondary.opacity(0.1)
+                    )
+                    .foregroundStyle(
+                        feedbackState == .disliked ? Color.red :
+                        feedbackState == .liked ? Color.secondary.opacity(0.4) :
+                        Color.primary
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(
+                                feedbackState == .disliked ? Color.red.opacity(0.3) : Color.clear,
+                                lineWidth: 2
+                            )
+                    )
+                }
+                .disabled(feedbackState != .none)
+            }
         }
     }
 }

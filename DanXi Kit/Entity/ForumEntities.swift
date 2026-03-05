@@ -137,6 +137,7 @@ public struct AISummaryResponse: Codable{
 
 public struct AISummaryContent: Codable{
     public let holeId: Int
+    public let traceId: String?
     public let summary: String
     public let branches: [Branch]?
     public let interactions: [Interaction]?
@@ -146,6 +147,7 @@ public struct AISummaryContent: Codable{
     public static var placeholder: AISummaryContent {
         AISummaryContent(
             holeId: 0,
+            traceId: nil,
             summary: "AI is analyzing the conversation and generating a comprehensive summary for you. This may take a few seconds...",
             branches: [
                 Branch(id: 1, label: "Main Topic", content: "The main discussion point of this thread.", color: "#007AFF", representativeFloors: []),

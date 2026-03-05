@@ -1573,6 +1573,16 @@
         }
       }
     },
+    "Feedback(optional)..." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "反馈（可选）…"
+          }
+        }
+      }
+    },
     "Filter Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1820,6 +1830,16 @@
         }
       }
     },
+    "Helpful" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有帮助"
+          }
+        }
+      }
+    },
     "Hide" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1944,6 +1964,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "互动拓扑"
+          }
+        }
+      }
+    },
+    "Is this summary helpful?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这篇总结对您有帮助吗？"
           }
         }
       }
@@ -2297,6 +2327,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "明文数量不足"
+          }
+        }
+      }
+    },
+    "Not Helpful" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没帮助"
           }
         }
       }
