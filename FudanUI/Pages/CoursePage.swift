@@ -361,7 +361,6 @@ fileprivate struct CourseDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
     
     let course: Course
-    @State private var showLocationSheet = false
     
     var body: some View {
         NavigationStack {
@@ -384,16 +383,7 @@ fileprivate struct CourseDetailSheet: View {
                 }
                 
                 LabeledContent {
-                    if #available(iOS 17.0, *){
-                        Button {
-                            showLocationSheet = true
-                        } label: {
-                            Text(course.location)
-                        }
-                    }
-                    else{
-                        Text(course.location)
-                    }
+                    LocationLabel(location: course.location)
                 } label: {
                     Text("Location", bundle: .module)
                 }
@@ -410,13 +400,9 @@ fileprivate struct CourseDetailSheet: View {
                     }
                 }
             }
-            .sheet(isPresented: $showLocationSheet){
-                if #available(iOS 17.0, *) {
-                    LocationSheet(location: course.location)
-                }
-            }
             .navigationTitle(String(localized: "Course Detail", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
+
         }
     }
 }
