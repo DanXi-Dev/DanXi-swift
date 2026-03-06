@@ -5,7 +5,7 @@ import SwiftUI
 /// The style used in ``AsyncContentView``.
 @MainActor
 public struct AsyncContentStyle: Sendable {
-    public typealias Retry = @Sendable () -> Void
+    public typealias Retry = @MainActor () -> Void
     
     /// Create a style.
     /// - Parameters:

@@ -68,7 +68,7 @@ public struct AsyncContentView<Value: Sendable, Content: View>: View {
         case .idle:
             style.loadingView()
                 .onAppear {
-                    Task.detached {
+                    Task {
                         await load()
                     }
                 }
@@ -85,7 +85,7 @@ public struct AsyncContentView<Value: Sendable, Content: View>: View {
             }
         case .failed(let error):
             style.errorView(error) {
-                Task.detached {
+                Task {
                     await load()
                 }
             }
