@@ -77,7 +77,7 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
         if !endReached {
             if let loadingError = self.loadingError {
                 style.contentStyle.errorView(loadingError) {
-                    Task.detached {
+                    Task {
                         await loadMore()
                     }
                 }
@@ -153,7 +153,7 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
         if !endReached {
             if let loadingError = self.loadingError {
                 style.contentStyle.errorView(loadingError) {
-                    Task.detached {
+                    Task {
                         await loadMore()
                     }
                 }
