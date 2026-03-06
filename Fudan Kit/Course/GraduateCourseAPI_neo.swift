@@ -77,21 +77,19 @@ public enum GraduateCourseAPI_neo {
     ///   - captcha: Captcha answer submitted as `verifyCode`.
     ///   - token: Captcha token (`vtoken`) returned by ``retrieveCaptcha()``.
     public static func login(username: String, password: String, captcha: String, token: String) async throws {
-        let loginURL = URL(string: "http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/login/check/login.do")!
-        let form: [String: String] = [
-            "loginName": username,
-            "loginPwd": password,
-            "verifyCode": captcha,
-            "vtoken": token
-        ]
+        let loginURL = URL(string: "http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/login/check/login.do?")!
+        let encryptedPassword = DES.encrypt(password)
+        var request = constructRequest(loginURL, method: "POST")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        // Keep the exact field order and raw vtoken style expected by this endpoint.
+        let body = "loginName=\(username)&loginPwd=\(encryptedPassword)&verifyCode=\(captcha)&vtoken=\(token)"
+        request.httpBody = body.data(using: .utf8)
 
-        let request = constructFormRequest(loginURL, form: form)
         let (data, _) = try await URLSession.campusSession.data(for: request)
         let json = try JSON(data: data)
         
         let code = json["code"].stringValue
         if code != "1" {
-            let message = json["msg"].stringValue
             throw CampusError.loginFailed
         }
     }
