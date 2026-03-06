@@ -73,6 +73,27 @@ extension Course {
     }
 }
 
+extension Achievement {
+    enum CodingKeys: String, CodingKey {
+        case name, obtainDate, domain
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = UUID()
+        name = try values.decode(String.self, forKey: .name)
+        obtainDate = try values.decode(Date.self, forKey: .obtainDate)
+        domain = try values.decode(String.self, forKey: .domain)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(obtainDate, forKey: .obtainDate)
+        try container.encode(domain, forKey: .domain)
+    }
+}
+
 extension CurriculumSensitive {
     enum CodingKeys: String, CodingKey {
         case id, title, content, timeCreated, timeUpdated
