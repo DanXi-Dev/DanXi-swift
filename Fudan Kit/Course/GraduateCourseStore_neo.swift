@@ -5,7 +5,7 @@ import Disk
 import Utils
 #endif
 
-public typealias CaptchaSolver = @Sendable (_ imageData: Data) async throws -> String
+public typealias CaptchaSolver = (_ imageData: Data) async throws -> String
 
 public actor GraduateCourseStore_neo {
     public static let shared = GraduateCourseStore_neo()
@@ -64,6 +64,8 @@ public actor GraduateCourseStore_neo {
               let password = CredentialStore.shared.password else {
             throw CampusError.credentialNotFound
         }
+        
+        let _ = try await URLSession.campusSession.data(from: URL(string: "http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/*default/index.do")!)
 
         let (imageData, token) = try await GraduateCourseAPI_neo.retrieveCaptcha()
         let captcha = try await captchaSolver(imageData)

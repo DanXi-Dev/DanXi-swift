@@ -11,16 +11,10 @@ public class CourseModel: ObservableObject {
     
     /// Factory constructor for graduate student to create a new model from network
     /// - Returns: A new model loaded from network
-    public static func freshLoadForGraduate() async throws -> CourseModel {
-        let (semesters, currentSemesterFromServer) = try await GraduateCourseStore.shared.getRefreshedSemesters()
-        guard !semesters.isEmpty else {
-            let description = String(localized: "Semester list is empty", bundle: .module)
-            throw LocatableError(description)
-        }
-        let currentSemester = currentSemesterFromServer ?? semesters.last! // this force unwrap cannot fail, as semesters is checked to be not empty.
-        let courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: currentSemester)
+    public static func freshLoadForGraduate(captchaSolver: CaptchaSolver) async throws -> CourseModel {
+        let (courses, currentSemester) = try await GraduateCourseStore_neo.shared.getRefreshedCourses(captchaSolver: captchaSolver)
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
-        let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: semesters, week: week)
+        let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: [], week: week)
         model.refreshCache()
         return model
     }
@@ -150,15 +144,16 @@ public class CourseModel: ObservableObject {
     
     // MARK: - Model Update
     
-    /// Work to be done after semester is changed
+    /// Work to be done after semester is changed.
+    ///
+    /// - Important: In graduate neo mode, UI should not call this method.
     @MainActor public func updateSemester() async {
+        guard studentType == .undergrad else {
+            return
+        }
         courses = []
         do {
-            if studentType == .undergrad {
-                courses = try await UndergraduateCourseStore.shared.getCachedCourses(semester: semester)
-            } else if studentType == .grad {
-                courses = try await GraduateCourseStore.shared.getCachedCourses(semester: semester)
-            }
+            courses = try await UndergraduateCourseStore.shared.getCachedCourses(semester: semester)
             refreshCache()
         } catch {
             networkError = error
@@ -166,33 +161,41 @@ public class CourseModel: ObservableObject {
     }
     
     
-    /// Refresh courses in current semester and refresh semesters list
+    /// Refresh courses in current semester and refresh semesters list.
+    ///
+    /// - Important: In graduate neo mode, UI should not call this method.
     @MainActor public func refresh() async {
+        guard studentType == .undergrad else {
+            return
+        }
         do {
-            if studentType == .undergrad {
-                courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
-                let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
-                guard !semesters.isEmpty else {
-                    let description = String(localized: "Semester list is empty", bundle: .module)
-                    throw LocatableError(description)
-                }
-                self.semesters = semesters
-                if !self.semesters.contains(semester) {
-                    semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
-                }
-            } else if studentType == .grad {
-                courses = try await GraduateCourseStore.shared.getRefreshedCourses(semester: semester)
-                let (semesters, currentSemester) = try await GraduateCourseStore.shared.getRefreshedSemesters()
-                guard !semesters.isEmpty else {
-                    let description = String(localized: "Semester list is empty", bundle: .module)
-                    throw LocatableError(description)
-                }
-                self.semesters = semesters
-                if !self.semesters.contains(semester) {
-                    semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
-                }
+            courses = try await UndergraduateCourseStore.shared.getRefreshedCourses(semester: semester)
+            let (semesters, currentSemester) = try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+            guard !semesters.isEmpty else {
+                let description = String(localized: "Semester list is empty", bundle: .module)
+                throw LocatableError(description)
+            }
+            self.semesters = semesters
+            if !self.semesters.contains(semester) {
+                semester = currentSemester ?? semesters.last! // force unwrap is safe as semesters is checked not empty
             }
 
+            refreshCache()
+        } catch {
+            networkError = error
+        }
+    }
+
+    /// Refresh graduate courses in neo mode (captcha is required by login flow).
+    @MainActor public func refreshForGraduate(captchaSolver: CaptchaSolver) async {
+        do {
+            guard studentType == .grad else {
+                throw LocatableError()
+            }
+            let (courses, semester) = try await GraduateCourseStore_neo.shared.getRefreshedCourses(captchaSolver: captchaSolver)
+            self.courses = courses
+            self.semester = semester
+            self.semesters = []
             refreshCache()
         } catch {
             networkError = error
@@ -211,7 +214,12 @@ public class CourseModel: ObservableObject {
     /// An internal method that persists data to disk when model updates.
     func refreshCache() {
         Task(priority: .background) {
-            let cache = CourseModelCache(studentType: studentType, courses: courses, semester: semester, semesters: semesters)
+            let cache = CourseModelCache(
+                studentType: studentType,
+                courses: courses,
+                semester: semester,
+                semesters: studentType == .grad ? [] : semesters
+            )
             try Disk.save(cache, to: .appGroup, as: "fdutools/course-model.json")
         }
     }
