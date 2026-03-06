@@ -43,7 +43,7 @@ public enum ConfigurationCenter {
         let banners: [Banner]
         let userAgent: String
         let highlightTagIds: [Int]
-        let stickers: [Sticker]?
+        let sticker: [Sticker]?
         
         func constructConfiguration() -> AppConfiguration {
             var convertedSemsterStartDate: [Int: Date] = [:]
@@ -59,7 +59,7 @@ public enum ConfigurationCenter {
                 banners: banners,
                 userAgent: userAgent,
                 highlightTagIds: highlightTagIds,
-                stickers: stickers ?? []
+                stickers: sticker ?? []
             )
         }
     }

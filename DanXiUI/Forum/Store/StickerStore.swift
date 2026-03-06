@@ -25,7 +25,7 @@ class StickerStore: ObservableObject {
         
         for sticker in stickers {
             do {
-                let loadedImage = try await retrieveImage(sticker: sticker)
+                let loadedImage = try await retrieveImage(sticker: sticker, scale: 0.5)
                 stickerImage[sticker.id] = loadedImage
             } catch _ as URLError {
                 continue // ignore network error, sticker loading failed should not be fatal
@@ -37,15 +37,16 @@ class StickerStore: ObservableObject {
         }
     }
     
-    private func retrieveImage(sticker: Sticker) async throws -> LoadedImage {
+    private func retrieveImage(sticker: Sticker, scale: CGFloat = 1.0) async throws -> LoadedImage {
         let filename = "stickers/\(sticker.sha256).jpg"
         
         let fileURL = try Disk.url(for: filename, in: .caches)
         
         // retrieved from disk
         if let uiImage = try? Disk.retrieve(filename, from: .caches, as: UIImage.self) {
-            let image = Image(uiImage: uiImage)
-            return LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
+            let scaledUIImage = scaleImage(uiImage, by: scale)
+            let image = Image(uiImage: scaledUIImage)
+            return LoadedImage(image: image, uiImage: scaledUIImage, fileURL: fileURL)
         }
         
         // download image from internet
@@ -54,9 +55,20 @@ class StickerStore: ObservableObject {
             throw LocatableError()
         }
         try Disk.save(uiImage, to: .caches, as: filename)
-        let image = Image(uiImage: uiImage)
         
-        return LoadedImage(image: image, uiImage: uiImage, fileURL: fileURL)
+        let scaledUIImage = scaleImage(uiImage, by: scale)
+        let image = Image(uiImage: scaledUIImage)
+        
+        return LoadedImage(image: image, uiImage: scaledUIImage, fileURL: fileURL)
+    }
+    
+    private func scaleImage(_ image: UIImage, by scale: CGFloat) -> UIImage {
+        guard scale > 0, scale != 1 else { return image }
+        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: size))
+        }
     }
     
     private func clearUnunsed(stickers: [Sticker]) throws {
