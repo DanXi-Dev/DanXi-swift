@@ -25,7 +25,7 @@ class StickerStore: ObservableObject {
         
         for sticker in stickers {
             do {
-                let loadedImage = try await retrieveImage(sticker: sticker, scale: 0.5)
+                let loadedImage = try await retrieveImage(sticker: sticker, scale: 0.4)
                 stickerImage[sticker.id] = loadedImage
             } catch _ as URLError {
                 continue // ignore network error, sticker loading failed should not be fatal
