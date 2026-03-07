@@ -1,7 +1,7 @@
 import Foundation
 
 /// App-wide cache for sport-related data, including exercises and sport exams.
-public actor SportStore {
+public actor SportStore: ClearableStorage {
     public static let shared = SportStore()
 
     var exercises: [Exercise]? = nil
@@ -36,6 +36,12 @@ public actor SportStore {
         let exam = try await SportAPI.getExam()
         self.exam = exam
         return exam
+    }
+    
+    public func clearCache() {
+        exercises = nil
+        exerciseLogs = nil
+        exam = nil
     }
     
     public func setupPreview(exercises: [Exercise], exerciseLogs: [ExerciseLog]) {

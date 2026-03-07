@@ -1,7 +1,7 @@
 import Foundation
 
 /// App-wide cache store for electricity usage. Invalidated between app launches.
-public actor ElectricityStore {
+public actor ElectricityStore: ClearableStorage {
     public static let shared = ElectricityStore()
     
     var usage: ElectricityUsage? = nil
