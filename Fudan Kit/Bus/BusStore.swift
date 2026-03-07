@@ -4,7 +4,7 @@ import Disk
 import Utils
 
 /// App-wide cache for bus schedule. The cache is invalidated between app launches.
-public actor BusStore {
+public actor BusStore: ClearableStorage {
     public static let shared = BusStore()
     
     var workdayRoutes: [Route]? = nil
@@ -43,6 +43,12 @@ public actor BusStore {
         try Disk.save(routes, to: .appGroup, as: "fdutools/bus.json")
         
         return (workdayRoutes, holidayRoutes)
+    }
+    
+    public func clearCache() throws {
+        self.workdayRoutes = nil
+        self.holidayRoutes = nil
+        try Disk.remove("fdutools/bus.json", from: .appGroup)
     }
     
     public func setupPreview(routes: BusRoutes) {
