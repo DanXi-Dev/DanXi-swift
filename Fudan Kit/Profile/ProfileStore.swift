@@ -8,7 +8,7 @@ import Utils
 /// App-wide cache for reservation. Cache is persisted to disk.
 ///
 /// The cache should be cleared when user log out.
-public actor ProfileStore {
+public actor ProfileStore: ClearableStorage {
     public static let shared = ProfileStore()
     
     var profile: Profile?

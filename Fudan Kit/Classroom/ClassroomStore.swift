@@ -1,6 +1,6 @@
 import Foundation
 
-public actor ClassroomStore {
+public actor ClassroomStore: ClearableStorage {
     public static let shared = ClassroomStore()
     
     var classroomsCache: [Building: [Classroom]] = [:]
@@ -42,6 +42,11 @@ public actor ClassroomStore {
         let classrooms = try await ClassroomAPI.getClassrooms(building: building)
         classroomsCache[building] = classrooms
         return classrooms
+    }
+    
+    public func clearCache() {
+        classroomsCache = [:]
+        lastLoginDate = nil
     }
     
     public func setupPreview(_ cache: [Building: [Classroom]]) {

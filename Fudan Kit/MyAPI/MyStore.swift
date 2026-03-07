@@ -1,6 +1,6 @@
 import Foundation
 
-public actor MyStore {
+public actor MyStore: ClearableStorage {
     public static let shared = MyStore()
     
     let dataValidFor: TimeInterval = 1 * 60 * 60

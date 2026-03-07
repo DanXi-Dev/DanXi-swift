@@ -1,7 +1,7 @@
 import Foundation
 
 /// App-wide cache for announcement. Cache is invalidated between app launches.
-public actor UndergraduateAnnouncementStore {
+public actor UndergraduateAnnouncementStore: ClearableStorage {
     public static let shared = UndergraduateAnnouncementStore()
     
     var page = 1
@@ -41,7 +41,7 @@ public actor UndergraduateAnnouncementStore {
     }
 }
 
-public actor PostgraduateAnnouncementStore {
+public actor PostgraduateAnnouncementStore: ClearableStorage {
     public static let shared = PostgraduateAnnouncementStore()
     
     var page = 1

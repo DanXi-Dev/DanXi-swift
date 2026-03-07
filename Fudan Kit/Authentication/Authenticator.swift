@@ -64,6 +64,10 @@ public actor Authenticator {
 
         throw CampusError.loginFailed
     }
+    
+    public func resetLoginStatus() {
+        loginStatus.removeAll()
+    }
 
     // MARK: - Internals
 

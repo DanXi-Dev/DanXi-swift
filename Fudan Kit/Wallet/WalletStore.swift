@@ -1,7 +1,7 @@
 import Foundation
 
 /// App-wide cache for wallet-related functions. Cache is invalidated between app launches.
-public actor WalletStore {
+public actor WalletStore: ClearableStorage {
     public static let shared = WalletStore()
     
     var content: WalletContent? = nil
