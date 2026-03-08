@@ -5,11 +5,13 @@ import ViewUtils
 public struct LoginSheet: View {
     private let style: SheetStyle
     @ObservedObject private var model = CampusModel.shared
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) var openURL
     
     @State private var username = ""
     @State private var password = ""
     @State private var showCaptchaAlert = false
+    @State private var failedAttempts = 0
     
     public init(style: SheetStyle = .independent) {
         self.style = style
@@ -21,8 +23,13 @@ public struct LoginSheet: View {
                 try await model.login(username: username, password: password)
             }
             catch CampusError.needCaptcha {
+                failedAttempts += 1
                 showCaptchaAlert = true
                 throw CampusError.needCaptcha
+            }
+            catch {
+                failedAttempts += 1
+                throw error
             }
         } content: {
             #if os(watchOS)
@@ -60,6 +67,19 @@ public struct LoginSheet: View {
             }
             
             #endif
+            
+            if failedAttempts >= 3 && !username.isEmpty && !password.isEmpty {
+                Section {
+                    Button {
+                        model.forceLogin(username: username, password: password)
+                        dismiss()
+                    } label: {
+                        Text("Ignore check and login", bundle: .module)
+                    }
+                } footer: {
+                    Text("Login failure is usally caused by captcha. Force login may lead to some functions unavailable. You can go to browser and perform a succesful login to fix this later.", bundle: .module)
+                }
+            }
         }
         .completed(!username.isEmpty && !password.isEmpty)
         .submitText(String(localized: "Login", bundle: .module))

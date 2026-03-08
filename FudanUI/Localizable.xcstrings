@@ -911,6 +911,16 @@
         }
       }
     },
+    "Ignore check and login" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳过检查直接登录"
+          }
+        }
+      }
+    },
     "Indigo" : {
       "localizations" : {
         "zh-Hans" : {
@@ -997,6 +1007,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登录"
+          }
+        }
+      }
+    },
+    "Login failure is usally caused by captcha. Force login may lead to some functions unavailable. You can go to browser and perform a succesful login to fix this later." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "验证码可能会导致登录失败。跳过检查强行登录可能导致一些功能无法使用。您可以稍后使用浏览器进行一次完整登录以修复此问题。"
           }
         }
       }
