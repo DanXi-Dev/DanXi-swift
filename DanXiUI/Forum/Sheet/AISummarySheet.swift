@@ -100,8 +100,8 @@ struct AISummarySheet: View {
                         .shimmeringPlaceholder()
                 }
                 
-                if !isGenerating, let content = content {
-                    AIFeedbackView(holeId: content.holeId, traceId: content.traceId ?? "")
+                if !isGenerating, let holeId = content?.holeId, let traceId = content?.traceId {
+                    AIFeedbackView(holeId: holeId, traceId: traceId)
                         .padding(.top, 8)
                 }
             }
@@ -385,6 +385,8 @@ private struct AIFeedbackView: View {
     
     @State private var feedbackState: FeedbackState = .none
     @State private var reason: String = ""
+    @State private var tapCount = 0
+    @State private var showTraceId = false
     
     enum FeedbackState {
         case none, liked, disliked
@@ -395,9 +397,31 @@ private struct AIFeedbackView: View {
             Divider()
                 .padding(.vertical, 4)
             
-            Text("Is this summary helpful?", bundle: .module)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            Group {
+                if showTraceId {
+                    Text(traceId)
+                        .contextMenu {
+                            Button {
+                                UIPasteboard.general.string = traceId
+                            } label: {
+                                Label(String(localized: "Copy", bundle: .module), systemImage: "doc.on.doc")
+                            }
+                        }
+                } else {
+                    Text("Is this summary helpful?", bundle: .module)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            tapCount += 1
+                            if tapCount >= 5 {
+                                withAnimation {
+                                    showTraceId = true
+                                }
+                            }
+                        }
+                }
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
             
             TextField(String(localized: "Feedback(optional)...", bundle: .module), text: $reason)
                 .textFieldStyle(.roundedBorder)

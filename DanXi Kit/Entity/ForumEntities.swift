@@ -147,7 +147,7 @@ public struct AISummaryContent: Codable{
     public static var placeholder: AISummaryContent {
         AISummaryContent(
             holeId: 0,
-            traceId: nil,
+            traceId: "",
             summary: "AI is analyzing the conversation and generating a comprehensive summary for you. This may take a few seconds...",
             branches: [
                 Branch(id: 1, label: "Main Topic", content: "The main discussion point of this thread.", color: "#007AFF", representativeFloors: []),
