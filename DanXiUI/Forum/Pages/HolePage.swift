@@ -234,10 +234,8 @@ struct HolePage: View {
         if hole.aiSummaryAvailable {
             let aiSummaryGroup = ControlGroup{
                 AsyncButton {
-                    Task{
-                        try await model.loadAllFloors()
-                        model.showAISummarySheet = true
-                    }
+                    try await model.loadAllFloors()
+                    model.showAISummarySheet = true
                 } label: {
                     Image(systemName: "sparkles")
                         .symbolRenderingMode(.multicolor)
