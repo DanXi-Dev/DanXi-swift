@@ -47,13 +47,17 @@ public actor GraduateCourseStore_neo {
         }
 
         do {
-            let (courses, semester) = try await GraduateCourseAPI_neo.getCourses()
+            let (courses, fetchedSemester) = try await GraduateCourseAPI_neo.getCourses()
+            var semester = fetchedSemester
+            semester.startDate = fetchedSemester.startDate ?? cachedSemester?.startDate
             try saveCache(courses: courses, semester: semester)
             return (courses, semester)
         } catch {
             // Session can still expire earlier than local timeout; relogin once then retry.
             try await login(captchaSolver: captchaSolver)
-            let (courses, semester) = try await GraduateCourseAPI_neo.getCourses()
+            let (courses, fetchedSemester) = try await GraduateCourseAPI_neo.getCourses()
+            var semester = fetchedSemester
+            semester.startDate = fetchedSemester.startDate ?? cachedSemester?.startDate
             try saveCache(courses: courses, semester: semester)
             return (courses, semester)
         }
