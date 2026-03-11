@@ -205,8 +205,9 @@ public class CourseModel: ObservableObject {
     /// The semester start date received from server might be incorrect. This method support user to manually set the start date.
     public func manualResetSemesterStartDate(startDate: Date) {
         semester.startDate = startDate
-        guard let idx = semesters.firstIndex(of: semester) else { return }
-        semesters[idx].startDate = startDate
+        if let idx = semesters.firstIndex(of: semester) {
+            semesters[idx].startDate = startDate
+        }
         refreshCache()
     }
     
