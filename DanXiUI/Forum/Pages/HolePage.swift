@@ -8,6 +8,8 @@ struct HolePage: View {
     @ObservedObject private var profileStore = ProfileStore.shared
     @available(iOS 17.0, *)
     private var favoriteOrSubscribeTip : FavoriteOrSubscribeTip {.init()}
+    @available(iOS 17.0, *)
+    private var aiSummaryTip: AISummaryTip {.init()}
     
     private var hole: Hole {
         model.hole
@@ -115,7 +117,13 @@ struct HolePage: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    toolbar
+                    if #available(iOS 26.0, *) {
+                            toolbar
+                    } else {
+                            HStack(spacing: 6) {
+                                toolbar
+                            }
+                    }
                 }
                 
                 ToolbarItem(placement: .bottomBar) {
@@ -223,122 +231,144 @@ struct HolePage: View {
     
     @ViewBuilder
     private var toolbar: some View {
-        AsyncButton {
-            if profileStore.answered {
-                if let draftReply = await DraftboxStore.shared.getReply(hole.id) {
-                    model.draftReplySheet = draftReply
-                } else {
-                    model.showReplySheet = true
+        if hole.aiSummaryAvailable {
+            let aiSummaryGroup = ControlGroup{
+                AsyncButton {
+                    try await model.loadAllFloors()
+                    model.showAISummarySheet = true
+                } label: {
+                    Image(systemName: "sparkles")
+                        .symbolRenderingMode(.multicolor)
                 }
-            } else {
-                model.showQuestionSheet = true
             }
-        } label: {
-            Image(systemName: "arrowshape.turn.up.left")
+            if #available(iOS 17.0, *) {
+                aiSummaryGroup
+                    .popoverTip(aiSummaryTip)
+            }
+            else{
+                aiSummaryGroup
+            }
         }
-        .disabled(hole.locked && !profileStore.isAdmin)
         
-        let baseMenu = Menu {
-            AsyncButton {
-                try await withHaptics {
-                    try await model.toggleFavorite()
-                }
-            } label: {
-                if model.isFavorite {
-                    Label(String(localized: "Unfavorite", bundle: .module) + String("(\(String(hole.favoriteCount)))"), systemImage: "star.slash")
-                } else {
-                    Label(String(localized: "Favorite", bundle: .module) + String("(\(String(hole.favoriteCount)))"), systemImage: "star")
-                }
-            }
-            
-            AsyncButton {
-                try await withHaptics {
-                    try await model.toggleSubscribe()
-                }
-            } label: {
-                if model.subscribed {
-                    Label(String(localized: "Unsubscribe", bundle: .module) + String("(\(String(hole.subscriptionCount)))"), systemImage: "bell.slash")
-                } else {
-                    Label(String(localized: "Subscribe", bundle: .module) +  String("(\(String(hole.subscriptionCount)))"), systemImage: "bell")
-                }
-            }
-            
-            Picker(selection: $model.filterOption) {
-                Label(String(localized: "Show All", bundle: .module), systemImage: "list.bullet")
-                    .tag(HoleModel.FilterOptions.all)
-                
-                Label(String(localized: "Show OP Only", bundle: .module), systemImage: "person.fill")
-                    .tag(HoleModel.FilterOptions.posterOnly)
-            } label: {
-                Text("Filter Options", bundle: .module)
-            }
-            
-            AsyncButton {
-                try await withHaptics {
-                    if !model.endReached {
-                        try await model.loadAllFloors()
-                    }
-                    model.scrollToBottom()
-                }
-            } label: {
-                Label(String(localized: "Navigate to Bottom", bundle: .module), systemImage: "arrow.down.to.line")
-            }
-            
-            Divider()
-            
-            Button {
-                model.showCopySheet = true
-            } label: {
-                Label {
-                    Text("Copy Text", bundle: .module)
-                } icon: {
-                    Image(systemName: "document.on.document")
-                }
-            }
-            
-            if profileStore.isAdmin {
-                Divider()
-                
-                Menu {
-                    if !model.hole.hidden {
-                        Button {
-                            model.showHideAlert = true
-                        } label: {
-                            Label(String(localized: "Hide Hole", bundle: .module), systemImage: "eye.slash.fill")
+        
+        ControlGroup{
+                AsyncButton {
+                    if profileStore.answered {
+                        if let draftReply = await DraftboxStore.shared.getReply(hole.id) {
+                            model.draftReplySheet = draftReply
+                        } else {
+                            model.showReplySheet = true
                         }
+                    } else {
+                        model.showQuestionSheet = true
                     }
-                    if model.hole.timeDeleted == nil {
-                        Button {
-                            model.showForceDeleteHoleAlert = true
-                        } label: {
-                            Label(String(localized: "Force Delete Hole", bundle: .module), systemImage: "trash")
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.left")
+                }
+                .disabled(hole.locked && !profileStore.isAdmin)
+                
+                let baseMenu = Menu {
+                    AsyncButton {
+                        try await withHaptics {
+                            try await model.toggleFavorite()
+                        }
+                    } label: {
+                        if model.isFavorite {
+                            Label(String(localized: "Unfavorite", bundle: .module) + String("(\(String(hole.favoriteCount)))"), systemImage: "star.slash")
+                        } else {
+                            Label(String(localized: "Favorite", bundle: .module) + String("(\(String(hole.favoriteCount)))"), systemImage: "star")
                         }
                     }
                     
-                    Button {
-                        model.showHoleEditSheet = true
+                    AsyncButton {
+                        try await withHaptics {
+                            try await model.toggleSubscribe()
+                        }
                     } label: {
-                        Label(String(localized: "Edit Post Info", bundle: .module), systemImage: "info.circle")
+                        if model.subscribed {
+                            Label(String(localized: "Unsubscribe", bundle: .module) + String("(\(String(hole.subscriptionCount)))"), systemImage: "bell.slash")
+                        } else {
+                            Label(String(localized: "Subscribe", bundle: .module) +  String("(\(String(hole.subscriptionCount)))"), systemImage: "bell")
+                        }
+                    }
+                    
+                    Picker(selection: $model.filterOption) {
+                        Label(String(localized: "Show All", bundle: .module), systemImage: "list.bullet")
+                            .tag(HoleModel.FilterOptions.all)
+                        
+                        Label(String(localized: "Show OP Only", bundle: .module), systemImage: "person.fill")
+                            .tag(HoleModel.FilterOptions.posterOnly)
+                    } label: {
+                        Text("Filter Options", bundle: .module)
+                    }
+                    
+                    AsyncButton {
+                        try await withHaptics {
+                            if !model.endReached {
+                                try await model.loadAllFloors()
+                            }
+                            model.scrollToBottom()
+                        }
+                    } label: {
+                        Label(String(localized: "Navigate to Bottom", bundle: .module), systemImage: "arrow.down.to.line")
+                    }
+                    
+                    Divider()
+                    
+                    Button {
+                        model.showCopySheet = true
+                    } label: {
+                        Label {
+                            Text("Copy Text", bundle: .module)
+                        } icon: {
+                            Image(systemName: "document.on.document")
+                        }
+                    }
+                    
+                    if profileStore.isAdmin {
+                        Divider()
+                        
+                        Menu {
+                            if !model.hole.hidden {
+                                Button {
+                                    model.showHideAlert = true
+                                } label: {
+                                    Label(String(localized: "Hide Hole", bundle: .module), systemImage: "eye.slash.fill")
+                                }
+                            }
+                            if model.hole.timeDeleted == nil {
+                                Button {
+                                    model.showForceDeleteHoleAlert = true
+                                } label: {
+                                    Label(String(localized: "Force Delete Hole", bundle: .module), systemImage: "trash")
+                                }
+                            }
+                            
+                            Button {
+                                model.showHoleEditSheet = true
+                            } label: {
+                                Label(String(localized: "Edit Post Info", bundle: .module), systemImage: "info.circle")
+                            }
+                        } label: {
+                            Label(String(localized: "Admin Actions", bundle: .module), systemImage: "person.badge.key")
+                        }
                     }
                 } label: {
-                    Label(String(localized: "Admin Actions", bundle: .module), systemImage: "person.badge.key")
+                    Image(systemName: "ellipsis.circle")
                 }
+                .onAppear {
+                    if #available(iOS 17.0, *) {
+                        favoriteOrSubscribeTip.invalidate(reason: .actionPerformed)
+                    }
+                }
+                
+                if #available(iOS 17.0, *) {
+                    baseMenu
+                        .popoverTip(favoriteOrSubscribeTip)
+                }
+                else{
+                    baseMenu
             }
-        } label: {
-            Image(systemName: "ellipsis.circle")
-        }
-        .onAppear {
-            if #available(iOS 17.0, *) {
-                favoriteOrSubscribeTip.invalidate(reason: .actionPerformed)
-            }
-        }
-        
-        if #available(iOS 17.0, *) {
-            baseMenu
-                .popoverTip(favoriteOrSubscribeTip)
-        }
-        else{
-            baseMenu
         }
     }
     
@@ -433,6 +463,9 @@ private struct HolePageSheets<Label: View>: View {
             .sheet(isPresented: $model.showCopySheet) {
                 HoleCopySheet()
                     .environmentObject(model)
+            }
+            .sheet(isPresented: $model.showAISummarySheet) {
+                AISummarySheet(holeModel: model)
             }
             .alert(String(localized: "Confirm Delete Post", bundle: .module), isPresented: $model.showHideAlert) {
                 Button(role: .destructive) {

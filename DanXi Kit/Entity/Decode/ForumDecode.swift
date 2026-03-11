@@ -16,6 +16,7 @@ extension Hole {
         case frozen
         case tags
         case floors
+        case aiSummaryAvailable
     }
     
     enum NestedKeys: String, CodingKey {
@@ -39,6 +40,7 @@ extension Hole {
         hidden = try container.decode(Bool.self, forKey: .hidden)
         locked = try container.decode(Bool.self, forKey: .locked)
         frozen = try container.decode(Bool.self, forKey: .frozen)
+        aiSummaryAvailable = try container.decodeIfPresent(Bool.self, forKey: .aiSummaryAvailable) ?? false
         tags = try container.decode([Tag].self, forKey: .tags)
         
         let nestedContainer = try container.nestedContainer(keyedBy: NestedKeys.self, forKey: .floors)
@@ -60,6 +62,7 @@ extension Hole {
         try container.encode(hidden, forKey: .hidden)
         try container.encode(frozen, forKey: .frozen)
         try container.encode(locked, forKey: .locked)
+        try container.encode(aiSummaryAvailable, forKey: .aiSummaryAvailable)
         try container.encode(tags, forKey: .tags)
         
         var nestedContainer = container.nestedContainer(keyedBy: NestedKeys.self, forKey: .floors)

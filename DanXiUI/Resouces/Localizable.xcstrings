@@ -281,6 +281,16 @@
         }
       }
     },
+    "AI Summary" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 总结"
+          }
+        }
+      }
+    },
     "All Banners" : {
       "localizations" : {
         "zh-Hans" : {
@@ -444,6 +454,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "屏蔽的标签"
+          }
+        }
+      }
+    },
+    "Branches" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "讨论分支"
           }
         }
       }
@@ -880,6 +900,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课程工作量"
+          }
+        }
+      }
+    },
+    "Creating your summary... You can close this sheet and come back later." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在努力分析讨论内容... 你可以先退出当前树洞去看看别的，待会再来"
           }
         }
       }
@@ -1487,6 +1517,16 @@
         }
       }
     },
+    "Failed to generate summary" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "总结生成失败"
+          }
+        }
+      }
+    },
     "Favorite" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1529,6 +1569,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "旦挞账户"
+          }
+        }
+      }
+    },
+    "Feedback(optional)..." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "反馈（可选）…"
           }
         }
       }
@@ -1579,6 +1629,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "筛选教师"
+          }
+        }
+      }
+    },
+    "Floor ##%@ not found" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "楼层 ##%@ 未找到"
+          }
+        }
+      }
+    },
+    "Floor ##%lld not found" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "楼层 ##%lld 未找到"
           }
         }
       }
@@ -1760,6 +1830,16 @@
         }
       }
     },
+    "Helpful" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有帮助"
+          }
+        }
+      }
+    },
     "Hide" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1878,6 +1958,26 @@
         }
       }
     },
+    "Interactions" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "互动拓扑"
+          }
+        }
+      }
+    },
+    "Is this summary helpful?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这篇总结对您有帮助吗？"
+          }
+        }
+      }
+    },
     "Join Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1908,6 +2008,16 @@
         }
       }
     },
+    "Keywords" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关键词"
+          }
+        }
+      }
+    },
     "Last Created" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1934,6 +2044,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "宽松"
+          }
+        }
+      }
+    },
+    "Let AI quickly summarize the key points of this hole for you." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "让 AI 为您快速提炼这个树洞的核心要点。"
           }
         }
       }
@@ -2207,6 +2327,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "明文数量不足"
+          }
+        }
+      }
+    },
+    "Not Helpful" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没帮助"
           }
         }
       }
@@ -3188,6 +3318,16 @@
         }
       }
     },
+    "Summary" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "核心摘要"
+          }
+        }
+      }
+    },
     "System mail" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3359,6 +3499,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消收藏"
+          }
+        }
+      }
+    },
+    "Unknown error" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知错误"
           }
         }
       }

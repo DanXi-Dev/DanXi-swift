@@ -8,6 +8,10 @@ extension JSONDecoder {
             let container = try decoder.singleValueContainer()
             let dateString = try container.decode(String.self)
             
+            if dateString.isEmpty {
+                return Date(timeIntervalSince1970: 0)
+            }
+            
             var iso8601TimeString = dateString
             if !iso8601TimeString.contains("+") && !iso8601TimeString.contains("Z") {
                 iso8601TimeString.append("+00:00") // add timezone manually

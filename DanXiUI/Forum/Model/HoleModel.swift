@@ -67,6 +67,13 @@ class HoleModel: ObservableObject {
         self.floors = floors
     }
     
+    func getFloor(floorId: Int) -> Floor? {
+        if let floor = floors.first(where: { $0.floor.id == floorId })?.floor {
+            return floor
+        }
+        return nil
+    }
+    
     @MainActor
     func setEndReached(_ value: Bool) {
         self.endReached = value
@@ -154,6 +161,12 @@ class HoleModel: ObservableObject {
     
     @Published var filteredSegments: [HoleSegment] = []
     
+    @Published var detachedFoldedFloorIds: Set<Int> = [] {
+        didSet {
+            groupHoleSegments()
+        }
+    }
+    
     private func filterFloors() {
         switch filterOption {
         case .all:
@@ -181,7 +194,7 @@ class HoleModel: ObservableObject {
         var accumulatedFoldedFloors: [FloorPresentation] = []
         
         for presentation in presentations {
-            if presentation.floor.collapse {
+            if presentation.floor.collapse && !detachedFoldedFloorIds.contains(presentation.floor.id) {
                 accumulatedFoldedFloors.append(presentation)
             } else {
                 if !accumulatedFoldedFloors.isEmpty {
@@ -264,8 +277,29 @@ class HoleModel: ObservableObject {
     @MainActor
     func scrollTo(floorId: Int) {
         if let presentation = floors.filter({ $0.floor.id == floorId }).first {
-            scrollControl.send(presentation.id)
-            targetFloorId = presentation.id
+            var needsDelay: Bool = false
+            
+            if showAISummarySheet {
+                showAISummarySheet = false
+                needsDelay = true
+            }
+            
+            if presentation.floor.collapse && !detachedFoldedFloorIds.contains(floorId) {
+                detachedFoldedFloorIds.insert(floorId)
+                needsDelay = true
+            }
+            
+            if needsDelay {
+                Task {
+                    try? await Task.sleep(for: .seconds(0.5))
+                    scrollControl.send(presentation.id)
+                    targetFloorId = presentation.id
+                }
+            }
+            else{
+                scrollControl.send(presentation.id)
+                targetFloorId = presentation.id
+            }
         }
     }
     
@@ -345,6 +379,7 @@ class HoleModel: ObservableObject {
     @Published var showHideAlert = false
     @Published var showForceDeleteHoleAlert = false
     @Published var showCopySheet = false
+    @Published var showAISummarySheet = false
     @Published var draftReplySheet: Reply? = nil
     @Published var replySheet: Floor? = nil
     @Published var editSheet: Floor? = nil
