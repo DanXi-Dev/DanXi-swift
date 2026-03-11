@@ -1,5 +1,4 @@
 import SwiftUI
-import Combine
 import ViewUtils
 import Utils
 import FudanKit
@@ -11,23 +10,14 @@ import EventKitUI
 
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
-    @ObservedObject private var courseSettings = CourseSettings.shared
-    @State private var loadingProgress: Float?
-
-    private let loadingProgressPublisher = PassthroughSubject<Float, Never>()
-
+    @StateObject private var captchaCoordinator = CaptchaCoordinator()
+    
     public init() { }
     
     public var body: some View {
         let asyncContentStyle = AsyncContentStyle {
-            if let loadingProgress {
-                ProgressView {
-                    Text("Loading \(Int(loadingProgress * 100))%", bundle: .module)
-                }
-            } else {
-                ProgressView {
-                    Text("Loading", bundle: .module)
-                }
+            ProgressView {
+                Text("Loading", bundle: .module)
             }
         } errorView: { error, retry in
             VStack {
@@ -60,8 +50,8 @@ public struct CoursePage: View {
             case .undergrad:
                 return try await CourseModel.freshLoadForUndergraduate()
             case .grad:
-                return try await GraduateCourseAPI.LoadingProgress.$progressPublisher.withValue(loadingProgressPublisher) { 
-                    return try await CourseModel.freshLoadForGraduate()
+                return try await CourseModel.freshLoadForGraduate { imageData in
+                    try await captchaCoordinator.waitForCaptcha(imageData: imageData)
                 }
             case .staff:
                 let description = String(localized: "Calendar for staff is not supported.", bundle: .module)
@@ -70,8 +60,17 @@ public struct CoursePage: View {
         } content: { (model : CourseModel) in
             CalendarContent(model: model)
         }
-        .onReceive(loadingProgressPublisher) { progress in
-            loadingProgress = progress
+        .sheet(item: $captchaCoordinator.request) { request in
+            ZStack {
+                Color.clear
+                CaptchaBox(
+                    imageData: request.imageData,
+                    onSubmit: { captcha in
+                        captchaCoordinator.submit(captcha: captcha)
+                    }
+                )
+            }
+            .presentationDetents([.medium])
         }
         .id(campusModel.studentType) 
         .navigationTitle(String(localized: "Calendar", bundle: .module))
@@ -82,7 +81,6 @@ public struct CoursePage: View {
 fileprivate struct CalendarContent: View {
     @EnvironmentObject private var tabViewModel: TabViewModel
     @ObservedObject private var campusModel = CampusModel.shared
-    @ObservedObject private var courseSettings = CourseSettings.shared
     @StateObject var model: CourseModel
     @State private var showConflictBanner = true
     @State private var showErrorAlert = false
@@ -92,6 +90,7 @@ fileprivate struct CalendarContent: View {
     @available(iOS 17.0, *)
     private var exportToCalendarTip : ExportToCalendarTip {.init()}
     @AppStorage("calendar-theme-color") private var themeColor: ThemeColor = ThemeColor.none
+    @StateObject private var captchaCoordinator = CaptchaCoordinator()
     
     @ScaledMetric var minWidth = CalendarConfig.dx * 7
     
@@ -179,11 +178,29 @@ fileprivate struct CalendarContent: View {
                 }
             }
             .refreshable {
-                await model.refresh()
+                if campusModel.studentType == .grad {
+                    await model.refreshForGraduate { imageData in
+                        try await captchaCoordinator.waitForCaptcha(imageData: imageData)
+                    }
+                } else {
+                    await model.refresh()
+                }
             }
-#if targetEnvironment(macCatalyst)
+    #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
-#endif
+    #endif
+        }
+        .sheet(item: $captchaCoordinator.request) { request in
+            ZStack {
+                Color.clear
+                CaptchaBox(
+                    imageData: request.imageData,
+                    onSubmit: { captcha in
+                        captchaCoordinator.submit(captcha: captcha)
+                    }
+                )
+            }
+            .presentationDetents([.medium])
         }
 #if !os(watchOS)
         .toolbar {
@@ -213,15 +230,16 @@ fileprivate struct CalendarContent: View {
     @ViewBuilder
     private var toolbar: some View {
         let baseMenu = Menu {
-            Picker(selection: $model.semester) {
-                ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
-                    Text(semester.name).tag(semester)
+            if campusModel.studentType != .grad {
+                Picker(selection: $model.semester) {
+                    ForEach(Array(model.filteredSemsters.enumerated().reversed()), id: \.offset) { _, semester in
+                        Text(semester.name).tag(semester)
+                    }
+                } label: {
+                    Text("Select Semester", bundle: .module)
                 }
-            } label: {
-                Text("Select Semester", bundle: .module)
+                .pickerStyle(.menu)
             }
-            .pickerStyle(.menu)
-            .disabled(campusModel.studentType == .grad)
             
             Button {
                 if #available(iOS 17.0, *) {
@@ -248,7 +266,13 @@ fileprivate struct CalendarContent: View {
             Button{
                 CourseSettings.shared.hiddenCourses = []
                 Task {
-                    await model.refresh()
+                    if campusModel.studentType == .grad {
+                        await model.refreshForGraduate { imageData in
+                            try await captchaCoordinator.waitForCaptcha(imageData: imageData)
+                        }
+                    } else {
+                        await model.refresh()
+                    }
                 }
             } label: {
                 Label {
@@ -287,6 +311,7 @@ fileprivate struct CalendarContent: View {
             Image(systemName: "ellipsis.circle")
         }
         .onChange(of: model.semester.semesterId) { _ in
+            guard campusModel.studentType != .grad else { return }
             Task {
                 await model.updateSemester()
             }
@@ -302,16 +327,20 @@ fileprivate struct CalendarContent: View {
 #else
     
     private var toolbar: some View {
-        Picker(selection: $model.semester) {
-            ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
-                Text(semester.name).tag(semester)
-            }
-        } label: {
-            Text("Select Semester", bundle: .module)
-        }
-        .onChange(of: model.semester.semesterId) { _, _ in
-            Task {
-                await model.updateSemester()
+        Group {
+            if campusModel.studentType != .grad {
+                Picker(selection: $model.semester) {
+                    ForEach(Array(model.filteredSemsters.enumerated()), id: \.offset) { _, semester in
+                        Text(semester.name).tag(semester)
+                    }
+                } label: {
+                    Text("Select Semester", bundle: .module)
+                }
+                .onChange(of: model.semester.semesterId) { _, _ in
+                    Task {
+                        await model.updateSemester()
+                    }
+                }
             }
         }
     }

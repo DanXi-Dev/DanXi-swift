@@ -5,6 +5,10 @@ import Utils
 import Disk
 #endif
 
+public protocol ClearableStorage {
+    func clearCache() async throws
+}
+
 @MainActor
 public class CampusModel: ObservableObject {
     
@@ -14,6 +18,7 @@ public class CampusModel: ObservableObject {
         didSet { CredentialStore.shared.studentType = studentType }
     }
     @Published public var loggedIn: Bool // cannot use computed property from credential store because it won't trigger SwiftUI reload
+    private let clearableStores: [any ClearableStorage]
     
     public init() {
         studentType = CredentialStore.shared.studentType
@@ -22,6 +27,18 @@ public class CampusModel: ObservableObject {
         } else {
             loggedIn = false
         }
+        clearableStores = [
+            MyStore.shared,
+            ElectricityStore.shared,
+            WalletStore.shared,
+            ProfileStore.shared,
+            UndergraduateAnnouncementStore.shared,
+            PostgraduateAnnouncementStore.shared,
+            BusStore.shared,
+            SportStore.shared,
+            ReservationStore.shared,
+            ClassroomStore.shared
+        ]
     }
     
     public func login(username: String, password: String) async throws {
@@ -49,8 +66,15 @@ public class CampusModel: ObservableObject {
         // remove all cookies
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         
+        let clearableStores = self.clearableStores
         // clear cache
         Task(priority: .background) {
+            await Authenticator.classic.resetLoginStatus()
+            await Authenticator.neo.resetLoginStatus()
+            for store in clearableStores {
+                try? await store.clearCache()
+            }
+            
             // reset user defaults
             let defaults = UserDefaults.standard
             let dictionary = defaults.dictionaryRepresentation()

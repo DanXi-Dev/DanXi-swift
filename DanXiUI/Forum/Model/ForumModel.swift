@@ -38,6 +38,6 @@ class ForumModel: ObservableObject {
         try await favoriteTask.value
         try await profileTask.value
         try await subscriptionTask.value
-        try await tagTask.value
+        await tagTask.value
     }
 }

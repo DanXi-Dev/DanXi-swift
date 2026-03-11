@@ -35,11 +35,16 @@ struct ForumHomePage: View {
             }
         }
         
+        let stickerTask = Task {
+            try await StickerStore.shared.initialize()
+        }
+        
         try await divisionTask.value
         try await favoriteTask.value
         try await profileTask.value
         try await subscriptionTask.value
-        try await tagTask.value
+        await tagTask.value
+        try await stickerTask.value
     }
     
     var body: some View {

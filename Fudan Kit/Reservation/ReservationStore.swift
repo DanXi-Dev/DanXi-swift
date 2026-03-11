@@ -8,7 +8,7 @@ import Utils
 /// App-wide cache for reservation. Cache is persisted to disk.
 /// Only `Playground` is cached, not `Reservation`, which
 /// should be queried on-demand.
-public actor ReservationStore {
+public actor ReservationStore: ClearableStorage {
     public static let shared = ReservationStore()
     
     var playgrounds: [Playground]?
@@ -37,6 +37,11 @@ public actor ReservationStore {
     
     public func getReservations(playground: Playground, date: Date) async throws -> [Reservation] {
         return try await ReservationAPI.getReservations(playground: playground, date: date)
+    }
+    
+    public func clearCache() throws {
+        playgrounds = nil
+        try Disk.remove("fdutools/playgrounds.json", from: .appGroup)
     }
     
     public func setupPreview(playgrounds: [Playground]) {
