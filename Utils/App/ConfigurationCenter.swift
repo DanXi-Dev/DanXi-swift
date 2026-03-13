@@ -25,7 +25,7 @@ public enum ConfigurationCenter {
     
     public static func refresh() async throws {
         let url = URL(string: "https://danxi-static.fduhole.com/swift.json")!
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.defaultSession.data(from: url)
         
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase

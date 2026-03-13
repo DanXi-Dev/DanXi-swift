@@ -1928,6 +1928,9 @@
         }
       }
     },
+    "Later" : {
+
+    },
     "Lenient" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2319,6 +2322,9 @@
         }
       }
     },
+    "Open Network Console" : {
+
+    },
     "Open Notification Settings" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2415,6 +2421,9 @@
           }
         }
       }
+    },
+    "Please quit and reopen the app to apply network recording changes." : {
+
     },
     "Poor" : {
       "localizations" : {
@@ -2519,6 +2528,9 @@
         }
       }
     },
+    "Quit App" : {
+
+    },
     "Recent Browsed" : {
       "localizations" : {
         "en" : {
@@ -2560,6 +2572,9 @@
           }
         }
       }
+    },
+    "Record Network Activity" : {
+
     },
     "Refresh" : {
       "localizations" : {
@@ -2722,6 +2737,9 @@
           }
         }
       }
+    },
+    "Restart Required" : {
+
     },
     "Restore" : {
       "localizations" : {
@@ -3634,6 +3652,9 @@
           }
         }
       }
+    },
+    "When enabled, the app records network activity for debugging." : {
+
     },
     "Yesterday" : {
       "localizations" : {

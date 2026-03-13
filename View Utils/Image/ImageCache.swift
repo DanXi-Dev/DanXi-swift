@@ -3,6 +3,7 @@ import Foundation
 import SwiftUI
 import Disk
 import CryptoKit
+import Utils
 
 struct LoadedImage {
     let image: Image
@@ -20,9 +21,9 @@ func loadImage(_ url: URL, proxiedURL: URL? = nil) async throws -> LoadedImage {
     }
     
     let (data, _) = if let proxiedURL {
-        try await URLSession.shared.data(from: proxiedURL)
+        try await URLSession.defaultSession.data(from: proxiedURL)
     } else { 
-        try await URLSession.shared.data(from: url)
+        try await URLSession.defaultSession.data(from: url)
     }
     guard let uiImage = UIImage(data: data) else { throw URLError(.badServerResponse) }
     let image = Image(uiImage: uiImage)

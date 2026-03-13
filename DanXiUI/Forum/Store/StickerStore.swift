@@ -50,7 +50,7 @@ class StickerStore: ObservableObject {
         }
         
         // download image from internet
-        let (data, _) = try await URLSession.shared.data(from: sticker.url)
+        let (data, _) = try await URLSession.defaultSession.data(from: sticker.url)
         guard let uiImage = UIImage(data: data) else {
             throw LocatableError()
         }

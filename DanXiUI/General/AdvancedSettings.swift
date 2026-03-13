@@ -3,12 +3,17 @@ import DanXiKit
 import FudanKit
 import Disk
 import KeychainAccess
+import Utils
+import PulseUI
 
 struct AdvancedSettings: View {
     @ObservedObject private var settings = ForumSettings.shared
     @ObservedObject private var campusModel = CampusModel.shared
     @ObservedObject private var proxySettings = ProxySettings.shared
+    @AppStorage("record-network") private var recordNetwork = false
     @State private var showClearAllCacheWarning = false
+    @State private var showRestartRequiredCover = false
+    @State private var showPulseConsole = false
     
     var body: some View {
         Form {
@@ -21,7 +26,7 @@ struct AdvancedSettings: View {
                     Text("Show Banners", bundle:.module)
                 }
             } footer: {
-                Text("Control whether to show activity banners at the top of the forum page.", bundle:.module)
+                Text("Control whether to show activity banners at the top of the forum page.", bundle: .module)
             }
             
             Section {
@@ -36,6 +41,22 @@ struct AdvancedSettings: View {
                 }
             } footer: {
                 Text("Use Fudan University WebVPN service to access Forum and DanKe from off-campus.\n\nWhen this is off, most features will only be available within the campus intranet. Campus Assistant automatically adjusts this setting based on your network condition. You do not have to change this in most occasions.", bundle: .module)
+            }
+
+            Section {
+                Toggle(isOn: recordNetworkBinding) {
+                    Text("Record Network Activity", bundle: .module)
+                }
+
+                if recordNetwork {
+                    Button {
+                        showPulseConsole = true
+                    } label: {
+                        Text("Open Network Console", bundle: .module)
+                    }
+                }
+            } footer: {
+                Text("When enabled, the app records network activity for debugging.", bundle: .module)
             }
             
              previewFeatureSetting
@@ -90,8 +111,59 @@ struct AdvancedSettings: View {
         } message: {
             Text("Clear all data. The app will restart after this operation.", bundle: .module)
         }
+        .fullScreenCover(isPresented: $showRestartRequiredCover) {
+            NavigationStack {
+                VStack(spacing: 20) {
+                    Spacer()
+                    Text("Restart Required", bundle: .module)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Text("Please quit and reopen the app to apply network recording changes.", bundle: .module)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 32)
+                    Spacer()
+                    Button(role: .destructive) {
+                        exit(0)
+                    } label: {
+                        Text("Quit App", bundle: .module)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal, 20)
+
+                    Button {
+                        showRestartRequiredCover = false
+                    } label: {
+                        Text("Later", bundle: .module)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
+                }
+                .navigationBarBackButtonHidden(true)
+            }
+        }
+        .sheet(isPresented: $showPulseConsole) {
+            NavigationStack {
+                ConsoleView(mode: .network)
+            }
+        }
         .navigationTitle(String(localized: "Advanced Settings", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var recordNetworkBinding: Binding<Bool> {
+        Binding {
+            recordNetwork
+        } set: { newValue in
+            guard newValue != recordNetwork else {
+                return
+            }
+            recordNetwork = newValue
+            showRestartRequiredCover = true
+        }
     }
     
     private var previewFeatureSetting: some View {
@@ -105,6 +177,7 @@ struct AdvancedSettings: View {
             Text("Control the appearance of preview features, currently including innovation bank", bundle: .module)
         }
     }
+
 }
 
 #Preview {

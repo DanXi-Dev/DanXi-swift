@@ -32,12 +32,12 @@ public class Proxy {
     
     func upload(for request: URLRequest, from bodyData: Data) async throws -> (Data, URLResponse) {
         guard shouldTryProxy, outsideCampus else {
-            return try await URLSession.shared.upload(for: request, from: bodyData)
+            return try await URLSession.defaultSession.upload(for: request, from: bodyData)
         }
         
         let proxiedRequest = createProxiedRequest(request: request)
         // we do not try to relogin here, because it's highly unlikely to fail
-        return try await URLSession.shared.upload(for: proxiedRequest, from: bodyData)
+        return try await URLSession.defaultSession.upload(for: proxiedRequest, from: bodyData)
         
         // this method is not used yet so no validateResponse check for now
         // todo: add validateResponse to this method when being used
@@ -45,7 +45,7 @@ public class Proxy {
     
     func data(for request: URLRequest) async throws -> (Data, URLResponse) {
         guard shouldTryProxy else {
-            return try await URLSession.shared.data(for: request)
+            return try await URLSession.defaultSession.data(for: request)
         }
         
         // try direct request once
