@@ -344,10 +344,9 @@ public enum UndergraduateCourseAPI {
             let firstCell = cellsArray[0]
             if let timeDiv = try? firstCell.select("div.time").first(),
                let timeText = try? timeDiv.text(trimAndNormaliseWhitespace: true) {
-                if let dateMatch = timeText.firstMatch(of: /(\d{4}-\d{2}-\d{2})/),
-                   let timeMatch = timeText.firstMatch(of: /(\d{2}:\d{2}~\d{2}:\d{2})/) {
+                if let dateMatch = timeText.firstMatch(of: /(\d{4}-\d{2}-\d{2})/) {
                     date = String(dateMatch.1)
-                    time = String(timeMatch.1)
+                    time = String(timeText[dateMatch.range.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
                 }
 
                 if let spanArray = try? firstCell.select("span").array(),
