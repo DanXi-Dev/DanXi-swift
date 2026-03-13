@@ -1,10 +1,6 @@
 import Foundation
 import Utils
 
-extension URLSession {
-    static let campusSession = URLSession(configuration: .default)
-}
-
 /// Construct a `URLRequest` based on the information provided.
 ///
 /// This function will:

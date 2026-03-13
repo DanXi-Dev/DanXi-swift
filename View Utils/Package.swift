@@ -14,12 +14,14 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.3.0"),
         .package(url: "https://github.com/saoudrizwan/Disk.git", from: "0.6.4"),
+        .package(path: "../Utils"),
     ],
     targets: [
         .target(name: "ViewUtils",
                 dependencies: [
                     .product(name: "SwiftUIIntrospect", package: "swiftui-introspect", condition: .when(platforms: [.iOS, .macCatalyst])),
-                    .product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst]))
+                    .product(name: "Disk", package: "Disk", condition: .when(platforms: [.iOS, .macCatalyst])),
+                    .product(name: "Utils", package: "Utils", condition: .when(platforms: [.iOS, .macCatalyst]))
                 ],
                 path: "."),
     ]
@@ -40,4 +42,3 @@ for target in package.targets {
     target.swiftSettings = target.swiftSettings ?? []
     target.swiftSettings?.append(contentsOf: swiftSettings)
 }
-

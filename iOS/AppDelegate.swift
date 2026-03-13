@@ -43,7 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let cellular = CTCellularData()
         if cellular.restrictedState != .notRestricted {
             Task {
-                _ = try? await URLSession.shared.data(for: URLRequest(url: URL(string: "https://www.fduhole.com/api/")!))
+                _ = try? await URLSession.defaultSession.data(for: URLRequest(url: URL(string: "https://www.fduhole.com/api/")!))
             }
         }
         #endif
