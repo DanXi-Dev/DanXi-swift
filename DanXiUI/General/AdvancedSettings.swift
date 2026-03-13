@@ -14,6 +14,7 @@ struct AdvancedSettings: View {
     @State private var showClearAllCacheWarning = false
     @State private var showRestartRequiredCover = false
     @State private var showPulseConsole = false
+    @State private var recordNetworkPreviousValue: Bool?
     
     var body: some View {
         Form {
@@ -56,7 +57,7 @@ struct AdvancedSettings: View {
                     }
                 }
             } footer: {
-                Text("When enabled, the app records network activity for debugging.", bundle: .module)
+                Text("Quit and reopen the app to apply network recording changes. Please disable this feature when you’re not debugging to avoid extra performance overhead and storage usage.", bundle: .module)
             }
             
              previewFeatureSetting
@@ -111,39 +112,24 @@ struct AdvancedSettings: View {
         } message: {
             Text("Clear all data. The app will restart after this operation.", bundle: .module)
         }
-        .fullScreenCover(isPresented: $showRestartRequiredCover) {
-            NavigationStack {
-                VStack(spacing: 20) {
-                    Spacer()
-                    Text("Restart Required", bundle: .module)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    Text("Please quit and reopen the app to apply network recording changes.", bundle: .module)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 32)
-                    Spacer()
-                    Button(role: .destructive) {
-                        exit(0)
-                    } label: {
-                        Text("Quit App", bundle: .module)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .padding(.horizontal, 20)
-
-                    Button {
-                        showRestartRequiredCover = false
-                    } label: {
-                        Text("Later", bundle: .module)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
+        .alert(String(localized: "Restart Required", bundle: .module), isPresented: $showRestartRequiredCover) {
+            Button(role: .cancel) {
+                if let previousValue = recordNetworkPreviousValue {
+                    recordNetwork = previousValue
                 }
-                .navigationBarBackButtonHidden(true)
+                recordNetworkPreviousValue = nil
+            } label: {
+                Text("Cancel", bundle: .module)
             }
+            Button(role: .destructive) {
+                recordNetworkPreviousValue = nil
+                exit(0)
+            } label: {
+                Text("Quit App", bundle: .module)
+                    .frame(maxWidth: .infinity)
+            }
+        } message: {
+            Text("Quit and reopen the app to apply network recording changes.", bundle: .module)
         }
         .sheet(isPresented: $showPulseConsole) {
             NavigationStack {
@@ -161,6 +147,7 @@ struct AdvancedSettings: View {
             guard newValue != recordNetwork else {
                 return
             }
+            recordNetworkPreviousValue = recordNetwork
             recordNetwork = newValue
             showRestartRequiredCover = true
         }
