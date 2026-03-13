@@ -81,7 +81,7 @@ struct AdvancedSettings: View {
                     Text("Clear All Data", bundle: .module)
                 }
             } footer: {
-                Text("Clear all local data, including login accounts, search history, image cache, calendar and course cache, etc. It is generally used to fix issues such as freezing or failure to load content. This operation cannot be undone, so please use it under the guidance of the development team.", bundle: .module)
+                Text("Clear all local data, including login accounts, search history, image cache, calendar and course cache, etc. It is generally used to fix issues such as freezing or failure to load content.\n\nThis operation cannot be undone, so please use it under the guidance of the development team.", bundle: .module)
             }
             
         }
@@ -161,7 +161,7 @@ struct AdvancedSettings: View {
                 Text("Hide", bundle: .module).tag(ForumSettings.PreviewFeatureSetting.hide)
             }
         } footer: {
-            Text("Control the appearance of preview features, currently including innovation bank", bundle: .module)
+            Text("Control the appearance of preview features, currently including innovation bank.", bundle: .module)
         }
     }
 
