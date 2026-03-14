@@ -10,11 +10,10 @@ struct AdvancedSettings: View {
     @ObservedObject private var settings = ForumSettings.shared
     @ObservedObject private var campusModel = CampusModel.shared
     @ObservedObject private var proxySettings = ProxySettings.shared
-    @AppStorage("record-network") private var recordNetwork = false
+    @State private var recordNetworkSetting = UserDefaults.standard.bool(forKey: "record-network")
     @State private var showClearAllCacheWarning = false
     @State private var showRestartRequiredCover = false
     @State private var showPulseConsole = false
-    @State private var recordNetworkPreviousValue: Bool?
     
     var body: some View {
         Form {
@@ -45,11 +44,17 @@ struct AdvancedSettings: View {
             }
 
             Section {
-                Toggle(isOn: recordNetworkBinding) {
+                Toggle(isOn: $recordNetworkSetting) {
                     Text("Record Network Activity", bundle: .module)
                 }
+                .onChange(of: recordNetworkSetting) { newValue in
+                    // only show alert when updating changes, preventing recursive alert
+                    if newValue != UserDefaults.standard.bool(forKey: "record-network") {
+                        showRestartRequiredCover = true
+                    }
+                }
 
-                if recordNetwork {
+                if UserDefaults.standard.bool(forKey: "record-network") {
                     Button {
                         showPulseConsole = true
                     } label: {
@@ -114,15 +119,20 @@ struct AdvancedSettings: View {
         }
         .alert(String(localized: "Restart Required", bundle: .module), isPresented: $showRestartRequiredCover) {
             Button(role: .cancel) {
-                if let previousValue = recordNetworkPreviousValue {
-                    recordNetwork = previousValue
-                }
-                recordNetworkPreviousValue = nil
+                recordNetworkSetting = UserDefaults.standard.bool(forKey: "record-network") // revert changes
             } label: {
                 Text("Cancel", bundle: .module)
             }
             Button(role: .destructive) {
-                recordNetworkPreviousValue = nil
+                UserDefaults.standard.set(recordNetworkSetting, forKey: "record-network")
+                
+                // customize PulseUI
+                UserDefaults.standard.set(true, forKey: "pulse-disable-support-prompts")
+                UserDefaults.standard.set(true, forKey: "pulse-disable-report-issue-prompts")
+                UserDefaults.standard.set(true, forKey: "pulse-disable-settings-prompts")
+                UserSettings.shared.allowedShareStoreOutputs = [.har]
+                UserSettings.shared.sharingOutput = .har
+                
                 exit(0)
             } label: {
                 Text("Quit App", bundle: .module)
@@ -138,19 +148,6 @@ struct AdvancedSettings: View {
         }
         .navigationTitle(String(localized: "Advanced Settings", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
-    }
-
-    private var recordNetworkBinding: Binding<Bool> {
-        Binding {
-            recordNetwork
-        } set: { newValue in
-            guard newValue != recordNetwork else {
-                return
-            }
-            recordNetworkPreviousValue = recordNetwork
-            recordNetwork = newValue
-            showRestartRequiredCover = true
-        }
     }
     
     private var previewFeatureSetting: some View {
