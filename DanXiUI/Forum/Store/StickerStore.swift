@@ -76,14 +76,13 @@ class StickerStore: ObservableObject {
         let paths = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)
         guard var path = paths.first else { return }
         path.append(path: "stickers")
+        let activeHashes = Set(stickers.map(\.sha256))
         
         let items = try fileManager.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
         for item in items {
-            let filename = item.lastPathComponent
-            for sticker in stickers {
-                if filename.starts(with: sticker.sha256) {
-                    try? fileManager.removeItem(at: item)
-                }
+            let filename = item.deletingPathExtension().lastPathComponent
+            if !activeHashes.contains(filename) {
+                try? fileManager.removeItem(at: item)
             }
         }
     }
