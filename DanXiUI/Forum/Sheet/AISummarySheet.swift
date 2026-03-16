@@ -54,8 +54,7 @@ struct AISummarySheet: View {
     private func summaryView(content: AISummaryContent?, isGenerating: Bool) -> some View {
         return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                if isGenerating {
-                    Text("Creating your summary... You can close this sheet and come back later.", bundle: .module)
+                Text(isGenerating ? "Creating your summary... You can close this sheet and come back later." : "Results are AI-generated and for reference only. Restricted to Fudan University internal research testing and not open to the public.", bundle: .module)
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .padding(.vertical, 8)
@@ -63,7 +62,6 @@ struct AISummarySheet: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color.secondary.opacity(0.1))
                         .cornerRadius(8)
-                }
                 
                 if let keywords = content?.keywords {
                     KeywordsView(keywords: keywords)
