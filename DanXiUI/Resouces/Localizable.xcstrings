@@ -2971,6 +2971,16 @@
         }
       }
     },
+    "Results are AI-generated and for reference only. Restricted to Fudan University internal research testing and not open to the public." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本内容由 AI 生成，仅供参考。仅限复旦校内科研测试使用，不对公众开放。"
+          }
+        }
+      }
+    },
     "Retry" : {
       "localizations" : {
         "zh-Hans" : {
