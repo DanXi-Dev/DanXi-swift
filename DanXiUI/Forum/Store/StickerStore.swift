@@ -38,7 +38,8 @@ class StickerStore: ObservableObject {
     }
     
     private func retrieveImage(sticker: Sticker, scale: CGFloat = 1.0) async throws -> LoadedImage {
-        let filename = "stickers/\(sticker.sha256).jpg"
+        let pathExtension = sticker.url.pathExtension.isEmpty ? "webp" : sticker.url.pathExtension.lowercased()
+        let filename = "stickers/\(sticker.sha256).\(pathExtension)"
         
         let fileURL = try Disk.url(for: filename, in: .caches)
         
@@ -54,7 +55,7 @@ class StickerStore: ObservableObject {
         guard let uiImage = UIImage(data: data) else {
             throw LocatableError()
         }
-        try Disk.save(uiImage, to: .caches, as: filename)
+        try Disk.save(data, to: .caches, as: filename)
         
         let scaledUIImage = scaleImage(uiImage, by: scale)
         let image = Image(uiImage: scaledUIImage)
@@ -80,6 +81,12 @@ class StickerStore: ObservableObject {
         
         let items = try fileManager.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
         for item in items {
+            // Remove legacy transcoded caches because stickers are now stored as original WEBP data.
+            if ["jpg", "jpeg"].contains(item.pathExtension.lowercased()) {
+                try? fileManager.removeItem(at: item)
+                continue
+            }
+            
             let filename = item.deletingPathExtension().lastPathComponent
             if !activeHashes.contains(filename) {
                 try? fileManager.removeItem(at: item)
