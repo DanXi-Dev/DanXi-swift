@@ -38,7 +38,7 @@ class StickerStore: ObservableObject {
     }
     
     private func retrieveImage(sticker: Sticker, scale: CGFloat = 1.0) async throws -> LoadedImage {
-        let filename = "stickers/\(sticker.sha256).jpg"
+        let filename = "stickers/\(sticker.sha256).png"
         
         let fileURL = try Disk.url(for: filename, in: .caches)
         
@@ -80,6 +80,12 @@ class StickerStore: ObservableObject {
         
         let items = try fileManager.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
         for item in items {
+            // Remove legacy JPEG caches because they already lost sticker transparency.
+            if ["jpg", "jpeg"].contains(item.pathExtension.lowercased()) {
+                try? fileManager.removeItem(at: item)
+                continue
+            }
+            
             let filename = item.deletingPathExtension().lastPathComponent
             if !activeHashes.contains(filename) {
                 try? fileManager.removeItem(at: item)
