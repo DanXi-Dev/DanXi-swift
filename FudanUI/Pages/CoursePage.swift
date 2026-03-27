@@ -455,6 +455,7 @@ fileprivate struct ExportSheet: View {
     
     private func presentCalendarChooser() async throws {
         let eventStore = EKEventStore()
+        selectedCalendar = nil
         
         if #available(iOS 17, *) {
             let granted = try await eventStore.requestWriteOnlyAccessToEvents()
@@ -543,14 +544,14 @@ fileprivate struct ExportSheet: View {
             } message: {
                 Text(verbatim: exportError?.localizedDescription ?? "")
             }
-            .sheet(isPresented: $showCalendarChooser) {
+            .sheet(isPresented: $showCalendarChooser, onDismiss: {
+                if let selectedCalendar {
+                    exportToCalendar(calendar: selectedCalendar)
+                    self.selectedCalendar = nil
+                }
+            }) {
                 CalendarChooserSheet(selectedCalendar: $selectedCalendar, eventStore: eventStore)
                     .ignoresSafeArea()
-                    .onDisappear {
-                        if let selectedCalendar = selectedCalendar {
-                            exportToCalendar(calendar: selectedCalendar)
-                        }
-                    }
             }
         }
     }
@@ -579,9 +580,17 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
         let parent: CalendarChooserSheet
+        private var hasHandledSelection = false
         
         init(_ parent: CalendarChooserSheet) {
             self.parent = parent
+        }
+        
+        func calendarChooserSelectionDidChange(_ calendarChooser: EKCalendarChooser) {
+            guard !hasHandledSelection, let calendar = calendarChooser.selectedCalendars.first else { return }
+            hasHandledSelection = true
+            parent.selectedCalendar = calendar
+            parent.dismiss()
         }
         
         func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {

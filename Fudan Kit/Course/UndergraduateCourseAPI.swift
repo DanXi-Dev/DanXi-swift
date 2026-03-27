@@ -201,7 +201,7 @@ public enum UndergraduateCourseAPI {
         let courses = builders.map { $0.build() }
         
         for course in courses {
-            if courses.contains(where: { $0.code == course.code && $0.conflicts(with: course) }) {
+            if courses.contains(where: { $0.id != course.id && $0.code == course.code && $0.conflicts(with: course) }) {
                 coursesToSplit.insert(course.code)
             }
         }
