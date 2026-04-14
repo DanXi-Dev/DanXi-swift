@@ -286,7 +286,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "AI 总结"
+            "value" : "AI 辅助总结"
           }
         }
       }
@@ -2976,7 +2976,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "本内容由 AI 生成，仅供参考。仅限复旦校内科研测试使用，不对公众开放。"
+            "value" : "本内容由 AI 辅助总结，仅供参考。仅限复旦校内科研测试使用，不对公众开放。"
           }
         }
       }
