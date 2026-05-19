@@ -1,6 +1,25 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Danta Intelligence Error" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danta Intelligence Error"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能错误"
+          }
+        }
+      }
+    },
+    "Danta Intelligence Session %lld" : {
+
+    },
     "Error %@: %@" : {
       "localizations" : {
         "en" : {

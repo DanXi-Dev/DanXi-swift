@@ -51,6 +51,9 @@
         }
       }
     },
+    "#%@" : {
+
+    },
     "%@ at %@\n" : {
       "localizations" : {
         "en" : {
@@ -378,6 +381,22 @@
         }
       }
     },
+    "Ask Danta Intelligence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask Danta Intelligence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "询问旦挞智能"
+          }
+        }
+      }
+    },
     "Automatic Review Result" : {
       "localizations" : {
         "zh-Hans" : {
@@ -507,6 +526,9 @@
           }
         }
       }
+    },
+    "Chats" : {
+
     },
     "Check Decryption Status" : {
       "localizations" : {
@@ -720,6 +742,38 @@
         }
       }
     },
+    "Connected" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已连接"
+          }
+        }
+      }
+    },
+    "Connecting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连接中"
+          }
+        }
+      }
+    },
     "Content to Delete" : {
       "localizations" : {
         "zh-Hans" : {
@@ -761,6 +815,9 @@
           }
         }
       }
+    },
+    "Conversation History" : {
+
     },
     "Copied" : {
       "localizations" : {
@@ -918,6 +975,40 @@
         }
       }
     },
+    "Creative Workshop" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creative Workshop"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创意工坊"
+          }
+        }
+      }
+    },
+    "Creative Workshop Introduction" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Courses, ideas, and Danta Intelligence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课程、创意与旦挞智能"
+          }
+        }
+      }
+    },
     "Credit" : {
       "localizations" : {
         "zh-Hans" : {
@@ -964,6 +1055,38 @@
         }
       }
     },
+    "Danta Intelligence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danta Intelligence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能"
+          }
+        }
+      }
+    },
+    "Danta Intelligence Introduction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat with OpenClaw through Danta"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通过旦挞连接 OpenClaw 对话"
+          }
+        }
+      }
+    },
     "DanXi Account" : {
       "localizations" : {
         "en" : {
@@ -997,6 +1120,7 @@
       }
     },
     "DanXi Community" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1007,6 +1131,7 @@
       }
     },
     "DanXi Community Introduction" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1275,6 +1400,9 @@
           }
         }
       }
+    },
+    "Draft" : {
+
     },
     "Earlier" : {
       "localizations" : {
@@ -2228,6 +2356,9 @@
         }
       }
     },
+    "New Chat" : {
+
+    },
     "New Post" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3121,6 +3252,22 @@
         }
       }
     },
+    "Send" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发送"
+          }
+        }
+      }
+    },
     "Send Message" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3189,6 +3336,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未处理"
+          }
+        }
+      }
+    },
+    "Session" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会话"
+          }
+        }
+      }
+    },
+    "Sessions" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sessions"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会话"
           }
         }
       }
@@ -3440,6 +3620,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "发帖时应遵守[社区公约](https://danxi.fduhole.com/doc/fduhole-community-convention)"
+          }
+        }
+      }
+    },
+    "Thinking" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thinking"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "思考中"
           }
         }
       }
@@ -3862,6 +4058,12 @@
           }
         }
       }
+    },
+    "Workshop" : {
+
+    },
+    "Workshop Introduction" : {
+
     },
     "Yesterday" : {
       "localizations" : {

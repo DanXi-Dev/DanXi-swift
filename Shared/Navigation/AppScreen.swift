@@ -20,7 +20,7 @@ extension AppScreen {
         case .curriculum:
             Label("Curriculum", systemImage: "books.vertical")
         case .community:
-            Label("Community", systemImage: "bubble")
+            Label("Workshop", systemImage: "paintpalette")
         case .innovation:
             Label("Innovation", systemImage: "building.columns")
         case .calendar:

@@ -10,6 +10,25 @@ public struct CommunityPage: View {
             List {
                 titleSection
                 
+                if #available(iOS 18.0, *) {
+                    Section {
+                        NavigationLink(value: CommunitySection.dantaIntelligence) {
+                            HStack {
+                                Image(systemName: "sparkles")
+                                    .foregroundColor(.blue)
+                                    .font(.title)
+                                VStack(alignment: .leading) {
+                                    Text("Danta Intelligence", bundle: .module)
+                                        .font(.headline)
+                                    Text("Danta Intelligence Introduction", bundle: .module)
+                                        .font(.callout)
+                                        .foregroundStyle(.gray)
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 Section {
                     NavigationLink(value: CommunitySection.curriculum) {
                         HStack {
@@ -45,12 +64,18 @@ public struct CommunityPage: View {
                 }
             }
             .navigationDestination(for: CommunitySection.self) { destination in
-                    switch destination {
-                    case .curriculum:
-                        CurriculumEmbeddedContent(path: $path)
-                    case .innovation:
-                        InnovationHomePage()
+                switch destination {
+                case .curriculum:
+                    CurriculumEmbeddedContent(path: $path)
+                case .innovation:
+                    InnovationHomePage()
+                case .dantaIntelligence:
+                    if #available(iOS 18.0, *) {
+                        DantaIntelligencePage()
+                    } else {
+                        EmptyView()
                     }
+                }
             }
         }
     }
@@ -60,7 +85,7 @@ public struct CommunityPage: View {
             HStack {
                 Spacer()
                 VStack {
-                    Image(systemName: "bubble.left.and.bubble.right.fill")
+                    Image(systemName: "paintpalette.fill")
                         .foregroundStyle(.pink)
                         .font(.largeTitle)
                         .padding()
@@ -68,11 +93,11 @@ public struct CommunityPage: View {
                             Circle()
                                 .fill(Color.white)
                         }
-                    Text("DanXi Community", bundle: .module)
+                    Text("Workshop", bundle: .module)
                         .bold()
                         .font(.largeTitle)
                         .padding(.vertical, 5)
-                    Text("DanXi Community Introduction", bundle: .module)
+                    Text("Workshop Introduction", bundle: .module)
                 }
                 Spacer()
             }
@@ -82,6 +107,7 @@ public struct CommunityPage: View {
 }
 
 enum CommunitySection: Int, Identifiable, CaseIterable {
+    case dantaIntelligence
     case curriculum
     case innovation
     
