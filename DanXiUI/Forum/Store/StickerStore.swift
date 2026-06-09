@@ -9,6 +9,9 @@ class StickerStore: ObservableObject {
     var stickerSet: Set<String>
     var stickerImage: [String: LoadedImage]
     
+    var initialized = false
+    private var initializingTask: Task<Void, Error>?
+    
     init() {
         stickers = []
         stickerImage = [:]
@@ -16,25 +19,69 @@ class StickerStore: ObservableObject {
     }
     
     func initialize() async throws {
-        if ConfigurationCenter.configuration.stickers.isEmpty {
-            try await ConfigurationCenter.refresh()
+        guard let task = await initializationTask() else { return }
+        try await task.value
+    }
+    
+    @MainActor
+    private func initializationTask() -> Task<Void, Error>? {
+        if initialized {
+            return nil
         }
         
-        self.stickers = ConfigurationCenter.configuration.stickers
-        self.stickerSet = Set(stickers.map(\.id))
+        if let initializingTask {
+            return initializingTask
+        }
         
-        for sticker in stickers {
-            do {
-                let loadedImage = try await retrieveImage(sticker: sticker, scale: 0.4)
-                stickerImage[sticker.id] = loadedImage
-            } catch _ as URLError {
-                continue // ignore network error, sticker loading failed should not be fatal
+        let task = Task {
+            try await loadStickers()
+        }
+        initializingTask = task
+        return task
+    }
+    
+    private func loadStickers() async throws {
+        do {
+            if ConfigurationCenter.configuration.stickers.isEmpty {
+                try await ConfigurationCenter.refresh()
             }
+            
+            let stickers = ConfigurationCenter.configuration.stickers
+            var stickerImage: [String: LoadedImage] = [:]
+            stickerImage.reserveCapacity(stickers.count)
+            
+            for sticker in stickers {
+                do {
+                    let loadedImage = try await retrieveImage(sticker: sticker, scale: 0.4)
+                    stickerImage[sticker.id] = loadedImage
+                } catch _ as URLError {
+                    continue // ignore network error, sticker loading failed should not be fatal
+                }
+            }
+            
+            await set(stickers: stickers, stickerImage: stickerImage)
+            
+            Task(priority: .background) {
+                try? clearUnunsed(stickers: stickers)
+            }
+        } catch {
+            await resetInitialization()
+            throw error
         }
-        
-        Task {
-            try clearUnunsed(stickers: stickers)
-        }
+    }
+    
+    @MainActor
+    private func set(stickers: [Sticker], stickerImage: [String: LoadedImage]) {
+        self.stickers = stickers
+        self.stickerSet = Set(stickers.map(\.id))
+        self.stickerImage = stickerImage
+        initialized = true
+        initializingTask = nil
+    }
+    
+    @MainActor
+    private func resetInitialization() {
+        initializingTask = nil
     }
     
     private func retrieveImage(sticker: Sticker, scale: CGFloat = 1.0) async throws -> LoadedImage {
