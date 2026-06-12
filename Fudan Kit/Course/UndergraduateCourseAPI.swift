@@ -320,65 +320,62 @@ public enum UndergraduateCourseAPI {
             if let classAttr = classAttr, classAttr.contains("tr-empty") {
                 continue
             }
-
-            let cellsArray = try element.select("td").array()
-            guard cellsArray.count >= 4 else {
+            guard let courseCell = try? element.select("td[data-label=\"课程信息\"]").first(),
+                  let spans = try? courseCell.select("span").array() else {
                 continue
             }
 
             var courseId = ""
             var course = ""
             var type = ""
-            var method = ""
+            var method = "无"
             var date = ""
             var time = ""
             var location = ""
             var note = ""
-            var isFinished = false
 
             let dataFinishedAttr = try? element.attr("data-finished")
-            if let dataFinishedAttr = dataFinishedAttr, dataFinishedAttr == "true" {
-                isFinished = true
-            }
+            let isFinished = dataFinishedAttr == "true" || (classAttr?.split(separator: " ").contains { $0 == "finished" } ?? false)
 
-            let firstCell = cellsArray[0]
-            if let timeDiv = try? firstCell.select("div.time").first(),
+            var courseTexts: [String] = []
+            for span in spans {
+                let spanClass = (try? span.attr("class")) ?? ""
+                let text = ((try? span.text(trimAndNormaliseWhitespace: true)) ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                if text.isEmpty { continue }
+
+                if spanClass.split(separator: " ").contains(where: { $0 == "tag-span" }) {
+                    type = text
+                } else if (text.hasPrefix("（") && text.hasSuffix("）")) || (text.hasPrefix("(") && text.hasSuffix(")")) {
+                    method = String(text.dropFirst().dropLast()).trimmingCharacters(in: .whitespacesAndNewlines)
+                } else if text.range(of: #"^[A-Za-z]+\d+[A-Za-z]*(\.\d+)?$"#, options: .regularExpression) != nil {
+                    courseId = text
+                } else {
+                    courseTexts.append(text)
+                }
+            }
+            course = courseTexts.joined(separator: " ")
+
+            if let timeDiv = try? element.select("td[data-label=\"考试信息\"] .time").first(),
                let timeText = try? timeDiv.text(trimAndNormaliseWhitespace: true) {
-                if let dateMatch = timeText.firstMatch(of: /(\d{4}-\d{2}-\d{2})/) {
+                let trimmedTime = timeText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if let dateMatch = trimmedTime.firstMatch(of: /(\d{4}-\d{2}-\d{2})/) {
                     date = String(dateMatch.1)
-                    time = String(timeText[dateMatch.range.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
-                }
-
-                if let spanArray = try? firstCell.select("span").array(),
-                   spanArray.count > 2 {
-                    location = (try? spanArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
+                    time = String(trimmedTime[dateMatch.range.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
                 }
             }
 
-            // Course information
-            let secondCell = cellsArray[1]
-            if let firstDiv = try? secondCell.select("div").first(),
-               let spans = try? firstDiv.select("span").array(),
-               spans.count >= 3 {
-                course = (try? spans[0].text(trimAndNormaliseWhitespace: true)) ?? ""
-                courseId = (try? spans[1].text(trimAndNormaliseWhitespace: true)) ?? ""
-
-                if let methodText = try? spans[2].text(trimAndNormaliseWhitespace: true),
-                   methodText.hasPrefix("（"), methodText.hasSuffix("）") {
-                    method = String(methodText.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
+            if let locationCell = try? element.select("td[data-label=\"场地信息\"]").first(),
+               let spanArray = try? locationCell.select("span").array(),
+               spanArray.count > 2 {
+                let parsedLocation = ((try? spanArray[2].text(trimAndNormaliseWhitespace: true)) ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                if !parsedLocation.isEmpty && parsedLocation != "--" {
+                    location = parsedLocation
                 }
             }
 
-            // Exam type
-            if let divs = try? secondCell.select("div").array(),
-               divs.count >= 2,
-               let typeSpan = try? divs[1].select("span").first(),
-               let typeText = try? typeSpan.text(trimAndNormaliseWhitespace: true) {
-                type = typeText.trimmingCharacters(in: .whitespaces)
+            if let noteCell = try? element.select("td[data-label=\"备注\"]").first() {
+                note = ((try? noteCell.text(trimAndNormaliseWhitespace: true)) ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
             }
-            if type.isEmpty { type = "无" }
-
-            note = (try? cellsArray[2].text(trimAndNormaliseWhitespace: true)) ?? ""
 
             let exam = Exam(id: UUID(), courseId: courseId, course: course, type: type, method: method, date: date, time: time, location: location, note: note, isFinished: isFinished)
             exams.append(exam)
