@@ -1,7 +1,6 @@
 import SwiftUI
-#if os(watchOS)
 import Utils
-#else
+#if !os(watchOS)
 import Disk
 #endif
 
@@ -65,6 +64,7 @@ public class CampusModel: ObservableObject {
         
         // remove all cookies
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        CookieStore.clear()
         
         let clearableStores = self.clearableStores
         // clear cache
