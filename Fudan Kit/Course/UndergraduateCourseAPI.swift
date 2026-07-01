@@ -433,7 +433,7 @@ public enum UndergraduateCourseAPI {
                     courseType: courseTypeText,
                     courseCredit: nil,
                     grade: scoreResponse.gaGrade,
-                    gradePoint: scoreResponse.gp != nil ? String(format: "%.2f", scoreResponse.gp!) : ""
+                    gradePoint: scoreResponse.gp != nil ? String(format: "%.3f", scoreResponse.gp!) : ""
                 )
                 scores.append(score)
             }
