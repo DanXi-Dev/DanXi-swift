@@ -12,7 +12,11 @@ struct DanXiApp: App {
     #if os(iOS)
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     #endif
-    
+
+    init() {
+        CookieStore.restore() // restore the persisted Fudan/WebVPN session before any request
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -27,6 +31,7 @@ struct DanXiApp: App {
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .background {
                         Proxy.shared.outsideCampus = false
+                        CookieStore.save() // persist the session so the next cold start can skip login
                     }
                 }
         }

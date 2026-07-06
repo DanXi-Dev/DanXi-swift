@@ -53,13 +53,17 @@ public actor Authenticator {
 
     public func authenticateRequest(request: URLRequest, loginURL: URL, forceRelogin: Bool = false) async throws -> (Data, URLResponse) {
         guard let host = request.url?.host else { throw LocatableError() }
-        
-        if (!isLogged(host: host) || forceRelogin)  {
-            _ = try await performAuthenticate(url: loginURL)
+
+        // Lazy login: reuse the existing session when possible, and only
+        // perform WebVPN login when the request is actually bounced to the login page.
+        if !forceRelogin, let response = try await fetchReusingSession(request) {
+            return response
         }
-        
-        if let retried = try await directFetch(request: request) {
-            return retried
+
+        _ = try await performAuthenticate(url: loginURL)
+
+        if let response = try await fetchReusingSession(request) {
+            return response
         }
 
         throw CampusError.loginFailed
@@ -109,6 +113,34 @@ public actor Authenticator {
         }
         
         return nil
+    }
+
+    /// Fetch `request` with the current session, but WITHOUT following a redirect into the login page.
+    /// Returns the response when the session is still valid, or `nil` when the request was bounced to login.
+    private func fetchReusingSession(_ request: URLRequest) async throws -> (Data, URLResponse)? {
+        let (data, response) = try await URLSession.campusSession.data(for: request, delegate: NoLoginRedirectDelegate.shared)
+
+        if let http = response as? HTTPURLResponse, (300..<400).contains(http.statusCode) {
+            return nil // a redirect into the login flow was blocked → not authenticated
+        }
+        if response.url?.host == loginHost {
+            return nil
+        }
+        return (data, response)
+    }
+}
+
+/// Blocks redirects into the login flow (`/login…`).
+/// All other redirects are followed normally.
+private final class NoLoginRedirectDelegate: NSObject, URLSessionTaskDelegate, @unchecked Sendable {
+    static let shared = NoLoginRedirectDelegate()
+
+    func urlSession(_ session: URLSession, task: URLSessionTask,
+                    willPerformHTTPRedirection response: HTTPURLResponse,
+                    newRequest request: URLRequest,
+                    completionHandler: @escaping (URLRequest?) -> Void) {
+        let isLoginRedirect = request.url?.path.hasPrefix("/login") == true
+        completionHandler(isLoginRedirect ? nil : request)
     }
 }
 
