@@ -114,7 +114,6 @@ struct WelcomeSheet: View {
             
             Spacer()
         }
-        .interactiveDismissDisabled()
         .navigationDestination(isPresented: $skipNotification) {
             accountSelectionView
         }

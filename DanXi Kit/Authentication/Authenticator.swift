@@ -44,8 +44,8 @@ actor Authenticator {
                 }
             }
             self.refreshTask = refreshTask
+            defer { self.refreshTask = nil }
             try await refreshTask.value
-            self.refreshTask = nil
         }
         
         // reset token and retry
