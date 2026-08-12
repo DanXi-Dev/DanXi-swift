@@ -1,11 +1,19 @@
 import FudanKit
 import SwiftUI
+import TipKit
+import Utils
 import ViewUtils
 
 struct BookDetailPage: View {
     private let book: Book
     private let previewBook: Book?
     private let previewHoldings: [BookHolding]?
+
+    @AppStorage("library-pinned-books") private var pinnedBooks: [Book] = []
+    #if !os(watchOS)
+    @available(iOS 17.0, *)
+    private var pinBookTip: PinBookTip { .init() }
+    #endif
 
     init(_ book: Book) {
         self.book = book
@@ -30,6 +38,57 @@ struct BookDetailPage: View {
         }
         .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                let pinButton = Button {
+                    #if os(watchOS)
+                    togglePinned()
+                    #else
+                    Task {
+                        await withHaptics {
+                            togglePinned()
+                        }
+                    }
+                    #endif
+                } label: {
+                    if isPinned {
+                        Label(String(localized: "Unpin Book", bundle: .module), systemImage: "pin.fill")
+                            .labelStyle(.iconOnly)
+                    } else {
+                        Label(String(localized: "Pin Book", bundle: .module), systemImage: "pin")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+
+                #if os(watchOS)
+                pinButton
+                #else
+                if #available(iOS 17.0, *) {
+                    pinButton.popoverTip(pinBookTip)
+                } else {
+                    pinButton
+                }
+                #endif
+            }
+        }
+    }
+
+    private var isPinned: Bool {
+        pinnedBooks.contains { $0.id == book.id }
+    }
+
+    private func togglePinned() {
+        if isPinned {
+            pinnedBooks.removeAll { $0.id == book.id }
+        } else {
+            pinnedBooks.insert(book, at: 0)
+        }
+
+        #if !os(watchOS)
+        if #available(iOS 17.0, *) {
+            pinBookTip.invalidate(reason: .actionPerformed)
+        }
+        #endif
     }
 }
 
