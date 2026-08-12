@@ -17,6 +17,10 @@ struct CampusNavigation<Label: View>: View {
                 PlaygroundPage(playground)
                     .environmentObject(navigator)
             }
+            .navigationDestination(for: Book.self) { book in
+                BookDetailPage(book)
+                    .environmentObject(navigator)
+            }
     }
 }
 
@@ -104,4 +108,3 @@ public struct CampusDetail: View {
         }
     }
 }
-
