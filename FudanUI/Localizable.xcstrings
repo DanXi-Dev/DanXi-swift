@@ -87,6 +87,16 @@
         }
       }
     },
+    "Author" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作者"
+          }
+        }
+      }
+    },
     "Available Time Slots Only" : {
       "localizations" : {
         "zh-Hans" : {
@@ -559,6 +569,16 @@
         }
       }
     },
+    "Enter a book title to search" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入书名开始搜索"
+          }
+        }
+      }
+    },
     "Enter Captcha" : {
       "localizations" : {
         "zh-Hans" : {
@@ -901,6 +921,16 @@
         }
       }
     },
+    "Holdings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馆藏"
+          }
+        }
+      }
+    },
     "Holiday" : {
       "localizations" : {
         "zh-Hans" : {
@@ -941,12 +971,25 @@
         }
       }
     },
+    "ISBN" : {
+
+    },
     "kWh" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "kWh"
+          }
+        }
+      }
+    },
+    "Library Books" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图书馆借书"
           }
         }
       }
@@ -1302,6 +1345,26 @@
         }
       }
     },
+    "Publication Year" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出版年份"
+          }
+        }
+      }
+    },
+    "Publisher" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出版社"
+          }
+        }
+      }
+    },
     "Rank" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1368,6 +1431,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重试"
+          }
+        }
+      }
+    },
+    "Search by book title" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按书名搜索"
           }
         }
       }
@@ -1522,6 +1595,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提交"
+          }
+        }
+      }
+    },
+    "Summary" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内容简介"
           }
         }
       }
