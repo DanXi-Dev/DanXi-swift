@@ -1255,6 +1255,16 @@
         }
       }
     },
+    "Open pinned books without searching. Swipe right to remove one." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
+          }
+        }
+      }
+    },
     "PE Curriculum" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1285,12 +1295,42 @@
         }
       }
     },
+    "Pin Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶图书"
+          }
+        }
+      }
+    },
+    "Pin this book for quick access from the library search page." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶后可从图书搜索页快速打开这本书。"
+          }
+        }
+      }
+    },
     "Pink" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "粉色"
+          }
+        }
+      }
+    },
+    "Pinned Books" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶图书"
           }
         }
       }
@@ -1401,6 +1441,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刷新二维码"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除"
           }
         }
       }
@@ -1655,6 +1705,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "类型"
+          }
+        }
+      }
+    },
+    "Unpin Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消置顶"
           }
         }
       }
