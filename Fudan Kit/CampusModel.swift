@@ -77,6 +77,7 @@ public class CampusModel: ObservableObject {
         
         // remove all cookies
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WebVPNCookieStore.clear()
         
         let clearableStores = self.clearableStores
         // clear cache
