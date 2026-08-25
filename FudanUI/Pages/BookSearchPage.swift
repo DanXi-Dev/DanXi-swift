@@ -55,7 +55,9 @@ struct BookSearchPage: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 60)
                     .listRowBackground(Color.clear)
+                    #if !os(watchOS)
                     .listRowSeparator(.hidden)
+                    #endif
                 } else {
                     Section(String(localized: "Pinned Books", bundle: .module)) {
                         #if !os(watchOS)
