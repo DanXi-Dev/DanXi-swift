@@ -3,101 +3,14 @@ import Utils
 import SwiftyJSON
 
 public enum GraduateCourseAPI_neo {
-    /// Retrieve a captcha image and its paired token from the graduate course system.
-    ///
-    /// ## API Detail
-    ///
-    /// 1. GET `/login/4/vcode.do` to retrieve a token from `data.token`.
-    /// 2. GET `/login/vcode/image.do?vtoken=<token>` to retrieve image bytes.
-    ///
-    /// - Returns: A tuple `(imageData, token)` where:
-    ///   - `imageData`: Raw image bytes for captcha rendering.
-    ///   - `token`: Captcha token used by both image and login endpoints.
-    ///
-    /// - Throws:
-    ///   - ``LocatableError`` if token is missing or response is malformed.
-    public static func retrieveCaptcha() async throws -> (Data, String) {
-        let captchaTokenURL = URL(string: "http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/login/4/vcode.do")!
-        let tokenRequest = constructRequest(captchaTokenURL)
-        let (tokenData, _) = try await URLSession.campusSession.data(for: tokenRequest)
-        let tokenJSON = try JSON(data: tokenData)
-
-        guard let token = tokenJSON["data"]["token"].string, !token.isEmpty else {
-            throw LocatableError()
-        }
-
-        let captchaImageBaseURL = URL(string: "http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/login/vcode/image.do")!
-        var imageComponents = URLComponents(url: captchaImageBaseURL, resolvingAgainstBaseURL: false)
-        imageComponents?.queryItems = [URLQueryItem(name: "vtoken", value: token)]
-        guard let imageURL = imageComponents?.url else {
-            throw LocatableError()
-        }
-
-        let imageRequest = constructRequest(imageURL)
-        let (imageData, _) = try await URLSession.campusSession.data(for: imageRequest)
-        return (imageData, token)
-    }
-
-    /// Login to the graduate course system using account, captcha answer and token.
-    ///
-    /// ## API Detail
-    ///
-    /// POST `/login/check/login.do` with `application/x-www-form-urlencoded` body:
-    /// - `loginName`
-    /// - `loginPwd`
-    /// - `verifyCode`
-    /// - `vtoken`
-    ///
-    /// Example successful response:
-    /// ```json
-    /// {
-    ///   "data": null,
-    ///   "jtoken": null,
-    ///   "code": "1",
-    ///   "msg": "登录成功",
-    ///   "timestamp": "******"
-    /// }
-    /// ```
-    ///
-    /// Example failed response:
-    /// ```json
-    /// {
-    ///   "data": null,
-    ///   "jtoken": null,
-    ///   "code": "2",
-    ///   "msg": "验证不通过",
-    ///   "timestamp": "******"
-    /// }
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - username: Account string submitted as `loginName`.
-    ///   - password: Value submitted as `loginPwd`.
-    ///     Some deployments require pre-processed password text before submission.
-    ///   - captcha: Captcha answer submitted as `verifyCode`.
-    ///   - token: Captcha token (`vtoken`) returned by ``retrieveCaptcha()``.
-    public static func login(username: String, password: String, captcha: String, token: String) async throws {
-        let loginURL = URL(string: "http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/login/check/login.do?")!
-        let encryptedPassword = DES.encrypt(password)
-        var request = constructRequest(loginURL, method: "POST")
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        // Keep the exact field order and raw vtoken style expected by this endpoint.
-        let body = "loginName=\(username)&loginPwd=\(encryptedPassword)&verifyCode=\(captcha)&vtoken=\(token)"
-        request.httpBody = body.data(using: .utf8)
-
-        let (data, _) = try await URLSession.campusSession.data(for: request)
-        let json = try JSON(data: data)
-        
-        let code = json["code"].stringValue
-        if code != "1" {
-            throw CampusError.loginFailed
-        }
-    }
-
     /// Load graduate course table.
     ///
     /// The endpoint used by this flow is:
     /// `GET http://yjsxk.fudan.sh.cn/yjsxkapp/sys/xsxkappfudan/xsxkCourse/loadKbxx.do?_=<timestamp-ms>`
+    ///
+    /// The service is behind the unified authentication center (`id.fudan.edu.cn`), so an
+    /// unauthenticated request is redirected there and ``Authenticator/neo`` performs the SSO
+    /// login before retrying. No captcha or password encryption is involved.
     ///
     /// Expected response shape:
     /// ```json
@@ -126,8 +39,7 @@ public enum GraduateCourseAPI_neo {
             throw LocatableError()
         }
 
-        let request = constructRequest(url)
-        let (data, _) = try await URLSession.campusSession.data(for: request)
+        let data = try await Authenticator.neo.authenticate(url)
         let json = try JSON(data: data)
 
         let rowsData = try json["results"].rawData()

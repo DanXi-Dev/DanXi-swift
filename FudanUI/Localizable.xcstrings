@@ -254,6 +254,7 @@
       }
     },
     "Captcha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -580,6 +581,7 @@
       }
     },
     "Enter Captcha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -720,6 +722,7 @@
       }
     },
     "Failed to load captcha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1235,6 +1238,16 @@
         }
       }
     },
+    "Open pinned books without searching. Swipe right to remove one." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
+          }
+        }
+      }
+    },
     "Orange" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1251,16 +1264,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "密码"
-          }
-        }
-      }
-    },
-    "Open pinned books without searching. Swipe right to remove one." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
           }
         }
       }
@@ -1640,6 +1643,7 @@
       }
     },
     "Submit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1709,16 +1713,6 @@
         }
       }
     },
-    "Unpin Book" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消置顶"
-          }
-        }
-      }
-    },
     "Unavailable" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1745,6 +1739,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本科教务通知"
+          }
+        }
+      }
+    },
+    "Unpin Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消置顶"
           }
         }
       }
