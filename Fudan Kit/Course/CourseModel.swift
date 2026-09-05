@@ -12,7 +12,7 @@ public class CourseModel: ObservableObject {
     /// Factory constructor for graduate student to create a new model from network
     /// - Returns: A new model loaded from network
     public static func freshLoadForGraduate() async throws -> CourseModel {
-        let (courses, currentSemester) = try await GraduateCourseStore_neo.shared.getRefreshedCourses()
+        let (courses, currentSemester) = try await GraduateCourseStore.shared.getRefreshedCourses()
         let week = computeWeekOffset(from: currentSemester.startDate, courses: courses)
         let model = CourseModel(studentType: .grad, courses: courses, semester: currentSemester, semesters: [], week: week)
         model.refreshCache()
@@ -146,7 +146,7 @@ public class CourseModel: ObservableObject {
     
     /// Work to be done after semester is changed.
     ///
-    /// - Important: In graduate neo mode, UI should not call this method.
+    /// - Important: For graduate timetables, UI should not call this method.
     @MainActor public func updateSemester() async {
         guard studentType == .undergrad else {
             return
@@ -163,7 +163,7 @@ public class CourseModel: ObservableObject {
     
     /// Refresh courses in current semester and refresh semesters list.
     ///
-    /// - Important: In graduate neo mode, UI should not call this method.
+    /// - Important: For graduate timetables, UI should not call this method.
     @MainActor public func refresh() async {
         guard studentType == .undergrad else {
             return
@@ -186,13 +186,13 @@ public class CourseModel: ObservableObject {
         }
     }
 
-    /// Refresh graduate courses in neo mode.
+    /// Refresh graduate courses.
     @MainActor public func refreshForGraduate() async {
         do {
             guard studentType == .grad else {
                 throw LocatableError()
             }
-            let (courses, semester) = try await GraduateCourseStore_neo.shared.getRefreshedCourses()
+            let (courses, semester) = try await GraduateCourseStore.shared.getRefreshedCourses()
             self.courses = courses
             self.semester = semester
             self.semesters = []
