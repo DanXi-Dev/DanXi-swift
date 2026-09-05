@@ -254,6 +254,7 @@
       }
     },
     "Captcha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -580,6 +581,7 @@
       }
     },
     "Enter Captcha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -720,6 +722,7 @@
       }
     },
     "Failed to load captcha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1640,6 +1643,7 @@
       }
     },
     "Submit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
