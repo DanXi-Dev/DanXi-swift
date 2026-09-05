@@ -42,7 +42,6 @@ public class CampusModel: ObservableObject {
     }
     
     public func login(username: String, password: String) async throws {
-        CredentialStore.shared.set(username: username, password: password)
         loggedIn = false
 
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
@@ -50,7 +49,10 @@ public class CampusModel: ObservableObject {
         await Authenticator.neo.resetLoginStatus()
 
         do {
-            _ = try await Authenticator.neo.authenticate(URL(string: "https://ecard.fudan.edu.cn/epay/myepay/index")!)
+            guard try await NeoAuthenticationAPI.checkUserCredential(username: username, password: password) else {
+                throw CampusError.loginFailed
+            }
+            CredentialStore.shared.set(username: username, password: password)
             loggedIn = true
         } catch {
             CredentialStore.shared.unset()

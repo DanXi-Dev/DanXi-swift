@@ -92,7 +92,7 @@ public struct LoginSheet: View {
             }
 
             Button {
-                openURL(URL(string: "https://uis.fudan.edu.cn")!)
+                openURL(URL(string: "https://id.fudan.edu.cn")!)
             } label: {
                 Text("Go to Browser", bundle: .module)
             }
