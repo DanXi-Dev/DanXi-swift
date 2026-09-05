@@ -13,9 +13,6 @@ struct CurriculumNavigation<Label: View>: View {
             .navigationDestination(for: CourseGroup.self) { course in
                 CoursePage(courseGroup: course)
             }
-            .navigationDestination(for: CurriculumReviewItem.self) { item in
-                ReviewPage(course: item.course, review: item.review)
-            }
             .navigationDestination(for: CurriculumSection.self) { section in
                 switch section {
                 case .moderate:
@@ -24,12 +21,6 @@ struct CurriculumNavigation<Label: View>: View {
             }
     }
 }
-
-struct CurriculumReviewItem: Hashable {
-    let course: Course
-    let review: Review
-}
-
 
 public struct CurriculumContent: View {
     @EnvironmentObject private var tabViewModel: TabViewModel
