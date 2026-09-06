@@ -6,23 +6,34 @@ import Disk
 
 // MARK: - Configuration Center
 
+/**
+ A process-wide cache for configuration fetched from the backend.
+
+ - Important: This hotfix serializes updates on the main actor, but `configuration` remains
+   synchronously readable from any executor. A read racing with an update can therefore still
+   cause a data race in the reference-counted storage used by its fields.
+ - Note: Concurrent calls to `refresh()` are not deduplicated, so completion order determines
+   which response becomes current. Detached cache writes may also finish out of order or may not
+   finish before the app is suspended or terminated.
+ */
 public enum ConfigurationCenter {
     public static var configuration = AppConfiguration()
-    
+
     public static let semesterMapPublisher = PassthroughSubject<[Int: Date], Never>()
     public static let bannerPublisher = PassthroughSubject<[Banner], Never>()
     public static let highlightTagIdsPublisher = PassthroughSubject<[Int], Never>()
-    
+
     public static func initialFetch() {
-        if let configuration = try? Disk.retrieve("configuration.json", from: .appGroup, as: AppConfiguration.self) {
-            self.configuration = configuration
-        }
-        
-        Task(priority: .background) {
-            try await refresh()
+        let cachedConfiguration = try? Disk.retrieve("configuration.json", from: .appGroup, as: AppConfiguration.self)
+
+        Task { @MainActor in
+            if let cachedConfiguration {
+                self.configuration = cachedConfiguration
+            }
+            try? await refresh()
         }
     }
-    
+
     public static func refresh() async throws {
         let url = URL(string: "https://danxi-static.fduhole.com/swift.json")!
         let (data, _) = try await URLSession.defaultSession.data(from: url)
@@ -35,16 +46,16 @@ public enum ConfigurationCenter {
         
         let configurationResponse = try decoder.decode(ConfigurationResponse.self, from: data)
         let configuration = configurationResponse.constructConfiguration()
-        saveConfiguration(configuration)
+        await saveConfiguration(configuration)
     }
-    
+
     private struct ConfigurationResponse: Codable {
         let semesterStartDate: [String: Date]
         let banners: [Banner]
         let userAgent: String
         let highlightTagIds: [Int]
         let sticker: [Sticker]?
-        
+
         func constructConfiguration() -> AppConfiguration {
             var convertedSemsterStartDate: [Int: Date] = [:]
             for (idString, date) in semesterStartDate {
@@ -52,8 +63,7 @@ public enum ConfigurationCenter {
                     convertedSemsterStartDate[id] = date
                 }
             }
-            
-            
+
             return AppConfiguration(
                 semesterStartDate: convertedSemsterStartDate,
                 banners: banners,
@@ -63,32 +73,25 @@ public enum ConfigurationCenter {
             )
         }
     }
-    
-    /// Set shared and publish changes
+
+    /// Serialize shared state updates on the main actor.
+    @MainActor
     static func saveConfiguration(_ configuration: AppConfiguration) {
-        if configuration.semesterStartDate != self.configuration.semesterStartDate {
-            Task { @MainActor in
-                semesterMapPublisher.send(configuration.semesterStartDate)
-            }
+        let previousConfiguration = Self.configuration
+        Self.configuration = configuration
+
+        if configuration.semesterStartDate != previousConfiguration.semesterStartDate {
+            semesterMapPublisher.send(configuration.semesterStartDate)
         }
-        
-        if configuration.banners != self.configuration.banners {
-            Task { @MainActor in
-                bannerPublisher.send(configuration.banners)
-            }
+        if configuration.banners != previousConfiguration.banners {
+            bannerPublisher.send(configuration.banners)
         }
-        
-        
-        if configuration.highlightTagIds != self.configuration.highlightTagIds {
-            Task { @MainActor in
-                highlightTagIdsPublisher.send(configuration.highlightTagIds)
-            }
+        if configuration.highlightTagIds != previousConfiguration.highlightTagIds {
+            highlightTagIdsPublisher.send(configuration.highlightTagIds)
         }
-        
-        self.configuration = configuration
-        
-        Task(priority: .background) {
-            try Disk.save(configuration, to: .appGroup, as: "configuration.json")
+
+        Task.detached(priority: .background) {
+            try? Disk.save(configuration, to: .appGroup, as: "configuration.json")
         }
     }
 }
@@ -99,7 +102,7 @@ public enum ConfigurationCenter {
 ///
 /// This type include some static methods for loading and updating configurations, and some publishers
 /// to propagate the update to views that depends on this change.
-public struct AppConfiguration: Codable {
+public struct AppConfiguration: Codable, Sendable {
     /// A map provided by DanXi backend to indicate the start date of each semester ID.
     public let semesterStartDate: [Int: Date]
     public let banners: [Banner]
@@ -132,7 +135,7 @@ public struct AppConfiguration: Codable {
 }
 
 /// Banner that is displayed at the top of forum page.
-public struct Banner: Codable, Equatable {
+public struct Banner: Codable, Equatable, Sendable {
     public let title: String
     /// Action can be a floor ID (##123456), a hole ID (#12345), or a URL.
     public let action: String
@@ -141,7 +144,7 @@ public struct Banner: Codable, Equatable {
 }
 
 /// Remote-controlled sticker image
-public struct Sticker: Identifiable, Codable, Hashable {
+public struct Sticker: Identifiable, Codable, Hashable, Sendable {
     public let id: String
     public let sha256: String
     public let url: URL
