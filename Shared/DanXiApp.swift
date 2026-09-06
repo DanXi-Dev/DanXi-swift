@@ -1,4 +1,5 @@
 import SwiftUI
+import OSLog
 import FudanKit
 import DanXiUI
 import DanXiKit
@@ -15,6 +16,7 @@ struct DanXiApp: App {
     #endif
 
     init() {
+        HangDetector.start()
         WebVPNCookieStore.restore()
     }
 
@@ -35,6 +37,62 @@ struct DanXiApp: App {
                         WebVPNCookieStore.save()
                     }
                 }
+        }
+    }
+}
+
+// MARK: - Temporary hang diagnostics
+//
+// Watches the main thread from a background thread. When the main thread stops
+// responding for `threshold` seconds, this logs a fault and then deliberately
+// crashes, so that iOS writes a crash report containing *every* thread's
+// backtrace — including the stuck main thread, which is what we actually want.
+//
+// Where to find the report:
+//   Xcode -> Window -> Devices and Simulators -> View Device Logs
+//   or on device: Settings -> Privacy & Security -> Analytics & Improvements -> Analytics Data
+//
+// Remove this once the hang is identified.
+enum HangDetector {
+    private static let logger = Logger(subsystem: "io.github.danxi-dev.dan-xi", category: "hang")
+    private static let lock = NSLock()
+    private static var pendingPings = 0
+
+    static func start(threshold: TimeInterval = 8, crashOnHang: Bool = true) {
+        let interval: TimeInterval = 1
+        let limit = max(1, Int(threshold / interval))
+
+        Thread.detachNewThread {
+            Thread.current.name = "HangDetector"
+            var lastLoop = Date()
+
+            while true {
+                // A long wall-clock gap means the whole process was suspended
+                // (e.g. sent to the background), not that the main thread hung.
+                let now = Date()
+                if now.timeIntervalSince(lastLoop) > interval * 3 {
+                    lock.withLock { pendingPings = 0 }
+                }
+                lastLoop = now
+
+                let outstanding = lock.withLock { () -> Int in
+                    pendingPings += 1
+                    return pendingPings
+                }
+
+                DispatchQueue.main.async {
+                    lock.withLock { pendingPings = 0 }
+                }
+
+                if outstanding >= limit {
+                    logger.fault("Main thread blocked for at least \(outstanding, privacy: .public)s")
+                    if crashOnHang {
+                        fatalError("HangDetector: main thread blocked for at least \(outstanding)s")
+                    }
+                }
+
+                Thread.sleep(forTimeInterval: interval)
+            }
         }
     }
 }
