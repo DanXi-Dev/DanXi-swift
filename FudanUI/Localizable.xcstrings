@@ -253,17 +253,6 @@
         }
       }
     },
-    "Captcha" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "验证码"
-          }
-        }
-      }
-    },
     "Change Color" : {
       "localizations" : {
         "zh-Hans" : {
@@ -580,17 +569,6 @@
         }
       }
     },
-    "Enter Captcha" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "输入验证码"
-          }
-        }
-      }
-    },
     "Error" : {
       "localizations" : {
         "zh-Hans" : {
@@ -721,17 +699,6 @@
         }
       }
     },
-    "Failed to load captcha" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "验证码加载失败"
-          }
-        }
-      }
-    },
     "Expires in %llds" : {
       "localizations" : {
         "zh-Hans" : {
@@ -777,7 +744,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复旦UIS学工号"
+            "value" : "复旦统一身份认证学工号"
           }
         }
       }
@@ -787,7 +754,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复旦UIS密码"
+            "value" : "复旦统一身份认证密码"
           }
         }
       }
@@ -985,7 +952,14 @@
       }
     },
     "ISBN" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ISBN"
+          }
+        }
+      }
     },
     "kWh" : {
       "localizations" : {
@@ -1082,7 +1056,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用复旦大学校园账户（UIS）来访问各种校园服务"
+            "value" : "使用复旦大学统一身份认证来访问各种校园服务"
           }
         }
       }
@@ -1163,7 +1137,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "需要验证码，请访问UIS网页登录"
+            "value" : "需要验证码，请访问统一身份认证网页登录"
           }
         }
       }
@@ -1248,6 +1222,16 @@
         }
       }
     },
+    "Open pinned books without searching. Swipe right to remove one." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
+          }
+        }
+      }
+    },
     "Orange" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1264,16 +1248,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "密码"
-          }
-        }
-      }
-    },
-    "Open pinned books without searching. Swipe right to remove one." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
           }
         }
       }
@@ -1652,17 +1626,6 @@
         }
       }
     },
-    "Submit" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "提交"
-          }
-        }
-      }
-    },
     "Summary" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1723,16 +1686,6 @@
         }
       }
     },
-    "Unpin Book" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消置顶"
-          }
-        }
-      }
-    },
     "Unavailable" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1759,6 +1712,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本科教务通知"
+          }
+        }
+      }
+    },
+    "Unpin Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消置顶"
           }
         }
       }
