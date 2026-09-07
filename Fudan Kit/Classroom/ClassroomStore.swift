@@ -21,7 +21,7 @@ public actor ClassroomStore: ClearableStorage {
     
     private func authenticate() async throws {
         if shouldLogin {
-            _ = try await Authenticator.neo.authenticate(URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
+            _ = try await Authenticator.shared.authenticate(URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
             lastLoginDate = Date()
         }
     }
