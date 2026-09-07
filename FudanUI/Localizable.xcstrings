@@ -732,6 +732,16 @@
         }
       }
     },
+    "Expires in %llds" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剩余 %lld 秒"
+          }
+        }
+      }
+    },
     "From" : {
       "localizations" : {
         "zh-Hans" : {
