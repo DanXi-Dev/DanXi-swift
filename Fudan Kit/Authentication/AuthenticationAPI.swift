@@ -4,7 +4,7 @@ import SwiftyRSA
 import SwiftyJSON
 import Utils
 
-public enum NeoAuthenticationAPI {
+public enum AuthenticationAPI {
     private static let idURL = URL(string: "https://id.fudan.edu.cn")!
     private static let credentialCheckURL = URL(string: "https://id.fudan.edu.cn/api-uc/oauth2/authorization/bam")!
 
@@ -66,23 +66,23 @@ public enum NeoAuthenticationAPI {
     public static func authenticate(_ url: URL) async throws -> (Data, URLResponse) {
         let firstRequest = constructRequest(url)
         let (firstData, firstResponse) = try await data(for: firstRequest)
-        
+
         // already authenticated, no further action required
         if firstResponse.url?.host() == url.host() {
             return (firstData, firstResponse)
         }
-        
+
         guard let redirectedURL = firstResponse.url,
               redirectedURL.host() == "id.fudan.edu.cn" else {
             throw LocatableError()
         }
-        
+
         // check if is already authenticated, and an authentication result is returned
         if let document = try? decodeHTMLDocument(firstData),
            let authenticationRequest = try? constructAuthenticationResultRequest(document: document) {
             return try await data(for: authenticationRequest)
         }
-        
+
         // full authentication process
         let parameters = try await getParams(url: redirectedURL)
         let publicKey = try await getPublicKey()
@@ -165,29 +165,29 @@ public enum NeoAuthenticationAPI {
             throw LocatableError()
         }
         let hashPart = String(urlString[hashRange.upperBound...])
-        
+
         guard let components = URLComponents(string: idURL.absoluteString + hashPart),
               let queryItems = components.queryItems else {
             throw LocatableError()
         }
-        
+
         guard let lck = queryItems.first(where: { $0.name == "lck" })?.value,
               let entityId = queryItems.first(where: { $0.name == "entityId" })?.value else {
             throw LocatableError()
         }
-        
+
         // retrieve `authChainCode` from server
         let authMethodsURL = idURL.appendingPathComponent("/idp/authn/queryAuthMethods")
         let request = try constructJSONRequest(authMethodsURL, payload: ["lck": lck, "entityId": entityId])
         let (data, _) = try await data(for: request, session: session)
-        
+
         let responseJSON = try JSON(data: data)
         guard let authMethodsList = responseJSON["data"].array,
               let passwordJSON = authMethodsList.first(where: { $0["moduleCode"] == "userAndPwd" }),
               let authChainCode = passwordJSON["authChainCode"].string else {
             throw LocatableError()
         }
-        
+
         return Parameters(lck: lck, entityId: entityId, chainCode: authChainCode)
     }
 
@@ -212,7 +212,7 @@ public enum NeoAuthenticationAPI {
         let plaintext = try ClearMessage(string: password, using: String.Encoding.utf8)
         let cipher = try plaintext.encrypted(with: publicKey, padding: .PKCS1)
         let encryptedPassword = cipher.data.base64EncodedString()
-        
+
         let payload: [String: Any] = [
             "authModuleCode": "userAndPwd",
             "authChainCode": parameters.chainCode,
@@ -225,32 +225,32 @@ public enum NeoAuthenticationAPI {
                 "verifyCode": ""
             ]
         ]
-        
+
         let authenticateURL = idURL.appendingPathComponent("/idp/authn/authExecute")
         let request = try constructJSONRequest(authenticateURL, payload: payload)
         let (data, _) = try await data(for: request, session: session)
         let responseJSON = try JSON(data: data)
-        
+
         guard let responseCode = responseJSON["code"].int,
               responseCode == 200 else {
             return nil
         }
-        
+
         guard let token = responseJSON["loginToken"].string else {
             throw LocatableError()
         }
         return token
     }
-    
+
     private static func postJWToken(token: String, session: URLSession? = nil) async throws -> Document {
         let loginURL = idURL.appendingPathComponent("/idp/authCenter/authnEngine")
         let request = constructFormRequest(loginURL, form: ["loginToken": token])
         let (data, _) = try await data(for: request, session: session)
-        
+
         let document = try decodeHTMLDocument(data)
         return document
     }
-    
+
     /// Construct the request represented by ID's auto-submit result form.
     ///
     /// CAS-style services usually return a GET form containing `ticket`, while
