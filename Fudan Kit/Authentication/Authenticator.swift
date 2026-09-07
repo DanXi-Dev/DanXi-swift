@@ -85,7 +85,7 @@ public actor Authenticator {
         guard let host = url.host() else { throw LocatableError() }
         
         let (data, response) = try await withSerialTask {
-            try await NeoAuthenticationAPI.authenticate(url)
+            try await AuthenticationAPI.authenticate(url)
         }
 
         guard response.url?.host != Self.loginHost else {
