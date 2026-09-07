@@ -136,7 +136,7 @@ struct WelcomeSheet: View {
                 }
                 .disabled(campusModel.loggedIn)
             } footer: {
-                Text("danxi-app-account-system-footer-uis")
+                Text("danxi-app-account-system-footer-fudan")
             }
             
             Section {

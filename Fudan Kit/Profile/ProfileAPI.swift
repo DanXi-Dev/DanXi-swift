@@ -6,7 +6,7 @@ public enum ProfileAPI {
     
     public static func getStudentProfile() async throws -> Profile {
         let url = URL(string: "https://workflow1.fudan.edu.cn/site/fudan/student-information")!
-        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
         let json = try unwrapJSON(data)
         let content = try json["info"].rawData()
         let response = try JSONDecoder().decode(ProfileResponse.self, from: content)
