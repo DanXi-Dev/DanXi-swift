@@ -104,6 +104,60 @@ public enum NeoAuthenticationAPI {
         return (data, response)
     }
 
+    /// Authenticate and return the callback URL without consuming its ticket.
+    ///
+    /// This is intended for components such as `SFSafariViewController` that
+    /// need to establish their own authenticated session from a URL.
+    public static func authenticateForURL(_ url: URL) async throws -> URL {
+        let session = URLSession(configuration: .ephemeral)
+        defer { session.invalidateAndCancel() }
+
+        let firstRequest = constructRequest(url)
+        let (firstData, firstResponse) = try await data(for: firstRequest, session: session)
+
+        if firstResponse.url?.host() == url.host() {
+            guard let responseURL = firstResponse.url else {
+                throw LocatableError()
+            }
+            return responseURL
+        }
+
+        guard let redirectedURL = firstResponse.url,
+              redirectedURL.host() == idURL.host() else {
+            throw LocatableError()
+        }
+
+        let authenticationRequest: URLRequest
+        if let document = try? decodeHTMLDocument(firstData),
+           let existingRequest = try? constructAuthenticationResultRequest(document: document) {
+            authenticationRequest = existingRequest
+        } else {
+            let parameters = try await getParams(url: redirectedURL, session: session)
+            let publicKey = try await getPublicKey(session: session)
+            guard let username = CredentialStore.shared.username,
+                  let password = CredentialStore.shared.password else {
+                throw CampusError.credentialNotFound
+            }
+            guard let token = try await encryptAndSubmit(
+                publicKey: publicKey,
+                parameters: parameters,
+                username: username,
+                password: password,
+                session: session
+            ) else {
+                throw CampusError.loginFailed
+            }
+            let document = try await postJWToken(token: token, session: session)
+            authenticationRequest = try constructAuthenticationResultRequest(document: document)
+        }
+
+        guard authenticationRequest.httpMethod == "GET",
+              let authenticationURL = authenticationRequest.url else {
+            throw LocatableError()
+        }
+        return authenticationURL
+    }
+
     private static func getParams(url: URL, session: URLSession? = nil) async throws -> Parameters {
         // parse URL to get `lck` and `entityId` locally
         let urlString = url.absoluteString
