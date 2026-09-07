@@ -41,7 +41,7 @@ struct AnnouncementPage: View {
         }
         
         do {
-            let url = try await NeoAuthenticationAPI.authenticateForURL(announcement.link)
+            let url = try await AuthenticationAPI.authenticateForURL(announcement.link)
             self.authenticated = true
             present(url: url)
         } catch {

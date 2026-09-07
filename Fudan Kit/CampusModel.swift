@@ -47,7 +47,7 @@ public class CampusModel: ObservableObject {
         await Authenticator.shared.resetLoginStatus()
 
         do {
-            guard try await NeoAuthenticationAPI.checkUserCredential(username: username, password: password) else {
+            guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
                 throw CampusError.loginFailed
             }
             CredentialStore.shared.set(username: username, password: password)
