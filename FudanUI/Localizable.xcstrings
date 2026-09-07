@@ -649,16 +649,6 @@
         }
       }
     },
-    "Exercise Logs" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "课外活动考勤记录"
-          }
-        }
-      }
-    },
     "Export" : {
       "localizations" : {
         "zh-Hans" : {
@@ -685,16 +675,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导出到日历"
-          }
-        }
-      }
-    },
-    "Extracurricular Activities" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "课外活动考勤"
           }
         }
       }
@@ -735,26 +715,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "复旦生活码"
-          }
-        }
-      }
-    },
-    "Fudan UIS ID" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "复旦统一身份认证学工号"
-          }
-        }
-      }
-    },
-    "Fudan UIS Password" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "复旦统一身份认证密码"
           }
         }
       }
@@ -1041,22 +1001,22 @@
         }
       }
     },
-    "Login failure is usally caused by captcha. Force login may lead to some functions unavailable. You can go to browser and perform a succesful login to fix this later." : {
+    "If credential validation is unavailable, you can continue without checking. Some campus services may remain unavailable." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "验证码可能会导致登录失败。跳过检查强行登录可能导致一些功能无法使用。您可以稍后使用浏览器进行一次完整登录以修复此问题。"
+            "value" : "如果暂时无法验证凭据，您可以跳过检查继续登录，但部分校园服务可能仍不可用。"
           }
         }
       }
     },
-    "Login with Fudan campus account (UIS) to access various campus services" : {
+    "Login with Fudan campus account to access various campus services" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用复旦大学统一身份认证来访问各种校园服务"
+            "value" : "使用复旦大学校园账户访问各种校园服务"
           }
         }
       }
@@ -1127,17 +1087,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "姓名"
-          }
-        }
-      }
-    },
-    "Need captcha, visit UIS webpage to login." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "需要验证码，请访问统一身份认证网页登录"
           }
         }
       }
@@ -1248,36 +1197,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "密码"
-          }
-        }
-      }
-    },
-    "PE Curriculum" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "体育教学"
-          }
-        }
-      }
-    },
-    "PE Exam" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "体质健康测试"
-          }
-        }
-      }
-    },
-    "PE Exam Logs" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "体质健康测试记录"
           }
         }
       }
@@ -1574,16 +1493,6 @@
         }
       }
     },
-    "Show Logs" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示记录"
-          }
-        }
-      }
-    },
     "Show schedule after %@" : {
       "localizations" : {
         "en" : {
@@ -1662,16 +1571,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "需要在网页中接受条款与条件后方可使用复活码"
-          }
-        }
-      }
-    },
-    "Total Score" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "总分"
           }
         }
       }

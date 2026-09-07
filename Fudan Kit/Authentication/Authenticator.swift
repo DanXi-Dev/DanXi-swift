@@ -5,6 +5,8 @@ import Utils
 /// central authorization server and fetching from business services that may
 /// redirect to that server when unauthenticated.
 public actor Authenticator {
+    public static let shared = Authenticator()
+
     // MARK: - State
 
     /// A mutex-like task reference for serializing login attempts.
@@ -14,21 +16,15 @@ public actor Authenticator {
     /// (2 hours) to avoid hitting the auth center on every request.
     private var loginStatus: [String: Date]
 
-    /// Caller-supplied login routine that performs the SSO flow *against the
-    /// authorization center* using the provided `loginURL`.
-    let authenticationAPI: (_ loginURL: URL) async throws -> (Data, URLResponse)
-    
-    /// The host for authentication center, for example, `id.fudan.edu.cn`.
-    let loginHost: String
+    /// The host for the unified authentication center.
+    private static let loginHost = "id.fudan.edu.cn"
 
     /// How long a successful login is considered valid for a given business host.
     private let loginValidity: TimeInterval = 2 * 60 * 60 // 2 hours
 
     // MARK: - Init
 
-    init(loginHost: String, authenticationAPI: @escaping (_ loginURL: URL) async throws -> (Data, URLResponse)) {
-        self.authenticationAPI = authenticationAPI
-        self.loginHost = loginHost
+    private init() {
         self.loginStatus = [:]
         self.task = nil
     }
@@ -89,10 +85,10 @@ public actor Authenticator {
         guard let host = url.host() else { throw LocatableError() }
         
         let (data, response) = try await withSerialTask {
-            try await self.authenticationAPI(url)
+            try await NeoAuthenticationAPI.authenticate(url)
         }
 
-        guard response.url?.host != loginHost else {
+        guard response.url?.host != Self.loginHost else {
             throw CampusError.loginFailed
         }
         
@@ -104,23 +100,11 @@ public actor Authenticator {
     private func directFetch(request: URLRequest) async throws -> (Data, URLResponse)? {
         let (data, response) = try await URLSession.campusSession.data(for: request)
 
-        if response.url?.host != loginHost {
+        if response.url?.host != Self.loginHost {
             return (data, response)
         }
         
         return nil
-    }
-}
-
-// MARK: - Instances
-
-extension Authenticator {
-    public static let classic = Authenticator(loginHost: "uis.fudan.edu.cn") { loginURL in
-        try await AuthenticationAPI.authenticate(loginURL)
-    }
-    
-    public static let neo = Authenticator(loginHost: "id.fudan.edu.cn") { loginURL in
-        try await NeoAuthenticationAPI.authenticate(loginURL)
     }
 }
 

@@ -248,18 +248,18 @@
         }
       }
     },
-    "danxi-app-account-system-footer-uis" : {
+    "danxi-app-account-system-footer-fudan" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fudan Campus account, also known as the UIS account, is used to access data provided by the Fudan University, including class schedules and campus card balances."
+            "value" : "Fudan Campus account (Fudan.ID) is used to access data provided by Fudan University, including class schedules and campus card balances."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复旦校园账户，即UIS账户，用于访问复旦大学提供的各项校园服务信息，包括课程表、校园卡余额等。"
+            "value" : "复旦校园账户（Fudan.ID）用于访问复旦大学提供的各项校园服务信息，包括课程表、校园卡余额等。"
           }
         }
       }
