@@ -60,10 +60,8 @@ struct HolePage: View {
                                         MultipleFoldedFloorView(presentations: presentations)
                                     } content: {
                                         ForEach(presentations) { presentation in
-                                            Section {
-                                                FloorView(presentation: presentation)
-                                            }
-                                            .id(presentation.id)
+                                            FloorView(presentation: presentation)
+                                                .id(presentation.id)
                                         }
                                     }
                                     .listRowInsets(.zero)
