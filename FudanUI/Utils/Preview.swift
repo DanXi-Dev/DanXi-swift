@@ -79,9 +79,6 @@ func setupPreview() async {
     let routes: BusRoutes = decodePreviewData(filename: "bus")
     await BusStore.shared.setupPreview(routes: routes)
     
-    let playgrounds: [Playground] = decodePreviewData(filename: "playgrounds", directory: "reservation")
-    await ReservationStore.shared.setupPreview(playgrounds: playgrounds)
-    
     let usage: ElectricityUsage = decodePreviewData(filename: "electricity")
     await ElectricityStore.shared.setupPreview(usage: usage)
     

@@ -36,7 +36,7 @@ public class CampusModel: ObservableObject {
             PostgraduateAnnouncementStore.shared,
             BusStore.shared,
             SportStore.shared,
-            ReservationStore.shared,
+            SportsReservationStore.shared,
             ClassroomStore.shared
         ]
     }
