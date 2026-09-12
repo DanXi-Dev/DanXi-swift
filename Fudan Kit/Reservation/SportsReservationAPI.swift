@@ -1,4 +1,5 @@
 import Foundation
+import Utils
 
 /// JSON API used by the current “体育场馆网上预约” platform (topic 48).
 public enum SportsReservationAPI {
@@ -22,6 +23,33 @@ public enum SportsReservationAPI {
     }()
 
     // MARK: - Read APIs
+
+    public static func webReservationURL(venueID: Int) -> URL {
+        reservationPageURL(venueID: venueID)
+    }
+
+    public static func getVenueImage(token: String) async throws -> Data {
+        guard !token.isEmpty else { throw LocatableError() }
+        let endpoint = "/reservation/api/file/down"
+        var request = try makeRequest(
+            endpoint: endpoint,
+            queryItems: [
+                URLQueryItem(name: "token", value: token),
+                URLQueryItem(name: "view", value: "1")
+            ],
+            signed: false,
+            referer: sportsPageURL
+        )
+        request.setValue("image/*", forHTTPHeaderField: "Accept")
+        let (data, response) = try await URLSession.campusSession.data(for: request)
+        try validateHTTPResponse(response)
+        guard !data.isEmpty,
+              let response = response as? HTTPURLResponse,
+              response.value(forHTTPHeaderField: "Content-Type")?.lowercased().hasPrefix("image/") == true else {
+            throw CampusError.customError(message: "场馆图片返回了无效数据")
+        }
+        return data
+    }
 
     public static func getVenues(page: Int = 1, pageSize: Int = 10) async throws -> BookingVenuePage {
         let endpoint = "/reservation/api/topic/resource-list"
