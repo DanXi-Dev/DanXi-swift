@@ -85,10 +85,6 @@ func setupPreview() async {
     let usage: ElectricityUsage = decodePreviewData(filename: "electricity")
     await ElectricityStore.shared.setupPreview(usage: usage)
     
-    let exercise: [Exercise] = decodePreviewData(filename: "exercise", directory: "sport")
-    let exerciseLogs: [ExerciseLog] = decodePreviewData(filename: "exercise-log", directory: "sport")
-    await SportStore.shared.setupPreview(exercises: exercise, exerciseLogs: exerciseLogs)
-    
     var classroomCache: [Building: [Classroom]] = [:]
     for building in Building.allCases {
         guard building != .empty else { continue }

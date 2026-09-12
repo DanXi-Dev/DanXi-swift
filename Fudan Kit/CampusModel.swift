@@ -35,7 +35,6 @@ public class CampusModel: ObservableObject {
             UndergraduateAnnouncementStore.shared,
             PostgraduateAnnouncementStore.shared,
             BusStore.shared,
-            SportStore.shared,
             ReservationStore.shared,
             ClassroomStore.shared
         ]
@@ -45,11 +44,10 @@ public class CampusModel: ObservableObject {
         loggedIn = false
 
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        await Authenticator.classic.resetLoginStatus()
-        await Authenticator.neo.resetLoginStatus()
+        await Authenticator.shared.resetLoginStatus()
 
         do {
-            guard try await NeoAuthenticationAPI.checkUserCredential(username: username, password: password) else {
+            guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
                 throw CampusError.loginFailed
             }
             CredentialStore.shared.set(username: username, password: password)
@@ -58,8 +56,7 @@ public class CampusModel: ObservableObject {
             CredentialStore.shared.unset()
             loggedIn = false
             HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-            await Authenticator.classic.resetLoginStatus()
-            await Authenticator.neo.resetLoginStatus()
+            await Authenticator.shared.resetLoginStatus()
             throw error
         }
     }
@@ -84,8 +81,7 @@ public class CampusModel: ObservableObject {
         let clearableStores = self.clearableStores
         // clear cache
         Task(priority: .background) {
-            await Authenticator.classic.resetLoginStatus()
-            await Authenticator.neo.resetLoginStatus()
+            await Authenticator.shared.resetLoginStatus()
             for store in clearableStores {
                 try? await store.clearCache()
             }

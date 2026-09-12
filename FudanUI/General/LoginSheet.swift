@@ -6,11 +6,9 @@ public struct LoginSheet: View {
     private let style: SheetStyle
     @ObservedObject private var model = CampusModel.shared
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) var openURL
     
     @State private var username = ""
     @State private var password = ""
-    @State private var showCaptchaAlert = false
     @State private var failedAttempts = 0
     
     public init(style: SheetStyle = .independent) {
@@ -21,11 +19,6 @@ public struct LoginSheet: View {
         Sheet {
             do {
                 try await model.login(username: username, password: password)
-            }
-            catch CampusError.needCaptcha {
-                failedAttempts += 1
-                showCaptchaAlert = true
-                throw CampusError.needCaptcha
             }
             catch {
                 failedAttempts += 1
@@ -48,7 +41,7 @@ public struct LoginSheet: View {
             
             #else
             
-            FormTitle(title: String(localized: "Fudan Campus Account", bundle: .module), description: String(localized: "Login with Fudan campus account (UIS) to access various campus services", bundle: .module))
+            FormTitle(title: String(localized: "Fudan Campus Account", bundle: .module), description: String(localized: "Login with Fudan campus account to access various campus services", bundle: .module))
             
             Section {
                 LabeledEntry(String(localized: "Student Type", bundle: .module)) {
@@ -59,10 +52,10 @@ public struct LoginSheet: View {
                     }
                 }
                 LabeledEntry(String(localized: "Fudan.ID", bundle: .module)) {
-                    TextField(String(localized: "Fudan UIS ID", bundle: .module), text: $username)
+                    TextField(String(localized: "Fudan.ID", bundle: .module), text: $username)
                 }
                 LabeledEntry(String(localized: "Password", bundle: .module)) {
-                    SecureField(String(localized: "Fudan UIS Password", bundle: .module), text: $password)
+                    SecureField(String(localized: "Password", bundle: .module), text: $password)
                 }
             }
             
@@ -77,28 +70,13 @@ public struct LoginSheet: View {
                         Text("Ignore check and login", bundle: .module)
                     }
                 } footer: {
-                    Text("Login failure is usally caused by captcha. Force login may lead to some functions unavailable. You can go to browser and perform a succesful login to fix this later.", bundle: .module)
+                    Text("If credential validation is unavailable, you can continue without checking. Some campus services may remain unavailable.", bundle: .module)
                 }
             }
         }
         .completed(!username.isEmpty && !password.isEmpty)
         .submitText(String(localized: "Login", bundle: .module))
         .sheetStyle(style)
-        .alert(String(localized: "Error", bundle: .module), isPresented: $showCaptchaAlert) {
-            Button {
-                
-            } label: {
-                Text("Cancel", bundle: .module)
-            }
-
-            Button {
-                openURL(URL(string: "https://id.fudan.edu.cn")!)
-            } label: {
-                Text("Go to Browser", bundle: .module)
-            }
-        } message: {
-            Text("Need captcha, visit UIS webpage to login.", bundle: .module)
-        }
     }
 }
 
