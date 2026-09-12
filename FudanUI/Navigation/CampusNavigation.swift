@@ -5,6 +5,7 @@ import Utils
 
 struct CampusNavigation<Label: View>: View {
     @EnvironmentObject private var navigator: AppNavigator
+    @EnvironmentObject private var tabViewModel: TabViewModel
     let label: () -> Label
     
     var body: some View {
@@ -12,6 +13,7 @@ struct CampusNavigation<Label: View>: View {
             .navigationDestination(for: CampusSection.self) { section in
                 section.destination
                     .environmentObject(navigator)
+                    .environmentObject(tabViewModel)
             }
             .navigationDestination(for: Playground.self) { playground in
                 PlaygroundPage(playground)
