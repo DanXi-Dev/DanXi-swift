@@ -23,6 +23,21 @@ public enum SportsReservationAPI {
 
     // MARK: - Read APIs
 
+    public static func getTopic() async throws -> BookingTopic {
+        let endpoint = "/reservation/api/topic/detail"
+        let request = try makeRequest(
+            endpoint: endpoint,
+            queryItems: [URLQueryItem(name: "id", value: String(topicID))],
+            signed: true,
+            referer: sportsPageURL
+        )
+        return try await send(request)
+    }
+
+    public static func webReservationURL(venueID: Int) -> URL {
+        reservationPageURL(venueID: venueID)
+    }
+
     public static func getVenues(page: Int = 1, pageSize: Int = 10) async throws -> BookingVenuePage {
         let endpoint = "/reservation/api/topic/resource-list"
         let request = try makeRequest(

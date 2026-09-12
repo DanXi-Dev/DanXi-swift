@@ -5,8 +5,18 @@ public actor SportsReservationStore: ClearableStorage {
     public static let shared = SportsReservationStore()
 
     private var cachedVenues: [BookingVenue]?
+    private var cachedTopic: BookingTopic?
 
     public init() {}
+
+    public func getTopic(forceRefresh: Bool = false) async throws -> BookingTopic {
+        if !forceRefresh, let cachedTopic {
+            return cachedTopic
+        }
+        let topic = try await SportsReservationAPI.getTopic()
+        cachedTopic = topic
+        return topic
+    }
 
     /// Loads every venue from sports topic 48, following the server's pagination.
     public func getVenues(forceRefresh: Bool = false) async throws -> [BookingVenue] {
@@ -78,5 +88,6 @@ public actor SportsReservationStore: ClearableStorage {
 
     public func clearCache() throws {
         cachedVenues = nil
+        cachedTopic = nil
     }
 }

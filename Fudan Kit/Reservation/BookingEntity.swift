@@ -1,4 +1,44 @@
 import Foundation
+import SwiftSoup
+
+public struct BookingRichText: Decodable, Hashable, Sendable {
+    public let html: String
+    public let label: String
+    public let isEnabled: Bool
+
+    private enum CodingKeys: String, CodingKey {
+        case html = "text"
+        case label
+        // This misspelling is part of the upstream API.
+        case enabled = "enanle"
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        html = try container.decodeIfPresent(String.self, forKey: .html) ?? ""
+        label = try container.decodeIfPresent(String.self, forKey: .label) ?? ""
+        isEnabled = try container.decodeIfPresent(BookingFlexibleBool.self, forKey: .enabled)?.value ?? true
+    }
+
+    public var plainText: String {
+        guard let body = try? SwiftSoup.parse(html).body() else { return html }
+        let blocks = body.children().compactMap { try? $0.text() }.filter { !$0.isEmpty }
+        return blocks.isEmpty ? ((try? body.text()) ?? html) : blocks.joined(separator: "\n\n")
+    }
+}
+
+public struct BookingTopic: Decodable, Sendable {
+    public let name: String
+    public let visitCount: Int
+    public let appointmentCount: Int
+    public let description: BookingRichText
+
+    private enum CodingKeys: String, CodingKey {
+        case name, description = "desc"
+        case visitCount = "visit_num"
+        case appointmentCount = "appointment_num"
+    }
+}
 
 /// A page of resources exposed by the new booking platform.
 public struct BookingVenuePage: Decodable, Sendable {
@@ -32,6 +72,7 @@ public struct BookingVenue: Identifiable, Decodable, Hashable, Sendable {
     public let images: String
     public let type: Int
     public let requiredFields: [BookingFormField]
+    public let introduction: BookingRichText?
 
     private enum CodingKeys: String, CodingKey {
         case id, name, icon, images, type, config
@@ -44,9 +85,21 @@ public struct BookingVenue: Identifiable, Decodable, Hashable, Sendable {
         icon = try container.decodeIfPresent(String.self, forKey: .icon) ?? ""
         images = try container.decodeIfPresent(String.self, forKey: .images) ?? ""
         type = try container.decode(Int.self, forKey: .type)
-        requiredFields = try container
-            .decodeIfPresent(BookingResourceConfiguration.self, forKey: .config)?
-            .requiredFields ?? []
+        let configuration = try container.decodeIfPresent(BookingResourceConfiguration.self, forKey: .config)
+        requiredFields = configuration?.requiredFields ?? []
+        introduction = configuration?.introduction
+    }
+
+    public var imageURL: URL? {
+        guard !images.isEmpty else { return nil }
+        var components = URLComponents(
+            string: "https://booking.fudan.edu.cn/reservation/api/file/down"
+        )
+        components?.queryItems = [
+            URLQueryItem(name: "token", value: images),
+            URLQueryItem(name: "view", value: "1")
+        ]
+        return components?.url
     }
 }
 
@@ -61,6 +114,9 @@ public struct BookingVenueDetail: Identifiable, Decodable, Sendable {
     public let limitInfo: String
     public let requiredFields: [BookingFormField]
     public let serviceTimes: [BookingServiceTime]
+    public let introduction: BookingRichText?
+    public let bookingDescription: BookingRichText?
+    public let requiresCaptcha: Bool
 
     private enum CodingKeys: String, CodingKey {
         case id, name, type, exclusive, usable, config, rule
@@ -77,9 +133,11 @@ public struct BookingVenueDetail: Identifiable, Decodable, Sendable {
         isGroup = try container.decode(BookingFlexibleBool.self, forKey: .isGroup).value
         usable = try container.decode(Bool.self, forKey: .usable)
         limitInfo = try container.decodeIfPresent(String.self, forKey: .limitInfo) ?? ""
-        requiredFields = try container
-            .decodeIfPresent(BookingResourceConfiguration.self, forKey: .config)?
-            .requiredFields ?? []
+        let configuration = try container.decodeIfPresent(BookingResourceConfiguration.self, forKey: .config)
+        requiredFields = configuration?.requiredFields ?? []
+        introduction = configuration?.introduction
+        bookingDescription = configuration?.description
+        requiresCaptcha = configuration?.antiBot != 0
         serviceTimes = try container.decodeIfPresent([BookingServiceTime].self, forKey: .rule) ?? []
     }
 }
@@ -111,14 +169,22 @@ public struct BookingFormField: Decodable, Hashable, Sendable {
 
 private struct BookingResourceConfiguration: Decodable {
     let requiredFields: [BookingFormField]
+    let introduction: BookingRichText?
+    let description: BookingRichText?
+    let antiBot: Int
 
     private enum CodingKeys: String, CodingKey {
         case requiredFields = "data_colle"
+        case introduction, description
+        case antiBot = "anti_bot"
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         requiredFields = try container.decodeIfPresent([BookingFormField].self, forKey: .requiredFields) ?? []
+        introduction = try container.decodeIfPresent(BookingRichText.self, forKey: .introduction)
+        description = try container.decodeIfPresent(BookingRichText.self, forKey: .description)
+        antiBot = try container.decodeIfPresent(BookingFlexibleInt.self, forKey: .antiBot)?.value ?? 0
     }
 }
 
