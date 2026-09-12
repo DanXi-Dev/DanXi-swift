@@ -1,7 +1,7 @@
 import SwiftUI
 
 public enum CampusSection: String, Identifiable, Codable, CaseIterable {
-    case wallet, electricity, announcenemnt, pay, schoolbus, classroom, library, book, canteen, sport, score, rank, exam
+    case wallet, electricity, announcenemnt, pay, schoolbus, classroom, library, book, canteen, sport, score, rank, playground, exam
     case course
     
     public var id: CampusSection {
@@ -9,7 +9,6 @@ public enum CampusSection: String, Identifiable, Codable, CaseIterable {
     }
     
     static let allHidden: Set<CampusSection> = [.course]
-    static let temporarilyHidden: Set<CampusSection> = []
     static let gradHidden: Set<CampusSection> = [.sport, .rank, .exam]
     static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity, .exam]
     static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt, .schoolbus]
@@ -33,6 +32,8 @@ extension CampusSection {
             Label(String(localized: "Exams & Score", bundle: .module), systemImage: "graduationcap.circle")
         case .rank:
             Label(String(localized: "GPA Rank", bundle: .module), systemImage: "chart.bar.xaxis")
+        case .playground:
+            Label(String(localized: "Playground Reservation", bundle: .module), systemImage: "sportscourt")
         case .classroom:
             Label(String(localized: "Classroom Schedule", bundle: .module), systemImage: "building.2")
         case .electricity:
@@ -81,6 +82,8 @@ extension CampusSection {
             ScorePage()
         case .rank:
             RankPage()
+        case .playground:
+            ReservationPage()
         case .classroom:
             ClassroomPage()
         case .electricity:
