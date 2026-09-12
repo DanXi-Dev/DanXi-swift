@@ -6,8 +6,7 @@ struct FloorPresentation: Identifiable {
     init(floor: Floor, storey: Int, floors: [Floor] = []) {
         self.floor = floor
         self.storey = storey
-        // self.sections = parseFloorContent(content: floor.content, mentions: floor.mentions, floors: floors)
-        self.sections = parseFloorContent(content: temporaryFixForContentOverflow(floor.content), mentions: floor.mentions, floors: floors)
+        self.sections = parseFloorContent(content: floor.content, mentions: floor.mentions, floors: floors)
         self.replyTo = parseFirstMention(content: floor.content)
         self.imageURLs = parseFloorImageURLs(content: floor.content)
     }
@@ -27,6 +26,17 @@ enum FloorSection {
     case text(MarkdownContent)
 }
 
+/// Normalizes downloaded floor content to Unix LF line endings before other preprocessing.
+///
+/// The forum API may return CRLF line endings. Treating CR and LF as separate delimiters inserts
+/// blank lines when the content is rejoined, which breaks the consecutive rows required by
+/// Markdown tables. Replacing CRLF first also prevents it from being converted into two LF characters.
+func normalizeLineEndings(content: String) -> String {
+    content
+        .replacingOccurrences(of: "\r\n", with: "\n")
+        .replacingOccurrences(of: "\r", with: "\n")
+}
+
 func convertInlineImages(content: String) -> String {
     var modifiedContent = content
     let pattern = /!\[[^\]]*\]\((?<filename>https?:\/\/.*?)(?=\"|\))(?<optionalpart>\".*\")?\)/
@@ -42,15 +52,21 @@ func temporaryFixForContentOverflow(_ content: String) -> String {
     guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
         return content
     }
-    let lines = content.components(separatedBy: .newlines)
+    let lines = content.components(separatedBy: "\n")
     let processedLines = lines.map { line -> String in
         return regex.stringByReplacingMatches(in: line, options: [], range: NSRange(location: 0, length: line.utf16.count), withTemplate: ">>>")
     }
     return processedLines.joined(separator: "\n")
 }
 
+func preprocessFloorContent(content: String) -> String {
+    let normalizedContent = normalizeLineEndings(content: content)
+    let overflowFixedContent = temporaryFixForContentOverflow(normalizedContent)
+    return convertInlineImages(content: overflowFixedContent)
+}
+
 func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) -> [FloorSection] {
-    var partialContent = convertInlineImages(content: content)
+    var partialContent = preprocessFloorContent(content: content)
     var sections: [FloorSection] = []
     var count = 0
     
