@@ -16,10 +16,6 @@ public struct CampusHome: View {
     #endif
     
     private func shouldDisplay(section: CampusSection) -> Bool {
-        guard !CampusSection.temporarilyHidden.contains(section) else {
-            return false
-        }
-
         switch campusModel.studentType {
         case .undergrad: true
         case .grad: !CampusSection.gradHidden.contains(section)
@@ -42,7 +38,7 @@ public struct CampusHome: View {
                     CampusSection.staffHidden
                 }
                 
-                if !hiddenSet.contains(section), !CampusSection.temporarilyHidden.contains(section) {
+                if !hiddenSet.contains(section) {
                     DetailLink(value: section) {
                         section.label.navigationStyle()
                     }
@@ -122,7 +118,7 @@ public struct CampusHome: View {
                         }
                     }
                     
-                    ForEach(model.unpinned.filter { !CampusSection.temporarilyHidden.contains($0) }) { section in
+                    ForEach(model.unpinned) { section in
                         if shouldDisplay(section: section) {
                             DetailLink(value: section) {
                                 section.label.navigationStyle()
@@ -235,9 +231,9 @@ struct HomePageEditor: View {
                 }
                 .id(id) // a display bug, the remove button won't show if I don't force it to redraw
                 
-                if model.hidden.contains(where: { !CampusSection.temporarilyHidden.contains($0) }) {
+                if !model.hidden.isEmpty {
                     Section {
-                        ForEach(model.hidden.filter { !CampusSection.temporarilyHidden.contains($0) }) { section in
+                        ForEach(model.hidden) { section in
                             HStack {
                                 Button {
                                     model.unhide(section: section)

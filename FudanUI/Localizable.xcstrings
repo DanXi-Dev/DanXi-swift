@@ -97,6 +97,16 @@
         }
       }
     },
+    "Assigned automatically" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统自动分配"
+          }
+        }
+      }
+    },
     "Author" : {
       "localizations" : {
         "zh-Hans" : {
@@ -113,6 +123,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "只显示可预约的时段"
+          }
+        }
+      }
+    },
+    "Available: %lld" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可预约：%lld 个"
           }
         }
       }
@@ -273,12 +293,42 @@
         }
       }
     },
+    "Cancel Reservation" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消预约"
+          }
+        }
+      }
+    },
     "Cancel this request?" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "确定取消这条预约？"
+          }
+        }
+      }
+    },
+    "Cancel this reservation?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定取消这条预约吗？"
+          }
+        }
+      }
+    },
+    "Cancellation Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消失败"
           }
         }
       }
@@ -379,6 +429,26 @@
         }
       }
     },
+    "Confirm Reservation" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确认预约"
+          }
+        }
+      }
+    },
+    "Contact Information" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "联系信息"
+          }
+        }
+      }
+    },
     "Course Capacity" : {
       "localizations" : {
         "zh-Hans" : {
@@ -435,6 +505,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课程名称"
+          }
+        }
+      }
+    },
+    "Court" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "场地"
           }
         }
       }
@@ -789,6 +869,16 @@
         }
       }
     },
+    "Filters" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选"
+          }
+        }
+      }
+    },
     "From" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1041,6 +1131,16 @@
         }
       }
     },
+    "Indoor/Outdoor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "室内/室外"
+          }
+        }
+      }
+    },
     "Instructor" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1057,6 +1157,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ISBN"
+          }
+        }
+      }
+    },
+    "Keep Reservation" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留预约"
           }
         }
       }
@@ -1281,6 +1391,16 @@
         }
       }
     },
+    "My Reservations" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的预约"
+          }
+        }
+      }
+    },
     "Name" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1342,6 +1462,16 @@
         }
       }
     },
+    "No matching sports venues" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有符合条件的体育场馆"
+          }
+        }
+      }
+    },
     "No pickup locations available" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1352,12 +1482,42 @@
         }
       }
     },
+    "No public reservation information for this time slot" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该时段暂无可公开的预约信息"
+          }
+        }
+      }
+    },
     "No Score Entry" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "没有成绩记录"
+          }
+        }
+      }
+    },
+    "No sports venue reservations" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂无体育场馆预约"
+          }
+        }
+      }
+    },
+    "No time slots are open on this date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当天没有开放的预约时段"
           }
         }
       }
@@ -1408,6 +1568,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
+          }
+        }
+      }
+    },
+    "Open Web Reservation" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前往网页预约"
           }
         }
       }
@@ -1558,6 +1728,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "场馆类型"
+          }
+        }
+      }
+    },
+    "Please fill in %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请填写%@"
           }
         }
       }
@@ -1722,6 +1902,76 @@
         }
       }
     },
+    "required information" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "必填信息"
+          }
+        }
+      }
+    },
+    "Reservation Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约日期"
+          }
+        }
+      }
+    },
+    "Reservation Details" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约信息"
+          }
+        }
+      }
+    },
+    "Reservation Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约失败"
+          }
+        }
+      }
+    },
+    "Reservation Info" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约信息"
+          }
+        }
+      }
+    },
+    "Reservation Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约须知"
+          }
+        }
+      }
+    },
+    "Reservation Successful" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约成功"
+          }
+        }
+      }
+    },
     "Reserve" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1768,6 +2018,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "按书名搜索"
+          }
+        }
+      }
+    },
+    "Search Venues" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索场馆"
           }
         }
       }
@@ -1890,6 +2150,16 @@
         }
       }
     },
+    "Sports Venues" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "体育场馆"
+          }
+        }
+      }
+    },
     "Staff" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1912,6 +2182,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用户类别"
+          }
+        }
+      }
+    },
+    "Submit" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提交"
           }
         }
       }
@@ -1946,12 +2226,62 @@
         }
       }
     },
+    "The venue is reserved. View the assigned court in My Reservations." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "场地已经预约，请在“我的预约”中查看分配结果。"
+          }
+        }
+      }
+    },
     "This copy cannot be requested" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "此册暂不可预约"
+          }
+        }
+      }
+    },
+    "This venue is currently unavailable" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该场馆当前不可预约"
+          }
+        }
+      }
+    },
+    "This venue requires CAPTCHA, which is not supported yet." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该场馆启用了图形验证，当前版本暂不支持原生预约。"
+          }
+        }
+      }
+    },
+    "Time Slot" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "时段"
+          }
+        }
+      }
+    },
+    "Time Slots" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约时段"
           }
         }
       }
@@ -2026,6 +2356,16 @@
         }
       }
     },
+    "Unknown Error" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知错误"
+          }
+        }
+      }
+    },
     "Unpin Book" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2042,6 +2382,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消全选"
+          }
+        }
+      }
+    },
+    "Venue" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "场馆"
+          }
+        }
+      }
+    },
+    "Venue Introduction" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "场馆介绍"
+          }
+        }
+      }
+    },
+    "Venue Type" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "场地类型"
+          }
+        }
+      }
+    },
+    "View Reservation Rules" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看预约须知"
           }
         }
       }
