@@ -9,6 +9,8 @@ public enum CampusSection: String, Identifiable, Codable, CaseIterable {
     }
     
     static let allHidden: Set<CampusSection> = [.course]
+    // Keep the legacy reservation UI unreachable while the reservation system is rebuilt.
+    static let temporarilyHidden: Set<CampusSection> = [.playground]
     static let gradHidden: Set<CampusSection> = [.sport, .rank, .exam]
     static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity, .exam]
     static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt, .schoolbus]
