@@ -15,10 +15,6 @@ struct CampusNavigation<Label: View>: View {
                     .environmentObject(navigator)
                     .environmentObject(tabViewModel)
             }
-            .navigationDestination(for: Playground.self) { playground in
-                PlaygroundPage(playground)
-                    .environmentObject(navigator)
-            }
             .navigationDestination(for: Book.self) { book in
                 BookDetailPage(book)
                     .environmentObject(navigator)
