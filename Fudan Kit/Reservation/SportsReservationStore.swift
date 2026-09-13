@@ -69,7 +69,7 @@ public actor SportsReservationStore: ClearableStorage {
     }
 
     private static func fetchAllVenues() async throws -> [BookingVenue] {
-        let pageSize = 10
+        let pageSize = 100
         var page = 1
         var receivedCount = 0
         var total = Int.max
