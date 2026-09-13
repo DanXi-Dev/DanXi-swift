@@ -4,9 +4,23 @@ import Foundation
 public actor SportsReservationStore: ClearableStorage {
     public static let shared = SportsReservationStore()
 
+    private struct VenueLoad {
+        let id: UUID
+        let task: Task<[BookingVenue], Error>
+    }
+
+    private struct ImageDownload {
+        let id: UUID
+        let token: String
+        let task: Task<Data, Error>
+    }
+
     private var cachedVenues: [BookingVenue]?
+    private var venueLoad: VenueLoad?
+    private var completedVenueLoadID: UUID?
     private var imageIndex: [String: String]?
-    private var imageDownloads: [Int: (token: String, task: Task<Data, Error>)] = [:]
+    private var imageDownloads: [Int: ImageDownload] = [:]
+    private var latestImageRequests: [Int: (id: UUID, token: String)] = [:]
 
     private let imageCacheDirectory: URL = {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
@@ -21,15 +35,57 @@ public actor SportsReservationStore: ClearableStorage {
             return cachedVenues
         }
 
+        let load: VenueLoad
+        if let venueLoad {
+            load = venueLoad
+        } else {
+            let id = UUID()
+            let task = Task { try await Self.fetchAllVenues() }
+            load = VenueLoad(id: id, task: task)
+            venueLoad = load
+        }
+
+        do {
+            let venues = try await load.task.value
+            if venueLoad?.id == load.id {
+                reconcileImageCache(with: venues)
+                cachedVenues = venues
+                venueLoad = nil
+                completedVenueLoadID = load.id
+                return venues
+            }
+
+            // Another caller may already have committed this shared task's result.
+            if completedVenueLoadID == load.id, let cachedVenues {
+                return cachedVenues
+            }
+            throw CancellationError()
+        } catch {
+            if venueLoad?.id == load.id {
+                venueLoad = nil
+            }
+            throw error
+        }
+    }
+
+    private static func fetchAllVenues() async throws -> [BookingVenue] {
         let pageSize = 10
         var page = 1
-        var venues: [BookingVenue] = []
+        var receivedCount = 0
         var total = Int.max
+        var venueOrder: [Int] = []
+        var venuesByID: [Int: BookingVenue] = [:]
 
-        while venues.count < total {
+        while receivedCount < total {
             let response = try await SportsReservationAPI.getVenues(page: page, pageSize: pageSize)
-            venues.append(contentsOf: response.venues)
-            total = response.total
+            receivedCount += response.venues.count
+            total = max(0, response.total)
+
+            for venue in response.venues {
+                if venuesByID.updateValue(venue, forKey: venue.id) == nil {
+                    venueOrder.append(venue.id)
+                }
+            }
 
             guard !response.venues.isEmpty else {
                 break
@@ -37,13 +93,17 @@ public actor SportsReservationStore: ClearableStorage {
             page += 1
         }
 
-        reconcileImageCache(with: venues)
-        cachedVenues = venues
-        return venues
+        // The upstream list may repeat an item within a page or across page boundaries.
+        // Keep its first position while using the most recently received representation.
+        return venueOrder.compactMap { venuesByID[$0] }
     }
 
     public func getVenueImage(_ venue: BookingVenue) async throws -> Data? {
         guard !venue.images.isEmpty else { return nil }
+        if let cachedVenues,
+           !cachedVenues.contains(where: { $0.id == venue.id && $0.images == venue.images }) {
+            return nil
+        }
 
         let key = String(venue.id)
         var index = loadImageIndex()
@@ -62,41 +122,58 @@ public actor SportsReservationStore: ClearableStorage {
         }
 
         let token = venue.images
-        let data: Data
-        if let download = imageDownloads[venue.id], download.token == token {
-            data = try await download.task.value
+        let download: ImageDownload
+        if let currentDownload = imageDownloads[venue.id], currentDownload.token == token {
+            download = currentDownload
         } else {
+            imageDownloads[venue.id]?.task.cancel()
+            let id = UUID()
             let task = Task {
                 try await SportsReservationAPI.getVenueImage(token: token)
             }
-            imageDownloads[venue.id] = (token, task)
-            do {
-                data = try await task.value
-            } catch {
-                if imageDownloads[venue.id]?.token == token {
-                    imageDownloads.removeValue(forKey: venue.id)
-                }
-                throw error
-            }
+            download = ImageDownload(id: id, token: token, task: task)
+            imageDownloads[venue.id] = download
+            latestImageRequests[venue.id] = (id, token)
         }
-        if imageDownloads[venue.id]?.token == token {
+
+        let data: Data
+        do {
+            data = try await download.task.value
+        } catch {
+            if imageDownloads[venue.id]?.id == download.id {
+                imageDownloads.removeValue(forKey: venue.id)
+            }
+            throw error
+        }
+        if imageDownloads[venue.id]?.id == download.id {
             imageDownloads.removeValue(forKey: venue.id)
         }
 
-        // Do not restore an image invalidated by a venue-list refresh while it was downloading.
-        if let currentVenue = cachedVenues?.first(where: { $0.id == venue.id }),
-           currentVenue.images != token {
+        // Do not restore an image invalidated by a refresh, clear, or newer request.
+        guard latestImageRequests[venue.id]?.id == download.id,
+              latestImageRequests[venue.id]?.token == token else {
             return nil
         }
+        if let cachedVenues,
+           !cachedVenues.contains(where: { $0.id == venue.id && $0.images == token }) {
+            return nil
+        }
+        guard isValidImageData(data) else {
+            throw CampusError.customError(message: "场馆图片返回了无效数据")
+        }
 
-        try FileManager.default.createDirectory(
-            at: imageCacheDirectory,
-            withIntermediateDirectories: true
-        )
-        try data.write(to: fileURL, options: .atomic)
-        index = loadImageIndex()
-        index[key] = token
-        saveImageIndex(index)
+        do {
+            try FileManager.default.createDirectory(
+                at: imageCacheDirectory,
+                withIntermediateDirectories: true
+            )
+            try data.write(to: fileURL, options: .atomic)
+            index = loadImageIndex()
+            index[key] = token
+            saveImageIndex(index)
+        } catch {
+            // Disk caching is best-effort; a valid downloaded image is still usable.
+        }
         return data
     }
 
@@ -144,9 +221,13 @@ public actor SportsReservationStore: ClearableStorage {
 
     public func clearCache() throws {
         cachedVenues = nil
+        venueLoad?.task.cancel()
+        venueLoad = nil
+        completedVenueLoadID = nil
         imageIndex = nil
         imageDownloads.values.forEach { $0.task.cancel() }
         imageDownloads.removeAll()
+        latestImageRequests.removeAll()
         if FileManager.default.fileExists(atPath: imageCacheDirectory.path) {
             try FileManager.default.removeItem(at: imageCacheDirectory)
         }
@@ -172,6 +253,7 @@ public actor SportsReservationStore: ClearableStorage {
     }
 
     private func saveImageIndex(_ index: [String: String]) {
+        imageIndex = index
         do {
             try FileManager.default.createDirectory(
                 at: imageCacheDirectory,
@@ -179,7 +261,6 @@ public actor SportsReservationStore: ClearableStorage {
             )
             let data = try JSONEncoder().encode(index)
             try data.write(to: imageIndexURL, options: .atomic)
-            imageIndex = index
         } catch {
             // Image caching is best-effort and must not prevent venue loading.
         }
@@ -187,14 +268,15 @@ public actor SportsReservationStore: ClearableStorage {
 
     private func reconcileImageCache(with venues: [BookingVenue]) {
         var index = loadImageIndex()
-        let expectedTokens = Dictionary(
-            uniqueKeysWithValues: venues
-                .filter { !$0.images.isEmpty }
-                .map { (String($0.id), $0.images) }
-        )
+        var expectedTokens: [String: String] = [:]
+        for venue in venues where !venue.images.isEmpty {
+            expectedTokens[String(venue.id)] = venue.images
+        }
 
         let invalidEntries = index.compactMap { key, token -> (key: String, fileURL: URL?)? in
-            guard let venueID = Int(key) else { return (key: key, fileURL: nil) }
+            guard let venueID = Int(key), key == String(venueID) else {
+                return (key: key, fileURL: nil)
+            }
             let fileURL = imageFileURL(venueID: venueID)
             let imageData = try? Data(contentsOf: fileURL, options: .mappedIfSafe)
             guard expectedTokens[key] == token,
@@ -211,12 +293,13 @@ public actor SportsReservationStore: ClearableStorage {
             index.removeValue(forKey: entry.key)
         }
 
-        let obsoleteDownloads = imageDownloads.compactMap { venueID, download in
-            expectedTokens[String(venueID)] == download.token ? nil : venueID
+        let obsoleteRequests = latestImageRequests.compactMap { venueID, request in
+            expectedTokens[String(venueID)] == request.token ? nil : venueID
         }
-        for venueID in obsoleteDownloads {
+        for venueID in obsoleteRequests {
             imageDownloads[venueID]?.task.cancel()
             imageDownloads.removeValue(forKey: venueID)
+            latestImageRequests.removeValue(forKey: venueID)
         }
 
         if let files = try? FileManager.default.contentsOfDirectory(
