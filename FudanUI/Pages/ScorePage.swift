@@ -21,7 +21,7 @@ struct ScorePage: View {
             case .undergrad:
                 try await UndergraduateCourseStore.shared.getRefreshedSemesters()
             case .grad:
-                try await GraduateCourseStore.shared.getRefreshedSemesters()
+                try await GraduateCourseStore.shared.getSemesterInfo()
             case .staff:
                 throw LocatableError()
             }

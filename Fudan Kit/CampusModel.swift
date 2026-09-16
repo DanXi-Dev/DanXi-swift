@@ -42,12 +42,26 @@ public class CampusModel: ObservableObject {
     }
     
     public func login(username: String, password: String) async throws {
-        guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
-            throw CampusError.loginFailed
+        loggedIn = false
+
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        await Authenticator.classic.resetLoginStatus()
+        await Authenticator.neo.resetLoginStatus()
+
+        do {
+            guard try await NeoAuthenticationAPI.checkUserCredential(username: username, password: password) else {
+                throw CampusError.loginFailed
+            }
+            CredentialStore.shared.set(username: username, password: password)
+            loggedIn = true
+        } catch {
+            CredentialStore.shared.unset()
+            loggedIn = false
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+            await Authenticator.classic.resetLoginStatus()
+            await Authenticator.neo.resetLoginStatus()
+            throw error
         }
-        
-        CredentialStore.shared.set(username: username, password: password)
-        loggedIn = true
     }
     
     /// Bypass correctness check, only store the credential.
@@ -65,6 +79,7 @@ public class CampusModel: ObservableObject {
         
         // remove all cookies
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WebVPNCookieStore.clear()
         
         let clearableStores = self.clearableStores
         // clear cache

@@ -59,12 +59,15 @@ public class Proxy {
                 /**
                  The domain fduhole.com and its subdomains are currently mapped to an IP address within the local network.
                  When a user is outside the campus network, they will be unable to connect to fduhole.com directly.
-                 There are two possible scenarios:
+                 There are three possible scenarios:
+                 - The domain cannot be resolved at all, since it is only served by the campus DNS.
                  - The IP address associated with fduhole.com does not exist in the user’s network.
                  - The IP address exists and corresponds to an active host, but an SSL connection cannot be successfully established.
                  Based on this reasoning, we can reliably determine whether the user is within the campus network.
                  */
                 switch error.code {
+                case .cannotFindHost: fallthrough // the domain cannot be resolved outside the campus DNS
+                case .dnsLookupFailed: fallthrough // the DNS query itself failed
                 case .timedOut: fallthrough // the IP address is not in the local network
                 case .cannotConnectToHost: fallthrough // the IP address is within the local network, but the server rejects the connection
                 case .secureConnectionFailed: fallthrough // the IP address is within the local network, but the server rejects the connection

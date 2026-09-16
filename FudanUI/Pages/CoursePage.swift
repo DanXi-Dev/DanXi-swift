@@ -10,7 +10,6 @@ import EventKitUI
 
 public struct CoursePage: View {
     @ObservedObject private var campusModel = CampusModel.shared
-    @StateObject private var captchaCoordinator = CaptchaCoordinator()
     
     public init() { }
     
@@ -50,27 +49,13 @@ public struct CoursePage: View {
             case .undergrad:
                 return try await CourseModel.freshLoadForUndergraduate()
             case .grad:
-                return try await CourseModel.freshLoadForGraduate { imageData in
-                    try await captchaCoordinator.waitForCaptcha(imageData: imageData)
-                }
+                return try await CourseModel.freshLoadForGraduate()
             case .staff:
                 let description = String(localized: "Calendar for staff is not supported.", bundle: .module)
                 throw LocatableError(description)
             }
         } content: { (model : CourseModel) in
             CalendarContent(model: model)
-        }
-        .sheet(item: $captchaCoordinator.request) { request in
-            ZStack {
-                Color.clear
-                CaptchaBox(
-                    imageData: request.imageData,
-                    onSubmit: { captcha in
-                        captchaCoordinator.submit(captcha: captcha)
-                    }
-                )
-            }
-            .presentationDetents([.medium])
         }
         .id(campusModel.studentType) 
         .navigationTitle(String(localized: "Calendar", bundle: .module))
@@ -90,7 +75,6 @@ fileprivate struct CalendarContent: View {
     @available(iOS 17.0, *)
     private var exportToCalendarTip : ExportToCalendarTip {.init()}
     @AppStorage("calendar-theme-color") private var themeColor: ThemeColor = ThemeColor.none
-    @StateObject private var captchaCoordinator = CaptchaCoordinator()
     
     @ScaledMetric var minWidth = CalendarConfig.dx * 7
     
@@ -179,9 +163,7 @@ fileprivate struct CalendarContent: View {
             }
             .refreshable {
                 if campusModel.studentType == .grad {
-                    await model.refreshForGraduate { imageData in
-                        try await captchaCoordinator.waitForCaptcha(imageData: imageData)
-                    }
+                    await model.refreshForGraduate()
                 } else {
                     await model.refresh()
                 }
@@ -189,18 +171,6 @@ fileprivate struct CalendarContent: View {
     #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)
     #endif
-        }
-        .sheet(item: $captchaCoordinator.request) { request in
-            ZStack {
-                Color.clear
-                CaptchaBox(
-                    imageData: request.imageData,
-                    onSubmit: { captcha in
-                        captchaCoordinator.submit(captcha: captcha)
-                    }
-                )
-            }
-            .presentationDetents([.medium])
         }
 #if !os(watchOS)
         .toolbar {
@@ -267,9 +237,7 @@ fileprivate struct CalendarContent: View {
                 CourseSettings.shared.hiddenCourses = []
                 Task {
                     if campusModel.studentType == .grad {
-                        await model.refreshForGraduate { imageData in
-                            try await captchaCoordinator.waitForCaptcha(imageData: imageData)
-                        }
+                        await model.refreshForGraduate()
                     } else {
                         await model.refresh()
                     }
@@ -455,6 +423,7 @@ fileprivate struct ExportSheet: View {
     
     private func presentCalendarChooser() async throws {
         let eventStore = EKEventStore()
+        selectedCalendar = nil
         
         if #available(iOS 17, *) {
             let granted = try await eventStore.requestWriteOnlyAccessToEvents()
@@ -543,14 +512,14 @@ fileprivate struct ExportSheet: View {
             } message: {
                 Text(verbatim: exportError?.localizedDescription ?? "")
             }
-            .sheet(isPresented: $showCalendarChooser) {
+            .sheet(isPresented: $showCalendarChooser, onDismiss: {
+                if let selectedCalendar {
+                    exportToCalendar(calendar: selectedCalendar)
+                    self.selectedCalendar = nil
+                }
+            }) {
                 CalendarChooserSheet(selectedCalendar: $selectedCalendar, eventStore: eventStore)
                     .ignoresSafeArea()
-                    .onDisappear {
-                        if let selectedCalendar = selectedCalendar {
-                            exportToCalendar(calendar: selectedCalendar)
-                        }
-                    }
             }
         }
     }
@@ -579,9 +548,17 @@ fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, UINavigationControllerDelegate, EKCalendarChooserDelegate {
         let parent: CalendarChooserSheet
+        private var hasHandledSelection = false
         
         init(_ parent: CalendarChooserSheet) {
             self.parent = parent
+        }
+        
+        func calendarChooserSelectionDidChange(_ calendarChooser: EKCalendarChooser) {
+            guard !hasHandledSelection, let calendar = calendarChooser.selectedCalendars.first else { return }
+            hasHandledSelection = true
+            parent.selectedCalendar = calendar
+            parent.dismiss()
         }
         
         func calendarChooserDidFinish(_ calendarChooser: EKCalendarChooser) {

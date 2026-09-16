@@ -10,6 +10,7 @@ struct ReportPage: View {
             AsyncCollection(model.reports, endReached: model.endReached, action: model.loadMoreReports) { report in
                 ReportView(report: report)
             }
+            .id(model.filterOption)
         }
         .environmentObject(model)
         .listStyle(.inset)

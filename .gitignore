@@ -96,4 +96,8 @@ iOSInjectionProject/
 /.idea
 .vscode/
 
+# Local notes
+*.local.md
+AGENTS.md
+
 **/Package.resolved

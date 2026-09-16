@@ -112,9 +112,9 @@ extension ImageBrowserCoordinator: QLPreviewControllerDataSource {
         localURLMap[remoteURL] = previewItem // prevent other call to repeatedly load the same image
         Task(priority: .medium) {
             let loadedImage = try await loadImage(remoteURL)
-            let previewItem = PreviewItem(loadedImage.fileURL)
-            localURLMap[remoteURL] = previewItem
-            await MainActor.run {
+            previewItem.previewItemURL = loadedImage.fileURL
+            if allRemoteURL.indices.contains(controller.currentPreviewItemIndex),
+               allRemoteURL[controller.currentPreviewItemIndex] == remoteURL {
                 controller.refreshCurrentPreviewItem()
             }
         }
@@ -186,7 +186,7 @@ extension ImageBrowserCoordinator: UIDragInteractionDelegate {
 }
 
 class PreviewItem: NSObject, QLPreviewItem {
-    let previewItemURL: URL?
+    var previewItemURL: URL?
     var previewItemTitle: String? {
         String(localized: "Photo", bundle: .module)
     }

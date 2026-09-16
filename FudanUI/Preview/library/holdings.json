@@ -1,0 +1,18 @@
+[
+  {
+    "id": "60968027",
+    "callNumber": "I247.57 /F254SB",
+    "library": "张江馆",
+    "location": "张江馆计算机楼密集库",
+    "status": "在馆",
+    "volume": null
+  },
+  {
+    "id": "60968028",
+    "callNumber": "I247.57 /F254SB",
+    "library": "文科馆",
+    "location": "文科馆中文图书区",
+    "status": "借出",
+    "volume": null
+  }
+]

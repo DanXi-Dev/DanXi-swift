@@ -87,6 +87,16 @@
         }
       }
     },
+    "Author" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作者"
+          }
+        }
+      }
+    },
     "Available Time Slots Only" : {
       "localizations" : {
         "zh-Hans" : {
@@ -239,16 +249,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "食堂排队人数"
-          }
-        }
-      }
-    },
-    "Captcha" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "验证码"
           }
         }
       }
@@ -559,12 +559,12 @@
         }
       }
     },
-    "Enter Captcha" : {
+    "Enter a book title to search" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "输入验证码"
+            "value" : "输入书名开始搜索"
           }
         }
       }
@@ -699,12 +699,12 @@
         }
       }
     },
-    "Failed to load captcha" : {
+    "Expires in %llds" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "验证码加载失败"
+            "value" : "剩余 %lld 秒"
           }
         }
       }
@@ -744,7 +744,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复旦UIS学工号"
+            "value" : "复旦统一身份认证学工号"
           }
         }
       }
@@ -754,7 +754,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "复旦UIS密码"
+            "value" : "复旦统一身份认证密码"
           }
         }
       }
@@ -901,6 +901,16 @@
         }
       }
     },
+    "Holdings" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馆藏"
+          }
+        }
+      }
+    },
     "Holiday" : {
       "localizations" : {
         "zh-Hans" : {
@@ -941,12 +951,32 @@
         }
       }
     },
+    "ISBN" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ISBN"
+          }
+        }
+      }
+    },
     "kWh" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "kWh"
+          }
+        }
+      }
+    },
+    "Library Books" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图书馆借书"
           }
         }
       }
@@ -1026,7 +1056,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "使用复旦大学校园账户（UIS）来访问各种校园服务"
+            "value" : "使用复旦大学统一身份认证来访问各种校园服务"
           }
         }
       }
@@ -1107,7 +1137,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "需要验证码，请访问UIS网页登录"
+            "value" : "需要验证码，请访问统一身份认证网页登录"
           }
         }
       }
@@ -1192,6 +1222,16 @@
         }
       }
     },
+    "Open pinned books without searching. Swipe right to remove one." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无需搜索即可快速打开置顶图书。向右滑动可以移除。"
+          }
+        }
+      }
+    },
     "Orange" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1242,12 +1282,42 @@
         }
       }
     },
+    "Pin Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶图书"
+          }
+        }
+      }
+    },
+    "Pin this book for quick access from the library search page." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶后可从图书搜索页快速打开这本书。"
+          }
+        }
+      }
+    },
     "Pink" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "粉色"
+          }
+        }
+      }
+    },
+    "Pinned Books" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "置顶图书"
           }
         }
       }
@@ -1302,6 +1372,26 @@
         }
       }
     },
+    "Publication Year" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出版年份"
+          }
+        }
+      }
+    },
+    "Publisher" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出版社"
+          }
+        }
+      }
+    },
     "Rank" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1342,6 +1432,16 @@
         }
       }
     },
+    "Remove" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除"
+          }
+        }
+      }
+    },
     "Reserve" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1368,6 +1468,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重试"
+          }
+        }
+      }
+    },
+    "Search by book title" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按书名搜索"
           }
         }
       }
@@ -1516,12 +1626,12 @@
         }
       }
     },
-    "Submit" : {
+    "Summary" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "提交"
+            "value" : "内容简介"
           }
         }
       }
@@ -1602,6 +1712,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本科教务通知"
+          }
+        }
+      }
+    },
+    "Unpin Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消置顶"
           }
         }
       }

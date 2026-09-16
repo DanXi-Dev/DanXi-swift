@@ -20,6 +20,7 @@ class ReportModel: ObservableObject {
     
     @Published var filterOption = FilterOption.notDealt {
         didSet {
+            endReached = false
             self.reports = []
         }
     }

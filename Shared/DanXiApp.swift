@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 import DanXiUI
 import DanXiKit
 import ViewUtils
@@ -12,7 +13,11 @@ struct DanXiApp: App {
     #if os(iOS)
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     #endif
-    
+
+    init() {
+        WebVPNCookieStore.restore()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -27,6 +32,7 @@ struct DanXiApp: App {
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .background {
                         Proxy.shared.outsideCampus = false
+                        WebVPNCookieStore.save()
                     }
                 }
         }
