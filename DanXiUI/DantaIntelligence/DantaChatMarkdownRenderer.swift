@@ -11,97 +11,39 @@ struct DantaMarkdownBubbleText: View {
 
     var body: some View {
         if isUser {
-            DantaChatMarkdownRenderer(
-                text: text,
-                context: .user,
-                variant: .standard,
-                font: .body,
-                textColor: .white)
+            DantaChatMarkdownRenderer(text: text, isUser: true)
         } else {
-            DantaAssistantMarkdownBody(
-                text: text,
-                markdownVariant: .standard,
-                includesThinking: false,
-                font: .body,
-                textColor: .primary)
+            VStack(alignment: .leading, spacing: 10) {
+                ForEach(Array(DantaIntelligenceTextProcessing.assistantSegments(from: text).enumerated()), id: \.offset) { _, text in
+                    DantaChatMarkdownRenderer(text: text, isUser: false)
+                }
+            }
         }
     }
 }
 
 @available(iOS 18.0, *)
 private struct DantaChatMarkdownRenderer: View {
-    enum Context {
-        case user
-        case assistant
-    }
-
     let text: String
-    let context: Context
-    let variant: DantaChatMarkdownVariant
-    let font: Font
-    let textColor: Color
+    let isUser: Bool
+    private var textColor: Color { isUser ? .white : .primary }
 
     var body: some View {
         let processed = DantaIntelligenceTextProcessing.preprocessMarkdown(self.text)
         VStack(alignment: .leading, spacing: 10) {
             Markdown(processed.cleaned)
-                .markdownTheme(DantaChatMarkdownStyle.theme(
-                    variant: self.variant,
-                    context: self.context,
-                    textColor: self.textColor))
+                .markdownTheme(theme)
                 .markdownSoftBreakMode(.lineBreak)
-                .font(self.font)
+                .font(.body)
                 .foregroundStyle(self.textColor)
-                .tint(self.context == .user ? self.textColor : .accentColor)
+                .tint(isUser ? self.textColor : .accentColor)
 
             if !processed.images.isEmpty {
                 DantaInlineImageList(images: processed.images)
             }
         }
     }
-}
-
-@available(iOS 18.0, *)
-private struct DantaAssistantMarkdownBody: View {
-    let text: String
-    let markdownVariant: DantaChatMarkdownVariant
-    let includesThinking: Bool
-    let font: Font
-    let textColor: Color
-
-    var body: some View {
-        let segments = DantaIntelligenceTextProcessing.assistantSegments(
-            from: self.text,
-            includeThinking: self.includesThinking)
-        VStack(alignment: .leading, spacing: 10) {
-            ForEach(segments) { segment in
-                let font = segment.kind == .thinking ? self.font.italic() : self.font
-                DantaChatMarkdownRenderer(
-                    text: segment.text,
-                    context: .assistant,
-                    variant: self.markdownVariant,
-                    font: font,
-                    textColor: self.textColor)
-            }
-        }
-    }
-}
-
-private enum DantaChatMarkdownVariant: String, CaseIterable, Sendable {
-    case standard
-    case compact
-}
-
-@available(iOS 18.0, *)
-private enum DantaChatMarkdownStyle {
-    static func theme(
-        variant: DantaChatMarkdownVariant,
-        context: DantaChatMarkdownRenderer.Context,
-        textColor: Color
-    ) -> Theme {
-        let linkColor: Color = context == .user ? textColor : .accentColor
-        let codeScale: Double = variant == .compact ? 0.85 : 0.9
-
+    private var theme: Theme {
         return Theme.gitHub
             .paragraph { configuration in
                 let plaintext = configuration.content.renderPlainText()
@@ -112,22 +54,22 @@ private enum DantaChatMarkdownStyle {
                     } else {
                         configuration.label
                             .fixedSize(horizontal: false, vertical: true)
-                            .relativeLineSpacing(.em(variant == .compact ? 0.16 : 0.22))
+                            .relativeLineSpacing(.em(0.22))
                     }
                 }
-                .markdownMargin(top: 0, bottom: variant == .compact ? 8 : 12)
+                .markdownMargin(top: 0, bottom: 12)
             }
             .text {
                 ForegroundColor(textColor)
                 BackgroundColor(.clear)
             }
             .link {
-                ForegroundColor(linkColor)
+                ForegroundColor(isUser ? textColor : .accentColor)
             }
             .code {
                 FontFamilyVariant(.monospaced)
-                FontSize(.em(codeScale))
-                BackgroundColor(textColor.opacity(context == .user ? 0.18 : 0.08))
+                FontSize(.em(0.9))
+                BackgroundColor(textColor.opacity(isUser ? 0.18 : 0.08))
             }
     }
 }

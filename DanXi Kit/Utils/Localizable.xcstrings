@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Check your connection, then retry." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请检查网络连接后重试。"
+          }
+        }
+      }
+    },
     "Danta Intelligence Error" : {
       "localizations" : {
         "en" : {
@@ -17,8 +27,65 @@
         }
       }
     },
+    "Danta Intelligence could not be reached." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂时无法连接旦挞智能服务。"
+          }
+        }
+      }
+    },
+    "Danta Intelligence could not process this request." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能无法处理此请求。"
+          }
+        }
+      }
+    },
+    "Danta Intelligence is not connected." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能尚未连接。"
+          }
+        }
+      }
+    },
+    "Danta Intelligence returned an invalid response." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能返回了无效响应。"
+          }
+        }
+      }
+    },
+    "Danta Intelligence returned an unexpected response." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能返回了意外响应。"
+          }
+        }
+      }
+    },
     "Danta Intelligence Session %lld" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能对话 %lld"
+          }
+        }
+      }
     },
     "Error %@: %@" : {
       "localizations" : {
@@ -32,6 +99,106 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "错误%1$@：%2$@"
+          }
+        }
+      }
+    },
+    "No reply was received. Refresh the conversation before sending again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未收到回复，请先刷新对话再决定是否重新发送。"
+          }
+        }
+      }
+    },
+    "Please sign in again, then retry." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请重新登录后再试。"
+          }
+        }
+      }
+    },
+    "Please try again in a moment." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请稍后重试。"
+          }
+        }
+      }
+    },
+    "Refresh the conversation to check whether it was received before sending again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请先刷新对话，确认消息是否已收到，再决定是否重新发送。"
+          }
+        }
+      }
+    },
+    "Refresh the instance status before trying again." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请先刷新实例状态，再决定是否重试。"
+          }
+        }
+      }
+    },
+    "The Danta Intelligence request timed out." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能请求超时。"
+          }
+        }
+      }
+    },
+    "The instance operation is taking longer than expected." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "实例操作仍未完成。"
+          }
+        }
+      }
+    },
+    "The request identifier cannot be empty." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请求标识不能为空。"
+          }
+        }
+      }
+    },
+    "This conversation is no longer available." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此对话已不可用。"
+          }
+        }
+      }
+    },
+    "This request is already in progress." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此请求正在进行中。"
           }
         }
       }
@@ -56,6 +223,96 @@
         }
       }
     },
+    "Unable to check the instance status." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法查询实例状态。"
+          }
+        }
+      }
+    },
+    "Unable to connect to Danta Intelligence." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法连接旦挞智能。"
+          }
+        }
+      }
+    },
+    "Unable to load conversations." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法加载对话。"
+          }
+        }
+      }
+    },
+    "Unable to reset the instance." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法重置实例。"
+          }
+        }
+      }
+    },
+    "Unable to restart the instance." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法重启实例。"
+          }
+        }
+      }
+    },
+    "Unable to send the message." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法发送消息。"
+          }
+        }
+      }
+    },
+    "Unable to set up Danta Intelligence." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法开启旦挞智能。"
+          }
+        }
+      }
+    },
+    "Unable to start the instance." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法启动实例。"
+          }
+        }
+      }
+    },
+    "Unable to stop the instance." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法停止实例。"
+          }
+        }
+      }
+    },
     "VPN Error" : {
       "localizations" : {
         "en" : {
@@ -68,6 +325,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "您的请求过于频繁，请稍后再试。如果此问题持续出现，请在本App设置中关闭自动代理后在校园网环境下访问。\n"
+          }
+        }
+      }
+    },
+    "You do not have permission to perform this operation." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你没有执行此操作的权限。"
+          }
+        }
+      }
+    },
+    "Your OpenClaw instance is not ready." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的 OpenClaw 实例尚未就绪。"
+          }
+        }
+      }
+    },
+    "Your login has expired." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录状态已失效。"
           }
         }
       }

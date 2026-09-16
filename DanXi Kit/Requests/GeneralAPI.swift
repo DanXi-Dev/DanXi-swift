@@ -24,7 +24,16 @@ public enum GeneralAPI {
         var refreshRequest = URLRequest(url: refreshURL)
         refreshRequest.httpMethod = "POST"
         refreshRequest.setValue("Bearer \(token.refresh)", forHTTPHeaderField: "Authorization")
-        let (data, _) = try await Proxy.shared.data(for: refreshRequest)
+        let (data, response) = try await Proxy.shared.data(for: refreshRequest)
+        guard let response = response as? HTTPURLResponse else {
+            throw LocatableError()
+        }
+        if response.statusCode == 401 {
+            throw TokenError.expired
+        }
+        guard (200..<300).contains(response.statusCode) else {
+            throw HTTPError(code: response.statusCode)
+        }
         return try JSONDecoder().decode(Token.self, from: data)
     }
     

@@ -9,24 +9,8 @@ public struct CommunityPage: View {
         NavigationStack(path: $path) {
             List {
                 titleSection
-                
                 if #available(iOS 18.0, *) {
-                    Section {
-                        NavigationLink(value: CommunitySection.dantaIntelligence) {
-                            HStack {
-                                Image(systemName: "sparkles")
-                                    .foregroundColor(.blue)
-                                    .font(.title)
-                                VStack(alignment: .leading) {
-                                    Text("Danta Intelligence", bundle: .module)
-                                        .font(.headline)
-                                    Text("Danta Intelligence Introduction", bundle: .module)
-                                        .font(.callout)
-                                        .foregroundStyle(.gray)
-                                }
-                            }
-                        }
-                    }
+                    DantaIntelligenceEntry()
                 }
                 
                 Section {
@@ -64,18 +48,16 @@ public struct CommunityPage: View {
                 }
             }
             .navigationDestination(for: CommunitySection.self) { destination in
-                switch destination {
-                case .curriculum:
-                    CurriculumEmbeddedContent(path: $path)
-                case .innovation:
-                    InnovationHomePage()
-                case .dantaIntelligence:
-                    if #available(iOS 18.0, *) {
-                        DantaIntelligencePage()
-                    } else {
-                        EmptyView()
+                    switch destination {
+                    case .curriculum:
+                        CurriculumEmbeddedContent(path: $path)
+                    case .innovation:
+                        InnovationHomePage()
+                    case .dantaIntelligence:
+                        if #available(iOS 18.0, *) {
+                            DantaIntelligencePage()
+                        }
                     }
-                }
             }
         }
     }

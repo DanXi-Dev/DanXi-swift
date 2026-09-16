@@ -37,15 +37,11 @@ actor Authenticator {
         } else if token.access == CredentialStore.shared.token?.access {
             // no refreshing task is in place, create a new one
             let refreshTask = Task {
-                if let token = try? await GeneralAPI.refreshToken() {
-                    CredentialStore.shared.token = token
-                } else {
-                    throw TokenError.expired
-                }
+                CredentialStore.shared.token = try await GeneralAPI.refreshToken()
             }
             self.refreshTask = refreshTask
+            defer { self.refreshTask = nil }
             try await refreshTask.value
-            self.refreshTask = nil
         }
         
         // reset token and retry

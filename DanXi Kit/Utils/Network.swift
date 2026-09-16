@@ -1,11 +1,9 @@
 import Foundation
 import Utils
 
-public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "http://127.0.0.1:8000/api")
+public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "http://127.0.0.1:8001/api")
 public var forumURL = constructBaseURL(key: "fduhole_base_url", defaultURL: "https://forum.fduhole.com/api")
 public var curriculumURL = constructBaseURL(key: "danke_base_url", defaultURL: "https://danke.fduhole.com/api")
-public var dantaIntelligenceURL = constructBaseURL(key: "danta_intelligence_base_url", defaultURL: "http://127.0.0.1:8000/api/claw")
-public var dantaIntelligenceWebSocketURL = constructBaseURL(key: "danta_intelligence_ws_url", defaultURL: "ws://127.0.0.1:8000/api/claw/ws")
 
 private func constructBaseURL(key: String, defaultURL: String) -> URL {
     if let stored = UserDefaults.standard.string(forKey: key) {
