@@ -31,16 +31,6 @@
         }
       }
     },
-    "Need captcha, visit UIS webpage to login" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "需要验证码，请前往UIS网页登录后再在App中重新登录"
-          }
-        }
-      }
-    },
     "Not in dining time" : {
       "localizations" : {
         "zh-Hans" : {

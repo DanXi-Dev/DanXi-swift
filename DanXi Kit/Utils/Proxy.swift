@@ -83,13 +83,13 @@ public class Proxy {
         // use proxy
         
         let proxiedRequest = createProxiedRequest(request: request)
-        let (data, response) = try await FudanKit.Authenticator.neo.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
+        let (data, response) = try await FudanKit.Authenticator.shared.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!)
         
         // check if webvpn returns the correct data format
         if validateResponse(response) {
             return (data, response)
         } else {
-            return try await FudanKit.Authenticator.neo.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!, forceRelogin: true)
+            return try await FudanKit.Authenticator.shared.authenticateRequest(request: proxiedRequest, loginURL: URL(string: "https://webvpn.fudan.edu.cn/login?cas_login=true")!, forceRelogin: true)
         }
     }
     

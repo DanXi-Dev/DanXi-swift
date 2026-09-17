@@ -18,7 +18,7 @@ public enum UndergraduateCourseAPI {
     ///      A list of semesters and the current semester ID
     public static func getSemesters() async throws -> ([Semester], Int) {
         let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table")!
-        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
 
         guard let html = String(data: data, encoding: .utf8) else { throw LocatableError() }
 
@@ -166,7 +166,7 @@ public enum UndergraduateCourseAPI {
 
     public static func getCourses(semesterId: Int) async throws -> [Course] {
         let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(semesterId)/print-data")!
-        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
         let json = try JSON(data: data)
         let coursesData = try json["studentTableVms"][0]["activities"].rawData()
         
@@ -310,7 +310,7 @@ public enum UndergraduateCourseAPI {
     public static func getExams() async throws -> [Exam] {
         let studentId = try await getStudentId()
         let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/exam-arrange/info/\(studentId)")!
-        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
 
         var exams: [Exam] = []
 
@@ -391,7 +391,7 @@ public enum UndergraduateCourseAPI {
         let (_, semesterId) = try await getSemesters()
 
         let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/course-table/semester/\(semesterId)/print-data")!
-        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
         let json = try JSON(data: data)
 
         guard let studentId = json["studentTableVms"][0]["id"].int else {
@@ -408,7 +408,7 @@ public enum UndergraduateCourseAPI {
         let studentId = try await getStudentId()
 
         let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/sheet/info/\(studentId)?semester=\(semester)")!
-        let data = try await Authenticator.neo.authenticate(url, loginURL: loginURL)
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
 
         let json = try JSON(data: data)
         let semesterKey = String(semester)
@@ -458,7 +458,7 @@ public enum UndergraduateCourseAPI {
         
         // Get departmentAssoc and grade from search-index page
         let indexURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/my-gpa/search-index/\(studentId)")!
-        let indexData = try await Authenticator.neo.authenticate(indexURL, loginURL: loginURL)
+        let indexData = try await Authenticator.shared.authenticate(indexURL, loginURL: loginURL)
         
         guard let html = String(data: indexData, encoding: .utf8),
               let gradeMatch = html.firstMatch(of: /name="grade"\s+value="(\d+)"/),
@@ -468,7 +468,7 @@ public enum UndergraduateCourseAPI {
         
         // get department GPA ranks
         let searchURL = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/my-gpa/search?studentAssoc=\(studentId)&grade=\(gradeMatch.1)&departmentAssoc=\(deptMatch.1)&majorAssoc=")!
-        let searchData = try await Authenticator.neo.authenticate(searchURL, loginURL: loginURL)
+        let searchData = try await Authenticator.shared.authenticate(searchURL, loginURL: loginURL)
         
         guard let ranksArray = try JSON(data: searchData)["data"].array else {
             return []
