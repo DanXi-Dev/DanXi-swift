@@ -4,73 +4,27 @@ import SwiftUI
 @available(iOS 18.0, *)
 struct DantaChatContent: View {
     @Bindable var viewModel: DantaChatViewModel
-    var signIn: () -> Void
+    var showsConnectionProgress = true
 
     var body: some View {
         VStack(spacing: 0) {
-            connectionBanner
+            if showsConnectionProgress, !viewModel.healthOK,
+               viewModel.isCheckingConnection || viewModel.isLoading {
+                HStack(spacing: 10) {
+                    ProgressView()
+                    Text("Connecting", bundle: .module)
+                        .foregroundStyle(.secondary)
+                }
+                .font(.callout)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+                .background(.bar)
+                .accessibilityElement(children: .combine)
+            }
             messageList
             composer
         }
-    }
-
-    @ViewBuilder
-    private var connectionBanner: some View {
-        if !viewModel.healthOK {
-            Group {
-                if isConnecting {
-                    HStack(spacing: 10) {
-                        ProgressView()
-                        Text("Connecting", bundle: .module)
-                            .foregroundStyle(.secondary)
-                    }
-                    .font(.callout)
-                    .padding(.vertical, 12)
-                    .accessibilityElement(children: .combine)
-                } else {
-                    HStack(spacing: 12) {
-                        Label(
-                            viewModel.connectionErrorText ?? String(localized: "Disconnected", bundle: .module),
-                            systemImage: "exclamationmark.triangle")
-                            .foregroundStyle(.red)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Button {
-                            if viewModel.connectionRequiresLogin { signIn() }
-                            else { viewModel.refresh() }
-                        } label: {
-                            Image(systemName: viewModel.connectionRequiresLogin ? "person.crop.circle" : "arrow.clockwise")
-                                .frame(width: 44, height: 44)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.borderless)
-                        .accessibilityLabel(Text(viewModel.connectionRequiresLogin ? "Sign In Again" : "Refresh Conversation", bundle: .module))
-                    }
-                    .font(.callout)
-                    .padding(.vertical, 8)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
-            .background(.bar)
-        }
-    }
-
-    private var isConnecting: Bool {
-        viewModel.isCheckingConnection || viewModel.isLoading
-    }
-
-    // Keep each failure for independent recovery, but present a shared connection failure once.
-    private func inlineError(_ message: String?) -> String? {
-        guard let message, !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              viewModel.healthOK || message != viewModel.connectionErrorText else { return nil }
-        return message
-    }
-
-    private var sendError: String? {
-        guard let message = inlineError(viewModel.errorText),
-              message != inlineError(viewModel.historyErrorText) else { return nil }
-        return message
     }
 
     private var messageList: some View {
@@ -92,14 +46,6 @@ struct DantaChatContent: View {
                             .id("thinking")
                     }
 
-                    if let errorText = inlineError(viewModel.historyErrorText) {
-                        DantaErrorNotice(message: errorText, retry: { viewModel.refresh() })
-                    }
-
-                    if let errorText = sendError {
-                        DantaErrorNotice(message: errorText, retryTitle: "Refresh Conversation", retry: { viewModel.refresh() })
-                            .id("error")
-                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
@@ -108,9 +54,6 @@ struct DantaChatContent: View {
             .background(Color(.systemGroupedBackground))
             .onChange(of: viewModel.messages.count) { _ in
                 scrollToBottom(proxy)
-            }
-            .onChange(of: sendError) { _ in
-                if sendError != nil { proxy.scrollTo("error", anchor: .bottom) }
             }
             .onChange(of: viewModel.pendingRunCount) { _ in
                 scrollToBottom(proxy)
@@ -134,7 +77,12 @@ struct DantaChatContent: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 10)
-        .background(.regularMaterial)
+        .background {
+            Rectangle()
+                .fill(.regularMaterial)
+                // Cover the area exposed by the keyboard's rounded corners.
+                .ignoresSafeArea(.all, edges: .bottom)
+        }
     }
 
     @ViewBuilder

@@ -8,7 +8,7 @@ public struct DantaIntelligencePage: View {
     @State private var sheet: Destination?
 
     private enum Destination: String, Identifiable {
-        case sessions, instance, login
+        case sessions, instance
         var id: String { rawValue }
     }
 
@@ -18,14 +18,14 @@ public struct DantaIntelligencePage: View {
         Group {
             if model.isReady {
                 VStack(spacing: 0) {
-                    if let issue = model.issue,
-                       model.chat.healthOK || issue.localizedDescription != model.chat.connectionErrorText {
-                        DantaErrorNotice(message: issue.localizedDescription, retry: {
-                            await model.refreshInstanceStatus()
-                        })
+                    if sheet == nil, let issue = displayedIssue {
+                        DantaErrorNotice(issue: issue, isRetrying: model.isBusy || model.chat.isLoading) {
+                            if issue.operation == .instance { await model.refreshInstanceStatus() }
+                            else { model.chat.refresh() }
+                        }
                         .padding(.horizontal)
                     }
-                    DantaChatContent(viewModel: model.chat, signIn: { sheet = .login })
+                    DantaChatContent(viewModel: model.chat, showsConnectionProgress: displayedIssue == nil)
                 }
             } else {
                 preparationContent
@@ -41,12 +41,10 @@ public struct DantaIntelligencePage: View {
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button { sheet = .instance } label: {
-                        Label { Text("Instance Management", bundle: .module) } icon: { Image(systemName: "server.rack") }
-                    }
-                } label: { Image(systemName: "ellipsis.circle") }
-                .accessibilityLabel(Text("More", bundle: .module))
+                Button { sheet = .instance } label: {
+                    Image(systemName: "server.rack")
+                }
+                .accessibilityLabel(Text("Instance Management", bundle: .module))
             }
         }
         .sheet(item: $sheet) { destination in
@@ -56,14 +54,6 @@ public struct DantaIntelligencePage: View {
                     DantaSessionList(chat: model.chat)
                 case .instance:
                     DantaInstanceManagement(model: model)
-                case .login:
-                    AuthenticationSheet()
-                        .onDisappear {
-                            Task {
-                                await model.refreshInstanceStatus()
-                                if model.isReady { await model.chat.retryConnection() }
-                            }
-                        }
                 }
             }
             .presentationDetents([.medium, .large])
@@ -85,14 +75,13 @@ public struct DantaIntelligencePage: View {
                     Text("This may take a few minutes.", bundle: .module)
                         .foregroundStyle(.secondary)
                 } else {
-                    if let issue = model.issue {
-                        Text(issue.localizedDescription)
-                            .foregroundStyle(.secondary)
-                    } else if let issue = model.previousInstanceIssue {
-                        Text(issue.localizedDescription)
-                            .foregroundStyle(.secondary)
+                    if sheet == nil {
+                        if let issue = model.issue ?? model.previousInstanceIssue {
+                            DantaErrorNotice(issue: issue) { await recoverInstance() }
+                        } else {
+                            recoveryAction
+                        }
                     }
-                    recoveryAction
                 }
             }
             .multilineTextAlignment(.center)
@@ -102,6 +91,11 @@ public struct DantaIntelligencePage: View {
         }
         .contentMargins(.top, 56)
         .background(Color(.systemGroupedBackground))
+    }
+
+    private var displayedIssue: DantaIntelligenceError? {
+        if model.chat.issue?.requiresLogin == true { return model.chat.issue }
+        return model.issue ?? model.chat.issue
     }
 
     private var preparationTitle: String {
@@ -120,41 +114,30 @@ public struct DantaIntelligencePage: View {
         }
     }
 
-    @ViewBuilder
     private var recoveryAction: some View {
-        if model.issue?.requiresLogin == true {
-            Button { sheet = .login } label: {
-                Image(systemName: "person.crop.circle")
-                    .frame(width: 44, height: 44)
-            }
-            .accessibilityLabel(Text("Sign In Again", bundle: .module))
-            .buttonStyle(.borderedProminent)
-        } else {
-            AsyncButton {
-                switch model.instanceState {
-                case .notStarted: await model.setup()
-                case .stopped, .failed: await model.performLifecycleAction(.start)
-                default: await model.refreshInstanceStatus()
-                }
-            } label: {
-                Group {
-                    if model.issue == nil, let recoveryTitle {
-                        Text(recoveryTitle, bundle: .module)
-                    } else {
-                        Image(systemName: "arrow.clockwise")
-                            .frame(width: 44, height: 44)
-                    }
-                }
-            }
-            .accessibilityLabel(Text(recoveryTitle ?? "Refresh Instance Status", bundle: .module))
-            .buttonStyle(.borderedProminent)
-            if model.issue != nil, model.instanceState == .notStarted || model.canPerform(.start) {
-                AsyncButton { await model.refreshInstanceStatus() } label: {
+        AsyncButton { await recoverInstance() } label: {
+            Group {
+                if let recoveryTitle {
+                    Text(recoveryTitle, bundle: .module)
+                } else {
                     Image(systemName: "arrow.clockwise")
                         .frame(width: 44, height: 44)
                 }
-                .accessibilityLabel(Text("Refresh Instance Status", bundle: .module))
             }
+        }
+        .accessibilityLabel(Text(recoveryTitle ?? "Refresh Instance Status", bundle: .module))
+        .buttonStyle(.borderedProminent)
+    }
+
+    private func recoverInstance() async {
+        if model.issue != nil {
+            await model.refreshInstanceStatus()
+            return
+        }
+        switch model.instanceState {
+        case .notStarted: await model.setup()
+        case .stopped, .failed: await model.performLifecycleAction(.start)
+        default: await model.refreshInstanceStatus()
         }
     }
 
@@ -168,22 +151,23 @@ public struct DantaIntelligencePage: View {
 }
 
 struct DantaErrorNotice: View {
-    let message: String
-    var retryTitle: LocalizedStringKey = "Retry"
+    let issue: DantaIntelligenceError
+    var isRetrying = false
     var retry: (() async -> Void)?
 
     var body: some View {
         HStack(spacing: 12) {
-            Label(message, systemImage: "exclamationmark.triangle")
+            Label(issue.localizedDescription, systemImage: "exclamationmark.triangle")
                 .foregroundStyle(.red)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if let retry {
+            if !issue.requiresLogin, let retry {
                 AsyncButton { await retry() } label: {
                     Image(systemName: "arrow.clockwise")
                         .frame(width: 44, height: 44)
                 }
-                .accessibilityLabel(Text(retryTitle, bundle: .module))
+                .accessibilityLabel(Text("Retry", bundle: .module))
+                .disabled(isRetrying)
                 .buttonStyle(.borderless)
             }
         }

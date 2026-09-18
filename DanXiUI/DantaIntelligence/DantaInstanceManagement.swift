@@ -20,27 +20,21 @@ struct DantaInstanceManagement: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                if model.instanceStatus?.instanceId != nil || model.readiness != nil {
-                    DisclosureGroup {
-                        if let id = model.instanceStatus?.instanceId {
-                            detailRow(String(localized: "Instance ID", bundle: .module), value: "#\(id)")
-                        }
-                        if let readiness = model.readiness {
-                            readinessRow("Container", ready: readiness.containerRunning)
-                            readinessRow("Gateway", ready: readiness.gatewayHealthy)
-                            readinessRow("Danta Channel", ready: readiness.channelAuthenticated)
-                        }
-                    } label: { Text("Details", bundle: .module) }
+                if let id = model.instanceStatus?.instanceId {
+                    detailRow(String(localized: "Instance ID", bundle: .module), value: "#\(id)")
+                }
+                if let readiness = model.readiness {
+                    readinessRow("Container", ready: readiness.containerRunning)
+                    readinessRow("Gateway", ready: readiness.gatewayHealthy)
+                    readinessRow("Danta Channel", ready: readiness.channelAuthenticated)
                 }
             }
 
             if let issue = model.issue {
                 Section {
-                    DantaErrorNotice(message: issue.localizedDescription)
-                    refreshButton
+                    DantaErrorNotice(issue: issue, isRetrying: model.isBusy) { await model.refreshInstanceStatus() }
                 }
-            }
-            if let issue = model.previousInstanceIssue {
+            } else if let issue = model.previousInstanceIssue {
                 Section {
                     Text(issue.localizedDescription)
                         .foregroundStyle(.secondary)

@@ -260,9 +260,9 @@ public struct DantaIntelligenceRemoteError: Error, LocalizedError, Sendable {
 
 public enum DantaIntelligenceChatTransportEvent: Sendable {
     case health(ok: Bool)
-    case connectionError(message: String, requiresLogin: Bool = false)
+    case connectionError(DantaIntelligenceError)
     case tick
     case accepted(runId: String, channelId: Int)
     case message(runId: String, message: DantaIntelligenceMessage)
-    case failure(runId: String, message: String)
+    case failure(runId: String, error: DantaIntelligenceError)
 }

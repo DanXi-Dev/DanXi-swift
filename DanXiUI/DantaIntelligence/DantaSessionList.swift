@@ -21,8 +21,8 @@ struct DantaSessionList: View {
                 if chat.isLoadingSessions {
                     HStack { Spacer(); ProgressView(); Spacer() }
                 }
-                if let message = chat.sessionsErrorText {
-                    DantaErrorNotice(message: message, retry: { await chat.loadSessions() })
+                if let issue = chat.sessionsIssue {
+                    DantaErrorNotice(issue: issue, isRetrying: chat.isLoadingSessions) { await chat.loadSessions() }
                 } else if chat.sessions.isEmpty, chat.placeholderSessionId == nil, !chat.isLoadingSessions {
                     Text("No conversations yet.", bundle: .module)
                         .foregroundStyle(.secondary)

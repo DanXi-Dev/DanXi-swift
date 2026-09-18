@@ -51,7 +51,9 @@
         }
       }
     },
-    "#%lld" : {},
+    "#%lld" : {
+
+    },
     "%@ at %@\n" : {
       "localizations" : {
         "en" : {
@@ -1172,6 +1174,7 @@
       }
     },
     "DanXi Community" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1182,6 +1185,7 @@
       }
     },
     "DanXi Community Introduction" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1386,6 +1390,7 @@
       }
     },
     "Details" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2438,6 +2443,7 @@
       }
     },
     "More" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2570,22 +2576,22 @@
         }
       }
     },
-    "No Review" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "暂无评价"
-          }
-        }
-      }
-    },
     "No conversations yet." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "还没有对话。"
+          }
+        }
+      }
+    },
+    "No Review" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂无评价"
           }
         }
       }
@@ -3731,6 +3737,7 @@
       }
     },
     "Sign In Again" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -4460,8 +4467,12 @@
         }
       }
     },
-    "Workshop" : {},
-    "Workshop Introduction" : {},
+    "Workshop" : {
+
+    },
+    "Workshop Introduction" : {
+
+    },
     "Yesterday" : {
       "localizations" : {
         "zh-Hans" : {

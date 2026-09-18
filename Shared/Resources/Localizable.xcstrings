@@ -124,6 +124,7 @@
       }
     },
     "Community" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -717,7 +718,9 @@
         }
       }
     },
-    "Workshop" : {},
+    "Workshop" : {
+
+    },
     "Write a Review" : {
       "localizations" : {
         "zh-Hans" : {

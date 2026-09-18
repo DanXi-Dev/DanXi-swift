@@ -443,10 +443,10 @@ public actor DantaIntelligenceChatTransport {
                let runId = takeRunId(taskId: taskId)
             {
                 eventStream.continuation.yield(.failure(runId: runId,
-                    message: DantaIntelligenceError(error, operation: .send).localizedDescription))
+                    error: DantaIntelligenceError(error, operation: .send)))
             } else if !resolvedPending, payload.requestId == nil {
                 let issue = DantaIntelligenceError(error, operation: .connect)
-                eventStream.continuation.yield(.connectionError(message: issue.localizedDescription, requiresLogin: issue.requiresLogin))
+                eventStream.continuation.yield(.connectionError(issue))
             }
         case "ping":
             guard authenticated else { return }
@@ -586,10 +586,10 @@ public actor DantaIntelligenceChatTransport {
         eventStream.continuation.yield(.health(ok: false))
         for runId in interruptedRunIds {
             eventStream.continuation.yield(.failure(runId: runId,
-                message: DantaIntelligenceError(error, operation: .send).localizedDescription))
+                error: DantaIntelligenceError(error, operation: .send)))
         }
         let issue = DantaIntelligenceError(error, operation: .connect)
-        eventStream.continuation.yield(.connectionError(message: issue.localizedDescription, requiresLogin: issue.requiresLogin))
+        eventStream.continuation.yield(.connectionError(issue))
         scheduleReconnect()
     }
 
@@ -651,7 +651,7 @@ public actor DantaIntelligenceChatTransport {
     private func failChatTask(taskId: String) {
         guard let runId = takeRunId(taskId: taskId) else { return }
         eventStream.continuation.yield(.failure(runId: runId,
-            message: DantaIntelligenceTransportError.replyTimedOut.localizedDescription))
+            error: DantaIntelligenceError(DantaIntelligenceTransportError.replyTimedOut, operation: .send)))
     }
 
     private func takeRunId(taskId: String) -> String? {

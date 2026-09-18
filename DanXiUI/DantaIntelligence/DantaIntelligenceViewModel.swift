@@ -17,14 +17,6 @@ final class DantaIntelligenceViewModel {
     enum Operation: Equatable {
         case checking, setup, lifecycle(DantaIntelligenceLifecycleAction)
 
-        var context: DantaIntelligenceError.Operation {
-            switch self {
-            case .checking: .status
-            case .setup: .setup
-            case .lifecycle(let action): action.errorContext
-            }
-        }
-
         var targetState: DantaIntelligenceInstanceState? {
             switch self {
             case .checking: nil
@@ -46,8 +38,7 @@ final class DantaIntelligenceViewModel {
     private(set) var operation: Operation?
     private(set) var instanceStatus: DantaIntelligenceInstanceStatus?
     private(set) var readiness: DantaIntelligenceLifecycleReadiness?
-    private(set) var operationError: DantaIntelligenceError?
-    private(set) var statusError: DantaIntelligenceError?
+    private(set) var issue: DantaIntelligenceError?
     let chat: DantaChatViewModel
 
     init() {
@@ -59,7 +50,6 @@ final class DantaIntelligenceViewModel {
     var instanceState: DantaIntelligenceInstanceState? { instanceStatus?.state }
     var isBusy: Bool { operation != nil }
     var isReady: Bool { phase == .ready }
-    var issue: DantaIntelligenceError? { operationError ?? statusError }
 
     var phase: Phase {
         if let operation, operation != .checking {
@@ -81,21 +71,20 @@ final class DantaIntelligenceViewModel {
         let message = status.lastErrorMessage ?? status.cleanupErrorMessage ?? ""
         guard code != nil || !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
         return DantaIntelligenceError(
-            DantaIntelligenceRemoteError(code: code, message: message),
-            operation: status.cleanupErrorCode != nil ? .reset : .start)
+            DantaIntelligenceRemoteError(code: code, message: message), operation: .instance)
     }
 
     func refreshInstanceStatus() async {
         guard !isBusy else { return }
         operation = .checking
-        statusError = nil
         defer { operation = nil }
         do {
             let status = try await waitForStatus(budget: .seconds(120))
+            issue = nil
             await reconcilePending(with: status)
         } catch {
             guard !DantaIntelligenceError.isCancellation(error) else { return }
-            statusError = DantaIntelligenceError(error, operation: .status)
+            issue = DantaIntelligenceError(error, operation: .instance)
         }
     }
 
@@ -120,8 +109,6 @@ final class DantaIntelligenceViewModel {
 
     private func perform(_ operation: Operation) async {
         self.operation = operation
-        operationError = nil
-        statusError = nil
         readiness = nil
         defer { self.operation = nil }
         // Keep the key when delivery was uncertain, even across a status refresh.
@@ -151,11 +138,12 @@ final class DantaIntelligenceViewModel {
             }
             let status = try await waitForStatus(
                 budget: ContinuousClock.now.duration(to: deadline), targetState: operation.targetState)
+            issue = nil
             await reconcilePending(with: status)
         } catch {
             guard !DantaIntelligenceError.isCancellation(error) else { return }
-            let failure = DantaIntelligenceError(error, operation: operation.context)
-            operationError = failure
+            let failure = DantaIntelligenceError(error, operation: .instance)
+            issue = failure
             if failure.isDefinitive { pendingOperation = nil }
             // Refresh the snapshot without masking the operation's failure.
             do {
@@ -182,7 +170,7 @@ final class DantaIntelligenceViewModel {
             }
             let remaining = ContinuousClock.now.duration(to: deadline)
             guard remaining > .zero else {
-                throw DantaIntelligenceError.transitionTimedOut
+                throw DantaIntelligenceTransportError.transitionTimedOut
             }
             try await Task.sleep(for: min(.seconds(2), remaining))
         }
@@ -206,7 +194,7 @@ final class DantaIntelligenceViewModel {
         guard let pending = pendingOperation, !status.state.isTransitioning else { return }
         if pending.operation.targetState == nil || status.state == pending.operation.targetState {
             pendingOperation = nil
-            operationError = nil
+            issue = nil
             if pending.operation == .lifecycle(.reset) {
                 chat.resetForDeletedInstance()
                 readiness = nil
@@ -214,8 +202,8 @@ final class DantaIntelligenceViewModel {
             }
         } else if pending.acknowledged, status.state == .failed {
             pendingOperation = nil
-            operationError = previousInstanceIssue ?? DantaIntelligenceError(
-                DantaIntelligenceRemoteError(code: nil, message: ""), operation: pending.operation.context)
+            issue = previousInstanceIssue ?? DantaIntelligenceError(
+                DantaIntelligenceRemoteError(code: nil, message: ""), operation: .instance)
         }
     }
 }
@@ -226,15 +214,6 @@ private extension DantaIntelligenceLifecycleAction {
         case .start, .restart: .starting
         case .stop: .stopping
         case .reset: .resetting
-        }
-    }
-
-    var errorContext: DantaIntelligenceError.Operation {
-        switch self {
-        case .start: .start
-        case .stop: .stop
-        case .restart: .restart
-        case .reset: .reset
         }
     }
 }
