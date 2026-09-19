@@ -83,7 +83,7 @@ struct DantaChatContent: View {
     private var composer: some View {
         HStack(alignment: .bottom, spacing: 10) {
             TextField(
-                String(localized: "Ask Danta Intelligence", bundle: .module),
+                String(localized: "Send Message to Danta Intelligence", bundle: .module),
                 text: $viewModel.input,
                 axis: .vertical)
                 .textFieldStyle(.plain)
@@ -169,6 +169,8 @@ private struct DantaMessageBubble: View {
 
 @available(iOS 18.0, *)
 private struct DantaThinkingBubble: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         HStack {
             HStack(spacing: 8) {
@@ -176,13 +178,18 @@ private struct DantaThinkingBubble: View {
                     .controlSize(.small)
                 Text("Thinking", bundle: .module)
                     .font(.body)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.primary.opacity(0.8))
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
             .background {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .fill(Color(.secondarySystemGroupedBackground))
+                    .overlay {
+                        DantaFlowingBackground()
+                            .opacity(colorScheme == .dark ? 0.32 : 0.18)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
             }
             .accessibilityElement(children: .combine)
 

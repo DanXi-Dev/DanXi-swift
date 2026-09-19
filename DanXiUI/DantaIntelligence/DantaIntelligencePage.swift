@@ -72,7 +72,15 @@ public struct DantaIntelligencePage: View {
                     Text(preparationTitle)
                         .font(.title2.bold())
                         .multilineTextAlignment(.center)
-                    if model.isBusy {
+                    if showsEnableButton {
+                        DantaEnableButton(isActivating: model.operation == .setup) {
+                            await model.setup()
+                        }
+                        if model.isBusy {
+                            Text("This may take a few minutes.", bundle: .module)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else if model.isBusy {
                         ProgressView()
                         Text("This may take a few minutes.", bundle: .module)
                             .foregroundStyle(.secondary)
@@ -100,6 +108,13 @@ public struct DantaIntelligencePage: View {
     private var displayedIssue: DantaIntelligenceError? {
         if model.chat.issue?.requiresLogin == true { return model.chat.issue }
         return model.issue ?? model.chat.issue
+    }
+
+    private var showsEnableButton: Bool {
+        guard sheet == nil else { return false }
+        return model.operation == .setup
+            || (!model.isBusy && model.instanceState == .notStarted
+                && model.issue == nil && model.previousInstanceIssue == nil)
     }
 
     private var preparationTitle: String {

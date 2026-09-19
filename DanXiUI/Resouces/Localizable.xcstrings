@@ -382,6 +382,7 @@
       }
     },
     "Ask Danta Intelligence" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -776,6 +777,7 @@
       }
     },
     "Container" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1050,6 +1052,7 @@
       }
     },
     "Danta Channel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1996,6 +1999,7 @@
       }
     },
     "Gateway" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2658,6 +2662,7 @@
       }
     },
     "Not Ready" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3589,6 +3594,9 @@
           }
         }
       }
+    },
+    "Send Message to Danta Intelligence" : {
+
     },
     "Sensitive" : {
       "localizations" : {

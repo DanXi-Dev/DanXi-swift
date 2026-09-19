@@ -37,9 +37,9 @@ struct DantaInstanceManagement: View {
             }
 
             Section {
-                if model.instanceState == .notStarted {
-                    AsyncButton { await model.setup() } label: {
-                        Label { Text("Enable Danta Intelligence", bundle: .module) } icon: { Image(systemName: "sparkles") }
+                if model.instanceState == .notStarted || model.operation == .setup {
+                    DantaEnableButton(isActivating: model.operation == .setup) {
+                        await model.setup()
                     }
                     .disabled(model.isBusy)
                 }
