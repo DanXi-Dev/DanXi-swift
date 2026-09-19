@@ -25,7 +25,6 @@ public struct DantaIntelligenceError: LocalizedError, Sendable {
 
     public var requiresLogin: Bool {
         underlying is TokenError || statusCode == 401
-            || (underlying as? DantaIntelligenceRemoteError)?.code == "AUTH_001"
     }
 
     /// Keep the request identifier when the outcome is still uncertain.
@@ -33,6 +32,15 @@ public struct DantaIntelligenceError: LocalizedError, Sendable {
         let remote = underlying as? DantaIntelligenceRemoteError
         guard let statusCode else { return remote != nil }
         return remote?.code != nil || (400..<500).contains(statusCode) && statusCode != 408 && statusCode != 429
+    }
+
+    /// True when the failure is failing to reach the server, as opposed to the server rejecting the request.
+    public var isReachabilityFailure: Bool {
+        if underlying is URLError { return true }
+        if let error = underlying as? DantaIntelligenceTransportError, case .notConnected = error {
+            return true
+        }
+        return false
     }
 
     public var errorDescription: String? {

@@ -1401,6 +1401,7 @@
       }
     },
     "Disconnected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2586,6 +2587,16 @@
         }
       }
     },
+    "No messages yet." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有消息。"
+          }
+        }
+      }
+    },
     "No Review" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3111,6 +3122,7 @@
       }
     },
     "Refresh Conversation" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3893,7 +3905,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "停止实例会保留实例数据和对话；重置会永久删除它们。"
+            "value" : "停止实例会保留实例数据和对话；重置会永久删除这些数据。"
           }
         }
       }
@@ -4141,6 +4153,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "判断题"
+          }
+        }
+      }
+    },
+    "Unable to connect to Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法连接旦挞智能"
           }
         }
       }

@@ -32,7 +32,7 @@ struct DantaInstanceManagement: View {
 
             if let issue = model.issue {
                 Section {
-                    DantaErrorNotice(issue: issue, isRetrying: model.isBusy) { await model.refreshInstanceStatus() }
+                    DantaErrorNotice(issue: issue)
                 }
             } else if let issue = model.previousInstanceIssue {
                 Section {
@@ -72,14 +72,16 @@ struct DantaInstanceManagement: View {
                     }
                 }
             } footer: {
-                Text("Stopping preserves your instance data and chats. Resetting permanently deletes them.", bundle: .module)
+                if showsActionButtons {
+                    Text("Stopping preserves your instance data and chats. Resetting permanently deletes them.", bundle: .module)
+                }
             }
         }
         .navigationTitle(String(localized: "Instance Management", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                if model.issue == nil { refreshButton }
+                refreshButton
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button { dismiss() } label: { Text("Done", bundle: .module) }
@@ -109,6 +111,12 @@ struct DantaInstanceManagement: View {
         }
         .accessibilityLabel(Text("Refresh Instance Status", bundle: .module))
         .disabled(model.isBusy)
+    }
+
+    private var showsActionButtons: Bool {
+        if model.instanceState == .notStarted { return true }
+        return [DantaIntelligenceLifecycleAction.start, .stop, .restart].contains { model.canPerform($0) }
+            || model.canPerform(.reset)
     }
 
     private var progressTitle: String {

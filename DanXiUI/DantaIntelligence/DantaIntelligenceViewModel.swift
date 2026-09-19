@@ -84,6 +84,8 @@ final class DantaIntelligenceViewModel {
             await reconcilePending(with: status)
         } catch {
             guard !DantaIntelligenceError.isCancellation(error) else { return }
+            instanceStatus = nil
+            readiness = nil
             issue = DantaIntelligenceError(error, operation: .instance)
         }
     }

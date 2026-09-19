@@ -109,7 +109,11 @@ public struct DantaIntelligencePage: View {
         case .inactive(.stopped): return String(localized: "Danta Intelligence is stopped", bundle: .module)
         case .inactive(.failed): return String(localized: "Danta Intelligence needs attention", bundle: .module)
         case .inactive: return String(localized: "Danta Intelligence is unavailable", bundle: .module)
-        case .failed: return String(localized: "Unable to prepare Danta Intelligence", bundle: .module)
+        case .failed:
+            if model.issue?.isReachabilityFailure == true {
+                return String(localized: "Unable to connect to Danta Intelligence", bundle: .module)
+            }
+            return String(localized: "Unable to prepare Danta Intelligence", bundle: .module)
         case .ready: return String(localized: "Danta Intelligence is ready", bundle: .module)
         }
     }

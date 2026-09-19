@@ -27,38 +27,56 @@ struct DantaChatContent: View {
         }
     }
 
+    @ViewBuilder
     private var messageList: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                VStack(spacing: 14) {
-                    if viewModel.isLoading && viewModel.messages.isEmpty {
-                        ProgressView()
-                            .padding(.top, 48)
-                    }
+        if viewModel.messages.isEmpty, !viewModel.isLoading, viewModel.pendingRunCount == 0 {
+            emptyPlaceholder
+        } else {
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 14) {
+                        if viewModel.isLoading && viewModel.messages.isEmpty {
+                            ProgressView()
+                                .padding(.top, 48)
+                        }
 
-                    ForEach(viewModel.messages) { message in
-                        DantaMessageBubble(message: message)
-                            .id(message.id)
-                    }
+                        ForEach(viewModel.messages) { message in
+                            DantaMessageBubble(message: message)
+                                .id(message.id)
+                        }
 
-                    if viewModel.pendingRunCount > 0 {
-                        DantaThinkingBubble()
-                            .id("thinking")
+                        if viewModel.pendingRunCount > 0 {
+                            DantaThinkingBubble()
+                                .id("thinking")
+                        }
                     }
-
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal)
+                    .padding(.vertical, 18)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal)
-                .padding(.vertical, 18)
-            }
-            .background(Color(.systemGroupedBackground))
-            .onChange(of: viewModel.messages.count) { _ in
-                scrollToBottom(proxy)
-            }
-            .onChange(of: viewModel.pendingRunCount) { _ in
-                scrollToBottom(proxy)
+                .background(Color(.systemGroupedBackground))
+                .onChange(of: viewModel.messages.count) { _ in
+                    scrollToBottom(proxy)
+                }
+                .onChange(of: viewModel.pendingRunCount) { _ in
+                    scrollToBottom(proxy)
+                }
             }
         }
+    }
+
+    private var emptyPlaceholder: some View {
+        VStack(spacing: 12) {
+            Image(systemName: "bubble.left.and.bubble.right")
+                .font(.system(size: 52))
+                .foregroundStyle(.tertiary)
+            Text("No messages yet.", bundle: .module)
+                .font(.title3)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemGroupedBackground))
+        .accessibilityElement(children: .combine)
     }
 
     private var composer: some View {

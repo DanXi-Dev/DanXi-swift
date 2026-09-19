@@ -433,6 +433,11 @@ public actor DantaIntelligenceChatTransport {
                 failAuthentication(
                     error,
                     generation: authenticationGeneration)
+                // The access token can go stale between the HTTP refresh and the socket
+                // auth; reconnect with a freshly-refreshed token instead of failing hard.
+                if payload.errorCode == "AUTH_001" {
+                    scheduleReconnect()
+                }
             }
             let resolvedPending = payload.requestId.map {
                 failPendingResponse(requestId: $0, error: error)
