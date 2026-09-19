@@ -91,6 +91,11 @@ struct DantaChatContent: View {
                 .padding(12)
                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .layoutPriority(1)
+                .onKeyPress(.return, phases: .down) { press in
+                    guard press.modifiers.contains(.control) else { return .ignored }
+                    viewModel.send()
+                    return .handled
+                }
 
             sendButton
         }

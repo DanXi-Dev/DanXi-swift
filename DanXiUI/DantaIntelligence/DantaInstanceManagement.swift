@@ -23,11 +23,6 @@ struct DantaInstanceManagement: View {
                 if let id = model.instanceStatus?.instanceId {
                     detailRow(String(localized: "Instance ID", bundle: .module), value: "#\(id)")
                 }
-                if let readiness = model.readiness {
-                    readinessRow("Container", ready: readiness.containerRunning)
-                    readinessRow("Gateway", ready: readiness.gatewayHealthy)
-                    readinessRow("Danta Channel", ready: readiness.channelAuthenticated)
-                }
             }
 
             if let issue = model.issue {
@@ -132,16 +127,6 @@ struct DantaInstanceManagement: View {
             Text(title)
             Spacer(minLength: 12)
             Text(value).foregroundStyle(.secondary)
-        }
-    }
-
-    private func readinessRow(_ title: LocalizedStringKey, ready: Bool) -> some View {
-        HStack {
-            Text(title, bundle: .module)
-            Spacer()
-            Image(systemName: ready ? "checkmark.circle.fill" : "xmark.circle")
-                .foregroundStyle(ready ? .green : Color.secondary)
-                .accessibilityLabel(Text(ready ? "Ready" : "Not Ready", bundle: .module))
         }
     }
 }

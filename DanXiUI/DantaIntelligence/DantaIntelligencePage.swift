@@ -21,7 +21,7 @@ public struct DantaIntelligencePage: View {
                     if sheet == nil, let issue = displayedIssue {
                         DantaErrorNotice(issue: issue, isRetrying: model.isBusy || model.chat.isLoading) {
                             if issue.operation == .instance { await model.refreshInstanceStatus() }
-                            else { model.chat.refresh() }
+                            else { model.chat.refresh(reconnect: true) }
                         }
                         .padding(.horizontal)
                     }

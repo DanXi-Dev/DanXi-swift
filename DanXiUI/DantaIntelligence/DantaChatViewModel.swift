@@ -54,9 +54,9 @@ final class DantaChatViewModel {
             && issue?.requiresLogin != true && !input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    func refresh() {
+    func refresh(reconnect: Bool = false) {
         loadTask?.cancel()
-        loadTask = Task { await bootstrap() }
+        loadTask = Task { await bootstrap(reconnect: reconnect) }
     }
 
     func pause() {
@@ -116,7 +116,7 @@ final class DantaChatViewModel {
         Task { await performSend() }
     }
 
-    private func bootstrap() async {
+    private func bootstrap(reconnect: Bool = false) async {
         guard !Task.isCancelled else { return }
         let generation = UUID()
         loadGeneration = generation
@@ -136,7 +136,7 @@ final class DantaChatViewModel {
             messages = history
             unconfirmedMessageIds = []
             operation = .connect
-            try await transport.connectIfNeeded()
+            try await transport.connectIfNeeded(force: reconnect)
             let ok = try await transport.requestHealth()
             guard loadGeneration == generation, !Task.isCancelled else { return }
             healthOK = ok

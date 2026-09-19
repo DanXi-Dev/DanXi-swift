@@ -53,9 +53,13 @@ public actor DantaIntelligenceChatTransport {
     }
 
     public func connectIfNeeded(
+        force: Bool = false,
         waitTimeout: Duration? = nil,
         timeoutRequestId: String = "auth"
     ) async throws {
+        if force {
+            disconnect()
+        }
         if authenticated, webSocketTask != nil {
             return
         }
