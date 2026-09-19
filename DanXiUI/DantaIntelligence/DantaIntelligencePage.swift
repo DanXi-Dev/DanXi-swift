@@ -62,34 +62,38 @@ public struct DantaIntelligencePage: View {
     }
 
     private var preparationContent: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                Image(systemName: model.instanceState?.symbolName ?? "sparkles")
-                    .font(.largeTitle)
-                    .foregroundStyle(model.instanceState?.tintColor ?? .accentColor)
-                Text(preparationTitle)
-                    .font(.title2.bold())
-                    .multilineTextAlignment(.center)
-                if model.isBusy {
-                    ProgressView()
-                    Text("This may take a few minutes.", bundle: .module)
-                        .foregroundStyle(.secondary)
-                } else {
-                    if sheet == nil {
-                        if let issue = model.issue ?? model.previousInstanceIssue {
-                            DantaErrorNotice(issue: issue) { await recoverInstance() }
-                        } else {
-                            recoveryAction
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 20) {
+                    Spacer()
+                    Image(systemName: model.instanceState?.symbolName ?? "sparkles")
+                        .font(.largeTitle)
+                        .foregroundStyle(model.instanceState?.tintColor ?? .accentColor)
+                    Text(preparationTitle)
+                        .font(.title2.bold())
+                        .multilineTextAlignment(.center)
+                    if model.isBusy {
+                        ProgressView()
+                        Text("This may take a few minutes.", bundle: .module)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        if sheet == nil {
+                            if let issue = model.issue ?? model.previousInstanceIssue {
+                                DantaErrorNotice(issue: issue) { await recoverInstance() }
+                            } else {
+                                recoveryAction
+                            }
                         }
                     }
+                    Spacer()
                 }
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: 460)
+                .padding(24)
+                .frame(maxWidth: .infinity)
+                .frame(minHeight: geometry.size.height)
             }
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: 460)
-            .padding(24)
-            .frame(maxWidth: .infinity)
         }
-        .contentMargins(.top, 56)
         .background(Color(.systemGroupedBackground))
     }
 

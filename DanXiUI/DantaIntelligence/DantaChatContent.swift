@@ -17,7 +17,7 @@ struct DantaChatContent: View {
                 }
                 .font(.callout)
                 .padding(.vertical, 12)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity)
                 .padding(.horizontal)
                 .background(.bar)
                 .accessibilityElement(children: .combine)
@@ -29,17 +29,18 @@ struct DantaChatContent: View {
 
     @ViewBuilder
     private var messageList: some View {
-        if viewModel.messages.isEmpty, !viewModel.isLoading, viewModel.pendingRunCount == 0 {
-            emptyPlaceholder
+        if viewModel.messages.isEmpty, viewModel.pendingRunCount == 0 {
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.systemGroupedBackground))
+            } else {
+                emptyPlaceholder
+            }
         } else {
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 14) {
-                        if viewModel.isLoading && viewModel.messages.isEmpty {
-                            ProgressView()
-                                .padding(.top, 48)
-                        }
-
                         ForEach(viewModel.messages) { message in
                             DantaMessageBubble(message: message)
                                 .id(message.id)

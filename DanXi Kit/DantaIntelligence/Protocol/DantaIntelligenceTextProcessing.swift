@@ -1,11 +1,11 @@
 import Foundation
 
-#if canImport(AppKit)
-import AppKit
-public typealias DantaIntelligencePlatformImage = NSImage
-#elseif canImport(UIKit)
+#if canImport(UIKit)
 import UIKit
 public typealias DantaIntelligencePlatformImage = UIImage
+#elseif canImport(AppKit)
+import AppKit
+public typealias DantaIntelligencePlatformImage = NSImage
 #endif
 
 public struct DantaIntelligenceInlineImage: Identifiable {
@@ -81,8 +81,16 @@ public enum DantaIntelligenceTextProcessing {
         }
 
         let b64 = String(trimmed[trimmed.index(after: comma)...])
-        let image = Data(base64Encoded: b64).flatMap(DantaIntelligencePlatformImage.init(data:))
+        let image = Data(base64Encoded: b64).flatMap(Self.decodeImage)
         return DantaIntelligenceInlineImage(label: label, image: image)
+    }
+
+    private static func decodeImage(_ data: Data) -> DantaIntelligencePlatformImage? {
+        #if canImport(UIKit)
+        return UIImage(data: data, scale: 1)
+        #elseif canImport(AppKit)
+        return NSImage(data: data)
+        #endif
     }
 
     private static func fallbackImageLabel(_ label: String) -> String {

@@ -184,6 +184,16 @@
         }
       }
     },
+    "Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能"
+          }
+        }
+      }
+    },
     "DanXi" : {
       "comment" : "Navigation",
       "localizations" : {
