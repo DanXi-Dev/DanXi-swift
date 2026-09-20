@@ -2,8 +2,15 @@ import Charts
 import FudanKit
 import SwiftUI
 import ViewUtils
+#if os(iOS)
+import UIKit
+#endif
 
 struct WalletPage: View {
+#if os(iOS)
+    @State private var previousBrightness: CGFloat?
+#endif
+
     var body: some View {
         AsyncContentView {
             return try await WalletStore.shared.getCachedContent()
@@ -14,6 +21,19 @@ struct WalletPage: View {
         }
         .navigationTitle(String(localized: "ECard Information", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+        .environment(\.colorScheme, .light)
+#if os(iOS)
+        .onAppear {
+            guard UIDevice.current.userInterfaceIdiom == .phone, previousBrightness == nil else { return }
+            previousBrightness = UIScreen.main.brightness
+            UIScreen.main.brightness = 1
+        }
+        .onDisappear {
+            guard UIDevice.current.userInterfaceIdiom == .phone, let previousBrightness else { return }
+            UIScreen.main.brightness = previousBrightness
+            self.previousBrightness = nil
+        }
+#endif
     }
 }
 
