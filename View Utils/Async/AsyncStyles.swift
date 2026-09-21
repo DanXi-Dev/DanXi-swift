@@ -112,6 +112,11 @@ extension AsyncContentStyle {
         @State private var isAnimating = false
         
         var body: some View {
+#if targetEnvironment(macCatalyst)
+            // UIActivityIndicatorView can repeatedly start and stop while a lazy
+            // collection is being laid out on macOS, causing a layout loop.
+            ProgressView()
+#else
             ActivityIndicatorView(isAnimating: isAnimating)
                 .onAppear {
                     isAnimating = true
@@ -119,6 +124,7 @@ extension AsyncContentStyle {
                 .onDisappear {
                     isAnimating = false
                 }
+#endif
         }
     }
 
