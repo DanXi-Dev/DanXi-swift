@@ -99,5 +99,6 @@ iOSInjectionProject/
 # Local notes
 *.local.md
 AGENTS.md
+*.local.har
 
 **/Package.resolved
