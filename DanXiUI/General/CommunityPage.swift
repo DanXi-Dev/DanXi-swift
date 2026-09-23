@@ -9,6 +9,9 @@ public struct CommunityPage: View {
         NavigationStack(path: $path) {
             List {
                 titleSection
+                if #available(iOS 18.0, *) {
+                    DantaIntelligenceEntry()
+                }
                 
                 Section {
                     NavigationLink(value: CommunitySection.curriculum) {
@@ -50,6 +53,10 @@ public struct CommunityPage: View {
                         CurriculumEmbeddedContent(path: $path)
                     case .innovation:
                         InnovationHomePage()
+                    case .dantaIntelligence:
+                        if #available(iOS 18.0, *) {
+                            DantaIntelligencePage()
+                        }
                     }
             }
         }
@@ -60,7 +67,7 @@ public struct CommunityPage: View {
             HStack {
                 Spacer()
                 VStack {
-                    Image(systemName: "bubble.left.and.bubble.right.fill")
+                    Image(systemName: "paintpalette.fill")
                         .foregroundStyle(.pink)
                         .font(.largeTitle)
                         .padding()
@@ -68,11 +75,11 @@ public struct CommunityPage: View {
                             Circle()
                                 .fill(Color.white)
                         }
-                    Text("DanXi Community", bundle: .module)
+                    Text("Workshop", bundle: .module)
                         .bold()
                         .font(.largeTitle)
                         .padding(.vertical, 5)
-                    Text("DanXi Community Introduction", bundle: .module)
+                    Text("Workshop Introduction", bundle: .module)
                 }
                 Spacer()
             }
@@ -82,6 +89,7 @@ public struct CommunityPage: View {
 }
 
 enum CommunitySection: Int, Identifiable, CaseIterable {
+    case dantaIntelligence
     case curriculum
     case innovation
     

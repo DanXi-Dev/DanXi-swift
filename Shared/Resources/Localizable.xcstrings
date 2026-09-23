@@ -124,6 +124,7 @@
       }
     },
     "Community" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -179,6 +180,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "日用电平均：%@ kWh"
+          }
+        }
+      }
+    },
+    "Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能"
           }
         }
       }
@@ -716,6 +727,9 @@
           }
         }
       }
+    },
+    "Workshop" : {
+
     },
     "Write a Review" : {
       "localizations" : {

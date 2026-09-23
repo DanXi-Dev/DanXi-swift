@@ -3,7 +3,7 @@ import FudanUI
 import DanXiUI
 
 enum AppScreen: Codable, Hashable, Identifiable, CaseIterable {
-    case campus, forum, curriculum, community, innovation, calendar, settings
+    case campus, forum, curriculum, community, innovation, dantaIntelligence, calendar, settings
     
     var id: AppScreen {
         self
@@ -20,9 +20,11 @@ extension AppScreen {
         case .curriculum:
             Label("Curriculum", systemImage: "books.vertical")
         case .community:
-            Label("Community", systemImage: "bubble")
+            Label("Workshop", systemImage: "paintpalette")
         case .innovation:
             Label("Innovation", systemImage: "building.columns")
+        case .dantaIntelligence:
+            Label("Danta Intelligence", systemImage: "sparkles")
         case .calendar:
             Label("Calendar", systemImage: "calendar")
         case .settings:
@@ -46,6 +48,8 @@ extension AppScreen {
             CommunityPage()
                 .toolbarBackground(.visible, for: .tabBar)
         case .innovation:
+            EmptyView()
+        case .dantaIntelligence:
             EmptyView()
         case .calendar:
             // on iOS 16.4, the implementation of `NavigationStack` is buggy, causing `AsyncContentView` to infinitly loading.
@@ -81,6 +85,12 @@ extension AppScreen {
             EmptyView()
         case .innovation:
             InnovationHomePage()
+        case .dantaIntelligence:
+            if #available(iOS 18.0, *) {
+                DantaIntelligencePage()
+            } else {
+                EmptyView()
+            }
         case .settings:
             SettingsDetail()
         default:

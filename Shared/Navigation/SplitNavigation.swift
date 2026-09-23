@@ -13,7 +13,7 @@ struct SplitNavigation: View {
     }
     
     var body: some View {
-        if screen == .innovation {
+        if screen == .innovation || screen == .dantaIntelligence {
             NavigationSplitView {
                 AppSidebarList(screen: $screen)
             } detail: {
@@ -64,6 +64,11 @@ struct AppSidebarList: View {
                 if settings.previewFeatureSetting != .hide {
                     AppScreen.innovation.label
                         .tag(AppScreen.innovation)
+                }
+
+                if #available(iOS 18.0, *) {
+                    AppScreen.dantaIntelligence.label
+                        .tag(AppScreen.dantaIntelligence)
                 }
             }
             
