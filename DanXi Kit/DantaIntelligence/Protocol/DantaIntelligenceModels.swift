@@ -258,10 +258,16 @@ public struct DantaIntelligenceRemoteError: Error, LocalizedError, Sendable {
     }
 }
 
+public enum DantaIntelligenceConnectionState: Sendable {
+    case idle
+    case connecting
+    case recovering
+    case ready
+    case failed(DantaIntelligenceError)
+}
+
 public enum DantaIntelligenceChatTransportEvent: Sendable {
-    case health(ok: Bool)
-    case connectionError(DantaIntelligenceError)
-    case tick
+    case connectionState(DantaIntelligenceConnectionState)
     case accepted(runId: String, channelId: Int)
     case message(runId: String, message: DantaIntelligenceMessage)
     case failure(runId: String, error: DantaIntelligenceError)

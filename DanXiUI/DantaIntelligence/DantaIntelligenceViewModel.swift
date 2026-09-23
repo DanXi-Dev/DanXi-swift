@@ -78,8 +78,14 @@ final class DantaIntelligenceViewModel {
         guard !isBusy else { return }
         operation = .checking
         defer { operation = nil }
+        let deadline = ContinuousClock.now.advanced(by: .seconds(120))
         do {
-            let status = try await waitForStatus(budget: .seconds(120))
+            let status = try await DantaIntelligenceRetry.perform(
+                operation: .instance,
+                deadline: deadline) { [self] in
+                    try await waitForStatus(deadline: deadline)
+                }
+            try Task.checkCancellation()
             issue = nil
             await reconcilePending(with: status)
         } catch {
@@ -138,13 +144,15 @@ final class DantaIntelligenceViewModel {
                 case .checking: return
                 }
             }
-            let status = try await waitForStatus(
-                budget: ContinuousClock.now.duration(to: deadline), targetState: operation.targetState)
+            let status = try await waitForStatus(deadline: deadline, targetState: operation.targetState)
             issue = nil
             await reconcilePending(with: status)
         } catch {
             guard !DantaIntelligenceError.isCancellation(error) else { return }
             let failure = DantaIntelligenceError(error, operation: .instance)
+#if DEBUG
+            print("[DantaIntelligence] \(failure.diagnosticDescription)")
+#endif
             issue = failure
             if failure.isDefinitive { pendingOperation = nil }
             // Refresh the snapshot without masking the operation's failure.
@@ -158,11 +166,13 @@ final class DantaIntelligenceViewModel {
     }
 
     private func waitForStatus(
-        budget: Duration, targetState: DantaIntelligenceInstanceState? = nil
+        deadline: ContinuousClock.Instant, targetState: DantaIntelligenceInstanceState? = nil
     ) async throws -> DantaIntelligenceInstanceStatus {
-        let deadline = ContinuousClock.now.advanced(by: max(budget, .zero))
         while true {
             try Task.checkCancellation()
+            guard ContinuousClock.now < deadline else {
+                throw DantaIntelligenceTransportError.transitionTimedOut
+            }
             let status = try await DantaIntelligenceAPI.instanceStatus()
             try Task.checkCancellation()
             await apply(status)

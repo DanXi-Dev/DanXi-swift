@@ -14,8 +14,7 @@ final class DantaChatViewModel {
     private(set) var isLoading = false
     private(set) var isSending = false
     private(set) var isLoadingSessions = false
-    private(set) var isCheckingConnection = false
-    private(set) var healthOK = false
+    private var connectionState: DantaIntelligenceConnectionState = .idle
     private(set) var issue: DantaIntelligenceError?
     private(set) var sessionsIssue: DantaIntelligenceError?
     private var pendingRunId: String?
@@ -24,11 +23,10 @@ final class DantaChatViewModel {
     @ObservationIgnored private var loadTask: Task<Void, Never>?
     @ObservationIgnored private nonisolated(unsafe) var eventTask: Task<Void, Never>?
     @ObservationIgnored private nonisolated(unsafe) var replyTimeoutTask: Task<Void, Never>?
+    @ObservationIgnored private nonisolated(unsafe) var historyTask: Task<Void, Never>?
     private var loadGeneration = UUID()
     private var sessionsGeneration = UUID()
-    private var healthGeneration = UUID()
     private var isPaused = true
-    private var lastHealthPollAt: Date?
     private var unconfirmedMessageIds = Set<String>()
 
     init(transport: DantaIntelligenceChatTransport) {
@@ -44,10 +42,20 @@ final class DantaChatViewModel {
     deinit {
         eventTask?.cancel()
         replyTimeoutTask?.cancel()
+        historyTask?.cancel()
         let transport = transport
         Task { await transport.disconnect() }
     }
 
+    var healthOK: Bool {
+        if case .ready = connectionState { true } else { false }
+    }
+    var isCheckingConnection: Bool {
+        if case .connecting = connectionState { true } else { false }
+    }
+    var isRecovering: Bool {
+        if case .recovering = connectionState { true } else { false }
+    }
     var pendingRunCount: Int { pendingRunId == nil ? 0 : 1 }
     var canSend: Bool {
         healthOK && !isLoading && !isSending && pendingRunId == nil
@@ -63,14 +71,14 @@ final class DantaChatViewModel {
         isPaused = true
         loadGeneration = UUID()
         sessionsGeneration = UUID()
-        healthGeneration = UUID()
         loadTask?.cancel()
         loadTask = nil
+        historyTask?.cancel()
+        historyTask = nil
         isLoading = false
         isLoadingSessions = false
-        isCheckingConnection = false
+        connectionState = .idle
         isSending = false
-        healthOK = false
         clearPendingRun()
     }
 
@@ -122,31 +130,43 @@ final class DantaChatViewModel {
         loadGeneration = generation
         isPaused = false
         isLoading = true
-        healthGeneration = UUID()
-        isCheckingConnection = false
         isSending = false
+        historyTask?.cancel()
+        historyTask = nil
+        if pendingRunId != nil {
+            report(DantaIntelligenceTransportError.deliveryUncertain, operation: .send)
+        }
         clearPendingRun()
-        let channelId = channelId
-        var operation = DantaIntelligenceError.Operation.history
+        if reconnect { connectionState = .recovering }
         defer { if loadGeneration == generation { isLoading = false } }
+
+        // A broken history request must never prevent the retry button from replacing
+        // the connection. Each branch records its own result without cancelling the other.
+        async let connection: Void = loadConnection(reconnect: reconnect, generation: generation)
+        async let history: Void = loadHistory(channelId: channelId, generation: generation)
+        _ = await (connection, history)
+    }
+
+    private func loadConnection(reconnect: Bool, generation: UUID) async {
         do {
-            // Saved messages can still be read when the live connection is unavailable.
-            let history = try await history(for: channelId)
+            try await transport.ensureReady(forceReconnect: reconnect)
             guard loadGeneration == generation, !Task.isCancelled else { return }
-            messages = history
-            unconfirmedMessageIds = []
-            operation = .connect
-            try await transport.connectIfNeeded(force: reconnect)
-            let ok = try await transport.requestHealth()
-            guard loadGeneration == generation, !Task.isCancelled else { return }
-            healthOK = ok
-            if !ok { throw DantaIntelligenceTransportError.instanceNotReady("") }
-            issue = nil
             Task { [weak self] in await self?.loadSessions() }
         } catch {
-            guard loadGeneration == generation, !DantaIntelligenceError.isCancellation(error) else { return }
-            if operation == .connect { healthOK = false }
-            issue = DantaIntelligenceError(error, operation: operation)
+            // The transport publishes the current result; an older waiter's error
+            // must not overwrite a newer connection event.
+        }
+    }
+
+    private func loadHistory(channelId: Int?, generation: UUID) async {
+        do {
+            let incoming = try await retriedHistory(for: channelId)
+            guard loadGeneration == generation, !Task.isCancelled else { return }
+            mergeHistory(incoming)
+            clearIssue(for: .history)
+        } catch {
+            guard loadGeneration == generation, !Task.isCancelled else { return }
+            report(error, operation: .history)
         }
     }
 
@@ -183,17 +203,20 @@ final class DantaChatViewModel {
     private func handle(_ event: DantaIntelligenceChatTransportEvent) {
         guard !isPaused else { return }
         switch event {
-        case .connectionError(let error):
-            healthOK = false
-            if !isLoading { report(error, operation: .connect) }
-        case .health(let ok):
-            healthOK = ok
-            if !isLoading, !isCheckingConnection {
-                if ok, issue?.operation == .connect { issue = nil }
-                if !ok, issue == nil { report(DantaIntelligenceTransportError.notConnected, operation: .connect) }
+        case .connectionState(let state):
+            connectionState = state
+            switch state {
+            case .ready:
+                clearIssue(for: .connect)
+                if !isLoading {
+                    refreshHistoryAfterRun()
+                    Task { [weak self] in await self?.loadSessions() }
+                }
+            case .failed(let error):
+                report(error, operation: .connect)
+            default:
+                break
             }
-        case .tick:
-            Task { await pollHealth() }
         case .accepted(let runId, let channelId):
             if runId == pendingRunId { adoptSession(channelId) }
         case .message(let runId, let message):
@@ -203,7 +226,7 @@ final class DantaChatViewModel {
             if isOurRun {
                 if !messages.contains(where: { $0.id == message.id }) { messages.append(message) }
                 unconfirmedMessageIds.insert(message.id)
-                if issue?.operation == .send { issue = nil }
+                clearIssue(for: .send)
                 clearPendingRun()
             }
             refreshHistoryAfterRun()
@@ -235,20 +258,28 @@ final class DantaChatViewModel {
         }
     }
 
+    private func retriedHistory(for channelId: Int?) async throws -> [DantaIntelligenceMessage] {
+        try await DantaIntelligenceRetry.perform(
+            operation: .history,
+            deadline: ContinuousClock.now.advanced(by: .seconds(30))) { [self] in
+                try await history(for: channelId)
+            }
+    }
+
     private func refreshHistoryAfterRun() {
         let generation = loadGeneration
         let channelId = channelId
-        Task {
+        historyTask?.cancel()
+        historyTask = Task { [weak self] in
+            guard let self else { return }
             do {
-                let incoming = try await history(for: channelId)
+                let incoming = try await retriedHistory(for: channelId)
                 guard loadGeneration == generation, !Task.isCancelled, !isLoading else { return }
-                if issue?.operation == .history { issue = nil }
                 mergeHistory(incoming)
+                clearIssue(for: .history)
             } catch {
-                guard loadGeneration == generation, !isLoading else { return }
-                if issue == nil || DantaIntelligenceError(error, operation: .history).requiresLogin {
-                    report(error, operation: .history)
-                }
+                guard loadGeneration == generation, !Task.isCancelled, !isLoading else { return }
+                report(error, operation: .history, background: true)
             }
         }
     }
@@ -283,37 +314,25 @@ final class DantaChatViewModel {
         replyTimeoutTask = nil
     }
 
-    private func pollHealth() async {
-        guard !isPaused, !isLoading else { return }
-        if isCheckingConnection { return }
-        if let lastHealthPollAt, Date().timeIntervalSince(lastHealthPollAt) < 10 { return }
-        let generation = UUID()
-        healthGeneration = generation
-        lastHealthPollAt = Date()
-        isCheckingConnection = true
-        defer { if healthGeneration == generation { isCheckingConnection = false } }
-        do {
-            let ok = try await transport.requestHealth()
-            guard healthGeneration == generation, !Task.isCancelled else { return }
-            healthOK = ok
-            if ok {
-                if issue?.operation == .connect { issue = nil }
-            } else {
-                report(DantaIntelligenceTransportError.instanceNotReady(""), operation: .connect)
-            }
-        } catch {
-            guard healthGeneration == generation, !DantaIntelligenceError.isCancellation(error) else { return }
-            healthOK = false
-            report(error, operation: .connect)
-        }
+    private func clearIssue(for operation: DantaIntelligenceError.Operation) {
+        if issue?.operation == operation { issue = nil }
     }
 
-    private func report(_ error: Error, operation: DantaIntelligenceError.Operation) {
+    private func report(
+        _ error: Error,
+        operation: DantaIntelligenceError.Operation,
+        background: Bool = false
+    ) {
         guard !DantaIntelligenceError.isCancellation(error) else { return }
         let failure = DantaIntelligenceError(error, operation: operation)
         if issue?.requiresLogin == true, !failure.requiresLogin { return }
-        // Reconnecting does not resolve an uncertain message delivery.
-        if issue?.operation == .send, operation == .connect, !failure.requiresLogin { return }
+        if failure.requiresLogin {
+            issue = failure
+            return
+        }
+        // Recovery does not establish whether an interrupted message was delivered.
+        if issue?.operation == .send, operation != .send { return }
+        if background, issue != nil { return }
         issue = failure
     }
 }

@@ -5,14 +5,20 @@ public actor DantaIntelligenceChatTransport {
     nonisolated private let eventStream = AsyncStream<DantaIntelligenceChatTransportEvent>.makeStream(
         bufferingPolicy: .bufferingNewest(200))
 
-    private let url = dantaIntelligenceWebSocketURL
     private var webSocketTask: URLSessionWebSocketTask?
     private var receiveTask: Task<Void, Never>?
     private var authenticationTask: Task<Void, Error>?
     private var authenticationGeneration: UUID?
     private var authenticationContinuation: CheckedContinuation<Void, Error>?
-    private var authenticationTimeoutTask: Task<Void, Never>?
-    private var reconnectTask: Task<Void, Never>?
+    private var recoveryTask: Task<Void, Error>?
+    private var recoveryGeneration = UUID()
+    private var recoveryDeadline = ContinuousClock.now
+    private var connectionGeneration = UUID()
+    private var healthTask: Task<Void, Never>?
+    private var authenticationToken: String?
+    private var rejectedToken: String?
+    private var refreshedRejectedToken = false
+    public private(set) var connectionState: DantaIntelligenceConnectionState = .idle
     private var authenticated = false
     private var instanceState: DantaIntelligenceInstanceState?
     private var instanceStateGeneration = UUID()
@@ -42,8 +48,8 @@ public actor DantaIntelligenceChatTransport {
 
     deinit {
         receiveTask?.cancel()
-        reconnectTask?.cancel()
-        authenticationTimeoutTask?.cancel()
+        recoveryTask?.cancel()
+        healthTask?.cancel()
         webSocketTask?.cancel(with: .goingAway, reason: nil)
         eventStream.continuation.finish()
     }
@@ -52,18 +58,26 @@ public actor DantaIntelligenceChatTransport {
         eventStream.stream
     }
 
-    public func connectIfNeeded(
-        force: Bool = false,
-        waitTimeout: Duration? = nil,
-        timeoutRequestId: String = "auth"
-    ) async throws {
-        if force {
-            disconnect()
-        }
-        if authenticated, webSocketTask != nil {
+    /// Concurrent callers share one recovery. A user retry replaces every old connection task.
+    public func ensureReady(forceReconnect: Bool = false) async throws {
+        try Task.checkCancellation()
+        if forceReconnect {
+            cancelRecovery()
+            teardownConnection(error: DantaIntelligenceTransportError.notConnected)
+        } else if isReady, recoveryTask == nil {
+            publish(.ready)
             return
         }
+        let task = recoveryTask ?? startRecovery(recovering: forceReconnect)
+        try await DantaIntelligenceTaskWaiter<Void>.value(
+            of: task, deadline: recoveryDeadline,
+            timeoutError: DantaIntelligenceTransportError.requestTimedOut("connection"))
+    }
 
+    /// Authentication is also used before an instance exists (onboarding).
+    private func ensureAuthenticated(deadline: ContinuousClock.Instant, requestId: String) async throws {
+        try Task.checkCancellation()
+        if authenticated, webSocketTask != nil { return }
         let task: Task<Void, Error>
         if let authenticationTask {
             task = authenticationTask
@@ -72,47 +86,215 @@ public actor DantaIntelligenceChatTransport {
             authenticationGeneration = generation
             let newTask = Task { [weak self] in
                 guard let self else { throw CancellationError() }
-                try await self.establishAndAuthenticate(generation: generation)
+                do {
+                    try await DantaIntelligenceRetry.withDeadline(
+                        deadline: deadline,
+                        timeout: DantaIntelligenceError(
+                            DantaIntelligenceTransportError.requestTimedOut("auth"), operation: .connect)
+                    ) {
+                        try await self.establishAndAuthenticate(generation: generation, deadline: deadline)
+                    }
+                    await self.authenticationTaskCompleted(generation: generation)
+                } catch {
+                    await self.failAuthentication(error, generation: generation)
+                    throw error
+                }
             }
             authenticationTask = newTask
             task = newTask
-            Task.detached { [weak self] in
-                _ = await newTask.result
-                await self?.authenticationTaskCompleted(generation: generation)
-            }
         }
-
-        if let waitTimeout {
-            try await Self.waitForAuthentication(
-                task,
-                timeout: waitTimeout,
-                timeoutRequestId: timeoutRequestId)
-        } else {
-            try await task.value
-        }
+        try await DantaIntelligenceTaskWaiter<Void>.value(
+            of: task, deadline: deadline,
+            timeoutError: DantaIntelligenceTransportError.requestTimedOut(requestId))
     }
 
     public func disconnect() {
+        cancelRecovery()
+        rejectedToken = nil
+        teardownConnection(error: CancellationError())
+        publish(.idle)
+    }
+
+    private func cancelRecovery() {
+        recoveryGeneration = UUID()
+        recoveryTask?.cancel()
+        recoveryTask = nil
+        authenticationTask?.cancel()
+    }
+
+    /// No events about connection state are emitted here: the caller owns the transition.
+    private func teardownConnection(error: any Error) {
+        connectionGeneration = UUID()
         instanceStateGeneration = UUID()
-        reconnectTask?.cancel()
-        reconnectTask = nil
-        authenticationTimeoutTask?.cancel()
-        authenticationTimeoutTask = nil
+        healthTask?.cancel()
+        healthTask = nil
         receiveTask?.cancel()
         receiveTask = nil
         webSocketTask?.cancel(with: .goingAway, reason: nil)
         webSocketTask = nil
         authenticated = false
         instanceState = nil
-        authenticationTask?.cancel()
-        failAuthentication(CancellationError())
+        authenticationToken = nil
+        finishAuthentication(error: error)
         for requestId in Array(pendingResponses.keys) {
-            failPendingResponse(requestId: requestId, error: CancellationError())
+            failPendingResponse(requestId: requestId, error: error)
         }
-        for requestId in Array(chatRuns.keys) {
-            cleanupChatRequest(requestId: requestId)
+        let interrupted = Set(chatRuns.values.filter { $0.taskId != nil }.map(\.runId))
+        for requestId in Array(chatRuns.keys) { cleanupChatRequest(requestId: requestId) }
+        for runId in interrupted {
+            eventStream.continuation.yield(.failure(runId: runId, error: DantaIntelligenceError(
+                DantaIntelligenceTransportError.deliveryUncertain, operation: .send)))
         }
-        eventStream.continuation.yield(.health(ok: false))
+    }
+
+    private func publish(_ state: DantaIntelligenceConnectionState) {
+        connectionState = state
+        eventStream.continuation.yield(.connectionState(state))
+    }
+
+    @discardableResult
+    private func startRecovery(recovering: Bool, requiresReady: Bool = true) -> Task<Void, Error> {
+        let generation = UUID()
+        recoveryGeneration = generation
+        let deadline = ContinuousClock.now.advanced(by: .seconds(30))
+        recoveryDeadline = deadline
+        refreshedRejectedToken = false
+        healthTask?.cancel()
+        healthTask = nil
+        publish(recovering ? .recovering : .connecting)
+        let task = Task { [weak self] in
+            guard let self else { throw CancellationError() }
+            do {
+                try await DantaIntelligenceRetry.perform(
+                    operation: .connect, deadline: deadline,
+                    shouldRetry: { [weak self] failure in
+                        await self?.shouldRetryRecovery(failure, generation: generation) ?? false
+                    }
+                ) { [weak self] in
+                    guard let self else { throw CancellationError() }
+                    try await self.attemptConnection(generation: generation, deadline: deadline, requiresReady: requiresReady)
+                }
+                try await self.finishRecoverySuccessfully(generation: generation, requiresReady: requiresReady)
+            } catch {
+                await self.finishRecovery(generation: generation, failure: error)
+                throw error
+            }
+        }
+        recoveryTask = task
+        return task
+    }
+
+    private func checkRecovery(_ generation: UUID) throws {
+        try Task.checkCancellation()
+        guard recoveryGeneration == generation else { throw CancellationError() }
+    }
+
+    private func attemptConnection(generation: UUID, deadline: ContinuousClock.Instant, requiresReady: Bool) async throws {
+        try checkRecovery(generation)
+        teardownConnection(error: DantaIntelligenceTransportError.notConnected)
+        if let token = rejectedToken {
+            try await Authenticator.shared.refreshDantaToken(ifRejected: token)
+            try checkRecovery(generation)
+            refreshedRejectedToken = true
+            rejectedToken = nil
+        }
+        try await ensureAuthenticated(deadline: deadline, requestId: "auth")
+        try checkRecovery(generation)
+        guard requiresReady else { return }
+        let status = try await instanceStatus(
+            requestId: "status-\(UUID().uuidString)",
+            timeout: min(.seconds(5), ContinuousClock.now.duration(to: deadline)))
+        try checkRecovery(generation)
+        guard status.state.isReady else {
+            throw DantaIntelligenceTransportError.instanceNotReady(status.state.rawValue)
+        }
+    }
+
+    private func shouldRetryRecovery(_ failure: DantaIntelligenceError, generation: UUID) -> Bool {
+        guard recoveryGeneration == generation, failure.isAutoRetryable else { return false }
+        guard !failure.isInstanceNotReady else { return false }
+        if let remote = failure.underlying as? DantaIntelligenceRemoteError,
+           remote.code == "AUTH_001", refreshedRejectedToken { return false }
+        publish(.recovering)
+        return true
+    }
+
+    private func finishRecoverySuccessfully(generation: UUID, requiresReady: Bool) throws {
+        try checkRecovery(generation)
+        guard authenticated, !requiresReady || isReady else {
+            throw DantaIntelligenceTransportError.notConnected
+        }
+        recoveryTask = nil
+        if requiresReady {
+            publish(.ready)
+            startHealthChecks()
+        } else {
+            publish(.idle)
+        }
+    }
+
+    private func finishRecovery(generation: UUID, failure: any Error) {
+        guard recoveryGeneration == generation else { return }
+        recoveryTask = nil
+        authenticationTask?.cancel()
+        teardownConnection(error: failure)
+        if DantaIntelligenceError.isCancellation(failure) { publish(.idle) }
+        else {
+            let issue = DantaIntelligenceError(failure, operation: .connect)
+            log(issue)
+            publish(.failed(issue))
+        }
+    }
+
+    private func startHealthChecks() {
+        healthTask?.cancel()
+        let generation = connectionGeneration
+        let interval: Duration = .seconds(10)
+        healthTask = Task { [weak self] in
+            while !Task.isCancelled {
+                do { try await Task.sleep(for: interval) } catch { return }
+                guard let self, await self.checkHealth(generation: generation) else { return }
+            }
+        }
+    }
+
+    private func checkHealth(generation: UUID) async -> Bool {
+        guard connectionGeneration == generation, recoveryTask == nil, isReady else { return false }
+        do {
+            let status = try await instanceStatus(requestId: "status-\(UUID().uuidString)",
+                                                  timeout: .seconds(5))
+            guard connectionGeneration == generation, !Task.isCancelled else { return false }
+            guard status.state.isReady else {
+                let error = DantaIntelligenceTransportError.instanceNotReady(status.state.rawValue)
+                teardownConnection(error: error)
+                publish(.failed(DantaIntelligenceError(error, operation: .connect)))
+                return false
+            }
+            return true
+        } catch {
+            guard connectionGeneration == generation, !Task.isCancelled else { return false }
+            connectionFailed(error)
+            return false
+        }
+    }
+
+    private func connectionFailed(_ error: any Error) {
+        let failure = DantaIntelligenceError(error, operation: .connect)
+        log(failure)
+        teardownConnection(error: error)
+        // An in-flight owner observes the same error through its continuation.
+        guard recoveryTask == nil else { return }
+        if failure.isAutoRetryable, !failure.isInstanceNotReady {
+            startRecovery(recovering: true)
+        } else {
+            publish(.failed(failure))
+        }
+    }
+
+    private func log(_ failure: DantaIntelligenceError) {
+#if DEBUG
+        print("[DantaIntelligence][Connection \(connectionGeneration)] \(failure.diagnosticDescription)")
+#endif
     }
 
     private func instanceStatus(
@@ -130,28 +312,26 @@ public actor DantaIntelligenceChatTransport {
                 timeout: timeout)
             if instanceStateGeneration == generation {
                 instanceState = response.payload.state
-                eventStream.continuation.yield(.health(ok: isReady))
             }
             return response.payload
         } catch {
             if instanceStateGeneration == generation, !DantaIntelligenceError.isCancellation(error) {
                 instanceState = nil
-                eventStream.continuation.yield(.health(ok: false))
             }
             throw error
         }
     }
 
-    public func requestHealth() async throws -> Bool {
-        let status = try await instanceStatus(
-            requestId: "status-\(UUID().uuidString)",
-            timeout: .seconds(5))
-        return authenticated && status.state.isReady
-    }
-
     public func onboard(requestId: String) async throws -> DantaIntelligenceInstanceStatus {
+        try Task.checkCancellation()
+        cancelRecovery()
+        teardownConnection(error: CancellationError())
+        // First setup needs valid credentials, but cannot require an existing ready instance.
+        let connection = startRecovery(recovering: false, requiresReady: false)
+        try await DantaIntelligenceTaskWaiter<Void>.value(
+            of: connection, deadline: recoveryDeadline,
+            timeoutError: DantaIntelligenceTransportError.requestTimedOut("connection"))
         instanceState = .provisioning
-        eventStream.continuation.yield(.health(ok: false))
         let response: DantaIntelligenceSocketResponse<DantaIntelligenceInstanceStatus> = try await request(
             type: "openclaw.onboard",
             responseType: "openclaw.onboard.status",
@@ -159,7 +339,10 @@ public actor DantaIntelligenceChatTransport {
             payload: DantaIntelligenceOnboardPayload(),
             timeout: .seconds(900))
         instanceState = response.payload.state
-        eventStream.continuation.yield(.health(ok: isReady))
+        if isReady, recoveryTask == nil {
+            publish(.ready)
+            startHealthChecks()
+        }
         return response.payload
     }
 
@@ -167,12 +350,7 @@ public actor DantaIntelligenceChatTransport {
         if let channelId, channelId <= 0 { throw DantaIntelligenceTransportError.invalidSession }
         let runId = idempotencyKey.isEmpty ? UUID().uuidString : idempotencyKey
         let requestId = "chat-\(runId)"
-        if !isReady {
-            let status = try await instanceStatus(requestId: "status-\(UUID().uuidString)")
-            guard status.state.isReady else {
-                throw DantaIntelligenceTransportError.instanceNotReady(status.state.rawValue)
-            }
-        }
+        if !isReady { try await ensureReady() }
 
         guard chatRuns[requestId] == nil else {
             throw DantaIntelligenceTransportError.duplicateRequest(requestId)
@@ -197,22 +375,25 @@ public actor DantaIntelligenceChatTransport {
         }
     }
 
-    private func establishAndAuthenticate(generation: UUID) async throws {
-        // Refresh the HTTP credential before authenticating the socket.
+    private func establishAndAuthenticate(generation: UUID, deadline: ContinuousClock.Instant) async throws {
         _ = try await DantaIntelligenceAPI.instanceStatus()
         guard let token = CredentialStore.shared.token?.access else { throw TokenError.none }
         try Task.checkCancellation()
         guard authenticationGeneration == generation else {
             throw CancellationError()
         }
+        guard ContinuousClock.now < deadline else {
+            throw DantaIntelligenceTransportError.requestTimedOut("auth")
+        }
         if webSocketTask == nil {
-            let task = URLSession.shared.webSocketTask(with: url)
+            let task = URLSession.shared.webSocketTask(with: dantaIntelligenceWebSocketURL)
             task.maximumMessageSize = 16 * 1024 * 1024
             webSocketTask = task
             authenticated = false
             task.resume()
             startReceiveLoop(for: task)
         }
+        authenticationToken = token
         try await authenticate(token: token, generation: generation)
     }
 
@@ -226,14 +407,6 @@ public actor DantaIntelligenceChatTransport {
                 return
             }
             authenticationContinuation = continuation
-            authenticationTimeoutTask?.cancel()
-            authenticationTimeoutTask = Task.detached { [weak self] in
-                try? await Task.sleep(for: .seconds(20))
-                guard !Task.isCancelled else { return }
-                await self?.failAuthentication(
-                    DantaIntelligenceTransportError.requestTimedOut("auth"),
-                    generation: generation)
-            }
             Task { [weak self] in
                 await self?.sendAuthentication(
                     payload,
@@ -255,9 +428,8 @@ public actor DantaIntelligenceChatTransport {
         guard authenticationBudget > .zero else {
             throw DantaIntelligenceTransportError.requestTimedOut(requestId)
         }
-        try await connectIfNeeded(
-            waitTimeout: min(authenticationBudget, .seconds(20)),
-            timeoutRequestId: requestId)
+        try await ensureAuthenticated(deadline: min(deadline, ContinuousClock.now.advanced(by: .seconds(20))),
+                                      requestId: requestId)
         let responseBudget = ContinuousClock.now.duration(to: deadline)
         guard responseBudget > .zero else {
             throw DantaIntelligenceTransportError.requestTimedOut(requestId)
@@ -283,7 +455,7 @@ public actor DantaIntelligenceChatTransport {
         return response
     }
 
-    private func sendAndWait<Request: Encodable>(
+    private func sendAndWait<Request: Encodable & Sendable>(
         _ request: Request,
         requestId: String,
         timeout: Duration
@@ -308,12 +480,7 @@ public actor DantaIntelligenceChatTransport {
                 pendingResponses[requestId] = PendingResponse(
                     generation: generation, continuation: continuation, timeout: timeoutTask)
                 Task { [weak self] in
-                    guard let self, await self.pendingResponses[requestId]?.generation == generation else { return }
-                    do {
-                        try await self.send(request)
-                    } catch {
-                        await self.failPendingResponse(requestId: requestId, error: error, generation: generation)
-                    }
+                    await self?.sendPending(request, requestId: requestId, generation: generation)
                 }
             }
         } onCancel: {
@@ -323,6 +490,18 @@ public actor DantaIntelligenceChatTransport {
                     error: CancellationError(),
                     generation: generation)
             }
+        }
+    }
+
+    private func sendPending<Request: Encodable & Sendable>(
+        _ request: Request, requestId: String, generation: UUID
+    ) async {
+        guard pendingResponses[requestId]?.generation == generation, let socket = webSocketTask else { return }
+        do {
+            try await send(request, on: socket)
+        } catch {
+            failPendingResponse(requestId: requestId, error: error, generation: generation)
+            if webSocketTask === socket { connectionFailed(error) }
         }
     }
 
@@ -340,7 +519,6 @@ public actor DantaIntelligenceChatTransport {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         let text = String(decoding: try encoder.encode(value), as: UTF8.self)
-        dantaDebugLogWebSocket(direction: "send", payload: text)
         try await task.send(.string(text))
     }
 
@@ -369,10 +547,8 @@ public actor DantaIntelligenceChatTransport {
         switch message {
         case .data(let incoming):
             data = incoming
-            dantaDebugLogWebSocket(direction: "receive", data: incoming)
         case .string(let incoming):
             data = Data(incoming.utf8)
-            dantaDebugLogWebSocket(direction: "receive", payload: incoming)
         @unknown default:
             return
         }
@@ -383,12 +559,9 @@ public actor DantaIntelligenceChatTransport {
         switch envelope.type {
         case "auth_success":
             authenticated = true
-            authenticationTimeoutTask?.cancel()
-            authenticationTimeoutTask = nil
             let continuation = authenticationContinuation
             authenticationContinuation = nil
             continuation?.resume()
-            eventStream.continuation.yield(.tick)
         case "openclaw.instance.status", "openclaw.onboard.status":
             if let requestId = envelope.requestId {
                 completePendingResponse(requestId: requestId, data: data)
@@ -428,21 +601,11 @@ public actor DantaIntelligenceChatTransport {
                 message: payload.message ?? payload.errorCode ?? String(
                     localized: "Danta Intelligence Error",
                     bundle: .module))
-            if payload.errorCode == "AUTH_001", authenticated { throw error }
-            if payload.errorCode == "CLAW_001" {
-                instanceState = nil
-                eventStream.continuation.yield(.health(ok: false))
+            if payload.errorCode == "AUTH_001" {
+                rejectedToken = authenticationToken
+                throw error
             }
-            if !authenticated {
-                failAuthentication(
-                    error,
-                    generation: authenticationGeneration)
-                // The access token can go stale between the HTTP refresh and the socket
-                // auth; reconnect with a freshly-refreshed token instead of failing hard.
-                if payload.errorCode == "AUTH_001" {
-                    scheduleReconnect()
-                }
-            }
+            if !authenticated { throw error }
             let resolvedPending = payload.requestId.map {
                 failPendingResponse(requestId: $0, error: error)
             } ?? false
@@ -453,9 +616,9 @@ public actor DantaIntelligenceChatTransport {
             {
                 eventStream.continuation.yield(.failure(runId: runId,
                     error: DantaIntelligenceError(error, operation: .send)))
-            } else if !resolvedPending, payload.requestId == nil {
-                let issue = DantaIntelligenceError(error, operation: .connect)
-                eventStream.continuation.yield(.connectionError(issue))
+            }
+            if payload.errorCode == "CLAW_001" || (!resolvedPending && payload.requestId == nil) {
+                connectionFailed(error)
             }
         case "ping":
             guard authenticated else { return }
@@ -464,7 +627,6 @@ public actor DantaIntelligenceChatTransport {
                 from: data)
             try await send(DantaIntelligencePong(
                 timestamp: ping.timestamp ?? Int64(Date().timeIntervalSince1970 * 1000)))
-            eventStream.continuation.yield(.tick)
         default:
             break
         }
@@ -486,33 +648,18 @@ public actor DantaIntelligenceChatTransport {
         return true
     }
 
-    private func failAuthentication(
-        _ error: Error,
-        generation: UUID? = nil
-    ) {
+    private func failAuthentication(_ error: any Error, generation: UUID? = nil) {
         if let generation {
-            guard authenticationGeneration == generation,
-                  authenticationContinuation != nil,
-                  !authenticated
-            else {
-                return
-            }
+            guard authenticationGeneration == generation, !authenticated else { return }
         }
-        authenticationTimeoutTask?.cancel()
-        authenticationTimeoutTask = nil
+        connectionFailed(error)
+    }
+
+    private func finishAuthentication(error: any Error) {
         let continuation = authenticationContinuation
         authenticationContinuation = nil
         authenticationTask = nil
         authenticationGeneration = nil
-        authenticated = false
-        instanceState = nil
-        if let task = webSocketTask {
-            webSocketTask = nil
-            receiveTask?.cancel()
-            receiveTask = nil
-            task.cancel(with: .goingAway, reason: nil)
-            eventStream.continuation.yield(.health(ok: false))
-        }
         continuation?.resume(throwing: error)
     }
 
@@ -545,85 +692,9 @@ public actor DantaIntelligenceChatTransport {
         authenticationGeneration = nil
     }
 
-    nonisolated private static func waitForAuthentication(
-        _ task: Task<Void, Error>,
-        timeout: Duration,
-        timeoutRequestId: String
-    ) async throws {
-        let waiter = DantaIntelligenceAuthenticationWaiter()
-        try await withTaskCancellationHandler {
-            try await withCheckedThrowingContinuation {
-                (continuation: CheckedContinuation<Void, Error>) in
-                guard waiter.install(continuation) else { return }
-                waiter.track(Task.detached {
-                    do {
-                        try await task.value
-                        waiter.resolve(.success(()))
-                    } catch {
-                        waiter.resolve(.failure(error))
-                    }
-                })
-                waiter.track(Task.detached {
-                    try? await Task.sleep(for: max(timeout, .milliseconds(1)))
-                    guard !Task.isCancelled else { return }
-                    waiter.resolve(.failure(
-                        DantaIntelligenceTransportError.requestTimedOut(
-                            timeoutRequestId)))
-                })
-            }
-        } onCancel: {
-            waiter.resolve(.failure(CancellationError()))
-        }
-    }
-
-    private func markDisconnected(task: URLSessionWebSocketTask, error: Error) {
+    private func markDisconnected(task: URLSessionWebSocketTask, error: any Error) {
         guard webSocketTask === task else { return }
-        task.cancel(with: .goingAway, reason: nil)
-        webSocketTask = nil
-        receiveTask = nil
-        authenticated = false
-        instanceState = nil
-        failAuthentication(error)
-
-        for requestId in Array(pendingResponses.keys) {
-            failPendingResponse(requestId: requestId, error: error)
-        }
-        let interruptedRunIds = Set(chatRuns.values.filter { $0.taskId != nil }.map(\.runId))
-        for requestId in Array(chatRuns.keys) {
-            cleanupChatRequest(requestId: requestId)
-        }
-        eventStream.continuation.yield(.health(ok: false))
-        for runId in interruptedRunIds {
-            eventStream.continuation.yield(.failure(runId: runId,
-                error: DantaIntelligenceError(error, operation: .send)))
-        }
-        let issue = DantaIntelligenceError(error, operation: .connect)
-        eventStream.continuation.yield(.connectionError(issue))
-        scheduleReconnect()
-    }
-
-    private func scheduleReconnect() {
-        guard reconnectTask == nil else { return }
-        reconnectTask = Task.detached { [weak self] in
-            var delay = 1.0
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(delay))
-                guard !Task.isCancelled, let self else { return }
-                do {
-                    try await self.connectIfNeeded()
-                    _ = try await self.instanceStatus(
-                        requestId: "status-\(UUID().uuidString)")
-                    await self.finishReconnect()
-                    return
-                } catch {
-                    delay = min(delay * 2, 30)
-                }
-            }
-        }
-    }
-
-    private func finishReconnect() {
-        reconnectTask = nil
+        connectionFailed(error)
     }
 
     private func scheduleHistoryFallback(taskId: String, channelId: Int) {
@@ -633,9 +704,8 @@ public actor DantaIntelligenceChatTransport {
                 do {
                     try await Task.sleep(for: .seconds(2))
                     guard let self, await self.requestIdsByTaskId[taskId] == requestId else { return }
-                    if let reply = try await DantaIntelligenceAPI.listMessages(
-                        channelId: channelId, sort: "desc", size: 8
-                    ).first(where: { $0.taskId == taskId && !$0.from.isUser }) {
+                    if let reply = try await DantaIntelligenceAPI.listMessages(channelId: channelId, sort: "desc", size: 8)
+                        .first(where: { $0.taskId == taskId && !$0.from.isUser }) {
                         await self.completeFromHistory(reply, taskId: taskId)
                         return
                     }
@@ -682,74 +752,4 @@ public actor DantaIntelligenceChatTransport {
         if completedTaskIds.count > 200 { completedTaskIds.removeFirst() }
     }
 
-}
-
-@available(iOS 18.0, *)
-private final class DantaIntelligenceAuthenticationWaiter: @unchecked Sendable {
-    private let lock = NSLock()
-    private var continuation: CheckedContinuation<Void, Error>?
-    private var resolution: Result<Void, Error>?
-    private var isResolved = false
-    private var tasks: [Task<Void, Never>] = []
-
-    func track(_ task: Task<Void, Never>) {
-        lock.lock()
-        let resolved = isResolved
-        if !resolved { tasks.append(task) }
-        lock.unlock()
-        if resolved { task.cancel() }
-    }
-
-    @discardableResult
-    func install(_ continuation: CheckedContinuation<Void, Error>) -> Bool {
-        lock.lock()
-        if isResolved {
-            let resolution = resolution
-            lock.unlock()
-            if let resolution {
-                continuation.resume(with: resolution)
-            }
-            return false
-        }
-        self.continuation = continuation
-        lock.unlock()
-        return true
-    }
-
-    func resolve(_ resolution: Result<Void, Error>) {
-        lock.lock()
-        guard !isResolved else {
-            lock.unlock()
-            return
-        }
-        isResolved = true
-        let continuation = continuation
-        self.continuation = nil
-        self.resolution = resolution
-        let tasks = tasks
-        self.tasks = []
-        lock.unlock()
-        tasks.forEach { $0.cancel() }
-        continuation?.resume(with: resolution)
-    }
-}
-
-private func dantaDebugLogWebSocket(direction: String, payload: String) {
-#if DEBUG
-    let redacted = payload.replacingOccurrences(
-        of: #""token"\s*:\s*"[^"]*""#,
-        with: #""token":"<redacted>""#,
-        options: .regularExpression)
-    print("[DantaIntelligence][WebSocket][\(direction)] \(redacted)")
-#endif
-}
-
-private func dantaDebugLogWebSocket(direction: String, data: Data) {
-#if DEBUG
-    if let text = String(data: data, encoding: .utf8) {
-        dantaDebugLogWebSocket(direction: direction, payload: text)
-    } else {
-        print("[DantaIntelligence][WebSocket][\(direction)] <\(data.count) bytes>")
-    }
-#endif
 }

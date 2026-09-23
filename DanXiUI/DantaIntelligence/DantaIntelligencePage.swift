@@ -153,10 +153,6 @@ public struct DantaIntelligencePage: View {
     }
 
     private func recoverInstance() async {
-        if model.issue != nil {
-            await model.refreshInstanceStatus()
-            return
-        }
         switch model.instanceState {
         case .notStarted: await model.setup()
         case .stopped, .failed: await model.performLifecycleAction(.start)

@@ -9,7 +9,7 @@ struct DantaChatContent: View {
     var body: some View {
         VStack(spacing: 0) {
             if showsConnectionProgress, !viewModel.healthOK,
-               viewModel.isCheckingConnection || viewModel.isLoading {
+               viewModel.isRecovering || viewModel.isCheckingConnection || viewModel.isLoading {
                 HStack(spacing: 10) {
                     ProgressView()
                     Text("Connecting", bundle: .module)

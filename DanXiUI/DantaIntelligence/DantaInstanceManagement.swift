@@ -37,12 +37,6 @@ struct DantaInstanceManagement: View {
             }
 
             Section {
-                if model.instanceState == .notStarted || model.operation == .setup {
-                    DantaEnableButton(isActivating: model.operation == .setup) {
-                        await model.setup()
-                    }
-                    .disabled(model.isBusy)
-                }
                 ForEach([DantaIntelligenceLifecycleAction.start, .stop, .restart], id: \.self) { action in
                     if model.canPerform(action) {
                         AsyncButton { await model.performLifecycleAction(action) } label: {
@@ -109,8 +103,7 @@ struct DantaInstanceManagement: View {
     }
 
     private var showsActionButtons: Bool {
-        if model.instanceState == .notStarted { return true }
-        return [DantaIntelligenceLifecycleAction.start, .stop, .restart].contains { model.canPerform($0) }
+        [DantaIntelligenceLifecycleAction.start, .stop, .restart].contains { model.canPerform($0) }
             || model.canPerform(.reset)
     }
 
