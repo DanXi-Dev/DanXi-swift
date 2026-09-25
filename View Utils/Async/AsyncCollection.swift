@@ -119,7 +119,12 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
             defer { loading = false }
             try await loadingAction()
         } catch {
-            loadingError = error
+            // The loading task is bound to the row that triggered it, and gets cancelled
+            // when that row scrolls off screen. This is not a real failure, so don't
+            // surface it; loading will be retriggered when the last row or footer reappears.
+            if !Task.isCancelled && !error.isCancellation {
+                loadingError = error
+            }
         }
     }
     
@@ -159,7 +164,18 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
                 }
             } else {
                 style.contentStyle.loadingView()
+                    .task {
+                        await loadMore()
+                    }
             }
         }
+    }
+}
+
+private extension Error {
+    var isCancellation: Bool {
+        if self is CancellationError { return true }
+        if let urlError = self as? URLError, urlError.code == .cancelled { return true }
+        return false
     }
 }
