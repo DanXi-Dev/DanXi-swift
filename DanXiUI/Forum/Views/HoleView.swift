@@ -11,15 +11,19 @@ struct HoleView: View {
     private let presentation: HolePresentation
     private let fold: Bool
     private let pinned: Bool
+    private let allowDrag: Bool
+    private let rowInsets: EdgeInsets
     
     private var hole: Hole {
         presentation.hole
     }
     
-    init(presentation: HolePresentation, fold: Bool = false, pinned: Bool = false) {
+    init(presentation: HolePresentation, fold: Bool = false, pinned: Bool = false, allowDrag: Bool = true, rowInsets: EdgeInsets = EdgeInsets(top: 8, leading: 9, bottom: 8, trailing: 9)) {
         self.presentation = presentation
         self.fold = fold
         self.pinned = pinned
+        self.allowDrag = allowDrag
+        self.rowInsets = rowInsets
     }
     
     var body: some View {
@@ -37,16 +41,20 @@ struct HoleView: View {
                     .fixedSize()
             }
         } content: {
-            fullContent
-                .onDrag {
-                    let userActivity = NSUserActivity(activityType: "com.fduhole.forum.viewing-hole")
-                    userActivity.userInfo = ["hole-id": hole.id]
-                    let itemProvider = NSItemProvider(object: userActivity)
-                    return itemProvider
-                    
-                }
+            // allowDrag == false on the iOS 26 forum home list, so posts can't be dragged (long-press still works)
+            if allowDrag {
+                fullContent
+                    .onDrag {
+                        let userActivity = NSUserActivity(activityType: "com.fduhole.forum.viewing-hole")
+                        userActivity.userInfo = ["hole-id": hole.id]
+                        let itemProvider = NSItemProvider(object: userActivity)
+                        return itemProvider
+                    }
+            } else {
+                fullContent
+            }
         }
-        .listRowInsets(EdgeInsets(top: 8, leading: 9, bottom: 8, trailing: 9))
+        .listRowInsets(rowInsets)
     }
     
     private var fullContent: some View {
