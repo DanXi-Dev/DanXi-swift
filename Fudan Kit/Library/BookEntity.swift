@@ -21,4 +21,9 @@ public struct BookHolding: Identifiable, Codable, Hashable, Sendable {
     public let location: String
     public let status: String
     public let volume: String?
+    /// Values required by the reader request APIs. Older saved previews may omit them.
+    public let barcode: String?
+    public let libraryCode: String?
+    public let locationCode: String?
+    public let canRequest: Bool?
 }

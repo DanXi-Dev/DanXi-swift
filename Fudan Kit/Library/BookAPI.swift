@@ -53,7 +53,6 @@ public enum BookAPI {
         )!
         components.queryItems = [
             URLQueryItem(name: "catalogueId", value: bookID),
-            URLQueryItem(name: "loanTypeCode", value: ""),
             URLQueryItem(name: "pageSize", value: String(pageSize)),
             URLQueryItem(name: "pageNo", value: String(page)),
             URLQueryItem(name: "display", value: "true")
@@ -200,6 +199,10 @@ private struct BookHoldingResponse: Decodable {
     let location: String
     let status: String
     let volume: String?
+    let barcode: String?
+    let libraryCode: String?
+    let locationCode: String?
+    let canRequest: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -208,6 +211,10 @@ private struct BookHoldingResponse: Decodable {
         case location = "temporaryLocationName"
         case status = "itemStatusName"
         case volume = "volumeInfo"
+        case barcode
+        case libraryCode = "temporaryLibraryCode"
+        case locationCode = "temporaryLocationCode"
+        case canRequest = "requestFlag"
     }
 
     var holding: BookHolding {
@@ -217,7 +224,11 @@ private struct BookHoldingResponse: Decodable {
             library: library,
             location: location,
             status: status,
-            volume: volume
+            volume: volume,
+            barcode: barcode,
+            libraryCode: libraryCode,
+            locationCode: locationCode,
+            canRequest: canRequest
         )
     }
 }
