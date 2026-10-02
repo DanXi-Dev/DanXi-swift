@@ -1,7 +1,7 @@
 import Foundation
 import Utils
 
-public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "https://auth.fduhole.com/api")
+public var authURL = constructBaseURL(key: "fduhole_auth_url", defaultURL: "http://127.0.0.1:8001/api")
 public var forumURL = constructBaseURL(key: "fduhole_base_url", defaultURL: "https://forum.fduhole.com/api")
 public var curriculumURL = constructBaseURL(key: "danke_base_url", defaultURL: "https://danke.fduhole.com/api")
 
@@ -114,4 +114,3 @@ extension TokenError: LocalizedError {
         }
     }
 }
-
