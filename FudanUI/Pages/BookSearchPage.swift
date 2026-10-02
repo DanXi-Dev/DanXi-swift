@@ -45,6 +45,19 @@ struct BookSearchPage: View {
     var body: some View {
         List {
             if query.isEmpty {
+                Section(String(localized: "My Library", bundle: .module)) {
+                    NavigationLink {
+                        LibraryLoansPage()
+                    } label: {
+                        Label(String(localized: "My Loans", bundle: .module), systemImage: "book.closed")
+                    }
+                    NavigationLink {
+                        LibraryRequestsPage()
+                    } label: {
+                        Label(String(localized: "My Requests", bundle: .module), systemImage: "bookmark")
+                    }
+                }
+
                 if pinnedBooks.isEmpty {
                     VStack(spacing: 12) {
                         Image(systemName: "books.vertical")

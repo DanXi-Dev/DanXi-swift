@@ -164,6 +164,7 @@ private struct BookDetailContent: View {
 
 private struct BookHoldingRow: View {
     let holding: BookHolding
+    @State private var showRequestSheet = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -190,8 +191,22 @@ private struct BookHoldingRow: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+
+            if holding.canRequest == true,
+               holding.barcode != nil,
+               holding.libraryCode != nil,
+               holding.locationCode != nil {
+                Button(String(localized: "Request this Copy", bundle: .module)) {
+                    showRequestSheet = true
+                }
+                .buttonStyle(.borderless)
+                .padding(.top, 3)
+            }
         }
         .padding(.vertical, 3)
+        .sheet(isPresented: $showRequestSheet) {
+            LibraryRequestSheet(holding: holding)
+        }
     }
 }
 
