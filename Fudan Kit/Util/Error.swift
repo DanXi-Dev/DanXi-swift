@@ -2,6 +2,7 @@ import Foundation
 
 public enum CampusError: Error {
     case credentialNotFound
+    case needCaptcha
     case loginFailed
     case campusOnly
     case notDiningTime
@@ -14,6 +15,8 @@ extension CampusError: LocalizedError {
         switch self {
         case .credentialNotFound:
             return String(localized: "Credential not found, login again", bundle: .module)
+        case .needCaptcha:
+            return String(localized: "Need captcha, visit UIS webpage to login", bundle: .module)
         case .loginFailed:
             return String(localized: "Login failed, check username and password", bundle: .module)
         case .campusOnly:
