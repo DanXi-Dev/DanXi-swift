@@ -11,7 +11,10 @@ class BrowseModel: ObservableObject {
     
     @Published var division: Division {
         didSet {
-            resetHoleList()
+            // `refresh` reassigns the same division with updated info, which should not reset the list
+            if oldValue.id != division.id {
+                resetHoleList()
+            }
         }
     }
     
@@ -20,13 +23,23 @@ class BrowseModel: ObservableObject {
         case createTime
     }
     
+    /// Fetch the first page before replacing the list, instead of emptying it and loading again.
+    /// Otherwise the list collapses and refills while the refresh control is still animating back,
+    /// which makes the navigation bar and search field bounce back late.
     func refresh() async throws {
+        let configurationId = self.configurationId
         try await DivisionStore.shared.refreshDivisions()
         await MainActor.run {
             if let currentDivision = DivisionStore.shared.divisions.filter({ $0.id == self.division.id }).first {
                 self.division = currentDivision
             }
-            resetHoleList()
+        }
+        let newHoles = try await ForumAPI.listHolesInDivision(divisionId: division.id, startTime: baseDate, order: sortOption == .replyTime ? "time_updated" : "time_created")
+        let filteredHoles = filterAndConstructHoles(holes: newHoles)
+        await MainActor.run {
+            guard configurationId == self.configurationId else { return } // configuration changed during refresh
+            holes = filteredHoles
+            endReached = newHoles.isEmpty
         }
     }
     
