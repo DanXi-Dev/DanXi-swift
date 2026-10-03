@@ -138,6 +138,7 @@ private actor LibraryAccountSession {
     private let authURL = URL(string: "https://fdulib.a-lsp.com")!
     private let gatewayURL = URL(string: "https://fdulspgw.fudan.edu.cn")!
     private let clientID = "rfid"
+    private let tenantID = "fdulib"
     private let redirectURI = "https://opac.fudan.edu.cn/#/redirect"
     private var token: String?
     private var tokenExpiry = Date.distantPast
@@ -180,7 +181,9 @@ private actor LibraryAccountSession {
         ]
 
         // The first page establishes the same cookie context as the web OPAC.
-        let authPage = url(host: authURL, path: "/authServer/", query: parameters)
+        var authPageComponents = URLComponents(url: authURL.appendingPathComponent("authServer", isDirectory: true), resolvingAgainstBaseURL: false)!
+        authPageComponents.queryItems = parameters
+        let authPage = authPageComponents.url!
         var authPageRequest = constructRequest(authPage)
         authPageRequest.setValue("https://opac.fudan.edu.cn/", forHTTPHeaderField: "Referer")
         _ = try await URLSession.campusSession.data(for: authPageRequest)
@@ -192,6 +195,7 @@ private actor LibraryAccountSession {
         var clientRequest = constructRequest(authURL.appending(path: "/open-api/openapi/oauth2/getClientParams"),
                                              payload: try JSONEncoder().encode(payload))
         clientRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        clientRequest.setValue(tenantID, forHTTPHeaderField: "tenant-id")
         clientRequest.setValue("https://fdulib.a-lsp.com", forHTTPHeaderField: "Origin")
         clientRequest.setValue(authPage.absoluteString, forHTTPHeaderField: "Referer")
         let clientData = try await URLSession.campusSession.data(for: clientRequest).0
@@ -216,18 +220,24 @@ private actor LibraryAccountSession {
         }
         let callback = url(host: authURL, path: "/open-api/openapi/oauth2/authCallBack", query: query)
         var callbackRequest = constructRequest(callback)
+        callbackRequest.setValue(tenantID, forHTTPHeaderField: "tenant-id")
         callbackRequest.setValue(callbackURL.absoluteString, forHTTPHeaderField: "Referer")
         let callbackData = try await URLSession.campusSession.data(for: callbackRequest).0
-        let _: LibraryCallback = try decode(LibraryCallback.self, from: callbackData)
+        let callbackResult: LibraryCallback = try decode(LibraryCallback.self, from: callbackData)
+        guard !callbackResult.openToken.isEmpty else { throw CampusError.loginFailed }
 
         let authorize = url(host: authURL, path: "/open-api/openapi/oauth2/authorize", query: parameters)
         var authorizeRequest = constructRequest(authorize)
+        authorizeRequest.setValue(tenantID, forHTTPHeaderField: "tenant-id")
+        authorizeRequest.setValue(callbackResult.openToken, forHTTPHeaderField: "openToken")
         authorizeRequest.setValue(callbackURL.absoluteString, forHTTPHeaderField: "Referer")
         let firstData = try await URLSession.campusSession.data(for: authorizeRequest).0
         let first: LibraryAuthorization = try decode(LibraryAuthorization.self, from: firstData)
         if first.redirectUri == nil {
             let confirm = url(host: authURL, path: "/open-api/openapi/oauth2/doConfirm", query: parameters)
             var confirmRequest = constructRequest(confirm)
+            confirmRequest.setValue(tenantID, forHTTPHeaderField: "tenant-id")
+            confirmRequest.setValue(callbackResult.openToken, forHTTPHeaderField: "openToken")
             confirmRequest.setValue(callbackURL.absoluteString, forHTTPHeaderField: "Referer")
             let confirmedData = try await URLSession.campusSession.data(for: confirmRequest).0
             try checkStatus(confirmedData)

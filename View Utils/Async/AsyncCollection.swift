@@ -32,8 +32,10 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
     @State private var endReached = false
     @State private var loading = false
     @State private var loadingError: Error? = nil
+    @State private var hasStarted = false
     
     private func loadMore() async {
+        guard !loading && !endReached else { return }
         do {
             loadingError = nil
             loading = true
@@ -42,19 +44,31 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
             endReached = newItems.isEmpty
             items += newItems
         } catch {
-            if !Task.isCancelled {
+            if Task.isCancelled {
+                hasStarted = false
+            } else {
                 loadingError = error
             }
         }
+    }
+
+    private func loadAutomatically() async {
+        guard loadingError == nil else { return }
+        await loadMore()
     }
     
     var body: some View {
         style.layout(AnyView(contents), AnyView(footer))
             .task {
-                await loadMore()
+                guard !hasStarted else { return }
+                hasStarted = true
+                await loadAutomatically()
             }
             .refreshable {
+                guard !loading else { return }
                 items = []
+                endReached = false
+                loadingError = nil
                 await loadMore()
             }
     }
@@ -65,7 +79,7 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
                 content(item)
                     .task {
                         if item.id == items.last?.id {
-                            await loadMore()
+                            await loadAutomatically()
                         }
                     }
             }
