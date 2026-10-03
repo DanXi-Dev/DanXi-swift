@@ -190,7 +190,15 @@ public enum NeoAuthenticationAPI {
     
     private static func postJWToken(token: String, session: URLSession? = nil) async throws -> Document {
         let loginURL = idURL.appendingPathComponent("/idp/authCenter/authnEngine")
-        let request = constructFormRequest(loginURL, form: ["loginToken": token])
+        var request = constructRequest(loginURL, method: "POST")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        // URLComponents encodes the form value once; constructFormRequest pre-encodes it again.
+        var bodyComponents = URLComponents()
+        bodyComponents.queryItems = [URLQueryItem(name: "loginToken", value: token)]
+        guard let body = bodyComponents.percentEncodedQuery?.data(using: .utf8) else {
+            throw LocatableError()
+        }
+        request.httpBody = body
         let (data, _) = try await data(for: request, session: session)
         
         let document = try decodeHTMLDocument(data)
