@@ -87,6 +87,16 @@
         }
       }
     },
+    "Allow Another Copy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "接受其他复本"
+          }
+        }
+      }
+    },
     "Author" : {
       "localizations" : {
         "zh-Hans" : {
@@ -123,6 +133,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "蓝色"
+          }
+        }
+      }
+    },
+    "Borrowed %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "借阅日期：%@"
           }
         }
       }
@@ -187,6 +207,16 @@
         }
       }
     },
+    "Call Number" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "索书号"
+          }
+        }
+      }
+    },
     "Campus" : {
       "localizations" : {
         "zh-Hans" : {
@@ -229,6 +259,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消"
+          }
+        }
+      }
+    },
+    "Cancel Request" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消预约"
+          }
+        }
+      }
+    },
+    "Cancel this request?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定取消这条预约？"
           }
         }
       }
@@ -389,6 +439,16 @@
         }
       }
     },
+    "Current" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前"
+          }
+        }
+      }
+    },
     "Cyan" : {
       "localizations" : {
         "zh-Hans" : {
@@ -465,6 +525,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "寝室电量"
+          }
+        }
+      }
+    },
+    "Due %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应还日期：%@"
           }
         }
       }
@@ -659,6 +729,26 @@
         }
       }
     },
+    "Expected Pickup Date" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最晚取书日期"
+          }
+        }
+      }
+    },
+    "Expires in %llds" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "剩余 %lld 秒"
+          }
+        }
+      }
+    },
     "Export" : {
       "localizations" : {
         "zh-Hans" : {
@@ -695,16 +785,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "课外活动考勤"
-          }
-        }
-      }
-    },
-    "Expires in %llds" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "剩余 %lld 秒"
           }
         }
       }
@@ -901,6 +981,26 @@
         }
       }
     },
+    "History" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "历史"
+          }
+        }
+      }
+    },
+    "Holding Location" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馆藏位置"
+          }
+        }
+      }
+    },
     "Holdings" : {
       "localizations" : {
         "zh-Hans" : {
@@ -971,6 +1071,26 @@
         }
       }
     },
+    "Library" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "馆藏馆"
+          }
+        }
+      }
+    },
+    "Library Action Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作失败"
+          }
+        }
+      }
+    },
     "Library Books" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1007,6 +1127,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加载失败"
+          }
+        }
+      }
+    },
+    "Loan Period" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "借阅记录"
           }
         }
       }
@@ -1111,12 +1241,42 @@
         }
       }
     },
+    "My Library" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的图书馆"
+          }
+        }
+      }
+    },
+    "My Loans" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的借阅"
+          }
+        }
+      }
+    },
     "My Rank" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "我的排名"
+          }
+        }
+      }
+    },
+    "My Requests" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的预约"
           }
         }
       }
@@ -1182,6 +1342,16 @@
         }
       }
     },
+    "No pickup locations available" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂无可选取书地点"
+          }
+        }
+      }
+    },
     "No Score Entry" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1218,6 +1388,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未选择"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定"
           }
         }
       }
@@ -1278,6 +1458,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "体质健康测试记录"
+          }
+        }
+      }
+    },
+    "Pickup Details" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取书信息"
+          }
+        }
+      }
+    },
+    "Pickup Location" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取书地点"
           }
         }
       }
@@ -1392,6 +1592,16 @@
         }
       }
     },
+    "Queue position %lld" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排队第 %lld 位"
+          }
+        }
+      }
+    },
     "Rank" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1442,6 +1652,76 @@
         }
       }
     },
+    "Renew" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "续借"
+          }
+        }
+      }
+    },
+    "Renew this loan?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定续借这本书？"
+          }
+        }
+      }
+    },
+    "Renewed %lld times" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已续借 %lld 次"
+          }
+        }
+      }
+    },
+    "Request Book" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约图书"
+          }
+        }
+      }
+    },
+    "Request Period" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约记录"
+          }
+        }
+      }
+    },
+    "Request this Copy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约此册"
+          }
+        }
+      }
+    },
+    "Requested Copy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预约馆藏"
+          }
+        }
+      }
+    },
     "Reserve" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1468,6 +1748,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重试"
+          }
+        }
+      }
+    },
+    "Returned %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "归还日期：%@"
           }
         }
       }
@@ -1626,6 +1916,16 @@
         }
       }
     },
+    "Submit Request" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提交预约"
+          }
+        }
+      }
+    },
     "Summary" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1642,6 +1942,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "需要接受条款"
+          }
+        }
+      }
+    },
+    "This copy cannot be requested" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此册暂不可预约"
           }
         }
       }
