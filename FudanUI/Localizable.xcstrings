@@ -2216,6 +2216,26 @@
         }
       }
     },
+    "Swipe Left to Cancel Reservation" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "左滑取消预约"
+          }
+        }
+      }
+    },
+    "Swipe left on a cancellable reservation, then tap Cancel Reservation and confirm." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在可取消的预约行上左滑，再点按“取消预约”并确认。"
+          }
+        }
+      }
+    },
     "Terms not Agreed" : {
       "localizations" : {
         "zh-Hans" : {

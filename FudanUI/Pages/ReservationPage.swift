@@ -1,6 +1,7 @@
 import FudanKit
 import Foundation
 import SwiftUI
+import TipKit
 import ViewUtils
 #if !os(watchOS)
 import UIKit
@@ -630,6 +631,10 @@ private struct SportsAppointmentList: View {
     @State private var cancelTarget: BookingAppointment?
     @State private var isCancelling = false
     @State private var errorMessage: String?
+    #if !os(watchOS)
+    @available(iOS 17.0, *)
+    private var swipeToCancelTip: SwipeToCancelReservationTip { .init() }
+    #endif
 
     var body: some View {
         List {
@@ -638,28 +643,20 @@ private struct SportsAppointmentList: View {
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(appointments) { appointment in
-                    Section {
-                        ForEach(appointment.details) { detail in
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(detail.date)
-                                    .font(.body.weight(.medium))
-                                Text(detail.displayTime)
-                                    .font(.subheadline.monospacedDigit())
-                                    .foregroundStyle(.secondary)
-                            }
+                    #if !os(watchOS)
+                    if #available(iOS 17.0, *) {
+                        if appointment.id == tipAnchorAppointmentID {
+                            appointmentRow(appointment)
+                                .popoverTip(swipeToCancelTip)
+                        } else {
+                            appointmentRow(appointment)
                         }
-
-                        if appointment.canCancel {
-                            Button(bookingLocalized("Cancel Reservation"), role: .destructive) {
-                                cancelTarget = appointment
-                            }
-                            .disabled(isCancelling)
-                        }
-                    } header: {
-                        Text(appointment.resourceName)
-                    } footer: {
-                        Text(appointment.statusName)
+                    } else {
+                        appointmentRow(appointment)
                     }
+                    #else
+                    appointmentRow(appointment)
+                    #endif
                 }
             }
         }
@@ -679,6 +676,56 @@ private struct SportsAppointmentList: View {
             Button(bookingLocalized("OK"), role: .cancel) {}
         } message: {
             Text(errorMessage ?? bookingLocalized("Unknown Error"))
+        }
+    }
+
+    private var tipAnchorAppointmentID: Int? {
+        appointments.first(where: canCancel)?.id
+    }
+
+    private func canCancel(_ appointment: BookingAppointment) -> Bool {
+        appointment.canCancel && appointment.details.contains(where: \.canCancel)
+    }
+
+    private func appointmentRow(_ appointment: BookingAppointment) -> some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(appointment.resourceName)
+                    .font(.headline)
+
+                ForEach(appointment.details) { detail in
+                    HStack(spacing: 12) {
+                        Text(detail.date)
+                        Text(detail.displayTime)
+                    }
+                    .font(.subheadline.monospacedDigit())
+                    .foregroundStyle(.secondary)
+                }
+            }
+
+            Spacer(minLength: 8)
+
+            Text(appointment.statusName)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+        }
+        .padding(.vertical, 4)
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            if canCancel(appointment) {
+                Button(role: .destructive) {
+                    cancelTarget = appointment
+                    #if !os(watchOS)
+                    if #available(iOS 17.0, *) {
+                        swipeToCancelTip.invalidate(reason: .actionPerformed)
+                    }
+                    #endif
+                } label: {
+                    Label(bookingLocalized("Cancel Reservation"), systemImage: "xmark.circle")
+                }
+                .disabled(isCancelling)
+            }
         }
     }
 
