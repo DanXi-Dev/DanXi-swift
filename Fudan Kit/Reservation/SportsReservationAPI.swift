@@ -289,7 +289,7 @@ public enum SportsReservationAPI {
     }
 
     private static func send<Response: Decodable>(_ request: URLRequest) async throws -> Response {
-        var (data, response) = try await Authenticator.neo.authenticateRequest(
+        var (data, response) = try await Authenticator.shared.authenticateRequest(
             request: request,
             loginURL: loginURL
         )
@@ -297,7 +297,7 @@ public enum SportsReservationAPI {
 
         var envelope: BookingResponseEnvelope<Response> = try decodeEnvelope(data)
         if envelope.code.requiresAuthentication {
-            (data, response) = try await Authenticator.neo.authenticateRequest(
+            (data, response) = try await Authenticator.shared.authenticateRequest(
                 request: request,
                 loginURL: loginURL,
                 forceRelogin: true

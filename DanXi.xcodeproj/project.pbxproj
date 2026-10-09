@@ -403,6 +403,9 @@
 			);
 			mainGroup = 8AC7A5C426872C3E00C9CD98;
 			packageReferences = (
+				F0DA00012D01ABCD00000001 /* XCLocalSwiftPackageReference "FudanUI" */,
+				F0DA00012D01ABCD00000002 /* XCLocalSwiftPackageReference "DanXiUI" */,
+				F0DA00012D01ABCD00000003 /* XCLocalSwiftPackageReference "Fudan Kit" */,
 			);
 			productRefGroup = 8AC7A5CE26872C3E00C9CD98 /* Products */;
 			projectDirPath = "";
@@ -890,21 +893,40 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		F0DA00012D01ABCD00000001 /* XCLocalSwiftPackageReference "FudanUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = FudanUI;
+		};
+		F0DA00012D01ABCD00000002 /* XCLocalSwiftPackageReference "DanXiUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = DanXiUI;
+		};
+		F0DA00012D01ABCD00000003 /* XCLocalSwiftPackageReference "Fudan Kit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "Fudan Kit";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		273D53342BD94AC200801B77 /* DanXiUI */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = F0DA00012D01ABCD00000002 /* XCLocalSwiftPackageReference "DanXiUI" */;
 			productName = DanXiUI;
 		};
 		2773A2B22D46A9DE00DF9682 /* FudanKit */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = F0DA00012D01ABCD00000003 /* XCLocalSwiftPackageReference "Fudan Kit" */;
 			productName = FudanKit;
 		};
 		2785E2A92BC8645900D50D31 /* FudanUI */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = F0DA00012D01ABCD00000001 /* XCLocalSwiftPackageReference "FudanUI" */;
 			productName = FudanUI;
 		};
 		27D226162CF782E900AF63B4 /* FudanUI */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = F0DA00012D01ABCD00000001 /* XCLocalSwiftPackageReference "FudanUI" */;
 			productName = FudanUI;
 		};
 /* End XCSwiftPackageProductDependency section */
