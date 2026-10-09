@@ -5,6 +5,7 @@ import WidgetKit
 struct DanXiWidgetBundle: WidgetBundle {
     var body: some Widget {
         WalletWidget()
+        QRCodeWidget()
         if #available(iOS 16.1, *) {
             ElectricityWidget()
         }

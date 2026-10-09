@@ -403,6 +403,16 @@
         }
       }
     },
+    "Fudan QR Code" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复活码"
+          }
+        }
+      }
+    },
     "Import Schedules to Calendar" : {
       "localizations" : {
         "zh-Hans" : {
@@ -490,6 +500,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "开源软件"
+          }
+        }
+      }
+    },
+    "Open the Fudan QR Code page." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开复活码页面。"
           }
         }
       }
