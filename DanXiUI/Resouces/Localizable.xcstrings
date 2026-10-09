@@ -51,6 +51,9 @@
         }
       }
     },
+    "#%lld" : {
+
+    },
     "%@ at %@\n" : {
       "localizations" : {
         "en" : {
@@ -378,6 +381,23 @@
         }
       }
     },
+    "Ask Danta Intelligence" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask Danta Intelligence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "向旦挞智能提问"
+          }
+        }
+      }
+    },
     "Automatic Review Result" : {
       "localizations" : {
         "zh-Hans" : {
@@ -508,6 +528,16 @@
         }
       }
     },
+    "Chats" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对话历史"
+          }
+        }
+      }
+    },
     "Check Decryption Status" : {
       "localizations" : {
         "zh-Hans" : {
@@ -524,6 +554,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请在邮箱内查收验证码，如未收到邮件，请检查垃圾箱或重试"
+          }
+        }
+      }
+    },
+    "Checking Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在检查旦挞智能"
           }
         }
       }
@@ -720,6 +760,33 @@
         }
       }
     },
+    "Connecting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在连接"
+          }
+        }
+      }
+    },
+    "Container" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "容器"
+          }
+        }
+      }
+    },
     "Content to Delete" : {
       "localizations" : {
         "zh-Hans" : {
@@ -758,6 +825,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "控制是否显示茶楼顶部的活动横幅。"
+          }
+        }
+      }
+    },
+    "Conversation" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对话"
+          }
+        }
+      }
+    },
+    "Conversation History" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对话历史"
           }
         }
       }
@@ -964,6 +1051,99 @@
         }
       }
     },
+    "Danta Channel" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞通道"
+          }
+        }
+      }
+    },
+    "Danta Intelligence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danta Intelligence"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能"
+          }
+        }
+      }
+    },
+    "Danta Intelligence Introduction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat with OpenClaw through Danta"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通过旦挞连接 OpenClaw 对话"
+          }
+        }
+      }
+    },
+    "Danta Intelligence is not set up" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未设置旦挞智能"
+          }
+        }
+      }
+    },
+    "Danta Intelligence is ready" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能已就绪"
+          }
+        }
+      }
+    },
+    "Danta Intelligence is stopped" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能已停止"
+          }
+        }
+      }
+    },
+    "Danta Intelligence is unavailable" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能当前不可用"
+          }
+        }
+      }
+    },
+    "Danta Intelligence needs attention" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旦挞智能需要处理"
+          }
+        }
+      }
+    },
     "DanXi Account" : {
       "localizations" : {
         "en" : {
@@ -997,6 +1177,7 @@
       }
     },
     "DanXi Community" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1007,6 +1188,7 @@
       }
     },
     "DanXi Community Introduction" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1206,6 +1388,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "院系"
+          }
+        }
+      }
+    },
+    "Details" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "详情"
+          }
+        }
+      }
+    },
+    "Disconnected" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未连接"
           }
         }
       }
@@ -1435,6 +1639,16 @@
         }
       }
     },
+    "Enable Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启旦挞智能"
+          }
+        }
+      }
+    },
     "Enabled" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1517,6 +1731,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "特别好评"
+          }
+        }
+      }
+    },
+    "Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "失败"
           }
         }
       }
@@ -1774,6 +1998,17 @@
         }
       }
     },
+    "Gateway" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网关"
+          }
+        }
+      }
+    },
     "Get Code" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1962,6 +2197,26 @@
         }
       }
     },
+    "Instance ID" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "实例 ID"
+          }
+        }
+      }
+    },
+    "Instance Management" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "实例管理"
+          }
+        }
+      }
+    },
     "Interactions" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2028,6 +2283,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最近创建"
+          }
+        }
+      }
+    },
+    "Last Reported Issue" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次报告的问题"
           }
         }
       }
@@ -2182,6 +2447,17 @@
         }
       }
     },
+    "More" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多"
+          }
+        }
+      }
+    },
     "Multiple Selection" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2224,6 +2500,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "去往底部"
+          }
+        }
+      }
+    },
+    "New Chat" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新对话"
           }
         }
       }
@@ -2295,6 +2581,26 @@
         }
       }
     },
+    "No conversations yet." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有对话。"
+          }
+        }
+      }
+    },
+    "No messages yet." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有消息。"
+          }
+        }
+      }
+    },
     "No Review" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2355,6 +2661,17 @@
         }
       }
     },
+    "Not Ready" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未就绪"
+          }
+        }
+      }
+    },
     "Not Selected" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2371,6 +2688,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不敏感"
+          }
+        }
+      }
+    },
+    "Not Set Up" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未设置"
           }
         }
       }
@@ -2580,6 +2907,26 @@
         }
       }
     },
+    "Preparing Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在准备旦挞智能"
+          }
+        }
+      }
+    },
+    "Preparing instance…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在准备实例…"
+          }
+        }
+      }
+    },
     "Preview" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2612,6 +2959,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "授课教师"
+          }
+        }
+      }
+    },
+    "Provisioning" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在创建"
           }
         }
       }
@@ -2697,6 +3054,16 @@
         }
       }
     },
+    "Ready" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "就绪"
+          }
+        }
+      }
+    },
     "Recent Browsed" : {
       "localizations" : {
         "en" : {
@@ -2755,6 +3122,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刷新"
+          }
+        }
+      }
+    },
+    "Refresh Conversation" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新对话"
+          }
+        }
+      }
+    },
+    "Refresh Instance Status" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新实例状态"
           }
         }
       }
@@ -2901,6 +3289,26 @@
         }
       }
     },
+    "Reset Instance" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置实例"
+          }
+        }
+      }
+    },
+    "Reset OpenClaw Instance?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置 OpenClaw 实例？"
+          }
+        }
+      }
+    },
     "Reset Password" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2911,12 +3319,52 @@
         }
       }
     },
+    "Resetting" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在重置"
+          }
+        }
+      }
+    },
+    "Resetting instance…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在重置实例…"
+          }
+        }
+      }
+    },
+    "Restart Instance" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重启实例"
+          }
+        }
+      }
+    },
     "Restart Required" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "需要重启应用"
+          }
+        }
+      }
+    },
+    "Restarting instance…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在重启实例…"
           }
         }
       }
@@ -3121,6 +3569,22 @@
         }
       }
     },
+    "Send" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发送"
+          }
+        }
+      }
+    },
     "Send Message" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3130,6 +3594,9 @@
           }
         }
       }
+    },
+    "Send Message to Danta Intelligence" : {
+
     },
     "Sensitive" : {
       "localizations" : {
@@ -3289,6 +3756,17 @@
         }
       }
     },
+    "Sign In Again" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新登录"
+          }
+        }
+      }
+    },
     "Single Selection" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3330,6 +3808,46 @@
         }
       }
     },
+    "Start Instance" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "启动实例"
+          }
+        }
+      }
+    },
+    "Starting" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在启动"
+          }
+        }
+      }
+    },
+    "Starting instance…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在启动实例…"
+          }
+        }
+      }
+    },
+    "Status" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "状态"
+          }
+        }
+      }
+    },
     "Sticker parse failed." : {
       "localizations" : {
         "zh-Hans" : {
@@ -3346,6 +3864,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "表情"
+          }
+        }
+      }
+    },
+    "Stop Instance" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止实例"
+          }
+        }
+      }
+    },
+    "Stopped" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已停止"
+          }
+        }
+      }
+    },
+    "Stopping" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在停止"
+          }
+        }
+      }
+    },
+    "Stopping instance…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在停止实例…"
+          }
+        }
+      }
+    },
+    "Stopping preserves your instance data and chats. Resetting permanently deletes them." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止实例会保留实例数据和对话；重置会永久删除这些数据。"
           }
         }
       }
@@ -3444,6 +4012,22 @@
         }
       }
     },
+    "Thinking" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thinking"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在思考"
+          }
+        }
+      }
+    },
     "This floor will be deleted" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3470,6 +4054,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "该帖已被隐藏"
+          }
+        }
+      }
+    },
+    "This may take a few minutes." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这可能需要几分钟。"
+          }
+        }
+      }
+    },
+    "This permanently deletes the instance, all messages, and all conversations. This action cannot be undone." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这会永久删除实例、所有消息和所有对话，且无法撤销。"
           }
         }
       }
@@ -3561,6 +4165,26 @@
         }
       }
     },
+    "Unable to connect to Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法连接旦挞智能"
+          }
+        }
+      }
+    },
+    "Unable to prepare Danta Intelligence" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法准备旦挞智能"
+          }
+        }
+      }
+    },
     "Unanswered Questions" : {
       "localizations" : {
         "zh-Hans" : {
@@ -3577,6 +4201,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消收藏"
+          }
+        }
+      }
+    },
+    "Unknown" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知"
           }
         }
       }
@@ -3862,6 +4496,12 @@
           }
         }
       }
+    },
+    "Workshop" : {
+
+    },
+    "Workshop Introduction" : {
+
     },
     "Yesterday" : {
       "localizations" : {
