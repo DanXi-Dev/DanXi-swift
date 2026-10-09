@@ -20,7 +20,7 @@ public struct CampusHome: View {
             return false
         }
 
-        switch campusModel.studentType {
+        return switch campusModel.studentType {
         case .undergrad: true
         case .grad: !CampusSection.gradHidden.contains(section)
         case .staff: !CampusSection.staffHidden.contains(section)
