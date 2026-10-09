@@ -1,76 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Total Score" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "总分"
-          }
-        }
-      }
-    },
-    "Show Logs" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示记录"
-          }
-        }
-      }
-    },
-    "PE Exam Logs" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "体质健康测试记录"
-          }
-        }
-      }
-    },
-    "PE Exam" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "体质健康测试"
-          }
-        }
-      }
-    },
-    "PE Curriculum" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "体育教学"
-          }
-        }
-      }
-    },
-    "Extracurricular Activities" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "课外活动考勤"
-          }
-        }
-      }
-    },
-    "Exercise Logs" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "课外活动考勤记录"
-          }
-        }
-      }
-    },
     "%@" : {
       "localizations" : {
         "zh-Hans" : {
@@ -138,6 +68,7 @@
       }
     },
     "All" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -188,6 +119,7 @@
       }
     },
     "Available Time Slots Only" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -404,6 +336,7 @@
       }
     },
     "Cannot Reserve" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -869,6 +802,16 @@
         }
       }
     },
+    "Exercise Logs" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课外活动考勤记录"
+          }
+        }
+      }
+    },
     "Expected Pickup Date" : {
       "localizations" : {
         "zh-Hans" : {
@@ -915,6 +858,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导出到日历"
+          }
+        }
+      }
+    },
+    "Extracurricular Activities" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "课外活动考勤"
           }
         }
       }
@@ -1542,6 +1495,7 @@
       }
     },
     "No Time Slots Available" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1621,6 +1575,36 @@
         }
       }
     },
+    "PE Curriculum" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "体育教学"
+          }
+        }
+      }
+    },
+    "PE Exam" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "体质健康测试"
+          }
+        }
+      }
+    },
+    "PE Exam Logs" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "体质健康测试记录"
+          }
+        }
+      }
+    },
     "Pickup Details" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1692,6 +1676,7 @@
       }
     },
     "Playground List" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1712,6 +1697,7 @@
       }
     },
     "Playground Type" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1972,6 +1958,7 @@
       }
     },
     "Reserve Page" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2109,6 +2096,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示全部排名"
+          }
+        }
+      }
+    },
+    "Show Logs" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示记录"
           }
         }
       }
@@ -2305,6 +2302,16 @@
         }
       }
     },
+    "Total Score" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "总分"
+          }
+        }
+      }
+    },
     "Type" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2316,6 +2323,7 @@
       }
     },
     "Unavailable" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

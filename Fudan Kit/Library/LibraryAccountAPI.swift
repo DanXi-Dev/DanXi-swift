@@ -202,7 +202,7 @@ private actor LibraryAccountSession {
         let client = try decode(String.self, from: clientData)
         guard let loginURL = URL(string: client) else { throw CampusError.loginFailed }
 
-        let (loginPage, loginResponse) = try await NeoAuthenticationAPI.authenticate(loginURL)
+        let (loginPage, loginResponse) = try await AuthenticationAPI.authenticate(loginURL)
 
         let callbackURL: URL
         if let finalURL = loginResponse.url, finalURL.path == "/authServer/auth" {

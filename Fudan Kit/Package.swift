@@ -19,13 +19,13 @@ let package = Package(
         .package(path: "../Utils"),
     ],
     targets: [
-        .regexTarget(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON", "SwiftyRSA"], path: "."),
+        .regexTarget(name: "FudanKit", dependencies: ["SwiftSoup", "Utils", "KeychainAccess", "SwiftyJSON", "SwiftyRSA"], path: ".", resources: [.process("Localizable.xcstrings")]),
     ]
 )
 
 extension Target {
-    static func regexTarget(name: String, dependencies: [Target.Dependency], path: String) -> Target {
-        let target = target(name: name, dependencies: dependencies, path: path)
+    static func regexTarget(name: String, dependencies: [Target.Dependency], path: String, resources: [Resource]) -> Target {
+        let target = target(name: name, dependencies: dependencies, path: path, resources: resources)
         if target.swiftSettings == nil {
             target.swiftSettings = []
         }
