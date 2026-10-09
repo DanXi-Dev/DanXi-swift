@@ -108,13 +108,30 @@ public struct BookingVenueDetail: Identifiable, Decodable, Sendable {
         exclusive = try container.decode(BookingFlexibleBool.self, forKey: .exclusive).value
         isGroup = try container.decode(BookingFlexibleBool.self, forKey: .isGroup).value
         usable = try container.decode(Bool.self, forKey: .usable)
-        limitInfo = try container.decodeIfPresent(String.self, forKey: .limitInfo) ?? ""
+        limitInfo = try container.decodeIfPresent(BookingLimitInfo.self, forKey: .limitInfo)?.message ?? ""
         let configuration = try container.decodeIfPresent(BookingResourceConfiguration.self, forKey: .config)
         requiredFields = configuration?.requiredFields ?? []
         introduction = configuration?.introduction
         bookingDescription = configuration?.description
         requiresCaptcha = configuration?.antiBot != 0
         serviceTimes = try container.decodeIfPresent([BookingServiceTime].self, forKey: .rule) ?? []
+    }
+}
+
+private struct BookingLimitInfo: Decodable {
+    let message: String
+
+    private enum CodingKeys: String, CodingKey {
+        case error
+    }
+
+    init(from decoder: Decoder) throws {
+        if let text = try? decoder.singleValueContainer().decode(String.self) {
+            message = text
+        } else {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            message = try container.decodeIfPresent(String.self, forKey: .error) ?? ""
+        }
     }
 }
 
@@ -395,12 +412,13 @@ public struct BookingAppointment: Identifiable, Decodable, Sendable {
     public let canCancel: Bool
 
     private enum CodingKeys: String, CodingKey {
-        case id, status, created, detail
+        case id, status, created
         case resourceID = "resource_id"
         case groupID = "group_id"
         case resourceName = "resource_name"
         case statusName = "status_name"
         case canCancel = "is_cancel"
+        case appointmentTime = "appointment_time"
     }
 
     public init(from decoder: Decoder) throws {
@@ -412,7 +430,11 @@ public struct BookingAppointment: Identifiable, Decodable, Sendable {
         status = try container.decode(Int.self, forKey: .status)
         statusName = try container.decode(String.self, forKey: .statusName)
         createdAt = try container.decode(String.self, forKey: .created)
-        detailByDate = try container.decode([String: [BookingAppointmentDetail]].self, forKey: .detail)
+        let appointmentTime = try container.decode(BookingAppointmentTime.self, forKey: .appointmentTime)
+        let periods = appointmentTime.groups.flatMap { group in
+            group.dates.flatMap(\.periods)
+        }
+        detailByDate = Dictionary(grouping: periods, by: \.date)
         canCancel = try container.decode(BookingFlexibleBool.self, forKey: .canCancel).value
     }
 
@@ -421,9 +443,20 @@ public struct BookingAppointment: Identifiable, Decodable, Sendable {
     }
 }
 
+private struct BookingAppointmentTime: Decodable {
+    let groups: [Group]
+
+    struct Group: Decodable {
+        let dates: [Day]
+    }
+
+    struct Day: Decodable {
+        let periods: [BookingAppointmentDetail]
+    }
+}
+
 public struct BookingAppointmentDetail: Identifiable, Decodable, Sendable {
     public let id: Int
-    public let appointmentID: Int
     public let date: String
     public let periodID: Int
     public let startTime: String
@@ -432,19 +465,18 @@ public struct BookingAppointmentDetail: Identifiable, Decodable, Sendable {
     public let canCancel: Bool
 
     private enum CodingKeys: String, CodingKey {
-        case id, date
-        case appointmentID = "appointment_id"
+        case date
+        case id = "detail_id"
         case periodID = "period_id"
         case startTime = "start_time"
         case endTime = "end_time"
         case displayTime = "str_time"
-        case canCancel = "is_cancel"
+        case canCancel = "can_cancel"
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
-        appointmentID = try container.decode(Int.self, forKey: .appointmentID)
         date = try container.decode(String.self, forKey: .date)
         periodID = try container.decode(Int.self, forKey: .periodID)
         startTime = try container.decode(String.self, forKey: .startTime)
