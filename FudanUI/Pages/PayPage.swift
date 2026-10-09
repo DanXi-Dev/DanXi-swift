@@ -164,6 +164,9 @@ struct PayPage: View {
             .padding(.top, 10)
             #endif
         }
+        #if !os(watchOS)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        #endif
         .alert(String(localized: "Terms not Agreed", bundle: .module), isPresented: $showTermsAlert) {
             Button {
                 openURL(URL(string: "https://ecard.fudan.edu.cn/epay/wxpage/fudan/zfm/qrcode")!)
@@ -182,7 +185,19 @@ struct PayPage: View {
         #if !os(watchOS)
         .navigationTitle(String(localized: "Fudan QR Code", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Fudan QR Code", bundle: .module)
+                    .font(.headline)
+                    .foregroundStyle(.black)
+            }
+        }
+        .background(Color.white.ignoresSafeArea())
+        .toolbarBackground(Color.white, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarColorScheme(.light, for: .navigationBar)
         #endif
+        .environment(\.colorScheme, .light)
         .onAppear {
             startRefreshing()
         }
