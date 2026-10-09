@@ -42,3 +42,18 @@ struct PinnedBooksTip: Tip {
         Text("Open pinned books without searching. Swipe right to remove one.", bundle: .module)
     }
 }
+
+@available(iOS 17.0, *)
+struct SwipeToCancelReservationTip: Tip {
+    var title: Text {
+        Text("Swipe Left to Cancel Reservation", bundle: .module)
+    }
+
+    var message: Text? {
+        Text("Swipe left on a cancellable reservation, then tap Cancel Reservation and confirm.", bundle: .module)
+    }
+
+    var image: Image? {
+        Image(systemName: "hand.draw")
+    }
+}
