@@ -1,29 +1,57 @@
 import Foundation
 import KeychainAccess
 
+public struct Credential: Equatable {
+    public let username: String
+    public let password: String
+
+    public init(username: String, password: String) {
+        self.username = username
+        self.password = password
+    }
+}
+
 public class CredentialStore {
     public static let shared = CredentialStore()
     
     private let keychain: Keychain
-    public var username: String? {
-        didSet { keychain["username"] = username }
+    public var credential: Credential? = nil {
+        didSet {
+            keychain["username"] = credential?.username
+            keychain["password"] = credential?.password
+        }
     }
-    public var password: String? {
-        didSet { keychain["password"] = password }
+
+    /// Optional account for eCard requests.
+    public private(set) var secondaryCredential: Credential? = nil
+
+    public func setSecondaryCredential(_ credential: Credential?) {
+        keychain["secondary-username"] = credential?.username
+        keychain["secondary-password"] = credential?.password
+        secondaryCredential = credential
     }
+
     public var studentType: StudentType {
         didSet { keychain["campus-student-type"] = String(studentType.rawValue) }
     }
-    
-    public var credentialPresent: Bool {
-        username != nil && password != nil
+
+    /// Select credentials using the original service URL, before any SSO redirect.
+    public func credentials(for url: URL) -> Credential? {
+        if url.host?.lowercased() == "ecard.fudan.edu.cn", let secondaryCredential {
+            return secondaryCredential
+        }
+        return credential
     }
     
     init() {
         let keychain = Keychain(service: "com.fduhole.fdutools", accessGroup: "group.com.fduhole.danxi")
         self.keychain = keychain
-        self.username = keychain["username"]
-        self.password = keychain["password"]
+        if let username = keychain["username"], let password = keychain["password"] {
+            self.credential = Credential(username: username, password: password)
+        }
+        if let username = keychain["secondary-username"], let password = keychain["secondary-password"] {
+            self.secondaryCredential = Credential(username: username, password: password)
+        }
         
         // Migrate from old student type stored in UserDefaults
         let userDefaults = UserDefaults.standard
@@ -35,15 +63,5 @@ public class CredentialStore {
         } else { // No migration needed
             self.studentType = StudentType(rawValue: Int(keychain["campus-student-type"] ?? "0") ?? 0) ?? .undergrad
         }
-    }
-    
-    func set(username: String, password: String) {
-        self.username = username
-        self.password = password
-    }
-    
-    func unset() {
-        self.username = nil
-        self.password = nil
     }
 }

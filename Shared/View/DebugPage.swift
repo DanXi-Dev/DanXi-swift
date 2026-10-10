@@ -1,4 +1,5 @@
 import SwiftUI
+import FudanKit
 import DanXiKit
 import DanXiUI
 import ViewUtils
@@ -58,6 +59,12 @@ struct DebugPage: View {
                     }
                     
                     Stepper("Watermark Opacity \(String(format: "%.3f", settings.watermarkOpacity))", value: settings.$watermarkOpacity, step: 0.002)
+
+                    NavigationLink {
+                        SecondaryCredentialPage()
+                    } label: {
+                        Text(verbatim: "Secondary Credential")
+                    }
                 }
             }
         }
@@ -67,6 +74,59 @@ struct DebugPage: View {
         }
         .alert("Reset URLs Success", isPresented: $resetURLSuccessAlert) {
             
+        }
+    }
+}
+
+private struct SecondaryCredentialPage: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var username: String
+    @State private var password: String
+
+    init() {
+        let credential = CredentialStore.shared.secondaryCredential
+        _username = State(initialValue: credential?.username ?? "")
+        _password = State(initialValue: credential?.password ?? "")
+    }
+
+    private func setCredential(_ credential: Credential?) {
+        CredentialStore.shared.setSecondaryCredential(credential)
+        Task {
+            await WalletStore.shared.clearCache()
+            dismiss()
+        }
+    }
+
+    var body: some View {
+        Form {
+            TextField(text: $username, prompt: Text(verbatim: "Username")) {
+                Text(verbatim: "Username")
+            }
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+
+            SecureField(text: $password, prompt: Text(verbatim: "Password")) {
+                Text(verbatim: "Password")
+            }
+
+            if CredentialStore.shared.secondaryCredential != nil {
+                Button(role: .destructive) {
+                    setCredential(nil)
+                } label: {
+                    Text(verbatim: "Clear Secondary Credential")
+                }
+            }
+        }
+        .navigationTitle(Text(verbatim: "Secondary Credential"))
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button {
+                    setCredential(Credential(username: username, password: password))
+                } label: {
+                    Text(verbatim: "Save")
+                }
+                .disabled(username.isEmpty || password.isEmpty)
+            }
         }
     }
 }

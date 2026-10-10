@@ -63,9 +63,9 @@ public enum AuthenticationAPI {
         return true
     }
 
-    public static func authenticate(_ url: URL) async throws -> (Data, URLResponse) {
+    public static func authenticate(_ url: URL, session: URLSession? = nil) async throws -> (Data, URLResponse) {
         let firstRequest = constructRequest(url)
-        let (firstData, firstResponse) = try await data(for: firstRequest)
+        let (firstData, firstResponse) = try await data(for: firstRequest, session: session)
 
         // already authenticated, no further action required
         if firstResponse.url?.host() == url.host() {
@@ -80,27 +80,27 @@ public enum AuthenticationAPI {
         // check if is already authenticated, and an authentication result is returned
         if let document = try? decodeHTMLDocument(firstData),
            let authenticationRequest = try? constructAuthenticationResultRequest(document: document) {
-            return try await data(for: authenticationRequest)
+            return try await data(for: authenticationRequest, session: session)
         }
 
         // full authentication process
-        let parameters = try await getParams(url: redirectedURL)
-        let publicKey = try await getPublicKey()
-        guard let username = CredentialStore.shared.username,
-              let password = CredentialStore.shared.password else {
+        let parameters = try await getParams(url: redirectedURL, session: session)
+        let publicKey = try await getPublicKey(session: session)
+        guard let credential = CredentialStore.shared.credentials(for: url) else {
             throw CampusError.credentialNotFound
         }
         guard let token = try await encryptAndSubmit(
             publicKey: publicKey,
             parameters: parameters,
-            username: username,
-            password: password
+            username: credential.username,
+            password: credential.password,
+            session: session
         ) else {
             throw CampusError.loginFailed
         }
-        let document = try await postJWToken(token: token)
+        let document = try await postJWToken(token: token, session: session)
         let authenticationRequest = try constructAuthenticationResultRequest(document: document)
-        let (data, response) = try await data(for: authenticationRequest)
+        let (data, response) = try await data(for: authenticationRequest, session: session)
         return (data, response)
     }
 
@@ -134,15 +134,14 @@ public enum AuthenticationAPI {
         } else {
             let parameters = try await getParams(url: redirectedURL, session: session)
             let publicKey = try await getPublicKey(session: session)
-            guard let username = CredentialStore.shared.username,
-                  let password = CredentialStore.shared.password else {
+            guard let credential = CredentialStore.shared.credentials(for: url) else {
                 throw CampusError.credentialNotFound
             }
             guard let token = try await encryptAndSubmit(
                 publicKey: publicKey,
                 parameters: parameters,
-                username: username,
-                password: password,
+                username: credential.username,
+                password: credential.password,
                 session: session
             ) else {
                 throw CampusError.loginFailed

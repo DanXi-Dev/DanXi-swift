@@ -22,7 +22,7 @@ public class CampusModel: ObservableObject {
     
     public init() {
         studentType = CredentialStore.shared.studentType
-        if CredentialStore.shared.username != nil {
+        if CredentialStore.shared.credential != nil {
             loggedIn = true
         } else {
             loggedIn = false
@@ -51,10 +51,10 @@ public class CampusModel: ObservableObject {
             guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
                 throw CampusError.loginFailed
             }
-            CredentialStore.shared.set(username: username, password: password)
+            CredentialStore.shared.credential = Credential(username: username, password: password)
             loggedIn = true
         } catch {
-            CredentialStore.shared.unset()
+            CredentialStore.shared.credential = nil
             loggedIn = false
             HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
             await Authenticator.shared.resetLoginStatus()
@@ -67,12 +67,12 @@ public class CampusModel: ObservableObject {
     /// - Warning:
     /// This may lead to following API calls to fail.
     public func forceLogin(username: String, password: String) {
-        CredentialStore.shared.set(username: username, password: password)
+        CredentialStore.shared.credential = Credential(username: username, password: password)
         loggedIn = true
     }
     
     public func logout() {
-        CredentialStore.shared.unset()
+        CredentialStore.shared.credential = nil
         loggedIn = false
         
         // remove all cookies

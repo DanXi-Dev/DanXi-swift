@@ -16,8 +16,13 @@ public actor Authenticator {
     /// (2 hours) to avoid hitting the auth center on every request.
     private var loginStatus: [String: Date]
 
+    /// The secondary account keeps its own cookies for both SSO and eCard.
+    private var secondarySession: URLSession?
+    private var activeSecondaryCredential: Credential?
+
     /// The host for the unified authentication center.
     private static let loginHost = "id.fudan.edu.cn"
+    private static let secondaryHost = "ecard.fudan.edu.cn"
 
     /// How long a successful login is considered valid for a given business host.
     private let loginValidity: TimeInterval = 2 * 60 * 60 // 2 hours
@@ -72,6 +77,18 @@ public actor Authenticator {
         return Date().timeIntervalSince(last) < loginValidity
     }
 
+    private func session(for url: URL) -> URLSession? {
+        guard url.host?.lowercased() == Self.secondaryHost else { return nil }
+        let credential = CredentialStore.shared.secondaryCredential
+        if credential != activeSecondaryCredential {
+            secondarySession?.invalidateAndCancel()
+            secondarySession = credential.map { _ in URLSession(configuration: .ephemeral) }
+            activeSecondaryCredential = credential
+            loginStatus.removeValue(forKey: Self.secondaryHost)
+        }
+        return secondarySession
+    }
+
     private func withSerialTask<T>(operation: @escaping () async throws -> T) async throws -> T {
         if let task = self.task { await task.value }
         let t = Task { try await operation() }
@@ -83,9 +100,10 @@ public actor Authenticator {
     /// Perform the SSO login against the authorization center.
     private func performAuthenticate(url: URL) async throws -> (Data, URLResponse) {
         guard let host = url.host() else { throw LocatableError() }
+        let session = session(for: url)
         
         let (data, response) = try await withSerialTask {
-            try await AuthenticationAPI.authenticate(url)
+            try await AuthenticationAPI.authenticate(url, session: session)
         }
 
         guard response.url?.host != Self.loginHost else {
@@ -98,7 +116,12 @@ public actor Authenticator {
 
     
     private func directFetch(request: URLRequest) async throws -> (Data, URLResponse)? {
-        let (data, response) = try await URLSession.campusSession.data(for: request)
+        let (data, response): (Data, URLResponse)
+        if let url = request.url, let session = session(for: url) {
+            (data, response) = try await session.data(for: request)
+        } else {
+            (data, response) = try await URLSession.campusSession.data(for: request)
+        }
 
         if response.url?.host != Self.loginHost {
             return (data, response)

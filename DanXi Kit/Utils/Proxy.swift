@@ -9,7 +9,7 @@ public class Proxy {
     public var outsideCampus = false
     
     public var shouldTryProxy: Bool {
-        ProxySettings.shared.enableProxy && FudanKit.CredentialStore.shared.credentialPresent
+        ProxySettings.shared.enableProxy && FudanKit.CredentialStore.shared.credential != nil
     }
     
     private func validateResponse(_ response: URLResponse) -> Bool {
