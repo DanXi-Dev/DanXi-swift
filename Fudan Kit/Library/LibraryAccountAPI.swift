@@ -160,7 +160,7 @@ private actor LibraryAccountSession {
     }
 
     private func accessToken() async throws -> String {
-        guard let username = CredentialStore.shared.username else {
+        guard let username = CredentialStore.shared.credential?.username else {
             throw CampusError.credentialNotFound
         }
         if tokenUsername == username, let token, tokenExpiry > Date().addingTimeInterval(60) {
