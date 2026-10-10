@@ -386,6 +386,31 @@ public enum UndergraduateCourseAPI {
     
     // MARK: - Score and GPA
 
+    /// Get semesters from the grade sheet, including those without timetable entries.
+    public static func getScoreSemesters() async throws -> ([Semester], Semester?) {
+        let studentId = try await getStudentId()
+        let url = URL(string: "https://fdjwgl.fudan.edu.cn/student/for-std/grade/sheet/semester-index/\(studentId)")!
+        let data = try await Authenticator.shared.authenticate(url, loginURL: loginURL)
+        let elements = try decodeHTMLElementList(data, selector: "select#semester option[value]")
+
+        let semesters: [Semester] = try elements.compactMap { element in
+            let text = try element.text()
+            guard let id = Int(try element.attr("value")),
+                  let yearStr = text.firstMatch(of: #/(\d{4})-\d{4}/#)?.1,
+                  let year = Int(yearStr) else { return nil }
+            let type: Semester.SemesterType =
+                if text.contains("1学期") { .first }
+                else if text.contains("2学期") { .second }
+                else if text.contains("暑") { .summer }
+                else if text.contains("寒") { .winter }
+                else { .first }
+
+            return Semester(year: year, type: type, semesterId: id, startDate: nil, weekCount: 18)
+        }.sorted(by: >)
+
+        return (semesters, semesters.first)
+    }
+
     /// Get  student ID from course table API
     private static func getStudentId() async throws -> String {
         let (_, semesterId) = try await getSemesters()
@@ -428,7 +453,7 @@ public enum UndergraduateCourseAPI {
 
                 let score = Score(
                     id: UUID(),
-                    courseId: scoreResponse.lessonCode,
+                    courseId: [scoreResponse.lessonCode, scoreResponse.courseCode].compactMap { $0 }.first { !$0.isEmpty },
                     courseName: scoreResponse.courseName,
                     courseType: courseTypeText,
                     courseCredit: nil,
@@ -444,7 +469,7 @@ public enum UndergraduateCourseAPI {
 
     private struct ScoreResponse: Decodable {
         let lessonCode: String?
-        let courseCode: String
+        let courseCode: String?
         let courseName: String
         let courseType: String?
         let courseModuleTypeName: String?
