@@ -19,7 +19,7 @@ struct ScorePage: View {
         AsyncContentView {
             let (semesters, currentSemester) = switch campusModel.studentType {
             case .undergrad:
-                try await UndergraduateCourseStore.shared.getRefreshedSemesters()
+                try await UndergraduateCourseAPI.getScoreSemesters()
             case .grad:
                 try await GraduateCourseStore.shared.getSemesterInfo()
             case .staff:
