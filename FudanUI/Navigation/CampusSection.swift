@@ -9,7 +9,11 @@ public enum CampusSection: String, Identifiable, Codable, CaseIterable {
     }
     
     static let allHidden: Set<CampusSection> = [.course]
+    #if os(watchOS)
+    static let temporarilyHidden: Set<CampusSection> = [.playground, .library, .book]
+    #else
     static let temporarilyHidden: Set<CampusSection> = []
+    #endif
     static let gradHidden: Set<CampusSection> = [.sport, .rank, .exam]
     static let staffHidden: Set<CampusSection> = [.sport, .rank, .score, .electricity, .exam]
     static let pinnable: Set<CampusSection> = [.wallet, .electricity, .announcenemnt, .schoolbus]
@@ -84,7 +88,11 @@ extension CampusSection {
         case .rank:
             RankPage()
         case .playground:
+            #if os(watchOS)
+            EmptyView()
+            #else
             ReservationPage()
+            #endif
         case .classroom:
             ClassroomPage()
         case .electricity:
@@ -92,9 +100,17 @@ extension CampusSection {
         case .announcenemnt:
             AnnouncementPage()
         case .library:
+            #if os(watchOS)
+            EmptyView()
+            #else
             LibraryPage()
+            #endif
         case .book:
+            #if os(watchOS)
+            EmptyView()
+            #else
             BookSearchPage()
+            #endif
         case .canteen:
             CanteenPage()
         case .exam:

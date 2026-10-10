@@ -28,7 +28,9 @@ struct LibraryLoansPage: View {
                 Text("Current", bundle: .module).tag(Range.current)
                 Text("History", bundle: .module).tag(Range.history)
             }
+            #if !os(watchOS)
             .pickerStyle(.segmented)
+            #endif
             .padding()
 
             List {
@@ -151,7 +153,9 @@ struct LibraryRequestsPage: View {
                 Text("Current", bundle: .module).tag(LibraryRequestRange.current)
                 Text("History", bundle: .module).tag(LibraryRequestRange.history)
             }
+            #if !os(watchOS)
             .pickerStyle(.segmented)
+            #endif
             .padding()
 
             List {
