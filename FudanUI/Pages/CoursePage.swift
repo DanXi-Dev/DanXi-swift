@@ -525,7 +525,7 @@ fileprivate struct ExportSheet: View {
     }
 }
 
-fileprivate struct CalendarChooserSheet: UIViewControllerRepresentable {
+struct CalendarChooserSheet: UIViewControllerRepresentable {
     @Binding var selectedCalendar: EKCalendar?
     @Environment(\.dismiss) private var dismiss
     let eventStore: EKEventStore
