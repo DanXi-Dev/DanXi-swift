@@ -39,6 +39,14 @@ public enum ForumAPI {
         }
         return try await requestWithResponse("/divisions/\(divisionId)/holes", base: forumURL, params: params)
     }
+
+    public static func listHoles(startTime: Date? = nil, order: String = "time_updated") async throws -> [Hole] {
+        var params = ["order": order]
+        if let time = startTime {
+            params["offset"] = time.ISO8601Format()
+        }
+        return try await requestWithResponse("/holes/_homepage", base: forumURL, params: params)
+    }
     
     public static func createHole(content: String, divisionId: Int, tags: [String], specialTag: String = "") async throws -> Hole {
         let tagsPayload = tags.map { ["name": $0] }

@@ -2,9 +2,12 @@ import SwiftUI
 import DanXiKit
 
 class BrowseModel: ObservableObject {
+    @AppStorage("forum-browse-option") private var savedBrowseOption = BrowseOption.division
+
     @MainActor
     init(division: Division) {
         self.division = division
+        self.browseOption = savedBrowseOption
     }
     
     // MARK: - Divisions
@@ -22,6 +25,11 @@ class BrowseModel: ObservableObject {
         case replyTime
         case createTime
     }
+
+    enum BrowseOption: String {
+        case division
+        case sitewide
+    }
     
     /// Fetch the first page before replacing the list, instead of emptying it and loading again.
     /// Otherwise the list collapses and refills while the refresh control is still animating back,
@@ -34,7 +42,7 @@ class BrowseModel: ObservableObject {
                 self.division = currentDivision
             }
         }
-        let newHoles = try await ForumAPI.listHolesInDivision(divisionId: division.id, startTime: baseDate, order: sortOption == .replyTime ? "time_updated" : "time_created")
+        let newHoles = try await listHoles(startTime: baseDate)
         let filteredHoles = filterAndConstructHoles(holes: newHoles)
         await MainActor.run {
             guard configurationId == self.configurationId else { return } // configuration changed during refresh
@@ -49,6 +57,13 @@ class BrowseModel: ObservableObject {
     
     @Published var sortOption = SortOption.replyTime {
         didSet {
+            resetHoleList()
+        }
+    }
+
+    @Published var browseOption = BrowseOption.division {
+        didSet {
+            savedBrowseOption = browseOption
             resetHoleList()
         }
     }
@@ -81,6 +96,16 @@ class BrowseModel: ObservableObject {
         let filtered = holes.filter { !currentIds.contains($0.id) }
         self.holes += filtered
     }
+
+    private func listHoles(startTime: Date?) async throws -> [Hole] {
+        let order = sortOption == .replyTime ? "time_updated" : "time_created"
+        switch browseOption {
+        case .division:
+            return try await ForumAPI.listHolesInDivision(divisionId: division.id, startTime: startTime, order: order)
+        case .sitewide:
+            return try await ForumAPI.listHoles(startTime: startTime, order: order)
+        }
+    }
     
     private func filterAndConstructHoles(holes: [Hole]) -> [HolePresentation] {
         holes.compactMap { hole in
@@ -94,7 +119,7 @@ class BrowseModel: ObservableObject {
             }
             
             // filter pinned hole
-            if division.pinned.map(\.id).contains(hole.id) {
+            if browseOption == .division && division.pinned.map(\.id).contains(hole.id) {
                 return nil
             }
             
@@ -119,12 +144,12 @@ class BrowseModel: ObservableObject {
         var startTime: Date? = baseDate
         
         repeat {
-            let newHoles = try await ForumAPI.listHolesInDivision(divisionId: division.id, startTime: startTime, order: sortOption == .replyTime ? "time_updated" : "time_created")
+            let newHoles = try await listHoles(startTime: startTime)
+            guard configurationId == self.configurationId else { return }
             if newHoles.isEmpty {
                 await setEndReached(true)
                 return
             }
-            guard configurationId == self.configurationId else { return }
             startTime = sortOption == .replyTime ? newHoles.last?.timeUpdated : newHoles.last?.timeCreated
             let filteredHoles = filterAndConstructHoles(holes: newHoles)
             await insertHoles(holes: filteredHoles)
