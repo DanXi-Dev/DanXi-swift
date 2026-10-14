@@ -468,6 +468,16 @@
         }
       }
     },
+    "Browse Options" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浏览选项"
+          }
+        }
+      }
+    },
     "Campus" : {
       "localizations" : {
         "zh-Hans" : {
@@ -1206,6 +1216,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "院系"
+          }
+        }
+      }
+    },
+    "Division" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分区"
           }
         }
       }
@@ -3295,6 +3315,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "单选题"
+          }
+        }
+      }
+    },
+    "Sitewide" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全站"
           }
         }
       }

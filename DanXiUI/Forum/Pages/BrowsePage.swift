@@ -44,15 +44,19 @@ struct BrowsePage: View {
             ForumList {
                 EmptyView().id("forum-top")
                 
-                divisionPicker
-                    .cardAlignedRow(bottom: 11, legacyInsets: EdgeInsets(.all, 0)) // keeps the cards clear of the picker
+                if model.browseOption == .division {
+                    divisionPicker
+                        .cardAlignedRow(bottom: 11, legacyInsets: EdgeInsets(.all, 0)) // keeps the cards clear of the picker
+                }
 
                 forumSection {
                     BannerCarousel()
                         .bannerCard()
                 }
                 
-                bannedNotice
+                if model.browseOption == .division {
+                    bannedNotice
+                }
                 
                 if #available(iOS 17.0, *){
                     TipView(changeVisibilityTip){
@@ -65,7 +69,7 @@ struct BrowsePage: View {
                     .cardAlignedRow()
                 }
                 
-                if !model.division.pinned.isEmpty {
+                if model.browseOption == .division && !model.division.pinned.isEmpty {
                     ForEach(model.division.pinned) { hole in
                         forumSection {
                             HoleView(presentation: HolePresentation(hole: hole), pinned: true, allowDrag: homeHoleAllowsDrag, rowInsets: homeHoleInsets)
@@ -97,7 +101,7 @@ struct BrowsePage: View {
         }
         .watermark()
         .animation(.default, value: model.division)
-        .navigationTitle(model.division.name)
+        .navigationTitle(model.browseOption == .division ? model.division.name : String(localized: "Forum", bundle: .module))
         .refreshable {
             try? await withHaptics(success: false) {
                 try await model.refresh()
@@ -206,7 +210,7 @@ struct BrowsePage: View {
     
     @ViewBuilder
     private var adminActions: some View {
-        if profileStore.isAdmin {
+        if profileStore.isAdmin && model.browseOption == .division {
             Divider()
             
             Menu {
@@ -238,6 +242,16 @@ struct BrowsePage: View {
                 .tag(BrowseModel.SortOption.createTime)
         } label: {
             Label(String(localized: "Sort By", bundle: .module), systemImage: "arrow.up.arrow.down")
+        }
+        .pickerStyle(.menu)
+
+        Picker(selection: $model.browseOption) {
+            Text("Division", bundle: .module)
+                .tag(BrowseModel.BrowseOption.division)
+            Text("Sitewide", bundle: .module)
+                .tag(BrowseModel.BrowseOption.sitewide)
+        } label: {
+            Label(String(localized: "Browse Options", bundle: .module), systemImage: "rectangle.3.group")
         }
         .pickerStyle(.menu)
         
