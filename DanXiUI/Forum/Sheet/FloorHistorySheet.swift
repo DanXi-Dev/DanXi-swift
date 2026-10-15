@@ -1,7 +1,6 @@
 import SwiftUI
 import ViewUtils
 import DanXiKit
-import MarkdownUI
 
 struct FloorHistorySheet: View {
     struct AdministritiveInformation {
@@ -163,7 +162,7 @@ private struct HistorySheetItem: View {
             
             // TODO: sensitive
             
-            CustomMarkdown(MarkdownContent(history.content))
+            CustomMarkdown(history.content)
                 .foregroundColor(.primary)
             
             HStack {

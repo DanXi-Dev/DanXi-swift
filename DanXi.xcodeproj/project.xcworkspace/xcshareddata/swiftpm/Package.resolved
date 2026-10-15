@@ -1,5 +1,5 @@
 {
-  "originHash" : "64d816eb312da42c264ad3a52120a926a2943122e6d6bb87e752bf5b49ea89e3",
+  "originHash" : "246f9ea236ed047511666b0b38a2b753a97632104e638bedc47c63f90e8adf38",
   "pins" : [
     {
       "identity" : "bettersafariview",
@@ -38,15 +38,6 @@
       }
     },
     {
-      "identity" : "latexswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/colinc86/LaTeXSwiftUI",
-      "state" : {
-        "revision" : "c45e0fd45f64923c49c5904a9f9626bc8939f05f",
-        "version" : "1.5.0"
-      }
-    },
-    {
       "identity" : "mathjaxswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/colinc86/MathJaxSwift",
@@ -78,26 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swiftlang/swift-cmark",
       "state" : {
-        "revision" : "b022b08312decdc46585e0b3440d97f6f22ef703",
-        "version" : "0.6.0"
-      }
-    },
-    {
-      "identity" : "swift-html-entities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Kitura/swift-html-entities",
-      "state" : {
-        "revision" : "d8ca73197f59ce260c71bd6d7f6eb8bbdccf508b",
-        "version" : "4.0.1"
-      }
-    },
-    {
-      "identity" : "swift-markdown-ui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gonzalezreal/swift-markdown-ui",
-      "state" : {
-        "revision" : "5f613358148239d0292c0cef674a3c2314737f9e",
-        "version" : "2.4.1"
+        "revision" : "08ddb528923cc1a6527e02b7a1aee9e516ca749a",
+        "version" : "0.9.0"
       }
     },
     {
@@ -107,15 +80,6 @@
       "state" : {
         "revision" : "d1605333f7edac39b4518538ef4f2638fdd2e4d6",
         "version" : "2.3.1"
-      }
-    },
-    {
-      "identity" : "swiftdraw",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swhitty/SwiftDraw",
-      "state" : {
-        "revision" : "2a36e6ce369cbecdd031ee95f5b5b3faa69ef50f",
-        "version" : "0.21.0"
       }
     },
     {

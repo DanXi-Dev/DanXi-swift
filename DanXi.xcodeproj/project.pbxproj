@@ -146,6 +146,8 @@
 		F165C50728D1882C0000DB6F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F165C50928D1882C0000DB6F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F1A762D52BAFD1B7001E5D08 /* WelcomeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSheet.swift; sourceTree = "<group>"; };
+		F0DA00012D01ABCD00000004 /* swift-markdown-ui */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "swift-markdown-ui"; sourceTree = "<group>"; };
+		F0DA00012D01ABCD00000005 /* SwiftDraw */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SwiftDraw; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F0DA00012D01ABCD00000006 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				F0DA00012D01ABCD00000004 /* swift-markdown-ui */,
+				F0DA00012D01ABCD00000005 /* SwiftDraw */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		274C197129D1BF9B000DE221 /* watchOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +292,7 @@
 				27DD19B22BA5C16900B75643 /* Fudan Kit */,
 				270CD1902BAD68C900881ABA /* View Utils */,
 				27C68CB12BB563A100037D52 /* Utils */,
+				F0DA00012D01ABCD00000006 /* Vendor */,
 			);
 			sourceTree = "<group>";
 		};

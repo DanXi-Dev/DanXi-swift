@@ -1,6 +1,5 @@
-import SwiftUI
+import Foundation
 import DanXiKit
-import MarkdownUI
 
 struct FloorPresentation: Identifiable {
     init(floor: Floor, storey: Int, floors: [Floor] = []) {
@@ -23,7 +22,7 @@ struct FloorPresentation: Identifiable {
 enum FloorSection {
     case localMention(Floor)
     case remoteMention(Mention)
-    case text(MarkdownContent)
+    case text(MarkdownDocument)
 }
 
 /// Normalizes downloaded floor content to Unix LF line endings before other preprocessing.
@@ -37,70 +36,45 @@ func normalizeLineEndings(content: String) -> String {
         .replacingOccurrences(of: "\r", with: "\n")
 }
 
-func convertInlineImages(content: String) -> String {
-    var modifiedContent = content
-    let pattern = /!\[[^\]]*\]\((?<filename>https?:\/\/.*?)(?=\"|\))(?<optionalpart>\".*\")?\)/
-    modifiedContent.replace(pattern) { match in
-        "\n\n\(content[match.range])\n\n"
-    }
-    return modifiedContent
-}
-
 /// This is a temporary fix for issue #201 by removing deep quotes
 func temporaryFixForContentOverflow(_ content: String) -> String {
-    let pattern = "^(>){4,}"
-    guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
-        return content
+    let protected = MarkdownSource(content)
+    var result = content
+    for match in content.matches(of: /(?m)^>{4,}/).reversed() {
+        guard !protected.protects(match.range) else { continue }
+        result.replaceSubrange(match.range, with: ">>>")
     }
-    let lines = content.components(separatedBy: "\n")
-    let processedLines = lines.map { line -> String in
-        return regex.stringByReplacingMatches(in: line, options: [], range: NSRange(location: 0, length: line.utf16.count), withTemplate: ">>>")
-    }
-    return processedLines.joined(separator: "\n")
+    return result
 }
 
 func preprocessFloorContent(content: String) -> String {
-    let normalizedContent = normalizeLineEndings(content: content)
-    let overflowFixedContent = temporaryFixForContentOverflow(normalizedContent)
-    return convertInlineImages(content: overflowFixedContent)
+    temporaryFixForContentOverflow(normalizeLineEndings(content: content))
 }
 
 func parseFloorContent(content: String, mentions: [Mention], floors: [Floor]) -> [FloorSection] {
-    var partialContent = preprocessFloorContent(content: content)
+    let source = preprocessFloorContent(content: content)
+    let protected = MarkdownSource(source)
     var sections: [FloorSection] = []
-    var count = 0
-    
-    while let match = partialContent.firstMatch(of: /(?<prefix>#{1,2})(?<id>\d+)/) {
-        // first part of text
-        let previous = String(partialContent[partialContent.startIndex..<match.range.lowerBound])
-        if !previous.isEmpty {
-            count += 1
-            let markdown = MarkdownContent(previous)
-            sections.append(.text(markdown))
+    var start = source.startIndex
+    for match in source.matches(of: /(?<prefix>#{1,2})(?<id>\d+)/) {
+        guard !protected.protects(match.range) else { continue }
+        let section: FloorSection?
+        if match.prefix == "##", let id = Int(match.id) {
+            if let floor = floors.first(where: { $0.id == id }) { section = .localMention(floor) }
+            else if let mention = mentions.first(where: { $0.floorId == id }) { section = .remoteMention(mention) }
+            else { section = nil }
+        } else if let id = Int(match.id), let mention = mentions.first(where: { $0.holeId == id }) {
+            section = .remoteMention(mention)
+        } else { section = nil }
+        // Unknown references are still source text; never eat #123 or a CSS color.
+        guard let section else { continue }
+        if start < match.range.lowerBound {
+            sections.append(.text(MarkdownDocument(String(source[start..<match.range.lowerBound]))))
         }
-        
-        // match
-        if match.prefix == "##" { // floor match
-            let floorId = Int(match.id)
-            if let floor = floors.filter({ $0.id == floorId }).first {
-                count += 1
-                sections.append(.localMention(floor))
-            } else if let mention = mentions.filter({ $0.floorId == floorId }).first {
-                count += 1
-                sections.append(.remoteMention(mention))
-            }
-        } else if let holeId = Int(match.id) { // hole match
-            if let mention = mentions.filter({ $0.holeId == holeId }).first {
-                count += 1
-                sections.append(.remoteMention(mention))
-            }
-        }
-        
-        // cut
-        partialContent = String(partialContent[match.range.upperBound..<partialContent.endIndex])
+        sections.append(section)
+        start = match.range.upperBound
     }
-    
-    sections.append(.text(MarkdownContent(partialContent)))
+    if start < source.endIndex { sections.append(.text(MarkdownDocument(String(source[start...])))) }
     return sections
 }
 
@@ -119,14 +93,10 @@ func parseFloorImageURLs(content: String) -> [URL] {
 }
 
 func parseFirstMention(content: String) -> Int? {
-    let pattern = #/
-        \#\#
-        (?<id> \d+)
-    /#
-    if let result = content.firstMatch(of: pattern) {
-        return Int(result.id)
-    }
-    return nil
+    let protected = MarkdownSource(content)
+    return content.matches(of: /##(?<id>\d+)/)
+        .first(where: { !protected.protects($0.range) })
+        .flatMap { Int($0.id) }
 }
 
 extension Floor {
