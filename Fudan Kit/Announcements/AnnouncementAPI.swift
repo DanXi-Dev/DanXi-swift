@@ -61,6 +61,38 @@ public enum AnnouncementAPI {
     static let undergraduateAnnouncementURL = URL(string: "https://jwc.fudan.edu.cn")!
     static let postgraduateAnnouncementURL = URL(string: "https://gs.fudan.edu.cn")!
     
+    /// Prepare an undergraduate announcement URL for Safari's own session.
+    public static func prepareURLforSafari(_ url: URL) async throws -> URL {
+        let session = URLSession(configuration: .ephemeral)
+        defer { session.invalidateAndCancel() }
+
+        let authenticationURL = try await AuthenticationAPI.authenticateForURL(url, session: session)
+
+        // The website SSO gateway needs the cookies set by its /login request
+        // (callbackUrl, redirectUrl and natsKey). Finish that hop in this session,
+        // but leave the business site's ticket unconsumed for Safari.
+        if authenticationURL.host == "xxb.fudan.edu.cn",
+           authenticationURL.path == "/loginCallback" {
+            let (_, response) = try await session.data(
+                for: constructRequest(authenticationURL),
+                delegate: AnnouncementRedirectStopper()
+            )
+            guard let response = response as? HTTPURLResponse,
+                  (300..<400).contains(response.statusCode),
+                  let location = response.value(forHTTPHeaderField: "Location"),
+                  let callbackURL = URL(string: location, relativeTo: authenticationURL)?.absoluteURL,
+                  callbackURL.scheme == "https",
+                  callbackURL.host == url.host,
+                  callbackURL.path == "/_callback",
+                  let components = URLComponents(url: callbackURL, resolvingAgainstBaseURL: false),
+                  components.queryItems?.contains(where: { $0.name == "ticket" && !($0.value ?? "").isEmpty }) == true else {
+                throw CampusError.loginFailed
+            }
+            return callbackURL
+        }
+        return authenticationURL
+    }
+
     public static func getUndergraduateAnnouncement(page: Int) async throws -> [Announcement] {
         let (data, _) = try await URLSession.campusSession.data(from: undergraduateAnnouncementURL.appending(path: "/9397/list\(page).htm"))
         let elements = try decodeHTMLElementList(data, selector: ".wp_article_list_table > tbody > tr > td > table > tbody > tr:nth-child(1)")
@@ -110,5 +142,17 @@ public enum AnnouncementAPI {
         }
 
         return announcements
+    }
+}
+
+private final class AnnouncementRedirectStopper: NSObject, URLSessionTaskDelegate {
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping (URLRequest?) -> Void
+    ) {
+        completionHandler(nil)
     }
 }

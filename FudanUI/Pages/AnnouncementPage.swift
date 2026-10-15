@@ -9,7 +9,6 @@ import BetterSafariView
 struct AnnouncementPage: View {
     @Environment(\.openURL) private var openURL
     @ObservedObject private var campusModel = CampusModel.shared
-    @State private var authenticated = false
     @State private var page = 1
     @State private var presentLink: AuthenticatedLink?
     
@@ -35,14 +34,15 @@ struct AnnouncementPage: View {
             #endif
         }
         
-        if authenticated || !needAuthenticate {
+        if !needAuthenticate {
             present(url: announcement.link)
             return
         }
         
+        // Issuing a callback does not confirm that Safari consumed it or that
+        // its session is still valid when another announcement is opened.
         do {
-            let url = try await AuthenticationAPI.authenticateForURL(announcement.link)
-            self.authenticated = true
+            let url = try await AnnouncementAPI.prepareURLforSafari(announcement.link)
             present(url: url)
         } catch {
             present(url: announcement.link)

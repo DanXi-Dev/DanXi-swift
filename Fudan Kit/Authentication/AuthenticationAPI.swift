@@ -111,7 +111,12 @@ public enum AuthenticationAPI {
     public static func authenticateForURL(_ url: URL) async throws -> URL {
         let session = URLSession(configuration: .ephemeral)
         defer { session.invalidateAndCancel() }
+        return try await authenticateForURL(url, session: session)
+    }
 
+    /// Return ID's callback without consuming its ticket. The caller owns the
+    /// session and can use it to finish any service-specific authentication hops.
+    public static func authenticateForURL(_ url: URL, session: URLSession) async throws -> URL {
         let firstRequest = constructRequest(url)
         let (firstData, firstResponse) = try await data(for: firstRequest, session: session)
 
