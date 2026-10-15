@@ -1,3 +1,4 @@
+// DanXi local fork: use CoreText fallback run fonts for glyph paths (2026-10-15).
 //
 //  CGPath+Segment.swift
 //  SwiftDraw
@@ -134,6 +135,9 @@ extension String {
     for idx in 0..<CFArrayGetCount(glyphRuns) {
       let val = CFArrayGetValueAtIndex(glyphRuns, idx)
       let run = unsafeBitCast(val, to: CTRun.self)
+      // Glyph IDs belong to the actual fallback font selected by CoreText.
+      let runAttributes = CTRunGetAttributes(run) as NSDictionary
+      let runFont = runAttributes[kCTFontAttributeName] as! CTFont
 
       for idx in 0..<CTRunGetGlyphCount(run) {
         let glyphRange = CFRange(location: idx, length: 1)
@@ -142,7 +146,7 @@ extension String {
         CTRunGetGlyphs(run, glyphRange, &glyph)
         CTRunGetPositions(run, glyphRange, &position)
         var t = CGAffineTransform.identity
-        if let glyphPath = CTFontCreatePathForGlyph(font, glyph, &t) {
+        if let glyphPath = CTFontCreatePathForGlyph(runFont, glyph, &t) {
           let t = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: position.x, ty: baseline)
           let t1 = t.translatedBy(x: 0, y: baseline)
           path.addPath(glyphPath, transform: t1)

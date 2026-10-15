@@ -50,7 +50,8 @@ struct ImageView: View {
 
 extension ImageView {
   init?(_ inlines: [InlineNode]) {
-    guard inlines.count == 1, let data = inlines.first?.imageData else {
+    guard inlines.count == 1, let data = inlines.first?.imageData,
+      !data.source.hasPrefix("markdown-inline:") else {
       return nil
     }
     self.init(data: data)

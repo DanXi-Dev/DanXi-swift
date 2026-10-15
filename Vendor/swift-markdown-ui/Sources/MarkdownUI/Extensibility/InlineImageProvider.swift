@@ -13,4 +13,15 @@ public protocol InlineImageProvider {
   ///   - url: The URL of the image to display.
   ///   - label: The accessibility label associated with the image.
   func image(with url: URL, label: String) async throws -> Image
+
+  /// A baseline-aware attachment. Existing image providers need no changes.
+  func attachment(with url: URL, label: String, fontSize: CGFloat,
+                  displayScale: CGFloat, colorScheme: ColorScheme) async throws -> Text
+}
+
+public extension InlineImageProvider {
+  func attachment(with url: URL, label: String, fontSize: CGFloat,
+                  displayScale: CGFloat, colorScheme: ColorScheme) async throws -> Text {
+    Text(try await image(with: url, label: label))
+  }
 }

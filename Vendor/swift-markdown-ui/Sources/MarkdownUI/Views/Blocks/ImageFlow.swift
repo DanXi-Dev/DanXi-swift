@@ -41,9 +41,11 @@ extension ImageFlow {
       case .lineBreak:
         items.append(.lineBreak)
       case let .image(source, children):
+        guard !source.hasPrefix("markdown-inline:") else { return nil }
         items.append(.image(.init(source: source, alt: children.renderPlainText())))
       case let .link(destination, children) where children.count == 1:
-        guard var data = children.first?.imageData else {
+        guard var data = children.first?.imageData,
+          !data.source.hasPrefix("markdown-inline:") else {
           return nil
         }
         data.destination = destination

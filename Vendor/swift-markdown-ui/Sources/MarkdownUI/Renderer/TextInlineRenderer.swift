@@ -4,7 +4,7 @@ extension Sequence where Element == InlineNode {
   func renderText(
     baseURL: URL?,
     textStyles: InlineTextStyles,
-    images: [String: Image],
+    images: [String: Text],
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer
   ) -> Text {
@@ -25,15 +25,15 @@ private struct TextInlineRenderer {
 
   private let baseURL: URL?
   private let textStyles: InlineTextStyles
-  private let images: [String: Image]
+  private let images: [String: Text]
   private let softBreakMode: SoftBreak.Mode
-  private let attributes: AttributeContainer
+  private var attributes: AttributeContainer
   private var shouldSkipNextWhitespace = false
 
   init(
     baseURL: URL?,
     textStyles: InlineTextStyles,
-    images: [String: Image],
+    images: [String: Text],
     softBreakMode: SoftBreak.Mode,
     attributes: AttributeContainer
   ) {
@@ -58,11 +58,31 @@ private struct TextInlineRenderer {
       self.renderSoftBreak()
     case .html(let content):
       self.renderHTML(content)
-    case .image(let source, _):
-      self.renderImage(source)
+    case .image(let source, let children):
+      if self.images[source] != nil { self.renderImage(source) }
+      else { self.renderText(children.renderPlainText()) }
+    case .emphasis(let children):
+      self.render(children, style: self.textStyles.emphasis)
+    case .strong(let children):
+      self.render(children, style: self.textStyles.strong)
+    case .strikethrough(let children):
+      self.render(children, style: self.textStyles.strikethrough)
+    case .link(let destination, let children):
+      let saved = self.attributes
+      self.textStyles.link._collectAttributes(in: &self.attributes)
+      self.attributes.link = URL(string: destination, relativeTo: self.baseURL)
+      self.render(children)
+      self.attributes = saved
     default:
       self.defaultRender(inline)
     }
+  }
+
+  private mutating func render(_ children: [InlineNode], style: TextStyle) {
+    let saved = self.attributes
+    style._collectAttributes(in: &self.attributes)
+    self.render(children)
+    self.attributes = saved
   }
 
   private mutating func renderText(_ text: String) {
@@ -102,7 +122,7 @@ private struct TextInlineRenderer {
 
   private mutating func renderImage(_ source: String) {
     if let image = self.images[source] {
-      self.result = self.result + Text(image)
+      self.result = self.result + image
     }
   }
 

@@ -97,6 +97,40 @@ public struct MarkdownContent: Equatable, MarkdownContentProtocol {
     self.init(blocks: content().blocks)
   }
 
+  /// Separates opaque block attachments after parsing, including inside lists and quotes.
+  /// Inline attachments remain part of the original paragraph and its text styles.
+  public func separatingImages(where isBlockImage: (String) -> Bool) -> MarkdownContent {
+    .init(blocks: self.blocks.rewrite { (block: BlockNode) -> [BlockNode] in
+      guard case .paragraph(let content) = block else { return [block] }
+      guard content.contains(where: { $0.imageData.map { isBlockImage($0.source) } ?? false }) else {
+        return [block]
+      }
+      func whitespace(_ inline: InlineNode) -> Bool {
+        switch inline {
+        case .softBreak, .lineBreak: return true
+        case .text(let text): return text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        default: return false
+        }
+      }
+      var result: [BlockNode] = []
+      var pending: [InlineNode] = []
+      func flush() {
+        while let first = pending.first, whitespace(first) { pending.removeFirst() }
+        while let last = pending.last, whitespace(last) { pending.removeLast() }
+        if !pending.isEmpty { result.append(.paragraph(content: pending)) }
+        pending = []
+      }
+      for inline in content {
+        if let image = inline.imageData, isBlockImage(image.source) {
+          flush()
+          result.append(.paragraph(content: [inline]))
+        } else { pending.append(inline) }
+      }
+      flush()
+      return result
+    })
+  }
+
   /// Renders this Markdown content value as a Markdown-formatted text.
   public func renderMarkdown() -> String {
     let result = self.blocks.renderMarkdown()
