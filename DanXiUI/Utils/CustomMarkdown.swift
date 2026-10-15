@@ -101,12 +101,12 @@ struct ImageProviderWithSticker: InlineImageProvider {
             return prepared
         }
         let sticker = try await loadedSticker(with: url)
-        return Text(sticker.image)
+        return Text(StickerLayout.inlineImage(sticker.uiImage, fontSize: fontSize))
     }
 
     func image(with url: URL, label: String) async throws -> Image {
         let sticker = try await loadedSticker(with: url)
-        return sticker.image
+        return StickerLayout.inlineImage(sticker.uiImage, fontSize: 16)
     }
 
     private func loadedSticker(with url: URL) async throws -> LoadedImage {
@@ -128,7 +128,11 @@ struct CustomImageProvider: ImageProvider {
                 if let expression = MathExpression(url: url) {
                     MathBlockView(expression: expression, rendered: math[expression])
                 } else if let loadedImage = StickerStore.shared.stickerImage[url.absoluteString] {
+                    let size = StickerLayout.size(loadedImage.uiImage.size, maximumDimension: 160)
                     loadedImage.image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: size.width, maxHeight: size.height)
                 } else if Proxy.shared.shouldTryProxy, Proxy.shared.outsideCampus {
                     ImageView(url, proxiedURL: Proxy.shared.createProxiedURL(url: url))
                 } else {
@@ -141,6 +145,28 @@ struct CustomImageProvider: ImageProvider {
     }
 }
 
+
+/// Bound presentation independently of the dimensions stored in the sticker cache.
+enum StickerLayout {
+    static func size(_ original: CGSize, maximumDimension: CGFloat) -> CGSize {
+        guard original.width > 0, original.height > 0,
+              original.width.isFinite, original.height.isFinite,
+              maximumDimension > 0, maximumDimension.isFinite else { return .zero }
+        let factor = min(1, maximumDimension / max(original.width, original.height))
+        return CGSize(width: original.width * factor, height: original.height * factor)
+    }
+
+    static func inlineImage(_ image: UIImage, fontSize: CGFloat) -> Image {
+        let size = size(image.size, maximumDimension: min(128, fontSize * 4))
+        guard let cgImage = image.cgImage, size.width > 0 else {
+            return Image(systemName: "photo")
+        }
+        // Adjust logical size without allocating or drawing a new bitmap.
+        let scale = image.scale * image.size.width / size.width
+        let bounded = UIImage(cgImage: cgImage, scale: scale, orientation: image.imageOrientation)
+        return Image(uiImage: bounded).renderingMode(.original)
+    }
+}
 
 func replaceMarkdownTags(_ content: String) -> String {
     var markdown = content
