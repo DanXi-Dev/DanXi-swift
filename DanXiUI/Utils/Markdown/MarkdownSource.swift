@@ -7,7 +7,9 @@ struct MathExpression: Codable, Hashable {
     let display: Bool
 
     var url: URL {
-        let data = try! JSONEncoder().encode(self)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        let data = try! encoder.encode(self)
         let token = data.base64EncodedString().replacingOccurrences(of: "+", with: "-")
             .replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
         return URL(string: "\(display ? "markdown-block" : "markdown-inline")://math/\(token)")!

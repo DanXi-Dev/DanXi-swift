@@ -36,6 +36,25 @@ actor MathRenderer {
         }
     }
 
+    func renderAll(_ expressions: [MathExpression], fontSize: CGFloat,
+                   displayScale: CGFloat, dark: Bool) async throws -> [MathExpression: RenderedMath] {
+        var result: [MathExpression: RenderedMath] = [:]
+        for expression in Set(expressions) {
+            try Task.checkCancellation()
+            do {
+                result[expression] = try render(expression, fontSize: fontSize,
+                                                displayScale: displayScale, dark: dark)
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch {
+                // A failed formula has a final source-text fallback; do not retry from the view.
+            }
+            await Task.yield()
+        }
+        try Task.checkCancellation()
+        return result
+    }
+
     func render(_ expression: MathExpression, fontSize: CGFloat,
                 displayScale: CGFloat, dark: Bool) throws -> RenderedMath {
         try Task.checkCancellation()

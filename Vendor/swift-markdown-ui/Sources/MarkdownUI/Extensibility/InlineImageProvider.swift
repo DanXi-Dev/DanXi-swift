@@ -14,12 +14,17 @@ public protocol InlineImageProvider {
   ///   - label: The accessibility label associated with the image.
   func image(with url: URL, label: String) async throws -> Image
 
+  /// An attachment prepared before this Markdown view appears. Nil uses asynchronous loading.
+  func preparedAttachment(with url: URL, label: String, fontSize: CGFloat) -> Text?
+
   /// A baseline-aware attachment. Existing image providers need no changes.
   func attachment(with url: URL, label: String, fontSize: CGFloat,
                   displayScale: CGFloat, colorScheme: ColorScheme) async throws -> Text
 }
 
 public extension InlineImageProvider {
+  func preparedAttachment(with url: URL, label: String, fontSize: CGFloat) -> Text? { nil }
+
   func attachment(with url: URL, label: String, fontSize: CGFloat,
                   displayScale: CGFloat, colorScheme: ColorScheme) async throws -> Text {
     Text(try await image(with: url, label: label))

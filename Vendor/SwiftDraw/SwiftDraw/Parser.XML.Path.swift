@@ -50,6 +50,8 @@ extension XMLParser {
   }
 
   func parsePathSegments(_ data: String) throws -> [Segment] {
+    // MathJax uses empty paths for spacing glyphs such as nonbreaking spaces.
+    guard !data.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return [] }
     
     var segments = Array<Segment>()
     

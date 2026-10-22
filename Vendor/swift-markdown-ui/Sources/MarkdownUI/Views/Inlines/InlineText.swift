@@ -26,32 +26,53 @@ struct InlineText: View {
       let request = Request(inlines: inlines,
                             fontSize: attributes.fontProperties?.scaledSize ?? FontProperties.defaultSize,
                             displayScale: displayScale, colorScheme: colorScheme)
-      self.inlines.renderText(
+      let prepared = preparedImages(fontSize: request.fontSize)
+      let images = self.inlineImages.merging(prepared) { _, ready in ready }
+      let text = self.inlines.renderText(
         baseURL: self.baseURL,
         textStyles: .init(code: self.theme.code, emphasis: self.theme.emphasis,
                          strong: self.theme.strong, strikethrough: self.theme.strikethrough,
                          link: self.theme.link),
-        images: self.inlineImages,
+        images: images,
         softBreakMode: self.softBreakMode,
         attributes: attributes
       )
-      .task(id: request) {
-        // Each attachment fails independently; one missing sticker must not erase math.
-        let images = await loadInlineImages(request)
-        guard !Task.isCancelled else { return }
-        self.inlineImages = images
+      if imageData.allSatisfy({ prepared[$0.source] != nil }) {
+        text
+      } else {
+        text.task(id: request) {
+          let images = await loadInlineImages(request, excluding: Set(prepared.keys))
+          guard !Task.isCancelled else { return }
+          self.inlineImages = images
+        }
       }
     }
   }
 
-  private func loadInlineImages(_ request: Request) async -> [String: Text] {
+  private var imageData: Set<RawImageData> {
     func collect(_ nodes: [InlineNode]) -> [RawImageData] {
       nodes.flatMap { node in
         if case .image = node, let data = node.imageData { return [data] }
         return collect(node.children)
       }
     }
-    let images = Set(collect(request.inlines))
+    return Set(collect(inlines))
+  }
+
+  private func preparedImages(fontSize: CGFloat) -> [String: Text] {
+    var result: [String: Text] = [:]
+    for image in imageData {
+      guard let url = URL(string: image.source, relativeTo: imageBaseURL),
+            let text = inlineImageProvider.preparedAttachment(
+              with: url, label: image.alt, fontSize: fontSize
+            ) else { continue }
+      result[image.source] = text
+    }
+    return result
+  }
+
+  private func loadInlineImages(_ request: Request, excluding prepared: Set<String>) async -> [String: Text] {
+    let images = imageData.filter { !prepared.contains($0.source) }
     let provider = self.inlineImageProvider
     return await withTaskGroup(of: (String, Text)?.self) { group in
       for image in images {
