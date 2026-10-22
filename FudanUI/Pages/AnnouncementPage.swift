@@ -50,37 +50,35 @@ struct AnnouncementPage: View {
     }
     
     var body: some View {
-        List {
-            AsyncCollection { (previous: [Announcement]) in
-                switch(campusModel.studentType) {
-                case .undergrad:
-                    let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
-                    let previousIds = previous.map(\.id)
-                    return announcements.filter({ !previousIds.contains($0.id) })
-                default:
-                    let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
-                    let previousIds = previous.map(\.id)
-                    return announcements.filter({ !previousIds.contains($0.id) })
+        AsyncCollection(style: .list) { (previous: [Announcement]) in
+            switch(campusModel.studentType) {
+            case .undergrad:
+                let announcements = try await UndergraduateAnnouncementStore.shared.getCachedAnnouncements()
+                let previousIds = previous.map(\.id)
+                return announcements.filter({ !previousIds.contains($0.id) })
+            default:
+                let announcements = try await PostgraduateAnnouncementStore.shared.getCachedAnnouncements()
+                let previousIds = previous.map(\.id)
+                return announcements.filter({ !previousIds.contains($0.id) })
+            }
+        } content: { announcement in
+            Button {
+                Task {
+                    await openLink(announcement: announcement, needAuthenticate: campusModel.studentType == .undergrad)
                 }
-            } content: { announcement in
-                Button {
-                    Task {
-                        await openLink(announcement: announcement, needAuthenticate: campusModel.studentType == .undergrad)
-                    }
-                } label: {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 7) {
-                            Text(announcement.title)
-                            Text(announcement.date.formatted(date: .abbreviated, time: .omitted))
-                                .foregroundColor(.secondary)
-                                .font(.caption)
-                        }
-                        Spacer()
-                        Image(systemName: "link")
+            } label: {
+                HStack {
+                    VStack(alignment: .leading, spacing: 7) {
+                        Text(announcement.title)
+                        Text(announcement.date.formatted(date: .abbreviated, time: .omitted))
                             .foregroundColor(.secondary)
+                            .font(.caption)
                     }
-                    .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "link")
+                        .foregroundColor(.secondary)
                 }
+                .foregroundColor(.primary)
             }
             #if targetEnvironment(macCatalyst)
             .listRowBackground(Color.clear)

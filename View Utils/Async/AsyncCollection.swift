@@ -32,16 +32,19 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
     @State private var endReached = false
     @State private var loadingError: Error? = nil
     @State private var loadID = 0
+    @State private var refreshing = false
     
     private func loadMore() async {
+        let requestID = loadID
         do {
             let newItems = try await action(items)
             try Task.checkCancellation()
+            guard requestID == loadID else { return }
             endReached = newItems.isEmpty
             items += newItems
             loadID += 1
         } catch {
-            if !Task.isCancelled && !error.isCancellation {
+            if requestID == loadID && !Task.isCancelled && !error.isCancellation {
                 loadingError = error
             }
         }
@@ -49,6 +52,15 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
 
     var body: some View {
         style.layout(AnyView(contents), AnyView(footer))
+            .refreshable {
+                refreshing = true
+                loadID += 1
+                items = []
+                endReached = false
+                loadingError = nil
+                defer { refreshing = false }
+                await loadMore()
+            }
     }
 
     private var contents: some View {
@@ -64,6 +76,8 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
                 style.contentStyle.errorView(loadingError) {
                     loadingError = nil
                 }
+            } else if refreshing {
+                style.contentStyle.loadingView()
             } else {
                 style.contentStyle.loadingView()
                     .task(id: loadID) {

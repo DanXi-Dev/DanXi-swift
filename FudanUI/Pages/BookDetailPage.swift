@@ -98,63 +98,74 @@ private struct BookDetailContent: View {
     let book: Book
     let previewHoldings: [BookHolding]?
 
+    @ViewBuilder
+    private var details: some View {
+        Section {
+            Text(book.title)
+                .font(.title3)
+                .fontWeight(.semibold)
+
+            if !book.authors.isEmpty {
+                LabeledContent(String(localized: "Author", bundle: .module)) {
+                    Text(book.authors.joined(separator: "、"))
+                }
+            }
+
+            if let publisher = book.publisher {
+                LabeledContent(String(localized: "Publisher", bundle: .module)) {
+                    Text(publisher)
+                }
+            }
+
+            if let year = book.year {
+                LabeledContent(String(localized: "Publication Year", bundle: .module)) {
+                    Text(String(year))
+                }
+            }
+
+            if let isbn = book.isbn {
+                LabeledContent("ISBN") {
+                    Text(isbn)
+                }
+            }
+        }
+
+        if let summary = book.summary {
+            Section(String(localized: "Summary", bundle: .module)) {
+                Text(summary)
+            }
+        }
+    }
+
+    private var collectionStyle: AsyncCollectionStyle {
+        AsyncCollectionStyle { contents, footer in
+            List {
+                details
+                Section(String(localized: "Holdings", bundle: .module)) {
+                    contents
+                    footer
+                }
+            }
+        }
+    }
+
     var body: some View {
-        List {
-            Section {
-                Text(book.title)
-                    .font(.title3)
-                    .fontWeight(.semibold)
-
-                if !book.authors.isEmpty {
-                    LabeledContent(String(localized: "Author", bundle: .module)) {
-                        Text(book.authors.joined(separator: "、"))
-                    }
-                }
-
-                if let publisher = book.publisher {
-                    LabeledContent(String(localized: "Publisher", bundle: .module)) {
-                        Text(publisher)
-                    }
-                }
-
-                if let year = book.year {
-                    LabeledContent(String(localized: "Publication Year", bundle: .module)) {
-                        Text(String(year))
-                    }
-                }
-
-                if let isbn = book.isbn {
-                    LabeledContent("ISBN") {
-                        Text(isbn)
-                    }
-                }
+        AsyncCollection(style: collectionStyle) { (holdings: [BookHolding]) in
+            if let previewHoldings {
+                return holdings.isEmpty ? previewHoldings : []
+            }
+            if !holdings.isEmpty && !holdings.count.isMultiple(of: pageSize) {
+                return []
             }
 
-            if let summary = book.summary {
-                Section(String(localized: "Summary", bundle: .module)) {
-                    Text(summary)
-                }
-            }
-
-            Section(String(localized: "Holdings", bundle: .module)) {
-                AsyncCollection { (holdings: [BookHolding]) in
-                    if let previewHoldings {
-                        return holdings.isEmpty ? previewHoldings : []
-                    }
-                    if !holdings.isEmpty && !holdings.count.isMultiple(of: pageSize) {
-                        return []
-                    }
-
-                    let page = holdings.count / pageSize + 1
-                    return try await BookAPI.getHoldings(
-                        bookID: book.id,
-                        page: page,
-                        pageSize: pageSize
-                    )
-                } content: { holding in
-                    BookHoldingRow(holding: holding)
-                }
-            }
+            let page = holdings.count / pageSize + 1
+            return try await BookAPI.getHoldings(
+                bookID: book.id,
+                page: page,
+                pageSize: pageSize
+            )
+        } content: { holding in
+            BookHoldingRow(holding: holding)
         }
         #if !os(watchOS)
         .listStyle(.insetGrouped)
