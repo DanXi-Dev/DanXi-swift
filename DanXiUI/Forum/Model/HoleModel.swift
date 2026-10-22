@@ -84,14 +84,16 @@ class HoleModel: ObservableObject {
         self.loadingAll = value
     }
     
+    @MainActor
     func loadMoreFloors() async throws {
         if endReached { return }
         
         let previousCount = filteredFloors.count
         while previousCount == filteredFloors.count {
             let newFloors = try await ForumAPI.listFloorsInHole(holeId: hole.id, startFloor: floors.count)
+            try Task.checkCancellation()
             if newFloors.isEmpty {
-                await setEndReached(true)
+                setEndReached(true)
                 return
             }
             let contextFloors = floors.map { $0.floor } + newFloors
@@ -101,7 +103,7 @@ class HoleModel: ObservableObject {
                 let presentation = FloorPresentation(floor: floor, storey: baseStory + index, floors: contextFloors)
                 newPresentations.append(presentation)
             }
-            await insertFloors(floors: newPresentations)
+            insertFloors(floors: newPresentations)
         }
     }
     

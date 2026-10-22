@@ -25,9 +25,11 @@ class ReportModel: ObservableObject {
         }
     }
     
+    @MainActor
     func loadMoreReports() async throws {
         let newReports = try await ForumAPI.listReports(offset: reports.count, type: filterOption.rawValue)
-        await insertReports(newReports)
+        try Task.checkCancellation()
+        insertReports(newReports)
     }
     
     func markAsDealt(_ report: Report) async {
