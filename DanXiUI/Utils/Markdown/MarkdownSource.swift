@@ -45,6 +45,7 @@ struct MarkdownSource {
         self.source = source
         var spans: [Span] = []
         var i = source.startIndex
+        var listIndents: [Int] = []
         func endOfLine(_ start: String.Index) -> String.Index {
             source[start...].firstIndex(of: "\n") ?? source.endIndex
         }
@@ -62,6 +63,19 @@ struct MarkdownSource {
             if lineStart {
                 let lineEnd = endOfLine(i)
                 let line = String(source[i..<lineEnd])
+                let expandedLine = line.replacingOccurrences(of: "\t", with: "    ")
+                let indentation = expandedLine.prefix(while: { $0 == " " }).count
+                if !expandedLine.trimmingCharacters(in: .whitespaces).isEmpty {
+                    while let contentIndent = listIndents.last, indentation < contentIndent {
+                        listIndents.removeLast()
+                    }
+                }
+                let codeIndent = (listIndents.last ?? 0) + 4
+                let indentedCode = indentation >= codeIndent
+                if !indentedCode,
+                   let marker = expandedLine.range(of: #"^ *([-+*]|[0-9]{1,9}[.)])[ ]+"#, options: .regularExpression) {
+                    listIndents.append(expandedLine.distance(from: expandedLine.startIndex, to: marker.upperBound))
+                }
                 // Permit fenced blocks inside blockquotes and list items.
                 if let opener = line.range(of: #"^[ \t]*(?:>[ \t]*)*(?:[-+*] |[0-9]+[.)] )?(`{3,}|~{3,})"#, options: .regularExpression) {
                     let prefix = String(line[opener])
@@ -81,7 +95,7 @@ struct MarkdownSource {
                     }
                     spans.append(Span(range: i..<end, kind: .code)); i = end; continue
                 }
-                if line.hasPrefix("    ") || line.hasPrefix("\t") {
+                if indentedCode {
                     spans.append(Span(range: i..<lineEnd, kind: .code)); i = advanceLine(lineEnd); continue
                 }
                 if line.range(of: #"^ {0,3}\[[^\]]+\]:"#, options: .regularExpression) != nil {
@@ -133,7 +147,7 @@ struct MarkdownSource {
             }
             if has("https://", at: i) || has("http://", at: i) {
                 var next = i
-                while next < source.endIndex, !source[next].isWhitespace, source[next] != ">" {
+                while next < source.endIndex, !source[next].isWhitespace, source[next] != ">", source[next] != "]" {
                     next = source.index(after: next)
                 }
                 spans.append(Span(range: i..<next, kind: .destination)); i = next; continue
@@ -150,15 +164,17 @@ struct MarkdownSource {
                 }
                 spans.append(Span(range: i..<next, kind: .destination)); i = next; continue
             }
-            if source[i] == "<", let end = source[i...].firstIndex(of: ">") {
-                let next = source.index(after: end)
-                spans.append(Span(range: i..<next, kind: .destination)); i = next; continue
+            if source[i] == "<" {
+                let pattern = #"^(?:<!--[\s\S]*?-->|</?[A-Za-z][A-Za-z0-9-]*(?:\s+[A-Za-z_:][A-Za-z0-9_.:-]*(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*\s*/?>|<[A-Za-z][A-Za-z0-9+.-]{1,31}:[^<>\s]*>|<[^<>\s@]+@[^<>\s@]+>)"#
+                if let range = source.range(of: pattern, options: .regularExpression, range: i..<source.endIndex) {
+                    spans.append(Span(range: range, kind: .destination)); i = range.upperBound; continue
+                }
             }
             let delimiter: (String, String, Bool)?
             if has("$$", at: i) { delimiter = ("$$", "$$", true) }
-            else if has("$", at: i) { delimiter = ("$", "$", false) }
-            else if has(#"\("#, at: i) { delimiter = (#"\("#, #"\)"#, false) }
-            else if has(#"\["#, at: i) { delimiter = (#"\["#, #"\]"#, true) }
+            else if has("$", at: i), i == source.startIndex || !source[source.index(before: i)].isNumber {
+                delimiter = ("$", "$", false)
+            }
             else { delimiter = nil }
             if let (opening, closing, display) = delimiter {
                 let start = source.index(i, offsetBy: opening.count)
