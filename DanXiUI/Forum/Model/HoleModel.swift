@@ -55,6 +55,7 @@ class HoleModel: ObservableObject {
     @Published var loading = false
     @Published var loadingAll = false
     @Published var endReached = false
+    private var loadingGeneration = UUID()
     
     @MainActor
     func insertFloors(floors: [FloorPresentation]) {
@@ -80,18 +81,15 @@ class HoleModel: ObservableObject {
     }
     
     @MainActor
-    func setLoadingAll(_ value: Bool) {
-        self.loadingAll = value
-    }
-    
-    @MainActor
     func loadMoreFloors() async throws {
         if endReached { return }
         
+        let generation = loadingGeneration
         let previousCount = filteredFloors.count
         while previousCount == filteredFloors.count {
             let newFloors = try await ForumAPI.listFloorsInHole(holeId: hole.id, startFloor: floors.count)
             try Task.checkCancellation()
+            guard generation == loadingGeneration else { return }
             if newFloors.isEmpty {
                 setEndReached(true)
                 return
@@ -107,38 +105,48 @@ class HoleModel: ObservableObject {
         }
     }
     
+    @MainActor
     func refreshAllFloors() async throws {
+        loadingGeneration = UUID()
+        let generation = loadingGeneration
+        loadingAll = true
+        defer {
+            if generation == loadingGeneration { loadingAll = false }
+        }
         let hole = try await ForumAPI.getHole(id: hole.id)
         let floors = try await ForumAPI.listAllFloors(holeId: hole.id)
+        try Task.checkCancellation()
+        guard generation == loadingGeneration else { return }
         var presentations: [FloorPresentation] = []
         for (index, floor) in floors.enumerated() {
             let presentation = FloorPresentation(floor: floor, storey: index + 1, floors: floors)
             presentations.append(presentation)
         }
-        await replaceAllFloors(floors: presentations)
-        await setEndReached(true)
-        await MainActor.run {
-            self.hole = hole
-        }
+        replaceAllFloors(floors: presentations)
+        setEndReached(true)
+        self.hole = hole
     }
-    
+
+    @MainActor
     func loadAllFloors() async throws {
-        await setLoadingAll(true)
+        loadingGeneration = UUID()
+        let generation = loadingGeneration
+        loadingAll = true
         defer {
-            Task { @MainActor in
-                loadingAll = false
-            }
+            if generation == loadingGeneration { loadingAll = false }
         }
         let floors = try await ForumAPI.listAllFloors(holeId: hole.id)
+        try Task.checkCancellation()
+        guard generation == loadingGeneration else { return }
         var presentations: [FloorPresentation] = []
         for (index, floor) in floors.enumerated() {
             let presentation = FloorPresentation(floor: floor, storey: index + 1, floors: floors)
             presentations.append(presentation)
         }
-        await insertFloors(floors: presentations)
-        await setEndReached(true)
+        insertFloors(floors: presentations)
+        setEndReached(true)
     }
-    
+
     // MARK: - Floor Filtering
     
     enum FilterOptions: Hashable {

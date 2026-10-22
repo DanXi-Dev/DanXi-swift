@@ -39,7 +39,7 @@ struct HolePage: View {
                                     .listRowBackground(Color.clear)
                             }
                             
-                            AsyncCollection(model.filteredSegments, endReached: model.endReached, action: model.loadMoreFloors) { segment in
+                            AsyncCollection(model.filteredSegments, endReached: model.endReached || model.loadingAll, action: model.loadMoreFloors) { segment in
                                 switch segment {
                                 case .floor(let presentation):
                                     Section {

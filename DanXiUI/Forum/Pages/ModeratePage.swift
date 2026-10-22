@@ -298,6 +298,7 @@ class ModerateModel: ObservableObject {
     }
     
     func loadMoreClosed() async throws {
+        let configurationId = self.configurationId
         let startTime = if let last = closedItems.last {
             switch sortOption {
             case .replyTime:
@@ -321,6 +322,7 @@ class ModerateModel: ObservableObject {
         }
         let newItems = try await ForumAPI.listSensitive(startTime: startTime, open: false, order: order)
         try Task.checkCancellation()
+        guard configurationId == self.configurationId else { return }
         let currentIds = closedItems.map(\.id)
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
         closedEndReached = inserteditems.isEmpty
@@ -328,6 +330,7 @@ class ModerateModel: ObservableObject {
     }
     
     func loadMoreOpen() async throws {
+        let configurationId = self.configurationId
         let startTime = if let last = openItems.last {
             switch sortOption {
             case .replyTime:
@@ -353,6 +356,7 @@ class ModerateModel: ObservableObject {
         }
         let newItems = try await ForumAPI.listSensitive(startTime: startTime, open: true, order: order)
         try Task.checkCancellation()
+        guard configurationId == self.configurationId else { return }
         let currentIds = openItems.map(\.id)
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
         openEndReached = inserteditems.isEmpty

@@ -3,7 +3,7 @@ import SwiftUI
 public struct AsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
     private let nestedView: AnyView
     
-    public init(style: AsyncCollectionStyle = .plain,
+    public init(style: AsyncCollectionStyle = .list,
                 action: @escaping ([Item]) async throws -> [Item],
                 @ViewBuilder content: @escaping (Item) -> Content) {
         nestedView = AnyView(SimpleAsyncCollection(style: style, action: action, content: content))
@@ -74,7 +74,7 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
         if !endReached {
             if let loadingError = self.loadingError {
                 style.contentStyle.errorView(loadingError) {
-                    loadingError = nil
+                    self.loadingError = nil
                 }
             } else if refreshing {
                 style.contentStyle.loadingView()
@@ -95,9 +95,6 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
     private let loadingAction: () async throws -> Void
     private let endReached: Bool
     
-    @State private var loadingError: Error? = nil
-    @State private var loadID = 0
-    
     init(style: AsyncCollectionStyle,
          _ items: [Item],
          endReached: Bool,
@@ -110,18 +107,6 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
         self.content = content
     }
     
-    private func loadMore() async {
-        do {
-            try await loadingAction()
-            try Task.checkCancellation()
-            loadID += 1
-        } catch {
-            if !Task.isCancelled && !error.isCancellation {
-                loadingError = error
-            }
-        }
-    }
-
     var body: some View {
         style.layout(AnyView(contents), AnyView(footer))
     }
@@ -135,16 +120,40 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
     @ViewBuilder
     private var footer: some View {
         if !endReached {
-            if let loadingError = self.loadingError {
-                style.contentStyle.errorView(loadingError) {
-                    loadingError = nil
-                }
-            } else {
-                style.contentStyle.loadingView()
-                    .task(id: loadID) {
-                        await loadMore()
-                    }
+            AsyncCollectionFooter(style: style.contentStyle, action: loadingAction)
+        }
+    }
+}
+
+private struct AsyncCollectionFooter: View {
+    let style: AsyncContentStyle
+    let action: () async throws -> Void
+
+    @State private var loadingError: Error?
+    @State private var loadID = 0
+
+    private func loadMore() async {
+        do {
+            try await action()
+            try Task.checkCancellation()
+            loadID += 1
+        } catch {
+            if !Task.isCancelled && !error.isCancellation {
+                loadingError = error
             }
+        }
+    }
+
+    var body: some View {
+        if let loadingError {
+            style.errorView(loadingError) {
+                self.loadingError = nil
+            }
+        } else {
+            style.loadingView()
+                .task(id: loadID) {
+                    await loadMore()
+                }
         }
     }
 }
