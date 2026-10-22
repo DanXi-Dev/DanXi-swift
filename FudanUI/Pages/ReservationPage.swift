@@ -10,11 +10,9 @@ import UIKit
 struct ReservationPage: View {
     var body: some View {
         AsyncContentView {
-            try await SportsReservationStore.shared.getVenues()
-        } refreshAction: {
-            try await SportsReservationStore.shared.getVenues(forceRefresh: true)
-        } content: { venues in
-            SportsVenueList(venues: venues)
+            try await SportsReservationAPI.getCampusFilter()
+        } content: { filter in
+            SportsVenueList(campusFilter: filter)
         }
         .navigationTitle(String(localized: "Playground Reservation", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
@@ -41,23 +39,26 @@ public struct ReservationDemoPage: View {
 }
 
 private struct SportsVenueList: View {
-    let venues: [BookingVenue]
+    let campusFilter: BookingCampusFilter
+    @State private var venues: [BookingVenue] = []
+    @State private var isLoading = true
+    @State private var loadError: String?
+    @State private var loadID = UUID()
     @State private var searchText = ""
-    @State private var selectedCampus = "全部"
-    @State private var selectedType = "全部"
-    @State private var selectedEnvironment = "全部"
+    @State private var selectedCampus: Int?
+    @State private var selectedChoices: [Int: String] = [:]
 
-    private let campuses = ["全部", "邯郸", "江湾", "枫林", "张江"]
-    private let venueTypes = ["全部", "篮球", "排球", "羽毛球", "网球", "足球", "舞蹈房", "乒乓球"]
-    private let environments = ["全部", "室内", "室外"]
+    private struct Selection: Hashable {
+        let campusID: Int?
+        let choices: [Int: String]
+    }
+
+    private var selection: Selection {
+        Selection(campusID: selectedCampus, choices: selectedChoices)
+    }
 
     private var filteredVenues: [BookingVenue] {
-        venues.filter { venue in
-            (searchText.isEmpty || venue.name.localizedCaseInsensitiveContains(searchText))
-                && (selectedCampus == "全部" || venue.name.contains(selectedCampus))
-                && (selectedType == "全部" || venue.name.contains(selectedType))
-                && (selectedEnvironment == "全部" || environment(for: venue) == selectedEnvironment)
-        }
+        venues.filter { searchText.isEmpty || $0.name.localizedCaseInsensitiveContains(searchText) }
     }
 
     var body: some View {
@@ -72,18 +73,26 @@ private struct SportsVenueList: View {
 
             Section {
                 Picker(bookingLocalized("Campus"), selection: $selectedCampus) {
-                    ForEach(campuses, id: \.self) { campus in
-                        Text(verbatim: campus).tag(campus)
+                    Text(verbatim: "全部").tag(Int?.none)
+                    ForEach(campusFilter.campuses) { campus in
+                        Text(verbatim: campus.name).tag(Optional(campus.id))
                     }
                 }
-                Picker(bookingLocalized("Venue Type"), selection: $selectedType) {
-                    ForEach(venueTypes, id: \.self) { type in
-                        Text(verbatim: type).tag(type)
-                    }
-                }
-                Picker(bookingLocalized("Indoor/Outdoor"), selection: $selectedEnvironment) {
-                    ForEach(environments, id: \.self) { environment in
-                        Text(verbatim: environment).tag(environment)
+                ForEach(campusFilter.choices) { filter in
+                    Picker(filter.name, selection: Binding(
+                        get: { selectedChoices[filter.id] ?? "" },
+                        set: { value in
+                            if value.isEmpty {
+                                selectedChoices.removeValue(forKey: filter.id)
+                            } else {
+                                selectedChoices[filter.id] = value
+                            }
+                        }
+                    )) {
+                        Text(verbatim: "全部").tag("")
+                        ForEach(filter.options) { option in
+                            Text(verbatim: option.name).tag(option.id)
+                        }
                     }
                 }
             } header: {
@@ -91,7 +100,17 @@ private struct SportsVenueList: View {
             }
 
             Section {
-                if filteredVenues.isEmpty {
+                if isLoading {
+                    ProgressView()
+                } else if let loadError {
+                    Text(loadError)
+                        .foregroundStyle(.secondary)
+                    Button {
+                        Task { await loadVenues(forceRefresh: true) }
+                    } label: {
+                        Text("Retry", bundle: .module)
+                    }
+                } else if filteredVenues.isEmpty {
                     Text("No matching sports venues", bundle: .module)
                         .foregroundStyle(.secondary)
                 } else {
@@ -108,14 +127,40 @@ private struct SportsVenueList: View {
             }
         }
         .searchable(text: $searchText, prompt: Text("Search Venues", bundle: .module))
+        .task(id: selection) {
+            await loadVenues()
+        }
+        .refreshable {
+            await loadVenues(forceRefresh: true)
+        }
     }
 
-    private func environment(for venue: BookingVenue) -> String {
-        let location = venue.name.components(separatedBy: "-").first ?? venue.name
-        if location.contains("体育馆") || location.contains("活动中心") || location.contains("舞蹈房") {
-            return "室内"
+    @MainActor
+    private func loadVenues(forceRefresh: Bool = false) async {
+        let requestID = UUID()
+        let requestedSelection = selection
+        loadID = requestID
+        isLoading = true
+        loadError = nil
+        do {
+            let result: [BookingVenue]
+            if requestedSelection.campusID != nil || !requestedSelection.choices.isEmpty {
+                result = try await SportsReservationStore.shared.getVenues(
+                    campusID: requestedSelection.campusID, filter: campusFilter,
+                    choices: requestedSelection.choices
+                )
+            } else {
+                result = try await SportsReservationStore.shared.getVenues(forceRefresh: forceRefresh)
+            }
+            try Task.checkCancellation()
+            guard loadID == requestID, selection == requestedSelection else { return }
+            venues = result
+            isLoading = false
+        } catch {
+            guard loadID == requestID, selection == requestedSelection, !Task.isCancelled else { return }
+            loadError = error.localizedDescription
+            isLoading = false
         }
-        return "室外"
     }
 }
 
