@@ -10,7 +10,11 @@ func constructRequest(_ url: URL, payload: Data? = nil, method: String? = nil) -
     var request = URLRequest(url: url)
     
     // set user agent
-    let userAgent = ConfigurationCenter.configuration.userAgent
+    let configuredUserAgent = ConfigurationCenter.configuration.userAgent
+        .trimmingCharacters(in: .whitespacesAndNewlines)
+    // Older cached configurations can still contain the rejected bare app identifier.
+    let userAgent = configuredUserAgent.isEmpty || configuredUserAgent == "DXSwift"
+        ? AppConfiguration.defaultUserAgent : configuredUserAgent
     request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
     
     // set method and payload

@@ -106,6 +106,8 @@ public struct AppConfiguration: Codable, Sendable {
     /// A map provided by DanXi backend to indicate the start date of each semester ID.
     public let semesterStartDate: [Int: Date]
     public let banners: [Banner]
+    public static let defaultUserAgent = "Mozilla/5.0 (iPhone) AppleWebKit Mobile DXSwift"
+
     public let userAgent: String
     public let highlightTagIds: [Int]
     public let stickers: [Sticker]
@@ -114,7 +116,7 @@ public struct AppConfiguration: Codable, Sendable {
     init() {
         semesterStartDate = [:]
         banners = []
-        userAgent = "DXSwift"
+        userAgent = Self.defaultUserAgent
         highlightTagIds = []
         stickers = []
     }

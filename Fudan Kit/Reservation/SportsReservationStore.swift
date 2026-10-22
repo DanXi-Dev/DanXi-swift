@@ -68,7 +68,19 @@ public actor SportsReservationStore: ClearableStorage {
         }
     }
 
-    private static func fetchAllVenues() async throws -> [BookingVenue] {
+    public func getVenues(
+        campusID: Int?, filter: BookingCampusFilter, choices: [Int: String] = [:]
+    ) async throws -> [BookingVenue] {
+        try await Self.fetchAllVenues(
+            campusID: campusID, campusAttributeID: filter.attributeID, choices: choices
+        )
+    }
+
+    private static func fetchAllVenues(
+        campusID: Int? = nil,
+        campusAttributeID: Int? = nil,
+        choices: [Int: String] = [:]
+    ) async throws -> [BookingVenue] {
         let pageSize = 100
         var page = 1
         var receivedCount = 0
@@ -77,7 +89,11 @@ public actor SportsReservationStore: ClearableStorage {
         var venuesByID: [Int: BookingVenue] = [:]
 
         while receivedCount < total {
-            let response = try await SportsReservationAPI.getVenues(page: page, pageSize: pageSize)
+            try Task.checkCancellation()
+            let response = try await SportsReservationAPI.getVenues(
+                page: page, pageSize: pageSize,
+                campusID: campusID, campusAttributeID: campusAttributeID, choices: choices
+            )
             receivedCount += response.venues.count
             total = max(0, response.total)
 

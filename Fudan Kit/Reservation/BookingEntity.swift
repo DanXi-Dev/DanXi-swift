@@ -523,3 +523,99 @@ struct BookingFlexibleBool: Decodable {
         }
     }
 }
+
+/// Filter configuration supplied by the reservation topic and dictionaries.
+public struct BookingCampusFilter: Sendable {
+    public let attributeID: Int
+    public let campuses: [BookingCampus]
+    public let choices: [BookingChoiceFilter]
+}
+
+public struct BookingCampus: Decodable, Identifiable, Sendable {
+    public let id: Int
+    public let name: String
+}
+
+public struct BookingChoiceFilter: Identifiable, Sendable {
+    public let id: Int
+    public let name: String
+    public let options: [Option]
+
+    public struct Option: Identifiable, Sendable {
+        public let id: String
+        public let name: String
+    }
+}
+
+struct BookingChoiceDictionaries: Decodable {
+    let data: [String: Dictionary]
+
+    struct Dictionary: Decodable {
+        let data: [String: String]
+
+        private enum CodingKeys: String, CodingKey { case data }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            if let values = try? container.decode([String: String].self, forKey: .data) {
+                data = values
+            } else {
+                // The platform represents an empty dictionary as [] rather than {}.
+                let values = try container.decode([String].self, forKey: .data)
+                guard values.isEmpty else {
+                    throw DecodingError.dataCorruptedError(
+                        forKey: .data, in: container, debugDescription: "Expected a dictionary or empty array"
+                    )
+                }
+                data = [:]
+            }
+        }
+    }
+}
+
+enum BookingFilterValue: Encodable {
+    case campus(Int)
+    case choice(String)
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .campus(let id): try container.encode(["2": id])
+        case .choice(let id): try container.encode(id)
+        }
+    }
+}
+
+struct BookingLocationDictionary: Decodable {
+    let data: [BookingCampus]
+}
+
+struct BookingTopicFilters: Decodable {
+    let sift_config: [Filter]
+
+    struct Filter: Decodable {
+        let attr_id: Int
+        let aliasName: String
+        let show_child: [Int]?
+        let data: Attribute?
+        let show_child_mode: String?
+        let custom_tier_config: [Tier]?
+
+        struct Tier: Decodable {
+            let tierId: Int
+        }
+
+        struct Attribute: Decodable {
+            let type: Int
+            let config: Configuration
+
+            struct Configuration: Decodable {
+                let value: Reference
+
+                struct Reference: Decodable {
+                    let id: String
+                }
+            }
+        }
+    }
+}

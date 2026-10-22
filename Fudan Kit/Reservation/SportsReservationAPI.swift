@@ -51,13 +51,76 @@ public enum SportsReservationAPI {
         return data
     }
 
-    public static func getVenues(page: Int = 1, pageSize: Int = 10) async throws -> BookingVenuePage {
+    public static func getCampusFilter() async throws -> BookingCampusFilter {
+        let topic: BookingTopicFilters = try await send(makeRequest(
+            endpoint: "/reservation/api/topic/detail",
+            queryItems: [URLQueryItem(name: "id", value: String(topicID))],
+            signed: true,
+            referer: sportsPageURL
+        ))
+        guard let filter = topic.sift_config.first(where: {
+            $0.data?.type == 2 && $0.show_child?.contains(2) == true
+        }), let dictionaryID = filter.data?.config.value.id else {
+            throw CampusError.customError(message: "预约平台未提供校区筛选配置")
+        }
+        let dictionaries: [[String: BookingLocationDictionary]] = try await send(makeRequest(
+            endpoint: "/reservation/api/dict/tier",
+            signed: true,
+            referer: sportsPageURL
+        ))
+        guard let dictionary = dictionaries.compactMap({ $0[dictionaryID] }).first else {
+            throw CampusError.customError(message: "预约平台未提供校区字典")
+        }
+        let campuses: [BookingCampus]
+        if filter.show_child_mode == "custom", let tiers = filter.custom_tier_config {
+            let allowedIDs = Set(tiers.map(\.tierId))
+            campuses = dictionary.data.filter { allowedIDs.contains($0.id) }
+        } else {
+            campuses = dictionary.data
+        }
+        let choiceDictionaries: BookingChoiceDictionaries = try await send(makeRequest(
+            endpoint: "/reservation/api/dict/infos",
+            signed: true,
+            referer: sportsPageURL
+        ))
+        let choices = try topic.sift_config.filter { $0.data?.type == 1 }.map { item in
+            guard let dictionaryID = item.data?.config.value.id,
+                  let values = choiceDictionaries.data[dictionaryID]?.data else {
+                throw CampusError.customError(message: "预约平台未提供场馆筛选字典")
+            }
+            return BookingChoiceFilter(
+                id: item.attr_id,
+                name: item.aliasName.trimmingCharacters(in: .whitespacesAndNewlines),
+                options: values.sorted { $0.key < $1.key }.map {
+                    BookingChoiceFilter.Option(id: $0.key, name: $0.value)
+                }
+            )
+        }
+        return BookingCampusFilter(attributeID: filter.attr_id, campuses: campuses, choices: choices)
+    }
+
+    public static func getVenues(
+        page: Int = 1,
+        pageSize: Int = 10,
+        campusID: Int? = nil,
+        campusAttributeID: Int? = nil,
+        choices: [Int: String] = [:]
+    ) async throws -> BookingVenuePage {
+        var attributes: [String: BookingFilterValue] = [:]
+        for (attributeID, value) in choices where !value.isEmpty {
+            attributes["filter_\(attributeID)"] = .choice(value)
+        }
+        if let campusID, let campusAttributeID {
+            // The website uses level 2 for campuses and level 3 for buildings.
+            attributes["filter_\(campusAttributeID)"] = .campus(campusID)
+        }
+
         let endpoint = "/reservation/api/topic/resource-list"
         let request = try makeRequest(
             endpoint: endpoint,
             queryItems: [
                 URLQueryItem(name: "p", value: String(page)),
-                URLQueryItem(name: "attr", value: "{}"),
+                URLQueryItem(name: "attr", value: try encodeJSONString(attributes)),
                 URLQueryItem(name: "pageSize", value: String(pageSize)),
                 URLQueryItem(name: "id", value: String(topicID)),
                 URLQueryItem(name: "hideTime", value: "1"),
