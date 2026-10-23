@@ -41,14 +41,21 @@ public class CampusModel: ObservableObject {
         ]
     }
     
-    public func login(username: String, password: String) async throws {
+    public func login(username: String, password: String, challenge: AuthenticationAPI.CaptchaChallenge? = nil, verifyCode: String = "") async throws {
         loggedIn = false
 
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         await Authenticator.shared.resetLoginStatus()
 
         do {
-            guard try await AuthenticationAPI.checkUserCredential(username: username, password: password) else {
+            let accepted: Bool
+            if let challenge {
+                guard challenge.username == username else { throw CampusError.loginFailed }
+                accepted = try await AuthenticationAPI.checkUserCredential(password: password, challenge: challenge, verifyCode: verifyCode)
+            } else {
+                accepted = try await AuthenticationAPI.checkUserCredential(username: username, password: password)
+            }
+            guard accepted else {
                 throw CampusError.loginFailed
             }
             CredentialStore.shared.credential = Credential(username: username, password: password)
