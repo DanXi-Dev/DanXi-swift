@@ -12,7 +12,7 @@ public enum AuthenticationAPI {
     public final class CaptchaChallenge {
         public let imageData: Data
         fileprivate let parameters: Parameters
-        fileprivate let username: String
+        public let username: String
         fileprivate let session: URLSession?
         fileprivate let credentialCheck: Bool
 
