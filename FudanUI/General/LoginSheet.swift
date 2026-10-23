@@ -1,6 +1,11 @@
 import SwiftUI
 import FudanKit
 import ViewUtils
+#if os(watchOS)
+import WatchKit
+#else
+import UIKit
+#endif
 
 public struct LoginSheet: View {
     private let style: SheetStyle
@@ -10,7 +15,16 @@ public struct LoginSheet: View {
     @State private var username = ""
     @State private var password = ""
     @State private var failedAttempts = 0
-    
+    @State private var challenge: AuthenticationAPI.CaptchaChallenge?
+    @State private var verifyCode = ""
+    @State private var loadingCaptcha = true
+    @State private var captchaError: String?
+    @State private var captchaRefreshID = UUID()
+
+    private var captchaImageData: Data? {
+        challenge?.imageData
+    }
+
     public init(style: SheetStyle = .independent) {
         self.style = style
     }
@@ -18,10 +32,11 @@ public struct LoginSheet: View {
     public var body: some View {
         Sheet {
             do {
-                try await model.login(username: username, password: password)
+                try await model.login(username: username, password: password, challenge: challenge, verifyCode: verifyCode)
             }
             catch {
                 failedAttempts += 1
+                resetCaptcha()
                 throw error
             }
         } content: {
@@ -38,6 +53,8 @@ public struct LoginSheet: View {
             TextField(String(localized: "Fudan.ID", bundle: .module), text: $username)
 
             SecureField(String(localized: "Password", bundle: .module), text: $password)
+            captchaEntry
+            captchaFooter
             
             #else
             
@@ -57,10 +74,13 @@ public struct LoginSheet: View {
                 LabeledEntry(String(localized: "Password", bundle: .module)) {
                     SecureField(String(localized: "Password", bundle: .module), text: $password)
                 }
+                captchaEntry
+            } footer: {
+                captchaFooter
             }
             
             #endif
-            
+
             if failedAttempts >= 3 && !username.isEmpty && !password.isEmpty {
                 Section {
                     Button {
@@ -74,9 +94,76 @@ public struct LoginSheet: View {
                 }
             }
         }
-        .completed(!username.isEmpty && !password.isEmpty)
+        .completed(!username.isEmpty && !password.isEmpty && !loadingCaptcha && captchaError == nil && (challenge == nil || !verifyCode.isEmpty))
         .submitText(String(localized: "Login", bundle: .module))
         .sheetStyle(style)
+        .onChange(of: username) { _ in
+            resetCaptcha()
+        }
+        .task(id: captchaRefreshID) {
+            await loadCaptcha()
+        }
+    }
+
+    @ViewBuilder
+    private var captchaEntry: some View {
+        if loadingCaptcha {
+            LabeledEntry(String(localized: "Verification code", bundle: .module)) {
+                ProgressView()
+            }
+        } else if captchaImageData != nil || captchaError != nil {
+            LabeledEntry(String(localized: "Verification code", bundle: .module)) {
+                TextField(String(localized: "Verification code", bundle: .module), text: $verifyCode)
+                    #if !os(watchOS)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    #endif
+                Button(String(localized: "Reload verification code", bundle: .module)) {
+                    resetCaptcha()
+                }
+                .buttonStyle(.borderless)
+                .fixedSize()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var captchaFooter: some View {
+        if let captchaError {
+            Text(captchaError).foregroundStyle(.secondary)
+        } else if let captchaImageData, let image = UIImage(data: captchaImageData) {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 44)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .accessibilityLabel(String(localized: "Verification code", bundle: .module))
+        }
+    }
+
+    private func resetCaptcha() {
+        challenge = nil
+        verifyCode = ""
+        captchaError = nil
+        loadingCaptcha = true
+        captchaRefreshID = UUID()
+    }
+
+    @MainActor
+    private func loadCaptcha() async {
+        let requestedUsername = username
+        do {
+            try await Task.sleep(for: .milliseconds(400))
+            let result = try await AuthenticationAPI.requestCredentialCheckCaptcha(username: requestedUsername)
+            try Task.checkCancellation()
+            guard username == requestedUsername else { return }
+            challenge = result
+            loadingCaptcha = false
+        } catch {
+            guard !Task.isCancelled, username == requestedUsername else { return }
+            captchaError = error.localizedDescription
+            loadingCaptcha = false
+        }
     }
 }
 
