@@ -155,7 +155,7 @@ public enum UndergraduateCourseAPI {
             Course(id: UUID(),
                    name: courseName,
                    code: lessonCode,
-                   teacher: teachers.first ?? "",
+                   teacher: teachers.joined(separator: ", "),
                    location: room ?? "",
                    weekday: weekday - 1,
                    start: startUnit - 1,
@@ -243,7 +243,28 @@ public enum UndergraduateCourseAPI {
             }
         }
 
-        return Array(courseDict.values)
+        // Keep weekly room and teacher merging local; calendar export needs aggregated weeks.
+        let groupedCourses = Dictionary(grouping: courseDict.values) { course in
+            [course.code, course.name, course.teacher, course.location,
+             String(course.weekday), String(course.start), String(course.end)]
+        }
+
+        return groupedCourses.values.flatMap { courses in
+            let template = courses[0]
+            guard coursesToSplit.contains(template.code) else { return courses }
+
+            return [Course(
+                id: template.id,
+                name: template.name,
+                code: template.code,
+                teacher: template.teacher,
+                location: template.location,
+                weekday: template.weekday,
+                start: template.start,
+                end: template.end,
+                onWeeks: courses.flatMap(\.onWeeks).sorted()
+            )]
+        }
     }
     // MARK: - Exam
     
