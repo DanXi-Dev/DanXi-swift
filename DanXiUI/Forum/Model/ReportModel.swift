@@ -1,11 +1,12 @@
 import SwiftUI
 import DanXiKit
 
+@MainActor
 class ReportModel: ObservableObject {
     @Published var reports: [Report] = []
     @Published var endReached = false
+    @Published private(set) var configurationId = UUID()
     
-    @MainActor
     func insertReports(_ reports: [Report]) {
         endReached = reports.isEmpty
         let ids = self.reports.map(\.id)
@@ -20,14 +21,18 @@ class ReportModel: ObservableObject {
     
     @Published var filterOption = FilterOption.notDealt {
         didSet {
+            configurationId = UUID()
             endReached = false
             self.reports = []
         }
     }
     
     func loadMoreReports() async throws {
+        let configurationId = self.configurationId
         let newReports = try await ForumAPI.listReports(offset: reports.count, type: filterOption.rawValue)
-        await insertReports(newReports)
+        try Task.checkCancellation()
+        guard configurationId == self.configurationId else { return }
+        insertReports(newReports)
     }
     
     func markAsDealt(_ report: Report) async {

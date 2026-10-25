@@ -42,68 +42,74 @@ struct BookSearchPage: View {
         _query = State(initialValue: "")
     }
 
-    var body: some View {
+    private var library: some View {
         List {
-            if query.isEmpty {
-                Section(String(localized: "My Library", bundle: .module)) {
-                    NavigationLink {
-                        LibraryLoansPage()
-                    } label: {
-                        Label(String(localized: "My Loans", bundle: .module), systemImage: "book.closed")
-                    }
-                    NavigationLink {
-                        LibraryRequestsPage()
-                    } label: {
-                        Label(String(localized: "My Requests", bundle: .module), systemImage: "bookmark")
-                    }
+            Section(String(localized: "My Library", bundle: .module)) {
+                NavigationLink {
+                    LibraryLoansPage()
+                } label: {
+                    Label(String(localized: "My Loans", bundle: .module), systemImage: "book.closed")
                 }
-
-                if pinnedBooks.isEmpty {
-                    VStack(spacing: 12) {
-                        Image(systemName: "books.vertical")
-                            .font(.largeTitle)
-                        Text("Enter a book title to search", bundle: .module)
-                    }
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 60)
-                    .listRowBackground(Color.clear)
-                    #if !os(watchOS)
-                    .listRowSeparator(.hidden)
-                    #endif
-                } else {
-                    Section(String(localized: "Pinned Books", bundle: .module)) {
-                        #if !os(watchOS)
-                        if #available(iOS 17.0, *) {
-                            TipView(pinnedBooksTip)
-                        }
-                        #endif
-
-                        ForEach(pinnedBooks) { book in
-                            DetailLink(value: book, action: {
-                                #if !os(watchOS)
-                                if #available(iOS 17.0, *) {
-                                    pinnedBooksTip.invalidate(reason: .actionPerformed)
-                                }
-                                #endif
-                            }) {
-                                BookRow(book: book)
-                                    .navigationStyle()
-                            }
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    withAnimation {
-                                        storedPinnedBooks.removeAll { $0.id == book.id }
-                                    }
-                                } label: {
-                                    Label(String(localized: "Remove", bundle: .module), systemImage: "trash")
-                                }
-                            }
-                        }
-                    }
+                NavigationLink {
+                    LibraryRequestsPage()
+                } label: {
+                    Label(String(localized: "My Requests", bundle: .module), systemImage: "bookmark")
                 }
+            }
+
+            if pinnedBooks.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "books.vertical")
+                        .font(.largeTitle)
+                    Text("Enter a book title to search", bundle: .module)
+                }
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 60)
+                .listRowBackground(Color.clear)
+                #if !os(watchOS)
+                .listRowSeparator(.hidden)
+                #endif
             } else {
-                AsyncCollection { (books: [Book]) in
+                Section(String(localized: "Pinned Books", bundle: .module)) {
+                    #if !os(watchOS)
+                    if #available(iOS 17.0, *) {
+                        TipView(pinnedBooksTip)
+                    }
+                    #endif
+
+                    ForEach(pinnedBooks) { book in
+                        DetailLink(value: book, action: {
+                            #if !os(watchOS)
+                            if #available(iOS 17.0, *) {
+                                pinnedBooksTip.invalidate(reason: .actionPerformed)
+                            }
+                            #endif
+                        }) {
+                            BookRow(book: book)
+                                .navigationStyle()
+                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                withAnimation {
+                                    storedPinnedBooks.removeAll { $0.id == book.id }
+                                }
+                            } label: {
+                                Label(String(localized: "Remove", bundle: .module), systemImage: "trash")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    var body: some View {
+        Group {
+            if query.isEmpty {
+                library
+            } else {
+                AsyncCollection(style: .list) { (books: [Book]) in
                     if let previewBooks {
                         return books.isEmpty ? previewBooks : []
                     }
