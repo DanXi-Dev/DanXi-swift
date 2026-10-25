@@ -66,7 +66,8 @@ public class CourseModel: ObservableObject {
         let conflicts = courses.filter { course in
             guard !codes.contains(course.code) else { return false }
             if courses.contains(where: { other in
-                course.id != other.id && course.conflicts(with: other) && !CourseSettings.shared.hiddenCourses.contains(other.code)
+                guard studentType != .undergrad || course.code != other.code else { return false }
+                return course.id != other.id && course.conflicts(with: other) && !CourseSettings.shared.hiddenCourses.contains(other.code)
             }) {
                 codes.insert(course.code)
                 return true
