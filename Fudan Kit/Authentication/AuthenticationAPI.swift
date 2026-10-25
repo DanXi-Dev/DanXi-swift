@@ -8,6 +8,25 @@ public enum AuthenticationAPI {
     private static let idURL = URL(string: "https://id.fudan.edu.cn")!
     private static let credentialCheckURL = URL(string: "https://id.fudan.edu.cn/api-uc/oauth2/authorization/bam")!
 
+    /// Keep the image and its authentication chain together until submission.
+    public final class CaptchaChallenge {
+        public let imageData: Data
+        fileprivate let parameters: Parameters
+        public let username: String
+        fileprivate let session: URLSession?
+        fileprivate let credentialCheck: Bool
+
+        fileprivate init(imageData: Data, parameters: Parameters, username: String, session: URLSession?, credentialCheck: Bool) {
+            self.imageData = imageData
+            self.parameters = parameters
+            self.username = username
+            self.session = session
+            self.credentialCheck = credentialCheck
+        }
+
+        deinit { if credentialCheck { session?.invalidateAndCancel() } }
+    }
+
     /// Check if the user's credential is correct without relying on an external
     /// business service (for example, ecard).
     ///
@@ -36,6 +55,9 @@ public enum AuthenticationAPI {
         }
 
         let parameters = try await getParams(url: redirectedURL, session: session)
+        if try await getCaptcha(parameters: parameters, username: username, session: session) != nil {
+            throw CampusError.needCaptcha
+        }
         let publicKey = try await getPublicKey(session: session)
         guard let token = try await encryptAndSubmit(
             publicKey: publicKey,
@@ -63,6 +85,51 @@ public enum AuthenticationAPI {
         return true
     }
 
+    /// Request a captcha using the temporary credential-check session.
+    public static func requestCredentialCheckCaptcha(username: String) async throws -> CaptchaChallenge? {
+        let session = URLSession(configuration: .ephemeral)
+        var retainedByChallenge = false
+        defer { if !retainedByChallenge { session.invalidateAndCancel() } }
+
+        let request = constructRequest(credentialCheckURL)
+        let (firstData, response) = try await data(for: request, session: session)
+        guard let redirectedURL = response.url,
+              redirectedURL.host() == idURL.host() else { throw LocatableError() }
+        if let document = try? decodeHTMLDocument(firstData),
+           let authenticationRequest = try? constructAuthenticationResultRequest(document: document) {
+            _ = try await data(for: authenticationRequest, session: session)
+            return nil
+        }
+        let parameters = try await getParams(url: redirectedURL, session: session)
+        guard let imageData = try await getCaptcha(parameters: parameters, username: username, session: session) else {
+            return nil
+        }
+        retainedByChallenge = true
+        return CaptchaChallenge(imageData: imageData, parameters: parameters, username: username, session: session, credentialCheck: true)
+    }
+
+    /// Submit the answer in the session that produced the image.
+    public static func checkUserCredential(password: String, challenge: CaptchaChallenge, verifyCode: String) async throws -> Bool {
+        guard challenge.credentialCheck, !verifyCode.isEmpty else { throw LocatableError() }
+        let publicKey = try await getPublicKey(session: challenge.session)
+        guard let token = try await encryptAndSubmit(
+            publicKey: publicKey,
+            parameters: challenge.parameters,
+            username: challenge.username,
+            password: password,
+            verifyCode: verifyCode,
+            session: challenge.session
+        ) else { return false }
+        let document = try await postJWToken(token: token, session: challenge.session)
+        let authenticationRequest = try constructAuthenticationResultRequest(document: document)
+        let (_, response) = try await data(for: authenticationRequest, session: challenge.session)
+        guard let responseURL = response.url,
+              responseURL.host() == idURL.host(),
+              !responseURL.path.hasPrefix("/idp/"),
+              !responseURL.path.hasPrefix("/ac/") else { return false }
+        return true
+    }
+
     public static func authenticate(_ url: URL, session: URLSession? = nil) async throws -> (Data, URLResponse) {
         let firstRequest = constructRequest(url)
         let (firstData, firstResponse) = try await data(for: firstRequest, session: session)
@@ -85,10 +152,13 @@ public enum AuthenticationAPI {
 
         // full authentication process
         let parameters = try await getParams(url: redirectedURL, session: session)
-        let publicKey = try await getPublicKey(session: session)
         guard let credential = CredentialStore.shared.credentials(for: url) else {
             throw CampusError.credentialNotFound
         }
+        if try await getCaptcha(parameters: parameters, username: credential.username, session: session) != nil {
+            throw CampusError.needCaptcha
+        }
+        let publicKey = try await getPublicKey(session: session)
         guard let token = try await encryptAndSubmit(
             publicKey: publicKey,
             parameters: parameters,
@@ -102,6 +172,39 @@ public enum AuthenticationAPI {
         let authenticationRequest = try constructAuthenticationResultRequest(document: document)
         let (data, response) = try await data(for: authenticationRequest, session: session)
         return (data, response)
+    }
+
+    /// Prepare a captcha for SSO using the session for the target service.
+    public static func requestCaptcha(for url: URL, username: String, session: URLSession? = nil) async throws -> CaptchaChallenge? {
+        let request = constructRequest(url)
+        let (firstData, response) = try await data(for: request, session: session)
+        if response.url?.host() == url.host() { return nil }
+        if let document = try? decodeHTMLDocument(firstData),
+           let authenticationRequest = try? constructAuthenticationResultRequest(document: document) {
+            _ = try await data(for: authenticationRequest, session: session)
+            return nil
+        }
+        guard let redirectedURL = response.url,
+              redirectedURL.host() == idURL.host() else { throw LocatableError() }
+        let parameters = try await getParams(url: redirectedURL, session: session)
+        guard let imageData = try await getCaptcha(parameters: parameters, username: username, session: session) else { return nil }
+        return CaptchaChallenge(imageData: imageData, parameters: parameters, username: username, session: session, credentialCheck: false)
+    }
+
+    public static func authenticate(_ challenge: CaptchaChallenge, password: String, verifyCode: String) async throws -> (Data, URLResponse) {
+        guard !challenge.credentialCheck, !verifyCode.isEmpty else { throw LocatableError() }
+        let publicKey = try await getPublicKey(session: challenge.session)
+        guard let token = try await encryptAndSubmit(
+            publicKey: publicKey,
+            parameters: challenge.parameters,
+            username: challenge.username,
+            password: password,
+            verifyCode: verifyCode,
+            session: challenge.session
+        ) else { throw CampusError.loginFailed }
+        let document = try await postJWToken(token: token, session: challenge.session)
+        let authenticationRequest = try constructAuthenticationResultRequest(document: document)
+        return try await data(for: authenticationRequest, session: challenge.session)
     }
 
     /// Authenticate and return the callback URL without consuming its ticket.
@@ -138,10 +241,13 @@ public enum AuthenticationAPI {
             authenticationRequest = existingRequest
         } else {
             let parameters = try await getParams(url: redirectedURL, session: session)
-            let publicKey = try await getPublicKey(session: session)
             guard let credential = CredentialStore.shared.credentials(for: url) else {
                 throw CampusError.credentialNotFound
             }
+            if try await getCaptcha(parameters: parameters, username: credential.username, session: session) != nil {
+                throw CampusError.needCaptcha
+            }
+            let publicKey = try await getPublicKey(session: session)
             guard let token = try await encryptAndSubmit(
                 publicKey: publicKey,
                 parameters: parameters,
@@ -206,11 +312,33 @@ public enum AuthenticationAPI {
         return try PublicKey(base64Encoded: encodedKey)
     }
 
+    private static func getCaptcha(parameters: Parameters, username: String, session: URLSession? = nil) async throws -> Data? {
+        let url = idURL.appendingPathComponent("/idp/authn/verifyCodeIsNeed")
+        let payload: [String: Any] = [
+            "lang": NSNull(),
+            "loginName": username,
+            "chainCode": parameters.chainCode,
+            "authModuleCode": "userAndPwd"
+        ]
+        let request = try constructJSONRequest(url, payload: payload)
+        let (responseData, _) = try await data(for: request, session: session)
+        let json = try JSON(data: responseData)
+        guard let isNeeded = json["result"].bool else { throw LocatableError() }
+        guard isNeeded else { return nil }
+        guard let image = json["pic"].string,
+              let separator = image.firstIndex(of: ","),
+              image[..<separator].hasPrefix("data:image/"),
+              let imageData = Data(base64Encoded: String(image[image.index(after: separator)...])),
+              !imageData.isEmpty else { throw LocatableError() }
+        return imageData
+    }
+
     private static func encryptAndSubmit(
         publicKey: PublicKey,
         parameters: Parameters,
         username: String,
         password: String,
+        verifyCode: String = "",
         session: URLSession? = nil
     ) async throws -> String? {
         let plaintext = try ClearMessage(string: password, using: String.Encoding.utf8)
@@ -226,7 +354,7 @@ public enum AuthenticationAPI {
             "authPara": [
                 "loginName": username,
                 "password": encryptedPassword,
-                "verifyCode": ""
+                "verifyCode": verifyCode
             ]
         ]
 
@@ -235,10 +363,11 @@ public enum AuthenticationAPI {
         let (data, _) = try await data(for: request, session: session)
         let responseJSON = try JSON(data: data)
 
-        guard let responseCode = responseJSON["code"].int,
-              responseCode == 200 else {
-            return nil
+        guard let responseCode = responseJSON["code"].int else { throw LocatableError() }
+        if responseCode == 4333 && verifyCode.isEmpty && !username.isEmpty {
+            throw CampusError.needCaptcha
         }
+        guard responseCode == 200 else { return nil }
 
         guard let token = responseJSON["loginToken"].string else {
             throw LocatableError()
@@ -321,7 +450,7 @@ public enum AuthenticationAPI {
     }
 }
 
-private struct Parameters {
+fileprivate struct Parameters {
     let lck: String
     let entityId: String
     let chainCode: String
