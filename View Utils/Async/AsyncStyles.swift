@@ -162,7 +162,12 @@ extension AsyncContentStyle {
     public static let collection: AsyncContentStyle = AsyncContentStyle {
         HStack {
             Spacer()
+            #if targetEnvironment(macCatalyst)
+            // Avoid repeated UIKit activity-indicator animation setup during layout.
+            ProgressView()
+            #else
             LoadingView()
+            #endif
             Spacer()
         }
         .frame(height: 50)
