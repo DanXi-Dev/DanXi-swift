@@ -46,6 +46,7 @@ struct MarkdownSource {
         var spans: [Span] = []
         var i = source.startIndex
         var listIndents: [Int] = []
+        var paragraphOpen = false
         func endOfLine(_ start: String.Index) -> String.Index {
             source[start...].firstIndex(of: "\n") ?? source.endIndex
         }
@@ -71,7 +72,8 @@ struct MarkdownSource {
                     }
                 }
                 let codeIndent = (listIndents.last ?? 0) + 4
-                let indentedCode = indentation >= codeIndent
+                // An indented code block cannot interrupt an existing paragraph.
+                let indentedCode = indentation >= codeIndent && !paragraphOpen
                 if !indentedCode,
                    let marker = expandedLine.range(of: #"^ *([-+*]|[0-9]{1,9}[.)])[ ]+"#, options: .regularExpression) {
                     listIndents.append(expandedLine.distance(from: expandedLine.startIndex, to: marker.upperBound))
@@ -93,14 +95,25 @@ struct MarkdownSource {
                         }
                         next = advanceLine(eol)
                     }
+                    paragraphOpen = false
                     spans.append(Span(range: i..<end, kind: .code)); i = end; continue
                 }
                 if indentedCode {
                     spans.append(Span(range: i..<lineEnd, kind: .code)); i = advanceLine(lineEnd); continue
                 }
                 if line.range(of: #"^ {0,3}\[[^\]]+\]:"#, options: .regularExpression) != nil {
+                    paragraphOpen = false
                     spans.append(Span(range: i..<lineEnd, kind: .destination)); i = advanceLine(lineEnd); continue
                 }
+                // Blank lines and leaf block markers end paragraph continuation.
+                // Account for quote/list prefixes when checking those markers.
+                let content = expandedLine.replacingOccurrences(
+                    of: #"^ *(?:>[ ]*)*(?:[-+*] +|[0-9]{1,9}[.)] +)?"#,
+                    with: "", options: .regularExpression)
+                let closesParagraph = content.trimmingCharacters(in: .whitespaces).isEmpty
+                    || content.range(of: #"^(?:#{1,6}(?: |$)|(?:=+|-+) *$|(?:\* *){3,}$|(?:_ *){3,}$|(?:- *){3,}$)"#,
+                                     options: .regularExpression) != nil
+                paragraphOpen = !closesParagraph
             }
             if source[i] == "`" {
                 let openingEnd = runEnd(i, character: "`")
