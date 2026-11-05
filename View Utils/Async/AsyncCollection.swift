@@ -3,7 +3,7 @@ import SwiftUI
 public struct AsyncCollection<Item: Identifiable & Sendable, Content: View>: View {
     private let nestedView: AnyView
     
-    public init(style: AsyncCollectionStyle = .plain,
+    public init(style: AsyncCollectionStyle = .list,
                 action: @escaping ([Item]) async throws -> [Item],
                 @ViewBuilder content: @escaping (Item) -> Content) {
         nestedView = AnyView(SimpleAsyncCollection(style: style, action: action, content: content))
@@ -30,73 +30,59 @@ private struct SimpleAsyncCollection<Item: Identifiable & Sendable, Content: Vie
     
     @State private var items: [Item] = []
     @State private var endReached = false
-    @State private var loading = false
     @State private var loadingError: Error? = nil
-    @State private var hasStarted = false
+    @State private var loadID = 0
+    @State private var refreshing = false
     
     private func loadMore() async {
-        guard !loading && !endReached else { return }
+        let requestID = loadID
         do {
-            loadingError = nil
-            loading = true
-            defer { loading = false }
             let newItems = try await action(items)
+            try Task.checkCancellation()
+            guard requestID == loadID else { return }
             endReached = newItems.isEmpty
             items += newItems
+            loadID += 1
         } catch {
-            if Task.isCancelled {
-                hasStarted = false
-            } else {
+            if requestID == loadID && !Task.isCancelled && !error.isCancellation {
                 loadingError = error
             }
         }
     }
 
-    private func loadAutomatically() async {
-        guard loadingError == nil else { return }
-        await loadMore()
-    }
-    
     var body: some View {
         style.layout(AnyView(contents), AnyView(footer))
-            .task {
-                guard !hasStarted else { return }
-                hasStarted = true
-                await loadAutomatically()
-            }
             .refreshable {
-                guard !loading else { return }
+                refreshing = true
+                loadID += 1
                 items = []
                 endReached = false
                 loadingError = nil
+                defer { refreshing = false }
                 await loadMore()
             }
     }
-    
+
     private var contents: some View {
-        Group {
-            ForEach(items) { item in
-                content(item)
-                    .task {
-                        if item.id == items.last?.id {
-                            await loadAutomatically()
-                        }
-                    }
-            }
+        ForEach(items) { item in
+            content(item)
         }
     }
-    
+
     @ViewBuilder
     private var footer: some View {
         if !endReached {
             if let loadingError = self.loadingError {
                 style.contentStyle.errorView(loadingError) {
-                    Task {
-                        await loadMore()
-                    }
+                    self.loadingError = nil
                 }
+            } else if refreshing {
+                style.contentStyle.loadingView()
             } else {
                 style.contentStyle.loadingView()
+                    .task(id: loadID) {
+                        await loadMore()
+                    }
             }
         }
     }
@@ -108,9 +94,6 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
     private let content: (Item) -> Content
     private let loadingAction: () async throws -> Void
     private let endReached: Bool
-    
-    @State private var loading = false
-    @State private var loadingError: Error? = nil
     
     init(style: AsyncCollectionStyle,
          _ items: [Item],
@@ -124,64 +107,53 @@ private struct ComplexAsyncCollection<Item: Identifiable, Content: View>: View {
         self.content = content
     }
     
+    var body: some View {
+        style.layout(AnyView(contents), AnyView(footer))
+    }
+
+    private var contents: some View {
+        ForEach(items) { item in
+            content(item)
+        }
+    }
+
+    @ViewBuilder
+    private var footer: some View {
+        if !endReached {
+            AsyncCollectionFooter(style: style.contentStyle, action: loadingAction)
+        }
+    }
+}
+
+private struct AsyncCollectionFooter: View {
+    let style: AsyncContentStyle
+    let action: () async throws -> Void
+
+    @State private var loadingError: Error?
+    @State private var loadID = 0
+
     private func loadMore() async {
-        guard !loading else { return } // prevent parallel loading task
-        
         do {
-            loadingError = nil
-            loading = true
-            defer { loading = false }
-            try await loadingAction()
+            try await action()
+            try Task.checkCancellation()
+            loadID += 1
         } catch {
-            // The loading task is bound to the row that triggered it, and gets cancelled
-            // when that row scrolls off screen. This is not a real failure, so don't
-            // surface it; loading will be retriggered when the last row or footer reappears.
             if !Task.isCancelled && !error.isCancellation {
                 loadingError = error
             }
         }
     }
-    
+
     var body: some View {
-        style.layout(AnyView(contents), AnyView(footer))
-            .task {
-                await loadMore()
+        if let loadingError {
+            style.errorView(loadingError) {
+                self.loadingError = nil
             }
-            .onChange(of: items.count) { count in
-                if count == 0 { // automatically handles refresh
-                    Task { await loadMore() }
+        } else {
+            style.loadingView()
+                .task(id: loadID) {
+                    await loadMore()
                 }
-            }
-    }
-    
-    private var contents: some View {
-        Group {
-            ForEach(items) { item in
-                content(item)
-                    .task {
-                        if item.id == items.last?.id {
-                            await loadMore()
-                        }
-                    }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var footer: some View {
-        if !endReached {
-            if let loadingError = self.loadingError {
-                style.contentStyle.errorView(loadingError) {
-                    Task {
-                        await loadMore()
-                    }
-                }
-            } else {
-                style.contentStyle.loadingView()
-                    .task {
-                        await loadMore()
-                    }
-            }
         }
     }
 }

@@ -33,9 +33,9 @@ struct LibraryLoansPage: View {
             #endif
             .padding()
 
-            List {
+            Group {
                 if range == .current {
-                    AsyncCollection { (loans: [LibraryCurrentLoan]) in
+                    AsyncCollection(style: .list) { (loans: [LibraryCurrentLoan]) in
                         if !loans.isEmpty && !loans.count.isMultiple(of: pageSize) { return [] }
                         let page = loans.count / pageSize + 1
                         let result = try await LibraryAccountAPI.getCurrentLoans(page: page, pageSize: pageSize)
@@ -71,7 +71,7 @@ struct LibraryLoansPage: View {
                     }
                     .id(refreshID)
                 } else {
-                    AsyncCollection { (loans: [LibraryLoanHistoryItem]) in
+                    AsyncCollection(style: .list) { (loans: [LibraryLoanHistoryItem]) in
                         if !loans.isEmpty && !loans.count.isMultiple(of: pageSize) { return [] }
                         let page = loans.count / pageSize + 1
                         let result = try await LibraryAccountAPI.getLoanHistory(page: page, pageSize: pageSize)
@@ -158,47 +158,45 @@ struct LibraryRequestsPage: View {
             #endif
             .padding()
 
-            List {
-                AsyncCollection { (requests: [LibraryBookRequest]) in
-                    if !requests.isEmpty && !requests.count.isMultiple(of: pageSize) { return [] }
-                    let page = requests.count / pageSize + 1
-                    let result = try await LibraryAccountAPI.getRequests(
-                        range: range,
-                        page: page,
-                        pageSize: pageSize
-                    )
-                    return result.items
-                } content: { request in
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(request.title).font(.headline)
-                            Spacer()
-                            if cancellingID == request.id {
-                                ProgressView()
-                            }
-                            Text(request.status).font(.subheadline).foregroundStyle(.secondary)
+            AsyncCollection(style: .list) { (requests: [LibraryBookRequest]) in
+                if !requests.isEmpty && !requests.count.isMultiple(of: pageSize) { return [] }
+                let page = requests.count / pageSize + 1
+                let result = try await LibraryAccountAPI.getRequests(
+                    range: range,
+                    page: page,
+                    pageSize: pageSize
+                )
+                return result.items
+            } content: { request in
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(request.title).font(.headline)
+                        Spacer()
+                        if cancellingID == request.id {
+                            ProgressView()
                         }
-                        if let pickup = request.pickupName, !pickup.isEmpty {
-                            Label(pickup, systemImage: "mappin")
-                                .font(.subheadline).foregroundStyle(.secondary)
-                        }
-                        if range == .current, let position = request.queuePosition, position > 0 {
-                            Text(String(format: String(localized: "Queue position %lld", bundle: .module), position))
-                                .font(.caption).foregroundStyle(.secondary)
-                        }
+                        Text(request.status).font(.subheadline).foregroundStyle(.secondary)
                     }
-                    .padding(.vertical, 4)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                        if range == .current {
-                            Button(String(localized: "Cancel Request", bundle: .module), role: .destructive) {
-                                pendingCancellation = request
-                            }
-                            .disabled(cancellingID != nil)
-                        }
+                    if let pickup = request.pickupName, !pickup.isEmpty {
+                        Label(pickup, systemImage: "mappin")
+                            .font(.subheadline).foregroundStyle(.secondary)
+                    }
+                    if range == .current, let position = request.queuePosition, position > 0 {
+                        Text(String(format: String(localized: "Queue position %lld", bundle: .module), position))
+                            .font(.caption).foregroundStyle(.secondary)
                     }
                 }
-                .id("\(range.rawValue)-\(refreshID)")
+                .padding(.vertical, 4)
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    if range == .current {
+                        Button(String(localized: "Cancel Request", bundle: .module), role: .destructive) {
+                            pendingCancellation = request
+                        }
+                        .disabled(cancellingID != nil)
+                    }
+                }
             }
+            .id("\(range.rawValue)-\(refreshID)")
             #if !os(watchOS)
             .listStyle(.insetGrouped)
             #endif

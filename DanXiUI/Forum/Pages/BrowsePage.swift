@@ -78,7 +78,7 @@ struct BrowsePage: View {
                     }
                 }
                 
-                AsyncCollection(model.holes, endReached: model.endReached, action: model.loadMoreHoles) { hole in
+                AsyncCollection(model.holes, endReached: model.endReached || model.refreshing, action: model.loadMoreHoles) { hole in
                     let fold = settings.foldedContent == .fold && hole.sensitive
                     forumSection {
                         HoleView(presentation: hole, fold: fold, allowDrag: homeHoleAllowsDrag, rowInsets: homeHoleInsets)

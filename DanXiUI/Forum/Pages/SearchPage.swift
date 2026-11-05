@@ -87,13 +87,11 @@ struct SearchResultPage: View {
     @EnvironmentObject private var model: SearchModel
     
     var body: some View {
-        List {
-            AsyncCollection { floors in
-                try await ForumAPI.searchFloor(keyword: model.searchText, accurate: model.scope == .accurate, offset: floors.count)
-            } content: { floor in
-                DetailLink(value: HoleLoader(floor)) {
-                    SimpleFloorView(floor: floor)
-                }
+        AsyncCollection(style: .list) { floors in
+            try await ForumAPI.searchFloor(keyword: model.searchText, accurate: model.scope == .accurate, offset: floors.count)
+        } content: { floor in
+            DetailLink(value: HoleLoader(floor)) {
+                SimpleFloorView(floor: floor)
             }
         }
         .listStyle(.inset)

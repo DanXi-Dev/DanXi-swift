@@ -20,3 +20,12 @@ struct ForumList<Content: View>: View {
         .compactSectionSpacing()
     }
 }
+
+extension AsyncCollectionStyle {
+    static let forumList = AsyncCollectionStyle { contents, footer in
+        ForumList {
+            contents
+            footer
+        }
+    }
+}

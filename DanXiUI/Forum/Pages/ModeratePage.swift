@@ -34,11 +34,11 @@ struct ModeratePage: View {
                     }
                 }
             }
+            .id(model.configurationId)
             .environmentObject(model)
         }
         .refreshable {
-            model.closedItems = []
-            model.openItems = []
+            model.reset()
         }
         .listStyle(.inset)
         .toolbar {
@@ -264,8 +264,7 @@ private struct SensitiveContentView: View {
 class ModerateModel: ObservableObject {
     @Published var sortOption: SortOption = .createTime {
         didSet {
-            closedItems = []
-            openItems = []
+            reset()
         }
     }
     @Published var closedItems: [Sensitive] = []
@@ -274,25 +273,32 @@ class ModerateModel: ObservableObject {
     @Published var openEndReached = false
     @Published var baseDate: Date? = nil {
         didSet {
-            openItems = []
-            closedItems = []
+            reset()
         }
     }
     @Published var endDate: Date? = nil {
         didSet {
-            openItems = []
-            closedItems = []
-            openEndReached = false
-            closedEndReached = false
+            reset()
         }
     }
     
+    @Published private(set) var configurationId = UUID()
+
+    func reset() {
+        configurationId = UUID()
+        closedItems = []
+        openItems = []
+        closedEndReached = false
+        openEndReached = false
+    }
+
     enum SortOption {
         case replyTime
         case createTime
     }
     
     func loadMoreClosed() async throws {
+        let configurationId = self.configurationId
         let startTime = if let last = closedItems.last {
             switch sortOption {
             case .replyTime:
@@ -315,6 +321,8 @@ class ModerateModel: ObservableObject {
             "time_created"
         }
         let newItems = try await ForumAPI.listSensitive(startTime: startTime, open: false, order: order)
+        try Task.checkCancellation()
+        guard configurationId == self.configurationId else { return }
         let currentIds = closedItems.map(\.id)
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
         closedEndReached = inserteditems.isEmpty
@@ -322,6 +330,7 @@ class ModerateModel: ObservableObject {
     }
     
     func loadMoreOpen() async throws {
+        let configurationId = self.configurationId
         let startTime = if let last = openItems.last {
             switch sortOption {
             case .replyTime:
@@ -346,6 +355,8 @@ class ModerateModel: ObservableObject {
             "time_created"
         }
         let newItems = try await ForumAPI.listSensitive(startTime: startTime, open: true, order: order)
+        try Task.checkCancellation()
+        guard configurationId == self.configurationId else { return }
         let currentIds = openItems.map(\.id)
         let inserteditems = newItems.filter { !currentIds.contains($0.id) }
         openEndReached = inserteditems.isEmpty

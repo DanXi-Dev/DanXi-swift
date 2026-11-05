@@ -1,10 +1,10 @@
 import SwiftUI
 import DanXiKit
 
+@MainActor
 class BrowseModel: ObservableObject {
     @AppStorage("forum-browse-option") private var savedBrowseOption = BrowseOption.division
 
-    @MainActor
     init(division: Division) {
         self.division = division
         self.browseOption = savedBrowseOption
@@ -35,22 +35,28 @@ class BrowseModel: ObservableObject {
     /// Otherwise the list collapses and refills while the refresh control is still animating back,
     /// which makes the navigation bar and search field bounce back late.
     func refresh() async throws {
-        let configurationId = self.configurationId
-        try await DivisionStore.shared.refreshDivisions()
-        await MainActor.run {
-            if let currentDivision = DivisionStore.shared.divisions.filter({ $0.id == self.division.id }).first {
-                self.division = currentDivision
+        self.generation = UUID()
+        let generation = self.generation
+        refreshing = true
+        defer {
+            if generation == self.generation {
+                refreshing = false
             }
         }
-        let newHoles = try await listHoles(startTime: baseDate)
-        let filteredHoles = filterAndConstructHoles(holes: newHoles)
-        await MainActor.run {
-            guard configurationId == self.configurationId else { return } // configuration changed during refresh
-            holes = filteredHoles
-            endReached = newHoles.isEmpty
+        try await DivisionStore.shared.refreshDivisions()
+        try Task.checkCancellation()
+        guard generation == self.generation else { return }
+        if let currentDivision = DivisionStore.shared.divisions.first(where: { $0.id == division.id }) {
+            division = currentDivision
         }
+        let newHoles = try await listHoles(startTime: baseDate)
+        try Task.checkCancellation()
+        guard generation == self.generation else { return }
+        holes = filterAndConstructHoles(holes: newHoles)
+        nextStartTime = cursor(after: newHoles)
+        endReached = newHoles.isEmpty
     }
-    
+
     // MARK: - Holes
     
     @Published var configurationId = UUID()
@@ -76,21 +82,23 @@ class BrowseModel: ObservableObject {
     
     @Published var holes: [HolePresentation] = []
     @Published var endReached = false
+    @Published private(set) var refreshing = false
+    private var generation = UUID()
+    private var nextStartTime: Date?
     
     private func resetHoleList() {
-        Task { @MainActor in
-            holes = []
-            configurationId = UUID()
-            endReached = false
-        }
+        generation = UUID()
+        configurationId = UUID()
+        holes = []
+        endReached = false
+        refreshing = false
+        nextStartTime = baseDate
     }
-    
-    @MainActor
-    private func setEndReached(_ endReached: Bool) {
-        self.endReached = endReached
+
+    private func cursor(after holes: [Hole]) -> Date? {
+        sortOption == .replyTime ? holes.last?.timeUpdated : holes.last?.timeCreated
     }
-    
-    @MainActor
+
     private func insertHoles(holes: [HolePresentation]) {
         let currentIds = self.holes.map(\.id)
         let filtered = holes.filter { !currentIds.contains($0.id) }
@@ -140,19 +148,19 @@ class BrowseModel: ObservableObject {
     
     func loadMoreHoles() async throws {
         let previousCount = holes.count
-        let configurationId = self.configurationId
-        var startTime: Date? = baseDate
-        
+        let generation = self.generation
+
         repeat {
-            let newHoles = try await listHoles(startTime: startTime)
-            guard configurationId == self.configurationId else { return }
+            let newHoles = try await listHoles(startTime: nextStartTime)
+            try Task.checkCancellation()
+            guard generation == self.generation else { return }
             if newHoles.isEmpty {
-                await setEndReached(true)
+                endReached = true
                 return
             }
-            startTime = sortOption == .replyTime ? newHoles.last?.timeUpdated : newHoles.last?.timeCreated
+            nextStartTime = cursor(after: newHoles)
             let filteredHoles = filterAndConstructHoles(holes: newHoles)
-            await insertHoles(holes: filteredHoles)
+            insertHoles(holes: filteredHoles)
         } while holes.count == previousCount
     }
 }

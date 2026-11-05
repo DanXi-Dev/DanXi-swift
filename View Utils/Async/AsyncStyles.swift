@@ -99,6 +99,13 @@ public struct AsyncCollectionStyle: Sendable {
 }
 
 extension AsyncCollectionStyle {
+    public static let list = AsyncCollectionStyle { contents, footer in
+        List {
+            contents
+            footer
+        }
+    }
+
     public static let plain = AsyncCollectionStyle { contents, footer in
         Group {
             contents
